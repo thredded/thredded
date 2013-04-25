@@ -1,4 +1,4 @@
-require "thredded/engine"
+require 'thredded/engine'
 
 module Thredded
 end
