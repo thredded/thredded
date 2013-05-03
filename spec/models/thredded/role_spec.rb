@@ -1,31 +1,35 @@
 require 'spec_helper'
 
-describe Role do
+module Thredded
+  describe Role do
+    describe '#for(messageboard)' do
+      it 'filters down roles only for this messagebaord' do
+        messageboard = create(:messageboard)
+        user = create(:user)
+        messageboard.add_member(user)
 
-  before(:each) do
-    @admin_user = create(:user, :email => "role@admin.com", :name => "adminUser")
-    @admin = create(:role_admin)
-    @messageboard = @admin.messageboard
-    @admin_user.roles << @admin
-    @admin_user.roles.reload
-  end
+        Thredded::Role.for(messageboard).map(&:user).should include(user)
+      end
+    end
 
-  describe "#.for(messageboard)" do
-    it "filters down roles only for this messagebaord" do
-      Role.for(@messageboard).should include(@admin)
+    describe '#as(role)' do
+      it 'filters down roles only for this particular role' do
+        messageboard = create(:messageboard)
+        user = create(:user)
+        messageboard.add_member(user, 'admin')
+
+        Thredded::Role.as('admin').map(&:user).should include(user)
+      end
+    end
+
+    describe '#for(messageboard).as(role)' do
+      it 'filters down roles for this messageboard' do
+        messageboard = create(:messageboard)
+        user = create(:user)
+        messageboard.add_member(user, 'admin')
+
+        Thredded::Role.for(messageboard).as('admin').map(&:user).should include(user)
+      end
     end
   end
-
-  describe "#.as(role)" do
-    it "filters down roles only for this particular role" do
-      Role.as('admin').should include(@admin)
-    end
-  end
-
-  describe "#for(messageboard).as(role)" do
-    it "filters down roles for this messageboard" do
-      Role.for(@messageboard).as('admin').should include(@admin)
-    end
-  end
-
 end

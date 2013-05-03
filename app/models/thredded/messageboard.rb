@@ -24,14 +24,13 @@ module Thredded
     validates_length_of :name, within: 1..16,
       message: 'should be between 1 and 16 characters'
 
-    belongs_to :site
     has_many :categories
     has_many :preferences
     has_many :posts
     has_many :roles
     has_many :topics
     has_many :private_topics
-    has_many :users, through: :roles
+    has_many :users, through: :roles, class_name: Thredded.user_class
 
     def active_users
       sql = <<-SQL
@@ -48,17 +47,25 @@ module Thredded
       User.find_by_sql [sql, self.id, 5.minutes.ago]
     end
 
+    def add_member(user, as='member')
+      roles.create(user_id: user.id, level: as)
+    end
+
+    def has_member?(user)
+      roles.where(user_id: user.id).exists?
+    end
+
     def members_from_list(user_list)
-      self.users.where('lower(name) in (?)', user_list.map(&:downcase))
+      users.where('lower(name) in (?)', user_list.map(&:downcase))
     end
 
     def postable_by?(user)
-      if self.posting_for_anonymous? && (self.restricted_to_private? || self.restricted_to_logged_in?)
+      if posting_for_anonymous? && (restricted_to_private? || restricted_to_logged_in?)
           false
       else
-        self.posting_for_anonymous? ||
-          (self.posting_for_logged_in? && user.try(:valid?)) ||
-          (self.posting_for_members? && user.try(:member_of?, self))
+        posting_for_anonymous? ||
+          (posting_for_logged_in? && user.try(:valid?)) ||
+          (posting_for_members? && has_member?(user))
       end
     end
 
