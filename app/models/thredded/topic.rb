@@ -10,12 +10,10 @@ module Thredded
     has_many   :topic_categories
     has_many   :categories, through: :topic_categories
 
-    belongs_to :last_user,
-      class_name: 'User',
+    belongs_to :last_user, class_name: Thredded.user_class,
       foreign_key: 'last_user_id'
 
-    belongs_to :user,
-      class_name: 'User'
+    belongs_to :user, class_name: Thredded.user_class
 
     belongs_to :messageboard, counter_cache: true, touch: true
 

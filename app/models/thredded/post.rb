@@ -27,7 +27,7 @@ module Thredded
 
     belongs_to :messageboard, counter_cache: true
     belongs_to :topic, counter_cache: true
-    belongs_to :user, counter_cache: true
+    belongs_to :user, class_name: Thredded.user_class
     has_many   :attachments
     has_many   :post_notifications
 

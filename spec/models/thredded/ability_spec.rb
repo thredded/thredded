@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'cancan/matchers'
 
+module Thredded
 describe User, 'abilities' do
   context 'for a private messageboard' do
     it 'allows a member to view it' do
@@ -52,6 +53,26 @@ describe User, 'abilities' do
       ability.should be_able_to(:read, topic)
     end
 
+    context 'in a messageboard with logged_in permissions' do
+      before(:each) do
+        @user = create(:user)
+        @messageboard = create(:messageboard)
+        @topic  = create(:topic, security: 'logged_in',
+          messageboard: @messageboard)
+      end
+
+      it 'is not readable by anonymous visitors' do
+        @user = Thredded::NullUser.new
+        ability = Ability.new(@user)
+        ability.can?(:read, @topic).should be_false
+      end
+
+      it 'is readable by a logged in user' do
+        ability = Ability.new(@user)
+        ability.can?(:read, @topic).should be_true
+      end
+    end
+
     context 'in a private messageboard' do
       before do
         @messageboard = build_stubbed(:messageboard, security: 'private')
@@ -69,6 +90,18 @@ describe User, 'abilities' do
         @user.stubs(:member_of?).returns(true)
         ability = Ability.new(@user)
         ability.should be_able_to(:read, @topic)
+      end
+
+      it 'does not allow a non-member to read a topic' do
+        @user.stubs(:member_of?).returns(false)
+        ability = Ability.new(@user)
+        ability.should_not be_able_to(:read, @topic)
+      end
+
+      it 'does not allow a non-member to create a topic' do
+        @user.stubs(:member_of?).returns(false)
+        ability = Ability.new(@user)
+        ability.should_not be_able_to(:create, @topic)
       end
 
       it 'does not allow a logged in user to create a topic' do
