@@ -97,5 +97,25 @@ class CreateInitialModels < ActiveRecord::Migration
       t.string   :type
       t.timestamps
     end
+
+    create_table :thredded_user_details do |t|
+      t.integer :user_id, null: false
+      t.datetime :latest_activity_at
+      t.integer :posts_count, default: 0
+      t.integer :topics_count, default: 0
+      t.timestamps
+    end
+
+    add_index :thredded_user_details, :user_id
+    add_index :thredded_user_details, :latest_activity_at
+
+    create_table :thredded_user_preferences do |t|
+      t.integer :user_id, null: false
+      t.string :time_zone, default: 'Eastern Time (US & Canada)'
+      t.string :post_filter, default: 'markdown'
+      t.timestamps
+    end
+
+    add_index :thredded_user_preferences, :user_id
   end
 end

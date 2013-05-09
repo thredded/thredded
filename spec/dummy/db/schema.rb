@@ -120,6 +120,28 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
     t.datetime "updated_at",                              :null => false
   end
 
+  create_table "thredded_user_details", :force => true do |t|
+    t.integer  "user_id",                           :null => false
+    t.datetime "latest_activity_at"
+    t.integer  "posts_count",        :default => 0
+    t.integer  "topics_count",       :default => 0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "thredded_user_details", ["latest_activity_at"], :name => "index_thredded_user_details_on_latest_activity_at"
+  add_index "thredded_user_details", ["user_id"], :name => "index_thredded_user_details_on_user_id"
+
+  create_table "thredded_user_preferences", :force => true do |t|
+    t.integer  "user_id",                                               :null => false
+    t.string   "time_zone",   :default => "Eastern Time (US & Canada)"
+    t.string   "post_filter", :default => "markdown"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+  end
+
+  add_index "thredded_user_preferences", ["user_id"], :name => "index_thredded_user_preferences_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
