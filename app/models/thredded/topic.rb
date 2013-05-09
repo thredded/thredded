@@ -77,6 +77,11 @@ module Thredded
       end
     end
 
+    def create
+      UserDetail.increment_counter(:topics_count, user_id)
+      super
+    end
+
     def last_user
       super || NullUser.new
     end

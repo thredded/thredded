@@ -38,6 +38,11 @@ module Thredded
     before_validation :set_user_email
     after_create  :modify_parent_topic
 
+    def create
+      UserDetail.increment_counter(:posts_count, user_id)
+      super
+    end
+
     def created_date
       created_at.strftime("%b %d, %Y %I:%M:%S %Z") if created_at
     end

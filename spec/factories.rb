@@ -113,4 +113,6 @@ FactoryGirl.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:name) { |n| "name#{n}" }
   end
+
+  factory :user_detail, class: Thredded::UserDetail
 end
