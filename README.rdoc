@@ -1,3 +1,5 @@
-= Thredded
+= Thredded (the gem / rails engine)
 
-This project rocks and uses MIT-LICENSE.
+More coming soon.
+
+For more information see [the full-fledged rails app](https://github.com/jayroh/thredded_app)
