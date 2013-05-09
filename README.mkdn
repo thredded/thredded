@@ -1,4 +1,4 @@
-= Thredded (the gem / rails engine)
+# Thredded (the gem / rails engine)
 
 More coming soon.
 
