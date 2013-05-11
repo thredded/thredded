@@ -103,6 +103,7 @@ class CreateInitialModels < ActiveRecord::Migration
       t.datetime :latest_activity_at
       t.integer :posts_count, default: 0
       t.integer :topics_count, default: 0
+      t.boolean :superadmin, default: false
       t.timestamps
     end
 

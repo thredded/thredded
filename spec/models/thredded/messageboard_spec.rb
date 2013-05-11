@@ -51,7 +51,7 @@ module Thredded
       end
     end
 
-    describe '.has_member?' do
+    describe '#has_member?' do
       it 'is true if a user is a member of a messageboard' do
         user = create(:user)
         messageboard = create(:messageboard)
@@ -65,6 +65,24 @@ module Thredded
         messageboard = create(:messageboard)
 
         messageboard.has_member?(user).should be_false
+      end
+    end
+
+    describe '#member_is_a?' do
+      it 'is true when checking that an admin is an admin' do
+        user = create(:user)
+        messageboard = create(:messageboard)
+        messageboard.add_member(user, 'admin')
+
+        messageboard.member_is_a?(user, 'admin').should be_true
+      end
+
+      it 'is false when checking that a member is an admin' do
+        user = create(:user)
+        messageboard = create(:messageboard)
+        messageboard.add_member(user, 'member')
+
+        messageboard.member_is_a?(user, 'admin').should_not be_true
       end
     end
 

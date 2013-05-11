@@ -121,12 +121,13 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
   end
 
   create_table "thredded_user_details", :force => true do |t|
-    t.integer  "user_id",                           :null => false
+    t.integer  "user_id",                               :null => false
     t.datetime "latest_activity_at"
     t.integer  "posts_count",        :default => 0
     t.integer  "topics_count",       :default => 0
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.boolean  "superadmin",         :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   add_index "thredded_user_details", ["latest_activity_at"], :name => "index_thredded_user_details_on_latest_activity_at"

@@ -55,18 +55,12 @@ module Thredded
       roles.where(user_id: user.id).exists?
     end
 
-    def members_from_list(user_list)
-      users.where('lower(name) in (?)', user_list.map(&:downcase))
+    def member_is_a?(user, as)
+      roles.where(user_id: user.id, level: as).exists?
     end
 
-    def postable_by?(user)
-      if posting_for_anonymous? && (restricted_to_private? || restricted_to_logged_in?)
-          false
-      else
-        posting_for_anonymous? ||
-          (posting_for_logged_in? && user.try(:valid?)) ||
-          (posting_for_members? && has_member?(user))
-      end
+    def members_from_list(user_list)
+      users.where('lower(name) in (?)', user_list.map(&:downcase))
     end
 
     def posting_for_anonymous?

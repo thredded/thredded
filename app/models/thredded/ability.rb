@@ -4,52 +4,42 @@ module Thredded
 
     def initialize(user)
       user ||= Thredded::NullUser.new
+      user_details = Thredded::UserDetail.where(user_id: user.id).first
 
-      can :manage, :all if user.superadmin?
+      can :manage, :all if user_details.try(:superadmin?)
 
-      can :read, Site, permission: 'public'
-
-      can :read, Site do |site|
-        site.permission == 'logged_in' && user.valid?
+      can :read, Thredded::Messageboard do |messageboard|
+        Thredded::MessageboardUserPermissions.new(messageboard, user).readable?
       end
 
-      can :read, Messageboard do |messageboard|
-        user.can_read_messageboard?(messageboard)
+      can :manage, Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user, user_details).manageable?
       end
 
-      can :manage, Topic do |topic|
-        user.admins?(topic.messageboard) || topic.user == user
+      can :read, Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user, user_details).readable?
       end
 
-      can :read, Topic do |topic|
-        user.can_read_messageboard?(topic.messageboard)
+      can :create, Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user, user_details).createable?
       end
 
-      can :create, Topic do |topic|
-        user.member_of?(topic.messageboard)
+      cannot :manage, Thredded::PrivateTopic
+
+      can :manage, Thredded::PrivateTopic do |private_topic|
+        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).manageable?
       end
 
-      can :create, Topic do |topic|
-        messageboard = topic.messageboard
-        messageboard_permissions = messageboard.restricted_to_logged_in? ||
-          messageboard.posting_for_logged_in?
-        messageboard_permissions && user.valid?
+      can :create, Thredded::PrivateTopic do |private_topic|
+        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).createable?
       end
 
-      cannot :manage, PrivateTopic
-
-      can :manage, PrivateTopic, user_id: user.id
-
-      can :create, PrivateTopic do |private_topic|
-        user.member_of?(private_topic.messageboard)
+      can :read, Thredded::PrivateTopic do |private_topic|
+        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).readable?
       end
 
-      can :read, PrivateTopic do |private_topic|
-        private_topic.users.include?(user)
-      end
-
-      can :manage, Post do |post|
-        user.admins?(post.topic.messageboard) || post.user == user
+      can :manage, Thredded::Post do |post|
+        Thredded::PostUserPermissions.new(post, user, user_details).manageable?
       end
     end
   end

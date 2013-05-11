@@ -43,8 +43,20 @@ FactoryGirl.define do
     security 'public'
     posting_permission  'anonymous'
 
+    trait :postable_for_logged_in do
+      posting_permission 'logged_in'
+    end
+
+    trait :restricted_to_logged_in do
+      security 'logged_in'
+    end
+
     trait :private do
       security 'private'
+    end
+
+    trait :public do
+      security 'public'
     end
   end
 
@@ -109,9 +121,30 @@ FactoryGirl.define do
     end
   end
 
+  factory :private_topic, class: Thredded::PrivateTopic do
+    user
+    messageboard
+    association :last_user, factory: :user
+
+    title 'New private topic started here'
+    hash_id { generate(:topic_hash) }
+  end
+
   factory :user, aliases: [:email_confirmed_user, :last_user], class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:name) { |n| "name#{n}" }
+
+    trait :with_user_details do
+      after(:create) do |user, evaluator|
+        create(:user_detail, user: user)
+      end
+    end
+
+    trait :superadmin do
+      after(:create) do |user, evaluator|
+        create(:user_detail, user: user, superadmin: true)
+      end
+    end
   end
 
   factory :user_detail, class: Thredded::UserDetail
