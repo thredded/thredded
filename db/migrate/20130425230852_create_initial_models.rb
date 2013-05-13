@@ -55,6 +55,12 @@ class CreateInitialModels < ActiveRecord::Migration
       t.timestamps
     end
 
+    create_table :thredded_private_users do |t|
+      t.integer  :private_topic_id
+      t.integer  :user_id
+      t.timestamps
+    end
+
     create_table :thredded_preferences do |t|
       t.boolean  :notify_on_mention, default: true
       t.boolean  :notify_on_message, default: true

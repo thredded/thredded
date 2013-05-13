@@ -13,7 +13,10 @@ require 'thredded/filter/syntax'
 require 'thredded/filter/textile'
 
 module Thredded
-  mattr_accessor :user_class
+  mattr_accessor :user_class,
+    :email_incoming_host,
+    :email_from,
+    :email_outgoing_prefix
 
   def self.user_class
     if @@user_class.is_a?(Class)

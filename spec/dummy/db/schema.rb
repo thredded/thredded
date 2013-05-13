@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
   add_index "thredded_preferences", ["messageboard_id"], :name => "index_thredded_preferences_on_messageboard_id"
   add_index "thredded_preferences", ["user_id"], :name => "index_thredded_preferences_on_user_id"
 
+  create_table "thredded_private_users", :force => true do |t|
+    t.integer  "private_topic_id"
+    t.integer  "user_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "thredded_roles", :force => true do |t|
     t.string   "level"
     t.integer  "user_id"
