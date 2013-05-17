@@ -1,3 +1,5 @@
+require 'redcloth'
+
 module Thredded
   module Filter
     module Textile

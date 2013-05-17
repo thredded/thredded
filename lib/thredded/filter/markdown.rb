@@ -1,3 +1,5 @@
+require 'redcarpet'
+
 module Thredded
   module Filter
     module Markdown

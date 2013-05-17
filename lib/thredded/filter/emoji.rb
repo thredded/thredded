@@ -1,3 +1,5 @@
+require 'rails_emoji'
+
 module Thredded
   module Filter
     module Emoji

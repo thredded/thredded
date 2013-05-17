@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = 'A forum engine'
   s.description = 'Extracted from the full rails app at thredded.com'
 
-  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.mkdn']
 
   s.add_dependency 'RedCloth', '4.2.9'
   s.add_dependency 'bb-ruby', '0.9.5'

@@ -32,28 +32,24 @@ module Thredded
 
     it "increments the topic's and user's post counts" do
       joel  = create(:user)
+      joel_details = create(:user_detail, user: joel)
       topic = create(:topic)
-
-      3.times do
-        topic.posts.create!(user: joel, last_user: joel, content: 'content',
-          messageboard: topic.messageboard)
-      end
+      create_list(:post, 3, topic: topic, user: joel)
 
       topic.reload.posts_count.should eq 3
-      joel.reload.posts_count.should eq 3
+      joel_details.reload.posts_count.should eq 3
     end
 
     it 'updates the topic updated_at field to that of the new post' do
       joel  = create(:user)
       topic = create(:topic)
-      messageboard = topic.messageboard
 
       Timecop.travel(Chronic.parse('Jan 1st 2012 at noon')) do
-        create(:post, topic: topic, messageboard: messageboard, user: joel, content: 'posting here')
+        create(:post, topic: topic, user: joel, content: 'posting here')
       end
 
       Timecop.travel(Chronic.parse('Jan 1st 2012 at 3pm')) do
-        create(:post, topic: topic, messageboard: messageboard, user: joel, content: 'posting more')
+        create(:post, topic: topic, user: joel, content: 'posting more')
       end
 
       topic.updated_at.to_s.should eq Chronic.parse('Jan 1st 2012 at 3pm').to_s
@@ -163,7 +159,7 @@ module Thredded
 
   right here"
 
-      expected_output = "<p>this is code</p>\n\n<div class=\"CodeRay\">\n  <div class=\"code\"><pre><span class=\"keyword\">def</span> <span class=\"function\">hello</span>; puts <span class=\"string\"><span class=\"delimiter\">'</span><span class=\"content\">world</span><span class=\"delimiter\">'</span></span>; <span class=\"keyword\">end</span>\n</pre></div>\n</div>\n\n\n<p>right here</p>\n"
+      expected_output = "<p>this is code</p>\n\n<div class=\"CodeRay\">\n  <div class=\"code\"><pre>  <span class=\"keyword\">def</span> <span class=\"function\">hello</span>; puts <span class=\"string\"><span class=\"delimiter\">'</span><span class=\"content\">world</span><span class=\"delimiter\">'</span></span>; <span class=\"keyword\">end</span>\n</pre></div>\n</div>\n\n\n<p>right here</p>\n"
 
       @post.content = input
       @post.filter = 'markdown'
@@ -176,10 +172,10 @@ module Thredded
       attachment_2 = build_stubbed(:pdfpng)
       attachment_3 = build_stubbed(:txtpng)
       attachment_4 = build_stubbed(:zippng)
-      attachment_1.stubs(id: '4', attachment: '/uploads/attachment/4/img.png')
-      attachment_2.stubs(id: '3', attachment: '/uploads/attachment/3/pdf.png')
-      attachment_3.stubs(id: '2', attachment: '/uploads/attachment/2/txt.png')
-      attachment_4.stubs(id: '1', attachment: '/uploads/attachment/1/zip.png')
+      attachment_1.stub(id: '4', attachment: '/uploads/attachment/4/img.png')
+      attachment_2.stub(id: '3', attachment: '/uploads/attachment/3/pdf.png')
+      attachment_3.stub(id: '2', attachment: '/uploads/attachment/2/txt.png')
+      attachment_4.stub(id: '1', attachment: '/uploads/attachment/1/zip.png')
 
       post = build_stubbed(:post,
         content: '[t:img=2 left] [t:img=3 right] [t:img] [t:img=4 200x200]',
@@ -193,7 +189,7 @@ module Thredded
     it 'links @names of members' do
       sam = build_stubbed(:user, name: 'sam')
       joe = build_stubbed(:user, name: 'joe')
-      Messageboard.any_instance.stubs(members_from_list: [sam, joe])
+      Messageboard.any_instance.stub(members_from_list: [sam, joe])
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
       expectation = 'for <a href="/users/sam">@sam</a> but not @al or @kek. And <a href="/users/joe">@joe</a>.'
 
