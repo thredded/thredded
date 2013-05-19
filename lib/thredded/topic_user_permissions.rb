@@ -9,16 +9,16 @@ module Thredded
       @user_details = user_details || UserDetail.new
     end
 
+    def creatable?
+      member? || messageboard_restrictions_allow?
+    end
+
     def manageable?
       superadmin? || started_by_user? || administrates_messageboard?
     end
 
     def readable?
       Thredded::MessageboardUserPermissions.new(messageboard, user).readable?
-    end
-
-    def createable?
-      member? || messageboard_restrictions_allow?
     end
 
     private

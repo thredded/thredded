@@ -3,7 +3,7 @@ require 'thredded/topic_user_permissions'
 
 module Thredded
   describe TopicUserPermissions do
-    describe '#createable?' do
+    describe '#creatable?' do
       let(:topic){ create(:topic) }
       let(:user_details) { Thredded::UserDetail.new }
 
@@ -11,9 +11,9 @@ module Thredded
         user = create(:user)
         messageboard = topic.messageboard
         messageboard.add_member(user)
-        permissions = TopicUserPermissions.new(topic, user, user_details)
+        permissions = Thredded::TopicUserPermissions.new(topic, user, user_details)
 
-        permissions.should be_createable
+        permissions.should be_creatable
       end
 
       it 'does not allow non-members to create a topic' do
@@ -21,7 +21,7 @@ module Thredded
         messageboard = topic.messageboard
         permissions = TopicUserPermissions.new(topic, user, user_details)
 
-        permissions.should_not be_createable
+        permissions.should_not be_creatable
       end
 
       it 'allows non-members to create if it is restricted to logged in members' do
@@ -30,7 +30,7 @@ module Thredded
         topic = create(:topic, messageboard: messageboard)
         permissions = TopicUserPermissions.new(topic, user, user_details)
 
-        permissions.should be_createable
+        permissions.should be_creatable
       end
 
       it 'allows non-members to create if it allows posting for logged in members' do
@@ -39,7 +39,7 @@ module Thredded
         topic = create(:topic, messageboard: messageboard)
         permissions = TopicUserPermissions.new(topic, user, user_details)
 
-        permissions.should be_createable
+        permissions.should be_creatable
       end
     end
 

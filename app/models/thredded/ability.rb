@@ -21,7 +21,7 @@ module Thredded
       end
 
       can :create, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).createable?
+        Thredded::TopicUserPermissions.new(topic, user, user_details).creatable?
       end
 
       cannot :manage, Thredded::PrivateTopic
@@ -31,7 +31,7 @@ module Thredded
       end
 
       can :create, Thredded::PrivateTopic do |private_topic|
-        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).createable?
+        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).creatable?
       end
 
       can :read, Thredded::PrivateTopic do |private_topic|

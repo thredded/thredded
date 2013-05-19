@@ -33,14 +33,18 @@ module Thredded
       end
     end
 
-    describe '#createable?' do
+    describe '#creatable?' do
       it 'delegates to normal Topic permissions' do
         user = build_stubbed(:user)
         private_topic = build_stubbed(:private_topic, user: user)
-        Thredded::TopicUserPermissions.any_instance.stub('createable?' => true)
-        Thredded::TopicUserPermissions.any_instance.should_receive(:createable?)
 
-        PrivateTopicUserPermissions.new(private_topic, user, user_details).createable?
+        permissions = stub('creatable?' => true)
+        Thredded::TopicUserPermissions.stub(new: permissions)
+        permissions.should_receive(:creatable?)
+
+        PrivateTopicUserPermissions
+          .new(private_topic, user, user_details)
+          .creatable?
       end
     end
   end

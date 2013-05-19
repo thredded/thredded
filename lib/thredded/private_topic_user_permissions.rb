@@ -17,9 +17,9 @@ module Thredded
       private_topic.users.include?(user)
     end
 
-    def createable?
+    def creatable?
       Thredded::TopicUserPermissions
-        .new(private_topic, user, user_details).createable?
+        .new(private_topic, user, user_details).creatable?
     end
 
     private
