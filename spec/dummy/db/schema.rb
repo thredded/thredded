@@ -150,6 +150,22 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
 
   add_index "thredded_user_preferences", ["user_id"], :name => "index_thredded_user_preferences_on_user_id"
 
+  create_table "thredded_user_topic_reads", :force => true do |t|
+    t.integer  "user_id",                    :null => false
+    t.integer  "topic_id",                   :null => false
+    t.integer  "post_id",                    :null => false
+    t.integer  "posts_count", :default => 0, :null => false
+    t.integer  "page",        :default => 1, :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "thredded_user_topic_reads", ["page"], :name => "index_thredded_user_topic_reads_on_page"
+  add_index "thredded_user_topic_reads", ["post_id"], :name => "index_thredded_user_topic_reads_on_post_id"
+  add_index "thredded_user_topic_reads", ["posts_count"], :name => "index_thredded_user_topic_reads_on_posts_count"
+  add_index "thredded_user_topic_reads", ["topic_id"], :name => "index_thredded_user_topic_reads_on_topic_id"
+  add_index "thredded_user_topic_reads", ["user_id"], :name => "index_thredded_user_topic_reads_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"

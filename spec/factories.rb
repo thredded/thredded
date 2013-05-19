@@ -148,4 +148,10 @@ FactoryGirl.define do
   end
 
   factory :user_detail, class: Thredded::UserDetail
+  factory :user_topic_read, class: Thredded::UserTopicRead do
+    user_id 1
+    topic_id 1
+    post_id 1
+    page 1
+  end
 end
