@@ -1,4 +1,11 @@
+require 'thredded/setup_thredded'
+
 Thredded::Engine.routes.draw do
+  constraints(Thredded::SetupThredded.new) do
+    get '/' => 'setups#new', as: :new_setup
+    post '/' => 'setups#create', as: :create_setup
+  end
+
   constraints(lambda{|req| req.env['QUERY_STRING'].include? 'q=' }) do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
