@@ -33,18 +33,12 @@ module Thredded
     has_many :users, through: :roles, class_name: Thredded.user_class
 
     def active_users
-      sql = <<-SQL
-        SELECT u.id,
-               u.name,
-               u.email
-          FROM users u, roles r
-         WHERE r.messageboard_id = ?
-           AND r.last_seen       > ?
-           AND r.user_id         = u.id
-         ORDER BY lower(u.name)
-      SQL
-
-      User.find_by_sql [sql, self.id, 5.minutes.ago]
+      Role
+        .joins(:user)
+        .where(messageboard_id: 6, user_id: 1)
+        .where('last_seen > ?', 5.minutes.ago)
+        .order(:last_seen)
+        .map(&:user)
     end
 
     def add_member(user, as='member')
