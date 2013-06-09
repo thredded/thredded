@@ -1,8 +1,5 @@
 require 'spec_helper'
 require 'cancan/matchers'
-require 'thredded/messageboard_user_permissions'
-require 'thredded/topic_user_permissions'
-require 'thredded/private_topic_user_permissions'
 
 module Thredded
   describe Thredded::Ability do
