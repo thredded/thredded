@@ -5,15 +5,16 @@ module Thredded
     end
 
     def create
-      messageboard_params = params[:messageboard].merge!({theme: 'default'})
+      messageboard_params = params[:messageboard]
       @messageboard = Messageboard.create(messageboard_params)
 
       if @messageboard.valid?
-        current_user.admin_of @messageboard
+        @messageboard.add_member(current_user, 'admin')
         @messageboard.topics.create(topic_params)
 
-        sign_in @user
         redirect_to root_path
+      else
+        render action: :new
       end
     end
 
