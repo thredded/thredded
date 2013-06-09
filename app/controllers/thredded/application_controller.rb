@@ -1,7 +1,18 @@
 module Thredded
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
+    helper Thredded::Engine.helpers
+    helper_method :messageboard
+
+    rescue_from CanCan::AccessDenied do |exception|
+      flash[:error] = exception.message
+      redirect_to root_path
+    end
 
     private
+
+    def current_ability
+      @current_ability ||= Thredded::Ability.new(current_user)
+    end
 
     def messageboard
       @messageboard ||= Messageboard
