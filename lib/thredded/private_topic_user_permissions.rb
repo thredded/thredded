@@ -18,7 +18,7 @@ module Thredded
     end
 
     def creatable?
-      Thredded::TopicUserPermissions
+      TopicUserPermissions
         .new(private_topic, user, user_details).creatable?
     end
 

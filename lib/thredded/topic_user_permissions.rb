@@ -18,7 +18,7 @@ module Thredded
     end
 
     def readable?
-      Thredded::MessageboardUserPermissions.new(messageboard, user).readable?
+      MessageboardUserPermissions.new(messageboard, user).readable?
     end
 
     private
