@@ -1,0 +1,17 @@
+<% if can? :read, messageboard %>
+  <div class="messageboard">
+    <header>
+      <h2><%= link_or_text_to(messageboard) %></h2>
+      <div class="meta"><%= meta_for(messageboard) %></div>
+    </header>
+    <% content_tag :p, messageboard.description if messageboard.description %>
+    <% admin_link_for(messageboard) %>
+
+    <footer>
+      <p>
+        <%= latest_thread_for(messageboard) %>
+        <cite>by <%= latest_user_for(messageboard) %></cite>
+      </p>
+    </footer>
+  </div>
+<% end %>
