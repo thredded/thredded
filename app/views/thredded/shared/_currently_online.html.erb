@@ -1,0 +1,10 @@
+<% if messageboard %>
+  <div class="online">
+    <h3>Currently Online</h3>
+    <ul>
+      <% messageboard.active_users.each do |u| %>
+       <li><%= u.name %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
