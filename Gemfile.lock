@@ -60,7 +60,7 @@ GEM
     arel (3.0.2)
     bb-ruby (0.9.5)
     builder (3.0.4)
-    cancan (1.6.9)
+    cancan (1.6.10)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
