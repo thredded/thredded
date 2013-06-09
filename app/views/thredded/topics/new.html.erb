@@ -1,0 +1,25 @@
+<header>
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><%= link_to messageboard.title, messageboard_topic_posts_path(messageboard, topic) %></li>
+      <li><span>Create New Topic</span></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="forms">
+  <%= nested_form_for [messageboard, @topic],
+    url: create_messageboard_topic_url(messageboard, @topic),
+    html: { multipart: true, class: :topic_form } do |f| %>
+
+    <ul>
+      <%= render partial: 'form', locals: { f: f,
+        messageboard: MessageboardDecorator.new(messageboard) } %>
+
+      <li class="submit">
+        <%= f.submit 'Create New Topic', { tabindex: 3 } %>
+      </li>
+    </ul>
+  <% end %>
+</div>

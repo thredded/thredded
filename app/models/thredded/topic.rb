@@ -1,3 +1,5 @@
+require 'thredded/search_sql_builder'
+
 module Thredded
   class Topic < ActiveRecord::Base
     STATES = %w{pending approved}
@@ -32,6 +34,7 @@ module Thredded
       :sticky,
       :type,
       :title,
+      :user,
       :user_id,
       :usernames
 
@@ -47,11 +50,11 @@ module Thredded
     end
 
     def self.stuck
-      where('sticky = true')
+      where(sticky: true)
     end
 
     def self.unstuck
-      where('sticky = false OR sticky IS NULL')
+      where(sticky: false)
     end
 
     def self.on_page(page_num)

@@ -1,0 +1,51 @@
+<% content_for :breadcrumbs do %>
+  <ul class="breadcrumbs">
+    <li><%= link_to 'Forums', thredded.root_path %></li>
+    <li><%= link_to messageboard.title, messageboard_topics_path(messageboard) %></li>
+    <li><span>Category</span></li>
+  </ul>
+<% end %>
+
+<% content_for :actions do %>
+  <ul class="actions">
+    <%= render 'thredded/search/form' %>
+
+    <% if can? :create, Thredded::Topic %>
+      <li class='new_topic'>
+        <%= link_to 'new topic', new_messageboard_topic_path(messageboard) %>
+      </li>
+      <li class='new_private_topic'>
+        <%= link_to 'private topic', new_messageboard_private_topic_path(messageboard) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<header>
+  <nav>
+    <%= yield :breadcrumbs %>
+    <%= yield :actions %>
+  </nav>
+
+  <%= render 'thredded/shared/currently_online' %>
+</header>
+
+<section class="topics">
+  <% if @sticky.any? %>
+    <div class="stuck">
+      <%= render partial: 'thredded/topics/topic_condensed', collection: @sticky, as: :t %>
+    </div>
+  <% end %>
+
+  <div class="currently">
+    <%= render partial: 'thredded/topics/topic_condensed', collection: @topics, as: :t %>
+  </div>
+</section>
+
+<footer>
+  <%= paginate @topics %>
+  <nav>
+    <%= yield :actions %>
+    <%= yield :breadcrumbs %>
+  </nav>
+</footer>

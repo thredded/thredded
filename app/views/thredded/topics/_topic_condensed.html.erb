@@ -1,0 +1,19 @@
+<% if can? :read, t %>
+  <article <%= t.css_class %>>
+    <div  class="post_count"><%= t.posts_count %></div>
+
+    <h1><%= link_to t.title, messageboard_topic_posts_path(messageboard, t), class: already_read(t, @tracked_user_reads) %></h1>
+
+    <cite class="updated_by">
+      <abbr class="updated_at timeago" title="<%= t.updated_at.strftime('%Y-%m-%dT%H:%M:%S') %>"><%= t.updated_at.strftime('%b %d, %Y %I:%M:%S %Z') %></abbr>
+      <%= t.last_user.name %>
+    </cite>
+
+    <cite class="started_by">
+      <abbr class="started_at timeago" title="<%= t.created_at.strftime('%Y-%m-%dT%H:%M:%S') %>">
+        <%= t.created_at.strftime('%b %d, %Y %I:%M:%S %Z') %>
+      </abbr>
+      <%= t.last_user.name %>
+    </cite>
+  </article>
+<% end %>

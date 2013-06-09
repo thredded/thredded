@@ -1,0 +1,10 @@
+<li class="title">
+  <%= f.label :title %>
+  <%= f.text_field :title, {
+    placeholder: 'Title',
+    tabindex: 1,
+    autofocus: 'autofocus'
+  } %>
+</li>
+
+<%= render partial: 'topic_form', locals: { f: f, messageboard: messageboard } %>
