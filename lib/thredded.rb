@@ -11,6 +11,10 @@ require 'thredded/filter/emoji'
 require 'thredded/filter/markdown'
 require 'thredded/filter/syntax'
 require 'thredded/filter/textile'
+require 'thredded/messageboard_user_permissions'
+require 'thredded/post_user_permissions'
+require 'thredded/private_topic_user_permissions'
+require 'thredded/topic_user_permissions'
 
 module Thredded
   mattr_accessor :user_class,
