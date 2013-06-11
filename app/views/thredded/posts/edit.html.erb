@@ -1,0 +1,27 @@
+<header>
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><%= link_to messageboard.title,
+        messageboard_topic_posts_path(messageboard, topic) %></li>
+      <li>
+        <span>
+          Editing Post - <%= link_to "##{@post.id}",
+          messageboard_topic_posts_path(messageboard, topic) + "#post_#{@post.id}" %>
+        </span>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="forms">
+  <%= nested_form_for([messageboard, topic, @post], url: { action: 'update' },
+    html: { method: :put, class: :topic_form }) do |f| %>
+    <ul>
+      <%= render partial: 'form', locals: { f: f } %>
+      <li class="submit">
+        <%= f.submit 'Update Post', { tabindex: 2 } %>
+      </li>
+    </ul>
+  <% end %>
+</div>

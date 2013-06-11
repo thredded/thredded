@@ -1,0 +1,69 @@
+<header <%= topic.css_class %>>
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
+      <li>
+        <span>
+          <%= topic.title %>
+
+          <% if can? :edit, topic %>
+            <%= link_to 'edit', edit_messageboard_topic_path(messageboard, topic) %>
+          <% end %>
+        </span>
+      </li>
+    </ul>
+    <ul class="actions">
+      <%= render 'thredded/search/form' %>
+      <% if can? :create, Thredded::Topic %>
+        <li class='new_topic'><%= link_to 'new topic', new_messageboard_topic_path(messageboard) %></li>
+        <li class='new_private_topic'><%= link_to 'private topic', new_messageboard_topic_path(messageboard, type: 'private') %></li>
+      <% end %>
+    </ul>
+  </nav>
+
+  <% if topic.users_to_sentence.present? %>
+    <cite><%= topic.users_to_sentence %></cite>
+  <% end %>
+
+  <%= render 'thredded/shared/currently_online' %>
+</header>
+
+<section class="posts">
+  <%= render @posts %>
+</section>
+
+<footer>
+  <%= paginate @posts %>
+
+  <% if can? :create, @post %>
+    <div class="forms">
+      <%= nested_form_for([messageboard, topic, @post],
+        url: create_messageboard_topic_post_url(messageboard, topic, @post, host: site.cached_domain),
+        html: { multipart: true }) do |f| %>
+        <ul>
+          <%= render partial: 'form', locals: { f: f } %>
+          <li class="submit"><%= f.submit 'Submit reply', { tabindex: 3 } %></li>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><%= link_to messageboard.name,
+        messageboard_topics_path(messageboard) %></li>
+      <li>
+        <span>
+          <%= topic.title %>
+
+          <% if can? :edit, topic %>
+            <%= link_to 'edit',
+              edit_messageboard_topic_path(messageboard, topic) %>
+          <% end %>
+        </span>
+      </li>
+    </ul>
+  </nav>
+</footer>

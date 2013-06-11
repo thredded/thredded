@@ -1,0 +1,21 @@
+  <li class="content">
+    <%= f.label :content %>
+    <%= f.text_area :content, { rows: 5, tabindex: 3 }  %>
+  </li>
+
+  <%= f.fields_for :attachments do |attachment_form|  %>
+    <li class="attachment"> 
+      <%= attachment_form.file_field :attachment %>
+      <%= attachment_form.link_to_remove 'Remove this attachment',
+        { class: 'remove_attachment' } %>
+    </li>
+  <% end -%>
+
+  <li>
+    <%= f.link_to_add 'Add an attachment', :attachments,
+      { class: 'add_attachment', tabindex: 5 }%>
+  </li>
+  <li>
+    <%= f.select :filter, Post::Filters, {}, tabindex: 4 %>
+    <a href="#pseudo-help" title="huh?" class="hide-for-small filter-help" id="filter-help">?</a>
+  </li>

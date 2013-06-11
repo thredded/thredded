@@ -27,3 +27,10 @@ describe User, '.recently_active_in' do
   end
 end
 
+describe User, '.to_s' do
+  it 'returns the username string' do
+    user = create(:user, name: 'Joseph')
+
+    expect(user.to_s).to eq 'Joseph'
+  end
+end

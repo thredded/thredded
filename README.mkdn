@@ -29,4 +29,18 @@ Mount the thredded engine in your routes file:
 mount Thredded::Engine => '/forum'
 ```
 
+## Get Your App Ready
+
+There are a few things you need in your app to get things looking just right.
+
+1. Add a to_s method to your user model. The following example assumes a column in my user model called `name`:
+
+```ruby
+class User < ActiveRecord::Base
+  def to_s
+    name
+  end
+end
+```
+
 For more information see [the full-fledged rails app](https://github.com/jayroh/thredded_app)
