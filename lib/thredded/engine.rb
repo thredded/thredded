@@ -7,5 +7,9 @@ module Thredded
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
       g.helper false
     end
+
+    config.after_initialize do
+      Thredded.user_class.send(:include, Thredded::UserDecorator)
+    end
   end
 end
