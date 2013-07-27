@@ -1,9 +1,7 @@
 module PageObject
   module Authentication
-    include FactoryGirl::Syntax::Methods
-
     def logged_in?
-      has_css? 'header nav a', text: 'Logout'
+      has_css? 'a', text: 'Sign out'
     end
 
     def signs_out
@@ -11,8 +9,8 @@ module PageObject
     end
 
     def signs_in_as(name)
-      create(:user, name: name, email: "#{name}@example.com")
-      visit new_session_path
+      ::User.where(name: name).first_or_create!(email: "#{name}@example.com")
+      visit '/sessions/new'
       fill_in 'name', with: name
       click_button 'Sign in'
     end

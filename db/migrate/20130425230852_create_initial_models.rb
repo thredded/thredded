@@ -61,7 +61,7 @@ class CreateInitialModels < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :thredded_preferences do |t|
+    create_table :thredded_messageboard_preferences do |t|
       t.boolean  :notify_on_mention, default: true
       t.boolean  :notify_on_message, default: true
       t.integer  :user_id, null: false
@@ -69,8 +69,8 @@ class CreateInitialModels < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :thredded_preferences, :user_id
-    add_index :thredded_preferences, :messageboard_id
+    add_index :thredded_messageboard_preferences, :user_id
+    add_index :thredded_messageboard_preferences, :messageboard_id
 
     create_table :thredded_roles do |t|
       t.string   :level

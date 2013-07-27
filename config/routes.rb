@@ -10,6 +10,13 @@ Thredded::Engine.routes.draw do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
+  resources :messageboards do
+    resource :preferences
+    resources :topics do
+      resources :posts
+    end
+  end
+
   get '/:messageboard_id' => 'topics#index', as: :messageboard_topics
   get '/:messageboard_id/topics/new/(:type)' => 'topics#new', as: :new_messageboard_topic
   get '/:messageboard_id/topics/category/:category_id' => 'topics#by_category', as: :messageboard_topics_by_category
@@ -25,12 +32,6 @@ Thredded::Engine.routes.draw do
   put '/:messageboard_id/:topic_id/:post_id(.:format)' => 'posts#update'
   post '/:messageboard_id/private_topics(.:format)' => 'private_topics#create', as: :create_messageboard_private_topic
   post '/:messageboard_id/:topic_id/posts(.:format)' => 'posts#create', as: :create_messageboard_topic_post
-
-  resources :messageboards do
-    resources :topics do
-      resources :posts
-    end
-  end
 
   root to: 'messageboards#index'
 end

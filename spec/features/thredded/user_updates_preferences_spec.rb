@@ -1,56 +1,39 @@
 require 'spec_helper'
+require 'support/features/page_object/messageboard_preferences'
 
 feature 'User updating preferences' do
-  before do
-    create_default_config
-    create_default_messageboard
-    user = create_member_of_messageboard
-    sign_in_as(user)
-    visit '/users/edit'
-    select_default_messageboard
+  scenario 'Allows @ notifications by default' do
+    preferences = default_user_preferences
+
+    expect(preferences).to have_at_mention_notifications
   end
 
-  scenario 'Does now allow @ notifications' do
-    click_button 'Update Preferences'
+  scenario 'Does not allow @ notifications' do
+    preferences = default_user_preferences
+    preferences.disable_at_notifications
 
-    find('#preference_notify_on_mention').should_not be_checked
+    expect(preferences).to have_been_updated
+    expect(preferences).not_to have_at_mention_notifications
   end
 
-  scenario 'Allows @ notifications' do
-    check('preference_notify_on_mention')
-    click_button 'Update Preferences'
+  scenario 'Allows private topic notifications by default' do
+    preferences = default_user_preferences
 
-    find('#preference_notify_on_mention').should be_checked
+    expect(preferences).to have_private_topic_notifications
   end
 
   scenario 'Does not allow private topic notifications' do
-    click_button 'Update Preferences'
+    preferences = default_user_preferences
+    preferences.disable_private_topic_notifications
 
-    find('#preference_notify_on_message').should_not be_checked
+    expect(preferences).to have_been_updated
+    expect(preferences).to_not have_private_topic_notifications
   end
 
-  scenario 'Allows private topic notifications' do
-    check('preference_notify_on_message')
-    click_button 'Update Preferences'
-
-    find('#preference_notify_on_message').should be_checked
-  end
-
-  def select_default_messageboard
-    within '[data-section="preferences"]' do
-      click_button "Submit"
-    end
-  end
-
-  def create_member_of_messageboard
-    default_user.member_of(default_messageboard)
-    default_user
-  end
-
-  def sign_in_as(user)
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'password'
-    click_button 'Sign in'
+  def default_user_preferences
+    user = create(:user)
+    default_user_preferences = PageObject::MessageboardPreferences.new(user)
+    default_user_preferences.visit_preferences
+    default_user_preferences
   end
 end

@@ -92,7 +92,7 @@ FactoryGirl.define do
 
   factory :post_notification, class: Thredded::PostNotification
 
-  factory :preference, class: Thredded::Preference do
+  factory :messageboard_preference, class: Thredded::MessageboardPreference do
     notify_on_mention false
     notify_on_message false
   end

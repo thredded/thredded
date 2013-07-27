@@ -7,19 +7,15 @@ module PageObject
 
     attr_accessor :user
 
-    def user(name='user', email='user@example.com')
-      @user = create(:user, name: name, email: email, password: 'password')
-      self
+    def initialize(options={ name: 'user', email: 'user@example.com' })
+      @user = create(:user, options)
     end
 
-    def log_in(name='me', email='me@example.com')
-      @user = create(:user, name: name, email: email, password: 'password')
-      visit new_user_session_path
-
-      fill_in 'Email', with: @user.email
-      fill_in 'Password', with: 'password'
+    def log_in
+      visit new_session_path
+      save_and_open_page
+      fill_in 'name', with: user.name
       click_button 'Sign in'
-      self
     end
 
     def load_page

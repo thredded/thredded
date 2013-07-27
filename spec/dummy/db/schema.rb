@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "thredded_messageboard_preferences", :force => true do |t|
+    t.boolean  "notify_on_mention", :default => true
+    t.boolean  "notify_on_message", :default => true
+    t.integer  "user_id",                             :null => false
+    t.integer  "messageboard_id",                     :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "thredded_messageboard_preferences", ["messageboard_id"], :name => "index_thredded_messageboard_preferences_on_messageboard_id"
+  add_index "thredded_messageboard_preferences", ["user_id"], :name => "index_thredded_messageboard_preferences_on_user_id"
+
   create_table "thredded_messageboards", :force => true do |t|
     t.string   "name",                                        :null => false
     t.string   "slug"
@@ -73,18 +85,6 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
   end
-
-  create_table "thredded_preferences", :force => true do |t|
-    t.boolean  "notify_on_mention", :default => true
-    t.boolean  "notify_on_message", :default => true
-    t.integer  "user_id",                             :null => false
-    t.integer  "messageboard_id",                     :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-  end
-
-  add_index "thredded_preferences", ["messageboard_id"], :name => "index_thredded_preferences_on_messageboard_id"
-  add_index "thredded_preferences", ["user_id"], :name => "index_thredded_preferences_on_user_id"
 
   create_table "thredded_private_users", :force => true do |t|
     t.integer  "private_topic_id"

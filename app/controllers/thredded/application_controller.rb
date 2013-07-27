@@ -15,10 +15,7 @@ module Thredded
     end
 
     def messageboard
-      @messageboard ||= Messageboard
-        .where(name: params[:messageboard_id])
-        .order('id ASC')
-        .first
+      @messageboard ||= Messageboard.find(params[:messageboard_id])
     end
 
     def ensure_messageboard_exists

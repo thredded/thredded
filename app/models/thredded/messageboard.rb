@@ -35,7 +35,7 @@ module Thredded
     def active_users
       Role
         .joins(:user)
-        .where(messageboard_id: 6, user_id: 1)
+        .where(messageboard_id: self.id)
         .where('last_seen > ?', 5.minutes.ago)
         .order(:last_seen)
         .map(&:user)
