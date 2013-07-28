@@ -14,10 +14,20 @@ module Thredded
       private_topic = create(:private_topic,
         user: @john,
         users: [@john, @joel, @sam],
-        posts: [post])
-      create(:preference, user: @john, messageboard: private_topic.messageboard)
-      create(:preference, user: @joel, messageboard: private_topic.messageboard)
-      create(:preference, user: @sam, messageboard: private_topic.messageboard)
+        posts: [post],
+      )
+      create(:messageboard_preference,
+        user: @john,
+        messageboard: private_topic.messageboard,
+      )
+      create(:messageboard_preference,
+        user: @joel,
+        messageboard: private_topic.messageboard,
+      )
+      create(:messageboard_preference,
+         user: @sam,
+         messageboard: private_topic.messageboard,
+      )
 
       recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
       recipients.should_not include @john
@@ -30,11 +40,11 @@ module Thredded
         users: [@john, @joel, @sam],
         posts: [post]
       )
-      create(:preference,
+      create(:messageboard_preference,
         user: @joel,
         messageboard: private_topic.messageboard
       )
-      create(:preference,
+      create(:messageboard_preference,
         user: @sam,
         messageboard: private_topic.messageboard,
         notify_on_message: true
@@ -50,12 +60,12 @@ module Thredded
         users: [@john, @joel, @sam])
       post = create(:post, topic: private_topic)
       prev_notification = create(:post_notification, email: @joel.email, post: post)
-      create(:preference,
+      create(:messageboard_preference,
         user: @joel,
         messageboard: private_topic.messageboard,
         notify_on_message: true
       )
-      create(:preference,
+      create(:messageboard_preference,
         user: @sam,
         messageboard: private_topic.messageboard,
         notify_on_message: true
@@ -73,12 +83,12 @@ module Thredded
       private_topic = create(:private_topic, user: john,
         users: [john, joel, sam], messageboard: messageboard)
       create(:post, content: 'hi', topic: private_topic)
-      create(:preference,
+      create(:messageboard_preference,
         user: sam,
         messageboard: messageboard,
         notify_on_message: true
       )
-      create(:preference,
+      create(:messageboard_preference,
         user: joel,
         messageboard: messageboard,
         notify_on_message: true

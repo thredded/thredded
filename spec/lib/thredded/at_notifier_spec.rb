@@ -17,8 +17,16 @@ module Thredded
     end
 
     it 'returns 2 users mentioned, not including post author' do
-      create(:preference, user: @joel, notify_on_mention: true, messageboard: @messageboard)
-      create(:preference, user: @john, notify_on_mention: true, messageboard: @messageboard)
+      create(:messageboard_preference,
+        user: @joel,
+        notify_on_mention: true,
+        messageboard: @messageboard,
+      )
+      create(:messageboard_preference,
+        user: @john,
+        notify_on_mention: true,
+        messageboard: @messageboard,
+      )
 
       notifier = AtNotifier.new(@post)
       at_notifiable_members = notifier.at_notifiable_members
