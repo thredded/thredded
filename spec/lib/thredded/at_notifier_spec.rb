@@ -37,9 +37,20 @@ module Thredded
     end
 
     it 'does not return any users already emailed about this post' do
-      create(:preference, user: @john, messageboard: @messageboard, notify_on_mention: true)
-      create(:preference, user: @joel, messageboard: @messageboard, notify_on_mention: true)
-      prev_notifications = create(:post_notification, post: @post, email: 'joel@example.com')
+      create(:messageboard_preference,
+        user: @john,
+        messageboard: @messageboard,
+        notify_on_mention: true,
+      )
+      create(:messageboard_preference,
+        user: @joel,
+        messageboard: @messageboard,
+        notify_on_mention: true,
+      )
+      prev_notifications = create(:post_notification,
+        post: @post,
+        email: 'joel@example.com',
+      )
       notifier = AtNotifier.new(@post)
 
       notifier.at_notifiable_members.should have(1).item
@@ -47,9 +58,17 @@ module Thredded
     end
 
     it 'does not return users not included in a private topic' do
-      create(:preference, user: @joel, messageboard: @messageboard, notify_on_mention: true)
-      @post.topic = create(:private_topic, user: @post.user,
-        last_user: @post.user, messageboard: @post.messageboard, users: [@joel])
+      create(:messageboard_preference,
+        user: @joel,
+        messageboard: @messageboard,
+        notify_on_mention: true,
+      )
+      @post.topic = create(:private_topic,
+        user: @post.user,
+        last_user: @post.user,
+        messageboard: @post.messageboard,
+        users: [@joel]
+      )
       notifier = AtNotifier.new(@post)
 
       notifier.at_notifiable_members.should have(1).item
@@ -57,8 +76,16 @@ module Thredded
     end
 
     it 'does not return users that set their preference to "no @ notifications"' do
-      create(:preference, user: @john, messageboard: @messageboard, notify_on_mention: true)
-      create(:preference, notify_on_mention: false, user: @joel, messageboard: @post.messageboard)
+      create(:messageboard_preference,
+        user: @john,
+        messageboard: @messageboard,
+        notify_on_mention: true,
+      )
+      create(:messageboard_preference,
+        notify_on_mention: false,
+        user: @joel,
+        messageboard: @post.messageboard,
+      )
       notifier = AtNotifier.new(@post)
       at_notifiable_members = notifier.at_notifiable_members
 
@@ -82,8 +109,16 @@ module Thredded
     end
 
     it 'does not notify any users already emailed about this post' do
-      create(:preference, user: @john, messageboard: @messageboard, notify_on_mention: true)
-      create(:preference, user: @joel, messageboard: @messageboard, notify_on_mention: true)
+      create(:messageboard_preference,
+        user: @john,
+        messageboard: @messageboard,
+        notify_on_mention: true,
+      )
+      create(:messageboard_preference,
+        user: @joel,
+        messageboard: @messageboard,
+        notify_on_mention: true,
+      )
       notifier = AtNotifier.new(@post)
       notifier.notifications_for_at_users
       notified_emails = @post.post_notifications.map(&:email)
