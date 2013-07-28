@@ -1,0 +1,17 @@
+<p><span style="font-size:11px; color: gray;">- write above this line to post a reply -</span></p>
+
+<%= @post.filtered_content %>
+
+<hr />
+
+<p>
+  This email was sent to you because <%= @post.user.name %> mentioned you in
+  "<%= link_to @post.topic.title, messageboard_topic_posts_url(@post.messageboard, @post.topic, anchor: "post_#{@post.id}") %>"
+  Feel free to reply above or <%= link_to 'head to the thread', messageboard_topic_posts_url(@post.messageboard, @post.topic) %>
+  to view the conversation.
+</p>
+
+<p>
+  To unsubscribe from these emails, update your
+  <%= link_to 'preferences', edit_messageboard_preferences_url(@post.messageboard) %>.
+</p>

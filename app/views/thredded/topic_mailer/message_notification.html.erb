@@ -1,0 +1,17 @@
+<p><span style="font-size:11px; color: gray;">- write above this line to post a reply -</span></p>
+
+<%= @topic.posts.first.filtered_content %>
+
+<hr />
+
+<p>
+  This email was sent to you because <%= @topic.user.name %> included you in a
+  private topic, "<%= link_to @topic.title, messageboard_topic_posts_url(@topic.messageboard, @topic) %>".
+  Feel free to reply above or <%= link_to 'head to the thread', messageboard_topic_posts_url(@topic.messageboard, @topic) %>
+  to view the conversation.
+</p>
+
+<p>
+  To unsubscribe from these emails, update your
+  <%= link_to 'preferences', edit_messageboard_preferences_url(@topic.messageboard) %>.
+</p>

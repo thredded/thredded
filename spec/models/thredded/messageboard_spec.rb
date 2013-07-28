@@ -4,7 +4,7 @@ module Thredded
   describe Messageboard do
     it { should have_db_column(:closed) }
     it { should have_db_index(:closed) }
-    it { should have_many(:preferences) }
+    it { should have_many(:messageboard_preferences) }
 
     before(:each) do
       @messageboard = create(:messageboard, topics_count: 10)

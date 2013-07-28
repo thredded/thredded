@@ -25,7 +25,7 @@ module Thredded
       message: 'should be between 1 and 16 characters'
 
     has_many :categories
-    has_many :preferences
+    has_many :messageboard_preferences
     has_many :posts
     has_many :roles
     has_many :topics
