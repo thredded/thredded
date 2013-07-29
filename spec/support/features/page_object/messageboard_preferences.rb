@@ -19,8 +19,34 @@ module PageObject
       click_button 'Update Preferences'
     end
 
-    def has_been_updated?
+    def update_to_bbcode
+      select 'bbcode', from: 'Preferred post filter'
+      click_button 'Update Preferences'
+    end
+
+    def update_to_markdown
+      select 'markdown', from: 'Preferred post filter'
+      click_button 'Update Preferences'
+    end
+
+    def updated?
       has_content? 'Your preferences are updated'
+    end
+
+    def has_bbcode_as_the_post_filter?
+      filter = find_field('messageboard_preference_filter')
+        .find('option[selected]')
+        .text
+
+      filter == 'bbcode'
+    end
+
+    def has_markdown_as_the_post_filter?
+      filter = find_field('messageboard_preference_filter')
+        .find('option[selected]')
+        .text
+
+      filter == 'markdown'
     end
 
     def has_at_mention_notifications?

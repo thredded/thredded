@@ -14,7 +14,6 @@ module Thredded
       pref = UserPreference.new
 
       pref.time_zone.should eq 'Eastern Time (US & Canada)'
-      pref.post_filter.should eq 'markdown'
     end
   end
 end

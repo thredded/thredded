@@ -55,6 +55,10 @@ module Thredded
       super.gsub /http:/, ''
     end
 
+    def self.filters
+      ['bbcode', 'markdown']
+    end
+
     private
 
     def modify_parent_topic

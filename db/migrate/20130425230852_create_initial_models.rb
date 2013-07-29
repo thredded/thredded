@@ -48,7 +48,7 @@ class CreateInitialModels < ActiveRecord::Migration
       t.string   :user_email
       t.text     :content
       t.string   :ip
-      t.string   :filter, default: 'bbcode'
+      t.string   :filter, default: 'markdown'
       t.string   :source, default: 'web'
       t.integer  :topic_id, null: false
       t.integer  :messageboard_id, null: false
@@ -64,6 +64,7 @@ class CreateInitialModels < ActiveRecord::Migration
     create_table :thredded_messageboard_preferences do |t|
       t.boolean  :notify_on_mention, default: true
       t.boolean  :notify_on_message, default: true
+      t.string   :filter, default: 'markdown', null: false
       t.integer  :user_id, null: false
       t.integer  :messageboard_id, null: false
       t.timestamps
@@ -119,7 +120,6 @@ class CreateInitialModels < ActiveRecord::Migration
     create_table :thredded_user_preferences do |t|
       t.integer :user_id, null: false
       t.string :time_zone, default: 'Eastern Time (US & Canada)'
-      t.string :post_filter, default: 'markdown'
       t.timestamps
     end
 

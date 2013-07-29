@@ -42,10 +42,11 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
   create_table "thredded_messageboard_preferences", :force => true do |t|
     t.boolean  "notify_on_mention", :default => true
     t.boolean  "notify_on_message", :default => true
-    t.integer  "user_id",                             :null => false
-    t.integer  "messageboard_id",                     :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.string   "filter",            :default => "markdown", :null => false
+    t.integer  "user_id",                                   :null => false
+    t.integer  "messageboard_id",                           :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   add_index "thredded_messageboard_preferences", ["messageboard_id"], :name => "index_thredded_messageboard_preferences_on_messageboard_id"
@@ -78,12 +79,12 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
     t.string   "user_email"
     t.text     "content"
     t.string   "ip"
-    t.string   "filter",          :default => "bbcode"
+    t.string   "filter",          :default => "markdown"
     t.string   "source",          :default => "web"
-    t.integer  "topic_id",                              :null => false
-    t.integer  "messageboard_id",                       :null => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.integer  "topic_id",                                :null => false
+    t.integer  "messageboard_id",                         :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "thredded_private_users", :force => true do |t|
@@ -141,11 +142,10 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
   add_index "thredded_user_details", ["user_id"], :name => "index_thredded_user_details_on_user_id"
 
   create_table "thredded_user_preferences", :force => true do |t|
-    t.integer  "user_id",                                               :null => false
-    t.string   "time_zone",   :default => "Eastern Time (US & Canada)"
-    t.string   "post_filter", :default => "markdown"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.integer  "user_id",                                              :null => false
+    t.string   "time_zone",  :default => "Eastern Time (US & Canada)"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
   end
 
   add_index "thredded_user_preferences", ["user_id"], :name => "index_thredded_user_preferences_on_user_id"

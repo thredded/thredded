@@ -86,20 +86,6 @@ module Thredded
       end
     end
 
-    describe '.active_users' do
-      xit 'returns a list of users active in this messageboard' do
-        john = create(:user, name: 'John')
-        joe  = create(:user, name: 'Joe')
-        john.member_of @messageboard
-        joe.member_of @messageboard
-        john.mark_active_in!(@messageboard)
-        joe.mark_active_in!(@messageboard)
-
-        @messageboard.active_users[0].name.should eq 'Joe'
-        @messageboard.active_users[1].name.should eq 'John'
-      end
-    end
-
     describe '#restricted_to_private?' do
       it 'checks whether a messageboard is private and restricted to members' do
         @messageboard.security = 'private'

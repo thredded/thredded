@@ -13,6 +13,10 @@
         <%= f.label :notify_on_message, 'Notify me when I am included in a private topic' %>
         <%= f.check_box :notify_on_message %>
       </li>
+      <li>
+        <%= f.label :filter, 'Preferred post filter' %>
+        <%= f.select :filter, Thredded::Post.filters %>
+      </li>
       <li class="submit"><%= f.submit 'Update Preferences' %></li>
     </ul>
   <% end %>

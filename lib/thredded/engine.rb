@@ -9,7 +9,7 @@ module Thredded
     end
 
     config.after_initialize do
-      Thredded.user_class.send(:include, Thredded::UserDecorator)
+      Thredded.user_class.send(:include, Thredded::UserExtender)
     end
   end
 end

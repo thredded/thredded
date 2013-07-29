@@ -62,6 +62,7 @@ FactoryGirl.define do
 
   factory :role, class: Thredded::Role do
     level 'member'
+    user
 
     trait :admin do
       level 'admin'
@@ -77,6 +78,10 @@ FactoryGirl.define do
 
     trait :member do
       level 'member'
+    end
+
+    trait :inactive do
+      last_seen 3.days.ago
     end
   end
 
