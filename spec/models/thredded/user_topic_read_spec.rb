@@ -124,7 +124,7 @@ module Thredded
         old_read = create(:user_topic_read, topic_id: topic.id, user_id: user.id, post_id: topic.posts.last.id, posts_count: 7, page: 2)
         UserTopicRead.stub(find_by_user_id_and_topic_id: old_read)
 
-        @old_read.should_not_receive(:update_attributes)
+        expect(old_read).to_not receive(:update_attributes)
 
         UserTopicRead.update_read_status!(user, topic, 1)
       end

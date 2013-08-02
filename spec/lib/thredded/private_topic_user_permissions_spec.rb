@@ -38,7 +38,7 @@ module Thredded
         user = build_stubbed(:user)
         private_topic = build_stubbed(:private_topic, user: user)
 
-        permissions = stub('creatable?' => true)
+        permissions = double('creatable?' => true)
         Thredded::TopicUserPermissions.stub(new: permissions)
         permissions.should_receive(:creatable?)
 

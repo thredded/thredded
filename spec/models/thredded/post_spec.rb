@@ -43,16 +43,17 @@ module Thredded
     it 'updates the topic updated_at field to that of the new post' do
       joel  = create(:user)
       topic = create(:topic)
+      new_years_at_3pm = Chronic.parse('Jan 1st 2012 at 3:00pm').to_s
 
-      Timecop.travel(Chronic.parse('Jan 1st 2012 at noon')) do
+      Timecop.travel(Chronic.parse('Jan 1st 2012 at 12:00pm')) do
         create(:post, topic: topic, user: joel, content: 'posting here')
       end
 
-      Timecop.travel(Chronic.parse('Jan 1st 2012 at 3pm')) do
+      Timecop.travel(Chronic.parse('Jan 1st 2012 at 3:00pm')) do
         create(:post, topic: topic, user: joel, content: 'posting more')
       end
 
-      topic.updated_at.to_s.should eq Chronic.parse('Jan 1st 2012 at 3pm').to_s
+      topic.updated_at.to_s.should eq new_years_at_3pm
     end
 
     it 'sets the post user email on creation' do
