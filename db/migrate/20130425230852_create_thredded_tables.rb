@@ -1,4 +1,4 @@
-class CreateInitialModels < ActiveRecord::Migration
+class CreateThreddedTables < ActiveRecord::Migration
   def change
     create_table :thredded_attachments do |t|
       t.string  :attachment
