@@ -1,19 +1,20 @@
-<% if can? :read, t %>
-  <article <%= t.css_class %>>
-    <div  class="post_count"><%= t.posts_count %></div>
+<% if can? :read, topic.original %>
+  <%= content_tag_for :article, topic, class: topic.css_class do %>
+    <div class="post_count"><%= topic.posts_count %></div>
 
-    <h1><%= link_to t.title, messageboard_topic_posts_path(messageboard, t), class: already_read(t, @tracked_user_reads) %></h1>
+    <h1>
+      <%= link_to topic.title, [messageboard, topic],
+        class: already_read(topic, @tracked_user_reads) %>
+    </h1>
 
     <cite class="updated_by">
-      <abbr class="updated_at timeago" title="<%= t.updated_at.strftime('%Y-%m-%dT%H:%M:%S') %>"><%= t.updated_at.strftime('%b %d, %Y %I:%M:%S %Z') %></abbr>
-      <%= t.last_user.name %>
+      <%= topic.updated_at_timeago %>
+      <%= topic.last_user_link %>
     </cite>
 
     <cite class="started_by">
-      <abbr class="started_at timeago" title="<%= t.created_at.strftime('%Y-%m-%dT%H:%M:%S') %>">
-        <%= t.created_at.strftime('%b %d, %Y %I:%M:%S %Z') %>
-      </abbr>
-      <%= t.last_user.name %>
+      <%= topic.created_at_timeago %>
+      <%= topic.user_link %>
     </cite>
-  </article>
+  <% end %>
 <% end %>

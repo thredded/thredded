@@ -38,5 +38,13 @@ module Thredded
           flash: { error: 'This messageboard does not exist.' }
       end
     end
+
+    def user_messageboard_preferences
+      @user_messageboard_preferences ||=
+        current_user
+          .thredded_messageboard_preferences
+          .where(messageboard_id: messageboard)
+          .first
+    end
   end
 end

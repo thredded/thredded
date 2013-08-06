@@ -2,6 +2,22 @@ require 'spec_helper'
 require 'timecop'
 
 module Thredded
+  describe Topic, '.decorate' do
+    it 'decorates topics returned from AR' do
+      create_list(:topic, 3)
+
+      expect(Topic.scoped.decorate.first).to be_a(Thredded::TopicDecorator)
+    end
+  end
+
+  describe Topic, '#decorate' do
+    it 'decorates a topic' do
+      topic = create(:topic)
+
+      expect(topic.decorate).to be_a(Thredded::TopicDecorator)
+    end
+  end
+
   describe Topic, '#last_user' do
     it 'provides anon user object when user not avail' do
       topic = build_stubbed(:topic, last_user_id: 1000)

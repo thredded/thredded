@@ -32,12 +32,14 @@
 <section class="topics">
   <% if @sticky.any? %>
     <div class="stuck">
-      <%= render partial: 'thredded/topics/topic_condensed', collection: @sticky, as: :t %>
+      <%= render partial: 'thredded/topics/topic_condensed',
+        collection: @sticky.decorate, as: :topic %>
     </div>
   <% end %>
 
   <div class="currently">
-    <%= render partial: 'thredded/topics/topic_condensed', collection: @topics, as: :t %>
+    <%= render partial: 'thredded/topics/topic_condensed',
+      collection: @topics.decorate, as: :topic %>
   </div>
 </section>
 

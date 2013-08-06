@@ -17,8 +17,9 @@ module Thredded
       end
 
       it 'does not allow non-members to create a topic' do
+        messageboard = create(:messageboard, :private)
+        topic = create(:topic, messageboard: messageboard)
         user = create(:user)
-        messageboard = topic.messageboard
         permissions = TopicUserPermissions.new(topic, user, user_details)
 
         permissions.should_not be_creatable
@@ -36,6 +37,15 @@ module Thredded
       it 'allows non-members to create if it allows posting for logged in members' do
         user = create(:user)
         messageboard = create(:messageboard, :postable_for_logged_in)
+        topic = create(:topic, messageboard: messageboard)
+        permissions = TopicUserPermissions.new(topic, user, user_details)
+
+        permissions.should be_creatable
+      end
+
+      it 'allows logged in user to post in a public messageboard' do
+        user = create(:user)
+        messageboard = create(:messageboard, :public)
         topic = create(:topic, messageboard: messageboard)
         permissions = TopicUserPermissions.new(topic, user, user_details)
 

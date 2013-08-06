@@ -1,29 +1,22 @@
 <% post = Thredded::PostDecorator.new(post) %>
-
 <%= content_tag_for(:article, post) do %>
-  <header>
-    <%= post.avatar %>
-    <cite><%= post.user %></cite>
-
-    <div class="meta">
-      <%= render partial: post.user_partial, locals: {post: post} %>
-
-      <abbr class="timeago" title="<%= post.created_timestamp %>">
-        <%= post.created_date %>
-      </abbr>
-    </div>
-  </header>
-
   <% cache post do %>
+    <header>
+      <%= image_tag post.gravatar_url, class: 'avatar' %>
+      <cite>
+        <%= post.user_name %>
+        <%= post.created_at_timeago %>
+      </cite>
+    </header>
+
     <div class="content">
       <p><%= post.filtered_content %></p>
-
       <ul class="attachments"><%= render post.attachments %></ul>
     </div>
   <% end %>
 
   <footer>
-    <% if can? :manage, post %>
+    <% if can? :edit, post.original %>
       <%= link_to 'edit post',
         edit_messageboard_topic_post_path(messageboard, topic, post),
         class: 'edit' %>

@@ -35,7 +35,6 @@ module Thredded
       :type,
       :title,
       :user,
-      :user_id,
       :usernames
 
     accepts_nested_attributes_for :posts, reject_if: :updating?
@@ -80,6 +79,16 @@ module Thredded
       end
     end
 
+    def self.decorate
+      all.map do |topic|
+        TopicDecorator.new(topic)
+      end
+    end
+
+    def decorate
+      TopicDecorator.new(self)
+    end
+
     def create
       UserDetail.increment_counter(:topics_count, user_id)
       super
@@ -99,14 +108,6 @@ module Thredded
 
     def pending?
       state == 'pending'
-    end
-
-    def css_class
-      classes = []
-      classes << 'locked' if locked
-      classes << 'sticky' if sticky
-      classes << 'private' if private?
-      classes.empty? ?  '' : "class=\"#{classes.join(' ')}\"".html_safe
     end
 
     def users

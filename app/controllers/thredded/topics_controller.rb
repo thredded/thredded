@@ -25,7 +25,7 @@ module Thredded
 
     def new
       @topic = messageboard.topics.build
-      @topic.posts.build( filter: current_user.try(:post_filter) )
+      @topic.posts.build( filter: user_messageboard_preferences.try(:filter) )
 
       unless can? :create, @topic
         error = 'Sorry, you are not authorized to post on this messageboard.'
@@ -41,9 +41,8 @@ module Thredded
     end
 
     def create
-      merge_default_topics_params
-      @topic = Topic.create(params[:topic])
-      redirect_to messageboard_topics_url(messageboard)
+      @topic = messageboard.topics.create(topic_params)
+      redirect_to messageboard_topics_path(messageboard)
     end
 
     def edit
@@ -63,6 +62,20 @@ module Thredded
     end
 
     private
+
+    def topic_params
+      params[:topic].deep_merge!({
+        last_user: current_user,
+        user: current_user,
+        posts_attributes: {
+          '0' => {
+            messageboard: messageboard,
+            ip: request.remote_ip,
+            user: current_user,
+          }
+        }
+      })
+    end
 
     def get_search_results
       Topic.full_text_search(params[:q], messageboard)
@@ -86,7 +99,10 @@ module Thredded
 
     def get_sticky_topics
       if on_first_topics_page?
-        Topic.stuck.for_messageboard(messageboard).order('id DESC')
+        Topic
+          .stuck
+          .for_messageboard(messageboard)
+          .order('id DESC')
       else
         []
       end

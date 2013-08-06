@@ -7,8 +7,8 @@ module Thredded
     helper_method :messageboard, :topic
 
     def index
-      authorize! :show, topic
-      @post = Post.new(filter: preferences.try(:post_filter))
+      authorize! :read, topic
+      @post = Post.new(filter: user_messageboard_preferences.try(:filter))
       @posts = Post.where(topic_id: topic).page(page)
       @read_status = UserTopicRead.find_or_create_by_user_and_topic(current_user, topic, page)
 
@@ -72,6 +72,10 @@ module Thredded
         redirect_to default_home,
           flash: { error: 'This topic does not exist.' }
       end
+    end
+
+    def topic
+      @topic ||= messageboard.topics.find(params[:topic_id])
     end
   end
 end

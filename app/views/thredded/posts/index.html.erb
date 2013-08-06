@@ -1,4 +1,4 @@
-<header <%= topic.css_class %>>
+<header>
   <nav>
     <ul class="breadcrumbs">
       <li><%= link_to 'Forums', thredded.root_path %></li>
@@ -27,23 +27,30 @@
   <% end %>
 
   <%= render 'thredded/shared/currently_online' %>
+  <%= render 'thredded/shared/topic_nav' %>
 </header>
 
-<section class="posts">
-  <%= render @posts %>
-</section>
+<%= content_tag_for :section, topic, class: topic.decorate.css_class do %>
+  <header><h1><%= topic.title %></h1></header>
+
+  <section class="posts">
+    <%= render @posts %>
+  </section>
+<% end %>
 
 <footer>
   <%= paginate @posts %>
 
   <% if can? :create, @post %>
     <div class="forms">
-      <%= nested_form_for([messageboard, topic, @post],
-        url: create_messageboard_topic_post_url(messageboard, topic, @post, host: site.cached_domain),
-        html: { multipart: true }) do |f| %>
+      <%= nested_form_for [messageboard, topic, @post],
+        url: create_messageboard_topic_post_path(messageboard, topic, @post),
+        html: { multipart: true } do |f| %>
         <ul>
-          <%= render partial: 'form', locals: { f: f } %>
-          <li class="submit"><%= f.submit 'Submit reply', { tabindex: 3 } %></li>
+          <%= render 'form', f: f %>
+          <li class="submit">
+            <%= f.submit 'Submit reply' %>
+          </li>
         </ul>
       <% end %>
     </div>

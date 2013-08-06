@@ -25,7 +25,11 @@ module Thredded
 
     def messageboard_restrictions_allow?
       user.valid? &&
-        (messageboard.restricted_to_logged_in? || messageboard.posting_for_logged_in?)
+        (
+          messageboard.public? ||
+          messageboard.restricted_to_logged_in? ||
+          messageboard.posting_for_logged_in?
+        )
     end
 
     def member?
