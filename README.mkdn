@@ -1,5 +1,32 @@
 # Thredded (the gem / rails engine)
 
-More coming soon.
+## Installation
+
+Add the gem to your Gemfile:
+
+```ruby
+gem 'thredded'
+```
+
+Add an initializer to your app: `config/initializers/thredded.rb`
+
+```ruby
+Thredded.user_class = 'User'
+Thredded.email_incoming_host = 'incoming.example.com'
+Thredded.email_from = 'no-reply@example.com'
+Thredded.email_outgoing_prefix = '[Thredded] '
+```
+
+Copy the migrations over to your parent application and migrate:
+
+```
+rake thredded:install:migrations db:migrate db:test:prepare
+```
+
+Mount the thredded engine in your routes file:
+
+```
+mount Thredded::Engine => '/forum'
+```
 
 For more information see [the full-fledged rails app](https://github.com/jayroh/thredded_app)
