@@ -11,11 +11,13 @@ module Thredded
     private
 
     def current_ability
-      @current_ability ||= Thredded::Ability.new(current_user)
+      @current_ability ||= Ability.new(current_user)
     end
 
     def messageboard
-      @messageboard ||= Messageboard.find(params[:messageboard_id])
+      if params.key? :messageboard_id
+        @messageboard ||= Messageboard.find(params[:messageboard_id])
+      end
     end
 
     def ensure_messageboard_exists
