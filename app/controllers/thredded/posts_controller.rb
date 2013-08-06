@@ -8,9 +8,11 @@ module Thredded
 
     def index
       authorize! :read, topic
-      @post = Post.new(filter: user_messageboard_preferences.try(:filter))
+
+      @post = messageboard.posts.build(topic: topic, filter: post_filter)
       @posts = Post.where(topic_id: topic).page(page)
-      @read_status = UserTopicRead.find_or_create_by_user_and_topic(current_user, topic, page)
+      @read_status = UserTopicRead
+        .find_or_create_by_user_and_topic(current_user, topic, page)
 
       if not_inside_topic_and_in_an_old_page?
         redirect_to_later_page and return
@@ -20,7 +22,7 @@ module Thredded
     end
 
     def create
-      p = topic.posts.create(params[:post])
+      topic.posts.create(params[:post])
       redirect_to :back
     end
 
@@ -39,6 +41,10 @@ module Thredded
     end
 
     private
+
+    def post_filter
+      user_messageboard_preferences.try(:filter) || :markdown
+    end
 
     def not_inside_topic_and_in_an_old_page?
       !internal_to_topic? && page == 1 && @read_status.page > 1

@@ -41,6 +41,10 @@ module Thredded
       can :manage, Thredded::Post do |post|
         Thredded::PostUserPermissions.new(post, user, user_details).manageable?
       end
+
+      can :create, Thredded::Post do |post|
+        Thredded::PostUserPermissions.new(post, user, user_details).creatable?
+      end
     end
   end
 end

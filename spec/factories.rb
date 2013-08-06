@@ -162,6 +162,30 @@ FactoryGirl.define do
         create(:user_detail, user: user, superadmin: true)
       end
     end
+
+    trait :prefers_bbcode do
+      after(:create) do |user, evaluator|
+        Thredded::Messageboard.all.each do |messageboard|
+          create(:messageboard_preference,
+            filter: 'bbcode',
+            user: user,
+            messageboard: messageboard,
+          )
+        end
+      end
+    end
+
+    trait :prefers_markdown do
+      after(:create) do |user, evaluator|
+        Thredded::Messageboard.all.each do |messageboard|
+          create(:messageboard_preference,
+            filter: 'markdown',
+            user: user,
+            messageboard: messageboard,
+          )
+        end
+      end
+    end
   end
 
   factory :user_detail, class: Thredded::UserDetail

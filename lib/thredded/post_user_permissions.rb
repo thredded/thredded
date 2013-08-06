@@ -13,6 +13,20 @@ module Thredded
     def manageable?
       user.id == post.user_id
     end
+
+    def creatable?
+      thread_is_not_locked? && can_create_topic?
+    end
+
+    private
+
+    def thread_is_not_locked?
+      !@topic.locked?
+    end
+
+    def can_create_topic?
+      TopicUserPermissions.new(@topic, @user, @user_details).creatable?
+    end
   end
 end
 
