@@ -182,7 +182,7 @@ module Thredded
         content: '[t:img=2 left] [t:img=3 right] [t:img] [t:img=4 200x200]',
         attachments: [attachment_1, attachment_2, attachment_3, attachment_4])
 
-      expectation = "<img src=\"/uploads/attachment/3/pdf.png\" class=\"align_left\" /> <img src=\"/uploads/attachment/2/txt.png\" class=\"align_right\" /> <img src=\"/uploads/attachment/4/img.png\" /> <img src=\"/uploads/attachment/1/zip.png\" width=\"200\" height=\"200\" />"
+      expectation = "<p><img src=\"/uploads/attachment/3/pdf.png\" class=\"align_left\" /> <img src=\"/uploads/attachment/2/txt.png\" class=\"align_right\" /> <img src=\"/uploads/attachment/4/img.png\" /> <img src=\"/uploads/attachment/1/zip.png\" width=\"200\" height=\"200\" /></p>\n"
 
       post.filtered_content.should == expectation
     end
@@ -192,7 +192,7 @@ module Thredded
       joe = build_stubbed(:user, name: 'joe')
       Messageboard.any_instance.stub(members_from_list: [sam, joe])
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
-      expectation = 'for <a href="/users/sam">@sam</a> but not @al or @kek. And <a href="/users/joe">@joe</a>.'
+      expectation = "<p>for <a href=\"/users/sam\">@sam</a> but not @al or @kek. And <a href=\"/users/joe\">@joe</a>.</p>\n"
 
       post.filtered_content.should eq expectation
     end

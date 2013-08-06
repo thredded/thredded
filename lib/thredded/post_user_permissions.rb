@@ -11,7 +11,7 @@ module Thredded
     end
 
     def manageable?
-      user.id == post.user_id
+      created_post?
     end
 
     def creatable?
@@ -19,6 +19,10 @@ module Thredded
     end
 
     private
+
+    def created_post?
+      user.id == post.user_id
+    end
 
     def thread_is_not_locked?
       !@topic.locked?

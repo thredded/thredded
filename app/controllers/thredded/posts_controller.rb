@@ -27,12 +27,7 @@ module Thredded
     end
 
     def edit
-      authorize! :update, post
-    end
-
-    def post
-      post = topic.posts.find(params[:post_id])
-      @post ||= post
+      authorize! :manage, post
     end
 
     def update
@@ -41,6 +36,14 @@ module Thredded
     end
 
     private
+
+    def topic
+      @topic ||= messageboard.topics.find(params[:topic_id])
+    end
+
+    def post
+      @post ||= topic.posts.find(params[:post_id])
+    end
 
     def post_filter
       user_messageboard_preferences.try(:filter) || :markdown
@@ -78,10 +81,6 @@ module Thredded
         redirect_to default_home,
           flash: { error: 'This topic does not exist.' }
       end
-    end
-
-    def topic
-      @topic ||= messageboard.topics.find(params[:topic_id])
     end
   end
 end

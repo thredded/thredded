@@ -92,7 +92,7 @@ FactoryGirl.define do
 
     sequence(:content) { |n| "A post about the number #{n}" }
     ip '127.0.0.1'
-    filter 'bbcode'
+    filter 'markdown'
   end
 
   factory :post_notification, class: Thredded::PostNotification
@@ -151,6 +151,14 @@ FactoryGirl.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:name) { |n| "name#{n}" }
 
+    trait :admin do
+      after(:create) do |user, evaluator|
+        Thredded::Messageboard.all.each do |messageboard|
+          messageboard.add_member(user, 'admin')
+        end
+      end
+    end
+
     trait :with_user_details do
       after(:create) do |user, evaluator|
         create(:user_detail, user: user)
@@ -167,23 +175,14 @@ FactoryGirl.define do
       after(:create) do |user, evaluator|
         Thredded::Messageboard.all.each do |messageboard|
           create(:messageboard_preference,
-            filter: 'bbcode',
-            user: user,
-            messageboard: messageboard,
-          )
+                 filter: 'bbcode', user: user, messageboard: messageboard)
         end
       end
     end
 
     trait :prefers_markdown do
       after(:create) do |user, evaluator|
-        Thredded::Messageboard.all.each do |messageboard|
-          create(:messageboard_preference,
-            filter: 'markdown',
-            user: user,
-            messageboard: messageboard,
-          )
-        end
+        create(:messageboard_preference, filter: 'markdown', user: user)
       end
     end
   end
