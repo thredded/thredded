@@ -27,20 +27,20 @@ feature 'User viewing topics' do
   def three_topics
     messageboard = create(:messageboard)
     create_list(:topic, 3, messageboard: messageboard)
-    PageObject::Topic.new(messageboard)
+    PageObject::Topics.new(messageboard)
   end
 
   def one_locked_two_regular_topics
     messageboard = create(:messageboard)
     create_list(:topic, 2, messageboard: messageboard)
     create(:topic, :locked, messageboard: messageboard)
-    PageObject::Topic.new(messageboard)
+    PageObject::Topics.new(messageboard)
   end
 
   def one_stuck_two_regular_topics
     messageboard = create(:messageboard)
     create_list(:topic, 2, messageboard: messageboard)
     create(:topic, :sticky, messageboard: messageboard)
-    PageObject::Topic.new(messageboard)
+    PageObject::Topics.new(messageboard)
   end
 end

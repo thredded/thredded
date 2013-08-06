@@ -11,6 +11,7 @@ Thredded::Engine.routes.draw do
   end
 
   get '/:messageboard_id/new(.:format)' => 'topics#new', as: :new_messageboard_topic
+  get '/:messageboard_id/:id/edit.(:format)' => 'topics#edit', as: :edit_messageboard_topic
 
   resources :messageboards, only: [:index], path: '' do
     resource :preferences

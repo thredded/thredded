@@ -2,7 +2,7 @@
   <nav>
     <ul class="breadcrumbs">
       <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.title, messageboard_topic_posts_path(messageboard, topic) %></li>
+      <li><%= link_to messageboard.name, messageboard_topics_path(messageboard, topic) %></li>
       <li>
         <span>
           Editing Topic <em><%= link_to topic.title, [messageboard, topic] %></em>
@@ -14,15 +14,11 @@
 
 <div class="forms">
   <ul>
-    <%= nested_form_for [@messageboard, @topic],
-      url: messageboard_topic_path(@messageboard, @topic),
-      html: { method: :put, class: :topic_form, multipart: true } do |f| %>
-
-      <%= render partial: 'form', locals: { f: f,
-        messageboard: MessageboardDecorator.new(messageboard) } %>
+    <%= nested_form_for [@messageboard, @topic], html: { class: :topic_form, multipart: true } do |form| %>
+      <%= render 'form', form: form, messageboard: messageboard.decorate %>
 
       <li class="submit">
-        <%= f.submit 'Update Topic' %>
+        <%= form.submit 'Update Topic' %>
       </li>
     <% end %>
   </ul>

@@ -63,6 +63,12 @@ module Thredded
 
     private
 
+    def topic
+      if messageboard
+        @topic ||= messageboard.topics.find(params[:id])
+      end
+    end
+
     def topic_params
       params[:topic].deep_merge!({
         last_user: current_user,
