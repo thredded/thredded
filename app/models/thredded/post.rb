@@ -6,7 +6,6 @@ module Thredded
     include Thredded::Filter::Textile
     include Thredded::Filter::Bbcode
     include Thredded::Filter::Markdown
-    include Thredded::Filter::Syntax
     include Thredded::Filter::Attachment
     include Thredded::Filter::Emoji
     include Thredded::Filter::AtNotification

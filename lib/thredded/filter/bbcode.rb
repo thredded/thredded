@@ -37,28 +37,32 @@ module Thredded
 
       def filtered_content
         if filter.to_sym == :bbcode
-          content = replace_code_tags(super)
+          content = super
+          content = replace_code_tags(content)
           content = replace_quote_tags(content)
-          content = content.bbcode_to_html(BB).html_safe
-          remove_empty_p_tags(content)
+          content = content.bbcode_to_html(BB)
+          content = remove_empty_p_tags(content)
+          content = CGI.unescapeHTML(content)
+
+          content.html_safe
         else
           super
         end
       end
 
       def replace_code_tags(content)
-        content = content.gsub(/\[code\]/, '<pre><code>')
-        content = content.gsub(/\[code:(\D+?)\]/, '<pre><code lang="\1">')
-        content = content.gsub(/\[\/code\]/, '</code></pre>')
+        content.gsub!(/\[code\]/, '<pre><code>')
+        content.gsub!(/\[code:(\D+?)\]/, '<pre><code class="language-\1" lang="\1">')
+        content.gsub!(/\[\/code\]/, '</code></pre>')
         content.html_safe
       end
 
       def replace_quote_tags(content)
-        content = content.gsub(/\[quote(:.*)?=(?:&quot;)?(.*?)(?:&quot;)?\]/,
+        content.gsub!(/\[quote(:.*)?=(?:&quot;)?(.*?)(?:&quot;)?\]/,
           '</p><fieldset><legend>\2</legend><blockquote><p>')
-        content = content.gsub(/\[quote(:.*?)?\]/,
+        content.gsub!(/\[quote(:.*?)?\]/,
           '</p><fieldset><blockquote><p>')
-        content = content.gsub(/\[\/quote\]/,
+        content.gsub!(/\[\/quote\]/,
           '</p></blockquote></fieldset><p>')
         content.html_safe
       end
