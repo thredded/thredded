@@ -124,6 +124,18 @@ FactoryGirl.define do
         topic.categories << create(:category)
       end
     end
+
+    trait :locked do
+      locked true
+    end
+
+    trait :pinned do
+      sticky true
+    end
+
+    trait :sticky do
+      sticky true
+    end
   end
 
   factory :private_topic, class: Thredded::PrivateTopic do
@@ -153,6 +165,7 @@ FactoryGirl.define do
   end
 
   factory :user_detail, class: Thredded::UserDetail
+
   factory :user_topic_read, class: Thredded::UserTopicRead do
     user_id 1
     topic_id 1
