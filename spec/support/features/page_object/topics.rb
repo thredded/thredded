@@ -54,35 +54,35 @@ module PageObject
     alias_method :has_the_title_and_content?, :displayed?
 
     def has_category_input?
-      has_css?('.category select')
+      has_css? '.category select'
     end
 
     def has_a_locked_checkbox?
-      has_css?('.locked input')
+      has_css? '.locked input'
     end
 
     def has_a_sticky_checkbox?
-      has_css?('.sticky input')
+      has_css? '.sticky input'
     end
 
     def locked?
-      has_css?('.topic.locked')
+      has_css? '.topic.locked'
     end
 
     def stuck?
-      has_css?('.topic.sticky')
+      has_css? '.topic.sticky'
     end
 
     def categorized?
-      has_css?('.topic.category')
+      has_css? '.topic.category'
     end
 
     def with_title(text)
-      title(text)
+      title text
     end
 
     def with_content(text)
-      content(text)
+      content text
     end
 
     def make_locked
@@ -99,6 +99,24 @@ module PageObject
 
     def submit
       click_button 'Create New Topic'
+    end
+
+    def read?
+      has_css? '.topics h1 a.read'
+    end
+
+    def view_topic
+      find('.topics h1 a').click
+    end
+
+    def view_read_topic
+      visit_index
+      view_topic
+    end
+
+    def someone_updates_topic
+      topic = Thredded::Topic.last
+      create(:post, topic: topic)
     end
 
     private
