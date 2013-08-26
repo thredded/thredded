@@ -7,36 +7,46 @@ module Thredded
       @post = post
     end
 
-    def avatar
-      'avatar'
-    end
-
-    def user_partial
-      if post.user.valid?
-        'thredded/posts/user'
+    def user_name
+      if user
+        user.name
       else
-        'thredded/posts/null_user'
+        'Anonymous'
       end
     end
 
-    def user_roles
-      Role
-        .where(user_id: post.user.id)
-        .for(post.messageboard)
-        .pluck(:level)
-        .to_sentence
+    def original
+      post
     end
 
-    def user_posts_count
-      0
+    def created_at_timeago
+      if created_at.nil?
+        <<-eohtml.strip_heredoc.html_safe
+          <abbr>
+            a little while ago
+          </abbr>
+        eohtml
+      else
+        <<-eohtml.strip_heredoc.html_safe
+          <abbr class="timeago" title="#{created_at_utc}">
+            #{created_at_str}
+          </abbr>
+        eohtml
+      end
     end
 
-    def created_timestamp
-      'timestamp'
+    def gravatar_url
+      super.gsub /http:/, ''
     end
 
-    def created_date
-      'date'
+    private
+
+    def created_at_str
+      created_at.getutc.to_s
+    end
+
+    def created_at_utc
+      created_at.getutc.iso8601
     end
   end
 end
