@@ -41,6 +41,10 @@ module Thredded
         .map(&:user)
     end
 
+    def decorate
+      MessageboardDecorator.new(self)
+    end
+
     def add_member(user, as='member')
       roles.create(user_id: user.id, level: as)
     end

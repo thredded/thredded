@@ -1,9 +1,4 @@
-<%= form_for(@messageboard,
-  validate: true,
-  as: :messageboard,
-  url: create_setup_path,
-  method: :post) do |f| %>
-
+<%= form_for @messageboard do |f| %>
   <div id="setup-container">
     <p class="setup-overview-text">
       These will be the settings and permissions for your first thredded
@@ -20,24 +15,21 @@
       <dt><%= f.label :security %></dt>
       <dd>
         <%= f.select :security, [:private, :public, :logged_in] %>
-        <br>
         <p class="setup-explanation-text">
           This will set the visibility of your messageboard to the public
           members.
         </p>
       </dd>
 
-
       <dt><%= f.label :posting_permission %></dt>
       <dd>
         <%= f.select :posting_permission, [:members, :logged_in, :anonymous] %>
-        <br>
         <p class="setup-explanation-text">
           The required minimum permissions to post in your messageboard.
         </p>
       </dd>
     </dl>
 
-    <%= f.submit 'Continue', :class => 'btn setup-continue-btn' %>
+    <%= f.submit 'Continue' %>
   </div>
 <% end %>

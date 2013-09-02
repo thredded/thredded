@@ -42,7 +42,7 @@ module Thredded
     end
 
     def post
-      @post ||= topic.posts.find(params[:post_id])
+      @post ||= topic.posts.find(params[:id])
     end
 
     def post_filter

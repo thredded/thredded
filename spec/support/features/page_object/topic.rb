@@ -9,10 +9,6 @@ module PageObject
       @messageboard = messageboard
     end
 
-    def visit_index
-      visit messageboard_topics_path(messageboard)
-    end
-
     def normal_topics
       all('.topics article[class="topic"]')
     end
@@ -30,6 +26,10 @@ module PageObject
       title('Sample thread title')
       content('Lorem ipsum dolor samet')
       click_button 'Create New Topic'
+    end
+
+    def visit_index
+      visit messageboard_topics_path(messageboard)
     end
 
     def visit_form

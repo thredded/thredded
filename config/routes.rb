@@ -2,36 +2,24 @@ require 'thredded/setup_thredded'
 
 Thredded::Engine.routes.draw do
   constraints(Thredded::SetupThredded.new) do
-    get '/' => 'setups#new', as: :new_setup
-    post '/' => 'setups#create', as: :create_setup
+    resources :setups, path: '', only: [:new, :create]
+    root to: 'setups#new'
   end
 
   constraints(lambda{|req| req.env['QUERY_STRING'].include? 'q=' }) do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
-  resources :messageboards do
+  get '/:messageboard_id/new(.:format)' => 'topics#new', as: :new_messageboard_topic
+
+  resources :messageboards, only: [:index], path: '' do
     resource :preferences
-    resources :topics do
-      resources :posts
+    resources :private_topics, only: [:new, :create]
+
+    resources :topics, except: [:show], path: '' do
+      resources :posts, path: ''
     end
   end
-
-  get '/:messageboard_id' => 'topics#index', as: :messageboard_topics
-  get '/:messageboard_id/topics/new/(:type)' => 'topics#new', as: :new_messageboard_topic
-  get '/:messageboard_id/topics/category/:category_id' => 'topics#by_category', as: :messageboard_topics_by_category
-  get '/:messageboard_id/:topic_id/edit(.:format)' => 'topics#edit', as: :edit_messageboard_topic
-  put '/:messageboard_id/:topic_id(.:format)' => 'topics#update', as: :messageboard_topic
-  post '/:messageboard_id/topics(.:format)' => 'topics#create', as: :create_messageboard_topic
-
-  get '/:messageboard_id/private_topics/new/(:type)' => 'private_topics#new', as: :new_messageboard_private_topic
-  get '/:messageboard_id/:topic_id(.:format)' => 'posts#index', as: :messageboard_topic_posts
-  get '/:messageboard_id/:topic_id/posts(.:format)' => 'posts#index'
-  get '/:messageboard_id/:topic_id/:post_id(.:format)' => 'posts#show', as: :messageboard_topic_post
-  get '/:messageboard_id/:topic_id/:post_id/edit(.:format)' => 'posts#edit', as: :edit_messageboard_topic_post
-  put '/:messageboard_id/:topic_id/:post_id(.:format)' => 'posts#update'
-  post '/:messageboard_id/private_topics(.:format)' => 'private_topics#create', as: :create_messageboard_private_topic
-  post '/:messageboard_id/:topic_id/posts(.:format)' => 'posts#create', as: :create_messageboard_topic_post
 
   root to: 'messageboards#index'
 end

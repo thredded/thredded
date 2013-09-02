@@ -1,25 +1,27 @@
 <% if messageboard.categories.any? %>
   <li class="category">
-    <%= f.select :category_ids, messageboard.category_options, {}, { multiple: true, 'data-placeholder' => 'Categories', } %>
+    <%= form.select :category_ids,
+      messageboard.category_options,
+      {}, { multiple: true, 'data-placeholder' => 'Categories' } %>
   </li>
 <% end %>
 
-<% if can? :manage, f.object %>
+<% if can? :manage, form.object %>
   <li class="locked">
-    <%= f.label :locked do %>
-      Locked <%= f.check_box :locked %>
+    <%= form.label :locked do %>
+      Locked <%= form.check_box :locked %>
     <% end %>
   </li>
 
   <li class="sticky">
-    <%= f.label :sticky do %>
-      Sticky <%= f.check_box :sticky %>
+    <%= form.label :sticky do %>
+      Sticky <%= form.check_box :sticky %>
     <% end %>
   </li>
 <% end %>
 
 <% if action_name != 'edit' %>
-  <%= f.fields_for :posts do |post_form| %>
+  <%= form.fields_for :posts do |post_form| %>
     <%= render 'thredded/posts/form', f: post_form %>
   <% end %>
 <% end %>

@@ -8,19 +8,11 @@
   </nav>
 </header>
 
-<div class="forms">
-  <%= nested_form_for [messageboard, @topic],
-    url: create_messageboard_topic_url(messageboard, @topic),
-    html: { multipart: true, class: :topic_form } do |f| %>
-
+<div class="topic form">
+  <%= nested_form_for [messageboard, @topic], html: { multipart: true } do |form| %>
     <ul>
-      <%= render 'form',
-        f: f,
-        messageboard: Thredded::MessageboardDecorator.new(messageboard) %>
-
-      <li class="submit">
-        <%= f.submit 'Create New Topic' %>
-      </li>
+      <%= render 'form', form: form, messageboard: messageboard.decorate %>
+      <li class="submit"><%= form.submit 'Create New Topic' %></li>
     </ul>
   <% end %>
 </div>

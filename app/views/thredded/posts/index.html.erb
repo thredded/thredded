@@ -43,9 +43,7 @@
 
   <% if can? :create, @post %>
     <div class="forms">
-      <%= nested_form_for [messageboard, topic, @post],
-        url: create_messageboard_topic_post_path(messageboard, topic, @post),
-        html: { multipart: true } do |f| %>
+      <%= nested_form_for [messageboard, topic, @post], html: { multipart: true } do |f| %>
         <ul>
           <%= render 'form', f: f %>
           <li class="submit">
