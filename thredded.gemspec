@@ -1,6 +1,5 @@
 $:.push File.expand_path('../lib', __FILE__)
 
-# Maintain your gem's version:
 require 'thredded/version'
 
 # Describe your gem and declare its dependencies:
@@ -11,6 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ['joel@thredded.com']
   s.homepage    = 'https://www.thredded.com'
   s.summary     = 'A forum engine'
+  s.license     = 'MIT'
   s.description = 'Extracted from the full rails app at thredded.com'
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.mkdn']
