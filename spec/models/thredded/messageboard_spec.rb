@@ -123,4 +123,29 @@ module Thredded
       board_members_from_list.should_not include(john)
     end
   end
+
+  describe Messageboard, '#active_users' do
+    it 'returns users active for a messageboard' do
+      messageboard = create(:messageboard)
+      active_user = create(:user)
+      inactive_user = create(:user)
+
+      create(:role, :active, user: active_user, messageboard: messageboard)
+      create(:role, :inactive, user: inactive_user, messageboard: messageboard)
+
+      expect(messageboard.active_users).to eq [active_user]
+    end
+  end
+
+  describe Messageboard, '#update_activity_for' do
+    it "updates a user's activity for a messageboard" do
+      messageboard = create(:messageboard)
+      inactive_user = create(:user)
+      create(:role, :inactive, user: inactive_user, messageboard: messageboard)
+
+      messageboard.update_activity_for!(inactive_user)
+
+      expect(messageboard.active_users).to include inactive_user
+    end
+  end
 end

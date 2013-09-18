@@ -80,6 +80,10 @@ FactoryGirl.define do
       level 'member'
     end
 
+    trait :active do
+      last_seen Time.now
+    end
+
     trait :inactive do
       last_seen 3.days.ago
     end

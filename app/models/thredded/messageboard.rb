@@ -41,6 +41,11 @@ module Thredded
         .map(&:user)
     end
 
+    def update_activity_for!(user)
+      role = roles.where(user_id: user).first
+      role.update_attribute(:last_seen, Time.now.utc)
+    end
+
     def decorate
       MessageboardDecorator.new(self)
     end

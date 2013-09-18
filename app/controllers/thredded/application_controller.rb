@@ -2,6 +2,7 @@ module Thredded
   class ApplicationController < ::ApplicationController
     helper Thredded::Engine.helpers
     helper_method :messageboard, :topic, :preferences
+    before_filter :update_user_activity
 
     rescue_from CanCan::AccessDenied do |exception|
       flash[:error] = exception.message
@@ -9,6 +10,10 @@ module Thredded
     end
 
     private
+
+    def update_user_activity
+      messageboard.update_activity_for!(current_user)
+    end
 
     def current_ability
       @current_ability ||= Ability.new(current_user)
