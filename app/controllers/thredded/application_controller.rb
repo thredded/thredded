@@ -12,7 +12,9 @@ module Thredded
     private
 
     def update_user_activity
-      messageboard.update_activity_for!(current_user)
+      if messageboard && current_user
+        messageboard.update_activity_for!(current_user)
+      end
     end
 
     def current_ability
