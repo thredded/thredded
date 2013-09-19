@@ -10,7 +10,7 @@ module Thredded
       g.helper false
     end
 
-    config.after_initialize do
+    config.to_prepare do
       Thredded.user_class.send(:include, Thredded::UserExtender)
     end
   end
