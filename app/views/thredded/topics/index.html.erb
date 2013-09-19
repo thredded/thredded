@@ -29,7 +29,7 @@
   <%= render 'thredded/shared/currently_online' %>
 </header>
 
-<section class="topics">
+<section class="topics" id="topics_listing">
   <% if @sticky.any? %>
     <div class="stuck">
       <%= render partial: 'thredded/topics/topic_condensed',

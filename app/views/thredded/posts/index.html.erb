@@ -13,13 +13,6 @@
         </span>
       </li>
     </ul>
-    <ul class="actions">
-      <%= render 'thredded/search/form' %>
-      <% if can? :create, Thredded::Topic %>
-        <li class='new_topic'><%= link_to 'new topic', new_messageboard_topic_path(messageboard) %></li>
-        <li class='new_private_topic'><%= link_to 'private topic', new_messageboard_topic_path(messageboard, type: 'private') %></li>
-      <% end %>
-    </ul>
   </nav>
 
   <% if topic.users_to_sentence.present? %>
@@ -33,7 +26,7 @@
 <%= content_tag_for :section, topic, class: topic.decorate.css_class do %>
   <header><h1><%= topic.title %></h1></header>
 
-  <section class="posts">
+  <section class="posts" id="topics_posts">
     <%= render @posts %>
   </section>
 <% end %>
