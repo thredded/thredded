@@ -147,5 +147,12 @@ module Thredded
 
       expect(messageboard.active_users).to include inactive_user
     end
+
+    it "updates nothing if no role exists" do
+      messageboard = create(:messageboard)
+      user = create(:user)
+
+      expect{ messageboard.update_activity_for!(user) }.not_to raise_error(NoMethodError)
+    end
   end
 end
