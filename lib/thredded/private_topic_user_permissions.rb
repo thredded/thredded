@@ -9,6 +9,12 @@ module Thredded
       @user_details = user_details || UserDetail.new
     end
 
+    def listable?
+      if user.thredded_private_topics
+        user.thredded_private_topics.for_user(user).any?
+      end
+    end
+
     def manageable?
       user_started_topic?
     end
@@ -19,7 +25,7 @@ module Thredded
 
     def creatable?
       TopicUserPermissions
-        .new(private_topic, user, user_details).creatable?
+      .new(private_topic, user, user_details).creatable?
     end
 
     private

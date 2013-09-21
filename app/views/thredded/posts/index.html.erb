@@ -1,18 +1,22 @@
+<% content_for :breadcrumbs do %>
+  <ul class="breadcrumbs">
+    <li><%= link_to 'Forums', thredded.root_path %></li>
+    <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
+    <li>
+      <span>
+        <%= topic.title %>
+
+        <% if can? :edit, topic %>
+          <%= link_to 'edit', edit_messageboard_topic_path(messageboard, topic) %>
+        <% end %>
+      </span>
+    </li>
+  </ul>
+<% end %>
+
 <header>
   <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
-      <li>
-        <span>
-          <%= topic.title %>
-
-          <% if can? :edit, topic %>
-            <%= link_to 'edit', edit_messageboard_topic_path(messageboard, topic) %>
-          <% end %>
-        </span>
-      </li>
-    </ul>
+    <%= yield :breadcrumbs %>
   </nav>
 
   <% if topic.users_to_sentence.present? %>
@@ -48,20 +52,6 @@
   <% end %>
 
   <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.name,
-        messageboard_topics_path(messageboard) %></li>
-      <li>
-        <span>
-          <%= topic.title %>
-
-          <% if can? :edit, topic %>
-            <%= link_to 'edit',
-              edit_messageboard_topic_path(messageboard, topic) %>
-          <% end %>
-        </span>
-      </li>
-    </ul>
+    <%= yield :breadcrumbs %>
   </nav>
 </footer>

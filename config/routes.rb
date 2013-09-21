@@ -15,7 +15,7 @@ Thredded::Engine.routes.draw do
 
   resources :messageboards, only: [:index], path: '' do
     resource :preferences
-    resources :private_topics, only: [:new, :create]
+    resources :private_topics, only: [:new, :create, :index]
 
     resources :topics, except: [:show], path: '' do
       resources :posts, path: ''

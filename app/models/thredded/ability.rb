@@ -26,6 +26,10 @@ module Thredded
 
       cannot :manage, Thredded::PrivateTopic
 
+      can :list, Thredded::PrivateTopic do |private_topic|
+        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).listable?
+      end
+
       can :manage, Thredded::PrivateTopic do |private_topic|
         Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).manageable?
       end

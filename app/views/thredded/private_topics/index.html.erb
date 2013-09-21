@@ -15,21 +15,17 @@
 </header>
 
 <section class="topics" id="topics_listing">
-  <% if @sticky.any? %>
-    <div class="stuck">
+  <% if @private_topics.any? %>
+    <div class="currently">
       <%= render partial: 'thredded/topics/topic_condensed',
-        collection: @sticky.decorate, as: :topic %>
+        collection: @private_topics.decorate,
+        as: :topic %>
     </div>
   <% end %>
-
-  <div class="currently">
-    <%= render partial: 'thredded/topics/topic_condensed',
-      collection: @topics.decorate, as: :topic %>
-  </div>
 </section>
 
 <footer>
-  <%= paginate @topics %>
+  <%= paginate @private_topics %>
 
   <nav>
     <%= yield :breadcrumbs %>

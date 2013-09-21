@@ -4,6 +4,10 @@ module Thredded
       false
     end
 
+    def thredded_private_topics
+      false
+    end
+
     def can_read_messageboard?(messageboard)
       messageboard.public?
     end

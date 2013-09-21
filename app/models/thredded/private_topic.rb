@@ -4,6 +4,16 @@ module Thredded
     has_many :users, through: :private_users
     attr_accessible :user_id
 
+    def self.including_roles_for(user)
+      joins(messageboard: :roles)
+        .where(thredded_roles: {user_id: user.id})
+    end
+
+    def self.for_user(user)
+      joins(:private_users)
+        .where(thredded_private_users: {user_id: user.id})
+    end
+
     def add_user(user)
       if String == user.class
         user = User.find_by_name(user)

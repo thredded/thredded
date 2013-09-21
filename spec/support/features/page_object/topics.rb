@@ -51,6 +51,7 @@ module PageObject
     def displayed?
       has_content?(topic_title) && has_content?(topic_content)
     end
+
     alias_method :has_the_title_and_content?, :displayed?
 
     def has_category_input?

@@ -152,7 +152,7 @@ module Thredded
       messageboard = create(:messageboard)
       user = create(:user)
 
-      expect{ messageboard.update_activity_for!(user) }.not_to raise_error(NoMethodError)
+      expect{ messageboard.update_activity_for!(user) }.not_to raise_error
     end
   end
 end

@@ -8,7 +8,7 @@
   </nav>
 </header>
 
-<div class="topic form">
+<div class="topic forms">
   <%= nested_form_for [messageboard, @topic], html: { multipart: true } do |form| %>
     <ul>
       <%= render 'form', form: form, messageboard: messageboard.decorate %>
