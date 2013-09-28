@@ -11,7 +11,7 @@ module Thredded
 
     def build
       [
-        'SELECT * FROM topics WHERE id IN (', @post_builder.sql,
+        'SELECT * FROM thredded_topics WHERE id IN (', @post_builder.sql,
         'UNION', @topic_builder.sql,
         ')', @order_by,
         'LIMIT 50'

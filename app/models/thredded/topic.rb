@@ -132,6 +132,10 @@ module Thredded
       subclasses.map(&:to_s).sort
     end
 
+    def self.recent
+      limit(10)
+    end
+
     def updating?
       id.present?
     end

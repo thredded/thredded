@@ -8,7 +8,7 @@ module Thredded
       @terms = SearchParser.new(query).parse
 
       @select = 'SELECT t.id'
-      @from = 'FROM topics t'
+      @from = 'FROM thredded_topics t'
       @where = ['t.messageboard_id = ?']
       @binds = [messageboard.id]
 

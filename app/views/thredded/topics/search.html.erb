@@ -1,45 +1,30 @@
 <% content_for :breadcrumbs do %>
   <ul class="breadcrumbs">
     <li><%= link_to 'Forums', thredded.root_path %></li>
-    <li><%= link_to messageboard.title,
+    <li><%= link_to messageboard.name,
       messageboard_topics_path(messageboard) %></li>
     <li><span>Results for "<%= params[:q]%>"</span></li>
-  </ul>
-<% end %>
-
-<% content_for :actions do %>
-  <ul class="actions">
-    <%= render 'thredded/search/form' %>
-
-    <% if can? :create, Thredded::Topic %>
-      <li class='new_topic'>
-        <%= link_to 'new topic', new_messageboard_topic_path(messageboard) %>
-      </li>
-      <li class='new_private_topic'>
-        <%= link_to 'private topic', new_messageboard_private_topic_path(messageboard) %>
-      </li>
-    <% end %>
   </ul>
 <% end %>
 
 <header>
   <nav>
     <%= yield :breadcrumbs %>
-    <%= yield :actions %>
   </nav>
 
-  <%= render partial: 'shared/currently_online' %>
+  <%= render 'thredded/shared/currently_online' %>
+  <%= render 'thredded/shared/topic_nav' %>
 </header>
 
-<section class="topics">
+<section class="topics" id="topics_listing">
   <div class="currently">
-    <%= render partial: 'topics/topic_condensed', collection: @topics, as: :t %>
+    <%= render partial: 'thredded/topics/topic_condensed',
+      collection: @topics.map(&:decorate), as: :topic %>
   </div>
 </section>
 
 <footer>
   <nav>
-    <%= yield :actions %>
     <%= yield :breadcrumbs %>
   </nav>
 </footer>
