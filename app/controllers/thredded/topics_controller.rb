@@ -1,6 +1,7 @@
 module Thredded
   class TopicsController < ApplicationController
     before_filter :ensure_messageboard_exists
+    helper_method :current_page
 
     def index
       if cannot? :read, messageboard
@@ -8,18 +9,17 @@ module Thredded
         redirect_to default_home, flash: { error: error }
       end
 
-      @sticky = get_sticky_topics
-      @topics = get_topics
-      @tracked_user_reads = UserTopicRead.statuses_for(current_user, @topics)
+      @sticky = sticky_topics
+      @topics = topics
     end
 
     def search
-      @topics = get_search_results
-      @tracked_user_reads = UserTopicRead.statuses_for(current_user, @topics)
+      @topics = search_results
 
       if @topics.empty?
         error = 'No topics found for this search.'
-        redirect_to messageboard_topics_path(messageboard), flash: { error: error }
+        redirect_to messageboard_topics_path(messageboard),
+          flash: { error: error }
       end
     end
 
@@ -35,8 +35,8 @@ module Thredded
     end
 
     def by_category
-      @sticky = get_sticky_topics
-      @topics = get_topics_by_category params[:category_id]
+      @sticky = sticky_topics
+      @topics = topics_by_category(params[:category_id])
       @category_name = Category.find(params[:category_id]).name
     end
 
@@ -83,30 +83,35 @@ module Thredded
       })
     end
 
-    def get_search_results
+    def search_results
       Topic.full_text_search(params[:q], messageboard)
     end
 
-    def get_topics_by_category(category_id)
+    def topics_by_category(category_id)
       topics = Category.find(category_id)
         .topics
         .unstuck
+        .public
         .for_messageboard(messageboard)
         .order_by_updated
-        .on_page(params[:page])
+        .on_page(current_page)
     end
 
-    def get_topics
+    def topics
       Topic
         .unstuck
+        .public
         .for_messageboard(messageboard)
-        .order_by_updated.on_page(params[:page])
+        .includes(:user_topic_reads)
+        .order_by_updated
+        .on_page(current_page)
     end
 
-    def get_sticky_topics
-      if on_first_topics_page?
+    def sticky_topics
+      if current_page == 1
         Topic
           .stuck
+          .public
           .for_messageboard(messageboard)
           .order('id DESC')
       else
@@ -114,8 +119,8 @@ module Thredded
       end
     end
 
-    def on_first_topics_page?
-      params[:page].nil? || params[:page] == '1'
+    def current_page
+      params[:page] || 1
     end
   end
 end

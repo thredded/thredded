@@ -8,8 +8,6 @@ module Thredded
         redirect_to default_home, flash: { error: error }
       else
         @private_topics = get_private_topics
-        @tracked_user_reads =
-          UserTopicRead.statuses_for(current_user, @private_topics) || [NullTopicRead.new]
       end
     end
 

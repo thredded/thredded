@@ -19,14 +19,6 @@ module Thredded
       classes.join(' ')
     end
 
-    def user_link
-      if user.nil?
-        '<a href="#">?</a>'.html_safe
-      else
-        "<a href='/users/#{user_name}'>#{user_name}</a>".html_safe
-      end
-    end
-
     def last_user_link
       if last_user.nil?
         'Anonymous'

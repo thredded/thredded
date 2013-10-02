@@ -10,7 +10,7 @@ module PageObject
     end
 
     def normal_topics
-      all('.topics article[class="topic"]')
+      all('.topics article[class="topic read"]')
     end
 
     def locked_topic
@@ -103,7 +103,7 @@ module PageObject
     end
 
     def read?
-      has_css? '.topics h1 a.read'
+      has_css? '.topics article.read h1 a', text: topic_title
     end
 
     def view_topic

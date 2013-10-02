@@ -11,8 +11,8 @@ module Thredded
       @messageboard = create(:messageboard)
       @topic = create(:topic, messageboard: @messageboard, title: 'hi')
       @post = create(:post, topic: @topic, content: 'hi')
-      controller.stub(get_topics: [@topic])
-      controller.stub(get_sticky_topics: [])
+      controller.stub(topics: [@topic])
+      controller.stub(sticky_topics: [])
       controller.stub(cannot?: false)
       controller.stub(current_user: user)
       controller.stub(messageboard: @messageboard)
@@ -26,20 +26,20 @@ module Thredded
 
     describe 'GET search' do
       it 'renders search' do
-        controller.stub(get_search_results: [@topic])
+        controller.stub(search_results: [@topic])
         get :search, messageboard_id: @messageboard.id, q: 'hi'
         response.should be_success
         response.should render_template('search')
       end
 
       it 'is successful with spaces around search term(s)' do
-        controller.stub(get_search_results: [@topic])
+        controller.stub(search_results: [@topic])
         get :search, messageboard_id: @messageboard.id, q: '  hi  '
         response.should be_success
       end
 
       it 'returns nothing when query is empty' do
-        controller.stub(get_search_results: [])
+        controller.stub(search_results: [])
         get :search, messageboard_id: @messageboard.id, q: ''
         flash[:error].should eq('No topics found for this search.')
       end

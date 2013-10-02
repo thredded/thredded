@@ -1,13 +1,19 @@
-class NullTopicRead
-  def update_status(topic)
-    # ¯\_(ツ)_/¯
-  end
+module Thredded
+  class NullTopicRead
+    def page
+      1
+    end
 
-  def page
-    0
-  end
+    def post_id
+      0
+    end
 
-  def post_id
-    0
+    def posts_count
+      0
+    end
+
+    def farthest_post
+      nil
+    end
   end
 end

@@ -18,7 +18,7 @@
   <% if @private_topics.any? %>
     <div class="currently">
       <%= render partial: 'thredded/topics/topic_condensed',
-        collection: @private_topics.decorate,
+        collection: Thredded::UserTopicDecorator.decorate_all(current_user, @private_topics),
         as: :topic %>
     </div>
   <% end %>

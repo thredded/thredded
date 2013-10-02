@@ -11,7 +11,7 @@ module PageObject
 
     def visit_preferences
       signs_in_as(user.name)
-      visit edit_messageboard_preferences_path(messageboard.id)
+      visit edit_messageboard_preferences_path(messageboard)
     end
 
     def disable_at_notifications

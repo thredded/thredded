@@ -3,8 +3,12 @@
     <div class="post_count"><%= topic.posts_count %></div>
 
     <h1>
-      <%= link_to topic.title, [messageboard, topic],
-        class: already_read(topic, @tracked_user_reads) %>
+      <%= link_to topic.title,
+        paged_messageboard_topic_posts_path(
+          messageboard.slug,
+          topic.slug,
+          topic.farthest_page
+        ) %>
     </h1>
 
     <cite class="updated_by">

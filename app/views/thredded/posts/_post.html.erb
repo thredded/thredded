@@ -1,4 +1,5 @@
 <% post = Thredded::PostDecorator.new(post) %>
+
 <%= content_tag_for(:article, post) do %>
   <% cache post do %>
     <header>
@@ -17,8 +18,11 @@
 
   <footer>
     <% if can? :edit, post.original %>
-      <%= link_to 'edit post',
-        edit_messageboard_topic_post_path(messageboard, topic, post),
+      <%= link_to 'edit post', edit_messageboard_topic_post_path(
+          messageboard,
+          topic,
+          post
+        ),
         class: 'edit' %>
     <% end %>
   </footer>

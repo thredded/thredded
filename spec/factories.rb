@@ -39,6 +39,7 @@ FactoryGirl.define do
 
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
+    sequence(:slug) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
     security 'public'
     posting_permission  'anonymous'
@@ -120,6 +121,11 @@ FactoryGirl.define do
     hash_id { generate(:topic_hash) }
 
     after(:create) do |topic, evaluator|
+      if evaluator.with_posts
+        topic.posts_count = evaluator.with_posts
+        topic.save
+      end
+
       evaluator.with_posts.times do
         create(:post, topic: topic, messageboard: topic.messageboard)
       end

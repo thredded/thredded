@@ -11,6 +11,7 @@ module Thredded
       has_many :thredded_private_users, class_name: 'Thredded::PrivateUser', foreign_key: 'user_id'
       has_many :thredded_roles, class_name: 'Thredded::Role', foreign_key: 'user_id'
       has_many :thredded_topics, class_name: 'Thredded::Topic', foreign_key: 'user_id'
+      has_many :thredded_read_topics, class_name: 'Thredded::UserTopicRead', foreign_key: 'user_id'
 
       has_one :thredded_user_detail, class_name: 'Thredded::UserDetail', foreign_key: 'user_id'
       has_one :thredded_user_preference, class_name: 'Thredded::UserPreference', foreign_key: 'user_id'

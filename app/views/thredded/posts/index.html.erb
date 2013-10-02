@@ -7,7 +7,8 @@
         <%= topic.title %>
 
         <% if can? :edit, topic %>
-          <%= link_to 'edit', edit_messageboard_topic_path(messageboard, topic) %>
+          <%= link_to 'edit',
+            edit_messageboard_topic_path(messageboard, topic) %>
         <% end %>
       </span>
     </li>
@@ -27,7 +28,10 @@
   <%= render 'thredded/shared/topic_nav' %>
 </header>
 
-<%= content_tag_for :section, topic, class: topic.decorate.css_class do %>
+<%= content_tag_for :section, topic,
+  class: user_topic.css_class,
+  data: { 'latest-read' => user_topic.farthest_post.id } do %>
+
   <header><h1><%= topic.title %></h1></header>
 
   <section class="posts" id="topics_posts">
