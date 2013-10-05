@@ -25,5 +25,5 @@ Thredded::Engine.routes.draw do
     end
   end
 
-  root to: 'messageboards#index'
+  # root to: 'messageboards#index'
 end

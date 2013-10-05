@@ -1,6 +1,5 @@
 module Thredded
   class MessageboardPreference < ActiveRecord::Base
-    attr_accessible :notify_on_mention, :notify_on_message, :filter
     belongs_to :user
     belongs_to :messageboard
 

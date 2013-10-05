@@ -8,7 +8,7 @@ module Thredded
     friendly_id :title, use: :scoped, scope: :messageboard
     paginates_per 50 if self.respond_to?(:paginates_per)
 
-    has_many :posts, include: :attachments
+    has_many :posts, -> { includes :attachments }
     has_many :topic_categories
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads
@@ -27,17 +27,6 @@ module Thredded
     validates_numericality_of :posts_count
     validates_uniqueness_of :hash_id
 
-    attr_accessible :category_ids,
-      :last_user,
-      :locked,
-      :messageboard,
-      :posts_attributes,
-      :sticky,
-      :type,
-      :title,
-      :user,
-      :usernames
-
     accepts_nested_attributes_for :posts, reject_if: :updating?
     accepts_nested_attributes_for :categories
 
@@ -46,6 +35,8 @@ module Thredded
     before_validation do
       self.hash_id = SecureRandom.hex(10) if self.hash_id.nil?
     end
+
+    after_create :increment_topics_count
 
     def self.stuck
       where(sticky: true)
@@ -90,11 +81,6 @@ module Thredded
 
     def decorate
       TopicDecorator.new(self)
-    end
-
-    def create
-      UserDetail.increment_counter(:topics_count, user_id)
-      super
     end
 
     def last_user
@@ -147,6 +133,12 @@ module Thredded
       if categories
         categories.map(&:name).to_sentence
       end
+    end
+
+    private
+
+    def increment_topics_count
+      UserDetail.increment_counter(:topics_count, user_id)
     end
   end
 end

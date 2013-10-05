@@ -1,5 +1,5 @@
 module Thredded
-  class MessageboardsController < ApplicationController
+  class MessageboardsController < Thredded::ApplicationController
     before_filter :messageboard, only: :show
 
     def index

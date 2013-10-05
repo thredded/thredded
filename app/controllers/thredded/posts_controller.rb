@@ -1,8 +1,7 @@
 module Thredded
-  class PostsController < ApplicationController
+  class PostsController < Thredded::ApplicationController
     load_and_authorize_resource only: [:index, :show]
     before_filter :ensure_topic_exists
-    before_filter :pad_post, only: :create
     helper_method :messageboard, :topic, :user_topic
 
     def index
@@ -17,7 +16,7 @@ module Thredded
     end
 
     def create
-      topic.posts.create(params[:post])
+      topic.posts.create(post_params)
       redirect_to :back
     end
 
@@ -26,11 +25,22 @@ module Thredded
     end
 
     def update
-      post.update_attributes(params[:post])
+      post.update_attributes(post_params)
       redirect_to messageboard_topic_posts_url(messageboard, topic)
     end
 
     private
+
+    def post_params
+      params
+        .require(:post)
+        .permit!
+        .merge!(
+          ip: request.remote_ip,
+          user: current_user,
+          messageboard: messageboard,
+        )
+    end
 
     def update_read_status!(user, page)
       UserTopicRead.create!(
@@ -43,7 +53,7 @@ module Thredded
     end
 
     def topic
-      @topic ||= messageboard.topics.find(params[:topic_id])
+      @topic ||= messageboard.topics.where(slug: params[:topic_id]).first
     end
 
     def user_topic
@@ -63,12 +73,6 @@ module Thredded
 
     def current_page
       params[:page].nil? ? 1 : params[:page].to_i
-    end
-
-    def pad_post
-      params[:post][:ip] = request.remote_ip
-      params[:post][:user] = current_user
-      params[:post][:messageboard] = messageboard
     end
 
     def ensure_topic_exists

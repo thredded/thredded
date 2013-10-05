@@ -18,7 +18,7 @@ module Thredded
 
     def at_notifiable_members
       at_names = Thredded::AtNotificationExtractor.new(post.content).extract
-      members = post.messageboard.members_from_list(at_names).all
+      members = post.messageboard.members_from_list(at_names).to_a
 
       members.delete post.user
       members = exclude_previously_notified(members)

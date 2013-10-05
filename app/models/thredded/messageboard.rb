@@ -6,13 +6,6 @@ module Thredded
     extend FriendlyId
     friendly_id :name
 
-    attr_accessible :description,
-      :name,
-      :posting_permission,
-      :security
-
-    default_scope where(closed: false).order('topics_count DESC')
-
     validates_numericality_of :topics_count
     validates_inclusion_of :security, in: SECURITY
     validates_inclusion_of :posting_permission, in: PERMISSIONS
@@ -31,6 +24,10 @@ module Thredded
     has_many :topics
     has_many :private_topics
     has_many :users, through: :roles, class_name: Thredded.user_class
+
+    def self.default_scope
+      where(closed: false).order('topics_count DESC')
+    end
 
     def active_users
       Role

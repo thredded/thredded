@@ -19,7 +19,7 @@ module Thredded
     it 'decorates topics returned from AR' do
       create_list(:topic, 3)
 
-      expect(Topic.scoped.decorate.first).to be_a(Thredded::TopicDecorator)
+      expect(Topic.all.decorate.first).to be_a(Thredded::TopicDecorator)
     end
   end
 

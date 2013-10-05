@@ -10,8 +10,6 @@ module Thredded
     validates_presence_of :messageboard_id
     validates_presence_of :user_id
 
-    attr_accessible :level, :messageboard_id, :user_id
-
     scope :for, lambda { |messageboard| where(messageboard_id: messageboard.id) }
     scope :as,  lambda { |role| where(level: role) }
   end

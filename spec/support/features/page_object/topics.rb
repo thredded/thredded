@@ -10,7 +10,7 @@ module PageObject
     end
 
     def normal_topics
-      all('.topics article[class="topic read"]')
+      all('.topics article[class="topic read "]')
     end
 
     def locked_topic

@@ -1,7 +1,6 @@
 module Thredded
   class Image < ActiveRecord::Base
     mount_uploader :image, ImageUploader
-    attr_accessible :height, :orientation, :width
     validates :image, presence: true
     before_validation :save_dimensions, :save_orientation, :save_position
 

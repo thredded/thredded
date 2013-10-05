@@ -1,11 +1,10 @@
 module Thredded
-  class SetupsController < ApplicationController
+  class SetupsController < Thredded::ApplicationController
     def new
       @messageboard = Messageboard.new
     end
 
     def create
-      messageboard_params = params[:messageboard]
       @messageboard = Messageboard.create(messageboard_params)
 
       if @messageboard.valid?
@@ -20,6 +19,12 @@ module Thredded
 
     private
 
+    def messageboard_params
+      params
+        .require(:messageboard)
+        .permit(:description, :name, :posting_permissions, :security)
+    end
+
     def topic_params
       {
         user: current_user,
@@ -28,9 +33,9 @@ module Thredded
         posts_attributes: {
           '0' => {
             content: "There's not a whole lot here for now.",
-            user: current_user,
             ip: '127.0.0.1',
-            messageboard: @messageboard
+            messageboard: @messageboard,
+            user: current_user,
           }
         }
       }

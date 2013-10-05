@@ -2,7 +2,6 @@ module Thredded
   class PrivateTopic < Thredded::Topic
     has_many :private_users
     has_many :users, through: :private_users
-    attr_accessible :user_id
 
     def self.including_roles_for(user)
       joins(messageboard: :roles)

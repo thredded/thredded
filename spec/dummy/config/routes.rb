@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  get '/sessions/new' => 'sessions#new', as: :sign_in
-  delete '/session' => 'sessions#destroy', as: :sign_out
+  root to: 'application#index'
+
+  get '/sessions/new' => 'sessions#new'
+  delete '/session' => 'sessions#destroy'
   resources :sessions, only: [:new, :create, :destroy]
 
   mount Thredded::Engine => '/thredded'
-  root to: 'application#index'
 end

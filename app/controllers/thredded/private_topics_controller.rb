@@ -1,5 +1,5 @@
 module Thredded
-  class PrivateTopicsController < ApplicationController
+  class PrivateTopicsController < Thredded::ApplicationController
     before_filter :ensure_messageboard_exists
 
     def index

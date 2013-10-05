@@ -1,5 +1,5 @@
 module Thredded
-  class TopicsController < ApplicationController
+  class TopicsController < Thredded::ApplicationController
     before_filter :ensure_messageboard_exists
     helper_method :current_page
 
@@ -24,7 +24,7 @@ module Thredded
 
     def new
       @topic = messageboard.topics.build
-      @topic.posts.build( filter: user_messageboard_preferences.try(:filter) )
+      @topic.posts.build(filter: user_messageboard_preferences.try(:filter))
 
       unless can? :create, @topic
         error = 'Sorry, you are not authorized to post on this messageboard.'
@@ -39,7 +39,7 @@ module Thredded
     end
 
     def create
-      @topic = messageboard.topics.create(topic_params)
+      @topic = messageboard.topics.create(topic_and_post_params)
       redirect_to messageboard_topics_path(messageboard)
     end
 
@@ -48,14 +48,7 @@ module Thredded
     end
 
     def update
-      params.deep_merge!({
-        topic: {
-          user: current_user,
-          last_user: current_user
-        }
-      })
-
-      topic.update_attributes(params[:topic])
+      topic.update_attributes(topic_params)
       redirect_to messageboard_topic_posts_url(messageboard, topic)
     end
 
@@ -63,22 +56,36 @@ module Thredded
 
     def topic
       if messageboard
-        @topic ||= messageboard.topics.find(params[:id])
+        @topic ||= messageboard.topics.where(slug: params[:id]).first
       end
     end
 
     def topic_params
-      params[:topic].deep_merge!({
-        last_user: current_user,
-        user: current_user,
-        posts_attributes: {
-          '0' => {
-            messageboard: messageboard,
-            ip: request.remote_ip,
-            user: current_user,
+      params
+        .require(:topic)
+        .permit!
+        .deep_merge!({
+          user: current_user,
+          last_user: current_user
+        })
+
+    end
+
+    def topic_and_post_params
+      params
+        .require(:topic)
+        .permit!
+        .deep_merge!({
+          last_user: current_user,
+          user: current_user,
+          posts_attributes: {
+            '0' => {
+              messageboard: messageboard,
+              ip: request.remote_ip,
+              user: current_user,
+            }
           }
-        }
-      })
+        })
     end
 
     def search_results

@@ -13,17 +13,6 @@ module Thredded
     gravtastic :user_email
     paginates_per 50
 
-    attr_accessible :attachments_attributes,
-      :content,
-      :filter,
-      :ip,
-      :messageboard,
-      :source,
-      :topic,
-      :user
-
-    default_scope order: 'id ASC'
-
     belongs_to :messageboard, counter_cache: true
     belongs_to :topic, counter_cache: true
     belongs_to :user, class_name: Thredded.user_class
@@ -35,11 +24,10 @@ module Thredded
     validates_presence_of :content, :messageboard_id
 
     before_validation :set_user_email
-    after_create  :modify_parent_topic
+    after_create  :modify_parent_posts_counts
 
-    def create
-      UserDetail.increment_counter(:posts_count, user_id)
-      super
+    def self.default_scope
+      order('id ASC')
     end
 
     def created_date
@@ -60,7 +48,8 @@ module Thredded
 
     private
 
-    def modify_parent_topic
+    def modify_parent_posts_counts
+      UserDetail.increment_counter(:posts_count, user_id)
       topic.last_user = user
       topic.touch
       topic.save
