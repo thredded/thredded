@@ -41,8 +41,6 @@ module Thredded
     accepts_nested_attributes_for :posts, reject_if: :updating?
     accepts_nested_attributes_for :categories
 
-    default_scope order('updated_at DESC')
-
     delegate :name, :name=, :email, :email=, to: :user, prefix: true
 
     before_validation do
@@ -69,8 +67,8 @@ module Thredded
       where("type IS NULL")
     end
 
-    def self.order_by_updated
-      order('updated_at DESC')
+    def self.order_by_stuck_and_updated_time
+      order('sticky DESC, updated_at DESC')
     end
 
     def self.full_text_search(query, messageboard)

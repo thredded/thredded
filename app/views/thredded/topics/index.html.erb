@@ -15,14 +15,6 @@
 </header>
 
 <section class="topics" id="topics_listing">
-  <% if @sticky.any? %>
-    <div class="stuck">
-      <%= render partial: 'thredded/topics/topic_condensed',
-        collection: Thredded::UserTopicDecorator.decorate_all(current_user, @sticky),
-        as: :topic %>
-    </div>
-  <% end %>
-
   <div class="currently">
     <%= render partial: 'thredded/topics/topic_condensed',
       collection: Thredded::UserTopicDecorator.decorate_all(current_user, @topics),

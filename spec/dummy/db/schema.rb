@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430210842) do
+ActiveRecord::Schema.define(:version => 20131005032727) do
 
   create_table "thredded_attachments", :force => true do |t|
     t.string   "attachment"
@@ -117,10 +117,9 @@ ActiveRecord::Schema.define(:version => 20130430210842) do
     t.string   "title",                                   :null => false
     t.string   "slug",                                    :null => false
     t.integer  "messageboard_id",                         :null => false
-    t.integer  "posts_count",     :default => 0
-    t.string   "attribs",         :default => "[]"
-    t.boolean  "sticky",          :default => false
-    t.boolean  "locked",          :default => false
+    t.integer  "posts_count",     :default => 0,          :null => false
+    t.boolean  "sticky",          :default => false,      :null => false
+    t.boolean  "locked",          :default => false,      :null => false
     t.string   "hash_id",                                 :null => false
     t.string   "state",           :default => "approved", :null => false
     t.string   "type"

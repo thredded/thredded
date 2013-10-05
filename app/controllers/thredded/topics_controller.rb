@@ -9,7 +9,6 @@ module Thredded
         redirect_to default_home, flash: { error: error }
       end
 
-      @sticky = sticky_topics
       @topics = topics
     end
 
@@ -35,7 +34,6 @@ module Thredded
     end
 
     def by_category
-      @sticky = sticky_topics
       @topics = topics_by_category(params[:category_id])
       @category_name = Category.find(params[:category_id]).name
     end
@@ -99,24 +97,11 @@ module Thredded
 
     def topics
       Topic
-        .unstuck
         .public
         .for_messageboard(messageboard)
         .includes(:user_topic_reads)
-        .order_by_updated
+        .order_by_stuck_and_updated_time
         .on_page(current_page)
-    end
-
-    def sticky_topics
-      if current_page == 1
-        Topic
-          .stuck
-          .public
-          .for_messageboard(messageboard)
-          .order('id DESC')
-      else
-        []
-      end
     end
 
     def current_page
