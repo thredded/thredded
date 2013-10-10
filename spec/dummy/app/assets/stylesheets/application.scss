@@ -6,3 +6,7 @@
 
 // css that affects public pages
 @import "public/main";
+
+div, section, article, nav {
+  border: 1px black solid;
+}
