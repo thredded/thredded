@@ -1,0 +1,20 @@
+.styled_select select {
+  width: 48%;
+  float: left; 
+  background-color: #EDF1F2;
+  //background: transparent;
+  font-size: 14px;
+  /* line-height: 1.3em; */
+  border: 1px solid #C0C1C2;
+  padding: 4px 3px 3px 6px;
+  border-radius: 4px;
+  height: 27px;
+  margin-left: 1%;
+  //-webkit-appearance: none;
+  @media screen and ($medium) {
+    width: 20%;
+  }
+  option {
+    padding: 8px;
+  }
+}

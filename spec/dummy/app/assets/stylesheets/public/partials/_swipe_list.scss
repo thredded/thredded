@@ -1,0 +1,19 @@
+.swipe_list { width: 85%; overflow: hidden; position: absolute; left: 10%;}
+.swipe_list_nav a.prev {float:left;}
+.swipe_list_nav a.next {float: right;}
+.swipe_source{display: none;}
+.swipe_list_items{   float: left; display: inline-block; padding: 0px; margin: 0;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+/*apply a transfor to kick in the hardware acceleration.  Without this, the first time we add the transform you get odd rendering of the divs (half missing) */
+  -webkit-transform: translate3d(0px,0px,0px);
+}
+.swipe_list_item .app{ float: left; width: 100px; }
+.swipe_list_item .app img{ width: 75px; height: 75px;}
+.swipe_list_item{ float: left; display: inline; -webkit-transform: translate3d(0px,0px,0px); }
+.apps {
+  position: relative;
+  overflow: hidden;
+  height: 126px;
+}

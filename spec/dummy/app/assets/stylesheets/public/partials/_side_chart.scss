@@ -1,0 +1,24 @@
+/*  side-chart  */
+
+.side_chart {
+  width: 100%;
+  padding: .98em;
+  background-color: #e9eff7;
+  @media screen and ($medium) {
+    width: 50%;
+    float: right;
+  }
+  .title {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+  .two_columns {
+    li {
+      width: 50%;
+      float: left;
+    }
+  }
+  span.location {
+    display: block;
+  }
+}

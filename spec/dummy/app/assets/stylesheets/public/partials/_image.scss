@@ -1,0 +1,24 @@
+
+/* ----- IMAGE ----- */
+
+
+img {
+  width: 100%;
+  + .title { /* if the title is right under an image */
+    margin-top: .5em;
+  }
+  + .article_heading { /* if the article heading is right under an image. also if image wrap isn't present, like under a carousel*/
+    margin-top: .7em;
+  }
+}
+
+.image_wrap {
+  float: none;
+  display: block;
+  margin-bottom: 0.2em;
+  @media screen and ($medium_large) {
+    margin-bottom: 0;
+    display: block;
+    float: left;
+  }
+}

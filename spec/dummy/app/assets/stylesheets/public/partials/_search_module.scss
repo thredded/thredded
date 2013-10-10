@@ -1,0 +1,62 @@
+aside.location {
+  // JS geolocation is targeting this
+}
+
+/* Search modules */
+#search_module {
+  width: 100%;
+  overflow: visible;
+  #search { 
+    width: 100%; 
+    @include placeholder { 
+      opacity: 1 !important;
+      color: #8e9298;
+      font-size: $core_placeholder_text_size - 1;
+      padding-top: 2px;
+      @media screen and ($medium_large) {
+        font-size: $core_placeholder_text_size - 1;
+        padding-top: 0;
+      }
+      @media screen and ($large) {
+        font-size: $core_placeholder_text_size;
+      }
+    }
+  } 
+}
+
+
+
+#searchField {
+  border: 1px solid #b5c0cc;
+  float: left;
+  height: 27px;
+  width: 48%;
+  border-radius: 4px;
+  padding: 2px 0 1px 7px;
+  font-family: $core_font_family;
+  @media screen and ($medium) {
+    width: 30%;
+  }
+  @media screen and ($medium_large) {
+    width: 96%;
+  }
+  @media screen and ($large) {
+    width: 80%;
+  }
+}
+
+/* magnifying glass button */
+#searchSubmit {
+  background: url("/m/images/magnifying_glass.png") no-repeat 7px 7px transparent;
+  //padding-top: 10px;
+  float:left; 
+  border: medium none;
+  cursor: pointer;
+  height: 27px;
+  width: 36px;
+  margin-left: -28px;
+  border-left: solid 1px #b5c0cc;
+}
+
+
+/* End Search Module styles */

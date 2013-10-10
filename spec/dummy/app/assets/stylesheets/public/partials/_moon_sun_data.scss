@@ -1,0 +1,37 @@
+/* Moon and Sun Data */
+.current_data {
+  .article_heading {
+    display: inline-block;
+    margin-bottom: 0.9em;
+  }
+}
+
+.data_wrapper {
+  width: 50%;
+  float: left;
+  @media screen and ($medium_large){
+    width: 100%;
+    margin-bottom: .8em;
+  }
+  .item {
+   width: 100%;
+    @media screen and ($medium_large){
+      width: 33.33%;
+      float: left;
+    }
+  }
+  .data {
+    line-height: 1.5em;
+    float: left;
+    color: #6e6e6e;
+    font-size: .85em;
+    margin-right: 1em;
+    @media screen and ($medium_large) {
+     margin-right: 0; 
+    }
+  }
+}
+
+.eclipse {
+  font-weight: bold;
+}

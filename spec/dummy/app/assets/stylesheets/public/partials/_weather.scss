@@ -1,0 +1,21 @@
+/* ----- WEATHER ----- */
+
+.weather_forecast {
+  .item {
+    padding-left: .4em;
+    float: left;
+    width: 45%;
+    @media screen and ($medium_large) {
+      width: 33.33%;
+    }
+  }
+  .data {
+    float: left;
+    width: 55%;
+    text-align: right;
+    padding-right: .4em;
+    @media screen and ($medium_large) {
+      width: 66.66%;
+    }
+  }
+}

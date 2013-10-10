@@ -1,0 +1,8 @@
+
+/* ------ Import css that affects all public pages ----- */
+
+// css that affects all pages
+@import "shared/main";
+
+// css that affects public pages
+@import "public/main";

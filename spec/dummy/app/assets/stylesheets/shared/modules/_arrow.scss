@@ -1,0 +1,25 @@
+
+/* ----- ARROWS ----- */
+
+@mixin arrow_box {
+  display: inline-block;
+  float: right;
+  position: relative;
+  padding: 9px 11px;
+  cursor: pointer;
+  margin-right: 12px;
+  &.reverse {
+    transform: rotate(180deg);
+  }
+}
+@mixin arrow_down($color) {
+	width: 0; 
+	height: 0; 
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid $color;
+  float: right;
+  @media screen and ( $medium_large ) {
+    display: none; 
+  }
+}

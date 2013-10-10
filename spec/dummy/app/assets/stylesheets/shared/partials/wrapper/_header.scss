@@ -1,0 +1,119 @@
+/*
+ * _wrapper.scss
+ * wrapper-specific styles
+*/
+
+/* In both the header and site footer */
+#jplcaltech_logos { 
+  background: url('/m/images/logo-jpl@2x.png') center no-repeat;
+  text-indent: -9999px;
+  width: 100%;
+  background-size: 208px;
+  margin-left: 3px;
+  text-align: center;
+  @media screen and ($medium) {
+    margin-left: 0;
+    background-size: 220px;
+    width: 220px;
+    height: 38px;
+    position: relative;
+    float: left;
+    text-align: left;
+  }
+}
+
+/* In both the header and site footer */
+.parent_share {
+  .nav_item { /* maybe a nav_itmem.scss partial? - jh */
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    position: relative;
+    @include disable_text_selection;
+    cursor: pointer;
+    &.facebook {background-image: url('/m/images/follow-fb.png');}
+    &.gplus {background-image: url('/m/images/follow-google.png');}
+    &.twitter {background-image: url('/m/images/follow-twitter.png');}
+  }
+  .nav_item + .nav_item {
+    margin-left: .8em;
+  }
+  
+  &.header {
+    float: right;
+    margin-right: 57px; /* to make room for the menu button, which is absolutely positioned - jh */
+    .nav_item + .nav_item {
+      margin-left: .5em;
+    }
+  }
+  display: none;
+  @media screen and ($medium) {
+    display: block;
+  }
+}
+
+/* ----- end PARENT HEADER ----- */
+
+
+/* ----- SITE HEADER ----- */
+
+#site_header {
+  width: 100%;
+  background-color: $site_header_bg_color;
+  position: relative;
+  /* height: 79px; */
+  padding: 10px 10px 3px 10px;
+  background: url("/m/images/footer-bg.jpg") top center repeat-x;
+  @media screen and ($medium) {
+    padding: 14px 14px 8px 14px;
+  }
+  a.menu_button {
+    display: block;
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    z-index: 100;
+    top: 8px;
+    right: 2px;
+    background: url("/m/images/menu_icon.png") center center no-repeat;
+  }
+  .parent_share {
+    padding-top: 7px;
+    .nav_item {
+      top: 0;
+    }
+  }
+  hr {
+    display: none;
+    body#home & {
+      display: block;
+      @media screen and ($medium) {
+        margin: 14px 0 !important;
+      }
+    }
+  }
+}
+
+#site_brand {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  color: white; 
+  left: 0;
+  #nasa_logo {
+    position: relative;
+    float: left;
+    display: block;
+    width: 42px;  
+    top: 3px; 
+    @media screen and ($medium) { 
+     margin-right: 10px;
+     top: 0;
+    }
+  }
+}
+
+
+/* ----- end SITE HEADER ----- */
+

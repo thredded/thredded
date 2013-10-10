@@ -1,0 +1,45 @@
+
+/* ----- MAP ----- */
+
+#map_canvas {
+  height: 300px;
+  @media screen and ($medium) {
+    height: 600px;
+  }
+  img {
+    max-width: inherit;
+  }
+}
+
+#map_loading {
+  display: none;
+  img {
+    position: relative;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+#map_props {
+  margin-top: 4px;
+  font-size: 10px;
+  margin-bottom: 6px;
+  a {
+    font-size: 10px;
+  }
+}
+
+.mapkey {
+  width: 100%;
+  font-size: 14px;
+  span {
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  span + span {margin-left: 2%;}
+  img {
+    margin-right: 4px;
+    width: 16px;
+  }
+}

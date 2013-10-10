@@ -1,0 +1,50 @@
+/* social follow and share styles */
+
+.share {
+  position: relative;
+  display: block;
+  text-align: right;
+  float: right;
+  
+  z-index: 1;
+  .social_icons {
+    display: block;
+    margin: 0 auto;
+    float: right;
+    padding: 0 3px;
+    z-index: 1;
+    .addthis_button_compact {
+      margin-right: 3px;
+    }
+    .addthis_bubble_style {
+      position: relative;
+      top: 4px;
+    }
+  a {
+    vertical-align: bottom;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    }
+
+  }
+  .article_heading {
+    font-size: 12px;
+    margin-right: 10px;
+    float: left;
+    line-height: 2.2em;
+  }
+  .addthis_pill_style {
+    /* to remove counters from addthis iframes: sorry for the importants...*/
+    width: 50px !important;
+    margin-left: 6px;
+  }
+  .addthis_button_facebook_like {
+    overflow: hidden;
+    width: 97px !important;
+  }
+}
+/* temp delete */
+

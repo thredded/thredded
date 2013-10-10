@@ -1,0 +1,75 @@
+.view_master_container {
+  position: relative;
+}
+.view_master {
+  width: 88%;
+  overflow: auto;
+  overflow-y: hidden; 
+  margin-left: auto; 
+  margin-right: auto;
+  @media screen and ($medium) {
+    width: 83%;
+  }
+  .slides {
+    width: 1079px;
+    @media screen and ($medium) {
+      width: 1300px;
+    }
+    height: 100%; 
+    display: inline-block;
+  }
+  .slide {
+    float: left;
+    text-align: center;
+    width: 83px;
+    @media screen and ($medium) {
+      width: 100px;
+    }
+  }
+  
+  .slide img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 6px;
+    @media screen and ($medium) {
+      width: 75px;
+      height: 75px;
+    }
+  }
+}
+
+.app_title {
+  color: $core_text_color;
+  padding: 0 2px 0 2px;
+  text-align: center;
+  font-size: 10px;
+  @media screen and ($medium) {
+    font-size: 12px;
+  }
+}
+
+/* just the arrows */
+.view_master_nav {
+  position: absolute;
+  top: 20px;
+  &.prev {
+  left: 1px;
+  @media screen and ($medium) {
+    left: 15px;
+    }
+  }
+  &.next {
+    right: 1px;
+    @media screen and ($medium) {
+      right: 15px;
+    }
+  }
+  img {
+  height: 15px; width: 15px;
+  @media screen and ($medium) {
+    height: 30px; width: 30px;
+    }
+  }
+}
+
+

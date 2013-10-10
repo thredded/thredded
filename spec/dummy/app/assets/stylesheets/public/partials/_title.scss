@@ -1,0 +1,36 @@
+
+/* ----- TITLES ----- */
+
+.title {
+  color: $core_text_color;
+  font-family: $public_theme_font;
+  margin-bottom: .2em;
+  a {
+    color: $public_accent_color;
+  }
+}
+
+/* top of the page title over an img or carousel - jh*/
+.full_article .title {
+  margin-bottom: .98em;
+}
+
+/* generally the title of an article - usually not a link */
+h3.title {
+  font-size: 19px; 
+  line-height: 1.3;
+  font-weight: 400;
+  @media screen and ($medium_mid) {
+    font-size: 21px;
+  }
+}
+
+/* list item titles */
+h4.title {
+  font-weight: 400;
+  font-size: 16px; 
+  line-height: 1.3; 
+  @media screen and ($medium_mid) {
+    font-size: 18px;
+  }
+}

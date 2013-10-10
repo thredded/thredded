@@ -1,0 +1,30 @@
+/* 
+ * shared/partials/core/_base.css
+ * Variables and Mixins 
+*/
+
+/* ----- Site defaults ----- */
+
+/* ----- global ----- */
+$core_font_family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$core_body_text_size: 14px;
+$core_placeholder_text_size: 13px;
+$core_text_color: #6e6e6e;
+$core_link_color: #42a0f2;
+$core_arrow_color: #6e6e6e;
+$core_line_color: #6e6e6e;
+
+/* Screen size / Breakpoints */
+$small: "max-width: 480px"; /* if needed -jh */
+$medium: "min-width: 480px"; 
+$medium_mid: "min-width: 600px";
+
+/* larger than tablet */
+$medium_large: "min-width: 1400px";
+$large: "min-width: 1400px";
+$xlarge: "min-width: 1400px";
+$xlarge_size: 1400px;
+
+
+/* ----- Mixins ----- */
+@import "shared/modules/all";

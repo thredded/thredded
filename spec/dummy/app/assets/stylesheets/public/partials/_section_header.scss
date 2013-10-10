@@ -1,0 +1,24 @@
+
+/* ----- SECTION HEADER (boxed heading) ----- */
+
+.section_header {
+  margin-bottom: .5em;
+  .section_heading {
+    position: relative;
+    padding: 3px 8px 3px 16px;
+    left: -16px;
+    margin-right: -12px;
+    text-transform: uppercase; 
+    font-weight: normal;
+    font-size: 1em;
+    background-color: $public_accent_color;
+    color: white;
+    display: inline-block;
+    font-family: $public_theme_font;
+    @media screen and ($medium_mid) {
+      left: 0;
+      padding: 1px 8px 2px 8px;
+      margin-right: 4px;
+    }
+  } 
+}

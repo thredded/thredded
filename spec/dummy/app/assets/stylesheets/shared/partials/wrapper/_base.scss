@@ -1,0 +1,47 @@
+/* 
+ * shared/partials/wrapper/_base.css
+ * Variables and Mixins 
+*/
+
+/* ----- parent header/footer ----- */
+$wrapper_font_family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$wrapper_theme_font: Lato, Helvetica, Arial, sans-serif;
+$wrapper_line_color: #2b394f;
+
+/* footer */ 
+$footer_font_size: 14px;
+$parent_text_color: #7b848e;
+$parent_theme_hover_color: #000;
+$footer_background_color: #e1e5e9;
+$footer_nav_text_color: #e1e8ee;
+$footer_text_color: #c0c0c0;
+
+/* site header/footer */
+$site_header_bg_color: #0A273C;
+$site_header_theme_font: Lato, Helvetica, Arial, sans-serif;
+$logout_text_color: #d5e7f3;
+
+
+
+/* ----- Navigation ----- */
+$nav_font_family: Lato, Helvetica, Arial, sans-serif;
+$nav_line_height: 1.5em;
+$nav_bg_color: #132139;
+$nav_text_color: #bdc4cb;
+$nav_line_color: #3d4c66;
+$nav_arrow_color: #bdc4cb;
+$nav_text_rollover: white;
+$nav_bg_rollover: #3e8ebf;
+$nav_dropshadow: 0px 0px 4px 2px rgba(0,0,0,0.1);
+$subnav_dropshadow: 0px 2px 4px 2px rgba(0,0,0,0.1);
+$navfontsize: 1em;
+$largenavfontsize: 1em;
+$smallnavfontsize: .9em;
+$tinynavfontsize: .8em;
+
+
+
+
+
+
+

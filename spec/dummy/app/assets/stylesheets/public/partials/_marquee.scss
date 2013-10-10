@@ -1,0 +1,28 @@
+
+/* ----- MARQUEE ----- */
+
+marquee {
+  display: none;
+  color: white;
+  font-size: $marquee_text_size;
+  font-family: $site_header_theme_font;
+  font-weight: 300;
+  width: 100%;
+  margin-bottom: .5em;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+  @media screen and ($medium) {
+    padding: 6px;
+  }
+  body#home & { /* targets a page with a home class - jh */
+    display: block;  
+  }
+  
+  span {
+    margin-right: 20px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

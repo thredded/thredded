@@ -1,0 +1,14 @@
+
+/* ----- ARTICLE HEADING ----- */
+
+.article_heading { 
+  font-family: $public_theme_font;
+  color: $public_accent_color;
+  text-transform: uppercase;
+  margin-bottom: .2em;
+}
+
+
+.apps .article_heading {
+  margin-bottom: .98em;
+}

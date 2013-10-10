@@ -1,0 +1,122 @@
+
+h1, h2, h3, h4, h5 {
+  padding: 0;
+  margin: 0 0 .5em 0;
+  color: $public_accent_color;
+}
+
+h3 {
+  font-size: 1.3em; 
+  color: $core_text_color;
+}
+
+
+/* these are as specific as possible so em's don't add on to each other - jh */
+.description, .caption, #instructions, .more_article, .more_page, #site_body ul li,  {
+  font-size: $core_body_text_size * .9;
+  @media screen and ($medium) {
+    font-size: $core_body_text_size;
+  }
+}
+
+/* ----- gutters ----- */ 
+section {
+/* the standard gutter size between large blocks of content maybe variabalize? - jh*/ 
+  margin-bottom: 2em;
+  @media screen and ($medium) {
+    margin-bottom: 1.8em;
+  }
+}
+
+
+article {
+  margin-bottom: .98em; /* not set on this really - jh */
+}
+
+.follow, .featured_factoid, .announcement {
+  margin-bottom: 1.8em;
+}
+
+
+/* ----- column styles ----- */
+#primary_column {
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1em;
+}
+
+#secondary_column {
+  margin-left: auto;
+  margin-right: auto;
+  width: 96%;
+  clear: both;
+/*   border: 1px solid orange; */ /* for testing - jh */
+}
+
+
+
+/* may move this to button mixin - jh */
+.button {
+  background-color: $public_accent_color;
+  color: white;
+  padding: 5px 10px;  
+  border-radius: 2px;
+  font-family: $wrapper_theme_font;
+  text-transform: uppercase; 
+  font-weight: 300;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+
+
+.boxed {
+  //border-top: 1px solid #d7d7d7;
+  padding: 1.2em 0;
+  margin-bottom: 0;
+  @media screen and ($medium_large) {
+    padding: 1.2em .98em;
+    border: 1px solid $public_line_color;
+    margin-bottom: 2em;
+    article, section {
+      margin-bottom: 0;
+    }
+    article + article { // if 2 articles are within one box - jh
+      margin-top: .8em;
+    }
+  }
+}
+
+section { /* so things can be positioned absolutely within. probably put in _tags.scss - jh */
+  position: relative;
+}
+
+.article_container {
+  clear: both;
+}
+
+/* read more and event details */
+.more_article {
+  /* float: left; */
+  display: inline;
+  text-align: left;
+  text-decoration: none;
+  font-size: $more_link_size;
+  &:before {
+    content: "› ";
+  }
+}
+
+
+/* all text next to an image */
+.side_text {
+  padding: .3em 0 0 0;
+  @media screen and ($medium_large){
+    padding: 0 .8em;
+  }
+}
+
+    

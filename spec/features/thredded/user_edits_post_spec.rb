@@ -1,4 +1,7 @@
 require 'spec_helper'
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :firefox)
+end
 
 feature 'User editing posts' do
   scenario 'can edit their own post' do
@@ -10,12 +13,11 @@ feature 'User editing posts' do
     expect(post).to have_markdown_as_the_filter
   end
 
-  scenario 'updates post contents' do
+  scenario 'updates post contents', js: true do
     user.log_in
     post = users_post
     post.visit_post_edit
     post.change_content_to('this is changed')
-
     expect(post).to have_content('this is changed')
   end
 

@@ -1,0 +1,11 @@
+/* date.scss in public/partials */
+.date {
+  color: #939393; /* variabalize? */
+  /* color: $public_accent_color; */
+  margin-bottom: 0.3em;
+  font-size: 14px;
+  .full_article & {
+    margin-bottom: .98em;
+  }
+}
+

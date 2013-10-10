@@ -1,0 +1,38 @@
+
+/* ----- SECTION FOOTER ----- */
+
+.section_footer {
+  position: relative;
+  clear: both;
+  min-height: 30px;
+  &.more_button {
+    text-align: center;
+    padding: 0 0 0 0;
+    hr {
+      margin: 8px 0 28px 0;
+    }
+    @media screen and ($medium) {
+      padding: 0 0 14px 0;
+    }
+  }
+  a.more_page {
+    text-decoration: none;
+    position: absolute;
+    top: 0.7em;
+    right: 0;
+    font-size: $more_link_size;
+    &:before {
+      content: "+ ";
+    }
+  }
+
+  .loading{
+    display: none;
+    position: relative;
+    background-image: url('/m/images/loading.gif');
+    height: 31px;
+    width: 31px;
+    left: 50%;
+  }
+  
+}

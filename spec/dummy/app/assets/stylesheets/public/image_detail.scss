@@ -1,0 +1,40 @@
+@import "shared/partials/core/base";
+@import "partials/base";
+body {
+  background-color: black;
+}
+
+#primary_column {
+  width: 100%;
+}
+
+#site_footer {
+  display: none;
+}
+
+.share .article_heading {
+ color: #8a8a8a;
+}
+
+/* the counter in the bubble within the share area */
+.addthis_counter.addthis_bubble_style a.addthis_button_expanded {
+    color: #8A8A8A;
+}
+
+.addthis_counter {
+  top:3px;
+  position: absolute;
+}
+
+.section_footer.more_button {
+  padding: 15px 0 20px;
+}
+
+.more_button .button {
+  font-family: $core_font_family;
+  font-size: 12px;
+  font-weight: 400;
+  color: #acd3ea;
+  background-color: #273b5a;
+  padding: 6px 25px;
+}
