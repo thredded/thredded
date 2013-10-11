@@ -36,7 +36,7 @@ module Thredded
     end
 
     def users_to_sentence
-      users.map{ |user| user.name.capitalize }.to_sentence
+      users.map{ |user| user.to_s.capitalize }.to_sentence
     end
   end
 end

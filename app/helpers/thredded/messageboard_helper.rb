@@ -43,7 +43,7 @@ module Thredded
 
     def latest_user_for(messageboard)
       if messageboard.topics.first.present? && messageboard.topics.first.user.present?
-        messageboard.topics.first.last_user.name
+        messageboard.topics.first.last_user.to_s
       else
         ''
       end

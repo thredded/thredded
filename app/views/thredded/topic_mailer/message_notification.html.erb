@@ -5,7 +5,7 @@
 <hr />
 
 <p>
-  This email was sent to you because <%= @topic.user.name %> included you in a
+  This email was sent to you because <%= @topic.user %> included you in a
   private topic, "<%= link_to @topic.title, messageboard_topic_posts_url(@topic.messageboard, @topic) %>".
   Feel free to reply above or <%= link_to 'head to the thread', messageboard_topic_posts_url(@topic.messageboard, @topic) %>
   to view the conversation.

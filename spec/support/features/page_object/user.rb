@@ -13,7 +13,7 @@ module PageObject
 
     def log_in
       visit new_session_path
-      fill_in 'name', with: user.name
+      fill_in 'name', with: user.to_s
       click_button 'Sign in'
     end
 
@@ -22,11 +22,11 @@ module PageObject
     end
 
     def displaying_the_profile?
-      has_content?(@user.name)
+      has_content?(@user.to_s)
     end
 
     def has_redirected_with_error?
-      has_content?("No user exists named #{@user.name}")
+      has_content?("No user exists named #{@user.to_s}")
     end
   end
 end

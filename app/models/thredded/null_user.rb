@@ -24,6 +24,10 @@ module Thredded
       'Anonymous User'
     end
 
+    def to_s
+      name
+    end
+
     def valid?
       false
     end
