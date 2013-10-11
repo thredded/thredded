@@ -32,7 +32,11 @@ module Thredded
         @preferences ||= UserPreference.where(user_id: current_user.id).first
       end
     end
-
+   
+    def default_home
+      root_path
+    end
+   
     def topic
       if messageboard
         @topic ||= messageboard.topics.find(params[:topic_id])
@@ -40,6 +44,7 @@ module Thredded
     end
 
     def ensure_messageboard_exists
+      logger.debug("Thredded::ApplicationController.ensure_messageboard_exists messageboard: #{messageboard.to_s}")
       if messageboard.blank?
         redirect_to thredded.root_path,
           flash: { error: 'This messageboard does not exist.' }

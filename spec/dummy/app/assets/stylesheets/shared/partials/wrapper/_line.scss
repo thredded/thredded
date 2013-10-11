@@ -1,0 +1,10 @@
+
+/* ----- LINES ----- */
+
+.gradient_line {
+  @include gradient_line($nav_line_color);
+}
+
+#site_header hr, #site_footer hr {
+  border-top-color: $wrapper_line_color;
+}

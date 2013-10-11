@@ -1,0 +1,5 @@
+.show_caption.wane .caption {display: none;}
+.show_caption .caption {display: block; color: $core_text_color;}
+.show_caption {color: $core_link_color; cursor: pointer; display: block; font-size: $more_link_size; margin: 3px 0 0 0; }
+.show_caption.wane:before {content: '+ show caption'}
+.show_caption:before {content: '- hide caption'}

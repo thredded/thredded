@@ -1,0 +1,47 @@
+
+/* ----- PAGE HEADER ------ */
+
+.page_header {
+  margin-bottom: .6em;
+  background-color: $public_accent_color; /* <- seems to be the new primary color dark blue */
+  padding: 8px 19px;
+  .page_title {
+    font-family: $public_theme_font;
+    margin-bottom: 0;
+    color: $page_title_color;
+    font-weight: 300;
+    font-size: 1.2em;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+
+  .view_selectors {
+  float: right;
+    .nav_item { /* maybe a nav_item partial? */
+      background-repeat: no-repeat;
+      display: inline-block;
+      width: 21px;
+      height: 25px;
+      position: relative;
+      top:1px; /* or maybe a line-height? */
+      cursor: pointer;
+      background-position: center;
+      @include disable_text_selection;
+      
+      &.list_icon {
+      background-image: url('/m/images/icon-list.png');
+        .list_view & {background-image: url('/m/images/icon-list-on.png');
+      }
+       }
+      &.grid_icon {
+        background-image: url('/m/images/icon-grid.png');
+          .grid_view & {background-image: url('/m/images/icon-grid-on.png');
+            
+          }
+        }
+    }
+    .nav_item + .nav_item {
+      margin-left: 0;
+    }
+  }
+}

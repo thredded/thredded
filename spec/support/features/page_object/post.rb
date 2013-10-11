@@ -17,8 +17,9 @@ module PageObject
     end
 
     def change_content_to(content)
+      save_and_open_page
       fill_in 'Content', with: content
-      click_button 'Update Post'
+      click_button 'Update Post'    
     end
 
     def editable?

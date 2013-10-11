@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dummy</title>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <%= csrf_meta_tags %>
+    <% # WEB FONTS %>
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet prefetch" type="text/css"></link>
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet prefetch" type="text/css"></link>
+    <% # YIELD: Include any head-related code from the view %>
+    <%= yield :head %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
   </head>
-  <body>
-
-    <div id='header'>
-      <% if signed_in? %>
-        <%= current_user.name %> | <%= link_to 'Sign out', session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Sign in', sessions_new_path %>
-      <% end %>
+  <body class="mobile_menu">
+    <% # = render :partial => "/layouts/mbcms/facebook_connect" %>
+    <div class="container" id="main_container">
+      <div class="clearfix" id="site_body" role="main">
+        <div id="page">
+          <header id="header">
+            <% if signed_in? %>
+              <%= current_user.name %>
+              | 
+              <%= link_to 'Sign out', session_path, method: :delete %>
+            <% else %>
+              <%= link_to 'Sign in', sessions_new_path %>
+            <% end %>
+          </header>
+          <%= yield %>
+        </div>
+        <div class="clear"></div>
+      </div>
     </div>
-
-    <%= yield %>
   </body>
 </html>

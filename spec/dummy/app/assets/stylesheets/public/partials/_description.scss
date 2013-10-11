@@ -1,0 +1,11 @@
+/* ----- Description text ----- */
+
+/* Used in articles and lists */
+
+/* Will work with either <p> tags or with just text (with <br> for breaks) */
+
+.description {
+  p:last-child {
+    margin-bottom: 0; // Prevents extra margin at the bottom of an article... not sure if I like this... -jm
+  }
+}

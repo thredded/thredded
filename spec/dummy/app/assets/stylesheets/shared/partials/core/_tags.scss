@@ -1,0 +1,43 @@
+
+/* ----- STYLES FOR GENERIC TAGS ----- */
+
+/* apply a natural box layout model to all elements */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+
+body { 
+  font: 100%/1.4 Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+}
+
+img { 
+  max-width: 100%;
+} 
+
+p { 
+  margin-top: 0;
+  font-size: $core_body_text_size;
+}
+
+a { 
+  text-decoration: none;
+  color: $core_link_color;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+dl, menu, ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+hr {
+  clear: both;
+  margin: .6em 0;
+}

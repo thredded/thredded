@@ -1,0 +1,126 @@
+
+/* ----- SITE FOOTER ----- */
+
+
+#site_footer {
+  padding: 1.5em .98em .98em;
+  position: relative;
+  width: 100%;
+  color: $footer_text_color;
+  background: url("/m/images/footer-bg.jpg") #12203a top center repeat-x;
+  text-align: center;
+  display: block;
+  
+  .parent_share {
+    display: block;
+    .nav_item {
+      top: 5px;
+      width: 31px;
+      height: 31px;
+      &.facebook {background-image: url('/m/images/follow-footer-fb.png');}
+      &.gplus {background-image: url('/m/images/follow-footer-google.png');}
+      &.twitter {background-image: url('/m/images/follow-footer-twitter.png');}
+    }
+  }
+  
+  @media screen and ($medium-large) {
+    margin-bottom: 45px; /* Compensates for sticky nav scroll stutter - jm */
+  }
+  
+  a {
+    color: $footer_nav_text_color;
+  }
+  
+  h3 { 
+    color: #e6e6e6; /* jh - this may be avariable but only one instance so far grey-white*/
+    font-family: $wrapper_theme_font;
+    font-weight: 400;
+    font-size: 1.1em;
+
+    @media screen and ($medium) {
+      font-size: 1.4em;
+    }
+  }
+  #f_1 {
+    padding-bottom: .98em;
+  }
+  #f_2 {
+    padding-top: .98em;
+    padding-bottom: .98em;
+  }
+  #f_3 {
+    padding-top: 6px;
+    font-size: 11px;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  #f_4 {
+    display: inline-block; /* applies to contents */
+  }
+  
+  /* bottom 3 elements/groups */
+  .credits {
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.7em;
+    margin-bottom: 10px;
+    @media screen and ($medium_mid) {
+      margin-bottom: 0;
+      float: right;
+      text-align: left;
+      width: 160px;   
+    }
+  }
+  
+  .button {
+    background-color: #cc1b2a;
+    font-size: .9em;
+    font-weight: 400;
+  }
+  
+  .grandparent {
+    width: 124px;
+    z-index: 1;
+    margin: 0 auto;
+    @media screen and ($medium_mid) {
+      float: left; 
+    }
+  }
+  .nav_container {
+    width: 100%;
+    @media screen and ($medium_mid) {
+      position: absolute;
+    }
+    z-index: -1; /* makes contents a background since it's parent has a z-index, need to check other browsers - jh*/
+  }
+  nav {
+    text-transform: uppercase;
+    margin: 0 auto 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    font-size: 10px;
+    @media screen and ($medium) {
+      
+      font-size: 12px;
+      width: 50%;
+    }
+    @media screen and ($medium_mid) {
+      margin-bottom: 0;
+    }
+    li {
+      margin: 0 4px;
+      display: inline;
+      line-height: 2em;
+      }
+    li + li:before {
+      margin-left: 12px;
+    }
+  }  
+}
+
+
+/* ----- end SITE FOOTER ----- */

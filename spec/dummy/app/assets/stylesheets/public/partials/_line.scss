@@ -1,0 +1,15 @@
+
+/* ----- LINE ----- */
+
+.gradient_line {
+  @include gradient_line($public_line_color);
+}
+
+.gradient_line_half {
+  @include gradient_line_half($public_line_color);
+}
+
+#site_body hr { /* may need to hide these on small - jh */
+  border-top-color: $public_line_color;
+}
+

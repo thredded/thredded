@@ -1,0 +1,461 @@
+@import "shared/partials/core/base";
+@import "partials/base";
+$light_gray: #edf0f2;
+$calendar_border: 1px solid #ddd;
+
+.fc-calendar-container {
+	position: relative;
+	height: 600px;
+	width: 400px;
+}
+
+.fc-calendar {
+	width: 100%;
+	height: 100%;
+}
+
+.fc-calendar .fc-head {
+	height: 30px;
+	line-height: 30px;
+	background: #ccc;
+	color: #fff;
+  border-left: $calendar_border;
+  border-right: $calendar_border;
+}
+
+.fc-calendar .fc-body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	height: -moz-calc(100% - 30px);
+	height: -webkit-calc(100% - 30px);
+	height: calc(100% - 30px);
+	border: 1px solid #ddd;
+}
+
+.fc-calendar .fc-row {
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+}
+
+.fc-four-rows .fc-row  {
+	height: 25%;
+}
+
+.fc-five-rows .fc-row  {
+	height: 20%;
+}
+
+.fc-six-rows .fc-row {
+	height: 16.66%;
+	height: -moz-calc(100%/6);
+	height: -webkit-calc(100%/6);
+	height: calc(100%/6);
+}
+
+.fc-calendar .fc-row > div,
+.fc-calendar .fc-head > div {
+	float: left;
+	height: 100%;
+	width:  14.28%; /* 100% / 7 */
+	width: -moz-calc(100%/7);
+	width: -webkit-calc(100%/7);
+	width: calc(100%/7);
+	position: relative;
+}
+
+/* IE 9 is rounding up the calc it seems */
+.ie9 .fc-calendar .fc-row > div,
+.ie9 .fc-calendar .fc-head > div {
+	width:  14.2%;
+}
+
+.fc-calendar .fc-row > div {
+	border-right: 1px solid #ddd;
+	padding: 4px;
+	overflow: hidden;
+	position: relative;
+}
+
+.fc-calendar .fc-head > div {
+	text-align: center;
+  border-right: $calendar_border;
+  font-size: 11px;
+}
+
+.fc-calendar .fc-row > div > span.fc-date {
+	position: absolute;
+	width: 30px;
+	height: 20px;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 700;
+	color: #ddd;
+	text-shadow: 0 -1px 0 rgba(255,255,255,0.8);
+	bottom: 5px;
+	right: 5px;
+	text-align: right;
+}
+
+.fc-calendar .fc-row > div > span.fc-weekday {
+	padding-left: 5px;
+	display: none;
+}
+
+.fc-calendar .fc-row > div.fc-today {
+	background: #fff4c3;
+}
+
+.fc-calendar .fc-row > div.fc-out {
+	opacity: 0.6;
+}
+
+.fc-calendar .fc-row > div:last-child,
+.fc-calendar .fc-head > div:last-child {
+	border-right: none;
+}
+
+.fc-calendar .fc-row:last-child {
+	border-bottom: none;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ custom-2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/* Custom calendar elements */
+
+.custom-calendar-wrap {
+	margin: 0 auto 10px;
+	position: relative;
+	overflow: hidden;
+}
+
+.custom-inner {
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.custom-inner:before,
+.custom-inner:after  {
+	content: '';
+	width: 99%;
+	height: 50%;
+	position: absolute;
+	background: #f6f6f6;
+	bottom: -4px;
+	left: 0.5%;
+	z-index: -1;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.custom-inner:after {
+	content: '';
+	width: 98%;
+	bottom: -7px;
+	left: 1%;
+	z-index: -2;
+}
+
+.custom-header {
+	background: $light_gray;
+	padding: 5px 10px 10px 20px;
+	height: 50px;
+	position: relative;
+  border: $calendar_border;
+  text-align: center;
+}
+
+.custom-header nav span {
+	position: absolute;
+  top: 16px;
+  display: inline-block;
+  width: 11px;
+  height: 15px;
+	color: transparent;
+	cursor: pointer;
+	margin: 0 1px;
+	font-size: 20px;
+	line-height: 30px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.custom-header nav span:first-child {
+	left: 5px;
+}
+
+.custom-header nav span:last-child {
+	right: 5px;
+}
+
+#custom-prev {
+  background-image: url(/images/calendar-arrow-left.png);
+  left: 24%;
+  @media screen and ($large) {
+    left: 30%;
+  }
+}
+#custom-next {
+  background-image: url(/images/calendar-arrow-right.png) ;
+  right: 24%;
+  @media screen and ($large) {
+    right: 30%;
+  }
+}
+
+.custom-content-reveal {
+	background: #f6f6f6;
+	background: rgba(246, 246, 246, 0.9);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 100;
+	top: 100%;
+	left: 0px;
+	text-align: center;
+	-webkit-transition: all 0.6s ease-in-out;
+	-moz-transition: all 0.6s ease-in-out;
+	-o-transition: all 0.6s ease-in-out;
+	-ms-transition: all 0.6s ease-in-out;
+	transition: all 0.6s ease-in-out;
+}
+
+.custom-content-reveal span.custom-content-close {
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	background: #e1e5e9;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+	cursor: pointer;
+	line-height: 13px;
+	padding: 0;
+}
+
+.custom-content-reveal span.custom-content-close:after {
+	content: 'x';
+	font-size: 18px;
+	color: #fff;
+}
+
+.custom-content-reveal a,
+.custom-content-reveal span {
+	font-size: 22px;
+	padding: 10px 30px;
+	display: block;
+}
+
+.custom-content-reveal h4 {
+	text-transform: uppercase;
+	font-size: 13px;
+	font-weight: 300;
+	letter-spacing: 3px;
+	color: #777;
+	padding: 20px;
+	background: #fff;
+	border-bottom: 1px solid #ddd;
+	border-top: $calendar_border;
+	box-shadow: 0 1px rgba(255,255,255,0.9);
+	margin-bottom: 30px;
+}
+
+.custom-content-reveal span {
+	color: #888;
+}
+
+//.custom-content-reveal a {
+//	color: #ef4f69;
+//}
+//
+//.custom-content-reveal a:hover {
+//	color: #333;
+//}
+
+/* Modifications */
+
+.fc-calendar-container {
+	height: 600px;
+	width: auto;
+	background: #f6f6f6;
+	box-shadow: inset 0 1px rgba(255,255,255,0.8);
+}
+
+.fc-calendar .fc-head {
+	background: white;
+	color: #AAA;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.fc-calendar .fc-row > div {
+	background: #fff;
+	cursor: pointer;
+}
+
+.fc-calendar .fc-row > div:empty {
+	background: transparent;
+}
+
+.fc-calendar .fc-row > div > span.fc-date {
+	top: 15%;
+	left: 14%;
+	text-align: center;
+	margin: -10px 0 0 -15px;
+	color: #686a6e;
+	font-weight: 400;
+	pointer-events: none;
+}
+
+.fc-calendar .fc-row > div.fc-today {
+	background: $light_gray;
+	box-shadow: inset 0 -1px 1px rgba(0,0,0,0.1);
+}
+
+.fc-calendar .fc-row > div.fc-today > span.fc-date {
+	color: #000;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+//.fc-calendar .fc-row > div.fc-content:after {
+//  //@media screen and ($small) {
+//	//content: '\00B7';
+//  //}
+//  content: '\00B7';
+//  text-align: center;
+//  width: 20px;
+//  margin-left: -10px;
+//  position: absolute;
+//  font-size: 70px;
+//  line-height: 20px;
+//  left: 50%;
+//  bottom: 3px;
+//}
+//
+.custom-content-reveal div .observing a, .fc-calendar .fc-row > div > div > .observing a {
+  color: #cd5c5c;
+}
+.custom-content-reveal div .club a, .fc-calendar .fc-row > div > div  > .club  a {
+  color: #32cd32;
+}
+.custom-content-reveal div .community a, .fc-calendar .fc-row > div > div > .sunset {
+  font-size: 10px;
+}
+.custom-content-reveal div .community a, .fc-calendar .fc-row > div > div > .community a {
+  color: #1e90ff;
+}
+
+
+
+.fc-calendar .fc-row > div > div > .moon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  right: -4px;
+  top: -19px;
+}
+.fc-calendar .fc-row > div > div > .new_moon {
+  background-image: url("/m/images/calendar-moon-new.png");
+}
+.fc-calendar .fc-row > div > div > .full_moon {
+  background-image: url("/m/images/calendar-moon-full.png");
+}
+.fc-calendar .fc-row > div > div > .first_quarter_moon {
+  background-image: url("/m/images/calendar-moon-first.png");
+
+}
+.fc-calendar .fc-row > div > div > .third_quarter_moon {
+  background-image: url("/m/images/calendar-moon-third.png");
+}
+
+.fc-calendar .fc-row > div.fc-content .event_icons {
+  @media screen and ($small) {
+    display: inline;
+    position: absolute;
+    left: 5%;
+    bottom: 3px;
+    width: 100%;
+  }
+
+  @media screen and ($medium) {
+    display: none;
+  }
+}
+.fc-calendar .fc-row > div.fc-content .event_icons img{
+  width: 20px;
+}
+
+
+
+////special coloring for today's events
+//.fc-calendar .fc-row > div.fc-today.fc-content:after {
+//	color: #b02c42;
+//}
+//this is the color of the dot on hover
+.fc-calendar .fc-row > div.fc-content:hover:after{
+	color: #000;
+}
+
+////special coloring for today's events
+//.fc-calendar .fc-row > div.fc-today.fc-content:hover:after{
+//	color: #fff;
+//}
+.fc-calendar .fc-row > div > div {
+  position: relative;
+  top: 25%;
+  left: 3%;
+  width: 93%
+}
+.fc-calendar .fc-row > div > div > .sunset {
+  position: absolute;
+  top: -19px;
+  left: 30%;
+  width: 80%;
+}
+
+.fc-calendar .fc-row > div > div a,
+.fc-calendar .fc-row > div > div span {
+  @media screen and ($small) {
+	display: none;
+  }
+
+  @media screen and ($medium) {
+    display: block; //to overcome the html5 minimum line-height - jh
+  }
+  //display: none;
+  font-size: 10px;
+  text-decoration: none;
+}
+
+#month_year {
+  margin-top: 7px;
+  font-size: 18px;
+  font-weight: 400;
+  padding-right: 12px; /* fixes centering -jm */
+  display: inline-block;
+  font-family: $public_theme_font;
+  text-transform: uppercase;
+  //text-rendering: optimizeLegibility;
+}
+
+@media screen and (max-width: 400px) {
+	.fc-calendar-container {
+		height: 400px;
+	}
+	.fc-calendar .fc-row > div > span.fc-date {
+		font-size: 12px;
+	}
+
+  .fc-calendar .fc-head > div {
+    font-size: 8px;
+  }
+
+  #month_year {
+    left: 25%;
+  }
+}

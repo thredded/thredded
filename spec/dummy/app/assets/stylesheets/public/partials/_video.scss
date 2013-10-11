@@ -1,0 +1,81 @@
+
+/* ----- VIDEO ----- */
+
+/* Some of this naming logic might need some explanation from jh 
+-- for instance, is some of this for youtube, some for jwplayer?
+-jm */
+
+/* top-level / outermost video container */
+.viewer {
+  width: 100%;
+  float: left;
+  margin-bottom: 8px;
+  @media screen and ($medium_large) {
+    width: 50%;
+    float: left;
+  }
+  &.full {
+    width: 100%;
+  }
+}
+
+
+/* Middle video container */ 
+/* youtube and jwplayer, respectively - jh */
+.video_container, #video_wrapper {
+  position: relative;
+	padding-bottom: 56.25%; /* for 16:9 aspect ratio */
+	/* padding-bottom: 75%; */ /* for 4:3 aspect ratio */
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+/* The video itself */
+/* jwvideo is the #video - jh */
+/* the other selectors are for youtube (I think) - jh */
+#video,
+.video_container iframe,  
+.video_container object,  
+.video_container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+video {
+  max-width: 100%;
+	height: auto; 
+}
+
+/* container for the video */
+.videojs {
+  width: 100%;
+  float: none;
+  @media screen and ($medium_large) {
+    float: left;
+    width: 50%;
+  }
+}
+
+.video_preview {
+  width: 100%;
+}
+
+
+/* styles for text left, image right */
+.video_preview .side_text {
+  float: right;
+  width: 100%;
+  @media screen and ($medium_large){
+    float: right;
+    width: 50%;
+    padding-left: 1em;
+  }
+}

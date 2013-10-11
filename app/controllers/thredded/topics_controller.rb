@@ -1,5 +1,7 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController
+
+    # BERGEN: had to remove this at certain points
     before_filter :ensure_messageboard_exists
     helper_method :current_page
 

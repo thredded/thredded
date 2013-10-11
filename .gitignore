@@ -7,3 +7,4 @@ spec/dummy/tmp/
 spec/dummy/.sass-cache
 spec/dummy/public/uploads/tmp
 tags
+Gemfile.lock

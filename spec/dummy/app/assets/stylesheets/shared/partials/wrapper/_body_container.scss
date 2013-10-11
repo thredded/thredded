@@ -1,0 +1,32 @@
+
+/* ----- BODY CONTAINER ----- */
+
+
+/* FOR TESTING OR PRESENTING THE WRAPPER BY ITSELF */
+
+/* To use this, add the #temppage - #temp_block element in place of #page in the haml (if it's not already there), */
+/* and switch display:none to the #page selector -jm */
+
+/* haml example (same level as #page):
+%div#temppage
+  #temp_block
+    Page Content
+*/
+    
+
+#page {
+  
+}
+
+#temppage {
+  display: none;
+  #temp_block { 
+    width: 96%; 
+    background-color: #d9dfe4; 
+    height: 800px; 
+    margin: 30px auto 0; 
+    padding: 20px; 
+    text-align: center; 
+    color: #666;
+  }
+}

@@ -1,0 +1,24 @@
+/* ----- SUB-FEATURE ----- */
+
+/* These are feature articles that include images and text content */
+/* They might be right or left aligned */
+
+.sub_feature {
+  .side_text_mobile p {
+    display: none;
+  }
+
+}
+
+.right {
+  width: 50%;
+  float: right;
+  margin-left: .98em;
+}
+
+.left {
+  width: 50%;
+  float: left;
+  margin-right: .98em;
+}
+

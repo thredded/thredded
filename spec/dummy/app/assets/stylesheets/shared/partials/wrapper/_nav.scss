@@ -1,0 +1,217 @@
+/* 
+ * _nav.scss
+ * navigation styles
+*/
+
+#global_nav_container {
+  font-family: $nav_font_family;
+  background-color: $nav_bg_color;
+  width: 100%;
+  margin: 0 auto;
+  top: 0;
+  z-index: 20;
+  @media screen and ($medium_large) {
+    height: auto !important;
+    z-index: 20;
+  }
+  &.dropshadow {         
+    //box-shadow: $nav_dropshadow;
+  }
+}
+
+#global_nav { 
+  width: 100%; 
+  text-align: center; 
+  .gradient_line {
+    display: none;
+    @media screen and ($medium-large){
+      display: block;
+    }
+  }
+}
+
+ul#nav {
+  padding-bottom: 10px;
+  > li {
+    @media screen and ($medium_large) {
+      // Remove the top border for top level nav on desktop nav
+      border-top: none !important;
+    }
+  }
+  li {
+    text-align: left;
+    padding: 0;
+    @media screen and ($medium_large) {
+      position: relative;
+      margin: 0 -1px;
+      display: inline-block;
+      &.current, &:hover, .subnav li:hover {
+        background-color: $nav_bg_rollover;
+        cursor: pointer;
+        a {
+          color: $nav_bg_color;
+        }
+        .nav_arrow_down { 
+          border-top-color: $nav_bg_color;
+        }
+      }
+    }
+    + li {
+      @media screen and ($medium_large) {
+        // Only have a top border when it's not the top item
+        border-top: $nav_line_color solid 1px;
+      }
+    }
+    &:hover {
+      @media screen and ($medium_large) {
+        ul.subnav {
+          display: block;
+        }
+      }
+    }
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: $nav_text_color;
+      font-size: $largenavfontsize;
+      padding: .8em 0;
+      line-height: $nav_line_height;
+      display: block;
+      @media screen and ($medium_large) {
+    	  border: none;
+    	  padding: .9em 1em;
+        font-size: $smallnavfontsize;
+  	  }
+  	  @media screen and ($large){
+        font-size: $largenavfontsize;
+        padding: 1em 1.8em;
+      }
+    }
+  }
+}
+
+ul#nav ul.subnav {
+  @media screen and ($medium_large) {
+    display: none;
+   	margin: 0;
+   	padding: 0;
+   	min-width: 100%;
+   	position: absolute;
+   	left: 0;
+   	background-color: $nav_bg_color;
+   	//box-shadow: $subnav_dropshadow;
+   	border-top: none;
+   	z-index: 25;
+   	width: 99%;
+   	overflow: hidden;
+  }
+  li {
+    padding: 0;
+    background-color: $nav_bg_color;
+    @media screen and ($medium_large) {
+      display: block;
+      text-align: center;
+      display: block;
+    }
+    a {
+      padding: .5em 1em;
+      color: $nav_text_color;
+      @media screen and ($medium_large) {
+        padding: .9em 1em;
+      }
+      @media screen and ($large){
+        padding: 1em 1.8em;
+      }
+    }
+  }
+}
+
+ul#nav .arrow_box { 
+  margin: 0;
+  padding: 20px 24px;
+  @media screen and ($medium_large) {
+    display: none !important; 
+  }
+}
+
+/* Extended Nav */
+.extend_nav_btn a.hidden {
+  display: none;
+}
+
+
+
+/* ----- end DEFAULTS  ----- */
+
+
+
+
+
+
+/* ----- MOBILE MENU CLASS ----- */
+
+/* Mobile menu */
+.mobile_menu {
+  #global_nav_container, .global_subnav_container, #extended_nav_container {
+    height: 0;
+    overflow: hidden;
+    position: relative !important;
+    transition: height 0.25s ease-out;
+  }
+  #global_nav_container {
+    //box-shadow: $nav_dropshadow;
+    ul#nav {
+      //border-bottom: $nav_line_color 1px solid;
+      margin: 0 auto;
+      width: 92%;
+      > li + li, #extended_nav > li + li {
+        border-top: $nav_line_color solid 1px;
+      }
+    }
+    .global_subnav_container {
+      .contracted {
+        height: 0 !important;
+      }
+      li {
+        a:before { 
+          //content:"› ";
+        }
+      }
+    }
+  }
+}
+
+/* Mobile menu - visible */
+.mobile_menu_visible {
+  .login.logout {
+    display: none;
+  }
+}
+
+/* Mobile menu - hidden */
+.mobile_menu_hidden {
+  #global_nav_container, .global_subnav_container, #extended_nav_container {
+    height: 0 !important;
+  }
+}
+
+/* Mobile submenu - hidden */
+.mobile_submenu_hidden .global_subnav_container {
+  height: 0 !important;
+}
+
+/* ----- end MOBILE MENU CLASS ----- */
+
+
+
+
+
+/* ----- DESKTOP MENU CLASS ----- */
+
+.desktop_submenu_hidden {
+  .global_subnav_container {
+    height: 0 !important;
+  }
+}
+
+/* ----- end DESKTOP MENU ONLY ----- */

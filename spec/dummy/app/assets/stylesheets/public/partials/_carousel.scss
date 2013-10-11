@@ -1,0 +1,124 @@
+
+/* ----- CAROUSEL ( needs some refactoring -jm )----- */
+
+.carousel_container {
+  overflow: hidden;
+}
+.carousel_items {
+  overflow: hidden;
+}
+.carousel_item {
+  position: relative;
+} //only for firefox so absolutely positioned divs within will be constrained - jh
+
+.main_feature .carousel_items {
+  float: left; display: inline; padding: 0px; margin: 0; -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+  /*apply a transfor to kick in the hardware acceleration.  Without this, the first time we add the transform you get odd rendering of the divs (half missing) */
+  -webkit-transform: translate3d(0px,0px,0px);
+    article {
+    margin-bottom: 0; 
+  }
+}
+
+/* Moving this to the footer nav -jm */
+/*
+.overlay_btns {
+  position: absolute; top: 50%; width: 100%; height: 50px; z-index: 200;
+}
+.overlay_btns a {
+  display: none;
+  width: 11px;
+  height: 15px;
+  position: absolute;
+  background-repeat: no-repeat;
+  z-index: 202;
+}
+.overlay_btns a.prev{
+  background-image: url(/images/calendar-arrow-left.png);
+  left: 5%
+}
+.overlay_btns a.next {
+  background-image: url(/images/calendar-arrow-right.png) ;
+  right: 5%;
+}
+.carousel_items:hover {
+  .overlay_btns a {
+    @media screen and ($medium_large) {
+      display: inline-block;
+    }
+  }
+}
+*/
+/* is there a footer nav file? - jh */
+
+
+.carousel_item {
+  float: left; display: inline; /*apply a transfor to kick in the hardware acceleration.  Without this, the first time we add the transform you get odd rendering of the divs (half missing) */
+  -webkit-transform: translate3d(0px,0px,0px);
+}
+
+
+/* the carousel_nav is absolutely positioned and sent to the back */
+.carousel_nav {
+  position:absolute;
+  top: 0.6em; /* under a hr, mimicking the hr's bottom margin */
+  width: 100%;
+  z-index: 0;
+  padding: 0.5em;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.dot_btns {
+  position: relative;
+  margin: -10px 0 0 0;
+  padding: 0;
+  float: left;
+  @include disable_text_selection;
+  @media screen and ($medium_mid) {
+    width: 100%;
+  }
+  .prev, .next {
+    display: none;
+
+    img {
+      position: absolute;
+      width: 11px;
+      height: 15px;
+      top: 16px;
+      left: 10px;
+    }
+  }
+  .dot_btn {
+    display: inline-block;
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    height: 20px;
+    .dot {
+      background-color: #d6d6d6;
+      border-radius: 50% 50% 50% 50%;
+      height: 6px;
+      width: 6px;
+    }
+    &.active {
+      .dot {
+        background-color: #228bdf;
+      }
+    }
+  }
+}
+
+/* carousel split screen styles - when it isn't full width */
+
+article.carousel_split .carousel_container {
+  width: 50%;
+  float: left;
+  .dot_btns {
+    width: auto;
+  }
+}
+

@@ -1,0 +1,31 @@
+/* 
+ * _global.scss
+ * global styles: styles that affect both the wrapper and the body (and the nav?) 
+*/
+/*
+some are mods of normalize
+some are changes to defaults of normalize
+some are custom needs
+Justin/Jody may separate them in the future
+*/
+
+/* global styles */
+
+
+
+
+.logo { display: block; }
+.logo img, .slide img, .ad img { width: 100%; }
+
+.logged_out .hide_on_logged_out {
+  display: none !important;
+}
+
+.hide_on_mobile {
+  display: none;
+  @media screen and ($medium_large) {
+    display: block;
+  }
+}
+
+/* END Global reset-type styles - jh */

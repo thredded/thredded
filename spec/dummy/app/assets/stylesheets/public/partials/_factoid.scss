@@ -1,0 +1,43 @@
+
+/* ----- FACTOID ----- */
+
+.featured_factoid {
+  display: none;
+  position: relative;
+  @media screen and ($medium-large) {
+    display: block;
+  }
+  a.image_wrap {
+    width: 23%;
+    display: none;
+    @media screen and ($large) {
+      display: block;
+      width: 80px;
+    }
+    img {vertical-align:text-bottom;}
+  }
+  .side_text {
+    float: right;
+    font-size: .6em;
+    padding-right: 0;
+    @media screen and ($medium_large) {
+      font-size: 1em;
+    }
+  }
+    
+  .factoid {
+    letter-spacing: .5px;
+    color: $public_accent_color;
+    text-align: left;
+    float: left;
+    padding-top: 8px;
+    line-height: 1.8em;
+    .big_number {
+      font-weight: bold;
+    }
+  }
+  .gradient_line_half {
+    position: absolute;
+    top: 76px; /* height of the telescope */
+  }
+}

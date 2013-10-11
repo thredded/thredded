@@ -1,0 +1,103 @@
+
+/* ------ LIST ------ */
+
+ul {
+  li {
+    .col1of3 {
+      width: 32.33%;
+      margin-right: 1%;
+      float: left;
+    }
+    .col2of3 {
+      width: 66.66%;
+      float: left;
+    }
+    .side_text {
+      padding: 0 0 0 .8;
+    }
+    .inline_img { 
+      display: block;
+      width: 32.33%;
+      max-width: 230px; /* variabalize? - jh */
+      padding: 0 14px 6px 0;
+      float: left;
+      &.right {
+        padding: 0 0 10px 14px;
+        float: right;
+      }
+      &.left {
+        padding: 0 14px 10px 0;
+        float: left;
+      }
+    }
+    img + .title {
+      /* Overrides a style meant for full articles */
+      margin-top: 0;
+    }
+  }
+}
+
+/* outreach resources and download icons */
+ul.icons {
+  margin-bottom: .8em;
+  li {
+    display: inline-block;
+  }
+  li + li {
+    margin-left: 5px;
+  }
+}
+
+/* put a bottom margin on 'articles' within ul's, but only top level li's */
+ul.articles > li {
+    @extend .clearfix;
+    margin-top: 1.6em;
+    margin-bottom: 1em;
+}
+
+/* ads will always fill width regardless of number - jh */
+ul.ads {
+display: table;
+ width: 100%;
+ max-width: 1000px;
+ margin: 0 auto;
+  li {
+    display: table-cell;
+  }
+  li + li {
+    padding-left: 12px;
+  }
+}
+
+/* GRID VIEW VS LIST VIEW */
+.list_view #site_body ul {
+  li img {
+  max-width: 230px;
+}
+}
+.grid_view #primary_column ul {
+  h4.title {
+    font-size: 15px;
+  }
+  hr {display: none;}
+  li {
+    width: 50%;
+    padding: 5px;
+    display: block;
+    float: left;
+    vertical-align: bottom;
+    height: 280px; /* I don't like to set a height, but I don't see another way without js - jh */
+    margin: 0 0 .98em 0;
+    @media screen and ($medium-mid) {
+      width: 25%;
+      height: 240px;
+    }
+    p {display: none;}
+    .inline_img {
+      width: 100%;
+      float: none;
+      padding: 0;     
+    }
+  }
+
+}

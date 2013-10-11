@@ -1,0 +1,117 @@
+/* ----- Import css that affects all PUBLIC pages ----- */
+
+/*
+@import "base";
+@import "body";
+@import "line";
+@import "title";
+@import "description";
+@import "list";
+@import "image";
+@import "marquee";
+@import "carousel";
+@import "factoid";
+@import "page_header";
+@import "section_header";
+@import "section_footer";
+@import "article_heading";
+@import "sub_feature";
+@import "select";
+@import "search_module";
+@import "social";
+@import "weather";
+@import "moon_sun_data";
+@import "map";
+@import "video";
+@import "modal";
+@import "date";
+@import "caption";
+@import "view_master";
+@import "side_chart";
+*/
+
+/* BERGEN EDITED */
+
+
+/* header */
+div.page > header {
+  margin: 6px;
+  padding: 6px;
+  border: 1px #ccc solid;
+  div, nav {
+    display: inline-block;
+    margin-left: 85px;
+  }
+}
+div.page > header#header {
+  border: 0px #ccc solid;
+}
+div.page > footer {
+  border: 1px #ccc solid;
+  margin: 6px;
+  padding: 6px;
+}
+
+/* internal header/footers */
+section {
+  header, div, footer {
+    border: 0px #ccc solid;
+    margin: 6px;
+    padding: 6px;
+  }
+  footer {
+    border-bottom: 1px #ccc solid;
+  }
+}
+
+
+ul.actions, ul.listings, ul.breadcrumbs {
+  margin-bottom: .8em;
+  li {
+    display: inline-block;
+  }
+  li + li {
+    margin-left: 5px;
+  }
+}
+ul.actions {
+  li:before { content: "• "; color: #aaa; }
+}
+
+ul.breadcrumbs { 
+    li:before { content: "›› "; color: #aaa; }
+    li:first-child:before { content: " "; }
+}
+
+.search_form {
+  padding-left: 95px;
+}
+
+article.topic {
+  div, h1, cite {
+    display: inline-block;
+  }
+  .post_count {
+    padding: 0px 10px;
+  }
+  cite {
+    top: -40px;
+    font-size:10px;
+    padding-left: 12px;
+  }
+}
+
+article.post {
+  img { 
+    width: 60px;
+  }
+  cite {
+    display: block;
+    vertical-align:top;
+  }
+  abbr {
+    display: block;
+    font-size:11px;
+    border: 0px;
+  }
+}
