@@ -8,6 +8,7 @@ module Thredded
       @messageboard = Messageboard.create(messageboard_params)
 
       if @messageboard.valid?
+        @messageboard.update_attribute(:slug, @messageboard.name)  #not sure if we want to do this here, or set that as a hidden field on submit of the form, or add to the messageboard params before create... i'm open -RUSS
         @messageboard.add_member(current_user, 'admin')
         @messageboard.topics.create(topic_params)
 
@@ -22,7 +23,7 @@ module Thredded
     def messageboard_params
       params
         .require(:messageboard)
-        .permit(:description, :name, :posting_permissions, :security)
+        .permit(:description, :name, :posting_permission, :security)
     end
 
     def topic_params

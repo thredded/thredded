@@ -2,8 +2,10 @@
 
 <%= content_tag_for(:article, post) do %>
   <% cache post do %>
-    <header>
-      <%= image_tag post.gravatar_url, class: 'avatar' %>
+    <header class="clearfix">
+      <a class="image_wrap">
+        <%= image_tag post.gravatar_url, class: 'avatar' %>
+      </a>
       <cite>
         <%= post.user_name %>
         <%= post.created_at_timeago %>

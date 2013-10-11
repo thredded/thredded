@@ -8,6 +8,17 @@ Thredded::Engine.routes.draw do
     #root to: 'setups#new'
   end
 
+  # BERGEN: Joel had this whole part removed, but I need it to work
+  # (and I get 18 test failures instead of 49)
+  constraints(lambda{|req| req.env['QUERY_STRING'].include? 'q=' }) do
+    get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
+  end
+
+  get '/:messageboard_id/preferences/edit' => 'preferences#edit'
+  get '/:messageboard_id/new(.:format)' => 'topics#new', as: :new_messageboard_topic
+  get '/:messageboard_id/:id/edit(.:format)' => 'topics#edit', as: :edit_messageboard_topic
+  get '/:messageboard_id/:topic_id/:page(.:format)' => 'posts#index', as: :paged_messageboard_topic_posts, constraints: { page: /\d+/ }
+
   resources :messageboards, only: [:index], path: '' do
     resource :preferences
     resources :private_topics, only: [:new, :create, :index]
@@ -17,16 +28,7 @@ Thredded::Engine.routes.draw do
     end
   end
 
-  # BERGEN: Joel had this whole part removed, but I need it to work 
-  # (and I get 18 test failures instead of 49) 
-  constraints(lambda{|req| req.env['QUERY_STRING'].include? 'q=' }) do
-    get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
-  end
 
-  get '/:messageboard_id/preferences/edit' => 'preferences#edit'
-  #get '/:messageboard_id/new(.:format)' => 'topics#new', as: :new_messageboard_topic
-  #get '/:messageboard_id/:id/edit(.:format)' => 'topics#edit', as: :edit_messageboard_topic
-  get '/:messageboard_id/:topic_id/:page(.:format)' => 'posts#index', as: :paged_messageboard_topic_posts, constraints: { page: /\d+/ }
 
   root to: 'messageboards#index'
 
