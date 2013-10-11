@@ -10,7 +10,7 @@
 
     <div id='header'>
       <% if signed_in? %>
-        <%= current_user.name %> | <%= link_to 'Sign out', session_path, method: :delete %>
+        <%= current_user %> | <%= link_to 'Sign out', session_path, method: :delete %>
       <% else %>
         <%= link_to 'Sign in', sessions_new_path %>
       <% end %>

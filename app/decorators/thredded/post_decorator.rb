@@ -9,7 +9,7 @@ module Thredded
 
     def user_name
       if user
-        user.name
+        user.to_s
       else
         'Anonymous'
       end

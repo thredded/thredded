@@ -7,8 +7,8 @@ module Thredded
       members = messageboard.members_from_list(at_names)
 
       members.each do |member|
-        content.gsub!(/@#{member.name}/i,
-          %Q{<a href="/users/#{member.name}">@#{member.name}</a>})
+        content.gsub!(/@#{member.to_s}/i,
+          %Q{<a href="/users/#{member.to_s}">@#{member.to_s}</a>})
       end
 
       content

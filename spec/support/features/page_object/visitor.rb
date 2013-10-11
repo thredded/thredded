@@ -13,7 +13,7 @@ module PageObject
     end
 
     def has_redirected_with_error?
-      has_content?("No user exists named #{@visitor.name}")
+      has_content?("No user exists named #{@visitor.to_s}")
     end
 
     def links_github_with_existing_account

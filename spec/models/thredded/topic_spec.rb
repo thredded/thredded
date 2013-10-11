@@ -35,8 +35,8 @@ module Thredded
     it 'provides anon user object when user not avail' do
       topic = build_stubbed(:topic, last_user_id: 1000)
 
-      topic.last_user.should be_instance_of NullUser
-      topic.last_user.name.should == 'Anonymous User'
+      expect(topic.last_user).to be_instance_of NullUser
+      expect(topic.last_user.to_s).to eq 'Anonymous User'
     end
 
     it 'returns the last user to post to this thread' do

@@ -23,7 +23,7 @@ module Thredded
       if last_user.nil?
         'Anonymous'
       else
-        "<a href='/users/#{last_user.name}'>#{last_user.name}</a>".html_safe
+        "<a href='/users/#{last_user}'>#{last_user}</a>".html_safe
       end
     end
 

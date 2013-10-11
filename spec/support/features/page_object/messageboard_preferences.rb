@@ -10,7 +10,7 @@ module PageObject
     end
 
     def visit_preferences
-      signs_in_as(user.name)
+      signs_in_as(user.to_s)
       visit edit_messageboard_preferences_path(messageboard)
     end
 
