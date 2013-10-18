@@ -10,6 +10,7 @@ PATH
       fog
       friendly_id
       gravtastic
+      griddler
       htmlentities
       kaminari
       mini_magick
@@ -51,7 +52,7 @@ GEM
     addressable (2.3.5)
     arel (4.0.0)
     atomic (1.1.14)
-    bb-ruby (1.0.1)
+    bb-ruby (1.0.2)
     builder (3.1.4)
     cancan (1.6.10)
     capybara (2.1.0)
@@ -89,6 +90,9 @@ GEM
     friendly_id (5.0.0.rc2)
       activerecord (~> 4.0.0)
     gravtastic (3.2.6)
+    griddler (0.6.1)
+      htmlentities
+      rails (>= 3.2.0)
     hike (1.2.3)
     htmlentities (4.3.1)
     i18n (0.6.5)

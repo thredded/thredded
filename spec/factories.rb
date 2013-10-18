@@ -3,6 +3,39 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
   sequence(:topic_hash) { |n| "hash#{n}" }
 
+  factory :email, class: OpenStruct do
+    to 'email-token'
+    from 'user@email.com'
+    subject 'email subject'
+    body 'Hello!'
+    attachments {[]}
+
+    trait :with_attachment do
+      attachments {[
+        ActionDispatch::Http::UploadedFile.new({
+          filename: 'img.png',
+          type: 'image/png',
+          tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
+        })
+      ]}
+    end
+
+    trait :with_attachments do
+      attachments {[
+        ActionDispatch::Http::UploadedFile.new({
+          filename: 'img.png',
+          type: 'image/png',
+          tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
+        }),
+        ActionDispatch::Http::UploadedFile.new({
+          filename: 'zip.png',
+          type: 'image/png',
+          tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/zip.png")
+        })
+      ]}
+    end
+  end
+
   factory :attachment, class: Thredded::Attachment do
     attachment    { fixture_file_upload('spec/samples/img.png', 'image/png') }
     content_type  'image/png'

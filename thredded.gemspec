@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'fog'
   s.add_dependency 'friendly_id'
   s.add_dependency 'gravtastic'
+  s.add_dependency 'griddler'
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'mini_magick'
