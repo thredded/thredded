@@ -15,14 +15,6 @@ module Thredded
         #{number_to_human posts} posts".downcase
     end
 
-    def admin_link_for(messageboard)
-      if can? :manage, messageboard
-        '<p class="admin"><a href="#edit">Edit</a></p>'
-      else
-        ''
-      end
-    end
-
     def latest_thread_for(messageboard)
       topic = messageboard.topics.first
 

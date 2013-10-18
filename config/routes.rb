@@ -19,13 +19,11 @@ Thredded::Engine.routes.draw do
     as: :paged_messageboard_topic_posts, constraints: { page: /\d+/ }
 
   resources :messageboards, only: [:index], path: '' do
-    resource :preferences
+    resource :preferences, only: [:edit, :update]
     resources :private_topics, only: [:new, :create, :index]
 
     resources :topics, except: [:show], path: '' do
       resources :posts, path: ''
     end
   end
-
-  # root to: 'messageboards#index'
 end

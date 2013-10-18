@@ -68,7 +68,6 @@ module Thredded
           user: current_user,
           last_user: current_user
         })
-
     end
 
     def topic_and_post_params
