@@ -5,8 +5,7 @@ module Thredded
     before_filter :update_user_activity
 
     rescue_from CanCan::AccessDenied do |exception|
-      flash[:error] = exception.message
-      redirect_to root_path
+      redirect_to root_path, alert: exception.message
     end
 
     private
@@ -44,14 +43,6 @@ module Thredded
         redirect_to thredded.root_path,
           flash: { error: 'This messageboard does not exist.' }
       end
-    end
-
-    def user_messageboard_preferences
-      @user_messageboard_preferences ||=
-        current_user
-          .thredded_messageboard_preferences
-          .where(messageboard_id: messageboard)
-          .first
     end
   end
 end

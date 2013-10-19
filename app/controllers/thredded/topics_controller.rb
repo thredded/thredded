@@ -24,7 +24,9 @@ module Thredded
 
     def new
       @topic = messageboard.topics.build
-      @topic.posts.build(filter: user_messageboard_preferences.try(:filter))
+      @topic
+        .posts
+        .build(filter: messageboard.preferences_for(current_user).filter)
 
       unless can? :create, @topic
         error = 'Sorry, you are not authorized to post on this messageboard.'

@@ -218,14 +218,17 @@ FactoryGirl.define do
       after(:create) do |user, evaluator|
         Thredded::Messageboard.all.each do |messageboard|
           create(:messageboard_preference,
-                 filter: 'bbcode', user: user, messageboard: messageboard)
+            filter: 'bbcode', user: user, messageboard: messageboard)
         end
       end
     end
 
     trait :prefers_markdown do
       after(:create) do |user, evaluator|
-        create(:messageboard_preference, filter: 'markdown', user: user)
+        Thredded::Messageboard.all.each do |messageboard|
+          create(:messageboard_preference,
+            filter: 'markdown', user: user, messageboard: messageboard)
+        end
       end
     end
   end

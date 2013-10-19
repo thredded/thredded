@@ -5,7 +5,7 @@ module Thredded
 
     rescue_from Thredded::Errors::TopicNotFound do |exception|
       redirect_to messageboard_topics_path(messageboard),
-        alert: 'This topic does not exist'
+        alert: 'This topic does not exist.'
     end
 
     def index
@@ -72,7 +72,7 @@ module Thredded
     end
 
     def post_filter
-      user_messageboard_preferences.try(:filter) || :markdown
+      messageboard.preferences_for(current_user).filter
     end
 
     def current_page

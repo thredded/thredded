@@ -27,6 +27,23 @@ module Thredded
       all_boards.last.should eq @messageboard
     end
 
+    describe '#preferences_for' do
+      it 'returns messageboard preferences for given user' do
+        messageboard = create(:messageboard)
+        user = create(:user, :prefers_bbcode)
+
+        expect(messageboard.preferences_for(user).filter).to eq 'bbcode'
+      end
+
+      it 'returns a null preference if nothing is found' do
+        messageboard = create(:messageboard)
+        preferences = messageboard.preferences_for(nil)
+
+        expect(preferences.filter).to eq 'markdown'
+        expect(preferences).to be_a(NullMessageboardPreference)
+      end
+    end
+
     describe '.add_member' do
       it 'creates a membership role for a provided user' do
         user = create(:user)

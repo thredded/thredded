@@ -29,6 +29,11 @@ module Thredded
       where(closed: false).order('topics_count DESC')
     end
 
+    def preferences_for(user)
+      @preferences_for ||=
+        messageboard_preferences.where(user_id: user).first || NullMessageboardPreference.new
+    end
+
     def active_users
       Role
         .joins(:user)
