@@ -73,10 +73,16 @@ module Thredded
 
     def read_status
       if user.valid?
-        @read_status ||= topic.user_topic_reads.where(user_id: user.id).first
+        @read_status ||= topic.user_topic_reads.select do |reads|
+          reads.user_id == user.id
+        end
       end
 
-      @read_status || NullTopicRead.new
+      if @read_status.blank?
+        NullTopicRead.new
+      else
+        @read_status.first
+      end
     end
   end
 end

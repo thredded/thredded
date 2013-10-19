@@ -123,7 +123,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :post, class: Thredded::Post do
+  factory :post, aliases: [:farthest_post], class: Thredded::Post do
     user
     topic
     messageboard
@@ -233,9 +233,9 @@ FactoryGirl.define do
   factory :user_detail, class: Thredded::UserDetail
 
   factory :user_topic_read, class: Thredded::UserTopicRead do
-    user_id 1
-    topic_id 1
-    post_id 1
+    user
+    topic
+    farthest_post
     page 1
   end
 end

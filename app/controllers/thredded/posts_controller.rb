@@ -12,7 +12,7 @@ module Thredded
         .posts
         .build(topic: topic, filter: post_filter)
 
-      update_read_status!(current_user, current_page) if current_user
+      update_read_status!
     end
 
     def create
@@ -42,14 +42,19 @@ module Thredded
         )
     end
 
-    def update_read_status!(user, page)
-      UserTopicRead.create!(
-        user: user,
-        topic: topic,
-        farthest_post: @posts.last,
-        posts_count: topic.posts_count,
-        page: current_page,
-      )
+    def update_read_status!
+      if current_user
+        read_history = UserTopicRead.where(
+          user: current_user,
+          topic: topic,
+        ).first_or_initialize
+
+        read_history.update_attributes(
+          farthest_post: @posts.last,
+          posts_count: topic.posts_count,
+          page: current_page,
+        )
+      end
     end
 
     def topic
@@ -57,10 +62,7 @@ module Thredded
     end
 
     def user_topic
-      @user_topic ||= UserTopicDecorator.new(
-        current_user,
-        topic
-      )
+      @user_topic ||= UserTopicDecorator.new(current_user, topic)
     end
 
     def post

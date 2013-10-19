@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 module Thredded
+  describe UserTopicRead, 'validations' do
+    before do
+      create(:user_topic_read)
+    end
+
+    it { should validate_uniqueness_of(:user_id).scoped_to(:topic_id) }
+  end
+
   describe UserTopicRead do
     it { should have_db_column(:user_id) }
     it { should have_db_column(:topic_id) }

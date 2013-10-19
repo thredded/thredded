@@ -13,7 +13,7 @@ module Thredded
     end
 
     def farthest_post
-      nil
+      Post.new
     end
   end
 end

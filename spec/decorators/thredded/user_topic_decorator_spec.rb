@@ -106,7 +106,7 @@ module Thredded
       user = nil
       decorator = UserTopicDecorator.new(user, topic)
 
-      expect(decorator.farthest_post).to be_nil
+      expect(decorator.farthest_post).not_to be_persisted
     end
   end
 
