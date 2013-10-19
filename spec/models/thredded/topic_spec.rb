@@ -2,6 +2,26 @@ require 'spec_helper'
 require 'timecop'
 
 module Thredded
+  describe Topic, '.find_by_slug' do
+    it 'finds the topic' do
+      topic = create(:topic, title: 'Oh Hello')
+
+      expect(Topic.find_by_slug('oh-hello')).to eq topic
+    end
+
+    it 'raises Thredded::Errors::TopicNotFound error' do
+      expect{ Topic.find_by_slug('rubbish') }
+        .to raise_error(Thredded::Errors::TopicNotFound)
+    end
+
+    it 'eager loads user_topic_reads' do
+      create(:topic, title: 'Oh Hello')
+      topic = Topic.find_by_slug('oh-hello')
+
+      expect(topic.association_cache).to include :user_topic_reads
+    end
+  end
+
   describe Topic, '.order_by_stuck_and_updated_time' do
     it 'starts with stuck topics, followed by the rest' do
       stuck = create(:topic, :sticky)

@@ -1,16 +1,18 @@
 module Thredded
   class PostsController < Thredded::ApplicationController
     load_and_authorize_resource only: [:index, :show]
-    before_filter :ensure_topic_exists
     helper_method :messageboard, :topic, :user_topic
+
+    rescue_from Thredded::Errors::TopicNotFound do |exception|
+      redirect_to messageboard_topics_path(messageboard),
+        alert: 'This topic does not exist'
+    end
 
     def index
       authorize! :read, topic
 
       @posts = topic.posts.page(current_page)
-      @post = messageboard
-        .posts
-        .build(topic: topic, filter: post_filter)
+      @post  = messageboard.posts.build(topic: topic, filter: post_filter)
 
       update_read_status!
     end
@@ -58,7 +60,7 @@ module Thredded
     end
 
     def topic
-      @topic ||= messageboard.topics.where(slug: params[:topic_id]).first
+      @topic ||= messageboard.topics.find_by_slug(params[:topic_id])
     end
 
     def user_topic
@@ -75,13 +77,6 @@ module Thredded
 
     def current_page
       params[:page].nil? ? 1 : params[:page].to_i
-    end
-
-    def ensure_topic_exists
-      if topic.blank?
-        redirect_to default_home,
-          flash: { error: 'This topic does not exist.' }
-      end
     end
   end
 end

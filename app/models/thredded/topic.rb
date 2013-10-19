@@ -79,6 +79,11 @@ module Thredded
       end
     end
 
+    def self.find_by_slug(slug)
+      where(slug: slug).includes(:user_topic_reads).first or
+        raise Thredded::Errors::TopicNotFound
+    end
+
     def decorate
       TopicDecorator.new(self)
     end
