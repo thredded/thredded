@@ -49,7 +49,9 @@ module Thredded
     end
 
     def exclude_previously_notified(members)
-      emails_notified = post.post_notifications.map(&:email)
+      emails_notified = Thredded::PostNotification
+        .where(post_id: post.id)
+        .map(&:email)
 
       members.reject do |member|
         emails_notified.include? member.email

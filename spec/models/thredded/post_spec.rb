@@ -22,6 +22,24 @@ module Thredded
       Timecop.return
     end
 
+    it 'notifies anyone @ mentioned in the post' do
+      mail = double(deliver: true)
+      Thredded::PostMailer.stub(at_notification: mail)
+
+      messageboard = create(:messageboard)
+      joel = create(:user, name: 'joel', email: 'joel@example.com')
+      messageboard.add_member(joel)
+      create(:messageboard_preference, user: joel,
+        messageboard: messageboard, notify_on_mention: true)
+
+      expect(Thredded::PostMailer)
+        .to receive(:at_notification).with(1, ['joel@example.com'])
+      expect(mail).to receive(:deliver)
+
+      post = create(:post, id: 1, content: 'hi @joel',
+        messageboard: messageboard)
+    end
+
     it 'updates the parent topic with the latest post author' do
       joel  = create(:user)
       topic = create(:topic)

@@ -1,6 +1,8 @@
+require 'thredded/at_notifier'
+require 'gravtastic'
+
 module Thredded
   class Post  < ActiveRecord::Base
-    require 'gravtastic'
     include Gravtastic
     include Thredded::Filter::Base
     include Thredded::Filter::Textile
@@ -24,7 +26,8 @@ module Thredded
     validates_presence_of :content, :messageboard_id
 
     before_validation :set_user_email
-    after_create  :modify_parent_posts_counts
+    after_save :notify_at_users
+    after_create :modify_parent_posts_counts
 
     def self.default_scope
       order('id ASC')
@@ -59,6 +62,10 @@ module Thredded
       if user
         self.user_email = user.email
       end
+    end
+
+    def notify_at_users
+      AtNotifier.new(self).notifications_for_at_users
     end
   end
 end
