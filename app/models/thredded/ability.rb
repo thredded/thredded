@@ -42,6 +42,10 @@ module Thredded
         Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).readable?
       end
 
+      can :edit, Thredded::Post do |post|
+        Thredded::PostUserPermissions.new(post, user, user_details).editable?
+      end
+
       can :manage, Thredded::Post do |post|
         Thredded::PostUserPermissions.new(post, user, user_details).manageable?
       end

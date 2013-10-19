@@ -10,6 +10,10 @@ module Thredded
       @user_details = user_details || UserDetail.new
     end
 
+    def editable?
+      created_post? || messageboard.member_is_a?(user, 'admin')
+    end
+
     def manageable?
       created_post?
     end

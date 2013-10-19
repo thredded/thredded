@@ -3,6 +3,29 @@ require 'thredded/post_user_permissions'
 
 module Thredded
   describe PostUserPermissions do
+    describe '#editable?' do
+      it 'can be edited by the user who started it' do
+        user = build_stubbed(:user)
+        post = build_stubbed(:post, user: user)
+        user_details = UserDetail.new
+        permissions = PostUserPermissions.new(post, user, user_details)
+
+        permissions.should be_editable
+      end
+
+      it 'can be edited by an admin' do
+        post = build_stubbed(:post)
+        messageboard = post.messageboard
+        messageboard.stub(member_is_a?: true)
+        user = build_stubbed(:user)
+
+        user_details = UserDetail.new
+        permissions = PostUserPermissions.new(post, user, user_details)
+
+        permissions.should be_editable
+      end
+    end
+
     describe '#manageable?' do
       it 'can be managed by the user who started it' do
         user = build_stubbed(:user)
