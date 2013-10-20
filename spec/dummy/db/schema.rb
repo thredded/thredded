@@ -18,16 +18,16 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.string   "content_type"
     t.integer  "file_size"
     t.integer  "post_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_categories", force: true do |t|
     t.integer  "messageboard_id", null: false
     t.string   "name",            null: false
     t.string   "description"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_images", force: true do |t|
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.integer  "width"
     t.integer  "height"
     t.string   "orientation"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_messageboard_preferences", force: true do |t|
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.string   "filter",            default: "markdown", null: false
     t.integer  "user_id",                                null: false
     t.integer  "messageboard_id",                        null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_messageboard_preferences", ["messageboard_id"], name: "index_thredded_messageboard_preferences_on_messageboard_id"
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.integer  "topics_count",       default: 0
     t.integer  "posts_count",        default: 0
     t.boolean  "closed",             default: false,       null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
   create_table "thredded_post_notifications", force: true do |t|
     t.string   "email",      null: false
     t.integer  "post_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_posts", force: true do |t|
@@ -83,15 +83,15 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.string   "source",          default: "web"
     t.integer  "topic_id",                             null: false
     t.integer  "messageboard_id",                      null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_private_users", force: true do |t|
     t.integer  "private_topic_id"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_roles", force: true do |t|
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.integer  "user_id"
     t.integer  "messageboard_id"
     t.datetime "last_seen"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_roles", ["messageboard_id"], name: "index_thredded_roles_on_messageboard_id"
@@ -123,8 +123,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.string   "hash_id",                              null: false
     t.string   "state",           default: "approved", null: false
     t.string   "type"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "thredded_user_details", force: true do |t|
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.integer  "posts_count",        default: 0
     t.integer  "topics_count",       default: 0
     t.boolean  "superadmin",         default: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_user_details", ["latest_activity_at"], name: "index_thredded_user_details_on_latest_activity_at"
@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
   create_table "thredded_user_preferences", force: true do |t|
     t.integer  "user_id",                                           null: false
     t.string   "time_zone",  default: "Eastern Time (US & Canada)"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_user_preferences", ["user_id"], name: "index_thredded_user_preferences_on_user_id"
@@ -155,8 +155,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.integer  "post_id",                 null: false
     t.integer  "posts_count", default: 0, null: false
     t.integer  "page",        default: 1, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "thredded_user_topic_reads", ["page"], name: "index_thredded_user_topic_reads_on_page"
@@ -169,8 +169,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
