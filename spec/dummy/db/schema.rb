@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131014014258) do
+ActiveRecord::Schema.define(version: 20131019014258) do
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.datetime "updated_at"
   end
 
+  add_index "thredded_attachments", ["post_id"], name: "index_thredded_attachments_on_post_id"
+
   create_table "thredded_categories", force: true do |t|
     t.integer  "messageboard_id", null: false
     t.string   "name",            null: false
@@ -29,6 +31,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "thredded_categories", ["messageboard_id"], name: "index_thredded_categories_on_messageboard_id"
 
   create_table "thredded_images", force: true do |t|
     t.integer  "post_id"
@@ -38,6 +42,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "thredded_images", ["post_id"], name: "index_thredded_images_on_post_id"
 
   create_table "thredded_messageboard_preferences", force: true do |t|
     t.boolean  "notify_on_mention", default: true
@@ -66,6 +72,7 @@ ActiveRecord::Schema.define(version: 20131014014258) do
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed"
+  add_index "thredded_messageboards", ["slug"], name: "index_thredded_messageboards_on_slug"
 
   create_table "thredded_post_notifications", force: true do |t|
     t.string   "email",      null: false
@@ -73,6 +80,8 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "thredded_post_notifications", ["post_id"], name: "index_thredded_post_notifications_on_post_id"
 
   create_table "thredded_posts", force: true do |t|
     t.integer  "user_id"
@@ -87,12 +96,19 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.datetime "updated_at"
   end
 
+  add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id"
+  add_index "thredded_posts", ["topic_id"], name: "index_thredded_posts_on_topic_id"
+  add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id"
+
   create_table "thredded_private_users", force: true do |t|
     t.integer  "private_topic_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "thredded_private_users", ["private_topic_id"], name: "index_thredded_private_users_on_private_topic_id"
+  add_index "thredded_private_users", ["user_id"], name: "index_thredded_private_users_on_user_id"
 
   create_table "thredded_roles", force: true do |t|
     t.string   "level"
@@ -111,6 +127,9 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.integer "category_id", null: false
   end
 
+  add_index "thredded_topic_categories", ["category_id"], name: "index_thredded_topic_categories_on_category_id"
+  add_index "thredded_topic_categories", ["topic_id"], name: "index_thredded_topic_categories_on_topic_id"
+
   create_table "thredded_topics", force: true do |t|
     t.integer  "user_id",                              null: false
     t.integer  "last_user_id",                         null: false
@@ -126,6 +145,11 @@ ActiveRecord::Schema.define(version: 20131014014258) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "thredded_topics", ["hash_id"], name: "index_thredded_topics_on_hash_id"
+  add_index "thredded_topics", ["last_user_id"], name: "index_thredded_topics_on_last_user_id"
+  add_index "thredded_topics", ["messageboard_id"], name: "index_thredded_topics_on_messageboard_id"
+  add_index "thredded_topics", ["user_id"], name: "index_thredded_topics_on_user_id"
 
   create_table "thredded_user_details", force: true do |t|
     t.integer  "user_id",                            null: false
