@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.0.2)
+    thredded (0.0.3)
       RedCloth
       bb-ruby
       cancan
