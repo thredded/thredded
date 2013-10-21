@@ -5,7 +5,7 @@ require 'thredded/setup_thredded'
 Thredded::Engine.routes.draw do
   constraints(Thredded::SetupThredded.new) do
     resources :setups, path: '', only: [:new, :create]
-    #root to: 'setups#new'
+    root to: 'setups#new', :as => :thredded_root
   end
 
   # BERGEN: Joel had this whole part removed, but I need it to work

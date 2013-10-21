@@ -1,7 +1,7 @@
 module Thredded
   class ApplicationController < ::ApplicationController
     helper Thredded::Engine.helpers
-    helper_method :messageboard, :topic, :preferences
+    helper_method :messageboard, :topic, :preferences, :get_current_user
     before_filter :update_user_activity
 
     rescue_from CanCan::AccessDenied do |exception|
@@ -12,13 +12,13 @@ module Thredded
     private
 
     def update_user_activity
-      if messageboard && current_user
-        messageboard.update_activity_for!(current_user)
+      if messageboard && get_current_user
+        messageboard.update_activity_for!(get_current_user)
       end
     end
 
     def current_ability
-      @current_ability ||= Ability.new(current_user)
+      @current_ability ||= Ability.new(get_current_user)
     end
 
     def messageboard
@@ -28,8 +28,8 @@ module Thredded
     end
 
     def preferences
-      if current_user
-        @preferences ||= UserPreference.where(user_id: current_user.id).first
+      if get_current_user
+        @preferences ||= UserPreference.where(user_id: get_current_user.id).first
       end
     end
    
@@ -53,10 +53,14 @@ module Thredded
 
     def user_messageboard_preferences
       @user_messageboard_preferences ||=
-        current_user
-          .thredded_messageboard_preferences
+        get_current_user
+           .thredded_messageboard_preferences
           .where(messageboard_id: messageboard)
           .first
+    end
+
+    def get_current_user
+      eval("current_#{Thredded.user_class.name.to_s.underscore}")
     end
   end
 end

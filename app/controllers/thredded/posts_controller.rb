@@ -16,7 +16,7 @@ module Thredded
         .build(topic: topic, filter: post_filter)
 
       logger.debug('Thredded.PostsController.index 4')
-      update_read_status!(current_user, current_page) if current_user
+      update_read_status!(get_current_user, current_page) if get_current_user
     end
 
     def create
@@ -45,7 +45,7 @@ module Thredded
         .permit!
         .merge!(
           ip: request.remote_ip,
-          user: current_user,
+          user: get_current_user,
           messageboard: messageboard,
         )
     end
@@ -66,7 +66,7 @@ module Thredded
 
     def user_topic
       @user_topic ||= UserTopicDecorator.new(
-        current_user,
+        get_current_user,
         topic
       )
     end

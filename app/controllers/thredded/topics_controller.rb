@@ -67,8 +67,8 @@ module Thredded
         .require(:topic)
         .permit!
         .deep_merge!({
-          user: current_user,
-          last_user: current_user
+          user: get_current_user,
+          last_user: get_current_user
         })
 
     end
@@ -78,13 +78,13 @@ module Thredded
         .require(:topic)
         .permit!
         .deep_merge!({
-          last_user: current_user,
-          user: current_user,
+          last_user: get_current_user,
+          user: get_current_user,
           posts_attributes: {
             '0' => {
               messageboard: messageboard,
               ip: request.remote_ip,
-              user: current_user,
+              user: get_current_user,
             }
           }
         })

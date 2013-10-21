@@ -1,5 +1,5 @@
 <div class="topic_nav <%= controller_name %>">
-  <% cache ['topic-nav-actions', current_user] do %>
+  <% cache ['topic-nav-actions', get_current_user] do %>
     <% if can? :create, messageboard.topics.build %>
       <ul class="actions">
         <li class='new_topic'><%= link_to 'new topic', new_messageboard_topic_path(messageboard) %></li>
@@ -9,7 +9,7 @@
   <% end %>
 
   <ul class="listings">
-    <% cache ['topic-nav-list', current_user] do %>
+    <% cache ['topic-nav-list', get_current_user] do %>
       <li class="topic_list"><%= link_to 'topics', messageboard_topics_path %></li>
       <% if can? :list, messageboard.private_topics.build %>
         <li class="private_topic_list"><%= link_to 'private topics', messageboard_private_topics_path %></li>

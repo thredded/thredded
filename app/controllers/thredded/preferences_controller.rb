@@ -13,7 +13,7 @@ module Thredded
 
     def preference
       @preference ||= MessageboardPreference
-        .where(messageboard_id: messageboard.id, user_id: current_user.id)
+        .where(messageboard_id: messageboard.id, user_id: get_current_user.id)
         .first_or_create!
     end
 
