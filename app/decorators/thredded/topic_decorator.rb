@@ -10,6 +10,10 @@ module Thredded
       @topic = topic
     end
 
+    def slug
+      topic.slug.nil? ? topic.id : topic.slug
+    end
+
     def css_class
       classes = []
       classes << 'locked' if locked?

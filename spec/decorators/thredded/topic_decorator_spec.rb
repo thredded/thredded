@@ -1,6 +1,22 @@
 require 'spec_helper'
 
 module Thredded
+  describe TopicDecorator, '#slug' do
+    it 'uses the id if slug is nil' do
+      topic = build_stubbed(:topic, slug: nil)
+      decorated_topic = TopicDecorator.new(topic)
+
+      expect(decorated_topic.slug).to eq topic.id
+    end
+
+    it 'uses the slug if it is there' do
+      topic = build_stubbed(:topic, slug: 'hi-topic')
+      decorated_topic = TopicDecorator.new(topic)
+
+      expect(decorated_topic.slug).to eq 'hi-topic'
+    end
+  end
+
   describe TopicDecorator, '#css_class' do
     let(:user){ build_stubbed(:user) }
 

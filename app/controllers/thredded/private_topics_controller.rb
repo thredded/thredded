@@ -7,15 +7,13 @@ module Thredded
         error = 'You are not authorized access to this messageboard.'
         redirect_to default_home, flash: { error: error }
       else
-        @private_topics = get_private_topics
+        @private_topics = private_topics
       end
     end
 
     def new
       @private_topic = messageboard.private_topics.build
-      @private_topic.posts.build(
-        filter: current_user.try(:post_filter)
-      )
+      @private_topic.posts.build(filter: current_user.try(:post_filter))
 
       unless can? :create, @private_topic
         error = 'Sorry, you are not authorized to post on this messageboard.'
@@ -31,11 +29,12 @@ module Thredded
       redirect_to messageboard_topics_url(messageboard)
     end
 
-    def get_private_topics
+    def private_topics
       PrivateTopic
         .for_messageboard(messageboard)
         .including_roles_for(current_user)
         .for_user(current_user)
+        .order_by_stuck_and_updated_time
         .on_page(params[:page])
     end
   end
