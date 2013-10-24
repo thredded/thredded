@@ -24,10 +24,12 @@ module Thredded
     end
 
     def last_user_link
-      if last_user.nil?
-        'Anonymous'
+      if last_user && last_user.valid?
+        last_user_path = Thredded.user_path(last_user)
+
+        "<a href='#{last_user_path}'>#{last_user}</a>".html_safe
       else
-        "<a href='/users/#{last_user}'>#{last_user}</a>".html_safe
+        'Anonymous'
       end
     end
 

@@ -139,7 +139,12 @@ module Thredded
   end
 
   describe UserTopicDecorator, '#user_link' do
+    after do
+      Thredded.user_path = nil
+    end
+
     it 'links to a valid user' do
+      Thredded.user_path = ->(user){ "/i_am/#{user}" }
       user = create(:user, name: 'joel')
       topic = create(:topic, user: user)
       read_status = create(:user_topic_read,
@@ -148,12 +153,12 @@ module Thredded
       )
       decorator = UserTopicDecorator.new(user, topic)
 
-      expect(decorator.user_link).to eq "<a href='/users/joel'>joel</a>"
+      expect(decorator.user_link).to eq "<a href='/i_am/joel'>joel</a>"
     end
 
     it 'links to nowhere for a null user' do
       user = nil
-      topic = create(:topic)
+      topic = build_stubbed(:topic, user: nil)
       decorator = UserTopicDecorator.new(user, topic)
 
       expect(decorator.user_link).to eq '<a href="#">?</a>'

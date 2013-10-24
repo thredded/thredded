@@ -1,6 +1,36 @@
 require 'spec_helper'
 
 module Thredded
+  describe TopicDecorator, '#last_user_link' do
+    after do
+      Thredded.user_path = nil
+    end
+
+    it 'returns "Anonymous" if nothing is there' do
+      topic = build_stubbed(:topic, last_user: nil)
+      decorated_topic = TopicDecorator.new(topic)
+
+      expect(decorated_topic.last_user_link).to eq 'Anonymous'
+    end
+
+    it 'returns link to root if config is not set' do
+      user = build_stubbed(:user, name: 'joel')
+      topic = build_stubbed(:topic, last_user: user)
+      decorated_topic = TopicDecorator.new(topic)
+
+      expect(decorated_topic.last_user_link).to eq "<a href='/'>joel</a>"
+    end
+
+    it 'returns link to user if config is set' do
+      Thredded.user_path = ->(user){ "/hi/#{user}" }
+      user = build_stubbed(:user, name: 'joel')
+      topic = build_stubbed(:topic, last_user: user)
+      decorated_topic = TopicDecorator.new(topic)
+
+      expect(decorated_topic.last_user_link).to eq "<a href='/hi/joel'>joel</a>"
+    end
+  end
+
   describe TopicDecorator, '#slug' do
     it 'uses the id if slug is nil' do
       topic = build_stubbed(:topic, slug: nil)

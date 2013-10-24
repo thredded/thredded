@@ -23,7 +23,8 @@ module Thredded
   mattr_accessor :user_class,
     :email_incoming_host,
     :email_from,
-    :email_outgoing_prefix
+    :email_outgoing_prefix,
+    :user_path
 
   def self.user_class
     if @@user_class.is_a?(Class)
@@ -36,6 +37,14 @@ module Thredded
       rescue NameError
         @@user_class.constantize
       end
+    end
+  end
+
+  def self.user_path(user)
+    if @@user_path.respond_to? :call
+      @@user_path.call(user)
+    else
+      '/'
     end
   end
 end

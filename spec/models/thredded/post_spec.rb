@@ -206,11 +206,12 @@ module Thredded
     end
 
     it 'links @names of members' do
+      Thredded.user_path = ->(user){ "/profile/#{user}" }
       sam = build_stubbed(:user, name: 'sam')
       joe = build_stubbed(:user, name: 'joe')
       Messageboard.any_instance.stub(members_from_list: [sam, joe])
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
-      expectation = "<p>for <a href=\"/users/sam\">@sam</a> but not @al or @kek. And <a href=\"/users/joe\">@joe</a>.</p>\n"
+      expectation = "<p>for <a href=\"/profile/sam\">@sam</a> but not @al or @kek. And <a href=\"/profile/joe\">@joe</a>.</p>\n"
 
       post.filtered_content.should eq expectation
     end

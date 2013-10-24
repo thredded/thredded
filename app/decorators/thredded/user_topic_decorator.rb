@@ -55,8 +55,9 @@ module Thredded
     end
 
     def user_link
-      if user.valid?
-        "<a href='/users/#{topic.user_name}'>#{topic.user_name}</a>".html_safe
+      if topic.user && topic.user.valid?
+        user_path = Thredded.user_path(topic.user)
+        "<a href='#{user_path}'>#{topic.user}</a>".html_safe
       else
         '<a href="#">?</a>'.html_safe
       end
