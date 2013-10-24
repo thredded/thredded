@@ -52,7 +52,7 @@ module Thredded
     private
 
     def modify_parent_posts_counts
-      UserDetail.increment_counter(:posts_count, user_id)
+      Thredded::UserDetail.increment_counter(:posts_count, user_id)
       topic.last_user = user
       topic.touch
       topic.save
@@ -65,7 +65,7 @@ module Thredded
     end
 
     def notify_at_users
-      AtNotifier.new(self).notifications_for_at_users
+      Thredded::AtNotifier.new(self).notifications_for_at_users
     end
   end
 end
