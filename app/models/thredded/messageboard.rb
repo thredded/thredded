@@ -29,6 +29,12 @@ module Thredded
       where(closed: false).order('topics_count DESC')
     end
 
+    def self.decorate
+      all.map do |messageboard|
+        MessageboardDecorator.new(messageboard)
+      end
+    end
+
     def preferences_for(user)
       @preferences_for ||=
         messageboard_preferences.where(user_id: user).first || NullMessageboardPreference.new
