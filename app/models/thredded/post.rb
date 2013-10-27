@@ -5,7 +5,6 @@ module Thredded
   class Post  < ActiveRecord::Base
     include Gravtastic
     include Thredded::Filter::Base
-    include Thredded::Filter::Textile
     include Thredded::Filter::Bbcode
     include Thredded::Filter::Markdown
     include Thredded::Filter::Attachment

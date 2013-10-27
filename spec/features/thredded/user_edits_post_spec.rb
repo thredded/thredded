@@ -7,7 +7,6 @@ feature 'User editing posts' do
     post.visit_post_edit
 
     expect(post).to be_editable
-    expect(post).to have_markdown_as_the_filter
   end
 
   scenario 'updates post contents' do
@@ -25,14 +24,6 @@ feature 'User editing posts' do
     post.visit_post_edit
 
     expect(post).not_to be_editable
-  end
-
-  scenario 'sees the post retain its original filter' do
-    user.log_in
-    post = users_post_with_bbcode
-    post.visit_post_edit
-
-    expect(post).to have_bbcode_as_the_filter
   end
 
   context 'as a superadmin' do
@@ -68,18 +59,6 @@ feature 'User editing posts' do
     topic = create(:topic)
     messageboard = topic.messageboard
     post = create(:post, user: @user, topic: topic, messageboard: messageboard)
-    PageObject::Post.new(post)
-  end
-
-  def users_post_with_bbcode
-    topic = create(:topic)
-    messageboard = topic.messageboard
-    post = create(:post,
-      user: @user,
-      topic: topic,
-      messageboard: messageboard,
-      filter: 'bbcode',
-    )
     PageObject::Post.new(post)
   end
 end

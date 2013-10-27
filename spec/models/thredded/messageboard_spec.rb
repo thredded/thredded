@@ -5,6 +5,9 @@ module Thredded
     it { should have_db_column(:closed) }
     it { should have_db_index(:closed) }
     it { should have_many(:messageboard_preferences) }
+    it { should have_db_column(:filter) }
+    it { should validate_presence_of(:filter) }
+    it { should ensure_inclusion_of(:filter).in_array(['markdown', 'bbcode']) }
 
     before(:each) do
       @messageboard = create(:messageboard, topics_count: 10)
@@ -28,19 +31,21 @@ module Thredded
     end
 
     describe '#preferences_for' do
-      it 'returns messageboard preferences for given user' do
+      it 'creates a new preference if it does not exist already' do
         messageboard = create(:messageboard)
-        user = create(:user, :prefers_bbcode)
+        user = create(:user)
 
-        expect(messageboard.preferences_for(user).filter).to eq 'bbcode'
+        expect(messageboard.preferences_for user).not_to be_nil
+        expect(messageboard.preferences_for user).to be_persisted
       end
 
-      it 'returns a null preference if nothing is found' do
+      it 'finds an existing preference' do
         messageboard = create(:messageboard)
-        preferences = messageboard.preferences_for(nil)
+        user = create(:user)
+        prefs = create(:messageboard_preference,
+          messageboard: messageboard, user: user)
 
-        expect(preferences.filter).to eq 'markdown'
-        expect(preferences).to be_a(NullMessageboardPreference)
+        expect(messageboard.preferences_for user).to eq prefs
       end
     end
 

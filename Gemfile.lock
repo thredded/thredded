@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     thredded (0.0.4)
-      RedCloth
       bb-ruby
       cancan
       carrierwave
@@ -24,7 +23,6 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    RedCloth (4.2.9)
     actionmailer (4.0.0)
       actionpack (= 4.0.0)
       mail (~> 2.5.3)

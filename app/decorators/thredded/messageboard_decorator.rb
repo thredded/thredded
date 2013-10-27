@@ -48,7 +48,7 @@ module Thredded
     end
 
     def latest_user
-      latest_topic.user
+      latest_topic.last_user
     end
 
     def category_options

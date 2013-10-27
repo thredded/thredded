@@ -7,6 +7,10 @@ module Thredded
     def user
       'Anonymous User'
     end
+
+    def last_user
+      'Anonymous User'
+    end
   end
 end
 

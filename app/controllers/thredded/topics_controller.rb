@@ -26,7 +26,7 @@ module Thredded
       @topic = messageboard.topics.build
       @topic
         .posts
-        .build(filter: messageboard.preferences_for(current_user).filter)
+        .build
 
       unless can? :create, @topic
         error = 'Sorry, you are not authorized to post on this messageboard.'
@@ -58,7 +58,7 @@ module Thredded
 
     def topic
       if messageboard
-        @topic ||= messageboard.topics.where(slug: params[:id]).first
+        @topic ||= messageboard.topics.friendly.find(params[:id])
       end
     end
 
@@ -84,6 +84,7 @@ module Thredded
               messageboard: messageboard,
               ip: request.remote_ip,
               user: current_user,
+              filter: messageboard.filter,
             }
           }
         })

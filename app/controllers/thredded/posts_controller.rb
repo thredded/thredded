@@ -12,7 +12,7 @@ module Thredded
       authorize! :read, topic
 
       @posts = topic.posts.page(current_page)
-      @post  = messageboard.posts.build(topic: topic, filter: post_filter)
+      @post  = messageboard.posts.build(topic: topic)
 
       update_read_status!
     end
@@ -41,6 +41,7 @@ module Thredded
           ip: request.remote_ip,
           user: current_user,
           messageboard: messageboard,
+          filter: messageboard.filter,
         )
     end
 
@@ -60,7 +61,7 @@ module Thredded
     end
 
     def topic
-      @topic ||= messageboard.topics.find_by_slug(params[:topic_id])
+      @topic ||= messageboard.topics.friendly.find(params[:topic_id])
     end
 
     def user_topic
@@ -69,10 +70,6 @@ module Thredded
 
     def post
       @post ||= topic.posts.find(params[:id])
-    end
-
-    def post_filter
-      messageboard.preferences_for(current_user).filter
     end
 
     def current_page

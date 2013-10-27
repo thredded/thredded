@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.mkdn']
 
-  s.add_dependency 'RedCloth'
   s.add_dependency 'bb-ruby'
   s.add_dependency 'cancan'
   s.add_dependency 'carrierwave'

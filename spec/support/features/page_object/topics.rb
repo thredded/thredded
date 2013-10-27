@@ -22,9 +22,29 @@ module PageObject
     end
 
     def create_topic
+      topic_with_content('Lorem ipsum dolor samet')
+    end
+
+    def create_bbcoded_topic
+      topic_with_content('[b]Lorem[/b] ipsum dolor samet')
+    end
+
+    def rendering_bbcode?
+      has_css? 'strong', text: 'Lorem'
+    end
+
+    def create_markdowned_topic
+      topic_with_content('Lorem **ipsum** dolor samet')
+    end
+
+    def rendering_markdown?
+      has_css? 'strong', text: 'ipsum'
+    end
+
+    def topic_with_content(post_content)
       visit_form
       title('Sample thread title')
-      content('Lorem ipsum dolor samet')
+      content(post_content)
       click_button 'Create New Topic'
     end
 

@@ -24,13 +24,5 @@ module PageObject
     def editable?
       has_css?('textarea#post_content')
     end
-
-    def has_bbcode_as_the_filter?
-      find('#post_filter').value == 'bbcode'
-    end
-
-    def has_markdown_as_the_filter?
-      find('#post_filter').value == 'markdown'
-    end
   end
 end

@@ -2,20 +2,27 @@ module Thredded
   class Messageboard < ActiveRecord::Base
     SECURITY = %w{private logged_in public}
     PERMISSIONS = %w{members logged_in anonymous}
+    FILTERS = %w{markdown bbcode}
 
     extend FriendlyId
     friendly_id :name
 
-    validates_numericality_of :topics_count
-    validates_inclusion_of :security, in: SECURITY
-    validates_inclusion_of :posting_permission, in: PERMISSIONS
-    validates_presence_of :name
-    validates_format_of :name, with: /\A[\w\-]+\z/, on: :create,
+    validates :filter, presence: true
+    validates :filter, inclusion: { in: FILTERS }
+    validates :name, format: {
+      with: /\A[\w\-]+\z/,
+      on: :create,
       message: 'should be letters, nums, dash, underscore only.'
-    validates_uniqueness_of :name,
-      message: 'must be a unique board name. Try again.'
-    validates_length_of :name, within: 1..16,
+    }
+    validates :name, length: {
+      within: 1..16,
       message: 'should be between 1 and 16 characters'
+    }
+    validates :name, presence: true
+    validates :name, uniqueness: { message: 'must be a unique board name.' }
+    validates :posting_permission, inclusion: { in: PERMISSIONS }
+    validates :security, inclusion: { in: SECURITY }
+    validates :topics_count, numericality: true
 
     has_many :categories
     has_many :messageboard_preferences
@@ -37,7 +44,7 @@ module Thredded
 
     def preferences_for(user)
       @preferences_for ||=
-        messageboard_preferences.where(user_id: user).first || NullMessageboardPreference.new
+        messageboard_preferences.where(user_id: user).first_or_create
     end
 
     def active_users

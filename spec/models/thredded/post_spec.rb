@@ -102,12 +102,6 @@ module Thredded
       @post.filtered_content.should eq 'let me <a href="http://google.com">google</a> that'
     end
 
-    it 'converts textile to html' do
-      @post.content = 'this is *bold*'
-      @post.filter = 'textile'
-      @post.filtered_content.should eq '<p>this is <strong>bold</strong></p>'
-    end
-
     it 'converts bbcode to html' do
       @post.content = 'this is [b]bold[/b]'
       @post.filter = 'bbcode'

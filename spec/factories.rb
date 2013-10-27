@@ -74,8 +74,9 @@ FactoryGirl.define do
     sequence(:name) { |n| "messageboard#{n}" }
     sequence(:slug) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
-    security 'public'
+    filter 'markdown'
     posting_permission  'anonymous'
+    security 'public'
 
     trait :postable_for_logged_in do
       posting_permission 'logged_in'
@@ -91,6 +92,14 @@ FactoryGirl.define do
 
     trait :public do
       security 'public'
+    end
+
+    trait :bbcode do
+      filter 'bbcode'
+    end
+
+    trait :markdown do
+      filter 'markdown'
     end
   end
 
@@ -211,24 +220,6 @@ FactoryGirl.define do
     trait :superadmin do
       after(:create) do |user, evaluator|
         create(:user_detail, user: user, superadmin: true)
-      end
-    end
-
-    trait :prefers_bbcode do
-      after(:create) do |user, evaluator|
-        Thredded::Messageboard.all.each do |messageboard|
-          create(:messageboard_preference,
-            filter: 'bbcode', user: user, messageboard: messageboard)
-        end
-      end
-    end
-
-    trait :prefers_markdown do
-      after(:create) do |user, evaluator|
-        Thredded::Messageboard.all.each do |messageboard|
-          create(:messageboard_preference,
-            filter: 'markdown', user: user, messageboard: messageboard)
-        end
       end
     end
   end

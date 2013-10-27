@@ -26,12 +26,14 @@ module Thredded
   describe MessageboardDecorator, '#latest_user' do
     it 'returns the user from the most recently updated topic' do
       me = create(:user)
+      them = create(:user)
       messageboard = create(:messageboard)
       create_list(:topic, 3, messageboard: messageboard)
-      latest = create(:topic, messageboard: messageboard, user: me)
+      latest = create(:topic, messageboard: messageboard,
+        last_user: them, user: me)
       decorated_messageboard = MessageboardDecorator.new(messageboard)
 
-      expect(decorated_messageboard.latest_user).to eq me
+      expect(decorated_messageboard.latest_user).to eq them
     end
   end
 

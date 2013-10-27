@@ -30,19 +30,6 @@ feature 'User updating preferences' do
     expect(preferences).to_not have_private_topic_notifications
   end
 
-  scenario 'changes preferred post filter' do
-    preferences = default_user_preferences
-    preferences.update_to_markdown
-
-    expect(preferences).to be_updated
-    expect(preferences).to have_markdown_as_the_post_filter
-
-    preferences.update_to_bbcode
-
-    expect(preferences).to be_updated
-    expect(preferences).to have_bbcode_as_the_post_filter
-  end
-
   def default_user_preferences
     user = create(:user)
     default_user_preferences = PageObject::MessageboardPreferences.new(user)

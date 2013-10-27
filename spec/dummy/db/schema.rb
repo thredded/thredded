@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019014258) do
+ActiveRecord::Schema.define(version: 20131029034507) do
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -48,9 +48,8 @@ ActiveRecord::Schema.define(version: 20131019014258) do
   create_table "thredded_messageboard_preferences", force: true do |t|
     t.boolean  "notify_on_mention", default: true
     t.boolean  "notify_on_message", default: true
-    t.string   "filter",            default: "markdown", null: false
-    t.integer  "user_id",                                null: false
-    t.integer  "messageboard_id",                        null: false
+    t.integer  "user_id",                          null: false
+    t.integer  "messageboard_id",                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -69,6 +68,7 @@ ActiveRecord::Schema.define(version: 20131019014258) do
     t.boolean  "closed",             default: false,       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "filter",             default: "markdown",  null: false
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed"
