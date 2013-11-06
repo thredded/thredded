@@ -1,4 +1,5 @@
 .bundle/
+bin/
 log/*.log
 pkg/
 spec/dummy/db/*.sqlite3
@@ -7,3 +8,5 @@ spec/dummy/tmp/
 spec/dummy/.sass-cache
 spec/dummy/public/uploads
 tags
+zeus.json
+custom_plan.rb
