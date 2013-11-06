@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan'
   s.add_dependency 'carrierwave'
   s.add_dependency 'escape_utils'
+  s.add_dependency 'unf'
   s.add_dependency 'fog'
   s.add_dependency 'friendly_id'
   s.add_dependency 'gravtastic'
