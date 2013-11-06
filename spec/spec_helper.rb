@@ -2,7 +2,6 @@
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
