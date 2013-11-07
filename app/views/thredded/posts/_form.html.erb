@@ -15,11 +15,3 @@
   <%= f.link_to_add 'Add an attachment', :attachments,
     { class: :add_attachment } %>
 </li>
-
-<li>
-  <%= f.select :filter, Thredded::Post.filters, {} %>
-  <a href="#pseudo-help"
-    title="huh?"
-    class="hide-for-small filter-help"
-    id="filter-help">?</a>
-</li>

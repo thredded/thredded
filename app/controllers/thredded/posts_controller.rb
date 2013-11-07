@@ -61,7 +61,11 @@ module Thredded
     end
 
     def topic
-      @topic ||= messageboard.topics.friendly.find(params[:topic_id])
+      @topic ||= topic_with_eager_loaded_user_topic_reads
+    end
+
+    def topic_with_eager_loaded_user_topic_reads
+      messageboard.topics.find_by_slug(params[:topic_id])
     end
 
     def user_topic
