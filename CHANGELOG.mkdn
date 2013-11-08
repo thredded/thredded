@@ -1,3 +1,9 @@
+# 0.0.7
+
+## Bug Fixes
+
+* Get search back to working
+
 # 0.0.6
 
 ## Changes
