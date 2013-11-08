@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.0.5)
+    thredded (0.0.7)
       bb-ruby
       cancan
       carrierwave
