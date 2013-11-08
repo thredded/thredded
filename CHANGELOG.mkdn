@@ -1,3 +1,15 @@
+# 0.0.8
+
+## Bug fixes
+
+* Make sure messageboard slug is populated upon creation
+
+## Changes
+
+* Refactor controllers for a little more cleanliness
+* Exceptions raised and caught instead of asking for existence of objects
+* Update pagination path format
+
 # 0.0.7
 
 ## Bug Fixes
