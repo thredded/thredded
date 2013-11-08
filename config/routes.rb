@@ -15,7 +15,7 @@ Thredded::Engine.routes.draw do
   get '/:messageboard_id/preferences/edit' => 'preferences#edit'
   get '/:messageboard_id/new(.:format)' => 'topics#new', as: :new_messageboard_topic
   get '/:messageboard_id/:id/edit(.:format)' => 'topics#edit', as: :edit_messageboard_topic
-  get '/:messageboard_id/:topic_id/:page(.:format)' => 'posts#index',
+  get '/:messageboard_id/:topic_id/page-:page(.:format)' => 'posts#index',
     as: :paged_messageboard_topic_posts, constraints: { page: /\d+/ }
 
   resources :messageboards, only: [:index], path: '' do
