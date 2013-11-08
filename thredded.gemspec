@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'multi_json'
   s.add_dependency 'nested_form'
   s.add_dependency 'nokogiri'
-  s.add_dependency 'rails', '>= 4.0'
+  s.add_dependency 'rails', '~> 4.0.0'
   s.add_dependency 'rails_emoji'
   s.add_dependency 'redcarpet'
 

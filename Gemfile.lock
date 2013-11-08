@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.0.4)
+    thredded (0.0.5)
       bb-ruby
       cancan
       carrierwave
@@ -16,7 +16,7 @@ PATH
       multi_json
       nested_form
       nokogiri
-      rails (>= 4.0)
+      rails (~> 4.0.0)
       rails_emoji
       redcarpet
       unf
