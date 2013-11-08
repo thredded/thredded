@@ -27,6 +27,14 @@ module Thredded
     has_many :private_topics
     has_many :users, through: :roles, class_name: Thredded.user_class
 
+    def self.find_by_slug(slug)
+      begin
+        friendly.find(slug)
+      rescue ActiveRecord::RecordNotFound
+        raise Thredded::Errors::MessageboardNotFound
+      end
+    end
+
     def self.default_scope
       where(closed: false).order('topics_count DESC')
     end

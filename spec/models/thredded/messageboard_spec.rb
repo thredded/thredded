@@ -177,11 +177,26 @@ module Thredded
       expect(messageboard.active_users).to include inactive_user
     end
 
-    it "updates nothing if no role exists" do
+    it 'updates nothing if no role exists' do
       messageboard = create(:messageboard)
       user = create(:user)
 
       expect{ messageboard.update_activity_for!(user) }.not_to raise_error
+    end
+  end
+
+  describe Messageboard, '.find_by_slug' do
+    it 'finds the messageboard according to the slug' do
+      messageboard = create(:messageboard, name: 'A messageboard')
+
+      expect(Messageboard.find_by_slug('a-messageboard')).to eq messageboard
+    end
+
+    context 'when a messageboard is not found' do
+      it 'raises Thredded::Errors::MessageboardNotFound' do
+        expect{ Messageboard.find_by_slug('rubbish') }
+          .to raise_error(Thredded::Errors::MessageboardNotFound)
+      end
     end
   end
 end

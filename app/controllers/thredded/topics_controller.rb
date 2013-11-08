@@ -1,7 +1,7 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController
-    before_filter :ensure_messageboard_exists
     helper_method :current_page
+    before_filter :update_user_activity
 
     def index
       if cannot? :read, messageboard

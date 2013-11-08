@@ -2,10 +2,10 @@ module Thredded
   class PostsController < Thredded::ApplicationController
     load_and_authorize_resource only: [:index, :show]
     helper_method :messageboard, :topic, :user_topic
+    before_filter :update_user_activity
 
     rescue_from Thredded::Errors::TopicNotFound do |exception|
-      redirect_to messageboard_topics_path(messageboard),
-        alert: 'This topic does not exist.'
+      redirect_to messageboard_topics_path(messageboard), alert: exception.message
     end
 
     def index

@@ -2,10 +2,13 @@ module Thredded
   class ApplicationController < ::ApplicationController
     helper Thredded::Engine.helpers
     helper_method :messageboard, :topic, :preferences
-    before_filter :update_user_activity
 
     rescue_from CanCan::AccessDenied do |exception|
-      redirect_to root_path, alert: exception.message
+      redirect_to thredded.root_path, alert: exception.message
+    end
+
+    rescue_from Thredded::Errors::MessageboardNotFound do |exception|
+      redirect_to thredded.root_path, alert: exception.message
     end
 
     private
@@ -21,9 +24,7 @@ module Thredded
     end
 
     def messageboard
-      if params.key? :messageboard_id
-        @messageboard ||= Messageboard.friendly.find(params[:messageboard_id])
-      end
+      @messageboard ||= Messageboard.find_by_slug(params[:messageboard_id])
     end
 
     def preferences
@@ -35,13 +36,6 @@ module Thredded
     def topic
       if messageboard
         @topic ||= messageboard.topics.find(params[:topic_id])
-      end
-    end
-
-    def ensure_messageboard_exists
-      if messageboard.blank?
-        redirect_to thredded.root_path,
-          flash: { error: 'This messageboard does not exist.' }
       end
     end
   end

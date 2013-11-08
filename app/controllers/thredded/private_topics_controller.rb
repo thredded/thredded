@@ -1,7 +1,5 @@
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
-    before_filter :ensure_messageboard_exists
-
     def index
       if cannot? :read, messageboard
         error = 'You are not authorized access to this messageboard.'
