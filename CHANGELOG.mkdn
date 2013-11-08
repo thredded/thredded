@@ -1,0 +1,19 @@
+# 0.0.5
+
+# New Features
+
+* A CHANGELOG!
+
+# Bug Fixes
+
+* Fix `PostsController#topic` to ensure the `user_topic_reads` association is eager loaded
+* Make that `topic` method pass along to an obviously named and intention revealing method
+* Delete the filter select from `posts/_form` partial
+* require `thredded/at_notifier` in `thredded.rb` (thanks @srussking)
+
+# Changes
+
+* Introduce a more robust `MessageboardDecorator`
+* Allow `messagebord` obj or collection to be decorated with `#decorate` method
+* Introduce `NullTopic` to stand in for instances where a topic is not found
+* remove `rspec/autorun` from `spec_helper`
