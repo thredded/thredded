@@ -72,7 +72,6 @@ FactoryGirl.define do
 
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
-    sequence(:slug) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
     filter 'markdown'
     posting_permission  'anonymous'

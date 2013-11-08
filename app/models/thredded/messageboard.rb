@@ -5,15 +5,10 @@ module Thredded
     FILTERS = %w{markdown bbcode}
 
     extend FriendlyId
-    friendly_id :name
+    friendly_id :name, use: :slugged
 
     validates :filter, presence: true
     validates :filter, inclusion: { in: FILTERS }
-    validates :name, format: {
-      with: /\A[\w\-]+\z/,
-      on: :create,
-      message: 'should be letters, nums, dash, underscore only.'
-    }
     validates :name, length: {
       within: 1..16,
       message: 'should be between 1 and 16 characters'

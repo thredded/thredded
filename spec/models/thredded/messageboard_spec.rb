@@ -4,6 +4,7 @@ module Thredded
   describe Messageboard do
     it { should have_db_column(:closed) }
     it { should have_db_index(:closed) }
+    it { should have_db_index(:slug) }
     it { should have_many(:messageboard_preferences) }
     it { should have_db_column(:filter) }
     it { should validate_presence_of(:filter) }
@@ -11,6 +12,12 @@ module Thredded
 
     before(:each) do
       @messageboard = create(:messageboard, topics_count: 10)
+    end
+
+    it 'generates the slug' do
+      messageboard = create(:messageboard, name: 'Super Friends')
+
+      expect(messageboard.slug).to eq 'super-friends'
     end
 
     it 'returns only open messageboards' do
