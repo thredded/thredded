@@ -22,7 +22,7 @@ module Thredded
 
     def messageboard
       if params.key? :messageboard_id
-        @messageboard ||= Messageboard.where(slug: params[:messageboard_id]).first
+        @messageboard ||= Messageboard.friendly.find(params[:messageboard_id])
       end
     end
 
