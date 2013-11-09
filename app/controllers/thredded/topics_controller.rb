@@ -24,9 +24,7 @@ module Thredded
 
     def new
       @topic = messageboard.topics.build
-      @topic
-        .posts
-        .build
+      @topic.posts.build
 
       unless can? :create, @topic
         error = 'Sorry, you are not authorized to post on this messageboard.'

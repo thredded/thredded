@@ -11,6 +11,7 @@
 
 <div class="topics forms">
   <%= nested_form_for([messageboard, @private_topic],
+    url: messageboard_private_topics_path(messageboard, @private_topic),
     html: { multipart: true, class: :topic_form }) do |form| %>
 
     <ul>
