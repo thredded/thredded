@@ -1,4 +1,13 @@
-# 0.0.9
+# 0.0.11
+
+## Feature / Bug Fix
+
+* Up until now the manner by which file uploads (via Carrierwave) had its storage
+location determined was in the uploaded classes themselves. This commit allows the
+location to be set from the Thredded module itself - `Thredded.file_storage` - to
+either :file or :fog.
+
+# 0.0.10
 
 ## Bug fixes
 
