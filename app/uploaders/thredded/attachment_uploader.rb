@@ -3,7 +3,7 @@ require 'carrierwave/processing/mini_magick'
 module Thredded
   class AttachmentUploader < CarrierWave::Uploader::Base
     include CarrierWave::MiniMagick
-    storage :file
+    storage Thredded.file_storage
 
     def store_dir
       "uploads/#{mounted_as}/#{model.id}"

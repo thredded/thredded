@@ -24,7 +24,12 @@ module Thredded
     :email_incoming_host,
     :email_from,
     :email_outgoing_prefix,
-    :user_path
+    :user_path,
+    :file_storage
+
+  # default `file_storage` to :file
+  # options: :file or :fog
+  self.file_storage = :file
 
   def self.user_class
     if @@user_class.is_a?(Class)
