@@ -1,22 +1,45 @@
 module Thredded
   class ApplicationController < ::ApplicationController
     helper Thredded::Engine.helpers
-    helper_method :messageboard, :topic, :preferences
+    helper_method :messageboard, :preferences
 
-    rescue_from CanCan::AccessDenied do |exception|
+    rescue_from CanCan::AccessDenied,
+      Thredded::Errors::MessageboardNotFound,
+      Thredded::Errors::MessageboardReadDenied,
+      Thredded::Errors::TopicCreateDenied do |exception|
+
       redirect_to thredded.root_path, alert: exception.message
     end
 
-    rescue_from Thredded::Errors::MessageboardNotFound do |exception|
-      redirect_to thredded.root_path, alert: exception.message
+    rescue_from Thredded::Errors::EmptySearchResults,
+      Thredded::Errors::TopicNotFound do |exception|
+
+      redirect_to messageboard_topics_path(messageboard),
+        alert: exception.message
     end
 
     private
 
-    def update_user_activity
-      if messageboard && current_user
-        messageboard.update_activity_for!(current_user)
+    def authorize_reading(obj)
+      if cannot? :read, obj
+        class_name = obj.class.to_s
+        error = class_name
+          .gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
+        raise error.constantize
       end
+    end
+
+    def authorize_creating(obj)
+      if cannot? :create, obj
+        class_name = obj.class.to_s
+        error = class_name
+          .gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
+        raise error.constantize
+      end
+    end
+
+    def update_user_activity
+      messageboard.update_activity_for!(current_user)
     end
 
     def current_ability
@@ -30,12 +53,6 @@ module Thredded
     def preferences
       if current_user
         @preferences ||= UserPreference.where(user_id: current_user.id).first
-      end
-    end
-
-    def topic
-      if messageboard
-        @topic ||= messageboard.topics.find(params[:topic_id])
       end
     end
   end

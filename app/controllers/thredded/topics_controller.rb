@@ -1,36 +1,23 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController
-    helper_method :current_page
+    helper_method :current_page, :topic
     before_filter :update_user_activity
 
     def index
-      if cannot? :read, messageboard
-        error = 'You are not authorized access to this messageboard.'
-        redirect_to default_home, flash: { error: error }
-      end
+      authorize_reading messageboard
 
       @topics = topics
     end
 
     def search
-      @topics = search_results
-
-      if @topics.empty?
-        error = 'No topics found for this search.'
-        redirect_to messageboard_topics_path(messageboard),
-          flash: { error: error }
-      end
+      @topics = Topic.search(params[:q], messageboard)
     end
 
     def new
       @topic = messageboard.topics.build
       @topic.posts.build
 
-      unless can? :create, @topic
-        error = 'Sorry, you are not authorized to post on this messageboard.'
-        redirect_to messageboard_topics_url(messageboard),
-          flash: { error: error }
-      end
+      authorize_creating @topic
     end
 
     def by_category
@@ -55,9 +42,16 @@ module Thredded
     private
 
     def topic
-      if messageboard
-        @topic ||= messageboard.topics.friendly.find(params[:id])
-      end
+      @topic ||= messageboard.topics.find_by_slug(params[:id])
+    end
+
+    def topics
+      Topic
+        .public
+        .for_messageboard(messageboard)
+        .includes(:user_topic_reads)
+        .order_by_stuck_and_updated_time
+        .on_page(current_page)
     end
 
     def topic_params
@@ -88,10 +82,6 @@ module Thredded
         })
     end
 
-    def search_results
-      Topic.full_text_search(params[:q], messageboard)
-    end
-
     def topics_by_category(category_id)
       topics = Category.find(category_id)
         .topics
@@ -99,15 +89,6 @@ module Thredded
         .public
         .for_messageboard(messageboard)
         .order_by_updated
-        .on_page(current_page)
-    end
-
-    def topics
-      Topic
-        .public
-        .for_messageboard(messageboard)
-        .includes(:user_topic_reads)
-        .order_by_stuck_and_updated_time
         .on_page(current_page)
     end
 

@@ -20,28 +20,32 @@ module Thredded
 
     it 'renders GET index' do
       get :index, messageboard_id: @messageboard.id
-      response.should be_success
-      response.should render_template('index')
+
+      expect(response).to be_successful
+      expect(response).to render_template('index')
     end
 
     describe 'GET search' do
       it 'renders search' do
-        controller.stub(search_results: [@topic])
+        Topic.stub(search: [@topic])
         get :search, messageboard_id: @messageboard.id, q: 'hi'
-        response.should be_success
-        response.should render_template('search')
+
+        expect(response).to be_successful
+        expect(response).to render_template('search')
       end
 
       it 'is successful with spaces around search term(s)' do
-        controller.stub(search_results: [@topic])
+        Topic.stub(search: [@topic])
         get :search, messageboard_id: @messageboard.id, q: '  hi  '
-        response.should be_success
+
+        expect(response).to be_successful
       end
 
       it 'returns nothing when query is empty' do
-        controller.stub(search_results: [])
+        Topic.stub(:search) { raise Thredded::Errors::EmptySearchResults, 'hi' }
         get :search, messageboard_id: @messageboard.id, q: ''
-        flash[:error].should eq('No topics found for this search.')
+
+        expect(flash[:alert]).to eq "There are no results for your search - 'hi'"
       end
     end
   end
