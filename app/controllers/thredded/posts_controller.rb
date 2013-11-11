@@ -23,7 +23,8 @@ module Thredded
     end
 
     def update
-      post.update_attribute(:content, params[:post][:content])
+      post.update_attributes(post_params.except(:user, :ip))
+
       redirect_to messageboard_topic_posts_url(messageboard, topic)
     end
 
