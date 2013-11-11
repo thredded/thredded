@@ -19,11 +19,11 @@ module Thredded
     end
 
     def edit
-      authorize! :manage, post
+      authorize! :edit, post
     end
 
     def update
-      post.update_attributes(post_params)
+      post.update_attribute(:content, params[:post][:content])
       redirect_to messageboard_topic_posts_url(messageboard, topic)
     end
 

@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 feature 'User editing posts' do
-  scenario 'can edit their own post' do
-    user.log_in
-    post = users_post
-    post.visit_post_edit
-
-    expect(post).to be_editable
-  end
-
   scenario 'updates post contents' do
     user.log_in
     post = users_post
@@ -26,31 +18,46 @@ feature 'User editing posts' do
     expect(post).not_to be_editable
   end
 
-  context 'as a superadmin' do
+  scenario 'can edit their own post' do
+    user.log_in
+    post = users_post
+    post.visit_post_edit
+
+    expect(post).to be_editable
+  end
+
+  context 'as a admin' do
     scenario "can edit someone else's post" do
-      user = superadmin
-      user.log_in
+      admin.log_in
+
       post = someone_elses_post
       post.visit_post_edit
+      post.submit_new_content('I edited this')
 
-      expect(post).to be_editable
+      expect(post).to be_authored_by('sal')
+      expect(post).to have_content('I edited this')
     end
   end
 
   def user
-    @user ||= create(:user)
-    PageObject::User.new(@user)
+    @user ||= begin
+      user = create(:user, name: 'joel')
+      PageObject::User.new(user)
+    end
   end
 
-  def superadmin
-    @user = create(:user, :superadmin)
-    PageObject::User.new(@user)
+  def admin
+    @admin ||= begin
+      admin = create(:user, :admin, name: 'admin')
+      PageObject::User.new(admin)
+    end
   end
 
   def someone_elses_post
-    someone_else = create(:user)
+    someone_else = create(:user, name: 'sal')
     topic = create(:topic)
     messageboard = topic.messageboard
+    messageboard.add_member(admin.user, 'admin')
     post = create(:post, user: someone_else, topic: topic, messageboard: messageboard)
     PageObject::Post.new(post)
   end
@@ -58,7 +65,7 @@ feature 'User editing posts' do
   def users_post
     topic = create(:topic)
     messageboard = topic.messageboard
-    post = create(:post, user: @user, topic: topic, messageboard: messageboard)
+    post = create(:post, user: user.user, topic: topic, messageboard: messageboard)
     PageObject::Post.new(post)
   end
 end

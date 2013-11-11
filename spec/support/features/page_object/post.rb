@@ -22,7 +22,20 @@ module PageObject
     end
 
     def editable?
-      has_css?('textarea#post_content')
+      has_css? 'form[id^="edit_post"]'
+    end
+
+    def authored_by?(name)
+      has_css? 'cite', text: name
+    end
+
+    def has_content?(content)
+      has_css? '.content p', text: content
+    end
+
+    def submit_new_content(content)
+      fill_in 'Content', with: content
+      click_on 'Update Post'
     end
   end
 end
