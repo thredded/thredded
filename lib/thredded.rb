@@ -24,10 +24,12 @@ module Thredded
     :email_outgoing_prefix,
     :user_path,
     :file_storage,
-    :asset_root
+    :asset_root,
+    :layout
 
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
+  self.layout = 'thredded'
 
   def self.user_class
     if @@user_class.is_a?(Class)

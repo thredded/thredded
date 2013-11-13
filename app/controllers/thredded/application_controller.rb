@@ -2,6 +2,7 @@ module Thredded
   class ApplicationController < ::ApplicationController
     helper Thredded::Engine.helpers
     helper_method :messageboard, :preferences
+    layout Thredded.layout
 
     rescue_from CanCan::AccessDenied,
       Thredded::Errors::MessageboardNotFound,

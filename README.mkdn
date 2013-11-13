@@ -18,6 +18,7 @@ Thredded.email_outgoing_prefix = '[Thredded] '
 Thredded.user_path = ->(user){ "/path/to/where/you/show/#{user}" }
 Thredded.file_storage = :file # or :fog
 Thredded.asset_root = 'http://assets.website.com/assets' # where important things, like emojis, might live
+Thredded.layout = 'thredded' # looks for `app/views/layouts/thredded.html.erb`
 ```
 
 Copy the migrations over to your parent application and migrate:
@@ -45,5 +46,26 @@ class User < ActiveRecord::Base
   end
 end
 ```
+
+2. Ensure you have a view layout that thredded will wrap around its views.
+
+A couple of notes with regards to your layout.
+
+* When using route helpers -- eg: `new_session_path`, et al -- make sure to prepend main_app to the helper: `main_app.new_session_path` as rails engines like thredded will not know about those routes' existence unless explicitly told so.
+* As noted above, by default thredded will look for a layout file in your application called `thredded.html.erb`. If you would like to use something else, like your main application layout, you may change it to that in your initializer.
+* The chosen layout has two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`. The views within thredded pass those up through to your layout if you would like to use them.  Example layout:
+
+```html
+<html>
+  <head>
+  <title>My Application | <%= yield :thredded_page_title %></title>
+  </head>
+  <body id="<%= yield :thredded_page_id %>">
+    <%= yield %>
+  </body>
+</html>
+```
+
+* * *
 
 For more information see [the full-fledged rails app](https://github.com/jayroh/thredded_app)
