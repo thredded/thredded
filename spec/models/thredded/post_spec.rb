@@ -88,81 +88,42 @@ module Thredded
       @post  = build(:post)
     end
 
-    it 'renders implied legacy links' do
-      @post.content = 'go to [link]http://google.com[/link]'
+    it 'renders implied urls' do
+      @post.content = 'go to [url]http://google.com[/url]'
       @post.filter = 'bbcode'
 
-      @post.filtered_content.should eq 'go to <a href="http://google.com">http://google.com</a>'
-    end
-
-    it 'renders legacy links' do
-      @post.content = 'let me [link=http://google.com]google[/link] that'
-      @post.filter = 'bbcode'
-
-      @post.filtered_content.should eq 'let me <a href="http://google.com">google</a> that'
+      @post.filtered_content.should eq '<p>go to <a href="http://google.com">http://google.com</a></p>'
     end
 
     it 'converts bbcode to html' do
       @post.content = 'this is [b]bold[/b]'
       @post.filter = 'bbcode'
-      @post.filtered_content.should eq 'this is <strong>bold</strong>'
+      @post.filtered_content.should eq '<p>this is <strong>bold</strong></p>'
     end
 
     it 'handles quotes' do
-      @post.content = '[quote]hi[/quote] [quote="john"]hey[/quote]'
+      @post.content = "[quote]hi[/quote] [quote=john]hey[/quote]"
       @post.filter = 'bbcode'
-      expected_output = '</p><fieldset><blockquote><p>hi</p></blockquote></fieldset><fieldset><legend>"john"</legend><blockquote><p>hey</p></blockquote></fieldset><p>'
-      @post.filtered_content.should eq expected_output
+      expected_output = "<p></p><br><blockquote>\n<br>    hi<br>\n</blockquote><br><br><br>john says<br><blockquote>\n<br>    hey<br>\n</blockquote><br><br>"
+
+      expect(parsed_html(@post.filtered_content))
+        .to eq(parsed_html(expected_output))
     end
 
     it 'handles nested quotes' do
       @post.content = '[quote=joel][quote=john]hello[/quote] hi[/quote]'
       @post.filter = 'bbcode'
-      expected_output = '</p><fieldset><legend>joel</legend><blockquote><fieldset><legend>john</legend><blockquote><p>hello</p></blockquote></fieldset><p> hi</p></blockquote></fieldset><p>'
-      @post.filtered_content.should eq expected_output
-    end
+      expected_output = "<p></p><br>joel says<br><blockquote>\n<br><br>john says<br><blockquote>\n<br>    hello<br>\n</blockquote>\n<br><br> hi<br>\n</blockquote><br><br>"
 
-    it 'performs specific syntax highlighting with bbcode' do
-      input = <<-EOCODE.strip_heredoc
-        [code:ruby]def hello
-        puts 'world'
-        end[/code]
-
-        [code:javascript]function(){
-        console.log('hi');
-        }[/code]
-      EOCODE
-
-      expected_output = %Q(<pre><code class=\"language-ruby\" lang=\"ruby\">def hello\nputs 'world'\nend</code></pre>\n\n<pre><code class=\"language-javascript\" lang=\"javascript\">function(){\nconsole.log('hi');\n}</code></pre>\n)
-
-      @post.filter = 'bbcode'
-      @post.content = input
-
-      @post.filtered_content.should eq expected_output
-    end
-
-    it 'performs specific syntax highlighting with bbcode' do
-      input = <<-EOCODE.strip_heredoc
-        [code:javascript]function(){
-        console.log('hi');
-        }[/code]
-
-        that was code
-      EOCODE
-
-      expected_output = %Q(<pre><code class=\"language-javascript\" lang=\"javascript\">function(){\nconsole.log('hi');\n}</code></pre>\n\nthat was code\n)
-
-      @post.filter = 'bbcode'
-      @post.content = input
-
-      @post.filtered_content.should eq expected_output
+      expect(parsed_html(@post.filtered_content))
+        .to eq(parsed_html(expected_output))
     end
 
     it 'converts markdown to html' do
       @post.content = "# Header\nhttp://www.google.com"
       @post.filter = 'markdown'
 
-      @post.filtered_content.should eq %Q(<h1>Header</h1>\n\n<p><a href="http://www.google.com">http://www.google.com</a></p>\n)
+      @post.filtered_content.should eq %Q(<h1>Header</h1>\n\n<p><a href="http://www.google.com">http://www.google.com</a></p>)
     end
 
     it 'performs some syntax highlighting in markdown' do
@@ -172,7 +133,7 @@ module Thredded
 
   right here"
 
-  expected_output = %Q(<p>this is code</p>\n\n<pre><code>  def hello; puts &#39;world&#39;; end\n</code></pre>\n\n<p>right here</p>\n)
+  expected_output = %Q(<p>this is code</p>\n\n<pre><code>  def hello; puts 'world'; end\n</code></pre>\n\n<p>right here</p>)
 
       @post.content = input
       @post.filter = 'markdown'
@@ -180,7 +141,7 @@ module Thredded
       @post.filtered_content.should eq expected_output
     end
 
-    it "translates psuedo-image tags to html" do
+    it 'translates psuedo-image tags to html' do
       attachment_1 = build_stubbed(:imgpng)
       attachment_2 = build_stubbed(:pdfpng)
       attachment_3 = build_stubbed(:txtpng)
@@ -194,7 +155,7 @@ module Thredded
         content: '[t:img=2 left] [t:img=3 right] [t:img] [t:img=4 200x200]',
         attachments: [attachment_1, attachment_2, attachment_3, attachment_4])
 
-      expectation = "<p><img src=\"/uploads/attachment/3/pdf.png\" class=\"align_left\" /> <img src=\"/uploads/attachment/2/txt.png\" class=\"align_right\" /> <img src=\"/uploads/attachment/4/img.png\" /> <img src=\"/uploads/attachment/1/zip.png\" width=\"200\" height=\"200\" /></p>\n"
+      expectation = "<p><img src=\"/uploads/attachment/3/pdf.png\" class=\"align_left\"><img src=\"/uploads/attachment/2/txt.png\" class=\"align_right\"><img src=\"/uploads/attachment/4/img.png\"><img src=\"/uploads/attachment/1/zip.png\" width=\"200\" height=\"200\"></p>"
 
       post.filtered_content.should == expectation
     end
@@ -205,9 +166,13 @@ module Thredded
       joe = build_stubbed(:user, name: 'joe')
       Messageboard.any_instance.stub(members_from_list: [sam, joe])
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
-      expectation = "<p>for <a href=\"/profile/sam\">@sam</a> but not @al or @kek. And <a href=\"/profile/joe\">@joe</a>.</p>\n"
+      expectation = '<p>for <a href="/profile/sam">@sam</a> but not @al or @kek. And <a href="/profile/joe">@joe</a>.</p>'
 
       post.filtered_content.should eq expectation
+    end
+
+    def parsed_html(html)
+      Nokogiri::HTML::DocumentFragment.parse(html).to_hash
     end
   end
 end

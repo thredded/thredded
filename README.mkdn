@@ -17,6 +17,7 @@ Thredded.email_from = 'no-reply@example.com'
 Thredded.email_outgoing_prefix = '[Thredded] '
 Thredded.user_path = ->(user){ "/path/to/where/you/show/#{user}" }
 Thredded.file_storage = :file # or :fog
+Thredded.asset_root = 'http://assets.website.com/assets' # where important things, like emojis, might live
 ```
 
 Copy the migrations over to your parent application and migrate:

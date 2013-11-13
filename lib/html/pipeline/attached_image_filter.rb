@@ -1,9 +1,16 @@
-module Thredded
-  module Filter
-    module Attachment
-      def filtered_content
-        content = super
-        matches = content.scan(/(?<full>\[t:(?<tag>\w+)=?(?<img_nmb>\d+)? ?(?<attribs>[^\]]+)?\])/)
+
+module HTML
+  class Pipeline
+    class AttachedImageFilter < Filter
+      def initialize(text, context = nil, result = nil)
+        super text, context, result
+        @text = text.gsub "\r", ''
+        @post = context[:post]
+      end
+
+      def call
+        html = @text
+        matches = @text.scan(/(?<full>\[t:(?<tag>\w+)=?(?<img_nmb>\d+)? ?(?<attribs>[^\]]+)?\])/)
 
         matches.each do |match|
           str_buff = ''
@@ -12,7 +19,7 @@ module Thredded
           img_number = match[2] ? match[2].to_i - 1 : 0 # default to first attachment
           attribs = match[3]
 
-          if(tag != 'img' || !self.attachments[img_number])
+          if(tag != 'img' || !@post.attachments[img_number])
             next
           end
 
@@ -20,7 +27,7 @@ module Thredded
           str_buff += '<img '
 
           # get attachment object at spot img_number - 1
-          attachment = self.attachments[img_number]
+          attachment = @post.attachments[img_number]
           str_buff += 'src="' + attachment.attachment.to_s + '" '
 
           # do attribute stuff, left right first
@@ -41,11 +48,12 @@ module Thredded
           str_buff += '/>'
 
           # replace in post content
-          content = content.sub(full, str_buff)
+          html = html.sub(full, str_buff)
         end
 
-        content.html_safe
+        html
       end
     end
   end
 end
+

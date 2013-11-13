@@ -7,13 +7,11 @@ require 'friendly_id'
 require 'nested_form'
 require 'thredded/email_processor'
 require 'thredded/errors'
-require 'thredded/filter/base'
 require 'thredded/at_notifier'
-require 'thredded/filter/at_notification'
-require 'thredded/filter/attachment'
-require 'thredded/filter/bbcode'
-require 'thredded/filter/emoji'
-require 'thredded/filter/markdown'
+require 'html/pipeline'
+require 'html/pipeline/bbcode_filter'
+require 'html/pipeline/attached_image_filter'
+require 'html/pipeline/at_mention_filter'
 require 'thredded/messageboard_user_permissions'
 require 'thredded/post_user_permissions'
 require 'thredded/private_topic_user_permissions'
@@ -25,11 +23,11 @@ module Thredded
     :email_from,
     :email_outgoing_prefix,
     :user_path,
-    :file_storage
+    :file_storage,
+    :asset_root
 
-  # default `file_storage` to :file
-  # options: :file or :fog
-  self.file_storage = :file
+  self.file_storage = :file # or :fog
+  self.asset_root = '' # or fully qualified URI to assets
 
   def self.user_class
     if @@user_class.is_a?(Class)

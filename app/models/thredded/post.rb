@@ -4,12 +4,6 @@ require 'gravtastic'
 module Thredded
   class Post  < ActiveRecord::Base
     include Gravtastic
-    include Thredded::Filter::Base
-    include Thredded::Filter::Bbcode
-    include Thredded::Filter::Markdown
-    include Thredded::Filter::Attachment
-    include Thredded::Filter::Emoji
-    include Thredded::Filter::AtNotification
 
     gravtastic :user_email
     paginates_per 50
@@ -48,7 +42,36 @@ module Thredded
       ['bbcode', 'markdown']
     end
 
+    def filtered_content
+      pipeline = HTML::Pipeline.new [
+        html_filter_for_pipeline,
+        HTML::Pipeline::SanitizationFilter,
+        HTML::Pipeline::AtMentionFilter,
+        HTML::Pipeline::AttachedImageFilter,
+        HTML::Pipeline::EmojiFilter,
+        HTML::Pipeline::AutolinkFilter,
+      ], context_options
+
+      result = pipeline.call(content)
+      result[:output].to_s
+    end
+
     private
+
+    def context_options
+      {
+        asset_root: Thredded.asset_root,
+        post: self,
+      }
+    end
+
+    def html_filter_for_pipeline
+      if filter == 'bbcode'
+        HTML::Pipeline::BbcodeFilter
+      else
+        HTML::Pipeline::MarkdownFilter
+      end
+    end
 
     def modify_parent_posts_counts
       Thredded::UserDetail.increment_counter(:posts_count, user_id)
