@@ -55,7 +55,7 @@ module Thredded
     end
 
     def user_link
-      if topic.user && topic.user.valid?
+      if topic.user && topic.user.to_s != 'Anonymous User'
         user_path = Thredded.user_path(topic.user)
         "<a href='#{user_path}'>#{topic.user}</a>".html_safe
       else
@@ -73,7 +73,7 @@ module Thredded
     attr_reader :topic, :user
 
     def read_status
-      if user.valid?
+      if user.id > 0
         @read_status ||= topic.user_topic_reads.select do |reads|
           reads.user_id == user.id
         end

@@ -10,7 +10,7 @@ module Thredded
       topic = build_stubbed(:topic, last_user: nil)
       decorated_topic = TopicDecorator.new(topic)
 
-      expect(decorated_topic.last_user_link).to eq 'Anonymous'
+      expect(decorated_topic.last_user_link).to eq 'Anonymous User'
     end
 
     it 'returns link to root if config is not set' do
