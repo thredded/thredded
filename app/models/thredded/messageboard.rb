@@ -53,6 +53,7 @@ module Thredded
     def active_users
       Role
         .joins(:user)
+        .includes(:user)
         .where(messageboard_id: self.id)
         .where('last_seen > ?', 5.minutes.ago)
         .order(:last_seen)
