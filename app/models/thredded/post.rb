@@ -22,10 +22,6 @@ module Thredded
     after_save :notify_at_users
     after_create :modify_parent_posts_counts
 
-    def self.default_scope
-      order('id ASC')
-    end
-
     def created_date
       created_at.strftime("%b %d, %Y %I:%M:%S %Z") if created_at
     end
@@ -69,7 +65,8 @@ module Thredded
     def sanitize_whitelist
       HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge({
         attributes: {
-          'code' => ['class']
+          'code' => ['class'],
+          'img' => ['src', 'class', 'width', 'height'],
         },
         transformers: [
           lambda do |env|

@@ -7,7 +7,12 @@ module Thredded
     def index
       authorize! :read, topic
 
-      @posts = topic.posts.page(current_page)
+      @posts = Post
+        .where(topic_id: topic.id)
+        .includes(:user, :messageboard, :topic, :attachments)
+        .order('id ASC')
+        .page(current_page)
+
       @post  = messageboard.posts.build(topic: topic)
 
       update_read_status!

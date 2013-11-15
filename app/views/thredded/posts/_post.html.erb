@@ -1,7 +1,7 @@
-<% post = Thredded::PostDecorator.new(post) %>
+<% cache [current_user, 'post', post] do %>
+  <% post = Thredded::PostDecorator.new(post) %>
 
-<%= content_tag_for(:article, post) do %>
-  <% cache post do %>
+  <%= content_tag_for(:article, post) do %>
     <header>
       <%= image_tag post.gravatar_url, class: 'avatar' %>
       <cite>
@@ -14,16 +14,16 @@
       <%== post.filtered_content %>
       <ul class="attachments"><%= render post.attachments %></ul>
     </div>
-  <% end %>
 
-  <footer>
-    <% if can? :edit, post.original %>
-      <%= link_to 'edit post', edit_messageboard_topic_post_path(
-          messageboard,
-          topic,
-          post
-        ),
-        class: 'edit' %>
-    <% end %>
-  </footer>
+    <footer>
+      <% if can? :edit, post.original %>
+        <%= link_to 'edit post', edit_messageboard_topic_post_path(
+            messageboard,
+            topic,
+            post
+          ),
+          class: 'edit' %>
+      <% end %>
+    </footer>
+  <% end %>
 <% end %>
