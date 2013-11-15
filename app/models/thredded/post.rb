@@ -44,10 +44,10 @@ module Thredded
 
     def filtered_content
       pipeline = HTML::Pipeline.new [
+        HTML::Pipeline::AttachedImageFilter,
         html_filter_for_pipeline,
         HTML::Pipeline::SanitizationFilter,
         HTML::Pipeline::AtMentionFilter,
-        HTML::Pipeline::AttachedImageFilter,
         HTML::Pipeline::EmojiFilter,
         HTML::Pipeline::AutolinkFilter,
       ], context_options
@@ -62,7 +62,36 @@ module Thredded
       {
         asset_root: Thredded.asset_root,
         post: self,
+        whitelist: sanitize_whitelist
       }
+    end
+
+    def sanitize_whitelist
+      HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge({
+        attributes: {
+          'code' => ['class']
+        },
+        transformers: [
+          lambda do |env|
+            node      = env[:node]
+            node_name = env[:node_name]
+
+            return if env[:is_whitelisted] || !node.element?
+            return if node_name != 'iframe'
+            return if (node['src'] =~ /\A(https?:)?\/\/(?:www\.)?youtube(?:-nocookie)?\.com\//).nil?
+
+            Sanitize.clean_node!(node, {
+              elements: %w[iframe],
+
+              attributes: {
+                'iframe' => %w[allowfullscreen frameborder height src width]
+              }
+            })
+
+            { node_whitelist: [node]}
+          end
+        ]
+      })
     end
 
     def html_filter_for_pipeline
