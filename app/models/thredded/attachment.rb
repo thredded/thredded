@@ -1,6 +1,6 @@
 module Thredded
   class Attachment < ActiveRecord::Base
-    belongs_to :post
+    belongs_to :post, touch: true
     validates_presence_of :attachment
     mount_uploader :attachment, Thredded::AttachmentUploader
     before_save :update_attachment_attributes
