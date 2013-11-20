@@ -67,6 +67,7 @@ module Thredded
         attributes: {
           'code' => ['class'],
           'img' => ['src', 'class', 'width', 'height'],
+          'blockquote' => ['class'],
         },
         transformers: [
           lambda do |env|
