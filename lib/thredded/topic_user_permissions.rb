@@ -17,7 +17,7 @@ module Thredded
       superadmin? || administrates_messageboard?
     end
 
-    def manageable?
+    def editable?
       superadmin? || administrates_messageboard? || started_by_user?
     end
 

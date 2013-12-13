@@ -52,54 +52,5 @@ module Thredded
         permissions.should be_creatable
       end
     end
-
-    describe '#manageable?' do
-      context 'when it is private' do
-        let(:topic){ create(:topic) }
-        let(:user_details) { UserDetail.new }
-
-        it 'is manageable by superadmins' do
-          user = create(:user)
-          user_details = create(:user_detail, user: user, superadmin: true)
-          permissions = TopicUserPermissions.new(topic, user, user_details)
-
-          permissions.should be_manageable
-        end
-
-        it 'is manageable when started by the user' do
-          user = create(:user)
-          topic = create(:topic, user_id: user.id)
-          permissions = TopicUserPermissions.new(topic, user, user_details)
-
-          permissions.should be_manageable
-        end
-
-        it 'is manageable when the user administrates the board' do
-          user = create(:user)
-          messageboard = create(:messageboard)
-          messageboard.add_member(user, 'admin')
-          topic = create(:topic, messageboard: messageboard)
-          permissions = TopicUserPermissions.new(topic, user, user_details)
-
-          permissions.should be_manageable
-        end
-
-        it 'is not manageable by another user' do
-          user = create(:user)
-          another_user = create(:user)
-          topic = create(:topic, user_id: user.id)
-          permissions = TopicUserPermissions.new(topic, another_user, user_details)
-
-          permissions.should_not be_manageable
-        end
-
-        it 'is not manageable by a random user' do
-          user = create(:user)
-          permissions = TopicUserPermissions.new(topic, user, user_details)
-
-          permissions.should_not be_manageable
-        end
-      end
-    end
   end
 end

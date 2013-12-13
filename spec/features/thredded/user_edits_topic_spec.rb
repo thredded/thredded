@@ -14,11 +14,9 @@ feature 'User editing topics' do
     topic = users_topic
     topic.visit_topic_edit
     topic.change_title_to('this is changed')
-    topic.make_locked
     topic.submit
 
     expect(topic).to have_content('this is changed')
-    expect(topic).to be_locked
   end
 
   scenario "cannot edit someone else's topic" do
@@ -37,6 +35,11 @@ feature 'User editing topics' do
       topic.visit_topic_edit
 
       expect(topic).to be_editable
+
+      topic.make_locked
+      topic.submit
+
+      expect(topic).to be_locked
     end
   end
 

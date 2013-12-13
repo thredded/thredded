@@ -32,9 +32,5 @@ module PageObject
     def locked?
       has_css?('.topic.locked')
     end
-
-    # def stuck?
-    #   has_css?('.topic.sticky')
-    # end
   end
 end

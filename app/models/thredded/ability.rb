@@ -16,8 +16,12 @@ module Thredded
         Thredded::TopicUserPermissions.new(topic, user, user_details).adminable?
       end
 
-      can :manage, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).manageable?
+      can :edit, Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user, user_details).editable?
+      end
+
+      can :update, Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user, user_details).editable?
       end
 
       can :read, Thredded::Topic do |topic|
