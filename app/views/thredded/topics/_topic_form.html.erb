@@ -6,7 +6,7 @@
   </li>
 <% end %>
 
-<% if can? :manage, form.object %>
+<% if can? :admin, form.object %>
   <li class="locked">
     <%= form.label :locked do %>
       Locked <%= form.check_box :locked %>

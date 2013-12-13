@@ -13,8 +13,12 @@ module Thredded
       member? || messageboard_restrictions_allow?
     end
 
+    def adminable?
+      superadmin? || administrates_messageboard?
+    end
+
     def manageable?
-      superadmin? || started_by_user? || administrates_messageboard?
+      superadmin? || administrates_messageboard? || started_by_user?
     end
 
     def readable?

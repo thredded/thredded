@@ -2,6 +2,8 @@
 
 ## Bug Fixes
 
+* Requiring the sql search builder explicitly fixes the issue where anonymous visitors would not be able to search
+* Users, when they edit a topic they started, should not be able to pin/lock it. This has been changed to only allow admins to do so.
 * bbcode now renders line-breaks
 * html is now better sanitized
 

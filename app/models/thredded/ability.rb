@@ -12,6 +12,10 @@ module Thredded
         Thredded::MessageboardUserPermissions.new(messageboard, user).readable?
       end
 
+      can :admin, Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user, user_details).adminable?
+      end
+
       can :manage, Thredded::Topic do |topic|
         Thredded::TopicUserPermissions.new(topic, user, user_details).manageable?
       end
