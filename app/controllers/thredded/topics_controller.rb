@@ -10,7 +10,11 @@ module Thredded
     end
 
     def search
-      @topics = Topic.search(params[:q], messageboard)
+      begin
+        @topics = Topic.search(params[:q], messageboard)
+      rescue Thredded::Errors::EmptySearchResults
+        @topics = []
+      end
     end
 
     def new
