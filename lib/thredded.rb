@@ -16,6 +16,7 @@ require 'thredded/messageboard_user_permissions'
 require 'thredded/post_user_permissions'
 require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
+require 'thredded/search_sql_builder'
 
 module Thredded
   mattr_accessor :user_class,

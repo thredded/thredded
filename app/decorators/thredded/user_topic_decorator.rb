@@ -63,7 +63,6 @@ module Thredded
       end
     end
 
-
     def decorated_topic
       @decorated_topic ||= TopicDecorator.new(topic)
     end
