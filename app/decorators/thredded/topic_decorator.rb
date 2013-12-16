@@ -32,6 +32,29 @@ module Thredded
         last_user.to_s
       end
     end
+    
+    def user_link
+      if topic.user && topic.user.to_s != 'Anonymous User'
+        user_path = Thredded.user_path(topic.user)
+        "<a href='#{user_path}'>#{topic.user}</a>".html_safe
+      else
+        '<a href="#">?</a>'.html_safe
+      end
+    end
+
+    def farthest_page
+      if topic.user.id > 0
+        @read_status ||= topic.user_topic_reads.select do |reads|
+          reads.user_id == topic.user.id
+        end
+      end
+
+      if @read_status.blank?
+        Thredded::NullTopicRead.new.page
+      else
+        @read_status.first.page
+      end
+    end
 
     def original
       topic
