@@ -19,6 +19,7 @@ Thredded.user_path = ->(user){ "/path/to/where/you/show/#{user}" }
 Thredded.file_storage = :file # or :fog
 Thredded.asset_root = 'http://assets.website.com/assets' # where important things, like emojis, might live
 Thredded.layout = 'thredded' # looks for `app/views/layouts/thredded.html.erb`
+Thredded.avatar_default = 'mm' # or other gravatar defaults or URL to an image
 ```
 
 Copy the migrations over to your parent application and migrate:

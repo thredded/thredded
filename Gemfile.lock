@@ -151,7 +151,7 @@ GEM
       activesupport (= 4.0.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.1.0)
+    rake (10.1.1)
     rinku (1.7.3)
     rspec-core (2.14.4)
     rspec-expectations (2.14.0)

@@ -5,7 +5,7 @@ module Thredded
   class Post  < ActiveRecord::Base
     include Gravtastic
 
-    gravtastic :user_email
+    gravtastic :user_email, default: Thredded.avatar_default
     paginates_per 50
 
     belongs_to :messageboard, counter_cache: true
@@ -31,7 +31,7 @@ module Thredded
     end
 
     def gravatar_url
-      super.gsub /http:/, ''
+      super.gsub(/http:/, '')
     end
 
     def self.filters

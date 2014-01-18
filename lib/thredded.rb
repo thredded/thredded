@@ -26,11 +26,13 @@ module Thredded
     :user_path,
     :file_storage,
     :asset_root,
-    :layout
+    :layout,
+    :avatar_default
 
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded'
+  self.avatar_default = 'mm'
 
   def self.user_class
     if @@user_class.is_a?(Class)
