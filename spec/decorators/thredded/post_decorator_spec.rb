@@ -3,6 +3,29 @@ require 'chronic'
 require 'timecop'
 
 module Thredded
+  describe PostDecorator, '#user_link' do
+    after do
+      Thredded.user_path = nil
+    end
+
+    it 'links to a valid user' do
+      Thredded.user_path = ->(user){ "/i_am/#{user}" }
+      user = create(:user, name: 'joel')
+      post = create(:post, user: user)
+      decorator = PostDecorator.new(post)
+
+      expect(decorator.user_link).to eq "<a href='/i_am/joel'>joel</a>"
+    end
+
+    it 'links to nowhere for a null user' do
+      user = nil
+      post = create(:post, user: user)
+      decorator = PostDecorator.new(post)
+
+      expect(decorator.user_link).to eq '<a href="#">?</a>'
+    end
+  end
+
   describe PostDecorator, '#user_name' do
     it 'delegates to the user object' do
       user = build_stubbed(:user, name: 'joel')

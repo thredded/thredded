@@ -16,6 +16,7 @@
 * Provide a more explicit contract between the gem and the parent application with regards to the layout the thredded views will render within
 * `:thredded_page_title` and `:thredded_page_id` provided as content blocks that may be yielded to the layout
 * Allow gravatar image to be overridden in the config
+* Thredded::PostDecorator#user_link now available for use in post-related views
 
 # 0.0.11
 

@@ -15,6 +15,15 @@ module Thredded
       end
     end
 
+    def user_link
+      if post.user
+        user_path = Thredded.user_path(post.user)
+        "<a href='#{user_path}'>#{post.user}</a>".html_safe
+      else
+        '<a href="#">?</a>'.html_safe
+      end
+    end
+
     def original
       post
     end
@@ -36,7 +45,7 @@ module Thredded
     end
 
     def gravatar_url
-      super.gsub /http:/, ''
+      super.gsub(/http:/, '')
     end
 
     private
