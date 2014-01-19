@@ -20,5 +20,11 @@
       <%= topic.created_at_timeago %>
       <%= topic.user_link %>
     </cite>
+
+    <% if topic.categories.any? %>
+      <ul class="categories">
+        <%= render topic.categories %>
+      </ul>
+    <% end %>
   <% end %>
 <% end %>

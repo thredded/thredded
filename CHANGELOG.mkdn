@@ -1,5 +1,9 @@
 # MASTER (pre-0.0.13)
 
+## Changes
+
+* A topic's categories can now be rendered in the view. `categories/category` partial addded.
+
 * ...
 
 # 0.0.12
