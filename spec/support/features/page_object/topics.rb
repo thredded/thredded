@@ -13,6 +13,10 @@ module PageObject
       all('.topics article[class="topic read "]')
     end
 
+    def starred_topics
+      all('.topics article .star-rating')
+    end
+
     def locked_topic
       all('.topics article.locked')
     end
@@ -62,6 +66,10 @@ module PageObject
 
     def visit_topic_edit
       visit edit_messageboard_topic_path(messageboard)
+    end
+
+    def have_stars
+      have_css('section.topic .star-rating')
     end
 
     def listed?
