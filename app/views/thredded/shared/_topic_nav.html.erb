@@ -9,11 +9,10 @@
   <% end %>
 
   <ul class="listings">
-    <% cache ['topic-nav-list', current_user, messageboard] do %>
-      <li class="topic_list"><%= link_to 'topics', messageboard_topics_path %></li>
-      <% if can? :list, messageboard.private_topics.build %>
-        <li class="private_topic_list"><%= link_to 'private topics', messageboard_private_topics_path %></li>
-      <% end %>
+    <li class="topic_list"><%= link_to 'topics', messageboard_topics_path %></li>
+    <% if can? :list, messageboard.private_topics.build %>
+        <% unread = Thredded::PrivateTopic.unread_privates?(current_user) %>
+        <li class="private_topic_list"><%= link_to 'private topics', messageboard_private_topics_path, class: unread ? 'unread' : '' %></li>
     <% end %>
 
     <%= render 'thredded/search/form' %>
