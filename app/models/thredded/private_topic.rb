@@ -47,7 +47,11 @@ module Thredded
         .where('thredded_user_topic_reads.user_id = ?', user.id)
         .references(:user_topic_reads)
         .maximum('thredded_user_topic_reads.updated_at')
-      return true if latest_private_topic_read_date.blank?
+      if user.thredded_private_topics.count > 0 && latest_private_topic_read_date.blank?
+        return true
+      elsif latest_private_topic_read_date.blank?
+        return false
+      end
 
       latest_private_topic_date = user.thredded_private_topics.maximum('updated_at')
       latest_private_topic_date > latest_private_topic_read_date
