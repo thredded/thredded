@@ -40,21 +40,34 @@ module Thredded
     end
 
     def self.unread_privates?(user)
-      latest_private_topic_read_date =
-        user
-        .thredded_private_topics
-        .includes(:user_topic_reads)
-        .where('thredded_user_topic_reads.user_id = ?', user.id)
-        .references(:user_topic_reads)
-        .maximum('thredded_user_topic_reads.updated_at')
-      if user.thredded_private_topics.count > 0 && latest_private_topic_read_date.blank?
-        return true
-      elsif latest_private_topic_read_date.blank?
-        return false
-      end
+      brand_new_private_topics?(user) || latest_private_topic_unread?(user)
+    end
 
-      latest_private_topic_date = user.thredded_private_topics.maximum('updated_at')
-      latest_private_topic_date > latest_private_topic_read_date
+    private
+
+    def self.brand_new_private_topics?(user)
+      user_private_topic_count(user) > 0 && latest_private_topic_read_date(user).blank?
+    end
+
+    def self.latest_private_topic_unread?(user)
+      latest_private_topic_date(user) > latest_private_topic_read_date(user)
+    end
+
+    def self.latest_private_topic_date(user)
+      user.thredded_private_topics.maximum('updated_at')
+    end
+
+    def self.latest_private_topic_read_date(user)
+      user
+      .thredded_private_topics
+      .includes(:user_topic_reads)
+      .where('thredded_user_topic_reads.user_id = ?', user.id)
+      .references(:user_topic_reads)
+      .maximum('thredded_user_topic_reads.updated_at')
+    end
+
+    def self.user_private_topic_count(user)
+      user.thredded_private_topics.count
     end
   end
 end
