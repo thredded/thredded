@@ -33,12 +33,12 @@ module Thredded
     attr_reader :post
 
     def exclude_those_opting_out_of_at_notifications(members)
-      members.reject do |member|
-        !Thredded::MessageboardPreference
+      members.select do |member|
+        Thredded::MessageboardPreference
           .for(member)
           .in(post.messageboard)
-          .first
-          .try(:notify_on_mention?)
+          .first_or_create
+          .notify_on_mention?
       end
     end
 
