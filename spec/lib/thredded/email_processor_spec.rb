@@ -60,19 +60,6 @@ module Thredded
           latest_post.source.should eq 'email'
           latest_post.content.should eq 'HI!'
         end
-
-
-        it 'attaches a file' do
-          email = build(:email, :with_attachments,
-            from: 'joel@email.com',
-            to: 'mi',
-            subject: 'photo!',
-            body: 'awesome!'
-          )
-          EmailProcessor.process(email)
-
-          latest_post.attachments.should_not be_empty
-        end
       end
 
       def latest_topic

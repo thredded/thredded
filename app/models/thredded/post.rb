@@ -14,8 +14,6 @@ module Thredded
     has_many   :attachments
     has_many   :post_notifications
 
-    accepts_nested_attributes_for :attachments
-
     validates_presence_of :content, :messageboard_id
 
     before_validation :set_user_email
@@ -40,7 +38,6 @@ module Thredded
 
     def filtered_content
       pipeline = HTML::Pipeline.new [
-        HTML::Pipeline::AttachedImageFilter,
         html_filter_for_pipeline,
         HTML::Pipeline::SanitizationFilter,
         HTML::Pipeline::AtMentionFilter,

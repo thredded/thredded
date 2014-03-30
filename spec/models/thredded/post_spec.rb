@@ -141,25 +141,6 @@ module Thredded
       @post.filtered_content.should eq expected_output
     end
 
-    it 'translates psuedo-image tags to html' do
-      attachment_1 = build_stubbed(:imgpng)
-      attachment_2 = build_stubbed(:pdfpng)
-      attachment_3 = build_stubbed(:txtpng)
-      attachment_4 = build_stubbed(:zippng)
-      attachment_1.stub(id: '4', attachment: '/uploads/attachment/4/img.png')
-      attachment_2.stub(id: '3', attachment: '/uploads/attachment/3/pdf.png')
-      attachment_3.stub(id: '2', attachment: '/uploads/attachment/2/txt.png')
-      attachment_4.stub(id: '1', attachment: '/uploads/attachment/1/zip.png')
-
-      post = build_stubbed(:post,
-        content: '[t:img=2 left] [t:img=3 right] [t:img] [t:img=4 200x200]',
-        attachments: [attachment_1, attachment_2, attachment_3, attachment_4])
-
-      expectation = "<p><img src=\"/uploads/attachment/3/pdf.png\" class=\"align_left\"><img src=\"/uploads/attachment/2/txt.png\" class=\"align_right\"><img src=\"/uploads/attachment/4/img.png\"><img src=\"/uploads/attachment/1/zip.png\" width=\"200\" height=\"200\"></p>"
-
-      post.filtered_content.should == expectation
-    end
-
     it 'links @names of members' do
       Thredded.user_path = ->(user){ "/profile/#{user}" }
       sam = build_stubbed(:user, name: 'sam')

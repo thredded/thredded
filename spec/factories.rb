@@ -139,6 +139,14 @@ FactoryGirl.define do
     sequence(:content) { |n| "A post about the number #{n}" }
     ip '127.0.0.1'
     filter 'markdown'
+
+    trait :markdown do
+      filter 'markdown'
+    end
+
+    trait :bbcode do
+      filter 'bbcode'
+    end
   end
 
   factory :post_notification, class: Thredded::PostNotification

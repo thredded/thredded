@@ -21,7 +21,6 @@ module Thredded
           content: email.body,
           source: 'email',
           messageboard: messageboard,
-          attachments_attributes: attachment_params,
         )
         post.user_email = user.email
 
@@ -32,16 +31,6 @@ module Thredded
     end
 
     private
-
-    def attachment_params
-      @attachment_params = {}
-
-      email.attachments.each_with_index do |attachment, i|
-        @attachment_params[i.to_s] = { 'attachment' => attachment }
-      end
-
-      @attachment_params
-    end
 
     def can_post_to_topic?
       user && messageboard &&
