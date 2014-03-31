@@ -1,5 +1,11 @@
 # Thredded (the gem / rails engine)
 
+## Upgrade Notes
+
+Recent commits ([7a7c7b5](https://github.com/jayroh/thredded/commit/7a7c7b501f910912f026847284a8bb157b69ad44)) have removed the ability to add attachments to a post, but not removed the attachments themselves. Future plans are to extract similar functionality out to its own engine, but until then either stay at 0.0.12 or use external image hosts like [imgur](http://www.imgur.com).
+
+To migrate old `[t:img]` tags (I know - it was a bad idea to begin with) to plain old bbcode or markdown tags there is a new provided rake task - `rake thredded:update_legacy_timg_tags`. This rake task will update the contents of posts including `[t:img]` tags to, for example, `[img]/path/to/image.jpg[/img]`.
+
 ## Installation
 
 Add the gem to your Gemfile:

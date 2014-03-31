@@ -1,10 +1,17 @@
-# MASTER (pre-0.0.13)
+# MASTER (pre-0.0.14)
+
+* ...
+
+# 0.0.13
+
+## Bug Fixes
+
+* Users' messageboard preferences are created if one does not exist for a given messageboard. This had caused people who had not updated their own preferences to NOT receive @ notifications by default. As of this release they will, by default, receive @'s and private thread notifications until they change their preferences.
 
 ## Changes
 
 * A topic's categories can now be rendered in the view. `categories/category` partial addded.
-
-* ...
+* Adding attachments to a post has been removed. (Attachment model and association will be removed in 0.0.15)
 
 # 0.0.12
 

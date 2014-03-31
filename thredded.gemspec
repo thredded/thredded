@@ -12,8 +12,11 @@ Gem::Specification.new do |s|
   s.summary     = 'A forum engine'
   s.license     = 'MIT'
   s.description = 'A messageboard and/or forum engine for Rails 4.0 apps'
-
-  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.mkdn']
+  s.post_install_message = <<-MSG
+    * * *
+    Deprecation Notice: v.0.0.15 will have posts' attachments removed entirely from the gem. As of release v0.0.13 the ability to add new attachments has been removed. See upgrade notes in the README.
+    * * *
+  MSG
 
   s.add_dependency 'bbcoder'
   s.add_dependency 'cancan'
