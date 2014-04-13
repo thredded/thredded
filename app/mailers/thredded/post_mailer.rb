@@ -1,5 +1,5 @@
 module Thredded
-  class PostMailer < ActionMailer::Base
+  class PostMailer < Thredded::BaseMailer
     def at_notification(post_id, user_emails)
       @post = Post.find(post_id)
 

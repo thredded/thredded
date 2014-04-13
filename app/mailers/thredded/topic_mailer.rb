@@ -1,5 +1,5 @@
 module Thredded
-  class TopicMailer < ActionMailer::Base
+  class TopicMailer < Thredded::BaseMailer
     def message_notification(topic_id, emails)
       @topic = Topic.find(topic_id)
       headers['X-SMTPAPI'] =
