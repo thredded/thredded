@@ -100,13 +100,13 @@ feature 'User creates new topic' do
   def new_topic_with_categories
     sign_in
     messageboard = create(:messageboard)
-    category = create(:category, :beer, messageboard: messageboard)
+    create(:category, :beer, messageboard: messageboard)
     PageObject::Topics.new(messageboard)
   end
 
   def new_topic_as_an_admin
     messageboard = create(:messageboard)
-    category = create(:category, :beer, messageboard: messageboard)
+    create(:category, :beer, messageboard: messageboard)
     sign_in_as_admin_for(messageboard)
     PageObject::Topics.new(messageboard)
   end

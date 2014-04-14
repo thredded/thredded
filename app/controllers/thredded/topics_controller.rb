@@ -83,7 +83,7 @@ module Thredded
     end
 
     def topics_by_category(category_id)
-      topics = Category.find(category_id)
+      Category.find(category_id)
         .topics
         .unstuck
         .public

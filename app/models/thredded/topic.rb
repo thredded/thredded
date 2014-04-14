@@ -2,7 +2,7 @@ require 'thredded/search_sql_builder'
 
 module Thredded
   class Topic < ActiveRecord::Base
-    STATES = %w{pending approved}
+    STATES = %w(pending approved)
 
     extend FriendlyId
     friendly_id :title, use: :scoped, scope: :messageboard
@@ -33,7 +33,7 @@ module Thredded
     delegate :name, :name=, :email, :email=, to: :user, prefix: true
 
     before_validation do
-      self.hash_id = SecureRandom.hex(10) if self.hash_id.nil?
+      self.hash_id = SecureRandom.hex(10) if hash_id.nil?
     end
 
     after_create :increment_topics_count
@@ -55,7 +55,7 @@ module Thredded
     end
 
     def self.public
-      where("type IS NULL")
+      where('type IS NULL')
     end
 
     def self.order_by_stuck_and_updated_time
@@ -68,9 +68,7 @@ module Thredded
       sql_params = [sql].concat(sql_builder.binds)
       results = find_by_sql(sql_params)
 
-      if results.empty?
-        raise Thredded::Errors::EmptySearchResults, query
-      end
+      fail(Thredded::Errors::EmptySearchResults, query) if results.empty?
 
       results
     end
@@ -82,11 +80,9 @@ module Thredded
     end
 
     def self.find_by_slug(slug)
-      begin
-        includes(:user_topic_reads).friendly.find(slug)
-      rescue ActiveRecord::RecordNotFound
-        raise Thredded::Errors::TopicNotFound
-      end
+      includes(:user_topic_reads).friendly.find(slug)
+    rescue ActiveRecord::RecordNotFound
+      raise Thredded::Errors::TopicNotFound
     end
 
     def decorate
@@ -140,9 +136,7 @@ module Thredded
     end
 
     def categories_to_sentence
-      if categories
-        categories.map(&:name).to_sentence
-      end
+      categories.map(&:name).to_sentence if categories.any?
     end
 
     private
