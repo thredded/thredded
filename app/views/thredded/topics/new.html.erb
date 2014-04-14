@@ -5,17 +5,48 @@
   <nav>
     <ul class="breadcrumbs">
       <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.name, [messageboard, @topic] %></li>
+      <li><%= link_to messageboard.name, [messageboard, @new_topic] %></li>
       <li><span>Create New Topic</span></li>
     </ul>
   </nav>
 </header>
 
 <div class="topic forms">
-  <%= nested_form_for [messageboard, @topic], html: { multipart: true } do |form| %>
+  <%= form_for [messageboard, @new_topic] do |form| %>
     <ul>
-      <%= render 'form', form: form, messageboard: messageboard.decorate %>
-      <li class="submit"><%= form.submit 'Create New Topic' %></li>
+      <li class="title">
+        <%= form.label :title %>
+        <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
+      </li>
+
+      <% if form.object.categories.any? %>
+        <li class="category">
+          <%= form.select :category_ids,
+            form.object.category_options,
+            {},
+            { multiple: true, 'data-placeholder' => 'Categories' } %>
+        </li>
+      <% end %>
+
+      <% if can? :admin, form.object.topic %>
+        <li class="locked">
+          <%= form.label :locked do %>
+            Locked <%= form.check_box :locked %>
+          <% end %>
+        </li>
+
+        <li class="sticky">
+          <%= form.label :sticky do %>
+            Sticky <%= form.check_box :sticky %>
+          <% end %>
+        </li>
+      <% end %>
+
+      <%= render 'thredded/posts/form', form: form %>
+
+      <li class="submit">
+        <%= form.submit 'Create New Topic' %>
+      </li>
     </ul>
   <% end %>
 </div>

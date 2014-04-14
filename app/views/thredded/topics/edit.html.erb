@@ -17,8 +17,34 @@
 
 <div class="forms">
   <ul>
-    <%= nested_form_for [@messageboard, @topic], html: { class: :topic_form, multipart: true } do |form| %>
-      <%= render 'form', form: form, messageboard: messageboard.decorate %>
+    <%= form_for [messageboard, @topic] do |form| %>
+      <li class="title">
+        <%= form.label :title %>
+        <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
+      </li>
+
+      <% if messageboard.categories.any? %>
+        <li class="category">
+          <%= form.select :category_ids,
+            form.object.category_options,
+            {},
+            { multiple: true, 'data-placeholder' => 'Categories' } %>
+        </li>
+      <% end %>
+
+      <% if can? :admin, form.object %>
+        <li class="locked">
+          <%= form.label :locked do %>
+            Locked <%= form.check_box :locked %>
+          <% end %>
+        </li>
+
+        <li class="sticky">
+          <%= form.label :sticky do %>
+            Sticky <%= form.check_box :sticky %>
+          <% end %>
+        </li>
+      <% end %>
 
       <li class="submit">
         <%= form.submit 'Update Topic' %>

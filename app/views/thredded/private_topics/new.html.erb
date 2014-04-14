@@ -6,19 +6,50 @@
     <ul class="breadcrumbs">
       <li><%= link_to 'Forums', thredded.root_path %></li>
       <li><%= link_to messageboard.name, [messageboard, @private_topic] %></li>
-      <li><span>Create New Topic</span></li>
+      <li><span>Create New Private Topic</span></li>
     </ul>
   </nav>
 </header>
 
-
-<div class="topics forms">
-  <%= nested_form_for([messageboard, @private_topic],
-    url: messageboard_private_topics_path(messageboard, @private_topic),
-    html: { multipart: true, class: :topic_form }) do |form| %>
-
+<div class="topic forms">
+  <%= form_for [messageboard, @private_topic], url: messageboard_private_topics_path(messageboard, @private_topic) do |form| %>
     <ul>
-      <%= render 'form', form: form, messageboard: messageboard.decorate %>
+      <li class="title">
+        <%= form.label :title %>
+        <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus' } %>
+      </li>
+
+      <li class="private_users">
+        <%= form.select :user_ids,
+          form.object.users_options,
+          form.object.selected_options,
+          form.object.html_options %>
+      </li>
+
+      <% if messageboard.decorate.categories.any? %>
+        <li class="category">
+          <%= form.select :category_ids,
+            form.object.category_options,
+            {},
+            { multiple: true, 'data-placeholder' => 'Categories' } %>
+        </li>
+      <% end %>
+
+      <% if can? :admin, form.object %>
+        <li class="locked">
+          <%= form.label :locked do %>
+            Locked <%= form.check_box :locked %>
+          <% end %>
+        </li>
+
+        <li class="sticky">
+          <%= form.label :sticky do %>
+            Sticky <%= form.check_box :sticky %>
+          <% end %>
+        </li>
+      <% end %>
+
+      <%= render 'thredded/posts/form', form: form %>
 
       <li class="submit">
         <%= form.submit 'Create New Private Topic' %>

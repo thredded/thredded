@@ -10,19 +10,13 @@ module Thredded
     end
 
     def new
-      @private_topic = messageboard.private_topics.build
-      @private_topic.posts.build
-
-      unless can? :create, @private_topic
-        error = 'Sorry, you are not authorized to post on this messageboard.'
-        redirect_to messageboard_topics_url(messageboard),
-          flash: { error: error }
-      end
+      @private_topic = PrivateTopicForm.new(messageboard: messageboard)
+      authorize_creating @private_topic.private_topic
     end
 
     def create
-      @private_topic = messageboard.private_topics.create(private_topics_params)
-
+      @private_topic = PrivateTopicForm.new(new_private_topic_params)
+      @private_topic.save
       redirect_to messageboard_topics_url(messageboard)
     end
 
@@ -37,22 +31,15 @@ module Thredded
 
     private
 
-    def private_topics_params
-      params[:topic][:user_id] << current_user.id
-
+    def new_private_topic_params
       params
         .require(:topic)
-        .permit!
-        .deep_merge!({
+        .permit(:title, :locked, :sticky, :content, user_ids: [], category_ids: [])
+        .merge(
+          messageboard: messageboard,
           user: current_user,
-          last_user: current_user,
-          posts_attributes: {
-            '0' => {
-              messageboard: messageboard,
-              user: current_user,
-            }
-          }
-        })
+          ip: request.remote_ip,
+        )
     end
   end
 end
