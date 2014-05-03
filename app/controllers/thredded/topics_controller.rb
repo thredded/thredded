@@ -14,10 +14,8 @@ module Thredded
     end
 
     def new
-      @topic = messageboard.topics.build
-      @topic.posts.build
-
-      authorize_creating @topic
+      @new_topic = TopicForm.new(messageboard: messageboard)
+      authorize_creating @new_topic.topic
     end
 
     def by_category
@@ -26,7 +24,8 @@ module Thredded
     end
 
     def create
-      @topic = messageboard.topics.create(topic_and_post_params)
+      @new_topic = TopicForm.new(new_topic_params)
+      @new_topic.save
       redirect_to messageboard_topics_path(messageboard)
     end
 
@@ -57,29 +56,19 @@ module Thredded
     def topic_params
       params
         .require(:topic)
-        .permit!
-        .deep_merge!({
-          user: current_user,
-          last_user: current_user
-        })
+        .permit(:title, :locked, :sticky, category_ids: [])
+        .merge(user: current_user)
     end
 
-    def topic_and_post_params
+    def new_topic_params
       params
         .require(:topic)
-        .permit!
-        .deep_merge!({
-          last_user: current_user,
+        .permit(:title, :locked, :sticky, :content, category_ids: [])
+        .merge(
+          messageboard: messageboard,
           user: current_user,
-          posts_attributes: {
-            '0' => {
-              messageboard: messageboard,
-              ip: request.remote_ip,
-              user: current_user,
-              filter: messageboard.filter,
-            }
-          }
-        })
+          ip: request.remote_ip,
+        )
     end
 
     def topics_by_category(category_id)

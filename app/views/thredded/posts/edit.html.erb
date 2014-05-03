@@ -18,13 +18,16 @@
 </header>
 
 <div class="forms">
-  <%= nested_form_for([messageboard, topic, @post], url: { action: 'update' },
-    html: { method: :put, class: :topic_form }) do |f| %>
+  <%= form_for(
+    [messageboard, topic, @post],
+    url: { action: 'update' },
+    html: { method: :put, class: :topic_form }) do |form| %>
+
     <ul>
-      <%= render 'form', f: f %>
+      <%= render 'form', form: form %>
 
       <li class="submit">
-        <%= f.submit 'Update Post', { tabindex: 2 } %>
+        <%= form.submit 'Update Post' %>
       </li>
     </ul>
   <% end %>

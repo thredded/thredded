@@ -13,11 +13,11 @@ module Thredded
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads
 
-    belongs_to :last_user, class_name: Thredded.user_class,
+    belongs_to \
+      :last_user,
+      class_name: Thredded.user_class,
       foreign_key: 'last_user_id'
-
     belongs_to :user, class_name: Thredded.user_class
-
     belongs_to :messageboard, counter_cache: true, touch: true
 
     validates_inclusion_of :state, in: STATES
@@ -26,9 +26,6 @@ module Thredded
     validates_presence_of :messageboard_id
     validates_numericality_of :posts_count
     validates_uniqueness_of :hash_id
-
-    accepts_nested_attributes_for :posts, reject_if: :updating?
-    accepts_nested_attributes_for :categories
 
     delegate :name, :name=, :email, :email=, to: :user, prefix: true
 

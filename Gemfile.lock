@@ -17,7 +17,6 @@ PATH
       kaminari
       mini_magick
       multi_json
-      nested_form
       nokogiri
       rails (>= 4.0.0)
       rinku
@@ -130,7 +129,6 @@ GEM
     mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.8.1)
-    nested_form (0.3.2)
     net-scp (1.2.0)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
@@ -159,7 +157,7 @@ GEM
       activesupport (= 4.0.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.2.2)
+    rake (10.3.1)
     rinku (1.7.3)
     rspec-core (2.14.4)
     rspec-expectations (2.14.0)

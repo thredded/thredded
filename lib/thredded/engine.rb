@@ -3,6 +3,7 @@ module Thredded
     isolate_namespace Thredded
 
     config.autoload_paths << File.expand_path('../../../app/decorators', __FILE__)
+    config.autoload_paths << File.expand_path('../../../app/forms', __FILE__)
 
     config.generators do |g|
       g.test_framework :rspec, fixture: true

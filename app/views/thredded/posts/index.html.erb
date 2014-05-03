@@ -47,11 +47,12 @@
 
   <% if can? :create, @post %>
     <div class="forms">
-      <%= nested_form_for [messageboard, topic, @post], html: { multipart: true } do |f| %>
+      <%= form_for [messageboard, topic, @post] do |form| %>
         <ul>
-          <%= render 'form', f: f %>
+          <%= render 'form', form: form %>
+
           <li class="submit">
-            <%= f.submit 'Submit reply' %>
+            <%= form.submit 'Submit reply' %>
           </li>
         </ul>
       <% end %>

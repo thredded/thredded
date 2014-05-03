@@ -29,21 +29,29 @@ module Thredded
       messageboard = create(:messageboard)
       joel = create(:user, name: 'joel', email: 'joel@example.com')
       messageboard.add_member(joel)
-      create(:messageboard_preference, user: joel,
-        messageboard: messageboard, notify_on_mention: true)
+      create(
+        :messageboard_preference,
+        user: joel,
+        messageboard: messageboard,
+        notify_on_mention: true
+      )
 
       expect(Thredded::PostMailer)
         .to receive(:at_notification).with(1, ['joel@example.com'])
       expect(mail).to receive(:deliver)
 
-      post = create(:post, id: 1, content: 'hi @joel',
-        messageboard: messageboard)
+      create(
+        :post,
+        id: 1,
+        content: 'hi @joel',
+        messageboard: messageboard
+      )
     end
 
     it 'updates the parent topic with the latest post author' do
       joel  = create(:user)
       topic = create(:topic)
-      post = create(:post, user: joel, topic: topic)
+      create(:post, user: joel, topic: topic)
 
       topic.reload.last_user.should eq joel
     end
@@ -88,6 +96,10 @@ module Thredded
       @post  = build(:post)
     end
 
+    after do
+      Thredded.user_path = nil
+    end
+
     it 'renders implied urls' do
       @post.content = 'go to [url]http://google.com[/url]'
       @post.filter = 'bbcode'
@@ -102,7 +114,7 @@ module Thredded
     end
 
     it 'handles quotes' do
-      @post.content = "[quote]hi[/quote] [quote=john]hey[/quote]"
+      @post.content = '[quote]hi[/quote] [quote=john]hey[/quote]'
       @post.filter = 'bbcode'
       expected_output = "<p></p><br><blockquote>\n<br>    hi<br>\n</blockquote><br><br><br>john says<br><blockquote>\n<br>    hey<br>\n</blockquote><br><br>"
 
@@ -133,7 +145,7 @@ module Thredded
 
   right here"
 
-  expected_output = %Q(<p>this is code</p>\n\n<pre><code>  def hello; puts 'world'; end\n</code></pre>\n\n<p>right here</p>)
+      expected_output = %Q(<p>this is code</p>\n\n<pre><code>  def hello; puts 'world'; end\n</code></pre>\n\n<p>right here</p>)
 
       @post.content = input
       @post.filter = 'markdown'
@@ -142,12 +154,12 @@ module Thredded
     end
 
     it 'links @names of members' do
-      Thredded.user_path = ->(user){ "/profile/#{user}" }
+      Thredded.user_path = ->(user) { "/whois/#{user}" }
       sam = build_stubbed(:user, name: 'sam')
       joe = build_stubbed(:user, name: 'joe')
       Messageboard.any_instance.stub(members_from_list: [sam, joe])
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
-      expectation = '<p>for <a href="/profile/sam">@sam</a> but not @al or @kek. And <a href="/profile/joe">@joe</a>.</p>'
+      expectation = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
 
       post.filtered_content.should eq expectation
     end
