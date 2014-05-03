@@ -17,18 +17,14 @@
   </nav>
 </header>
 
-<div class="forms">
-  <%= form_for(
-    [messageboard, topic, @post],
-    url: { action: 'update' },
-    html: { method: :put, class: :topic_form }) do |form| %>
-
-    <ul>
+<div class="topic forms">
+  <ul>
+    <%= form_for [messageboard, topic, @post], html: { method: :put, class: :topic_form } do |form| %>
       <%= render 'form', form: form %>
 
       <li class="submit">
         <%= form.submit 'Update Post' %>
       </li>
-    </ul>
-  <% end %>
+    <% end %>
+  </ul>
 </div>
