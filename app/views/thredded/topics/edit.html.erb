@@ -15,7 +15,7 @@
   </nav>
 </header>
 
-<div class="forms">
+<div class="topic forms">
   <ul>
     <%= form_for [messageboard, @topic] do |form| %>
       <li class="title">
@@ -26,7 +26,7 @@
       <% if messageboard.categories.any? %>
         <li class="category">
           <%= form.select :category_ids,
-            form.object.category_options,
+            form.object.decorate.category_options,
             {},
             { multiple: true, 'data-placeholder' => 'Categories' } %>
         </li>

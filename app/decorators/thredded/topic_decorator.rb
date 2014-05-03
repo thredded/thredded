@@ -23,6 +23,10 @@ module Thredded
       classes.join(' ')
     end
 
+    def category_options
+      topic.messageboard.decorate.category_options
+    end
+
     def last_user_link
       if last_user && last_user.to_s != 'Anonymous User'
         last_user_path = Thredded.user_path(last_user)
