@@ -44,7 +44,7 @@ module Thredded
 
     def exclude_those_that_are_not_private(members)
       members.reject do |member|
-        post.topic.private? && post.topic.users.exclude?(member)
+        private_topic? && post.private_topic.users.exclude?(member)
       end
     end
 
@@ -62,6 +62,10 @@ module Thredded
       members.each do |member|
         post.post_notifications.create(email: member.email)
       end
+    end
+
+    def private_topic?
+      post.topic.nil? && post.private_topic.present?
     end
   end
 end

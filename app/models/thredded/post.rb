@@ -10,6 +10,7 @@ module Thredded
 
     belongs_to :messageboard, counter_cache: true
     belongs_to :topic, counter_cache: true
+    belongs_to :private_topic, counter_cache: true
     belongs_to :user, class_name: Thredded.user_class
     has_many   :attachments
     has_many   :post_notifications
@@ -100,9 +101,9 @@ module Thredded
 
     def modify_parent_posts_counts
       Thredded::UserDetail.increment_counter(:posts_count, user_id)
-      topic.last_user = user
-      topic.touch
-      topic.save
+      parent_topic.last_user = user
+      parent_topic.touch
+      parent_topic.save
     end
 
     def set_user_email
@@ -117,6 +118,10 @@ module Thredded
 
     def notify_at_users
       Thredded::AtNotifier.new(self).notifications_for_at_users
+    end
+
+    def parent_topic
+      topic || private_topic
     end
   end
 end

@@ -81,7 +81,6 @@ module Thredded
     it { should validate_uniqueness_of(:hash_id) }
   end
 
-
   describe Topic do
     before(:each) do
       @user = create(:user)
@@ -92,11 +91,6 @@ module Thredded
     it 'is associated with a messageboard' do
       topic = build(:topic, messageboard: nil)
       topic.should_not be_valid
-    end
-
-    it 'is public by default' do
-      topic = Topic.new
-      topic.public?.should be_true
     end
 
     it 'handles category ids' do
@@ -114,12 +108,10 @@ module Thredded
     end
 
     it 'does not change updated_at when an old post is edited' do
-      Timecop.freeze(1.month.ago) do
-        @post = create(:post)
-      end
-
+      Timecop.freeze(1.month.ago) { @post = create(:post) }
       old_time = @post.topic.updated_at
-      @post.update_attribute(:content, 'hi there')
+      @post.update_attributes(content: 'hi there')
+
       @post.topic.reload.updated_at.to_s.should eq old_time.to_s
     end
   end

@@ -48,10 +48,6 @@ module Thredded
       where(messageboard_id: messageboard.id)
     end
 
-    def self.public
-      where('type IS NULL')
-    end
-
     def self.order_by_stuck_and_updated_time
       order('sticky DESC, updated_at DESC')
     end
@@ -87,20 +83,8 @@ module Thredded
       super || NullUser.new
     end
 
-    def public?
-      true
-    end
-
     def private?
       false
-    end
-
-    def users
-      []
-    end
-
-    def users_to_sentence
-      ''
     end
 
     def self.inherited(child)

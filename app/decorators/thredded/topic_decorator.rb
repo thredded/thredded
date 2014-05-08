@@ -16,10 +16,15 @@ module Thredded
 
     def css_class
       classes = []
-      classes << 'locked' if locked?
-      classes << 'sticky' if sticky?
-      classes << 'private' if private?
-      classes += ['category'] + categories.map(&:name) if categories.present?
+
+      if private?
+        classes << 'private'
+      else
+        classes << 'locked' if locked?
+        classes << 'sticky' if sticky?
+        classes += ['category'] + categories.map(&:name) if categories.present?
+      end
+
       classes.join(' ')
     end
 

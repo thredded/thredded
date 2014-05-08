@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508005755) do
+ActiveRecord::Schema.define(version: 20140508024134) do
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -58,17 +58,18 @@ ActiveRecord::Schema.define(version: 20140508005755) do
   add_index "thredded_messageboard_preferences", ["user_id"], name: "index_thredded_messageboard_preferences_on_user_id"
 
   create_table "thredded_messageboards", force: true do |t|
-    t.string   "name",                                     null: false
+    t.string   "name",                                       null: false
     t.string   "slug"
     t.text     "description"
-    t.string   "security",           default: "public"
-    t.string   "posting_permission", default: "anonymous"
-    t.integer  "topics_count",       default: 0
-    t.integer  "posts_count",        default: 0
-    t.boolean  "closed",             default: false,       null: false
+    t.string   "security",             default: "public"
+    t.string   "posting_permission",   default: "anonymous"
+    t.integer  "topics_count",         default: 0
+    t.integer  "posts_count",          default: 0
+    t.boolean  "closed",               default: false,       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "filter",             default: "markdown",  null: false
+    t.string   "filter",               default: "markdown",  null: false
+    t.integer  "private_topics_count", default: 0
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed"
@@ -88,17 +89,32 @@ ActiveRecord::Schema.define(version: 20140508005755) do
     t.string   "user_email"
     t.text     "content"
     t.string   "ip"
-    t.string   "filter",          default: "markdown"
-    t.string   "source",          default: "web"
-    t.integer  "topic_id",                             null: false
-    t.integer  "messageboard_id",                      null: false
+    t.string   "filter",           default: "markdown"
+    t.string   "source",           default: "web"
+    t.integer  "topic_id"
+    t.integer  "messageboard_id",                       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "private_topic_id"
   end
 
   add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id"
   add_index "thredded_posts", ["topic_id"], name: "index_thredded_posts_on_topic_id"
   add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id"
+
+  create_table "thredded_private_topics", force: true do |t|
+    t.integer "user_id",                     null: false
+    t.integer "last_user_id",                null: false
+    t.string  "title",                       null: false
+    t.string  "slug",                        null: false
+    t.integer "messageboard_id",             null: false
+    t.integer "posts_count",     default: 0
+    t.string  "hash_id",                     null: false
+  end
+
+  add_index "thredded_private_topics", ["hash_id"], name: "index_thredded_private_topics_on_hash_id"
+  add_index "thredded_private_topics", ["messageboard_id"], name: "index_thredded_private_topics_on_messageboard_id"
+  add_index "thredded_private_topics", ["slug"], name: "index_thredded_private_topics_on_slug"
 
   create_table "thredded_private_users", force: true do |t|
     t.integer  "private_topic_id"
