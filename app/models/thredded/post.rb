@@ -16,6 +16,7 @@ module Thredded
 
     validates_presence_of :content, :messageboard_id
 
+    before_validation :set_filter
     before_validation :set_user_email
     after_save :notify_at_users
     after_create :modify_parent_posts_counts
@@ -108,6 +109,10 @@ module Thredded
       if user
         self.user_email = user.email
       end
+    end
+
+    def set_filter
+      self.filter = messageboard.filter
     end
 
     def notify_at_users

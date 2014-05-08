@@ -91,6 +91,19 @@ module Thredded
     end
   end
 
+  describe Post, '#filter' do
+    it 'defaults to the parent messageboard filter' do
+      board_1 = create(:messageboard, filter: 'bbcode')
+      board_2 = create(:messageboard, filter: 'markdown')
+
+      post_1 = create(:post, messageboard: board_1)
+      post_2 = create(:post, messageboard: board_2)
+
+      expect(post_1.filter).to eq 'bbcode'
+      expect(post_2.filter).to eq 'markdown'
+    end
+  end
+
   describe Post, '.filtered_content' do
     before(:each) do
       @post  = build(:post)
