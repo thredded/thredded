@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029034507) do
+ActiveRecord::Schema.define(version: 20140508005755) do
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -131,16 +131,15 @@ ActiveRecord::Schema.define(version: 20131029034507) do
   add_index "thredded_topic_categories", ["topic_id"], name: "index_thredded_topic_categories_on_topic_id"
 
   create_table "thredded_topics", force: true do |t|
-    t.integer  "user_id",                              null: false
-    t.integer  "last_user_id",                         null: false
-    t.string   "title",                                null: false
-    t.string   "slug",                                 null: false
-    t.integer  "messageboard_id",                      null: false
-    t.integer  "posts_count",     default: 0,          null: false
-    t.boolean  "sticky",          default: false,      null: false
-    t.boolean  "locked",          default: false,      null: false
-    t.string   "hash_id",                              null: false
-    t.string   "state",           default: "approved", null: false
+    t.integer  "user_id",                         null: false
+    t.integer  "last_user_id",                    null: false
+    t.string   "title",                           null: false
+    t.string   "slug",                            null: false
+    t.integer  "messageboard_id",                 null: false
+    t.integer  "posts_count",     default: 0,     null: false
+    t.boolean  "sticky",          default: false, null: false
+    t.boolean  "locked",          default: false, null: false
+    t.string   "hash_id",                         null: false
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"

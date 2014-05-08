@@ -2,8 +2,6 @@ require 'thredded/search_sql_builder'
 
 module Thredded
   class Topic < ActiveRecord::Base
-    STATES = %w(pending approved)
-
     extend FriendlyId
     friendly_id :title, use: :scoped, scope: :messageboard
     paginates_per 50 if self.respond_to?(:paginates_per)
@@ -20,7 +18,6 @@ module Thredded
     belongs_to :user, class_name: Thredded.user_class
     belongs_to :messageboard, counter_cache: true, touch: true
 
-    validates_inclusion_of :state, in: STATES
     validates_presence_of :hash_id
     validates_presence_of :last_user_id
     validates_presence_of :messageboard_id
@@ -96,10 +93,6 @@ module Thredded
 
     def private?
       false
-    end
-
-    def pending?
-      state == 'pending'
     end
 
     def users

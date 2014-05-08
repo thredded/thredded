@@ -43,7 +43,6 @@ module Thredded
       if topic.nil?
         topic = messageboard.topics.build(title: email.subject)
         topic.user = user
-        topic.state = 'pending'
       end
 
       topic.last_user = user
