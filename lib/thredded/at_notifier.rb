@@ -65,7 +65,7 @@ module Thredded
     end
 
     def private_topic?
-      post.topic.nil? && post.private_topic.present?
+      post.private_topic.present?
     end
   end
 end

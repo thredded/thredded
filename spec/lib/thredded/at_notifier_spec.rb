@@ -47,7 +47,7 @@ module Thredded
         messageboard: @messageboard,
         notify_on_mention: true,
       )
-      prev_notifications = create(:post_notification,
+      create(:post_notification,
         post: @post,
         email: 'joel@example.com',
       )
@@ -58,12 +58,14 @@ module Thredded
     end
 
     it 'does not return users not included in a private topic' do
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @joel,
         messageboard: @messageboard,
         notify_on_mention: true,
       )
-      @post.topic = create(:private_topic,
+      @post.private_topic = create(
+        :private_topic,
         user: @post.user,
         last_user: @post.user,
         messageboard: @post.messageboard,

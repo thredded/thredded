@@ -145,7 +145,9 @@ FactoryGirl.define do
     end
 
     trait :bbcode do
-      filter 'bbcode'
+      before(:create) do |post, evaluator|
+        post.messageboard.update_attributes(filter: 'bbcode')
+      end
     end
   end
 

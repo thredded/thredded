@@ -55,11 +55,12 @@ module Thredded
     end
 
     it 'excludes anyone who has already been notified' do
-      private_topic = create(:private_topic,
+      private_topic = create(
+        :private_topic,
         user: @john,
         users: [@john, @joel, @sam])
-      post = create(:post, topic: private_topic)
-      prev_notification = create(:post_notification, email: @joel.email, post: post)
+      post = create(:post, private_topic: private_topic)
+      create(:post_notification, email: @joel.email, post: post)
       create(:messageboard_preference,
         user: @joel,
         messageboard: private_topic.messageboard,
@@ -80,15 +81,21 @@ module Thredded
       sam = create(:user, email: 'sam@example.com')
       john = create(:user)
       messageboard = create(:messageboard)
-      private_topic = create(:private_topic, user: john,
-        users: [john, joel, sam], messageboard: messageboard)
-      create(:post, content: 'hi', topic: private_topic)
-      create(:messageboard_preference,
+      private_topic = create(
+        :private_topic,
+        user: john,
+        users: [john, joel, sam],
+        messageboard: messageboard
+      )
+      create(:post, content: 'hi', private_topic: private_topic)
+      create(
+        :messageboard_preference,
         user: sam,
         messageboard: messageboard,
         notify_on_message: true
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: joel,
         messageboard: messageboard,
         notify_on_message: true
