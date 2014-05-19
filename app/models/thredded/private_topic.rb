@@ -21,6 +21,10 @@ module Thredded
     validates_numericality_of :posts_count
     validates_uniqueness_of :hash_id
 
+    before_validation do
+      self.hash_id = SecureRandom.hex(10) if hash_id.nil?
+    end
+
     delegate :name, :name=, :email, :email=, to: :user, prefix: true
 
     def self.on_page(page_num)
@@ -53,6 +57,14 @@ module Thredded
 
     def private?
       false
+    end
+
+    def user_topic_reads
+      []
+    end
+
+    def categories
+      []
     end
 
     # * * *

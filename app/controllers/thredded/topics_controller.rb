@@ -46,7 +46,6 @@ module Thredded
 
     def topics
       Topic
-        .public
         .for_messageboard(messageboard)
         .includes(:user_topic_reads, :categories, :messageboard, :last_user, :user)
         .order_by_stuck_and_updated_time
@@ -75,7 +74,6 @@ module Thredded
       Category.find(category_id)
         .topics
         .unstuck
-        .public
         .for_messageboard(messageboard)
         .order_by_updated
         .on_page(current_page)

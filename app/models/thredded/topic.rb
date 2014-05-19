@@ -113,6 +113,10 @@ module Thredded
       categories.map(&:name).to_sentence if categories.any?
     end
 
+    def users_to_sentence
+      []
+    end
+
     private
 
     def increment_topics_count

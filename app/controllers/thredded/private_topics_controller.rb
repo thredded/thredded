@@ -25,7 +25,7 @@ module Thredded
         .for_messageboard(messageboard)
         .including_roles_for(current_user)
         .for_user(current_user)
-        .order_by_stuck_and_updated_time
+        .order('updated_at DESC')
         .on_page(params[:page])
     end
 
@@ -33,7 +33,7 @@ module Thredded
 
     def new_private_topic_params
       params
-        .require(:topic)
+        .require(:private_topic)
         .permit(:title, :locked, :sticky, :content, user_ids: [], category_ids: [])
         .merge(
           messageboard: messageboard,

@@ -18,7 +18,7 @@ module PageObject
     def create_private_topic
       visit new_messageboard_private_topic_path(messageboard)
       fill_in 'Title', with: private_title
-      select 'carl', from: 'topic_user_ids'
+      select 'carl', from: 'private_topic_user_ids'
       fill_in 'Content', with: 'not for others'
 
       click_on 'Create New Private Topic'

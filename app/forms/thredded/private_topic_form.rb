@@ -59,12 +59,9 @@ module Thredded
     def private_topic
       @private_topic ||= messageboard.private_topics.build(
         title: title,
-        locked: locked,
-        sticky: sticky,
         users: private_users,
         user: user,
         last_user: user,
-        categories: topic_categories,
       )
     end
 

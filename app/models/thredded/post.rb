@@ -12,8 +12,8 @@ module Thredded
     belongs_to :topic, counter_cache: true
     belongs_to :private_topic, counter_cache: true
     belongs_to :user, class_name: Thredded.user_class
-    has_many   :attachments
-    has_many   :post_notifications
+    has_many :attachments
+    has_many :post_notifications
 
     validates_presence_of :content, :messageboard_id
 
@@ -23,11 +23,11 @@ module Thredded
     after_create :modify_parent_posts_counts
 
     def created_date
-      created_at.strftime("%b %d, %Y %I:%M:%S %Z") if created_at
+      created_at.strftime('%b %d, %Y %I:%M:%S %Z') if created_at
     end
 
     def created_timestamp
-      created_at.strftime("%Y-%m-%dT%H:%M:%S") if created_at
+      created_at.strftime('%Y-%m-%dT%H:%M:%S') if created_at
     end
 
     def gravatar_url
@@ -35,7 +35,7 @@ module Thredded
     end
 
     def self.filters
-      ['bbcode', 'markdown']
+      %w(bbcode markdown)
     end
 
     def filtered_content
@@ -62,10 +62,10 @@ module Thredded
     end
 
     def sanitize_whitelist
-      HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge({
+      HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
         attributes: {
           'code' => ['class'],
-          'img' => ['src', 'class', 'width', 'height'],
+          'img' => %w(src class width height),
           'blockquote' => ['class'],
         },
         transformers: [
@@ -75,20 +75,19 @@ module Thredded
 
             return if env[:is_whitelisted] || !node.element?
             return if node_name != 'iframe'
-            return if (node['src'] =~ /\A(https?:)?\/\/(?:www\.)?youtube(?:-nocookie)?\.com\//).nil?
+            return if (node['src'] =~ %r{\A(https?:)?//(?:www\.)?youtube(?:-nocookie)?\.com/}).nil?
 
-            Sanitize.clean_node!(node, {
-              elements: %w[iframe],
-
+            Sanitize.clean_node!(node,
+              elements: %w(iframe),
               attributes: {
-                'iframe' => %w[allowfullscreen frameborder height src width]
+                'iframe' => %w(allowfullscreen frameborder height src width)
               }
-            })
+            )
 
-            { node_whitelist: [node]}
+            { node_whitelist: [node] }
           end
         ]
-      })
+      )
     end
 
     def html_filter_for_pipeline
@@ -113,7 +112,7 @@ module Thredded
     end
 
     def set_filter
-      self.filter = messageboard.filter
+      self.filter = messageboard.filter if messageboard
     end
 
     def notify_at_users
