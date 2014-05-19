@@ -8,6 +8,8 @@ class CreateThreddedPrivateTopics < ActiveRecord::Migration
       t.integer :messageboard_id, null: false
       t.integer :posts_count, default: 0
       t.string :hash_id, null: false
+
+      t.timestamps
     end
 
     add_index :thredded_private_topics, :slug
