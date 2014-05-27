@@ -59,7 +59,7 @@ module Thredded
         :private_topic,
         user: @john,
         users: [@john, @joel, @sam])
-      post = create(:post, private_topic: private_topic)
+      post = create(:post, postable: private_topic)
       create(:post_notification, email: @joel.email, post: post)
       create(:messageboard_preference,
         user: @joel,
@@ -87,7 +87,7 @@ module Thredded
         users: [john, joel, sam],
         messageboard: messageboard
       )
-      create(:post, content: 'hi', private_topic: private_topic)
+      create(:post, content: 'hi', postable: private_topic)
       create(
         :messageboard_preference,
         user: sam,

@@ -6,7 +6,7 @@ module Thredded
     friendly_id :title, use: :scoped, scope: :messageboard
     paginates_per 50 if self.respond_to?(:paginates_per)
 
-    has_many :posts, -> { includes :attachments }
+    has_many :posts, -> { includes :attachments }, as: :postable
     has_many :topic_categories
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads
@@ -81,6 +81,10 @@ module Thredded
 
     def last_user
       super || NullUser.new
+    end
+
+    def public?
+      true
     end
 
     def private?

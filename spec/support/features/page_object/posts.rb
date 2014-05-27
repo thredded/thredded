@@ -7,7 +7,7 @@ module PageObject
     def initialize(posts)
       @posts = posts
       @messageboard = @posts.first.messageboard
-      @topic = @posts.first.topic
+      @topic = @posts.first.postable
     end
 
     def visit_posts

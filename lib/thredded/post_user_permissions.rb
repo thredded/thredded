@@ -4,7 +4,7 @@ module Thredded
 
     def initialize(post, user, user_details)
       @post = post
-      @topic = post.topic
+      @topic = post.postable
       @messageboard = post.messageboard
       @user = user
       @user_details = user_details || UserDetail.new

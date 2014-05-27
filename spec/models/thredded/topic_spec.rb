@@ -102,17 +102,17 @@ module Thredded
 
     it 'changes updated_at when a new post is added' do
       old = @topic.updated_at
-      create(:post, topic: @topic)
+      create(:post, postable: @topic)
 
       @topic.reload.updated_at.should_not eq old
     end
 
     it 'does not change updated_at when an old post is edited' do
       Timecop.freeze(1.month.ago) { @post = create(:post) }
-      old_time = @post.topic.updated_at
+      old_time = @post.postable.updated_at
       @post.update_attributes(content: 'hi there')
 
-      @post.topic.reload.updated_at.to_s.should eq old_time.to_s
+      @post.postable.reload.updated_at.to_s.should eq old_time.to_s
     end
   end
 end

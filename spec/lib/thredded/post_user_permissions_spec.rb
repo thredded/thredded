@@ -69,7 +69,7 @@ module Thredded
 
         user = build_stubbed(:user)
         topic = build_stubbed(:topic, :locked)
-        post = build_stubbed(:post, user: user, topic: topic)
+        post = build_stubbed(:post, user: user, postable: topic)
         user_details = UserDetail.new
         permissions = PostUserPermissions.new(post, user, user_details)
 

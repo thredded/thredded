@@ -40,18 +40,13 @@ module Thredded
         .to receive(:at_notification).with(1, ['joel@example.com'])
       expect(mail).to receive(:deliver)
 
-      create(
-        :post,
-        id: 1,
-        content: 'hi @joel',
-        messageboard: messageboard
-      )
+      create(:post, id: 1, content: 'hi @joel', messageboard: messageboard)
     end
 
     it 'updates the parent topic with the latest post author' do
       joel  = create(:user)
       topic = create(:topic)
-      create(:post, user: joel, topic: topic)
+      create(:post, user: joel, postable: topic)
 
       topic.reload.last_user.should eq joel
     end
@@ -60,7 +55,7 @@ module Thredded
       joel  = create(:user)
       joel_details = create(:user_detail, user: joel)
       topic = create(:topic)
-      create_list(:post, 3, topic: topic, user: joel)
+      create_list(:post, 3, postable: topic, user: joel)
 
       topic.reload.posts_count.should eq 3
       joel_details.reload.posts_count.should eq 3
@@ -72,11 +67,11 @@ module Thredded
       new_years_at_3pm = Chronic.parse('Jan 1st 2012 at 3:00pm').to_s
 
       Timecop.travel(Chronic.parse('Jan 1st 2012 at 12:00pm')) do
-        create(:post, topic: topic, user: joel, content: 'posting here')
+        create(:post, postable: topic, user: joel, content: 'posting here')
       end
 
       Timecop.travel(Chronic.parse('Jan 1st 2012 at 3:00pm')) do
-        create(:post, topic: topic, user: joel, content: 'posting more')
+        create(:post, postable: topic, user: joel, content: 'posting more')
       end
 
       topic.updated_at.to_s.should eq new_years_at_3pm
@@ -85,7 +80,7 @@ module Thredded
     it 'sets the post user email on creation' do
       shaun = create(:user)
       topic = create(:topic, last_user: shaun)
-      post = create(:post, user: shaun, topic: topic)
+      post = create(:post, user: shaun, postable: topic)
 
       post.user_email.should eq post.user.email
     end

@@ -64,7 +64,7 @@ module Thredded
         messageboard: @messageboard,
         notify_on_mention: true,
       )
-      @post.private_topic = create(
+      @post.postable = create(
         :private_topic,
         user: @post.user,
         last_user: @post.user,

@@ -26,7 +26,7 @@ module Thredded
           user: joel,
         )
         post = build_stubbed(:post,
-          topic: topic,
+          postable: topic,
           user: joel,
           content: 'hey @john @sam blarghy blurp',
         )

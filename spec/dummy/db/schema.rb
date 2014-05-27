@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519003131) do
+ActiveRecord::Schema.define(version: 20140525011049) do
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -89,17 +89,17 @@ ActiveRecord::Schema.define(version: 20140519003131) do
     t.string   "user_email"
     t.text     "content"
     t.string   "ip"
-    t.string   "filter",           default: "markdown"
-    t.string   "source",           default: "web"
-    t.integer  "topic_id"
-    t.integer  "messageboard_id",                       null: false
+    t.string   "filter",          default: "markdown"
+    t.string   "source",          default: "web"
+    t.integer  "messageboard_id",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "private_topic_id"
+    t.integer  "postable_id"
+    t.string   "postable_type"
   end
 
   add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id"
-  add_index "thredded_posts", ["topic_id"], name: "index_thredded_posts_on_topic_id"
+  add_index "thredded_posts", ["postable_id", "postable_type"], name: "index_thredded_posts_on_postable_id_and_postable_type"
   add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id"
 
   create_table "thredded_private_topics", force: true do |t|

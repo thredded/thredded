@@ -38,7 +38,7 @@ module Thredded
     def post_params
       {
         messageboard: @messageboard,
-        topic: @topic,
+        postable: @topic,
         content: "There's not a whole lot here for now.",
         ip: request.ip,
         user: current_user,

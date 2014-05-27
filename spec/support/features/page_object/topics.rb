@@ -137,7 +137,7 @@ module PageObject
 
     def someone_updates_topic
       topic = Thredded::Topic.last
-      create(:post, topic: topic)
+      create(:post, postable: topic)
     end
 
     private

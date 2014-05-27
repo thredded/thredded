@@ -58,14 +58,14 @@ feature 'User editing posts' do
     topic = create(:topic)
     messageboard = topic.messageboard
     messageboard.add_member(admin.user, 'admin')
-    post = create(:post, user: someone_else, topic: topic, messageboard: messageboard)
+    post = create(:post, user: someone_else, postable: topic, messageboard: messageboard)
     PageObject::Post.new(post)
   end
 
   def users_post
     topic = create(:topic)
     messageboard = topic.messageboard
-    post = create(:post, user: user.user, topic: topic, messageboard: messageboard)
+    post = create(:post, user: user.user, postable: topic, messageboard: messageboard)
     PageObject::Post.new(post)
   end
 end

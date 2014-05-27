@@ -10,7 +10,7 @@ module Thredded
       user = create(:user)
       @messageboard = create(:messageboard)
       @topic = create(:topic, messageboard: @messageboard, title: 'hi')
-      @post = create(:post, topic: @topic, content: 'hi')
+      @post = create(:post, postable: @topic, content: 'hi')
       controller.stub(topics: [@topic])
       controller.stub(sticky_topics: [])
       controller.stub(cannot?: false)
@@ -42,7 +42,7 @@ module Thredded
       end
 
       it 'returns nothing when query is empty' do
-        Topic.stub(:search) { raise Thredded::Errors::EmptySearchResults, 'hi' }
+        Topic.stub(:search) { fail Thredded::Errors::EmptySearchResults, 'hi' }
         get :search, messageboard_id: @messageboard.id, q: ''
 
         expect(flash[:alert]).to eq "There are no results for your search - 'hi'"

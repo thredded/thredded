@@ -4,7 +4,7 @@ module Thredded
     friendly_id :title, use: :scoped, scope: :messageboard
     paginates_per 50 if self.respond_to?(:paginates_per)
 
-    has_many :posts, -> { includes :attachments }
+    has_many :posts, -> { includes :attachments }, as: :postable
     has_many :private_users
     has_many :users, through: :private_users
 
@@ -56,7 +56,7 @@ module Thredded
     end
 
     def private?
-      false
+      true
     end
 
     def user_topic_reads
@@ -67,16 +67,14 @@ module Thredded
       []
     end
 
-    # * * *
-
     def self.including_roles_for(user)
       joins(messageboard: :roles)
-        .where(thredded_roles: {user_id: user.id})
+        .where(thredded_roles: { user_id: user.id })
     end
 
     def self.for_user(user)
       joins(:private_users)
-        .where(thredded_private_users: {user_id: user.id})
+        .where(thredded_private_users: { user_id: user.id })
     end
 
     def add_user(user)
@@ -102,7 +100,7 @@ module Thredded
     end
 
     def users_to_sentence
-      users.map{ |user| user.to_s.capitalize }.to_sentence
+      users.map { |user| user.to_s.capitalize }.to_sentence
     end
   end
 end

@@ -133,12 +133,16 @@ FactoryGirl.define do
 
   factory :post, aliases: [:farthest_post], class: Thredded::Post do
     user
-    topic
+    association :postable, factory: :topic
     messageboard
 
     sequence(:content) { |n| "A post about the number #{n}" }
     ip '127.0.0.1'
     filter 'markdown'
+
+    trait :private do
+      association :postable, factory: :private_topic
+    end
 
     trait :markdown do
       filter 'markdown'
@@ -178,7 +182,7 @@ FactoryGirl.define do
       end
 
       evaluator.with_posts.times do
-        create(:post, topic: topic, messageboard: topic.messageboard)
+        create(:post, postable: topic, messageboard: topic.messageboard)
       end
 
       evaluator.with_categories.times do

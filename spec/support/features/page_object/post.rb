@@ -11,7 +11,7 @@ module PageObject
     def visit_post_edit
       visit edit_messageboard_topic_post_path(
         post.messageboard,
-        post.topic,
+        post.postable,
         post
       )
     end

@@ -1,8 +1,8 @@
 module Thredded
   class PrivateTopicNotifier
-    def initialize(topic)
-      @post = topic.posts.first || Post.new
-      @topic = topic
+    def initialize(private_topic)
+      @post = private_topic.posts.first || Post.new
+      @private_topic = private_topic
     end
 
     def notifications_for_private_topic
@@ -10,13 +10,13 @@ module Thredded
 
       if members.present?
         user_emails = members.map(&:email)
-        TopicMailer.message_notification(topic.id, user_emails).deliver
+        PrivateTopicMailer.message_notification(private_topic.id, user_emails).deliver
         mark_notified(members)
       end
     end
 
     def private_topic_recipients
-      members = topic.users - [topic.user]
+      members = private_topic.users - [private_topic.user]
       members = exclude_those_opting_out_of_message_notifications(members)
       members = exclude_previously_notified(members)
       members
@@ -24,7 +24,7 @@ module Thredded
 
     private
 
-    attr_reader :post, :topic
+    attr_reader :post, :private_topic
 
     def mark_notified(members)
       members.each do |member|
@@ -36,7 +36,7 @@ module Thredded
       members.reject do |member|
         !Thredded::MessageboardPreference
           .for(member)
-          .in(topic.messageboard)
+          .in(private_topic.messageboard)
           .first
           .try(:notify_on_message?)
       end

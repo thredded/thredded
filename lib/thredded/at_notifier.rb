@@ -44,7 +44,7 @@ module Thredded
 
     def exclude_those_that_are_not_private(members)
       members.reject do |member|
-        private_topic? && post.private_topic.users.exclude?(member)
+        private_topic? && post.postable.users.exclude?(member)
       end
     end
 
@@ -65,7 +65,7 @@ module Thredded
     end
 
     def private_topic?
-      post.private_topic.present?
+      post.postable.private?
     end
   end
 end

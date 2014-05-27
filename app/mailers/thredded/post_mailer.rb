@@ -14,11 +14,11 @@ module Thredded
     private
 
     def subject
-      "#{Thredded.email_outgoing_prefix} #{@post.topic.title}"
+      "#{Thredded.email_outgoing_prefix} #{@post.postable.title}"
     end
 
     def reply_to
-      "#{@post.topic.hash_id}@#{Thredded.email_incoming_host}"
+      "#{@post.postable.hash_id}@#{Thredded.email_incoming_host}"
     end
 
     def no_reply

@@ -6,8 +6,8 @@
 
 <p>
   This email was sent to you because <%= @post.user %> mentioned you in
-  "<%= link_to @post.topic.title, messageboard_topic_posts_url(@post.messageboard, @post.topic, anchor: "post_#{@post.id}") %>"
-  Feel free to reply above or <%= link_to 'head to the thread', messageboard_topic_posts_url(@post.messageboard, @post.topic) %>
+  "<%= link_to @post.postable.title, messageboard_topic_posts_url(@post.messageboard, @post.postable, anchor: "post_#{@post.id}") %>"
+  Feel free to reply above or <%= link_to 'head to the thread', messageboard_topic_posts_url(@post.messageboard, @post.postable) %>
   to view the conversation.
 </p>
 
