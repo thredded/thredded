@@ -1,12 +1,25 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController
-    helper_method :current_page, :topic
+    helper_method :current_page, :topic, :user_topic
     before_filter :update_user_activity
 
     def index
       authorize_reading messageboard
 
       @topics = topics
+    end
+
+    def show
+      authorize! :read, topic
+
+      @posts = topic.posts
+        .includes(:user, :messageboard, :attachments)
+        .order('id ASC')
+        .page(current_page)
+
+      @post  = messageboard.posts.build(postable: topic)
+
+      update_read_status!
     end
 
     def search
@@ -81,6 +94,25 @@ module Thredded
 
     def current_page
       params[:page] || 1
+    end
+
+    def user_topic
+      @user_topic ||= UserTopicDecorator.new(current_user, topic)
+    end
+
+    def update_read_status!
+      if current_user
+        read_history = UserTopicRead.where(
+          user: current_user,
+          topic: topic,
+        ).first_or_initialize
+
+        read_history.update_attributes(
+          farthest_post: @posts.last,
+          posts_count: topic.posts_count,
+          page: current_page,
+        )
+      end
     end
   end
 end

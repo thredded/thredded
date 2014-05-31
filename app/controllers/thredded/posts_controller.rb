@@ -1,21 +1,8 @@
 module Thredded
   class PostsController < Thredded::ApplicationController
     load_and_authorize_resource only: [:index, :show]
-    helper_method :messageboard, :topic, :user_topic
+    helper_method :messageboard, :topic
     before_filter :update_user_activity
-
-    def index
-      authorize! :read, topic
-
-      @posts = topic.posts
-        .includes(:user, :messageboard, :attachments)
-        .order('id ASC')
-        .page(current_page)
-
-      @post  = messageboard.posts.build(postable: topic)
-
-      update_read_status!
-    end
 
     def create
       topic.posts.create(post_params)
@@ -46,20 +33,6 @@ module Thredded
         )
     end
 
-    def update_read_status!
-      if current_user
-        read_history = UserTopicRead.where(
-          user: current_user,
-          topic: topic,
-        ).first_or_initialize
-
-        read_history.update_attributes(
-          farthest_post: @posts.last,
-          posts_count: topic.posts_count,
-          page: current_page,
-        )
-      end
-    end
 
     def topic
       @topic ||= topic_with_eager_loaded_user_topic_reads
@@ -67,10 +40,6 @@ module Thredded
 
     def topic_with_eager_loaded_user_topic_reads
       messageboard.topics.find_by_slug(params[:topic_id])
-    end
-
-    def user_topic
-      @user_topic ||= UserTopicDecorator.new(current_user, topic)
     end
 
     def post

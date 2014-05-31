@@ -9,6 +9,18 @@ module Thredded
       @private_topics = private_topics
     end
 
+    def show
+      authorize! :read, private_topic
+
+      @posts = private_topic.posts
+        .includes(:user, :messageboard, :attachments)
+        .order('id ASC')
+
+      @post = messageboard.posts.build(postable: private_topic)
+
+      update_read_status!
+    end
+
     def new
       @private_topic = PrivateTopicForm.new(messageboard: messageboard)
       authorize_creating @private_topic.private_topic

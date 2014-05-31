@@ -19,14 +19,7 @@
 <% end %>
 
 <header>
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
-
-  <% if topic.users_to_sentence.present? %>
-    <cite><%= topic.users_to_sentence %></cite>
-  <% end %>
-
+  <nav><%= yield :breadcrumbs %></nav>
   <%= render 'thredded/shared/currently_online' %>
   <%= render 'thredded/shared/topic_nav' %>
 </header>
@@ -49,7 +42,7 @@
     <div class="forms">
       <%= form_for [messageboard, topic, @post] do |form| %>
         <ul>
-          <%= render 'form', form: form %>
+          <%= render 'thredded/posts/form', form: form %>
 
           <li class="submit">
             <%= form.submit 'Submit reply' %>
