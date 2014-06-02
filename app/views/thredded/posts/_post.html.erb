@@ -17,11 +17,8 @@
 
     <footer>
       <% if can? :edit, post.original %>
-        <%= link_to 'edit post', edit_messageboard_topic_post_path(
-            messageboard,
-            topic,
-            post
-          ),
+        <%= link_to 'edit post',
+          edit_polymorphic_path([messageboard, post.postable, post]),
           class: 'edit' %>
       <% end %>
     </footer>

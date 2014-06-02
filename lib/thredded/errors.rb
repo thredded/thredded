@@ -3,6 +3,12 @@ module Thredded
   end
 
   module Errors
+    class PrivateTopicNotFound < Thredded::Error
+      def message
+        'This private topic does not exist.'
+      end
+    end
+
     class TopicNotFound < Thredded::Error
       def message
         'This topic does not exist.'

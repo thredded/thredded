@@ -1,4 +1,4 @@
-<div class="topic_nav <%= controller_name %>">
+<div class="topic_nav">
   <% cache ['topic-nav-actions', current_user, messageboard] do %>
     <% if can? :create, messageboard.topics.build %>
       <ul class="actions">

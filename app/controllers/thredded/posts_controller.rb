@@ -5,7 +5,7 @@ module Thredded
     before_filter :update_user_activity
 
     def create
-      topic.posts.create(post_params)
+      Thredded::Post.create(post_params)
       redirect_to :back
     end
 
@@ -16,7 +16,11 @@ module Thredded
     def update
       post.update_attributes(post_params.except(:user, :ip))
 
-      redirect_to messageboard_topic_posts_url(messageboard, topic)
+      redirect_to polymorphic_path([messageboard, post.postable])
+    end
+
+    def topic
+      post.postable
     end
 
     private
@@ -30,20 +34,12 @@ module Thredded
           user: current_user,
           messageboard: messageboard,
           filter: messageboard.filter,
+          topic: parent_topic,
         )
     end
 
-
-    def topic
-      @topic ||= topic_with_eager_loaded_user_topic_reads
-    end
-
-    def topic_with_eager_loaded_user_topic_reads
-      messageboard.topics.find_by_slug(params[:topic_id])
-    end
-
     def post
-      @post ||= topic.posts.find(params[:id])
+      @post ||= Thredded::Post.find(params[:id])
     end
 
     def current_page

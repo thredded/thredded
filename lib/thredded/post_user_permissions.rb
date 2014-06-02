@@ -29,7 +29,7 @@ module Thredded
     end
 
     def thread_is_not_locked?
-      !@topic.locked?
+      @topic.public? && !@topic.locked?
     end
 
     def can_create_topic?

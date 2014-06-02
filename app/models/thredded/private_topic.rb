@@ -42,9 +42,9 @@ module Thredded
     end
 
     def self.find_by_slug(slug)
-      includes(:user_topic_reads).friendly.find(slug)
+      friendly.find(slug)
     rescue ActiveRecord::RecordNotFound
-      raise Thredded::Errors::TopicNotFound
+      raise Thredded::Errors::PrivateTopicNotFound
     end
 
     def decorate

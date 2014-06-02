@@ -1,5 +1,7 @@
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
+    helper_method :private_topic
+
     def index
       if cannot? :read, messageboard
         error = 'You are not authorized access to this messageboard.'
@@ -12,13 +14,12 @@ module Thredded
     def show
       authorize! :read, private_topic
 
-      @posts = private_topic.posts
+      @posts = private_topic
+        .posts
         .includes(:user, :messageboard, :attachments)
         .order('id ASC')
 
       @post = messageboard.posts.build(postable: private_topic)
-
-      update_read_status!
     end
 
     def new
@@ -42,6 +43,10 @@ module Thredded
     end
 
     private
+
+    def private_topic
+      @private_topic ||= messageboard.private_topics.find_by_slug(params[:id])
+    end
 
     def new_private_topic_params
       params

@@ -8,7 +8,7 @@ Thredded::Engine.routes.draw do
     root to: 'setups#new'
   end
 
-  constraints(lambda{|req| req.env['QUERY_STRING'].include? 'q=' }) do
+  constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
@@ -20,11 +20,11 @@ Thredded::Engine.routes.draw do
   resources :messageboards, only: [:index], path: '' do
     resource :preferences, only: [:edit, :update]
     resources :private_topics, path: 'private' do
-      resources :posts, path: ''
+      resources :posts, path: '', except: [:index]
     end
 
     resources :topics, path: '' do
-      resources :posts, path: ''
+      resources :posts, path: '', except: [:index]
     end
   end
 end

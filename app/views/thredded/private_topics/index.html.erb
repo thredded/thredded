@@ -2,33 +2,29 @@
 <% content_for :thredded_page_id, 'thredded_private_topics_index' %>
 
 <% content_for :breadcrumbs do %>
-  <ul class="breadcrumbs">
-    <li><%= link_to 'Forums', thredded.root_path %></li>
-    <li><span><%= messageboard.name %></span></li>
-  </ul>
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><span><%= messageboard.name %></span></li>
+    </ul>
+  </nav>
 <% end %>
 
-<header>
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
-
+<header class="list_topics">
+  <%= yield :breadcrumbs %>
   <%= render 'thredded/shared/currently_online' %>
   <%= render 'thredded/shared/topic_nav' %>
 </header>
 
 <section class="topics" id="topics_listing">
   <div class="currently">
-    <%= render partial: 'thredded/topics/topic_condensed',
+    <%= render partial: 'topic_condensed',
       collection: Thredded::UserTopicDecorator.decorate_all(current_user, @private_topics),
-      as: :topic %>
+      as: :private_topic %>
   </div>
 </section>
 
 <footer>
   <%= paginate @private_topics %>
-
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
+  <%= yield :breadcrumbs %>
 </footer>

@@ -2,17 +2,16 @@
 <% content_for :thredded_page_id, 'thredded_topics_index' %>
 
 <% content_for :breadcrumbs do %>
-  <ul class="breadcrumbs">
-    <li><%= link_to 'Forums', thredded.root_path %></li>
-    <li><span><%= messageboard.name %></span></li>
-  </ul>
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><span><%= messageboard.name %></span></li>
+    </ul>
+  </nav>
 <% end %>
 
-<header>
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
-
+<header class="list_topics">
+  <%= yield :breadcrumbs %>
   <%= render 'thredded/shared/currently_online' %>
   <%= render 'thredded/shared/topic_nav' %>
 </header>
@@ -27,8 +26,5 @@
 
 <footer>
   <%= paginate @topics %>
-
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
+  <%= yield :breadcrumbs %>
 </footer>
