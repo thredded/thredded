@@ -34,8 +34,16 @@ module Thredded
           user: current_user,
           messageboard: messageboard,
           filter: messageboard.filter,
-          topic: parent_topic,
+          postable: parent_topic,
         )
+    end
+
+    def parent_topic
+      if params[:private_topic_id]
+        PrivateTopic.friendly.find(params[:private_topic_id])
+      else
+        Topic.friendly.find(params[:topic_id])
+      end
     end
 
     def post
