@@ -36,7 +36,38 @@ module Thredded
     end
 
     def users_to_sentence
-      users.map{ |user| user.to_s.capitalize }.to_sentence
+      users.map { |user| user.to_s.capitalize }.to_sentence
+    end
+
+    def self.unread_privates?(user)
+      brand_new_private_topics?(user) || latest_private_topic_unread?(user)
+    end
+
+    private
+
+    def self.brand_new_private_topics?(user)
+      user_private_topic_count(user) > 0 && latest_private_topic_read_date(user).blank?
+    end
+
+    def self.latest_private_topic_unread?(user)
+      latest_private_topic_date(user) > latest_private_topic_read_date(user)
+    end
+
+    def self.latest_private_topic_date(user)
+      user.thredded_private_topics.maximum('updated_at')
+    end
+
+    def self.latest_private_topic_read_date(user)
+      user
+      .thredded_private_topics
+      .includes(:user_topic_reads)
+      .where('thredded_user_topic_reads.user_id = ?', user.id)
+      .references(:user_topic_reads)
+      .maximum('thredded_user_topic_reads.updated_at')
+    end
+
+    def self.user_private_topic_count(user)
+      user.thredded_private_topics.count
     end
   end
 end
