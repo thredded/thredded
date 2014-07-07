@@ -42,8 +42,6 @@ module Thredded
 
   describe MessageboardDecorator, '#latest_topic_timeago' do
     it 'spits out an abbr tag with the right markup for timeago' do
-      Time.zone = 'UTC'
-      Chronic.time_class = Time.zone
       new_years = Chronic.parse('Jan 1 2013 at 3:00pm')
 
       Timecop.freeze(new_years) do

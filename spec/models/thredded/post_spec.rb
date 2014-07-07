@@ -13,11 +13,6 @@ module Thredded
   end
 
   describe Post, '#create' do
-    before(:each) do
-      Time.zone = 'UTC'
-      Chronic.time_class = Time.zone
-    end
-
     after(:each) do
       Timecop.return
     end

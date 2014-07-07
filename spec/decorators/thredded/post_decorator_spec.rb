@@ -9,7 +9,7 @@ module Thredded
     end
 
     it 'links to a valid user' do
-      Thredded.user_path = ->(user){ "/i_am/#{user}" }
+      Thredded.user_path = ->(user) { "/i_am/#{user}" }
       user = create(:user, name: 'joel')
       post = create(:post, user: user)
       decorator = PostDecorator.new(post)
@@ -58,8 +58,6 @@ module Thredded
     end
 
     it 'prints a human readable/formatted date' do
-      Time.zone = 'UTC'
-      Chronic.time_class = Time.zone
       new_years = Chronic.parse('Jan 1 2013 at 3:00pm')
 
       Timecop.freeze(new_years) do

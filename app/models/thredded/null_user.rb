@@ -31,5 +31,9 @@ module Thredded
     def valid?
       false
     end
+
+    def anonymous?
+      true
+    end
   end
 end

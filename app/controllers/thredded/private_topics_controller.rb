@@ -9,6 +9,8 @@ module Thredded
       end
 
       @private_topics = private_topics
+      @decorated_private_topics = Thredded::UserPrivateTopicDecorator
+        .decorate_all(current_user, @private_topics)
     end
 
     def show

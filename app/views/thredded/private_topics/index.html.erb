@@ -19,7 +19,7 @@
 <section class="topics" id="topics_listing">
   <div class="currently">
     <%= render partial: 'topic_condensed',
-      collection: Thredded::UserTopicDecorator.decorate_all(current_user, @private_topics),
+      collection: @decorated_private_topics,
       as: :private_topic %>
   </div>
 </section>

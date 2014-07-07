@@ -29,7 +29,7 @@ module Thredded
     it 'is true if the posts counts match' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      read_status = create(:user_topic_read,
+      create(:user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2
@@ -42,7 +42,7 @@ module Thredded
     it 'is false if the posts counts match' do
       topic = create(:topic, with_posts: 4)
       user = create(:user)
-      read_status = create(:user_topic_read,
+      create(:user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2
@@ -65,7 +65,7 @@ module Thredded
     it 'returns the farthest page a user has gotten to' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      read_status = create(:user_topic_read,
+      create(:user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2,
@@ -89,7 +89,7 @@ module Thredded
     it 'returns the last post a user has read up to' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      read_status = create(:user_topic_read,
+      create(:user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2,
@@ -114,7 +114,7 @@ module Thredded
     it 'prepends a read class to a topic' do
       topic = create(:topic, :locked, :sticky, with_posts: 2)
       user = create(:user)
-      read_status = create(:user_topic_read,
+      create(:user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2,
@@ -127,7 +127,7 @@ module Thredded
     it 'prepends a unread class to a topic' do
       topic = create(:topic, :locked, :sticky, with_posts: 2)
       user = create(:user)
-      read_status = create(:user_topic_read,
+      create(:user_topic_read,
         topic: topic,
         user: user,
         posts_count: 1,
@@ -135,33 +135,6 @@ module Thredded
       )
       decorator = UserTopicDecorator.new(user, topic)
       expect(decorator.css_class).to eq 'unread locked sticky'
-    end
-  end
-
-  describe UserTopicDecorator, '#user_link' do
-    after do
-      Thredded.user_path = nil
-    end
-
-    it 'links to a valid user' do
-      Thredded.user_path = ->(user){ "/i_am/#{user}" }
-      user = create(:user, name: 'joel')
-      topic = create(:topic, user: user)
-      read_status = create(:user_topic_read,
-        topic: topic,
-        user: user,
-      )
-      decorator = UserTopicDecorator.new(user, topic)
-
-      expect(decorator.user_link).to eq "<a href='/i_am/joel'>joel</a>"
-    end
-
-    it 'links to nowhere for a null user' do
-      user = nil
-      topic = build_stubbed(:topic, user: nil)
-      decorator = UserTopicDecorator.new(user, topic)
-
-      expect(decorator.user_link).to eq '<a href="#">?</a>'
     end
   end
 end

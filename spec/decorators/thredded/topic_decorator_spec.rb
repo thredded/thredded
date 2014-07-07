@@ -1,6 +1,32 @@
 require 'spec_helper'
 
 module Thredded
+  describe TopicDecorator, '#user_link' do
+    after do
+      Thredded.user_path = nil
+    end
+
+    it 'links to a valid user' do
+      Thredded.user_path = ->(user) { "/i_am/#{user}" }
+      user = create(:user, name: 'joel')
+      topic = create(:topic, user: user)
+      create(:user_topic_read,
+        topic: topic,
+        user: user,
+      )
+      decorator = TopicDecorator.new(topic)
+
+      expect(decorator.user_link).to eq "<a href='/i_am/joel'>joel</a>"
+    end
+
+    it 'links to nowhere for a null user' do
+      topic = build_stubbed(:topic, user: nil)
+      decorator = TopicDecorator.new(topic)
+
+      expect(decorator.user_link).to eq 'Anonymous User'
+    end
+  end
+
   describe TopicDecorator, '#last_user_link' do
     after do
       Thredded.user_path = nil
@@ -22,7 +48,7 @@ module Thredded
     end
 
     it 'returns link to user if config is set' do
-      Thredded.user_path = ->(user){ "/hi/#{user}" }
+      Thredded.user_path = ->(user) { "/hi/#{user}" }
       user = build_stubbed(:user, name: 'joel')
       topic = build_stubbed(:topic, last_user: user)
       decorated_topic = TopicDecorator.new(topic)
@@ -31,24 +57,8 @@ module Thredded
     end
   end
 
-  describe TopicDecorator, '#slug' do
-    it 'uses the id if slug is nil' do
-      topic = build_stubbed(:topic, slug: nil)
-      decorated_topic = TopicDecorator.new(topic)
-
-      expect(decorated_topic.slug).to eq topic.id
-    end
-
-    it 'uses the slug if it is there' do
-      topic = build_stubbed(:topic, slug: 'hi-topic')
-      decorated_topic = TopicDecorator.new(topic)
-
-      expect(decorated_topic.slug).to eq 'hi-topic'
-    end
-  end
-
   describe TopicDecorator, '#css_class' do
-    let(:user){ build_stubbed(:user) }
+    let(:user) { build_stubbed(:user) }
 
     it 'builds a class with locked if the topic is locked' do
       topic = build_stubbed(:topic, locked: true)
@@ -62,13 +72,6 @@ module Thredded
       decorated_topic = TopicDecorator.new(topic)
 
       expect(decorated_topic.css_class).to include 'sticky'
-    end
-
-    it 'builds a class with private if the topic is private' do
-      topic = build_stubbed(:private_topic)
-      decorated_topic = TopicDecorator.new(topic)
-
-      expect(decorated_topic.css_class).to include 'private'
     end
 
     it 'returns nothing if plain vanilla topic' do
