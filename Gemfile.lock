@@ -69,6 +69,7 @@ GEM
       mime-types (>= 1.16)
     chronic (0.9.1)
     coderay (1.0.9)
+    database_cleaner (1.2.0)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     escape_utils (1.0.1)
@@ -134,6 +135,7 @@ GEM
     net-ssh (2.8.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    pg (0.17.1)
     polyglot (0.3.4)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -207,10 +209,12 @@ PLATFORMS
 DEPENDENCIES
   capybara
   chronic
+  database_cleaner
   factory_girl_rails
   friendly_id (= 5.0.0.rc2)
   jquery-rails
   launchy
+  pg
   pry-rails
   rspec-rails
   shoulda-matchers
