@@ -30,7 +30,7 @@ module Thredded
       )
 
       recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
-      recipients.should_not include @john
+      expect(recipients).not_to include @john
     end
 
     it 'excludes anyone whose preferences say not to notify' do
@@ -51,7 +51,7 @@ module Thredded
       )
 
       recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
-      recipients.should eq [@sam]
+      expect(recipients).to eq [@sam]
     end
 
     it 'excludes anyone who has already been notified' do
@@ -73,7 +73,7 @@ module Thredded
       )
 
       recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
-      recipients.should eq [@sam]
+      expect(recipients).to eq [@sam]
     end
 
     it 'marks the right users as modified' do
@@ -103,8 +103,10 @@ module Thredded
 
       PrivateTopicNotifier.new(private_topic).notifications_for_private_topic
 
-      private_topic.posts.first.post_notifications.map(&:email)
-        .should eq(['joel@example.com', 'sam@example.com'])
+      emails = private_topic.posts.first.post_notifications.map(&:email)
+      expect(emails).to include('joel@example.com')
+      expect(emails).to include('sam@example.com')
+      expect(emails).to have(2).items
     end
   end
 end

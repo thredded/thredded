@@ -212,6 +212,11 @@ FactoryGirl.define do
     hash_id { generate(:topic_hash) }
   end
 
+  factory :private_user, class: Thredded::PrivateUser do
+    private_topic
+    user
+  end
+
   factory :user, aliases: [:email_confirmed_user, :last_user], class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
     sequence(:name) { |n| "name#{n}" }

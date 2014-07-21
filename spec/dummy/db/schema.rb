@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525011049) do
+ActiveRecord::Schema.define(version: 20140704190649) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_attachments", ["post_id"], name: "index_thredded_attachments_on_post_id"
+  add_index "thredded_attachments", ["post_id"], name: "index_thredded_attachments_on_post_id", using: :btree
 
   create_table "thredded_categories", force: true do |t|
     t.integer  "messageboard_id", null: false
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_categories", ["messageboard_id"], name: "index_thredded_categories_on_messageboard_id"
+  add_index "thredded_categories", ["messageboard_id"], name: "index_thredded_categories_on_messageboard_id", using: :btree
 
   create_table "thredded_images", force: true do |t|
     t.integer  "post_id"
@@ -43,7 +46,7 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_images", ["post_id"], name: "index_thredded_images_on_post_id"
+  add_index "thredded_images", ["post_id"], name: "index_thredded_images_on_post_id", using: :btree
 
   create_table "thredded_messageboard_preferences", force: true do |t|
     t.boolean  "notify_on_mention", default: true
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_messageboard_preferences", ["messageboard_id"], name: "index_thredded_messageboard_preferences_on_messageboard_id"
-  add_index "thredded_messageboard_preferences", ["user_id"], name: "index_thredded_messageboard_preferences_on_user_id"
+  add_index "thredded_messageboard_preferences", ["messageboard_id"], name: "index_thredded_messageboard_preferences_on_messageboard_id", using: :btree
+  add_index "thredded_messageboard_preferences", ["user_id"], name: "index_thredded_messageboard_preferences_on_user_id", using: :btree
 
   create_table "thredded_messageboards", force: true do |t|
     t.string   "name",                                       null: false
@@ -72,8 +75,8 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.integer  "private_topics_count", default: 0
   end
 
-  add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed"
-  add_index "thredded_messageboards", ["slug"], name: "index_thredded_messageboards_on_slug"
+  add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed", using: :btree
+  add_index "thredded_messageboards", ["slug"], name: "index_thredded_messageboards_on_slug", using: :btree
 
   create_table "thredded_post_notifications", force: true do |t|
     t.string   "email",      null: false
@@ -82,7 +85,7 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_post_notifications", ["post_id"], name: "index_thredded_post_notifications_on_post_id"
+  add_index "thredded_post_notifications", ["post_id"], name: "index_thredded_post_notifications_on_post_id", using: :btree
 
   create_table "thredded_posts", force: true do |t|
     t.integer  "user_id"
@@ -91,16 +94,17 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.string   "ip"
     t.string   "filter",          default: "markdown"
     t.string   "source",          default: "web"
+    t.integer  "postable_id"
     t.integer  "messageboard_id",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "postable_id"
     t.string   "postable_type"
   end
 
-  add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id"
-  add_index "thredded_posts", ["postable_id", "postable_type"], name: "index_thredded_posts_on_postable_id_and_postable_type"
-  add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id"
+  add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id", using: :btree
+  add_index "thredded_posts", ["postable_id", "postable_type"], name: "index_thredded_posts_on_postable_id_and_postable_type", using: :btree
+  add_index "thredded_posts", ["postable_id"], name: "index_thredded_posts_on_postable_id", using: :btree
+  add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id", using: :btree
 
   create_table "thredded_private_topics", force: true do |t|
     t.integer  "user_id",                     null: false
@@ -114,19 +118,21 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_private_topics", ["hash_id"], name: "index_thredded_private_topics_on_hash_id"
-  add_index "thredded_private_topics", ["messageboard_id"], name: "index_thredded_private_topics_on_messageboard_id"
-  add_index "thredded_private_topics", ["slug"], name: "index_thredded_private_topics_on_slug"
+  add_index "thredded_private_topics", ["hash_id"], name: "index_thredded_private_topics_on_hash_id", using: :btree
+  add_index "thredded_private_topics", ["messageboard_id"], name: "index_thredded_private_topics_on_messageboard_id", using: :btree
+  add_index "thredded_private_topics", ["slug"], name: "index_thredded_private_topics_on_slug", using: :btree
 
   create_table "thredded_private_users", force: true do |t|
     t.integer  "private_topic_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "read",             default: false
   end
 
-  add_index "thredded_private_users", ["private_topic_id"], name: "index_thredded_private_users_on_private_topic_id"
-  add_index "thredded_private_users", ["user_id"], name: "index_thredded_private_users_on_user_id"
+  add_index "thredded_private_users", ["private_topic_id"], name: "index_thredded_private_users_on_private_topic_id", using: :btree
+  add_index "thredded_private_users", ["read"], name: "index_thredded_private_users_on_read", using: :btree
+  add_index "thredded_private_users", ["user_id"], name: "index_thredded_private_users_on_user_id", using: :btree
 
   create_table "thredded_roles", force: true do |t|
     t.string   "level"
@@ -137,16 +143,16 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_roles", ["messageboard_id"], name: "index_thredded_roles_on_messageboard_id"
-  add_index "thredded_roles", ["user_id"], name: "index_thredded_roles_on_user_id"
+  add_index "thredded_roles", ["messageboard_id"], name: "index_thredded_roles_on_messageboard_id", using: :btree
+  add_index "thredded_roles", ["user_id"], name: "index_thredded_roles_on_user_id", using: :btree
 
   create_table "thredded_topic_categories", force: true do |t|
     t.integer "topic_id",    null: false
     t.integer "category_id", null: false
   end
 
-  add_index "thredded_topic_categories", ["category_id"], name: "index_thredded_topic_categories_on_category_id"
-  add_index "thredded_topic_categories", ["topic_id"], name: "index_thredded_topic_categories_on_topic_id"
+  add_index "thredded_topic_categories", ["category_id"], name: "index_thredded_topic_categories_on_category_id", using: :btree
+  add_index "thredded_topic_categories", ["topic_id"], name: "index_thredded_topic_categories_on_topic_id", using: :btree
 
   create_table "thredded_topics", force: true do |t|
     t.integer  "user_id",                         null: false
@@ -163,10 +169,10 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_topics", ["hash_id"], name: "index_thredded_topics_on_hash_id"
-  add_index "thredded_topics", ["last_user_id"], name: "index_thredded_topics_on_last_user_id"
-  add_index "thredded_topics", ["messageboard_id"], name: "index_thredded_topics_on_messageboard_id"
-  add_index "thredded_topics", ["user_id"], name: "index_thredded_topics_on_user_id"
+  add_index "thredded_topics", ["hash_id"], name: "index_thredded_topics_on_hash_id", using: :btree
+  add_index "thredded_topics", ["last_user_id"], name: "index_thredded_topics_on_last_user_id", using: :btree
+  add_index "thredded_topics", ["messageboard_id"], name: "index_thredded_topics_on_messageboard_id", using: :btree
+  add_index "thredded_topics", ["user_id"], name: "index_thredded_topics_on_user_id", using: :btree
 
   create_table "thredded_user_details", force: true do |t|
     t.integer  "user_id",                            null: false
@@ -178,8 +184,8 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_user_details", ["latest_activity_at"], name: "index_thredded_user_details_on_latest_activity_at"
-  add_index "thredded_user_details", ["user_id"], name: "index_thredded_user_details_on_user_id"
+  add_index "thredded_user_details", ["latest_activity_at"], name: "index_thredded_user_details_on_latest_activity_at", using: :btree
+  add_index "thredded_user_details", ["user_id"], name: "index_thredded_user_details_on_user_id", using: :btree
 
   create_table "thredded_user_preferences", force: true do |t|
     t.integer  "user_id",                                           null: false
@@ -188,7 +194,7 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_user_preferences", ["user_id"], name: "index_thredded_user_preferences_on_user_id"
+  add_index "thredded_user_preferences", ["user_id"], name: "index_thredded_user_preferences_on_user_id", using: :btree
 
   create_table "thredded_user_topic_reads", force: true do |t|
     t.integer  "user_id",                 null: false
@@ -200,12 +206,12 @@ ActiveRecord::Schema.define(version: 20140525011049) do
     t.datetime "updated_at"
   end
 
-  add_index "thredded_user_topic_reads", ["page"], name: "index_thredded_user_topic_reads_on_page"
-  add_index "thredded_user_topic_reads", ["post_id"], name: "index_thredded_user_topic_reads_on_post_id"
-  add_index "thredded_user_topic_reads", ["posts_count"], name: "index_thredded_user_topic_reads_on_posts_count"
-  add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id"
-  add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true
-  add_index "thredded_user_topic_reads", ["user_id"], name: "index_thredded_user_topic_reads_on_user_id"
+  add_index "thredded_user_topic_reads", ["page"], name: "index_thredded_user_topic_reads_on_page", using: :btree
+  add_index "thredded_user_topic_reads", ["post_id"], name: "index_thredded_user_topic_reads_on_post_id", using: :btree
+  add_index "thredded_user_topic_reads", ["posts_count"], name: "index_thredded_user_topic_reads_on_posts_count", using: :btree
+  add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
+  add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
+  add_index "thredded_user_topic_reads", ["user_id"], name: "index_thredded_user_topic_reads_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

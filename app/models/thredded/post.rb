@@ -13,6 +13,7 @@ module Thredded
     belongs_to :user, class_name: Thredded.user_class
     has_many :attachments
     has_many :post_notifications
+    has_one :user_detail, through: :user, source: :thredded_user_detail
 
     validates_presence_of :content, :messageboard_id
 
@@ -98,7 +99,7 @@ module Thredded
     end
 
     def modify_parent_posts_counts
-      Thredded::UserDetail.increment_counter(:posts_count, user_id)
+      user_detail.increment!(:posts_count) if user_detail
       postable.last_user = user
       postable.touch
       postable.save

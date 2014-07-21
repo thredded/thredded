@@ -17,7 +17,7 @@ feature 'User viewing private topics' do
     private_topics.visit_index
 
     expect(private_topics).to have(1).private_topic
-    expect(private_topics).to have(1).unread_private_topic
+    expect(private_topics).to have(1).unread_private_topics
 
     private_topics.view_private_topic
     private_topics.visit_index
@@ -28,12 +28,16 @@ feature 'User viewing private topics' do
   scenario 'sees that an old topic has been updated' do
     private_topics = one_private_topic
     private_topics.visit_index
+    private_topics.view_private_topic
+    private_topics.visit_index
+
     expect(private_topics).to have(1).private_topic
-    expect(private_topics).to have(0).unread_private_topic
+    expect(private_topics).to have(0).unread_private_topics
 
     private_topics.update_all_private_topics
     private_topics.visit_index
 
+    expect(private_topics).to have(1).private_topic
     expect(private_topics).to have(1).unread_private_topic
   end
 
@@ -44,6 +48,11 @@ feature 'User viewing private topics' do
 
     expect(navigation).to have_unread_private_topics
     expect(private_topics).to have(1).unread_private_topic
+
+    private_topics.view_private_topic
+    private_topics.visit_index
+
+    expect(navigation).not_to have_unread_private_topics
   end
 
   def user
@@ -57,11 +66,15 @@ feature 'User viewing private topics' do
     messageboard.add_member(me)
     messageboard.add_member(them)
 
-    create(:private_topic,
+    private_topic = create(:private_topic,
       user: me,
       users: [me, them],
       messageboard: messageboard
     )
-    PageObject::PrivateTopics.new(messageboard)
+    PageObject::PrivateTopics.new(messageboard, private_topic.title)
+  end
+
+  def app_navigation
+    @app_navigation ||= PageObject::Navigation.new
   end
 end

@@ -35,16 +35,32 @@ module Thredded
       :original,
       :updated_at_timeago
 
+    def to_model
+      private_topic
+    end
+
     def persisted?
       false
     end
 
     def css_class
-      "unread #{super}"
+      "#{read_status_class} #{super}"
     end
 
     private
 
     attr_reader :private_topic, :user
+
+    def read_status_class
+      if user_has_read_this_topic?
+        'read'
+      else
+        'unread'
+      end
+    end
+
+    def user_has_read_this_topic?
+      private_topic.private_users.find_by(user: user).read?
+    end
   end
 end

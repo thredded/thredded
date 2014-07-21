@@ -10,6 +10,7 @@ module Thredded
     has_many :topic_categories
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads
+    has_one :user_detail, through: :user, source: :thredded_user_detail
 
     belongs_to \
       :last_user,
@@ -79,6 +80,10 @@ module Thredded
       TopicDecorator.new(self)
     end
 
+    def user
+      super || NullUser.new
+    end
+
     def last_user
       super || NullUser.new
     end
@@ -124,7 +129,7 @@ module Thredded
     private
 
     def increment_topics_count
-      UserDetail.increment_counter(:topics_count, user_id)
+      user_detail.increment!(:topics_count) if user_detail
     end
   end
 end

@@ -29,13 +29,13 @@ module Thredded
 
     def created_at_timeago
       if created_at.nil?
-        <<-eohtml.html_safe
+        <<-eohtml.html_safe.strip_heredoc
           <abbr class="started_at">
             a little while ago
           </abbr>
         eohtml
       else
-        <<-eohtml.html_safe
+        <<-eohtml.html_safe.strip_heredoc
           <abbr class="started_at timeago" title="#{created_at_utc}">
             #{created_at_str}
           </abbr>

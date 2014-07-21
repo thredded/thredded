@@ -6,6 +6,8 @@ module Thredded
 
     def create
       Thredded::Post.create(post_params)
+
+      reset_read_status if for_a_private_topic?
       redirect_to :back
     end
 
@@ -25,6 +27,10 @@ module Thredded
 
     private
 
+    def reset_read_status
+      Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, current_user).run
+    end
+
     def post_params
       params
         .require(:post)
@@ -39,11 +45,15 @@ module Thredded
     end
 
     def parent_topic
-      if params[:private_topic_id]
+      if for_a_private_topic?
         PrivateTopic.friendly.find(params[:private_topic_id])
       else
         Topic.friendly.find(params[:topic_id])
       end
+    end
+
+    def for_a_private_topic?
+      params[:private_topic_id].present?
     end
 
     def post

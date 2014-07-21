@@ -2,7 +2,7 @@ require 'support/features/page_object/base'
 
 module PageObject
   class PrivateTopics < Base
-    def initialize(messageboard, title='this is private')
+    def initialize(messageboard, title = 'this is private')
       @messageboard = messageboard
       @private_title = title
     end
@@ -11,8 +11,20 @@ module PageObject
       visit messageboard_private_topics_path(messageboard)
     end
 
+    def view_private_topic
+      click_on @private_title
+    end
+
     def private_topics
-      all('.topics article.private')
+      all('.topics article.private_topic')
+    end
+
+    def read_private_topics
+      all('.read.private_topic')
+    end
+
+    def unread_private_topics
+      all('.unread.private_topic')
     end
 
     def create_private_topic
@@ -24,10 +36,13 @@ module PageObject
       click_on 'Create New Private Topic'
     end
 
+    def update_all_private_topics
+      Thredded::PrivateUser.update_all(read: false)
+    end
+
     def visit_private_topic_list
       visit messageboard_private_topics_path(messageboard)
     end
-
 
     def on_public_list?
       visit messageboard_topics_path(messageboard)
@@ -42,10 +57,10 @@ module PageObject
     end
 
     alias_method :private_topic, :private_topics
+    alias_method :unread_private_topic, :unread_private_topics
 
     private
 
     attr_reader :messageboard, :private_title
   end
 end
-
