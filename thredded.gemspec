@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'gemoji'
   s.add_dependency 'github-markdown'
   s.add_dependency 'gravtastic'
-  s.add_dependency 'griddler'
   s.add_dependency 'html-pipeline'
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'

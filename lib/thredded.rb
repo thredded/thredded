@@ -1,7 +1,6 @@
 require 'thredded/engine'
 require 'cancan'
 require 'carrierwave'
-require 'griddler'
 require 'kaminari'
 require 'friendly_id'
 require 'thredded/email_processor'

@@ -1,12 +1,10 @@
-- write above this line to post a reply -
-
 <%= @private_topic.posts.first.content %>
 
 ---
 
 This email was sent to you because <%= @private_topic.user %>
-included you in the private topic "<%= @private_topic.title %>". Feel free to reply
-above or head to the following to view the conversation:
+included you in the private topic "<%= @private_topic.title %>". 
+Go here to view the conversation:
   <%= messageboard_topic_posts_url(@private_topic.messageboard, @private_topic) %>
 
 To unsubscribe from these emails, update your preferences here:

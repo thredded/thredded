@@ -1,8 +1,6 @@
 require 'thredded/setup_thredded'
 
 Thredded::Engine.routes.draw do
-  post '/mail/receive' => 'emails#create', as: :mail_receive
-
   constraints(Thredded::SetupThredded.new) do
     resources :setups, path: '', only: [:new, :create]
     root to: 'setups#new'

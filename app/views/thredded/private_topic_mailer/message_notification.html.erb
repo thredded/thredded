@@ -1,5 +1,3 @@
-<p><span style="font-size:11px; color: gray;">- write above this line to post a reply -</span></p>
-
 <%== @private_topic.posts.first.filtered_content %>
 
 <hr />
@@ -7,7 +5,7 @@
 <p>
   This email was sent to you because <%= @private_topic.user %> included you in a
   private topic, "<%= link_to @private_topic.title, messageboard_topic_posts_url(@private_topic.messageboard, @private_topic) %>".
-  Feel free to reply above or <%= link_to 'head to the thread', messageboard_topic_posts_url(@private_topic.messageboard, @private_topic) %>
+  <%= link_to 'Go here', messageboard_topic_posts_url(@private_topic.messageboard, @private_topic) %>
   to view the conversation.
 </p>
 
