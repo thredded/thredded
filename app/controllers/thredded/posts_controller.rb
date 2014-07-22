@@ -46,7 +46,10 @@ module Thredded
 
     def parent_topic
       if for_a_private_topic?
-        PrivateTopic.friendly.find(params[:private_topic_id])
+        PrivateTopic
+          .includes(:private_users)
+          .friendly
+          .find(params[:private_topic_id])
       else
         Topic.friendly.find(params[:topic_id])
       end

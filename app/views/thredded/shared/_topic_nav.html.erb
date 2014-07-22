@@ -9,12 +9,14 @@
   <% end %>
 
   <ul class="listings">
-    <% cache ['topic-nav-list', current_user, messageboard] do %>
-      <li class="topic_list"><%= link_to 'topics', messageboard_topics_path %></li>
-      <% if can? :list, messageboard.private_topics.build %>
-        <li class="private_topic_list"><%= link_to 'private topics', messageboard_private_topics_path %></li>
+    <li class="topic_list"><%= link_to 'topics', messageboard_topics_path %></li>
+    <li class="private_topic_list">
+      <%= link_to messageboard_private_topics_path,
+        class: "unread-#{current_user.unread_private_topics_count}" do %>
+        private topics
+        <span><%= current_user.unread_private_topics_count %></span>
       <% end %>
-    <% end %>
+    </li>
 
     <%= render 'thredded/search/form' %>
   </ul>

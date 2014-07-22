@@ -26,29 +26,6 @@
           form.object.html_options %>
       </li>
 
-      <% if messageboard.decorate.categories.any? %>
-        <li class="category">
-          <%= form.select :category_ids,
-            form.object.category_options,
-            {},
-            { multiple: true, 'data-placeholder' => 'Categories' } %>
-        </li>
-      <% end %>
-
-      <% if can? :admin, form.object %>
-        <li class="locked">
-          <%= form.label :locked do %>
-            Locked <%= form.check_box :locked %>
-          <% end %>
-        </li>
-
-        <li class="sticky">
-          <%= form.label :sticky do %>
-            Sticky <%= form.check_box :sticky %>
-          <% end %>
-        </li>
-      <% end %>
-
       <%= render 'thredded/posts/form', form: form %>
 
       <li class="submit">

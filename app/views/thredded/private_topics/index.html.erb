@@ -18,9 +18,13 @@
 
 <section class="topics" id="topics_listing">
   <div class="currently">
-    <%= render partial: 'topic_condensed',
-      collection: @decorated_private_topics,
-      as: :private_topic %>
+    <% if @private_topics.empty? %>
+      <%= render 'no_private_topics' %>
+    <% else %>
+     <%= render partial: 'topic_condensed',
+        collection: @decorated_private_topics,
+        as: :private_topic %>
+    <% end %>
   </div>
 </section>
 

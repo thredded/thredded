@@ -10,6 +10,11 @@ module Thredded
         .where(private_topic: private_topic)
         .where('user_id != ?', user.id)
       other_users.update_all(read: false)
+
+      other_users.each do |other_user|
+        Rails.cache.delete("private_topics_count_#{other_user.user_id}")
+      end
+      Rails.cache.delete("private_topics_count_#{user.id}")
     end
 
     private

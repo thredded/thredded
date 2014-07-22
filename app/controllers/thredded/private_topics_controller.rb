@@ -33,6 +33,8 @@ module Thredded
     def create
       @private_topic = PrivateTopicForm.new(new_private_topic_params)
       @private_topic.save
+      UserReadsPrivateTopic.new(@private_topic, current_user).run
+
       redirect_to messageboard_topics_url(messageboard)
     end
 
