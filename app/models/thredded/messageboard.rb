@@ -61,7 +61,7 @@ module Thredded
     end
 
     def update_activity_for!(user)
-      if role = roles.where(user_id: user).first
+      if role = roles.where(user_id: user.id).first
         role.update_attribute(:last_seen, Time.now.utc)
       end
     end

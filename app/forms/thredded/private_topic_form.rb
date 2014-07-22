@@ -47,6 +47,10 @@ module Thredded
       messageboard.users
     end
 
+    def id
+      private_topic.id
+    end
+
     def save
       if valid?
         ActiveRecord::Base.transaction do

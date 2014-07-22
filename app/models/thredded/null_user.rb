@@ -35,5 +35,9 @@ module Thredded
     def anonymous?
       true
     end
+
+    def unread_private_topics_count
+      0
+    end
   end
 end

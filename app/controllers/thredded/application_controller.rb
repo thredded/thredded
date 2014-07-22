@@ -52,9 +52,11 @@ module Thredded
     end
 
     def preferences
-      if current_user
-        @preferences ||= UserPreference.where(user_id: current_user.id).first
-      end
+      @preferences ||= UserPreference.where(user_id: current_user.id).first
+    end
+
+    def current_user
+      super || NullUser.new
     end
   end
 end
