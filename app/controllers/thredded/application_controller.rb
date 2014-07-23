@@ -1,7 +1,7 @@
 module Thredded
   class ApplicationController < ::ApplicationController
     helper Thredded::Engine.helpers
-    helper_method :messageboard, :preferences
+    helper_method :messageboard, :preferences, :unread_private_topics_count
     layout Thredded.layout
 
     rescue_from CanCan::AccessDenied,
@@ -20,6 +20,21 @@ module Thredded
     end
 
     private
+
+    def unread_private_topics_count
+      Rails.cache.fetch("private_topics_count_#{messageboard.id}_#{current_user.id}") do
+        Thredded::PrivateTopic
+          .joins(:private_users)
+          .where(
+            messageboard: messageboard,
+            thredded_private_users: {
+              user_id: current_user.id,
+              read: false,
+            }
+          )
+          .count
+      end
+    end
 
     def authorize_reading(obj)
       if cannot? :read, obj

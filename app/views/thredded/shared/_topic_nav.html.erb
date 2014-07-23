@@ -12,9 +12,9 @@
     <li class="topic_list"><%= link_to 'topics', messageboard_topics_path %></li>
     <li class="private_topic_list">
       <%= link_to messageboard_private_topics_path,
-        class: "unread-#{current_user.unread_private_topics_count}" do %>
+        class: "unread-#{unread_private_topics_count}" do %>
         private topics
-        <span><%= current_user.unread_private_topics_count %></span>
+        <span><%= unread_private_topics_count %></span>
       <% end %>
     </li>
 

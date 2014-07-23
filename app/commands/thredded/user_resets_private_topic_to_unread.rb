@@ -12,13 +12,17 @@ module Thredded
       other_users.update_all(read: false)
 
       other_users.each do |other_user|
-        Rails.cache.delete("private_topics_count_#{other_user.user_id}")
+        Rails.cache.delete("private_topics_count_#{messageboard.id}_#{other_user.user_id}")
       end
-      Rails.cache.delete("private_topics_count_#{user.id}")
+      Rails.cache.delete("private_topics_count_#{messageboard.id}_#{user.id}")
     end
 
     private
 
     attr_reader :private_topic, :user
+
+    def messageboard
+      private_topic.messageboard
+    end
   end
 end

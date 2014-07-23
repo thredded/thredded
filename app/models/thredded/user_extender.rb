@@ -20,12 +20,6 @@ module Thredded
       def anonymous?
         false
       end
-
-      def unread_private_topics_count
-        Rails.cache.fetch("private_topics_count_#{self.id}") do
-          thredded_private_users.where(read: false).count
-        end
-      end
     end
   end
 end
