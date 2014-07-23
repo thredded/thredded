@@ -104,9 +104,9 @@ module Thredded
     end
 
     def update_read_status!
-      if current_user
+      unless current_user.anonymous?
         read_history = UserTopicRead.where(
-          user: current_user,
+          user_id: current_user,
           topic: topic,
         ).first_or_initialize
 
