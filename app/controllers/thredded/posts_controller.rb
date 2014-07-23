@@ -48,10 +48,14 @@ module Thredded
       if for_a_private_topic?
         PrivateTopic
           .includes(:private_users)
+          .where(messageboard: messageboard)
           .friendly
           .find(params[:private_topic_id])
       else
-        Topic.friendly.find(params[:topic_id])
+        Topic
+          .where(messageboard: messageboard)
+          .friendly
+          .find(params[:topic_id])
       end
     end
 
