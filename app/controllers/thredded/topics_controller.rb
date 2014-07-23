@@ -17,7 +17,10 @@ module Thredded
         .order('id ASC')
         .page(current_page)
 
-      @post  = messageboard.posts.build(postable: topic)
+      @post  = messageboard.posts.build(
+        postable: topic,
+        filter: messageboard.filter
+      )
 
       update_read_status!
     end
