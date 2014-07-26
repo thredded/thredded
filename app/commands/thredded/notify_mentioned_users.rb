@@ -1,19 +1,18 @@
 require 'thredded/at_notification_extractor'
 
 module Thredded
-  class AtNotifier
+  class NotifyMentionedUsers
     def initialize(post)
       @post = post
     end
 
-    def notifications_for_at_users
+    def run
       members = at_notifiable_members
+      return unless members.present?
 
-      if members.present?
-        user_emails = members.map(&:email)
-        PostMailer.at_notification(post.id, user_emails).deliver
-        MembersMarkedNotified.new(post, members).run
-      end
+      user_emails = members.map(&:email)
+      PostMailer.at_notification(post.id, user_emails).deliver
+      MembersMarkedNotified.new(post, members).run
     end
 
     def at_notifiable_members

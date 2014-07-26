@@ -1,4 +1,3 @@
-require 'thredded/at_notifier'
 require 'gravtastic'
 
 module Thredded

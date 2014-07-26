@@ -1,9 +1,8 @@
 require 'spec_helper'
 require 'thredded/at_notification_extractor'
-require 'thredded/at_notifier'
 
 module Thredded
-  describe AtNotifier, '#at_notifiable_members' do
+  describe NotifyMentionedUsers, '#run' do
     before do
       sam  = create(:user, name: 'sam')
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
@@ -28,7 +27,7 @@ module Thredded
         messageboard: @messageboard,
       )
 
-      notifier = AtNotifier.new(@post)
+      notifier = NotifyMentionedUsers.new(@post)
       at_notifiable_members = notifier.at_notifiable_members
 
       at_notifiable_members.should have(2).items
@@ -51,7 +50,7 @@ module Thredded
         post: @post,
         email: 'joel@example.com',
       )
-      notifier = AtNotifier.new(@post)
+      notifier = NotifyMentionedUsers.new(@post)
 
       notifier.at_notifiable_members.should have(1).item
       notifier.at_notifiable_members.should include @john
@@ -71,7 +70,7 @@ module Thredded
         messageboard: @post.messageboard,
         users: [@joel]
       )
-      notifier = AtNotifier.new(@post)
+      notifier = NotifyMentionedUsers.new(@post)
 
       notifier.at_notifiable_members.should have(1).item
       notifier.at_notifiable_members.should include @joel
@@ -88,7 +87,7 @@ module Thredded
         user: @joel,
         messageboard: @post.messageboard,
       )
-      notifier = AtNotifier.new(@post)
+      notifier = NotifyMentionedUsers.new(@post)
       at_notifiable_members = notifier.at_notifiable_members
 
       at_notifiable_members.should have(1).items
@@ -97,7 +96,7 @@ module Thredded
     end
   end
 
-  describe AtNotifier, '#notifications_for_at_users' do
+  describe NotifyMentionedUsers, '#notifications_for_at_users' do
     before do
       sam  = create(:user, name: 'sam')
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
@@ -121,8 +120,7 @@ module Thredded
         messageboard: @messageboard,
         notify_on_mention: true,
       )
-      notifier = AtNotifier.new(@post)
-      notifier.notifications_for_at_users
+      NotifyMentionedUsers.new(@post).run
       notified_emails = @post.post_notifications.map(&:email)
 
       notified_emails.should have(2).items
@@ -132,8 +130,12 @@ module Thredded
 
     def create_post_by(user)
       messageboard = create(:messageboard)
-      create(:post, user: user,
-        content: 'hi @joel and @john. @sam', messageboard: messageboard)
+      create(
+        :post,
+        user: user,
+        content: 'hi @joel and @john. @sam',
+        messageboard: messageboard
+      )
     end
   end
 end

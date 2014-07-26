@@ -5,7 +5,7 @@ module Thredded
     queue(:send_at_notifications) do |post_id|
       post = Post.find(post_id)
 
-      AtNotifier.new(post).notifications_for_at_users
+      NotifyMentionedUsers.new(post).run
     end
   end
 end
