@@ -116,7 +116,7 @@ module Thredded
     end
 
     def notify_at_users
-      Thredded::AtNotifier.new(self).notifications_for_at_users
+      AtNotifierJob.queue.send_at_notifications(id)
     end
   end
 end

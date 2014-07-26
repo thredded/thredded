@@ -3,6 +3,8 @@ require 'cancan'
 require 'carrierwave'
 require 'kaminari'
 require 'friendly_id'
+require 'q'
+require 'threaded_in_memory_queue'
 require 'thredded/email_processor'
 require 'thredded/errors'
 require 'thredded/at_notifier'
@@ -33,7 +35,7 @@ module Thredded
 
   def self.user_class
     if @@user_class.is_a?(Class)
-      raise 'Please use a string instead of a class'
+      fail 'Please use a string instead of a class'
     end
 
     if @@user_class.is_a?(String)

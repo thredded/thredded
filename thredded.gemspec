@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mini_magick'
   s.add_dependency 'multi_json'
   s.add_dependency 'nokogiri'
+  s.add_dependency 'q'
   s.add_dependency 'rails', '>= 4.0.0'
   s.add_dependency 'rinku'
   s.add_dependency 'sanitize'

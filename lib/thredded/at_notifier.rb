@@ -11,14 +11,14 @@ module Thredded
 
       if members.present?
         user_emails = members.map(&:email)
-        Thredded::PostMailer.at_notification(post.id, user_emails).deliver
-        mark_notified(members)
+        PostMailer.at_notification(post.id, user_emails).deliver
+        MembersMarkedNotified.new(post, members).run
       end
     end
 
     def at_notifiable_members
-      at_names = Thredded::AtNotificationExtractor.new(post.content).extract
-      members = post.messageboard.members_from_list(at_names).to_a
+      user_names = AtNotificationExtractor.new(post.content).extract
+      members = post.messageboard.members_from_list(user_names).to_a
 
       members.delete post.user
       members = exclude_previously_notified(members)
@@ -55,12 +55,6 @@ module Thredded
 
       members.reject do |member|
         emails_notified.include? member.email
-      end
-    end
-
-    def mark_notified(members)
-      members.each do |member|
-        post.post_notifications.create(email: member.email)
       end
     end
 
