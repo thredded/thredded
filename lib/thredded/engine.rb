@@ -15,10 +15,9 @@ module Thredded
 
     config.to_prepare do
       Thredded.user_class.send(:include, Thredded::UserExtender)
-      ThreadedInMemoryQueue.logger.level = Logger::ERROR
 
       Q.setup do |config|
-        config.queue_config.inline = true
+        config.queue = Thredded.queue_backend
       end
     end
   end

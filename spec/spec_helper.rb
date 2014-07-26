@@ -20,6 +20,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Q.queue_config.inline = true
   end
 
   config.after(:suite) do
@@ -44,4 +45,5 @@ RSpec.configure do |config|
   end
 
   ActiveSupport::Dependencies.clear
+  ThreadedInMemoryQueue.logger.level = Logger::ERROR
 end

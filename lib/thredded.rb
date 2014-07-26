@@ -26,12 +26,14 @@ module Thredded
     :file_storage,
     :asset_root,
     :layout,
-    :avatar_default
+    :avatar_default,
+    :queue_backend
 
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded'
   self.avatar_default = 'mm'
+  self.queue_backend = :threaded_in_memory_queue
 
   def self.user_class
     if @@user_class.is_a?(Class)
