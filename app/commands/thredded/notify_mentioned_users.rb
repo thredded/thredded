@@ -1,5 +1,3 @@
-require 'thredded/at_notification_extractor'
-
 module Thredded
   class NotifyMentionedUsers
     def initialize(post)
@@ -16,7 +14,7 @@ module Thredded
     end
 
     def at_notifiable_members
-      user_names = AtNotificationExtractor.new(post.content).extract
+      user_names = AtNotificationExtractor.new(post.content).run
       members = post.messageboard.members_from_list(user_names).to_a
 
       members.delete post.user

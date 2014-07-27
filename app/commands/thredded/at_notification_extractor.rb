@@ -4,7 +4,7 @@ module Thredded
       @content = content
     end
 
-    def extract
+    def run
       scanned_names = @content.scan(/@([\w]+)(\W)?/)
       scanned_names += @content.scan(/@"([\w\ ]+)"(\W)?/)
       scanned_names

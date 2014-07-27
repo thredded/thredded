@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'thredded/at_notification_extractor'
 
 module Thredded
   describe NotifyMentionedUsers, '#run' do
