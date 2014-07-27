@@ -104,18 +104,18 @@ module Thredded
     end
 
     def update_read_status!
-      unless current_user.anonymous?
-        read_history = UserTopicRead.where(
-          user_id: current_user,
-          topic: topic,
-        ).first_or_initialize
+      return if current_user.anonymous?
 
-        read_history.update_attributes(
-          farthest_post: @posts.last,
-          posts_count: topic.posts_count,
-          page: current_page,
-        )
-      end
+      read_history = UserTopicRead.where(
+        user_id: current_user,
+        topic: topic,
+      ).first_or_initialize
+
+      read_history.update_attributes(
+        farthest_post: @posts.last,
+        posts_count: topic.posts_count,
+        page: current_page,
+      )
     end
   end
 end
