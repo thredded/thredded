@@ -1,18 +1,17 @@
 module Thredded
-  class PrivateTopicNotifier
+  class NotifyPrivateTopicUsers
     def initialize(private_topic)
       @post = private_topic.posts.first || Post.new
       @private_topic = private_topic
     end
 
-    def notifications_for_private_topic
+    def run
       members = private_topic_recipients
 
-      if members.present?
-        user_emails = members.map(&:email)
-        PrivateTopicMailer.message_notification(private_topic.id, user_emails).deliver
-        mark_notified(members)
-      end
+      return unless members.present?
+      user_emails = members.map(&:email)
+      PrivateTopicMailer.message_notification(private_topic.id, user_emails).deliver
+      mark_notified(members)
     end
 
     def private_topic_recipients
@@ -40,9 +39,6 @@ module Thredded
           .first
           .try(:notify_on_message?)
       end
-    end
-
-    def notify_for_member_in_messageboard?(member, messageboard)
     end
 
     def exclude_previously_notified(members)

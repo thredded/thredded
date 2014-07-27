@@ -1,8 +1,7 @@
 require 'spec_helper'
-require 'thredded/private_topic_notifier'
 
 module Thredded
-  describe PrivateTopicNotifier, '#private_topic_recipients' do
+  describe NotifyPrivateTopicUsers, '#run' do
     before do
       @john = create(:user)
       @joel = create(:user)
@@ -29,7 +28,7 @@ module Thredded
          messageboard: private_topic.messageboard,
       )
 
-      recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
+      recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
       expect(recipients).not_to include @john
     end
 
@@ -50,7 +49,7 @@ module Thredded
         notify_on_message: true
       )
 
-      recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
+      recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
       expect(recipients).to eq [@sam]
     end
 
@@ -72,7 +71,7 @@ module Thredded
         notify_on_message: true
       )
 
-      recipients = PrivateTopicNotifier.new(private_topic).private_topic_recipients
+      recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
       expect(recipients).to eq [@sam]
     end
 
@@ -101,7 +100,7 @@ module Thredded
         notify_on_message: true
       )
 
-      PrivateTopicNotifier.new(private_topic).notifications_for_private_topic
+      NotifyPrivateTopicUsers.new(private_topic).run
 
       emails = private_topic.posts.first.post_notifications.map(&:email)
       expect(emails).to include('joel@example.com')
