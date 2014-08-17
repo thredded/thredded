@@ -13,6 +13,10 @@ describe Thredded, '.queue_backend' do
 end
 
 describe Thredded, '.queue_memory_log_level' do
+  after do
+    Thredded.queue_memory_log_level = Logger::WARN
+  end
+
   it 'defaults the threaded memory log level' do
     expect(Thredded.queue_memory_log_level).to eq Logger::WARN
   end
@@ -25,6 +29,10 @@ describe Thredded, '.queue_memory_log_level' do
 end
 
 describe Thredded, '.queue_inline' do
+  after do
+    Thredded.queue_inline = false
+  end
+
   it 'defaults to false' do
     expect(Thredded.queue_inline).to eq false
   end
