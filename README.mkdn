@@ -1,11 +1,5 @@
 # Thredded (the gem / rails engine)
 
-## Upgrade Notes
-
-Recent commits ([7a7c7b5](https://github.com/jayroh/thredded/commit/7a7c7b501f910912f026847284a8bb157b69ad44)) have removed the ability to add attachments to a post, but not removed the attachments themselves. Future plans are to extract similar functionality out to its own engine, but until then either stay at 0.0.12 or use external image hosts like [imgur](http://www.imgur.com).
-
-To migrate old `[t:img]` tags (I know - it was a bad idea to begin with) to plain old bbcode or markdown tags there is a new provided rake task - `rake thredded:update_legacy_timg_tags`. This rake task will update the contents of posts including `[t:img]` tags to, for example, `[img]/path/to/image.jpg[/img]`.
-
 ## Installation
 
 Add the gem to your Gemfile:
@@ -14,7 +8,7 @@ Add the gem to your Gemfile:
 gem 'thredded'
 ```
 
-Add an initializer to your app: `config/initializers/thredded.rb`
+Add an initializer to your app: `config/initializers/thredded.rb`. Configuration options:
 
 ```ruby
 Thredded.user_class = 'User'
@@ -43,9 +37,9 @@ Mount the thredded engine in your routes file:
 mount Thredded::Engine => '/forum'
 ```
 
-## Background Job configuration
+## Background Job Requirements
 
-This gem has several background job classes that are gem agnostic. Currently resque, sidekiq, delayed_job, and a threaded in-memory queue are supported thanks to Richard Schneeman's Q gem. The configuration detailed above allows you to specify which job queue you prefer with `Thredded.queue_backend`. The available options are one of the following symbols - `:threaded_in_memory_queue`, `:sidekiq`, `:resque`, or `:delayed_job`.
+This gem has several gem agnostic background jobs. Currently resque, sidekiq, delayed_job, and a threaded in-memory queue are supported thanks to [Richard Schneeman's Q gem](https://github.com/schneems/Q). The configuration detailed above allows you to specify which job queue you prefer with `Thredded.queue_backend`. The available options are one of the following symbols - `:threaded_in_memory_queue`, `:sidekiq`, `:resque`, or `:delayed_job`.
 
 When using the threaded in-memory queue you may *optionally* update its log-level for more granular debugging with the `Thredded.queue_memory_log_level` setting.
 
@@ -55,7 +49,7 @@ When running the app in a test environment you may want to set your queue to run
 Thredded.queue_inline = Rails.env.test?
 ```
 
-## Get Your App Ready
+## Get Your Parent App Ready
 
 There are a few things you need in your app to get things looking just right.
 

@@ -1,6 +1,21 @@
-# MASTER (pre-0.0.14)
+# MASTER (pre-0.0.15)
 
-* ...
+# 0.0.14
+
+## Changes
+
+* Until this release PrivateTopic inherited from Topic and used STI to reuse that table. Over time this led to some intermingling of concerns and more than the occasional shotgun surgery. As of now the Topic class has been split into Topic AND PrivateTopic, each with their own table.
+* Provide means to display, or inspect, the unread private topics count. This now allows us to see if there are any private topics that one has not read.
+* Add queue support for multiple background job libraries using the Q gem. Previous to now the only instances where we really cared about shoving something in the background was when we sent out mail - this is a bit myopic. There are several cases where some processes could/should be put into the background - hence needing a queue. The explicit requirement of a specific queue library is something we should avoid so the Q gem was pulled in to provide the abstraction layer that allows one of several libraries to be used - resque, sidekiq, delayed_job, or, the default, an in-memory threaded queue.
+* Update rails dependency from `'~> 4.0.0'` to `'>= 4.0.0'`
+* Replace nested forms with form objects
+* Remove unused columns in tables - `state` from `thredded_topics`.
+* Link to user from post on topic page (thanks @taylorkearns!)
+
+## Bug fixes
+
+* Fix issue where post did not inherit the test filter set per messagebard
+* Building a new post for reply form must use the parent messageboard filter
 
 # 0.0.13
 
