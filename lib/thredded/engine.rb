@@ -18,7 +18,10 @@ module Thredded
 
       Q.setup do |config|
         config.queue = Thredded.queue_backend
+        config.queue_config.inline = Thredded.queue_inline
       end
+
+      ThreadedInMemoryQueue.logger.level = Thredded.queue_memory_log_level
     end
   end
 end

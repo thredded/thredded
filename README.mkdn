@@ -26,6 +26,9 @@ Thredded.file_storage = :file # or :fog
 Thredded.asset_root = 'http://assets.website.com/assets' # where important things, like emojis, might live
 Thredded.layout = 'thredded' # looks for `app/views/layouts/thredded.html.erb`
 Thredded.avatar_default = 'mm' # or other gravatar defaults or URL to an image
+Thredded.queue_backend = :threaded_in_memory_queue # :sidekiq, :resque, or :delayed_job
+Thredded.queue_memory_log_level = Logger::WARN # if using the threaded in memory queue it defaults to warn, but if you'd like more info, change to Logger::INFO or Logger::DEBUG
+Thredded.queue_inline = false # change for environments you want to run jobs inline
 ```
 
 Copy the migrations over to your parent application and migrate:
@@ -38,6 +41,18 @@ Mount the thredded engine in your routes file:
 
 ```
 mount Thredded::Engine => '/forum'
+```
+
+## Background Job configuration
+
+This gem has several background job classes that are gem agnostic. Currently resque, sidekiq, delayed_job, and a threaded in-memory queue are supported thanks to Richard Schneeman's Q gem. The configuration detailed above allows you to specify which job queue you prefer with `Thredded.queue_backend`. The available options are one of the following symbols - `:threaded_in_memory_queue`, `:sidekiq`, `:resque`, or `:delayed_job`.
+
+When using the threaded in-memory queue you may *optionally* update its log-level for more granular debugging with the `Thredded.queue_memory_log_level` setting.
+
+When running the app in a test environment you may want to set your queue to run the jobs inline. In your config you may want to set the option based on environment. EG:
+
+```ruby
+Thredded.queue_inline = Rails.env.test?
 ```
 
 ## Get Your App Ready
@@ -72,7 +87,3 @@ A couple of notes with regards to your layout.
   </body>
 </html>
 ```
-
-* * *
-
-For more information see [the full-fledged rails app](https://github.com/jayroh/thredded_app)

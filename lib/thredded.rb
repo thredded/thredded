@@ -25,13 +25,17 @@ module Thredded
     :asset_root,
     :layout,
     :avatar_default,
-    :queue_backend
+    :queue_backend,
+    :queue_memory_log_level,
+    :queue_inline
 
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded'
   self.avatar_default = 'mm'
   self.queue_backend = :threaded_in_memory_queue
+  self.queue_memory_log_level = Logger::WARN
+  self.queue_inline = false
 
   def self.user_class
     if @@user_class.is_a?(Class)

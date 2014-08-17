@@ -12,6 +12,30 @@ describe Thredded, '.queue_backend' do
   end
 end
 
+describe Thredded, '.queue_memory_log_level' do
+  it 'defaults the threaded memory log level' do
+    expect(Thredded.queue_memory_log_level).to eq Logger::WARN
+  end
+
+  it 'allows the threaded memory log level to change' do
+    Thredded.queue_memory_log_level = Logger::INFO
+
+    expect(Thredded.queue_memory_log_level).to eq Logger::INFO
+  end
+end
+
+describe Thredded, '.queue_inline' do
+  it 'defaults to false' do
+    expect(Thredded.queue_inline).to eq false
+  end
+
+  it 'can be changed to true' do
+    Thredded.queue_inline = true
+
+    expect(Thredded.queue_inline).to eq true
+  end
+end
+
 describe Thredded, '.user_path' do
   after do
     Thredded.user_path = nil
