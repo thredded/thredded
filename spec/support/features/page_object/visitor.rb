@@ -3,7 +3,7 @@ require_relative './authentication'
 module PageObject
   class Visitor
     include Capybara::DSL
-    include PageObject::Authentication
+    include Authentication
     include Thredded::Engine.routes.url_helpers
 
     attr_accessor :visitor

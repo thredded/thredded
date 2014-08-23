@@ -1,0 +1,8 @@
+language: ruby
+before_script: "RAILS_ENV=test bundle exec rake db:create db:migrate"
+script: "bundle exec rake"
+env:
+  - DB=postgres
+rvm:
+  - 2.0.0
+  - 2.1.0

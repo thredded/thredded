@@ -1,7 +1,7 @@
 module PageObject
   class User
     include Capybara::DSL
-    include PageObject::Authentication
+    include Authentication
     include Rails.application.routes.url_helpers
     include FactoryGirl::Syntax::Methods
 
