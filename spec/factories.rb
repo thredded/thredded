@@ -105,6 +105,7 @@ FactoryGirl.define do
   factory :role, class: Thredded::Role do
     level 'member'
     user
+    messageboard
 
     trait :admin do
       level 'admin'
@@ -242,7 +243,9 @@ FactoryGirl.define do
     end
   end
 
-  factory :user_detail, class: Thredded::UserDetail
+  factory :user_detail, class: Thredded::UserDetail do
+    user
+  end
 
   factory :user_topic_read, class: Thredded::UserTopicRead do
     user
