@@ -1,4 +1,18 @@
-# Thredded (the gem / rails engine)
+# Thredded [![Code Climate](https://codeclimate.com/github/jayroh/thredded/badges/gpa.svg)](https://codeclimate.com/github/jayroh/thredded) [![Travis-CI](https://api.travis-ci.org/jayroh/thredded.svg?branch=master)](https://travis-ci.org/jayroh/thredded/) 
+
+Thredded is a rails 4+ forum/messageboard engine. Its goal is to be as
+simple and feature rich as possible.
+
+If you're looking for variations on a theme - see [Discourse], [Forem],
+[Tectura] or [Heterotic Beast]. The last two are forks from Rick Olsen
+and Courtenay's [Altered Beast]. Of those it should be noted that Forem
+is an engine - not a standalone app.
+
+[Discourse]: http://www.discourse.org/
+[Forem]: https://www.github.com/radar/forem
+[Tectura]: https://github.com/caelum/tectura
+[Heterotic Beast]: https://github.com/distler/heterotic_beast
+[Altered Beast]: https://www.github.com/courtenay/altered_beast
 
 ## Installation
 
