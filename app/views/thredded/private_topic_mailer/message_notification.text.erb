@@ -1,11 +1,11 @@
-<%= @private_topic.posts.first.content %>
+<%= @topic.posts.first.content %>
 
 ---
 
-This email was sent to you because <%= @private_topic.user %>
-included you in the private topic "<%= @private_topic.title %>". 
+This email was sent to you because <%= @topic.user %>
+included you in the private topic "<%= @topic.title %>". 
 Go here to view the conversation:
-  <%= messageboard_topic_posts_url(@private_topic.messageboard, @private_topic) %>
+  <%= messageboard_topic_posts_url(@topic.messageboard, @topic) %>
 
 To unsubscribe from these emails, update your preferences here:
-  <%= edit_messageboard_preferences_url(@private_topic.messageboard) %>
+  <%= edit_messageboard_preferences_url(@topic.messageboard) %>
