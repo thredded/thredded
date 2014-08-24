@@ -20,10 +20,10 @@ module Thredded
       @title = params[:title]
       @category_ids = params[:category_ids] || []
       @user_ids = params[:user_ids] || []
+      @user = params[:user] || Thredded.user_class.new
       @locked = params[:locked] || false
       @sticky = params[:sticky] || false
       @content = params[:content]
-      @user = params[:user]
       @messageboard = params[:messageboard]
     end
 
@@ -104,17 +104,20 @@ module Thredded
       end
     end
 
+    def private_users
+      User.where(id: normalized_user_ids)
+    end
+
     def private_user_ids
       private_users.map(&:id)
     end
 
-    def private_users
-      if user
-        ids = user_ids.reject(&:empty?).map(&:to_i).push(user.id).uniq
-        User.where(id: ids)
-      else
-        []
-      end
+    def normalized_user_ids
+      user_ids
+        .reject(&:empty?)
+        .map(&:to_i)
+        .push(user.id)
+        .uniq
     end
 
     def validate_children
