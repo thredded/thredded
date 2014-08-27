@@ -1,6 +1,15 @@
 require 'spec_helper'
 
 module Thredded
+  describe Messageboard, 'associations' do
+    it { should have_many(:categories).dependent(:destroy) }
+    it { should have_many(:messageboard_preferences).dependent(:destroy) }
+    it { should have_many(:posts).dependent(:destroy) }
+    it { should have_many(:private_topics).dependent(:destroy) }
+    it { should have_many(:roles).dependent(:destroy) }
+    it { should have_many(:topics).dependent(:destroy) }
+  end
+
   describe Messageboard, 'validations' do
     it { should validate_presence_of(:filter) }
     it { should validate_presence_of(:name) }
@@ -10,7 +19,6 @@ module Thredded
     it { should have_db_column(:closed) }
     it { should have_db_index(:closed) }
     it { should have_db_index(:slug) }
-    it { should have_many(:messageboard_preferences) }
     it { should have_db_column(:filter) }
     it { should ensure_inclusion_of(:filter).in_array(['markdown', 'bbcode']) }
 

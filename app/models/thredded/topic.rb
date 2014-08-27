@@ -6,18 +6,24 @@ module Thredded
     friendly_id :title, use: :scoped, scope: :messageboard
     paginates_per 50 if self.respond_to?(:paginates_per)
 
-    has_many :posts, -> { includes :attachments }, as: :postable
-    has_many :topic_categories
+    has_many :posts,
+      -> { includes :attachments },
+      as: :postable,
+      dependent: :destroy
+    has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
-    has_many :user_topic_reads
+    has_many :user_topic_reads, dependent: :destroy
     has_one :user_detail, through: :user, source: :thredded_user_detail
 
+    belongs_to :user, class_name: Thredded.user_class
     belongs_to \
       :last_user,
       class_name: Thredded.user_class,
       foreign_key: 'last_user_id'
-    belongs_to :user, class_name: Thredded.user_class
-    belongs_to :messageboard, counter_cache: true, touch: true
+    belongs_to \
+      :messageboard,
+      counter_cache: true,
+      touch: true
 
     validates_presence_of :hash_id
     validates_presence_of :last_user_id

@@ -10,8 +10,8 @@ module Thredded
     belongs_to :messageboard, counter_cache: true
     belongs_to :postable, polymorphic: true, counter_cache: true
     belongs_to :user, class_name: Thredded.user_class
-    has_many :attachments
-    has_many :post_notifications
+    has_many :attachments, dependent: :destroy
+    has_many :post_notifications, dependent: :destroy
     has_one :user_detail, through: :user, source: :thredded_user_detail
 
     validates :content, presence: true

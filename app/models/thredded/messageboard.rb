@@ -19,12 +19,12 @@ module Thredded
     validates :security, inclusion: { in: SECURITY }
     validates :topics_count, numericality: true
 
-    has_many :categories
-    has_many :messageboard_preferences
-    has_many :posts
-    has_many :roles
-    has_many :topics
-    has_many :private_topics
+    has_many :categories, dependent: :destroy
+    has_many :messageboard_preferences, dependent: :destroy
+    has_many :posts, dependent: :destroy
+    has_many :private_topics, dependent: :destroy
+    has_many :roles, dependent: :destroy
+    has_many :topics, dependent: :destroy
     has_many :users, through: :roles, class_name: Thredded.user_class
 
     def self.find_by_slug(slug)

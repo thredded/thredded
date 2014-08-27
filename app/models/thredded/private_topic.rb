@@ -8,12 +8,15 @@ module Thredded
     has_many :private_users
     has_many :users, through: :private_users
 
+    belongs_to :user, class_name: Thredded.user_class
     belongs_to \
       :last_user,
       class_name: Thredded.user_class,
       foreign_key: 'last_user_id'
-    belongs_to :user, class_name: Thredded.user_class
-    belongs_to :messageboard, counter_cache: true, touch: true
+    belongs_to \
+      :messageboard,
+      counter_cache: true,
+      touch: true
 
     validates_presence_of :hash_id
     validates_presence_of :last_user_id

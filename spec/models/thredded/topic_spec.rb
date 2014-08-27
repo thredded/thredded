@@ -2,6 +2,14 @@ require 'spec_helper'
 require 'timecop'
 
 module Thredded
+  describe Topic, 'associations' do
+    it { should have_many(:posts).dependent(:destroy) }
+    it { should have_many(:user_topic_reads).dependent(:destroy) }
+    it { should have_many(:categories) }
+    it { should belong_to(:last_user) }
+    it { should belong_to(:messageboard) }
+  end
+
   describe Topic, 'validations' do
     before { create(:topic) }
     it { should validate_presence_of(:last_user_id) }
@@ -72,13 +80,6 @@ module Thredded
 
       topic.last_user.should == user
     end
-  end
-
-  describe Topic, 'associations' do
-    it { should have_many(:posts) }
-    it { should have_many(:categories) }
-    it { should belong_to(:last_user) }
-    it { should belong_to(:messageboard) }
   end
 
   describe Topic do
