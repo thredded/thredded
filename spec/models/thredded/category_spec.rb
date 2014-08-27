@@ -6,6 +6,7 @@ module Thredded
     it { should have_many(:topics).through(:topic_categories) }
     it { should belong_to(:messageboard) }
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:messageboard_id) }
 
     it 'should allow no categories' do
       topic = create(:topic)

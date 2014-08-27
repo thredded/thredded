@@ -5,5 +5,6 @@ module Thredded
     has_many :topics, through: :topic_categories
 
     validates :name, presence: true
+    validates :messageboard_id, presence: true
   end
 end

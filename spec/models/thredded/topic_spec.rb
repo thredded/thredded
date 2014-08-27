@@ -2,6 +2,13 @@ require 'spec_helper'
 require 'timecop'
 
 module Thredded
+  describe Topic, 'validations' do
+    before { create(:topic) }
+    it { should validate_presence_of(:last_user_id) }
+    it { should validate_presence_of(:messageboard_id) }
+    it { should validate_uniqueness_of(:hash_id) }
+  end
+
   describe Topic, '.find_by_slug' do
     it 'finds the topic' do
       topic = create(:topic, title: 'Oh Hello')
@@ -72,13 +79,6 @@ module Thredded
     it { should have_many(:categories) }
     it { should belong_to(:last_user) }
     it { should belong_to(:messageboard) }
-  end
-
-  describe Topic, 'validations' do
-    before { create(:topic) }
-    it { should validate_presence_of(:last_user_id) }
-    it { should validate_presence_of(:messageboard_id) }
-    it { should validate_uniqueness_of(:hash_id) }
   end
 
   describe Topic do

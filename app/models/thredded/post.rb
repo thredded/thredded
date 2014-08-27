@@ -14,7 +14,8 @@ module Thredded
     has_many :post_notifications
     has_one :user_detail, through: :user, source: :thredded_user_detail
 
-    validates_presence_of :content, :messageboard_id
+    validates :content, presence: true
+    validates :messageboard_id, presence: true
 
     before_validation :set_filter
     before_validation :set_user_email

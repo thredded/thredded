@@ -1,13 +1,17 @@
 require 'spec_helper'
 
 module Thredded
+  describe Messageboard, 'validations' do
+    it { should validate_presence_of(:filter) }
+    it { should validate_presence_of(:name) }
+  end
+
   describe Messageboard do
     it { should have_db_column(:closed) }
     it { should have_db_index(:closed) }
     it { should have_db_index(:slug) }
     it { should have_many(:messageboard_preferences) }
     it { should have_db_column(:filter) }
-    it { should validate_presence_of(:filter) }
     it { should ensure_inclusion_of(:filter).in_array(['markdown', 'bbcode']) }
 
     before(:each) do

@@ -59,15 +59,13 @@ FactoryGirl.define do
   factory :category, class: Thredded::Category do
     sequence(:name) { |n| "category#{n}" }
     sequence(:description) { |n| "Category #{n}" }
+    messageboard
 
     trait :beer do
       name 'beer'
       description 'a delicious adult beverage'
     end
 
-    trait :with_messageboard do
-      messageboard
-    end
   end
 
   factory :messageboard, class: Thredded::Messageboard do
@@ -76,6 +74,7 @@ FactoryGirl.define do
     filter 'markdown'
     posting_permission  'anonymous'
     security 'public'
+    closed false
 
     trait :postable_for_logged_in do
       posting_permission 'logged_in'
@@ -156,9 +155,15 @@ FactoryGirl.define do
     end
   end
 
-  factory :post_notification, class: Thredded::PostNotification
+  factory :post_notification, class: Thredded::PostNotification do
+    email 'someone@example.com'
+    post
+  end
 
   factory :messageboard_preference, class: Thredded::MessageboardPreference do
+    user
+    messageboard
+
     notify_on_mention false
     notify_on_message false
   end
@@ -169,12 +174,12 @@ FactoryGirl.define do
       with_categories 0
     end
 
+    title 'New topic started here'
+    hash_id { generate(:topic_hash) }
+
     user
     messageboard
     association :last_user, factory: :user
-
-    title 'New topic started here'
-    hash_id { generate(:topic_hash) }
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts

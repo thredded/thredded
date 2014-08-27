@@ -3,6 +3,9 @@ module Thredded
     belongs_to :user
     belongs_to :messageboard
 
+    validates :user_id, presence: true
+    validates :messageboard_id, presence: true
+
     def self.for(user)
       where(user_id: user.id)
     end
