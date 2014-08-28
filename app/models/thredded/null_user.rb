@@ -35,5 +35,13 @@ module Thredded
     def anonymous?
       true
     end
+
+    def thredded_user_detail
+      Thredded::UserDetail.new
+    end
+
+    def thredded_user_preference
+      Thredded::UserPreference.new
+    end
   end
 end

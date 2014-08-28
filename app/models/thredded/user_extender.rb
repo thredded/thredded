@@ -17,6 +17,11 @@ module Thredded
       has_one :thredded_user_detail, class_name: 'Thredded::UserDetail', foreign_key: 'user_id'
       has_one :thredded_user_preference, class_name: 'Thredded::UserPreference', foreign_key: 'user_id'
 
+      default_scope do
+        includes(:thredded_user_preference, :thredded_user_detail)
+          .references(:thredded_user_preference, :thredded_user_detail)
+      end
+
       def anonymous?
         false
       end

@@ -51,6 +51,7 @@ module Thredded
         .for_user(current_user)
         .order('updated_at DESC')
         .on_page(params[:page])
+        .load
     end
 
     private

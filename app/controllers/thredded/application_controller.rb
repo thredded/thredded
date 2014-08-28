@@ -71,7 +71,7 @@ module Thredded
     end
 
     def preferences
-      @preferences ||= UserPreference.where(user_id: current_user.id).first
+      @preferences ||= current_user.thredded_user_preference
     end
 
     def current_user

@@ -4,7 +4,7 @@ module Thredded
 
     def initialize(user)
       user ||= Thredded::NullUser.new
-      user_details = Thredded::UserDetail.where(user_id: user.id).first
+      user_details = user.thredded_user_detail
 
       can :manage, :all if user_details.try(:superadmin?)
 
