@@ -26,6 +26,12 @@ module Thredded
     has_many :roles, dependent: :destroy
     has_many :topics, dependent: :destroy
     has_many :users, through: :roles, class_name: Thredded.user_class
+    has_many :active_roles, -> {
+      includes(:user)
+        .references(:user)
+        .where('last_seen > ?', 5.minutes.ago)
+        .order(:last_seen)
+    }, class_name: Thredded::Role
 
     def self.find_by_slug(slug)
       begin
@@ -45,19 +51,13 @@ module Thredded
       end
     end
 
+    def active_users
+      active_roles.map(&:user)
+    end
+
     def preferences_for(user)
       @preferences_for ||=
         messageboard_preferences.where(user_id: user).first_or_create
-    end
-
-    def active_users
-      Role
-        .joins(:user)
-        .includes(:user)
-        .where(messageboard_id: self.id)
-        .where('last_seen > ?', 5.minutes.ago)
-        .order(:last_seen)
-        .map(&:user)
     end
 
     def decorate

@@ -1,8 +1,13 @@
 module Thredded
   class ApplicationController < ::ApplicationController
-    helper Thredded::Engine.helpers
-    helper_method :messageboard, :preferences, :unread_private_topics_count
     layout Thredded.layout
+
+    helper Thredded::Engine.helpers
+    helper_method \
+      :active_users,
+      :messageboard,
+      :preferences,
+      :unread_private_topics_count
 
     rescue_from CanCan::AccessDenied,
       Thredded::Errors::MessageboardNotFound,
@@ -79,6 +84,14 @@ module Thredded
 
     def current_user
       super || NullUser.new
+    end
+
+    def active_users
+      if messageboard
+        messageboard.active_users
+      else
+        []
+      end
     end
   end
 end

@@ -56,7 +56,7 @@ module Thredded
     end
 
     def self.order_by_stuck_and_updated_time
-      order('sticky DESC, updated_at DESC')
+      order('thredded_topics.sticky DESC, thredded_topics.updated_at DESC')
     end
 
     def self.search(query, messageboard)
