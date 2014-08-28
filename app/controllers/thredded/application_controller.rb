@@ -59,7 +59,10 @@ module Thredded
     end
 
     def update_user_activity
-      messageboard.update_activity_for!(current_user)
+      Thredded::ActivityUpdaterJob.queue.update_user_activity(
+        messageboard_id: messageboard.id,
+        user_id: current_user.id
+      )
     end
 
     def current_ability

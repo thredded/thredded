@@ -178,25 +178,6 @@ module Thredded
     end
   end
 
-  describe Messageboard, '#update_activity_for' do
-    it "updates a user's activity for a messageboard" do
-      messageboard = create(:messageboard)
-      inactive_user = create(:user)
-      create(:role, :inactive, user: inactive_user, messageboard: messageboard)
-
-      messageboard.update_activity_for!(inactive_user)
-
-      expect(messageboard.active_users).to include inactive_user
-    end
-
-    it 'updates nothing if no role exists' do
-      messageboard = create(:messageboard)
-      user = create(:user)
-
-      expect{ messageboard.update_activity_for!(user) }.not_to raise_error
-    end
-  end
-
   describe Messageboard, '.find_by_slug' do
     it 'finds the messageboard according to the slug' do
       messageboard = create(:messageboard, name: 'A messageboard')

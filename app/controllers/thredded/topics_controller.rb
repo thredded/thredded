@@ -96,6 +96,7 @@ module Thredded
         .for_messageboard(messageboard)
         .order_by_updated
         .on_page(current_page)
+        .load
     end
 
     def current_page
