@@ -16,5 +16,9 @@ module PageObject
     def done?
       has_css? '#messageboards h2 a', text: 'Chat'
     end
+
+    def has_a_sign_in_error_message?
+      has_content? 'You are not signed in. Sign in or create an account before creating your messageboard.'
+    end
   end
 end

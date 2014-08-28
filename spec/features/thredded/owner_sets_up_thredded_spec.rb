@@ -12,6 +12,14 @@ feature 'Setting up the site' do
     expect(owner).to be_logged_in
   end
 
+  context 'as an anonymous user' do
+    scenario 'redirects you to the sign up form' do
+      setup = setup_the_site
+
+      expect(setup).to have_a_sign_in_error_message
+    end
+  end
+
   def setup_the_site
     PageObject::Setup.new
   end

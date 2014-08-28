@@ -19,6 +19,10 @@ module Thredded
         alert: exception.message
     end
 
+    def signed_in?
+      !current_user.anonymous?
+    end
+
     private
 
     def unread_private_topics_count

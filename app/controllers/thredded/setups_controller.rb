@@ -1,24 +1,30 @@
 module Thredded
   class SetupsController < Thredded::ApplicationController
     def new
+      show_sign_in_error if !signed_in?
       @messageboard = Messageboard.new
     end
 
     def create
       @messageboard = Messageboard.new(messageboard_params)
 
-      if @messageboard.valid? && @messageboard.save
+      if signed_in? && @messageboard.valid? && @messageboard.save
         @topic = Topic.create(topic_params)
         @post = Post.create(post_params)
         @messageboard.add_member(current_user, 'admin')
 
         redirect_to root_path
       else
+        show_sign_in_error if !signed_in?
         render action: :new
       end
     end
 
     private
+
+    def show_sign_in_error
+      flash.now[:error] = 'You are not signed in. Sign in or create an account before creating your messageboard.'
+    end
 
     def messageboard_params
       params
