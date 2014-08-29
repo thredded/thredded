@@ -21,9 +21,37 @@
 
 <section class="topics" id="topics_listing">
   <div class="currently">
-    <%= render partial: 'thredded/topics/topic_condensed',
-      collection: Thredded::UserTopicDecorator.decorate_all(current_user, @topics),
-      as: :topic %>
+    <% @decorated_topics.each do |topic| %>
+      <%= content_tag_for :article, topic, class: topic.css_class do %>
+        <div class="post_count"><%= topic.posts_count %></div>
+
+        <h1>
+          <%= link_to topic.title,
+            paged_messageboard_topic_posts_path(
+              messageboard.slug,
+              topic.slug,
+              topic.farthest_page
+            )
+          %>
+        </h1>
+
+        <cite class="updated_by">
+          <%== topic.updated_at_timeago %>
+          <%== topic.last_user_link %>
+        </cite>
+
+        <cite class="started_by">
+          <%== topic.created_at_timeago %>
+          <%== topic.user_link %>
+        </cite>
+
+        <% if topic.categories.any? %>
+          <ul class="categories">
+            <%= render topic.categories %>
+          </ul>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </section>
 

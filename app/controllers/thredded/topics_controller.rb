@@ -29,6 +29,8 @@ module Thredded
 
     def search
       @topics = Topic.search(params[:q], messageboard)
+      @decorated_topics = Thredded::UserTopicDecorator
+        .decorate_all(current_user, @topics)
     end
 
     def new
@@ -36,9 +38,18 @@ module Thredded
       authorize_creating @new_topic.topic
     end
 
-    def by_category
-      @topics = topics_by_category(params[:category_id])
-      @category_name = Category.find(params[:category_id]).name
+    def category
+      @category = messageboard.categories.find_by(name: params[:category_id])
+      @topics = @category
+        .topics
+        .unstuck
+        .order_by_updated_time
+        .on_page(current_page)
+        .load
+      @decorated_topics = Thredded::UserTopicDecorator
+        .decorate_all(current_user, @topics)
+
+      render :index
     end
 
     def create
@@ -90,10 +101,9 @@ module Thredded
     end
 
     def topics_by_category(category_id)
-      Category.find(category_id)
+      messageboard.categories.friendly.find(category_id)
         .topics
         .unstuck
-        .for_messageboard(messageboard)
         .order_by_updated
         .on_page(current_page)
         .load

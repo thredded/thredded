@@ -55,6 +55,10 @@ module Thredded
       where(messageboard_id: messageboard.id)
     end
 
+    def self.order_by_updated_time
+      order('thredded_topics.updated_at DESC')
+    end
+
     def self.order_by_stuck_and_updated_time
       order('thredded_topics.sticky DESC, thredded_topics.updated_at DESC')
     end
