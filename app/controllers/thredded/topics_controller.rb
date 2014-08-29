@@ -39,7 +39,7 @@ module Thredded
     end
 
     def category
-      @category = messageboard.categories.find_by(name: params[:category_id])
+      @category = messageboard.categories.friendly.find(params[:category_id])
       @topics = @category
         .topics
         .unstuck
@@ -63,14 +63,14 @@ module Thredded
     end
 
     def update
-      topic.update_attributes(topic_params)
+      topic.update_attributes!(topic_params.merge(last_user_id: current_user.id))
       redirect_to messageboard_topic_posts_url(messageboard, topic)
     end
 
     private
 
     def topic
-      @topic ||= messageboard.topics.find_by_slug(params[:id])
+      @topic ||= messageboard.topics.friendly.find(params[:id])
     end
 
     def topics

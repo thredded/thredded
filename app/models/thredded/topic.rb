@@ -3,7 +3,8 @@ require 'thredded/search_sql_builder'
 module Thredded
   class Topic < ActiveRecord::Base
     extend FriendlyId
-    friendly_id :title, use: :scoped, scope: :messageboard
+    friendly_id :title, use: [:history, :scoped], scope: :messageboard
+
     paginates_per 50 if self.respond_to?(:paginates_per)
 
     has_many :posts,
@@ -134,6 +135,10 @@ module Thredded
 
     def users_to_sentence
       []
+    end
+
+    def should_generate_new_friendly_id?
+      title_changed?
     end
 
     private

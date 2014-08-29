@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721134719) do
+ActiveRecord::Schema.define(version: 20140829195112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "thredded_attachments", force: true do |t|
     t.string   "attachment"
@@ -33,9 +46,11 @@ ActiveRecord::Schema.define(version: 20140721134719) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug",            null: false
   end
 
   add_index "thredded_categories", ["messageboard_id"], name: "index_thredded_categories_on_messageboard_id", using: :btree
+  add_index "thredded_categories", ["slug"], name: "index_thredded_categories_on_slug", unique: true, using: :btree
 
   create_table "thredded_images", force: true do |t|
     t.integer  "post_id"
@@ -171,6 +186,7 @@ ActiveRecord::Schema.define(version: 20140721134719) do
 
   add_index "thredded_topics", ["hash_id"], name: "index_thredded_topics_on_hash_id", using: :btree
   add_index "thredded_topics", ["last_user_id"], name: "index_thredded_topics_on_last_user_id", using: :btree
+  add_index "thredded_topics", ["messageboard_id", "slug"], name: "index_thredded_topics_on_messageboard_id_and_slug", unique: true, using: :btree
   add_index "thredded_topics", ["messageboard_id"], name: "index_thredded_topics_on_messageboard_id", using: :btree
   add_index "thredded_topics", ["user_id"], name: "index_thredded_topics_on_user_id", using: :btree
 

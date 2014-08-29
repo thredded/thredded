@@ -74,6 +74,10 @@ module PageObject
 
     alias_method :has_the_title_and_content?, :displayed?
 
+    def has_topic_titled?(title)
+      has_css?('article.topic h1 a', text: title)
+    end
+
     def has_category_input?
       has_css? '.category select'
     end
@@ -138,6 +142,11 @@ module PageObject
     def someone_updates_topic
       topic = Thredded::Topic.last
       create(:post, postable: topic)
+    end
+
+    def search_for(title)
+      fill_in 'Search', with: title
+      find('.search_form input[type="submit"]').click
     end
 
     private
