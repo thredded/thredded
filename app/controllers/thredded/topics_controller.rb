@@ -24,7 +24,7 @@ module Thredded
         filter: messageboard.filter
       )
 
-      update_read_status!
+      update_read_status
     end
 
     def search
@@ -70,7 +70,7 @@ module Thredded
     private
 
     def topic
-      @topic ||= messageboard.topics.friendly.find(params[:id])
+      @topic ||= messageboard.topics.find_by_slug_with_user_topic_reads!(params[:id])
     end
 
     def topics
@@ -117,7 +117,7 @@ module Thredded
       @user_topic ||= UserTopicDecorator.new(current_user, topic)
     end
 
-    def update_read_status!
+    def update_read_status
       return if current_user.anonymous?
 
       read_history = UserTopicRead.where(

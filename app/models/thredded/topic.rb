@@ -81,7 +81,7 @@ module Thredded
       end
     end
 
-    def self.find_by_slug(slug)
+    def self.find_by_slug_with_user_topic_reads!(slug)
       includes(:user_topic_reads).friendly.find(slug)
     rescue ActiveRecord::RecordNotFound
       raise Thredded::Errors::TopicNotFound
