@@ -18,13 +18,13 @@ module Thredded
         @user3 = create(:user)
         ability = Ability.new(@user3)
 
-        ability.can?(:read, @private_topic).should be_false
+        expect(ability.can?(:read, @private_topic)).to eq false
       end
 
       it 'allows someone included in the topic to read it' do
         ability = Ability.new(@user2)
 
-        ability.can?(:read, @private_topic).should be_true
+        expect(ability.can?(:read, @private_topic)).to eq true
       end
     end
 
@@ -35,18 +35,18 @@ module Thredded
 
       it 'should add a user by their username' do
         @private_topic.add_user('joel')
-        @private_topic.users.should include(@joel)
+        expect(@private_topic.users).to include(@joel)
       end
 
       it 'should add a user with a User object' do
         @private_topic.add_user(@joel)
-        @private_topic.users.should include(@joel)
+        expect(@private_topic.users).to include(@joel)
       end
     end
 
     describe '.users_to_sentence' do
       it 'should list out the users in a topic in a human readable format' do
-        @private_topic.users_to_sentence.should eq 'Privateuser1 and Privateuser2'
+        expect(@private_topic.users_to_sentence).to eq 'Privateuser1 and Privateuser2'
       end
     end
   end

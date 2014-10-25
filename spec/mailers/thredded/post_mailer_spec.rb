@@ -3,16 +3,16 @@ require 'spec_helper'
 module Thredded
   describe PostMailer, 'at_notification' do
     it 'sets the correct headers' do
-      email.from.should eq(['no-reply@example.com'])
-      email.to.should eq(['no-reply@example.com'])
-      email.bcc.should eq(['john@email.com','sam@email.com'])
-      email.reply_to.should eq(['abcd@incoming.example.com'])
-      email.subject.should eq('[Thredded]  A title')
+      expect(email.from).to eq(['no-reply@example.com'])
+      expect(email.to).to eq(['no-reply@example.com'])
+      expect(email.bcc).to eq(['john@email.com','sam@email.com'])
+      expect(email.reply_to).to eq(['abcd@incoming.example.com'])
+      expect(email.subject).to eq('[Thredded] A title')
     end
 
     it 'renders the body' do
-      email.body.encoded.should include('joel mentioned you in')
-      email.body.encoded.should include('hey @john @sam blarghy blurp')
+      expect(email.body.encoded).to include('joel mentioned you in')
+      expect(email.body.encoded).to include('hey @john @sam blarghy blurp')
     end
 
     def email
@@ -30,7 +30,7 @@ module Thredded
           user: joel,
           content: 'hey @john @sam blarghy blurp',
         )
-        Post.stub(find: post)
+        allow(Post).to receive_messages(find: post)
         emails = ['john@email.com', 'sam@email.com']
 
         PostMailer.at_notification(post.id, emails)

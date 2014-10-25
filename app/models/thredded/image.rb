@@ -3,6 +3,7 @@ module Thredded
     mount_uploader :image, ImageUploader
     validates :image, presence: true
     before_validation :save_dimensions, :save_orientation, :save_position
+    belongs_to :post
 
     private
 

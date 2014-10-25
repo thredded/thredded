@@ -25,7 +25,7 @@ class CreateThreddedTables < ActiveRecord::Migration
 
     create_table :thredded_messageboards do |t|
       t.string   :name, null: false
-      t.string   :slug
+      t.string   :slug, limit: (191 if connection.adapter_name.downcase =~ /mysql/)
       t.text     :description
       t.string   :security, default: 'public'
       t.string   :posting_permission, default: 'anonymous'
@@ -93,15 +93,15 @@ class CreateThreddedTables < ActiveRecord::Migration
       t.integer  :user_id, null: false
       t.integer  :last_user_id, null: false
       t.string   :title, null: false
-      t.string   :slug, null: false
+      t.string   :slug, null: false, limit: (191 if connection.adapter_name.downcase =~ /mysql/)
       t.integer  :messageboard_id, null: false
       t.integer  :posts_count, default: 0
       t.string   :attribs, default: '[]'
       t.boolean  :sticky, default: false
       t.boolean  :locked, default: false
-      t.string   :hash_id, null: false
+      t.string   :hash_id, null: false, limit: (191 if connection.adapter_name.downcase =~ /mysql/)
       t.string   :state, default: 'approved', null: false
-      t.string   :type
+      t.string   :type, limit: (191 if connection.adapter_name.downcase =~ /mysql/)
       t.timestamps
     end
 
@@ -119,7 +119,7 @@ class CreateThreddedTables < ActiveRecord::Migration
 
     create_table :thredded_user_preferences do |t|
       t.integer :user_id, null: false
-      t.string :time_zone, default: 'Eastern Time (US & Canada)'
+      t.string :time_zone, default: 'Eastern Time (US & Canada)', limit: (191 if connection.adapter_name.downcase =~ /mysql/)
       t.timestamps
     end
 

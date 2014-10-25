@@ -20,7 +20,7 @@ module Thredded
     it { should have_db_index(:closed) }
     it { should have_db_index(:slug) }
     it { should have_db_column(:filter) }
-    it { should ensure_inclusion_of(:filter).in_array(['markdown', 'bbcode']) }
+    it { should validate_inclusion_of(:filter).in_array(['markdown', 'bbcode']) }
 
     before(:each) do
       @messageboard = create(:messageboard, topics_count: 10)
@@ -36,8 +36,8 @@ module Thredded
       closed = create(:messageboard, closed: true)
       all_boards = Messageboard.all
 
-      all_boards.should include(@messageboard)
-      all_boards.should_not include(closed)
+      expect(all_boards).to include(@messageboard)
+      expect(all_boards).not_to include(closed)
     end
 
     it 'orders by number of topics, descending' do
@@ -45,8 +45,8 @@ module Thredded
       lots = create(:messageboard, topics_count: 1000)
       all_boards = Messageboard.all
 
-      all_boards.first.should eq lots
-      all_boards.last.should eq @messageboard
+      expect(all_boards.first).to eq lots
+      expect(all_boards.last).to eq @messageboard
     end
 
     describe '#preferences_for' do
@@ -75,9 +75,9 @@ module Thredded
         messageboard.add_member(user)
         role = Thredded::Role.first
 
-        role.messageboard.should eq messageboard
-        role.user.should eq user
-        role.level.should eq 'member'
+        expect(role.messageboard).to eq messageboard
+        expect(role.user).to eq user
+        expect(role.level).to eq 'member'
       end
 
       it 'assigns a user as an admin for this board' do
@@ -86,9 +86,9 @@ module Thredded
         messageboard.add_member(user, 'admin')
         role = Thredded::Role.first
 
-        role.messageboard.should eq messageboard
-        role.user.should eq user
-        role.level.should eq 'admin'
+        expect(role.messageboard).to eq messageboard
+        expect(role.user).to eq user
+        expect(role.level).to eq 'admin'
       end
     end
 
@@ -98,14 +98,14 @@ module Thredded
         messageboard = create(:messageboard)
         messageboard.add_member(user)
 
-        messageboard.has_member?(user).should be_true
+        expect(messageboard.has_member?(user)).to be_truthy
       end
 
       it 'is false if user is not a member' do
         user = create(:user)
         messageboard = create(:messageboard)
 
-        messageboard.has_member?(user).should be_false
+        expect(messageboard.has_member?(user)).to be_falsy
       end
     end
 
@@ -115,7 +115,7 @@ module Thredded
         messageboard = create(:messageboard)
         messageboard.add_member(user, 'admin')
 
-        messageboard.member_is_a?(user, 'admin').should be_true
+        expect(messageboard.member_is_a?(user, 'admin')).to be_truthy
       end
 
       it 'is false when checking that a member is an admin' do
@@ -123,28 +123,28 @@ module Thredded
         messageboard = create(:messageboard)
         messageboard.add_member(user, 'member')
 
-        messageboard.member_is_a?(user, 'admin').should_not be_true
+        expect(messageboard.member_is_a?(user, 'admin')).not_to be_truthy
       end
     end
 
     describe '#restricted_to_private?' do
       it 'checks whether a messageboard is private and restricted to members' do
         @messageboard.security = 'private'
-        @messageboard.restricted_to_private?.should be_true
+        expect(@messageboard.restricted_to_private?).to eq true
       end
     end
 
     describe '#restricted_to_logged_in?' do
       it 'checks whether a messageboard is restricted to only those that are logged in' do
         @messageboard.security = 'logged_in'
-        @messageboard.restricted_to_logged_in?.should be_true
+        expect(@messageboard.restricted_to_logged_in?).to eq true
       end
     end
 
     describe '#public?' do
       it 'checks whether a messageboard is open for all to read' do
         @messageboard.security = 'public'
-        @messageboard.public?.should be_true
+        expect(@messageboard.public?).to eq true
       end
     end
   end
@@ -159,9 +159,9 @@ module Thredded
       board.add_member(steve)
       board_members_from_list = board.members_from_list(%w(joel Steve john))
 
-      board_members_from_list.should include(joel)
-      board_members_from_list.should include(steve)
-      board_members_from_list.should_not include(john)
+      expect(board_members_from_list).to include(joel)
+      expect(board_members_from_list).to include(steve)
+      expect(board_members_from_list).not_to include(john)
     end
   end
 

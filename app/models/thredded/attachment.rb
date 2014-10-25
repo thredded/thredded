@@ -4,6 +4,7 @@ module Thredded
     validates_presence_of :attachment
     mount_uploader :attachment, Thredded::AttachmentUploader
     before_save :update_attachment_attributes
+    belongs_to :post
 
     def cache_dir
       "#{Rails.root}/tmp/uploads"

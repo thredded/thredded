@@ -25,41 +25,17 @@ module Thredded
     def destroy_all_lower_dependencies
       say 'Destroying lower level dependencies ...'
 
-      connection.execute <<-SQL
-        DELETE FROM thredded_images
-          USING thredded_posts p
-          WHERE post_id = p.id
-          AND p.messageboard_id = #{messageboard.id}
-      SQL
-
-      connection.execute <<-SQL
-        DELETE FROM thredded_attachments
-          USING thredded_posts p
-          WHERE post_id = p.id
-          AND p.messageboard_id = #{messageboard.id}
-      SQL
-
-      connection.execute <<-SQL
-        DELETE FROM thredded_post_notifications
-          USING thredded_posts p
-          WHERE post_id = p.id
-          AND p.messageboard_id = #{messageboard.id}
-      SQL
-
-      connection.execute <<-SQL
-        DELETE FROM thredded_user_topic_reads
-          USING thredded_topics t
-          WHERE topic_id = t.id
-          AND t.messageboard_id = #{messageboard.id}
-      SQL
+      [Image, Attachment, PostNotification, UserTopicRead].each do |child_t|
+        child_t.joins(:post).merge(Post.where(messageboard_id: messageboard.id)).delete_all
+      end
     end
 
     def destroy_all_posts
       say 'Destroying all posts ...'
 
       connection.execute <<-SQL
-        DELETE FROM thredded_posts p
-          WHERE p.messageboard_id = #{messageboard.id}
+        DELETE FROM thredded_posts
+          WHERE messageboard_id = #{messageboard.id}
       SQL
     end
 

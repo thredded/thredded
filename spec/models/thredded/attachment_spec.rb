@@ -8,7 +8,7 @@ module Thredded
     describe '.filename' do
       it 'should return a filaname from a path' do
         image = build_stubbed(:attachment)
-        image.filename.should == 'img.png'
+        expect(image.filename).to eq('img.png')
       end
     end
   end

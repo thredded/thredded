@@ -6,10 +6,10 @@ feature 'User replying to topic' do
 
     posts = posts_exist_in_a_topic
     posts.visit_posts
-    expect(posts).to have(2).posts
+    expect(posts.posts.size).to eq(2)
 
     posts.submit_reply
-    expect(posts).to have(3).posts
+    expect(posts.posts.size).to eq(3)
     expect(posts).to have_new_reply
   end
 

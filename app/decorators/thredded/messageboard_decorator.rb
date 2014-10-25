@@ -44,7 +44,7 @@ module Thredded
     end
 
     def latest_topic
-      @latest_topic ||= messageboard.topics.order('updated_at DESC').first || Thredded::NullTopic.new
+      @latest_topic ||= messageboard.topics.order_latest_first.first || Thredded::NullTopic.new
     end
 
     def latest_user

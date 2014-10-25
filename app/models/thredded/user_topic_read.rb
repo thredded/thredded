@@ -5,5 +5,6 @@ module Thredded
     belongs_to :farthest_post,
       class_name: 'Thredded::Post', foreign_key: 'post_id'
     validates :user_id, uniqueness: { scope: :topic }
+    belongs_to :post
   end
 end

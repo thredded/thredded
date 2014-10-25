@@ -169,7 +169,7 @@ FactoryGirl.define do
   end
 
   factory :topic, class: Thredded::Topic do
-    ignore do
+    transient do
       with_posts 0
       with_categories 0
     end

@@ -1,7 +1,7 @@
 defaults: &defaults
   host: localhost
-  adapter: postgresql
-  encoding: UTF8
+  adapter: <%= ENV['DB'] || 'postgresql' %>
+  encoding: utf8
   min_messages: WARNING
 
 development:

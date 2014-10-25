@@ -10,19 +10,19 @@ module Thredded
         user = create(:user, :with_user_details)
         messageboard.add_member(user)
         ability = Thredded::Ability.new(user)
-        ability.should be_able_to(:read, messageboard)
+        expect(ability).to be_able_to(:read, messageboard)
       end
 
       it 'does not allow a non-members to view it' do
         user = create(:user, :with_user_details)
         ability = Thredded::Ability.new(user)
-        ability.should_not be_able_to(:read, messageboard)
+        expect(ability).not_to be_able_to(:read, messageboard)
       end
 
       it 'does not allow anonymous to view it' do
         user = Thredded::NullUser.new
         ability = Thredded::Ability.new(user)
-        ability.should_not be_able_to(:read, messageboard)
+        expect(ability).not_to be_able_to(:read, messageboard)
       end
     end
 
@@ -30,7 +30,7 @@ module Thredded
       it 'allows a user to read it' do
         topic = build_stubbed(:topic)
         ability = Thredded::Ability.new(build_stubbed(:user))
-        ability.should be_able_to(:read, topic)
+        expect(ability).to be_able_to(:read, topic)
       end
 
       context 'in a messageboard with logged_in permissions' do
@@ -43,12 +43,12 @@ module Thredded
         it 'is not readable by anonymous visitors' do
           @user = Thredded::NullUser.new
           ability = Thredded::Ability.new(@user)
-          ability.can?(:read, @topic).should be_false
+          expect(ability.can?(:read, @topic)).to eq false
         end
 
         it 'is readable by a logged in user' do
           ability = Thredded::Ability.new(@user)
-          ability.can?(:read, @topic).should be_true
+          expect(ability.can?(:read, @topic)).to eq true
         end
       end
 
@@ -60,57 +60,57 @@ module Thredded
         end
 
         it 'allows a member to create a topic' do
-          @messageboard.stub(has_member?: true)
+          allow(@messageboard).to receive_messages(has_member?: true)
           ability = Thredded::Ability.new(@user)
-          ability.should be_able_to(:create, @topic)
+          expect(ability).to be_able_to(:create, @topic)
         end
 
         it 'allows a member to read a topic' do
-          @messageboard.stub(has_member?: true)
+          allow(@messageboard).to receive_messages(has_member?: true)
           ability = Thredded::Ability.new(@user)
-          ability.should be_able_to(:read, @topic)
+          expect(ability).to be_able_to(:read, @topic)
         end
 
         it 'does not allow a non-member to read a topic' do
-          @messageboard.stub(has_member?: false)
+          allow(@messageboard).to receive_messages(has_member?: false)
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:read, @topic)
+          expect(ability).not_to be_able_to(:read, @topic)
         end
 
         it 'does not allow a non-member to create a topic' do
-          @messageboard.stub(has_member?: false)
+          allow(@messageboard).to receive_messages(has_member?: false)
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:create, @topic)
+          expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow a logged in user to create a topic' do
-          @messageboard.stub(has_member?: false)
+          allow(@messageboard).to receive_messages(has_member?: false)
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:create, @topic)
+          expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow a logged in user to read a topic' do
-          @messageboard.stub(has_member?: false)
+          allow(@messageboard).to receive_messages(has_member?: false)
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:create, @topic)
+          expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow a logged in user to list topics' do
-          @messageboard.stub(has_member?: false)
+          allow(@messageboard).to receive_messages(has_member?: false)
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:index, @topic)
+          expect(ability).not_to be_able_to(:index, @topic)
         end
 
         it 'does not allow anonymous to create a topic' do
           @user = User.new
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:create, @topic)
+          expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow anonymous to read a topic' do
           @user = User.new
           ability = Thredded::Ability.new(@user)
-          ability.should_not be_able_to(:read, @topic)
+          expect(ability).not_to be_able_to(:read, @topic)
         end
       end
     end
@@ -120,7 +120,7 @@ module Thredded
         user = build_stubbed(:user)
         ability = Thredded::Ability.new(user)
         private_topic = build_stubbed(:private_topic, users: [user])
-        ability.should be_able_to(:read, private_topic)
+        expect(ability).to be_able_to(:read, private_topic)
       end
 
       it 'does not allow a random user to read it' do
@@ -128,18 +128,18 @@ module Thredded
         user = build_stubbed(:user)
         ability = Thredded::Ability.new(random_user)
         private_topic = build_stubbed(:private_topic, users: [user])
-        ability.should_not be_able_to(:read, private_topic)
+        expect(ability).not_to be_able_to(:read, private_topic)
       end
 
       it 'does not allow an admin to read it' do
         user = build_stubbed(:user)
         admin = build_stubbed(:user)
-        admin.stub(admins?: true)
+        allow(admin).to receive_messages(admins?: true)
         ability = Thredded::Ability.new(admin)
         private_topic = build_stubbed(:private_topic, users: [user])
 
-        ability.should_not be_able_to(:manage, private_topic)
-        ability.should_not be_able_to(:read, private_topic)
+        expect(ability).not_to be_able_to(:manage, private_topic)
+        expect(ability).not_to be_able_to(:read, private_topic)
       end
     end
   end

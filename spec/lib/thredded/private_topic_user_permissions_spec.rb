@@ -12,7 +12,7 @@ module Thredded
         private_topic = build_stubbed(:private_topic, user: user)
         permissions = PrivateTopicUserPermissions.new(private_topic, user, user_details)
 
-        permissions.should be_manageable
+        expect(permissions).to be_manageable
       end
     end
 
@@ -27,9 +27,9 @@ module Thredded
         his_permissions = PrivateTopicUserPermissions.new(private_topic, him, user_details)
         their_permissions = PrivateTopicUserPermissions.new(private_topic, them, user_details)
 
-        my_permissions.should be_readable
-        his_permissions.should be_readable
-        their_permissions.should_not be_readable
+        expect(my_permissions).to be_readable
+        expect(his_permissions).to be_readable
+        expect(their_permissions).not_to be_readable
       end
     end
 
@@ -39,8 +39,8 @@ module Thredded
         private_topic = build_stubbed(:private_topic, user: user)
 
         permissions = double('creatable?' => true)
-        Thredded::TopicUserPermissions.stub(new: permissions)
-        permissions.should_receive(:creatable?)
+        allow(Thredded::TopicUserPermissions).to receive_messages(new: permissions)
+        expect(permissions).to receive(:creatable?)
 
         PrivateTopicUserPermissions
           .new(private_topic, user, user_details)

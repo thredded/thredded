@@ -11,19 +11,19 @@ module Thredded
           user = create(:user)
           messageboard.add_member(user)
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should be_readable
+          expect(permissions).to be_readable
         end
 
         it 'is not readable by non-members' do
           user = create(:user)
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should_not be_readable
+          expect(permissions).not_to be_readable
         end
 
         it 'is not readable by anonymous people' do
           user = Thredded::NullUser.new
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should_not be_readable
+          expect(permissions).not_to be_readable
         end
       end
 
@@ -34,19 +34,19 @@ module Thredded
           user = create(:user)
           messageboard.add_member(user)
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should be_readable
+          expect(permissions).to be_readable
         end
 
         it 'is readable by non-members' do
           user = create(:user)
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should be_readable
+          expect(permissions).to be_readable
         end
 
         it 'is not readable by anonymous people' do
           user = Thredded::NullUser.new
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should_not be_readable
+          expect(permissions).not_to be_readable
         end
       end
 
@@ -55,7 +55,7 @@ module Thredded
           messageboard = build_stubbed(:messageboard, :public)
           user = Thredded::NullUser.new
           permissions = MessageboardUserPermissions.new(messageboard, user)
-          permissions.should be_readable
+          expect(permissions).to be_readable
         end
       end
     end

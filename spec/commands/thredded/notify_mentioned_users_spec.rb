@@ -29,9 +29,9 @@ module Thredded
       notifier = NotifyMentionedUsers.new(@post)
       at_notifiable_members = notifier.at_notifiable_members
 
-      at_notifiable_members.should have(2).items
-      at_notifiable_members.should include @joel
-      at_notifiable_members.should include @john
+      expect(at_notifiable_members.size).to eq(2)
+      expect(at_notifiable_members).to include @joel
+      expect(at_notifiable_members).to include @john
     end
 
     it 'does not return any users already emailed about this post' do
@@ -51,8 +51,8 @@ module Thredded
       )
       notifier = NotifyMentionedUsers.new(@post)
 
-      notifier.at_notifiable_members.should have(1).item
-      notifier.at_notifiable_members.should include @john
+      expect(notifier.at_notifiable_members.size).to eq(1)
+      expect(notifier.at_notifiable_members).to include @john
     end
 
     it 'does not return users not included in a private topic' do
@@ -71,8 +71,8 @@ module Thredded
       )
       notifier = NotifyMentionedUsers.new(@post)
 
-      notifier.at_notifiable_members.should have(1).item
-      notifier.at_notifiable_members.should include @joel
+      expect(notifier.at_notifiable_members.size).to eq(1)
+      expect(notifier.at_notifiable_members).to include @joel
     end
 
     it 'does not return users that set their preference to "no @ notifications"' do
@@ -89,9 +89,9 @@ module Thredded
       notifier = NotifyMentionedUsers.new(@post)
       at_notifiable_members = notifier.at_notifiable_members
 
-      at_notifiable_members.should have(1).items
-      at_notifiable_members.should include @john
-      at_notifiable_members.should_not include @joel
+      expect(at_notifiable_members.size).to eq(1)
+      expect(at_notifiable_members).to include @john
+      expect(at_notifiable_members).not_to include @joel
     end
   end
 
@@ -122,9 +122,9 @@ module Thredded
       NotifyMentionedUsers.new(@post).run
       notified_emails = @post.post_notifications.map(&:email)
 
-      notified_emails.should have(2).items
-      notified_emails.should include('joel@example.com')
-      notified_emails.should include('john@example.com')
+      expect(notified_emails.size).to eq(2)
+      expect(notified_emails).to include('joel@example.com')
+      expect(notified_emails).to include('john@example.com')
     end
 
     def create_post_by(user)

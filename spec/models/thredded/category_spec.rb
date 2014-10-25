@@ -13,7 +13,7 @@ module Thredded
       topic.category_ids = nil
       topic.save
 
-      topic.should be_valid
+      expect(topic).to be_valid
     end
 
     it 'should allow a category' do
@@ -21,7 +21,7 @@ module Thredded
       topic.categories << create(:category, messageboard: topic.messageboard)
       topic.save
 
-      topic.categories.should_not be_nil
+      expect(topic.categories).not_to be_nil
     end
   end
 end

@@ -16,7 +16,7 @@ module Thredded
       user_details = create(:user_detail, user: user)
       create(:post, user: user)
 
-      user_details.reload.posts_count.should eq(1)
+      expect(user_details.reload.posts_count).to eq(1)
     end
 
     it 'bumps the topics count when a new topic is created' do
@@ -24,7 +24,7 @@ module Thredded
       user_details = create(:user_detail, user: user)
       create(:topic, user: user)
 
-      user_details.reload.topics_count.should eq(1)
+      expect(user_details.reload.topics_count).to eq(1)
     end
   end
 end

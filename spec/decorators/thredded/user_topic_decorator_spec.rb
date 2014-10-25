@@ -21,7 +21,7 @@ module Thredded
       user = create(:user)
 
       decorator = UserTopicDecorator.decorate_all(user, topics)
-      expect(decorator).to have(2).items
+      expect(decorator.size).to eq(2)
     end
   end
 

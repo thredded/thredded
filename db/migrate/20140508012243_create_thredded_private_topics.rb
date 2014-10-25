@@ -4,10 +4,10 @@ class CreateThreddedPrivateTopics < ActiveRecord::Migration
       t.integer :user_id, null: false
       t.integer :last_user_id, null: false
       t.string :title, null: false
-      t.string :slug, null: false
+      t.string :slug, null: false, limit: (191 if connection.adapter_name.downcase =~ /mysql/)
       t.integer :messageboard_id, null: false
       t.integer :posts_count, default: 0
-      t.string :hash_id, null: false
+      t.string :hash_id, null: false, limit: (191 if connection.adapter_name.downcase =~ /mysql/)
 
       t.timestamps
     end

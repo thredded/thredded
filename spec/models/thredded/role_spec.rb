@@ -8,7 +8,7 @@ module Thredded
         user = create(:user)
         messageboard.add_member(user)
 
-        Thredded::Role.for(messageboard).map(&:user).should include(user)
+        expect(Thredded::Role.for(messageboard).map(&:user)).to include(user)
       end
     end
 
@@ -18,7 +18,7 @@ module Thredded
         user = create(:user)
         messageboard.add_member(user, 'admin')
 
-        Thredded::Role.as('admin').map(&:user).should include(user)
+        expect(Thredded::Role.as('admin').map(&:user)).to include(user)
       end
     end
 
@@ -28,7 +28,7 @@ module Thredded
         user = create(:user)
         messageboard.add_member(user, 'admin')
 
-        Thredded::Role.for(messageboard).as('admin').map(&:user).should include(user)
+        expect(Thredded::Role.for(messageboard).as('admin').map(&:user)).to include(user)
       end
     end
   end
