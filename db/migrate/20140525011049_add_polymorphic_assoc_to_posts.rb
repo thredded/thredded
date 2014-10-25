@@ -1,13 +1,11 @@
-# This migration comes from thredded (originally 20140525011049)
 class AddPolymorphicAssocToPosts < ActiveRecord::Migration
   def up
-    add_column :thredded_posts, :postable_type, :string
+    add_column :thredded_posts, :postable_type, :string, limit: 191
 
     execute <<-SQL
-      UPDATE thredded_posts
-      SET postable_type = 'Thredded::PrivateTopic'
-      FROM  thredded_private_topics
-      WHERE thredded_private_topics.id = thredded_posts.topic_id
+      UPDATE thredded_posts tp
+      INNER JOIN thredded_private_topics tpt ON tpt.id = tp.topic_id
+      SET tp.postable_type = 'Thredded::PrivateTopic'
     SQL
 
     execute <<-SQL

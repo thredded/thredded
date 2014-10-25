@@ -1,16 +1,9 @@
 class SetOlderPrivateTopicsAsRead < ActiveRecord::Migration
   def up
-    execute <<-EOSQL
-      UPDATE thredded_private_users
-      SET read=true
-      WHERE (updated_at < '#{60.days.ago}')
-    EOSQL
+    Thredded::PrivateUser.where('updated_at < ?', 60.days.ago).update_all(read: true)
   end
 
   def down
-    execute <<-EOSQL
-      UPDATE thredded_private_users
-      SET read=false
-    EOSQL
+    Thredded::PrivateUser.update_all(read: false)
   end
 end
