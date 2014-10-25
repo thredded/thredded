@@ -2,7 +2,7 @@ require 'thredded/category'
 
 class AddSlugToThreddedCategories < ActiveRecord::Migration
   def up
-    add_column :thredded_categories, :slug, :string
+    add_column :thredded_categories, :slug, :string, limit: 191
     add_index :thredded_categories, [:messageboard_id, :slug], unique: true
 
     if defined?(Thredded::Category)

@@ -17,13 +17,15 @@ class MoveTopicsIntoPrivateTopics < ActiveRecord::Migration
   def delete_topic_categories_associated_with_private_topics
     execute <<-SQL
       DELETE FROM thredded_topic_categories
-      WHERE topic_id IN
-        (
+      WHERE topic_id IN (
+        SELECT tids.id FROM (
           SELECT DISTINCT t.id
-          FROM thredded_topic_categories c, thredded_topics t
-          WHERE c.topic_id=t.id
-          AND t.type='Thredded::PrivateTopic'
-        )
+          FROM thredded_topics t
+          INNER JOIN thredded_topic_categories cat
+          ON cat.topic_id=t.id
+          WHERE t.type='Thredded::PrivateTopic'
+        ) AS tids
+      )
     SQL
   end
 
@@ -48,8 +50,7 @@ class MoveTopicsIntoPrivateTopics < ActiveRecord::Migration
 
   def delete_old_private_topics_from_thredded_topics
     execute <<-SQL
-      DELETE FROM thredded_topics
-      WHERE type = 'Thredded::PrivateTopic'
+      DELETE FROM thredded_topics WHERE thredded_topics.type = 'Thredded::PrivateTopic'
     SQL
   end
 end
