@@ -29,3 +29,18 @@ RSpec::Core::RakeTask.new(:spec)
 task default: :spec
 
 Bundler::GemHelper.install_tasks
+
+desc 'Start development web server'
+task :dev do
+  host = 'localhost'
+  port = ENV['PORT'] || 9292
+  require 'rails/commands/server'
+  ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'development'
+  Dir.chdir 'spec/dummy'
+  Rack::Server.start(
+      environment: 'development',
+      Host: host,
+      Port: port,
+      config: 'config.ru'
+  )
+end
