@@ -1,3 +1,5 @@
+Gemfile.lock
+*.gemfile.lock
 .bundle/
 bin/
 log/*.log

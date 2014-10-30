@@ -9,6 +9,13 @@ module Thredded
 
     belongs_to :messageboard, counter_cache: true
     belongs_to :postable, polymorphic: true, counter_cache: true
+
+    # Postable types to enable joins, e.g. Thredded::Post.joins(:private_topic)
+    belongs_to :private_topic, -> _p { where(thredded_posts: {postable_type: 'Thredded::PrivateTopic'}) },
+               foreign_key: :postable_id, inverse_of: :posts
+    belongs_to :topic, -> _p { where(thredded_posts: {postable_type: 'Thredded::Topic'}) },
+               foreign_key: :postable_id, inverse_of: :posts
+
     belongs_to :user, class_name: Thredded.user_class
     has_many :attachments, dependent: :destroy
     has_many :post_notifications, dependent: :destroy

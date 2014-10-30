@@ -105,7 +105,7 @@ module Thredded
       emails = private_topic.posts.first.post_notifications.map(&:email)
       expect(emails).to include('joel@example.com')
       expect(emails).to include('sam@example.com')
-      expect(emails).to have(2).items
+      expect(emails.size).to eq(2)
     end
   end
 end

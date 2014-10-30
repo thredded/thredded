@@ -5,23 +5,23 @@ feature 'User viewing topics' do
     topics = three_topics
     topics.visit_index
 
-    expect(topics).to have(3).normal_topics
+    expect(topics.normal_topics.size).to eq(3)
   end
 
   scenario 'sees a locked topic' do
     topics = one_locked_two_regular_topics
     topics.visit_index
 
-    expect(topics).to have(1).locked_topic
-    expect(topics).to have(2).normal_topics
+    expect(topics.locked_topics.size).to eq(1)
+    expect(topics.normal_topics.size).to eq(2)
   end
 
   scenario 'sees a sticky topic' do
     topics = one_stuck_two_regular_topics
     topics.visit_index
 
-    expect(topics).to have(1).stuck_topic
-    expect(topics).to have(2).normal_topics
+    expect(topics.stuck_topics.size).to eq(1)
+    expect(topics.normal_topics.size).to eq(2)
   end
 
   def three_topics

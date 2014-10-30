@@ -13,7 +13,7 @@ module Thredded
     it 'for timezone and filter' do
       pref = UserPreference.new
 
-      pref.time_zone.should eq 'Eastern Time (US & Canada)'
+      expect(pref.time_zone).to eq 'Eastern Time (US & Canada)'
     end
   end
 end

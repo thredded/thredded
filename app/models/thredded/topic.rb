@@ -2,10 +2,9 @@ require 'thredded/search_sql_builder'
 
 module Thredded
   class Topic < ActiveRecord::Base
+    include TopicCommon
     extend FriendlyId
     friendly_id :title, use: [:history, :scoped], scope: :messageboard
-
-    paginates_per 50 if self.respond_to?(:paginates_per)
 
     has_many :posts,
       -> { includes :attachments },
@@ -16,28 +15,6 @@ module Thredded
     has_many :user_topic_reads, dependent: :destroy
     has_one :user_detail, through: :user, source: :thredded_user_detail
 
-    belongs_to :user, class_name: Thredded.user_class
-    belongs_to \
-      :last_user,
-      class_name: Thredded.user_class,
-      foreign_key: 'last_user_id'
-    belongs_to \
-      :messageboard,
-      counter_cache: true,
-      touch: true
-
-    validates_presence_of :hash_id
-    validates_presence_of :last_user_id
-    validates_presence_of :messageboard_id
-    validates_numericality_of :posts_count
-    validates_uniqueness_of :hash_id
-
-    delegate :name, :name=, :email, :email=, to: :user, prefix: true
-
-    before_validation do
-      self.hash_id = SecureRandom.hex(10) if hash_id.nil?
-    end
-
     after_create :increment_topics_count
 
     def self.stuck
@@ -46,14 +23,6 @@ module Thredded
 
     def self.unstuck
       where(sticky: false)
-    end
-
-    def self.on_page(page_num)
-      page(page_num).per(30)
-    end
-
-    def self.for_messageboard(messageboard)
-      where(messageboard_id: messageboard.id)
     end
 
     def self.order_by_updated_time
@@ -75,12 +44,6 @@ module Thredded
       results
     end
 
-    def self.decorate
-      all.map do |topic|
-        TopicDecorator.new(topic)
-      end
-    end
-
     def self.find_by_slug_with_user_topic_reads!(slug)
       includes(:user_topic_reads).friendly.find(slug)
     rescue ActiveRecord::RecordNotFound
@@ -89,14 +52,6 @@ module Thredded
 
     def decorate
       TopicDecorator.new(self)
-    end
-
-    def user
-      super || NullUser.new
-    end
-
-    def last_user
-      super || NullUser.new
     end
 
     def public?

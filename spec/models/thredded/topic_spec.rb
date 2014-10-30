@@ -78,7 +78,7 @@ module Thredded
       user = build_stubbed(:user)
       topic = build_stubbed(:topic, last_user: user)
 
-      topic.last_user.should == user
+      expect(topic.last_user).to eq(user)
     end
   end
 
@@ -91,21 +91,21 @@ module Thredded
 
     it 'is associated with a messageboard' do
       topic = build(:topic, messageboard: nil)
-      topic.should_not be_valid
+      expect(topic).not_to be_valid
     end
 
     it 'handles category ids' do
       cat1 = create(:category, messageboard: @messageboard)
       cat2 = create(:category, :beer, messageboard: @messageboard)
       topic = create(:topic, category_ids: ['', cat1.id, cat2.id])
-      topic.valid?.should be_true
+      expect(topic.valid?).to eq true
     end
 
     it 'changes updated_at when a new post is added' do
       old = @topic.updated_at
       create(:post, postable: @topic)
 
-      @topic.reload.updated_at.should_not eq old
+      expect(@topic.reload.updated_at).not_to eq old
     end
 
     it 'does not change updated_at when an old post is edited' do
@@ -113,7 +113,7 @@ module Thredded
       old_time = @post.postable.updated_at
       @post.update_attributes(content: 'hi there')
 
-      @post.postable.reload.updated_at.to_s.should eq old_time.to_s
+      expect(@post.postable.reload.updated_at.to_s).to eq old_time.to_s
     end
   end
 end

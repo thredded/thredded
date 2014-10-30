@@ -9,20 +9,20 @@ feature 'User viewing private topics' do
     private_topics = one_private_topic
     private_topics.visit_index
 
-    expect(private_topics).to have(1).private_topic
+    expect(private_topics.private_topic.size).to eq(1)
   end
 
   scenario 'reads a private topic and it is marked as read' do
     private_topics = one_private_topic
     private_topics.visit_index
 
-    expect(private_topics).to have(1).private_topic
-    expect(private_topics).to have(1).unread_private_topics
+    expect(private_topics.private_topic.size).to eq(1)
+    expect(private_topics.unread_private_topics.size).to eq(1)
 
     private_topics.view_private_topic
     private_topics.visit_index
 
-    expect(private_topics).to have(0).unread_private_topic
+    expect(private_topics.unread_private_topic.size).to eq(0)
   end
 
   scenario 'sees that an old topic has been updated' do
@@ -31,14 +31,14 @@ feature 'User viewing private topics' do
     private_topics.view_private_topic
     private_topics.visit_index
 
-    expect(private_topics).to have(1).private_topic
-    expect(private_topics).to have(0).unread_private_topics
+    expect(private_topics.private_topic.size).to eq(1)
+    expect(private_topics.unread_private_topics.size).to eq(0)
 
     private_topics.update_all_private_topics
     private_topics.visit_index
 
-    expect(private_topics).to have(1).private_topic
-    expect(private_topics).to have(1).unread_private_topic
+    expect(private_topics.private_topic.size).to eq(1)
+    expect(private_topics.unread_private_topic.size).to eq(1)
   end
 
   scenario 'is notified in the navigation that there are unread topics' do
@@ -47,7 +47,7 @@ feature 'User viewing private topics' do
     private_topics.visit_index
 
     expect(navigation).to have_unread_private_topics
-    expect(private_topics).to have(1).unread_private_topic
+    expect(private_topics.unread_private_topic.size).to eq(1)
 
     private_topics.view_private_topic
     private_topics.visit_index

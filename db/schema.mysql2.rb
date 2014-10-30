@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20141025104256) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -41,12 +38,12 @@ ActiveRecord::Schema.define(version: 20141025104256) do
   add_index "thredded_attachments", ["post_id"], name: "index_thredded_attachments_on_post_id", using: :btree
 
   create_table "thredded_categories", force: true do |t|
-    t.integer  "messageboard_id", null: false
-    t.string   "name",            null: false
+    t.integer  "messageboard_id",             null: false
+    t.string   "name",                        null: false
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",            null: false
+    t.string   "slug",            limit: 191, null: false
   end
 
   add_index "thredded_categories", ["messageboard_id", "slug"], name: "index_thredded_categories_on_messageboard_id_and_slug", unique: true, using: :btree
@@ -76,18 +73,18 @@ ActiveRecord::Schema.define(version: 20141025104256) do
   add_index "thredded_messageboard_preferences", ["user_id"], name: "index_thredded_messageboard_preferences_on_user_id", using: :btree
 
   create_table "thredded_messageboards", force: true do |t|
-    t.string   "name",                                       null: false
-    t.string   "slug"
+    t.string   "name",                                                   null: false
+    t.string   "slug",                 limit: 191
     t.text     "description"
-    t.string   "security",             default: "public"
-    t.string   "posting_permission",   default: "anonymous"
-    t.integer  "topics_count",         default: 0
-    t.integer  "posts_count",          default: 0
-    t.boolean  "closed",               default: false,       null: false
+    t.string   "security",                         default: "public"
+    t.string   "posting_permission",               default: "anonymous"
+    t.integer  "topics_count",                     default: 0
+    t.integer  "posts_count",                      default: 0
+    t.boolean  "closed",                           default: false,       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "filter",               default: "markdown",  null: false
-    t.integer  "private_topics_count", default: 0
+    t.string   "filter",                           default: "markdown",  null: false
+    t.integer  "private_topics_count",             default: 0
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed", using: :btree
@@ -107,28 +104,29 @@ ActiveRecord::Schema.define(version: 20141025104256) do
     t.string   "user_email"
     t.text     "content"
     t.string   "ip"
-    t.string   "filter",          default: "markdown"
-    t.string   "source",          default: "web"
+    t.string   "filter",                      default: "markdown"
+    t.string   "source",                      default: "web"
     t.integer  "postable_id"
-    t.integer  "messageboard_id",                      null: false
+    t.integer  "messageboard_id",                                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "postable_type"
+    t.string   "postable_type",   limit: 191
   end
 
+  add_index "thredded_posts", ["content"], name: "index_thredded_posts_on_content", type: :fulltext
   add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id", using: :btree
   add_index "thredded_posts", ["postable_id", "postable_type"], name: "index_thredded_posts_on_postable_id_and_postable_type", using: :btree
   add_index "thredded_posts", ["postable_id"], name: "index_thredded_posts_on_postable_id", using: :btree
   add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id", using: :btree
 
   create_table "thredded_private_topics", force: true do |t|
-    t.integer  "user_id",                     null: false
-    t.integer  "last_user_id",                null: false
-    t.string   "title",                       null: false
-    t.string   "slug",                        null: false
-    t.integer  "messageboard_id",             null: false
-    t.integer  "posts_count",     default: 0
-    t.string   "hash_id",                     null: false
+    t.integer  "user_id",                                 null: false
+    t.integer  "last_user_id",                            null: false
+    t.string   "title",                                   null: false
+    t.string   "slug",            limit: 191,             null: false
+    t.integer  "messageboard_id",                         null: false
+    t.integer  "posts_count",                 default: 0
+    t.string   "hash_id",         limit: 191,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -170,16 +168,16 @@ ActiveRecord::Schema.define(version: 20141025104256) do
   add_index "thredded_topic_categories", ["topic_id"], name: "index_thredded_topic_categories_on_topic_id", using: :btree
 
   create_table "thredded_topics", force: true do |t|
-    t.integer  "user_id",                         null: false
-    t.integer  "last_user_id",                    null: false
-    t.string   "title",                           null: false
-    t.string   "slug",                            null: false
-    t.integer  "messageboard_id",                 null: false
-    t.integer  "posts_count",     default: 0,     null: false
-    t.boolean  "sticky",          default: false, null: false
-    t.boolean  "locked",          default: false, null: false
-    t.string   "hash_id",                         null: false
-    t.string   "type"
+    t.integer  "user_id",                                     null: false
+    t.integer  "last_user_id",                                null: false
+    t.string   "title",                                       null: false
+    t.string   "slug",            limit: 191,                 null: false
+    t.integer  "messageboard_id",                             null: false
+    t.integer  "posts_count",                 default: 0,     null: false
+    t.boolean  "sticky",                      default: false, null: false
+    t.boolean  "locked",                      default: false, null: false
+    t.string   "hash_id",         limit: 191,                 null: false
+    t.string   "type",            limit: 191
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -188,6 +186,7 @@ ActiveRecord::Schema.define(version: 20141025104256) do
   add_index "thredded_topics", ["last_user_id"], name: "index_thredded_topics_on_last_user_id", using: :btree
   add_index "thredded_topics", ["messageboard_id", "slug"], name: "index_thredded_topics_on_messageboard_id_and_slug", unique: true, using: :btree
   add_index "thredded_topics", ["messageboard_id"], name: "index_thredded_topics_on_messageboard_id", using: :btree
+  add_index "thredded_topics", ["title"], name: "index_thredded_topics_on_title", type: :fulltext
   add_index "thredded_topics", ["user_id"], name: "index_thredded_topics_on_user_id", using: :btree
 
   create_table "thredded_user_details", force: true do |t|
@@ -204,8 +203,8 @@ ActiveRecord::Schema.define(version: 20141025104256) do
   add_index "thredded_user_details", ["user_id"], name: "index_thredded_user_details_on_user_id", using: :btree
 
   create_table "thredded_user_preferences", force: true do |t|
-    t.integer  "user_id",                                           null: false
-    t.string   "time_zone",  default: "Eastern Time (US & Canada)"
+    t.integer  "user_id",                                                       null: false
+    t.string   "time_zone",  limit: 191, default: "Eastern Time (US & Canada)"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

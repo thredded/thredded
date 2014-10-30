@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.description = 'A messageboard and/or forum engine for Rails 4.0 apps'
 
-  s.add_dependency 'bbcoder'
+  s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'cancan'
   s.add_dependency 'carrierwave'
   s.add_dependency 'escape_utils'
@@ -34,13 +34,23 @@ Gem::Specification.new do |s|
   s.add_dependency 'sanitize'
   s.add_dependency 'unf'
 
-  s.add_development_dependency 'capybara'
+  # test dependencies
+  s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'chronic'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'launchy'
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'shoulda-matchers'
+  s.add_development_dependency 'rspec-rails', '~> 3.1'
+  s.add_development_dependency 'shoulda-matchers', '~> 2.7'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'timecop'
+
+  # dummy app dependencies
+  s.add_development_dependency 'jquery-rails'
+  s.add_development_dependency 'pg'
+  s.add_development_dependency 'mysql2'
+
+  # debug dependencies
+  s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'byebug'
 end

@@ -46,7 +46,7 @@ module Thredded
   describe PostDecorator, '#created_at_timeago' do
     it 'prints something ambiguous for nils' do
       post = build_stubbed(:post)
-      post.stub(created_at: nil)
+      allow(post).to receive_messages(created_at: nil)
       decorated_post = PostDecorator.new(post)
       ambiguous_message = <<-eohtml.strip_heredoc.html_safe
         <abbr>
@@ -78,7 +78,7 @@ module Thredded
   describe PostDecorator, '#gravatar_url' do
     it 'strips the protocol from the url' do
       post = build_stubbed(:post)
-      post.stub(gravatar_url: 'http://example.com/me.jpg')
+      allow(post).to receive_messages(gravatar_url: 'http://example.com/me.jpg')
       decorated_post = PostDecorator.new(post)
 
       expect(decorated_post.gravatar_url).to eq '//example.com/me.jpg'

@@ -7,15 +7,17 @@ module Thredded
     end
 
     before do
-      user = create(:user)
+      user          = create(:user)
       @messageboard = create(:messageboard)
-      @topic = create(:topic, messageboard: @messageboard, title: 'hi')
-      @post = create(:post, postable: @topic, content: 'hi')
-      controller.stub(topics: [@topic])
-      controller.stub(sticky_topics: [])
-      controller.stub(cannot?: false)
-      controller.stub(current_user: user)
-      controller.stub(messageboard: @messageboard)
+      @topic        = create(:topic, messageboard: @messageboard, title: 'hi')
+      @post         = create(:post, postable: @topic, content: 'hi')
+      allow(controller).to receive_messages(
+                               topics:        [@topic],
+                               sticky_topics: [],
+                               cannot?:       false,
+                               current_user:  user,
+                               messageboard:  @messageboard
+                           )
     end
 
     it 'renders GET index' do
@@ -27,7 +29,7 @@ module Thredded
 
     describe 'GET search' do
       it 'renders search' do
-        Topic.stub(search: [@topic])
+        allow(Topic).to receive_messages(search: [@topic])
         get :search, messageboard_id: @messageboard.id, q: 'hi'
 
         expect(response).to be_successful
@@ -35,14 +37,14 @@ module Thredded
       end
 
       it 'is successful with spaces around search term(s)' do
-        Topic.stub(search: [@topic])
+        allow(Topic).to receive_messages(search: [@topic])
         get :search, messageboard_id: @messageboard.id, q: '  hi  '
 
         expect(response).to be_successful
       end
 
       it 'returns nothing when query is empty' do
-        Topic.stub(:search) { fail Thredded::Errors::EmptySearchResults, 'hi' }
+        allow(Topic).to receive(:search) { fail Thredded::Errors::EmptySearchResults, 'hi' }
         get :search, messageboard_id: @messageboard.id, q: ''
 
         expect(flash[:alert]).to eq "There are no results for your search - 'hi'"

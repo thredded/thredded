@@ -21,7 +21,7 @@ module Thredded
 
     it 'notifies anyone @ mentioned in the post' do
       mail = double(deliver: true)
-      Thredded::PostMailer.stub(at_notification: mail)
+      allow(Thredded::PostMailer).to receive_messages(at_notification: mail)
 
       messageboard = create(:messageboard)
       joel = create(:user, name: 'joel', email: 'joel@example.com')
@@ -45,7 +45,7 @@ module Thredded
       topic = create(:topic)
       create(:post, user: joel, postable: topic)
 
-      topic.reload.last_user.should eq joel
+      expect(topic.reload.last_user).to eq joel
     end
 
     it "increments the topic's and user's post counts" do
@@ -54,8 +54,8 @@ module Thredded
       topic = create(:topic)
       create_list(:post, 3, postable: topic, user: joel)
 
-      topic.reload.posts_count.should eq 3
-      joel_details.reload.posts_count.should eq 3
+      expect(topic.reload.posts_count).to eq 3
+      expect(joel_details.reload.posts_count).to eq 3
     end
 
     it 'updates the topic updated_at field to that of the new post' do
@@ -71,7 +71,7 @@ module Thredded
         create(:post, postable: topic, user: joel, content: 'posting more')
       end
 
-      topic.updated_at.to_s.should eq new_years_at_3pm
+      expect(topic.updated_at.to_s).to eq new_years_at_3pm
     end
 
     it 'sets the post user email on creation' do
@@ -79,7 +79,7 @@ module Thredded
       topic = create(:topic, last_user: shaun)
       post = create(:post, user: shaun, postable: topic)
 
-      post.user_email.should eq post.user.email
+      expect(post.user_email).to eq post.user.email
     end
   end
 
@@ -109,19 +109,19 @@ module Thredded
       @post.content = 'go to [url]http://google.com[/url]'
       @post.filter = 'bbcode'
 
-      @post.filtered_content.should eq '<p>go to <a href="http://google.com">http://google.com</a></p>'
+      expect(@post.filtered_content).to eq '<p>go to <a href="http://google.com">http://google.com</a></p>'
     end
 
     it 'converts bbcode to html' do
       @post.content = 'this is [b]bold[/b]'
       @post.filter = 'bbcode'
-      @post.filtered_content.should eq '<p>this is <strong>bold</strong></p>'
+      expect(@post.filtered_content).to eq '<p>this is <strong>bold</strong></p>'
     end
 
     it 'handles quotes' do
       @post.content = '[quote]hi[/quote] [quote=john]hey[/quote]'
       @post.filter = 'bbcode'
-      expected_output = "<p></p><br><blockquote>\n<br>    hi<br>\n</blockquote><br><br><br>john says<br><blockquote>\n<br>    hey<br>\n</blockquote><br><br>"
+      expected_output = "<p></p><br>  <blockquote>\n<br>    hi<br>  </blockquote><br><br> <br>  john says<br>  <blockquote>\n<br>    hey<br>  </blockquote><br><br>"
 
       expect(parsed_html(@post.filtered_content))
         .to eq(parsed_html(expected_output))
@@ -130,7 +130,7 @@ module Thredded
     it 'handles nested quotes' do
       @post.content = '[quote=joel][quote=john]hello[/quote] hi[/quote]'
       @post.filter = 'bbcode'
-      expected_output = "<p></p><br>joel says<br><blockquote>\n<br><br>john says<br><blockquote>\n<br>    hello<br>\n</blockquote>\n<br><br> hi<br>\n</blockquote><br><br>"
+      expected_output = "<p></p><br>  joel says<br>  <blockquote>\n<br>    <br>  john says<br>  <blockquote>\n<br>    hello<br>  </blockquote>\n<br><br> hi<br>  </blockquote><br><br>"
 
       expect(parsed_html(@post.filtered_content))
         .to eq(parsed_html(expected_output))
@@ -140,7 +140,7 @@ module Thredded
       @post.content = "# Header\nhttp://www.google.com"
       @post.filter = 'markdown'
 
-      @post.filtered_content.should eq %Q(<h1>Header</h1>\n\n<p><a href="http://www.google.com">http://www.google.com</a></p>)
+      expect(@post.filtered_content).to eq %Q(<h1>Header</h1>\n\n<p><a href="http://www.google.com">http://www.google.com</a></p>)
     end
 
     it 'performs some syntax highlighting in markdown' do
@@ -155,18 +155,18 @@ module Thredded
       @post.content = input
       @post.filter = 'markdown'
 
-      @post.filtered_content.should eq expected_output
+      expect(@post.filtered_content).to eq expected_output
     end
 
     it 'links @names of members' do
       Thredded.user_path = ->(user) { "/whois/#{user}" }
       sam = build_stubbed(:user, name: 'sam')
       joe = build_stubbed(:user, name: 'joe')
-      Messageboard.any_instance.stub(members_from_list: [sam, joe])
+      allow_any_instance_of(Messageboard).to receive_messages(members_from_list: [sam, joe])
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
       expectation = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
 
-      post.filtered_content.should eq expectation
+      expect(post.filtered_content).to eq expectation
     end
 
     def parsed_html(html)

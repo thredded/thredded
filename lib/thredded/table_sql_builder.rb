@@ -1,5 +1,4 @@
 require 'thredded/search_parser'
-
 module Thredded
   class TableSqlBuilder
     attr_accessor :binds
@@ -8,13 +7,13 @@ module Thredded
       @terms = SearchParser.new(query).parse
 
       @select = 'SELECT t.id'
-      @from = 'FROM thredded_topics t'
-      @where = ['t.messageboard_id = ?']
-      @binds = [messageboard.id]
+      @from   = 'FROM thredded_topics t'
+      @where  = ['t.messageboard_id = ?']
+      @binds  = [messageboard.id]
 
       @search_categories = []
-      @search_users = []
-      @search_text = []
+      @search_users      = []
+      @search_text       = []
     end
 
     def sql
@@ -30,7 +29,7 @@ module Thredded
 
     private
 
-    def is_quoted(term)
+    def quoted?(term)
       term.count('"') == 2
     end
 
@@ -88,17 +87,33 @@ module Thredded
     end
 
     def add_from(table)
-        if @from.exclude? table
-          @from = "#{@from}, #{table}"
-        end
+      if @from.exclude? table
+        @from = "#{@from}, #{table}"
+      end
     end
 
     def add_where(where, binds=nil)
       if @where.exclude? where
         @where << where
-        if (binds.present?)
+        if binds.present?
           @binds.push(binds)
         end
+      end
+    end
+
+    def self.use_adapter!(db_adapter)
+      case db_adapter
+        when /mysql/
+          require 'thredded/full_text_search/mysql_builder'
+          include FullTextSearch::MySQLBuilder
+        when /postgresql/
+          require 'thredded/full_text_search/postgresql_builder'
+          include FullTextSearch::PostgreSQLBuilder
+        else
+          Rails.logger.warn "No FullTextSearch adapter defined for #{db_adapter}"
+          Thredded.define_singleton_method :supports_fulltext_search? do
+            false
+          end
       end
     end
   end

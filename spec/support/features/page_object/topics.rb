@@ -13,11 +13,11 @@ module PageObject
       all('.topics article[class="topic read "]')
     end
 
-    def locked_topic
+    def locked_topics
       all('.topics article.locked')
     end
 
-    def stuck_topic
+    def stuck_topics
       all('.topics article.sticky')
     end
 

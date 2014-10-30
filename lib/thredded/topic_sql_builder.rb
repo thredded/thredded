@@ -4,14 +4,7 @@ module Thredded
   class TopicSqlBuilder < TableSqlBuilder
     def build_text_search
       if text.present?
-        search_text = text
-        add_where("to_tsvector('english', t.title) @@ plainto_tsquery('english', ?)", search_text.uniq.join(' '))
-
-        search_text.each do |term|
-          if (is_quoted(term))
-            add_where('t.title ILIKE ?', term.gsub('"', '%'))
-          end
-        end
+        add_full_text_search('t.title', text)
       end
     end
 

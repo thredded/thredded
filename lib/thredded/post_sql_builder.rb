@@ -2,16 +2,9 @@ module Thredded
   class PostSqlBuilder < TableSqlBuilder
     def build_text_search
       if text.present?
-        search_text = text
         add_from('thredded_posts p')
         add_where('t.id = p.postable_id')
-        add_where("to_tsvector('english', p.content) @@ plainto_tsquery('english', ?)", search_text.uniq.join(' '))
-
-        search_text.each do |term|
-          if (is_quoted(term))
-            add_where('p.content ILIKE ?', term.gsub('"', '%'))
-          end
-        end
+        add_full_text_search('p.content', text)
       end
     end
 

@@ -8,12 +8,18 @@ require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'database_cleaner'
 require 'chronic'
+require 'fileutils'
 
 Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 
 counter = -1
 
+FileUtils.mkdir('log') unless File.directory?('log')
+ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger =
+    Logger.new(File.open("log/test.#{ENV['DB'] || 'postgresql'}.log", 'w'))
+
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
   config.fixture_path = "#{::Rails.root}/../../spec/fixtures"
   config.use_transactional_fixtures = true
   config.include FactoryGirl::Syntax::Methods
