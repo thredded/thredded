@@ -51,6 +51,10 @@ Mount the thredded engine in your routes file:
 mount Thredded::Engine => '/forum'
 ```
 
+## Development dependencies
+
+* PostgreSQL & MySQL - `brew install postgres mysql`
+
 ## Background Job Requirements
 
 This gem has several gem agnostic background jobs. Currently resque, sidekiq, delayed_job, and a threaded in-memory queue are supported thanks to [Richard Schneeman's Q gem](https://github.com/schneems/Q). The configuration detailed above allows you to specify which job queue you prefer with `Thredded.queue_backend`. The available options are one of the following symbols - `:threaded_in_memory_queue`, `:sidekiq`, `:resque`, or `:delayed_job`.
