@@ -1,0 +1,8 @@
+Description:
+    Create an initializer with description of configuration and defaults
+
+Example:
+    rails generate thredded:install
+
+    This will create:
+        config/initializers/thredded.rb
