@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = 'A messageboard and/or forum engine for Rails 4.0 apps'
 
   s.add_dependency 'bbcoder', '~> 1.0'
-  s.add_dependency 'cancan'
+  s.add_dependency 'cancancan'
   s.add_dependency 'carrierwave'
   s.add_dependency 'escape_utils'
   s.add_dependency 'fog'
