@@ -1,0 +1,8 @@
+Description:
+    Install the views for thredded so that the parent application can customize them.
+
+Example:
+    rails generate thredded:views
+
+    This will create:
+        app/views/thredded/*/**
