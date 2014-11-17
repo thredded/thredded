@@ -58,7 +58,7 @@ module Thredded
 
         if @terms['by']
           @terms['by'].each do |username|
-            user = User.where('lower(name) = ?', username.downcase).first
+            user = Thredded.user_class.where('lower(name) = ?', username.downcase).first
 
             if user
               @search_users << user.id
