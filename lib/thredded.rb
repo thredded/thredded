@@ -14,9 +14,11 @@ require 'thredded/post_user_permissions'
 require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
 require 'thredded/search_sql_builder'
+require 'thredded/case_insensitive_string_finder'
 
 module Thredded
   mattr_accessor :user_class,
+    :user_name_column,
     :email_incoming_host,
     :email_from,
     :email_outgoing_prefix,
@@ -29,6 +31,7 @@ module Thredded
     :queue_memory_log_level,
     :queue_inline
 
+  self.user_name_column = :name
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded'
@@ -57,5 +60,10 @@ module Thredded
     else
       '/'
     end
+  end
+
+  def self.use_adapter!(db_adapter)
+    TableSqlBuilder.use_adapter! db_adapter
+    CaseInsensitiveStringFinder.use_adapter! db_adapter
   end
 end

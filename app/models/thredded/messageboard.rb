@@ -77,7 +77,7 @@ module Thredded
     end
 
     def members_from_list(user_list)
-      users.where('lower(name) in (?)', user_list.map(&:downcase))
+      CaseInsensitiveStringFinder.new(users, Thredded.user_name_column).find(user_list)
     end
 
     def posting_for_anonymous?
