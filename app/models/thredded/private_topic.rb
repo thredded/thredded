@@ -43,7 +43,7 @@ module Thredded
 
     def add_user(user)
       if String == user.class
-        user = User.find_by_name(user)
+        user = Thredded.user_class.find_by_name(user)
       end
 
       users << user
@@ -59,7 +59,7 @@ module Thredded
 
     def user_id=(ids)
       if ids.size > 0
-        self.users = User.where(id: ids.uniq)
+        self.users = Thredded.user_class.where(id: ids.uniq)
       end
     end
 

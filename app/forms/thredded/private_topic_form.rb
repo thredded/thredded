@@ -105,7 +105,7 @@ module Thredded
     end
 
     def private_users
-      User.where(id: normalized_user_ids)
+      Thredded.user_class.where(id: normalized_user_ids)
     end
 
     def private_user_ids
