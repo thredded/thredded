@@ -13,7 +13,7 @@ Thredded.user_path = ->(user) { "/users/#{user.to_s}" }
 
 # ==> Email Configuration
 # Email "From:" field will use the following
-# Thredded.email_from = 'no-reply@thredded.com'
+# Thredded.email_from = 'no-reply@example.com'
 
 # Emails going out will prefix the "Subject:" with the following string
 # Thredded.email_outgoing_prefix = '[My Forum] '
@@ -35,12 +35,29 @@ Thredded.queue_backend = :threaded_in_memory_queue
 # want to turn this on for when the test suite is being run.
 Thredded.queue_inline = Rails.env.test?
 
+# If using the threaded in-memory queue it will default its log level to
+# `Logger::WARN` but if you would like more information, change it to
+# `Logger::INFO` or `Logger::DEBUG`.
+# Thredded.queue_memory_log_level = Logger::WARN
+
+# ==> View Configuration
+# When rendering the thredded views you can specify which layout you would
+# like them to use. It defaults to 'thredded' and will look for it in
+# `app/views/layouts/thredded.html.erb`.
+Thredded.layout = 'thredded'
+
+# Avatars are provided via gravatar. You may override the default image
+# (when a user doesn't have a gravatar account) with the `avatar_default`
+# config option. Default is `mm`. See the following for more information
+# at gravatar: https://en.gravatar.com/site/implement/images/#default-image
+Thredded.avatar_default = 'mm'
+
 # ==> Asset / File Storage Configuration
 # Root location where you have placed emojis (used when rendering posts).
 # If you're hosting on a platform that allows you to keep your files local
 # to your app - this might not be necessary. If you're hosting somewhere
 # with an ephemeral filesystem, like heroku, you'll need to point this to
-# whereever you store files on the cloud
+# wherever you store files on the cloud.
 #
 # Thredded.asset_root = ''
 # Thredded.asset_root = 'https://my-app-bucket.s3.amazonaws.com/assets'
