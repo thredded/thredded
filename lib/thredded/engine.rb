@@ -25,7 +25,7 @@ module Thredded
     end
 
     initializer 'thredded.set_adapter' do
-      TableSqlBuilder.use_adapter! Thredded::Post.connection_config[:adapter]
+      Thredded.use_adapter! Thredded::Post.connection_config[:adapter]
     end
   end
 end

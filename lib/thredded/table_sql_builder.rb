@@ -38,15 +38,8 @@ module Thredded
         @search_categories
       else
         if @terms['in']
-          @terms['in'].each do |category_name|
-            category = Category
-            .where('lower(name) = ?', category_name.downcase).first
-            if category
-              @search_categories << category.id
-            end
-          end
+          @search_categories.concat CaseInsensitiveStringFinder.new(Category, :name).find(@terms['in']).pluck(:id)
         end
-
         @search_categories
       end
     end
@@ -55,17 +48,9 @@ module Thredded
       if @search_users.any?
         @search_users
       else
-
         if @terms['by']
-          @terms['by'].each do |username|
-            user = Thredded.user_class.where('lower(name) = ?', username.downcase).first
-
-            if user
-              @search_users << user.id
-            end
-          end
+          @search_user.concat CaseInsensitiveStringFinder.new(Thredded.user_class, Thredded.user_name_column).find(@terms['by']).pluck(:id)
         end
-
         @search_users
       end
     end
