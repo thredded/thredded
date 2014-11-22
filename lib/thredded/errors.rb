@@ -33,6 +33,10 @@ module Thredded
       end
     end
 
+    class PrivateTopicCreateDenied < TopicCreateDenied
+
+    end
+
     class EmptySearchResults < Thredded::Error
       def initialize(query)
         @query = query
