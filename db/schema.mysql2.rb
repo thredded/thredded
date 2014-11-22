@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025104256) do
+ActiveRecord::Schema.define(version: 20141122160545) do
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -101,7 +101,6 @@ ActiveRecord::Schema.define(version: 20141025104256) do
 
   create_table "thredded_posts", force: true do |t|
     t.integer  "user_id"
-    t.string   "user_email"
     t.text     "content"
     t.string   "ip"
     t.string   "filter",                      default: "markdown"
