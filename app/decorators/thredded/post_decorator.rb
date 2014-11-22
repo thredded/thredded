@@ -44,8 +44,8 @@ module Thredded
       end
     end
 
-    def gravatar_url
-      super.gsub(/http:/, '')
+    def avatar_url
+      super.sub(/\Ahttp:/, '')
     end
 
     private

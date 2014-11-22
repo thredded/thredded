@@ -1,45 +1,9 @@
+require 'thredded/base_user_topic_decorator'
+
 module Thredded
-  class UserTopicDecorator
-    extend Forwardable
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-
-    def self.decorate_all(user, topics)
-      topics.map do |topic|
-        new(user, topic)
-      end
-    end
-
-    def self.model_name
-      ActiveModel::Name.new(self, nil, 'Topic')
-    end
-
-    def initialize(user, topic)
-      @user = user || NullUser.new
-      @topic = TopicDecorator.new(topic)
-    end
-
-    def method_missing(meth, *args)
-      if topic.respond_to?(meth)
-        topic.send(meth, *args)
-      else
-        super
-      end
-    end
-
-    def_delegators :topic,
-      :created_at_timeago,
-      :gravatar_url,
-      :last_user_link,
-      :original,
-      :updated_at_timeago
-
-    def persisted?
-      false
-    end
-
-    def read?
-      topic.posts_count == read_status.posts_count
+  class UserTopicDecorator < BaseUserTopicDecorator
+    def self.topic_class
+      Topic
     end
 
     def farthest_page
@@ -50,17 +14,11 @@ module Thredded
       read_status.farthest_post
     end
 
-    def css_class
-      if read?
-        "read #{topic.css_class}"
-      else
-        "unread #{topic.css_class}"
-      end
+    def read?
+      topic.posts_count == read_status.posts_count
     end
 
     private
-
-    attr_reader :topic, :user
 
     def read_status
       if user.id > 0

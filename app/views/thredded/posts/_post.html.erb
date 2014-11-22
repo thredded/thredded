@@ -3,7 +3,7 @@
 
   <%= content_tag_for(:article, post) do %>
     <header>
-      <%= image_tag post.gravatar_url, class: 'avatar' %>
+      <%= image_tag post.avatar_url, class: 'avatar' unless post.user_anonymous? %>
       <cite>
         <%= post.user_link %>
         <%= post.created_at_timeago %>

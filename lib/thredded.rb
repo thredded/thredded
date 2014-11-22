@@ -20,6 +20,7 @@ require 'thredded/case_insensitive_string_finder'
 module Thredded
   mattr_accessor :user_class,
     :user_name_column,
+    :avatar_url,
     :email_incoming_host,
     :email_from,
     :email_outgoing_prefix,
@@ -27,16 +28,15 @@ module Thredded
     :file_storage,
     :asset_root,
     :layout,
-    :avatar_default,
     :queue_backend,
     :queue_memory_log_level,
     :queue_inline
 
   self.user_name_column = :name
+  self.avatar_url = -> (_user, post) { post.gravatar_url(default: 'mm') }
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded'
-  self.avatar_default = 'mm'
   self.queue_backend = :threaded_in_memory_queue
   self.queue_memory_log_level = Logger::WARN
   self.queue_inline = false

@@ -2,7 +2,7 @@ module Thredded
   class Post < ActiveRecord::Base
     include Gravtastic
 
-    gravtastic :user_email, default: Thredded.avatar_default
+    gravtastic :user_email
     paginates_per 50
 
     belongs_to :messageboard, counter_cache: true
@@ -15,7 +15,7 @@ module Thredded
                foreign_key: :postable_id, inverse_of: :posts
 
     belongs_to :user, class_name: Thredded.user_class
-    delegate :email, to: :user, prefix: true
+    delegate :email, :anonymous?, to: :user, prefix: true
     has_many :attachments, dependent: :destroy
     has_many :post_notifications, dependent: :destroy
     has_one :user_detail, through: :user, source: :thredded_user_detail
@@ -35,8 +35,8 @@ module Thredded
       created_at.strftime('%Y-%m-%dT%H:%M:%S') if created_at
     end
 
-    def gravatar_url
-      super.gsub(/http:/, '')
+    def avatar_url
+      Thredded.avatar_url.call(user, self)
     end
 
     def self.filters
