@@ -1,4 +1,4 @@
-# Thredded [![Code Climate](https://codeclimate.com/github/jayroh/thredded/badges/gpa.svg)](https://codeclimate.com/github/jayroh/thredded) [![Travis-CI](https://api.travis-ci.org/jayroh/thredded.svg?branch=master)](https://travis-ci.org/jayroh/thredded/)
+# Thredded [![Code Climate](https://codeclimate.com/github/jayroh/thredded/badges/gpa.svg)](https://codeclimate.com/github/jayroh/thredded) [![Travis-CI](https://api.travis-ci.org/jayroh/thredded.svg?branch=master)](https://travis-ci.org/jayroh/thredded/) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/jayroh/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Thredded is a rails 4+ forum/messageboard engine. Its goal is to be as
 simple and feature rich as possible.
