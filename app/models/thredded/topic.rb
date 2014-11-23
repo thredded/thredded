@@ -6,6 +6,12 @@ module Thredded
     extend FriendlyId
     friendly_id :title, use: [:history, :scoped], scope: :messageboard
 
+    belongs_to :user_detail,
+               primary_key:   :user_id,
+               foreign_key:   :user_id,
+               inverse_of:    :topics,
+               counter_cache: :topics_count
+
     has_many :posts,
       -> { includes :attachments },
       as: :postable,
@@ -13,9 +19,6 @@ module Thredded
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads, dependent: :destroy
-    has_one :user_detail, through: :user, source: :thredded_user_detail
-
-    after_create :increment_topics_count
 
     def self.stuck
       where(sticky: true)
@@ -94,12 +97,6 @@ module Thredded
 
     def should_generate_new_friendly_id?
       title_changed?
-    end
-
-    private
-
-    def increment_topics_count
-      user_detail.increment!(:topics_count) if user_detail
     end
   end
 end

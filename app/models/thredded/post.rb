@@ -8,6 +8,12 @@ module Thredded
     belongs_to :messageboard, counter_cache: true
     belongs_to :postable, polymorphic: true, counter_cache: true
 
+    belongs_to :user_detail,
+               primary_key:   :user_id,
+               foreign_key:   :user_id,
+               inverse_of:    :posts,
+               counter_cache: true
+
     # Postable types to enable joins, e.g. Thredded::Post.joins(:private_topic)
     belongs_to :private_topic, -> _p { where(thredded_posts: {postable_type: 'Thredded::PrivateTopic'}) },
                foreign_key: :postable_id, inverse_of: :posts
@@ -18,7 +24,6 @@ module Thredded
     delegate :email, :anonymous?, to: :user, prefix: true
     has_many :attachments, dependent: :destroy
     has_many :post_notifications, dependent: :destroy
-    has_one :user_detail, through: :user, source: :thredded_user_detail
 
     validates :content, presence: true
     validates :messageboard_id, presence: true
@@ -104,7 +109,6 @@ module Thredded
     end
 
     def modify_parent_posts_counts
-      user_detail.increment!(:posts_count) if user_detail
       postable.last_user = user
       postable.touch
       postable.save
