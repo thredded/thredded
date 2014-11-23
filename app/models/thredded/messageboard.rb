@@ -7,16 +7,10 @@ module Thredded
     extend FriendlyId
     friendly_id :name, use: :slugged
 
-    validates :filter, presence: true
-    validates :filter, inclusion: { in: FILTERS }
-    validates :name, length: {
-      within: 1..16,
-      message: 'should be between 1 and 16 characters'
-    }
-    validates :name, presence: true
-    validates :name, uniqueness: { message: 'must be a unique board name.' }
-    validates :posting_permission, inclusion: { in: PERMISSIONS }
-    validates :security, inclusion: { in: SECURITY }
+    validates :filter, inclusion: {in: FILTERS}, presence: true
+    validates :name, uniqueness: true, length: {maximum: 60}, presence: true
+    validates :posting_permission, inclusion: {in: PERMISSIONS}
+    validates :security, inclusion: {in: SECURITY}
     validates :topics_count, numericality: true
 
     has_many :categories, dependent: :destroy
@@ -64,7 +58,7 @@ module Thredded
       MessageboardDecorator.new(self)
     end
 
-    def add_member(user, as='member')
+    def add_member(user, as = 'member')
       roles.create(user_id: user.id, level: as)
     end
 
@@ -102,10 +96,6 @@ module Thredded
 
     def restricted_to_private?
       'private' == security
-    end
-
-    def to_param
-      name.downcase
     end
   end
 end
