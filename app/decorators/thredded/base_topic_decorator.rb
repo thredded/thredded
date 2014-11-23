@@ -43,10 +43,6 @@ module Thredded
       end
     end
 
-    def gravatar_url
-      super.gsub(/http:/, '')
-    end
-
     private
 
     def updated_at_str

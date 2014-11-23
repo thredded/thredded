@@ -75,13 +75,13 @@ module Thredded
     end
   end
 
-  describe PostDecorator, '#gravatar_url' do
+  describe PostDecorator, '#avatar_url' do
     it 'strips the protocol from the url' do
       post = build_stubbed(:post)
-      allow(post).to receive_messages(gravatar_url: 'http://example.com/me.jpg')
+      allow(post).to receive_messages(avatar_url: 'http://example.com/me.jpg')
       decorated_post = PostDecorator.new(post)
 
-      expect(decorated_post.gravatar_url).to eq '//example.com/me.jpg'
+      expect(decorated_post.avatar_url).to eq '//example.com/me.jpg'
     end
   end
 end

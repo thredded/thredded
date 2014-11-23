@@ -6,6 +6,10 @@ module Thredded
       super(Thredded::BaseTopicDecorator.new(private_topic))
     end
 
+    def self.model_name
+      ActiveModel::Name.new(self, nil, 'Topic')
+    end
+
     def css_class
       classes = []
       classes << 'locked' if locked?

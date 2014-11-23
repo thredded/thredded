@@ -14,6 +14,9 @@ Thredded.user_name_column = :name
 # the path or url to your user.
 Thredded.user_path = ->(user) { "/users/#{user.to_s}" }
 
+# User avatar URL. Thredded uses Gravatar via gravtastic gem by default.
+Thredded.avatar_url = ->(_user, post) { post.gravatar_url(default: 'mm') }
+
 # ==> Email Configuration
 # Email "From:" field will use the following
 # Thredded.email_from = 'no-reply@example.com'
@@ -48,12 +51,6 @@ Thredded.queue_inline = Rails.env.test?
 # like them to use. It defaults to 'thredded' and will look for it in
 # `app/views/layouts/thredded.html.erb`.
 Thredded.layout = 'thredded'
-
-# Avatars are provided via gravatar. You may override the default image
-# (when a user doesn't have a gravatar account) with the `avatar_default`
-# config option. Default is `mm`. See the following for more information
-# at gravatar: https://en.gravatar.com/site/implement/images/#default-image
-Thredded.avatar_default = 'mm'
 
 # ==> Asset / File Storage Configuration
 # Root location where you have placed emojis (used when rendering posts).
