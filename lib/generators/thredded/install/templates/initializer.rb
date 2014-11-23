@@ -14,7 +14,9 @@ Thredded.user_name_column = :name
 # the path or url to your user.
 Thredded.user_path = ->(user) { "/users/#{user.to_s}" }
 
-# User avatar URL. Thredded uses Gravatar via gravtastic gem by default.
+# User avatar URL. Thredded uses Gravatar via the gravtastic gem by default.
+# Visit the gravtastic project - https://github.com/chrislloyd/gravtastic#usage
+# for further instructions on how to customize.
 Thredded.avatar_url = ->(_user, post) { post.gravatar_url(default: 'mm') }
 
 # ==> Email Configuration
