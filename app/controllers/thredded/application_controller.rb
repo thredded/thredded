@@ -12,7 +12,8 @@ module Thredded
     rescue_from CanCan::AccessDenied,
       Thredded::Errors::MessageboardNotFound,
       Thredded::Errors::MessageboardReadDenied,
-      Thredded::Errors::TopicCreateDenied do |exception|
+      Thredded::Errors::TopicCreateDenied,
+      Thredded::Errors::PrivateTopicCreateDenied do |exception|
 
       redirect_to thredded.root_path, alert: exception.message
     end
