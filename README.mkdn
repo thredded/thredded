@@ -8,6 +8,10 @@ If you're looking for variations on a theme - see [Discourse], [Forem],
 and Courtenay's [Altered Beast]. Of those it should be noted that Forem
 is an engine - not a standalone app.
 
+<a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
+
+<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development 
+
 [Discourse]: http://www.discourse.org/
 [Forem]: https://www.github.com/radar/forem
 [Tectura]: https://github.com/caelum/tectura
