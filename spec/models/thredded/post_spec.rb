@@ -14,6 +14,17 @@ module Thredded
     it { should belong_to(:user_detail) }
   end
 
+  context 'when a parent user is nil' do
+    describe Post, '#user_email and #anonymous?' do
+      it 'is nil' do
+        post = build_stubbed(:post, user: nil)
+
+        expect(post.user_email).to eq nil
+        expect(post.user_anonymous?).to eq nil
+      end
+    end
+  end
+
   describe Post, '#create' do
     after(:each) do
       Timecop.return
