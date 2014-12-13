@@ -13,7 +13,7 @@ module Thredded
     end
 
     def reply_to
-      "#{topic.hash_id}@#{Thredded.email_incoming_host}"
+      Thredded.email_reply_to.call(topic)
     end
 
     def no_reply

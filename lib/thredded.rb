@@ -24,6 +24,7 @@ module Thredded
     :email_incoming_host,
     :email_from,
     :email_outgoing_prefix,
+    :email_reply_to,
     :user_path,
     :file_storage,
     :asset_root,
@@ -40,6 +41,7 @@ module Thredded
   self.queue_backend = :threaded_in_memory_queue
   self.queue_memory_log_level = Logger::WARN
   self.queue_inline = false
+  self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
 
   def self.user_class
     if @@user_class.is_a?(Class)
