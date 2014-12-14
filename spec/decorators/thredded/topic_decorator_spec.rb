@@ -16,7 +16,7 @@ module Thredded
       )
       decorator = TopicDecorator.new(topic)
 
-      expect(decorator.user_link).to eq "<a href='/i_am/joel'>joel</a>"
+      expect(decorator.user_link).to eq '<a href="/i_am/joel">joel</a>'
     end
 
     it 'links to nowhere for a null user' do
@@ -44,7 +44,7 @@ module Thredded
       topic = build_stubbed(:topic, last_user: user)
       decorated_topic = TopicDecorator.new(topic)
 
-      expect(decorated_topic.last_user_link).to eq "<a href='/'>joel</a>"
+      expect(decorated_topic.last_user_link).to eq '<a href="/">joel</a>'
     end
 
     it 'returns link to user if config is set' do
@@ -53,7 +53,7 @@ module Thredded
       topic = build_stubbed(:topic, last_user: user)
       decorated_topic = TopicDecorator.new(topic)
 
-      expect(decorated_topic.last_user_link).to eq "<a href='/hi/joel'>joel</a>"
+      expect(decorated_topic.last_user_link).to eq '<a href="/hi/joel">joel</a>'
     end
   end
 

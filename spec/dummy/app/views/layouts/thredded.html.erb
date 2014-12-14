@@ -2,9 +2,11 @@
 <html>
   <head>
     <title><%= yield :thredded_page_title %></title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tag %>
   </head>
-  <body id="<%= yield :thredded_page_id %>">
+  <body class='thredded-page' id="<%= yield :thredded_page_id %>">
     <div id='header'>
       <% if signed_in? %>
         <%= current_user %> | <%= link_to 'Sign out', main_app.session_path, method: :delete %>

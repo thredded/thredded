@@ -20,7 +20,7 @@ module Thredded
       topic = build_stubbed(:private_topic, last_user: user)
       decorated_topic = PrivateTopicDecorator.new(topic)
 
-      expect(decorated_topic.last_user_link).to eq "<a href='/'>joel</a>"
+      expect(decorated_topic.last_user_link).to eq '<a href="/">joel</a>'
     end
 
     it 'returns link to user if config is set' do
@@ -29,7 +29,7 @@ module Thredded
       topic = build_stubbed(:private_topic, last_user: user)
       decorated_topic = PrivateTopicDecorator.new(topic)
 
-      expect(decorated_topic.last_user_link).to eq "<a href='/hi/joel'>joel</a>"
+      expect(decorated_topic.last_user_link).to eq '<a href="/hi/joel">joel</a>'
     end
   end
 end

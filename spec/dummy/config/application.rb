@@ -4,10 +4,14 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
+require 'sass-rails'
 require 'jquery/rails'
+require 'select2-rails'
+require 'rails-timeago'
+require 'bootstrap-sass'
+require 'thredded'
 
 Bundler.require(*Rails.groups)
-require "thredded"
 
 module Dummy
   class Application < Rails::Application

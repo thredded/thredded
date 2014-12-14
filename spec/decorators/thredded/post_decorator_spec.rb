@@ -14,7 +14,7 @@ module Thredded
       post = create(:post, user: user)
       decorator = PostDecorator.new(post)
 
-      expect(decorator.user_link).to eq "<a href='/i_am/joel'>joel</a>"
+      expect(decorator.user_link).to eq '<a href="/i_am/joel">joel</a>'
     end
 
     it 'links to nowhere for a null user' do
@@ -48,11 +48,7 @@ module Thredded
       post = build_stubbed(:post)
       allow(post).to receive_messages(created_at: nil)
       decorated_post = PostDecorator.new(post)
-      ambiguous_message = <<-eohtml.strip_heredoc.html_safe
-        <abbr>
-          a little while ago
-        </abbr>
-      eohtml
+      ambiguous_message = I18n.t('thredded.timeago.nil_text')
 
       expect(decorated_post.created_at_timeago).to eq ambiguous_message
     end
@@ -64,11 +60,7 @@ module Thredded
         post = build_stubbed(:post)
         decorated_post = PostDecorator.new(post)
 
-        created_at_html = <<-eohtml.strip_heredoc.html_safe
-          <abbr class="timeago" title="2013-01-01T15:00:00Z">
-            2013-01-01 15:00:00 UTC
-          </abbr>
-        eohtml
+        created_at_html = '<time class="created_at" data-time-ago="2013-01-01T15:00:00Z" datetime="2013-01-01T15:00:00Z" title="Tue, 01 Jan 2013 15:00:00 +0000">2013-01-01</time>'
 
         expect(decorated_post.created_at_timeago).to eq created_at_html
       end

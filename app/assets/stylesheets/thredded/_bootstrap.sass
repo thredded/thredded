@@ -1,0 +1,140 @@
+// A basic thredded theme for use with Bootstrap 3 for Sass
+// Import this after bootstrap
+.thredded-page
+  @extend .container-fluid
+  // Navigation breadcrumbs
+  .breadcrumbs
+    @extend .breadcrumb
+    margin-bottom: 6px
+  // Navigation: Public / Private Topic tabs, New Topic buttons, and Keyword Search
+  .topic_nav
+    // Public / Private Topic tabs
+    > .listings
+      @extend .nav, .nav-tabs
+      display: inline-block
+      a > span
+        @extend .badge
+    // New Topic / New Private Topic
+    > .actions
+      float: right
+      list-style: none
+      padding-left: 0
+      margin-bottom: 0
+      > li
+        display: inline-block
+        > a
+          @extend .btn, .btn-info
+    // Keyword Search
+    .input-search
+      display: inline-block
+      width: auto
+  // Currently Online list
+  .online
+    > h3
+      font-size: $font-size-small
+      margin: 0
+      display: inline-block
+    ul
+      @extend .list-inline
+  // Topic list item
+  article.topic
+    padding: 5px 11px
+    > .post_count
+      @extend .badge
+      display: inline-block
+      margin-right: 5px
+      margin-top: 1px
+    &.unread > .post_count
+      @extend .alert-info
+    > h1
+      display: inline-block
+      @extend .h4
+    &:nth-child(odd)
+      background-color: $table-bg-accent
+  // Topics#show header
+  section.topic > header > h1
+    @extend .h2
+    margin-top: 0
+  // A post in a topic
+  article.post
+    border-top: 1px solid $table-border-color
+    line-height: $line-height-computed
+    padding: 15px 0
+    // make "header" a fixed-size left column
+    > header
+      float: left
+      margin-right: 15px
+      width: 128px
+      @media (max-width: $screen-xs-max)
+        width: 64px
+      // size the avatars to avoid content reflow on load
+      > img
+        width: 128px
+        height: 128px
+        @media (max-width: $screen-xs-max)
+          width: 64px
+          height: 64px
+      // username and timestamp styles
+      > cite
+        word-break: break-all
+        > time
+          border: none
+          display: block
+      // place username above the avatar
+      display: table
+      > img
+        display: table-footer-group
+      > cite
+        display: table-header-group
+    // clearfix left
+    &:after
+      content: " "
+      display: block
+      clear: left
+  // Form styles
+  input[type="text"], input[type="search"], select, textarea
+    @extend .form-control
+  input[type="submit"]
+    @extend .btn, .btn-primary
+  .forms ul
+    @extend .list-unstyled
+    > .title > label
+      @extend .sr-only
+    > .locked, > .sticky
+      display: inline-block
+    > .sticky
+      margin-left: 5px
+    > .submit
+      margin-top: 15px
+    > .private_users
+      margin: 10px 0
+      .select2-input
+        min-width: 320px
+  // Yes/No question, such as "No private topic exists, create one? Yes / No"
+  .question
+    display: inline-block
+    padding: 20px
+    margin-top: 10px
+    @extend .alert, .alert-info
+    p.a
+      text-align: center
+      > a
+        color: darken(saturate($brand-primary, 18%), 20%)
+        &.yes
+          @extend .btn, .btn-primary
+        &.no
+          margin-left: 15px
+  // Utility classes
+  .show-for-small
+    @extend .visible-xs
+
+// Active tab styles
+// Sass can't extend nested selectors, so copy the styles from .nav-tabs > .active
+#thredded_private_topics_index .private_topic_list > a,
+#thredded_topics_index .topic_list > a
+  &, &:hover, &:focus
+    color: $nav-tabs-active-link-hover-color
+    background-color: $nav-tabs-active-link-hover-bg
+    border: 1px solid $nav-tabs-active-link-hover-border-color
+    border-bottom-color: transparent
+    cursor: default
