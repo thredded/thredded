@@ -34,7 +34,7 @@ module Thredded
     def post_params
       params
         .require(:post)
-        .permit!
+        .permit(:content)
         .merge!(
           ip: request.remote_ip,
           user: current_user,
