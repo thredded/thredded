@@ -1,12 +1,19 @@
 language: ruby
-before_script: "RAILS_ENV=test bundle exec rake db:create db:migrate"
-script: "bundle exec rake"
-env:
-  - DB=postgresql
-  - DB=mysql2
+
 rvm:
   - 2.0.0
   - 2.1.0
+
 gemfile:
   - spec/gemfiles/rails_4_0.gemfile
   - spec/gemfiles/rails_4_1.gemfile
+
+env:
+  - DB=postgresql
+  - DB=mysql2
+
+sudo: false
+
+before_script: "RAILS_ENV=test bundle exec rake db:create db:migrate"
+
+script: "bundle exec rake"
