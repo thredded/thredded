@@ -1,8 +1,9 @@
 module Thredded
-  class BaseUserTopicDecorator
-    extend Forwardable
+  class BaseUserTopicDecorator < Module
     extend ActiveModel::Naming
     include ActiveModel::Conversion
+
+    delegate :created_at_timeago, :last_user_link, :original, :updated_at_timeago, to: :topic
 
     class << self
       # @return [Class<ActiveRecord::Base>]
@@ -29,12 +30,6 @@ module Thredded
       @user  = user || NullUser.new
       @topic = self.class.decorator_class.new(topic)
     end
-
-    def_delegators :topic,
-                   :created_at_timeago,
-                   :last_user_link,
-                   :original,
-                   :updated_at_timeago
 
     def method_missing(meth, *args)
       if topic.respond_to?(meth)
