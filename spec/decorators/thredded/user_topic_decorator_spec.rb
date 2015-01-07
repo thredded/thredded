@@ -24,7 +24,7 @@ module Thredded
     end
   end
 
-  describe  UserTopicDecorator, '#read?' do
+  describe UserTopicDecorator, '#read?' do
     it 'is true if the posts counts match' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)

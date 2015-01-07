@@ -25,7 +25,7 @@ module Thredded
     end
 
     it 'raises Thredded::Errors::TopicNotFound error' do
-      expect{ Topic.find_by_slug_with_user_topic_reads!('rubbish') }
+      expect { Topic.find_by_slug_with_user_topic_reads!('rubbish') }
         .to raise_error(Thredded::Errors::TopicNotFound)
     end
 

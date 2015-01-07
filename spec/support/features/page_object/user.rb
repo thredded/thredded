@@ -26,7 +26,7 @@ module PageObject
     end
 
     def has_redirected_with_error?
-      has_content?("No user exists named #{@user.to_s}")
+      has_content?("No user exists named #{@user}")
     end
   end
 end

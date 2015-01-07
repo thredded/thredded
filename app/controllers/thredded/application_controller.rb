@@ -47,21 +47,23 @@ module Thredded
     end
 
     def authorize_reading(obj)
-      if cannot? :read, obj
-        class_name = obj.class.to_s
-        error = class_name
-          .gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
-        raise error.constantize
-      end
+      return if can? :read, obj
+
+      class_name = obj.class.to_s
+      error = class_name
+        .gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
+
+      fail error.constantize
     end
 
     def authorize_creating(obj)
-      if cannot? :create, obj
-        class_name = obj.class.to_s
-        error = class_name
-          .gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
-        raise error.constantize
-      end
+      return if can? :create, obj
+
+      class_name = obj.class.to_s
+      error = class_name
+        .gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
+
+      fail error.constantize
     end
 
     def update_user_activity

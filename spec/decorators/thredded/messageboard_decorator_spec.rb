@@ -6,8 +6,8 @@ module Thredded
   describe MessageboardDecorator, '#meta' do
     it 'outputs a humanized count of topics and posts' do
       messageboard = create(:messageboard,
-        topics_count: 40343,
-        posts_count: 134500
+        topics_count: 40_343,
+        posts_count: 134_500
       )
       decorated_messageboard = MessageboardDecorator.new(messageboard)
       expected_result = '40.3 thousand topics, 135 thousand posts'

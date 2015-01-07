@@ -37,7 +37,7 @@ module Thredded
     end
 
     def member?
-      user.valid? && messageboard.has_member?(user)
+      user.valid? && messageboard.member?(user)
     end
 
     def superadmin?

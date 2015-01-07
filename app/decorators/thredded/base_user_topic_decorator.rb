@@ -22,7 +22,7 @@ module Thredded
       end
 
       def model_name
-        ActiveModel::Name.new(self, nil, self.topic_class.name.demodulize)
+        ActiveModel::Name.new(self, nil, topic_class.name.demodulize)
       end
     end
 

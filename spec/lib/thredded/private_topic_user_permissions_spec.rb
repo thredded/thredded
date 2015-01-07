@@ -49,4 +49,3 @@ module Thredded
     end
   end
 end
-

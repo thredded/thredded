@@ -5,7 +5,7 @@ module Thredded
   describe MessageboardUserPermissions do
     describe '#readable?' do
       context 'when it is private' do
-        let(:messageboard){  create(:messageboard, :private) }
+        let(:messageboard) {  create(:messageboard, :private) }
 
         it 'is readable by members' do
           user = create(:user)
@@ -28,7 +28,7 @@ module Thredded
       end
 
       context 'when set to logged_in' do
-        let(:messageboard){  create(:messageboard, :restricted_to_logged_in) }
+        let(:messageboard) {  create(:messageboard, :restricted_to_logged_in) }
 
         it 'is readable by members' do
           user = create(:user)

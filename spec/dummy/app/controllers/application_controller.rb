@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    if session[:user_id]
-      @current_user ||= Thredded.user_class.find(session[:user_id])
-    end
+    return nil unless session[:user_id]
+
+    @current_user ||= Thredded.user_class.find(session[:user_id])
   end
 end

@@ -13,7 +13,6 @@ module Thredded
         @messageboard = @role.messageboard
       end
 
-
       Timecop.freeze(march_2) do
         Thredded::ActivityUpdaterJob.queue.update_user_activity(
           'messageboard_id' => @messageboard.id,

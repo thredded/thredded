@@ -52,11 +52,11 @@ module Thredded
     end
 
     def save
-      if valid?
-        ActiveRecord::Base.transaction do
-          private_topic.save!
-          post.save!
-        end
+      return unless valid?
+
+      ActiveRecord::Base.transaction do
+        private_topic.save!
+        post.save!
       end
     end
 
@@ -121,13 +121,8 @@ module Thredded
     end
 
     def validate_children
-      if private_topic.invalid?
-        promote_errors(private_topic.errors)
-      end
-
-      if post.invalid?
-        promote_errors(post.errors)
-      end
+      promote_errors(private_topic.errors) if private_topic.invalid?
+      promote_errors(post.errors) if post.invalid?
     end
 
     def promote_errors(child_errors)

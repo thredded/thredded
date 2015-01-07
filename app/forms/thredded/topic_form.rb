@@ -34,11 +34,11 @@ module Thredded
     end
 
     def save
-      if valid?
-        ActiveRecord::Base.transaction do
-          topic.save!
-          post.save!
-        end
+      return unless valid?
+
+      ActiveRecord::Base.transaction do
+        topic.save!
+        post.save!
       end
     end
 
@@ -74,13 +74,8 @@ module Thredded
     end
 
     def validate_children
-      if topic.invalid?
-        promote_errors(topic.errors)
-      end
-
-      if post.invalid?
-        promote_errors(post.errors)
-      end
+      promote_errors(topic.errors) if topic.invalid?
+      promote_errors(post.errors) if post.invalid?
     end
 
     def promote_errors(child_errors)

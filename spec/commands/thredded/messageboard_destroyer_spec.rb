@@ -13,12 +13,12 @@ module Thredded
 
       Thredded::MessageboardDestroyer.new('goodbye').run
 
-      expect{ Thredded::Category.find(category.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect{ Thredded::MessageboardPreference.find(messageboard_preference.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect{ Thredded::Post.find(post.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect{ Thredded::PrivateTopic.find(private_topic.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect{ Thredded::Role.find(role.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect{ Thredded::Topic.find(topic.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { Thredded::Category.find(category.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { Thredded::MessageboardPreference.find(messageboard_preference.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { Thredded::Post.find(post.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { Thredded::PrivateTopic.find(private_topic.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { Thredded::Role.find(role.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { Thredded::Topic.find(topic.id) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

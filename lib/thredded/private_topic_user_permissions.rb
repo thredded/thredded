@@ -10,9 +10,9 @@ module Thredded
     end
 
     def listable?
-      if user.thredded_private_topics
-        user.thredded_private_topics.for_user(user).any?
-      end
+      return unless user.thredded_private_topics
+
+      user.thredded_private_topics.for_user(user).any?
     end
 
     def manageable?
@@ -35,4 +35,3 @@ module Thredded
     end
   end
 end
-

@@ -8,38 +8,42 @@ FactoryGirl.define do
     from 'user@email.com'
     subject 'email subject'
     body 'Hello!'
-    attachments {[]}
+    attachments { [] }
 
     trait :with_attachment do
-      attachments {[
-        ActionDispatch::Http::UploadedFile.new({
-          filename: 'img.png',
-          type: 'image/png',
-          tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
-        })
-      ]}
+      attachments do
+        [
+          ActionDispatch::Http::UploadedFile.new(
+            filename: 'img.png',
+            type: 'image/png',
+            tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
+          )
+        ]
+      end
     end
 
     trait :with_attachments do
-      attachments {[
-        ActionDispatch::Http::UploadedFile.new({
-          filename: 'img.png',
-          type: 'image/png',
-          tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
-        }),
-        ActionDispatch::Http::UploadedFile.new({
-          filename: 'zip.png',
-          type: 'image/png',
-          tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/zip.png")
-        })
-      ]}
+      attachments do
+        [
+          ActionDispatch::Http::UploadedFile.new(
+            filename: 'img.png',
+            type: 'image/png',
+            tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
+          ),
+          ActionDispatch::Http::UploadedFile.new(
+            filename: 'zip.png',
+            type: 'image/png',
+            tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/zip.png")
+          )
+        ]
+      end
     end
   end
 
   factory :attachment, class: Thredded::Attachment do
-    attachment    { fixture_file_upload('spec/samples/img.png', 'image/png') }
-    content_type  'image/png'
-    file_size     1000
+    attachment { fixture_file_upload('spec/samples/img.png', 'image/png') }
+    content_type 'image/png'
+    file_size 1000
 
     factory :imgpng
 
@@ -72,7 +76,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
     filter 'markdown'
-    posting_permission  'anonymous'
+    posting_permission 'anonymous'
     security 'public'
     closed false
 
@@ -149,7 +153,7 @@ FactoryGirl.define do
     end
 
     trait :bbcode do
-      before(:create) do |post, evaluator|
+      before(:create) do |post, _|
         post.messageboard.update_attributes(filter: 'bbcode')
       end
     end
@@ -228,7 +232,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "name#{n}" }
 
     trait :admin do
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _|
         Thredded::Messageboard.all.each do |messageboard|
           messageboard.add_member(user, 'admin')
         end
@@ -236,13 +240,13 @@ FactoryGirl.define do
     end
 
     trait :with_user_details do
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _|
         create(:user_detail, user: user)
       end
     end
 
     trait :superadmin do
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _|
         create(:user_detail, user: user, superadmin: true)
       end
     end

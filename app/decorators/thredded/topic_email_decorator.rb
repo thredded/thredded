@@ -5,7 +5,7 @@ module Thredded
     end
 
     def smtp_api_tag(tag)
-      %Q{{"category": ["thredded_#{topic.messageboard.name}","#{tag}"]}}
+      %Q({"category": ["thredded_#{topic.messageboard.name}","#{tag}"]})
     end
 
     def subject

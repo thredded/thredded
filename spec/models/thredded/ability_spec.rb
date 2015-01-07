@@ -60,43 +60,43 @@ module Thredded
         end
 
         it 'allows a member to create a topic' do
-          allow(@messageboard).to receive_messages(has_member?: true)
+          allow(@messageboard).to receive_messages(member?: true)
           ability = Thredded::Ability.new(@user)
           expect(ability).to be_able_to(:create, @topic)
         end
 
         it 'allows a member to read a topic' do
-          allow(@messageboard).to receive_messages(has_member?: true)
+          allow(@messageboard).to receive_messages(member?: true)
           ability = Thredded::Ability.new(@user)
           expect(ability).to be_able_to(:read, @topic)
         end
 
         it 'does not allow a non-member to read a topic' do
-          allow(@messageboard).to receive_messages(has_member?: false)
+          allow(@messageboard).to receive_messages(member?: false)
           ability = Thredded::Ability.new(@user)
           expect(ability).not_to be_able_to(:read, @topic)
         end
 
         it 'does not allow a non-member to create a topic' do
-          allow(@messageboard).to receive_messages(has_member?: false)
+          allow(@messageboard).to receive_messages(member?: false)
           ability = Thredded::Ability.new(@user)
           expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow a logged in user to create a topic' do
-          allow(@messageboard).to receive_messages(has_member?: false)
+          allow(@messageboard).to receive_messages(member?: false)
           ability = Thredded::Ability.new(@user)
           expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow a logged in user to read a topic' do
-          allow(@messageboard).to receive_messages(has_member?: false)
+          allow(@messageboard).to receive_messages(member?: false)
           ability = Thredded::Ability.new(@user)
           expect(ability).not_to be_able_to(:create, @topic)
         end
 
         it 'does not allow a logged in user to list topics' do
-          allow(@messageboard).to receive_messages(has_member?: false)
+          allow(@messageboard).to receive_messages(member?: false)
           ability = Thredded::Ability.new(@user)
           expect(ability).not_to be_able_to(:index, @topic)
         end
