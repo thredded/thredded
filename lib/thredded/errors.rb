@@ -34,7 +34,6 @@ module Thredded
     end
 
     class PrivateTopicCreateDenied < TopicCreateDenied
-
     end
 
     class EmptySearchResults < Thredded::Error

@@ -1,7 +1,7 @@
 module Thredded
   class SetupsController < Thredded::ApplicationController
     def new
-      show_sign_in_error if !signed_in?
+      show_sign_in_error unless signed_in?
       @messageboard = Messageboard.new
     end
 
@@ -15,7 +15,7 @@ module Thredded
 
         redirect_to root_path
       else
-        show_sign_in_error if !signed_in?
+        show_sign_in_error unless signed_in?
         render action: :new
       end
     end

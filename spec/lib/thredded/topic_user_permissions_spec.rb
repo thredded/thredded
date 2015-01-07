@@ -4,7 +4,7 @@ require 'thredded/topic_user_permissions'
 module Thredded
   describe TopicUserPermissions do
     describe '#creatable?' do
-      let(:topic){ create(:topic) }
+      let(:topic) { create(:topic) }
       let(:user_details) { Thredded::UserDetail.new }
 
       it 'allows members to create a topic' do

@@ -1,6 +1,6 @@
 module Thredded
   class NullUser
-    def admins?(messageboard)
+    def admins?(_)
       false
     end
 
@@ -16,7 +16,7 @@ module Thredded
       0
     end
 
-    def member_of?(messageboard)
+    def member_of?(_)
       false
     end
 

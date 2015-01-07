@@ -20,7 +20,7 @@ module Thredded
     it { should have_db_index(:closed) }
     it { should have_db_index(:slug) }
     it { should have_db_column(:filter) }
-    it { should validate_inclusion_of(:filter).in_array(['markdown', 'bbcode']) }
+    it { should validate_inclusion_of(:filter).in_array(%w(markdown bbcode)) }
 
     before(:each) do
       @messageboard = create(:messageboard, topics_count: 10)
@@ -41,7 +41,7 @@ module Thredded
     end
 
     it 'orders by number of topics, descending' do
-      meh = create(:messageboard, topics_count: 500)
+      create(:messageboard, topics_count: 500)
       lots = create(:messageboard, topics_count: 1000)
       all_boards = Messageboard.all
 
@@ -92,20 +92,20 @@ module Thredded
       end
     end
 
-    describe '#has_member?' do
+    describe '#member?' do
       it 'is true if a user is a member of a messageboard' do
         user = create(:user)
         messageboard = create(:messageboard)
         messageboard.add_member(user)
 
-        expect(messageboard.has_member?(user)).to be_truthy
+        expect(messageboard.member?(user)).to be_truthy
       end
 
       it 'is false if user is not a member' do
         user = create(:user)
         messageboard = create(:messageboard)
 
-        expect(messageboard.has_member?(user)).to be_falsy
+        expect(messageboard.member?(user)).to be_falsy
       end
     end
 
@@ -187,7 +187,7 @@ module Thredded
 
     context 'when a messageboard is not found' do
       it 'raises Thredded::Errors::MessageboardNotFound' do
-        expect{ Messageboard.find_by_slug('rubbish') }
+        expect { Messageboard.find_by_slug('rubbish') }
           .to raise_error(Thredded::Errors::MessageboardNotFound)
       end
     end

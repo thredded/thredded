@@ -18,7 +18,6 @@ module Thredded
       TopicDecorator.new(self)
     end
 
-
     def private?
       true
     end
@@ -58,9 +57,9 @@ module Thredded
     end
 
     def user_id=(ids)
-      if ids.size > 0
-        self.users = Thredded.user_class.where(id: ids.uniq)
-      end
+      return unless ids.size > 0
+
+      self.users = Thredded.user_class.where(id: ids.uniq)
     end
 
     def users_to_sentence

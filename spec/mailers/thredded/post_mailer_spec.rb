@@ -5,7 +5,7 @@ module Thredded
     it 'sets the correct headers' do
       expect(email.from).to eq(['no-reply@example.com'])
       expect(email.to).to eq(['no-reply@example.com'])
-      expect(email.bcc).to eq(['john@email.com','sam@email.com'])
+      expect(email.bcc).to eq(%w(john@email.com sam@email.com))
       expect(email.reply_to).to eq(['abcd@incoming.example.com'])
       expect(email.subject).to eq('[Thredded] A title')
     end
@@ -18,8 +18,8 @@ module Thredded
     def email
       @email ||= begin
         joel = build_stubbed(:user, name: 'joel')
-        john = build_stubbed(:user, email: 'john@email.com')
-        sam = build_stubbed(:user, email: 'sam@email.com')
+        build_stubbed(:user, email: 'john@email.com')
+        build_stubbed(:user, email: 'sam@email.com')
         topic = build_stubbed(:topic,
           hash_id: 'abcd',
           title: 'A title',
@@ -31,7 +31,7 @@ module Thredded
           content: 'hey @john @sam blarghy blurp',
         )
         allow(Post).to receive_messages(find: post)
-        emails = ['john@email.com', 'sam@email.com']
+        emails = %w(john@email.com sam@email.com)
 
         PostMailer.at_notification(post.id, emails)
       end

@@ -1,4 +1,4 @@
-$:.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'thredded/version'
 
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rubocop'
   s.add_development_dependency 'shoulda-matchers', '~> 2.7'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'timecop'

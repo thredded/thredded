@@ -1,6 +1,6 @@
 module Thredded
   class Role < ActiveRecord::Base
-    ROLES = ['superadmin', 'admin', 'moderator', 'member']
+    ROLES = %w(superadmin admin moderator member)
 
     belongs_to :messageboard
     belongs_to :user, class_name: Thredded.user_class
@@ -10,7 +10,7 @@ module Thredded
     validates_presence_of :messageboard_id
     validates_presence_of :user_id
 
-    scope :for, lambda { |messageboard| where(messageboard_id: messageboard.id) }
-    scope :as,  lambda { |role| where(level: role) }
+    scope :for, -> (messageboard) { where(messageboard_id: messageboard.id) }
+    scope :as,  -> (role) { where(level: role) }
   end
 end

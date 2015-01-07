@@ -4,7 +4,6 @@ module PageObject
   class Topics < Base
     attr_accessor :messageboard, :topic_title, :topic_content
 
-
     def initialize(messageboard)
       @messageboard = messageboard
     end

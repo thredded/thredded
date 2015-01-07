@@ -5,9 +5,9 @@ class EagerLoad
 
   def matches?(target)
     @target = target
-    @target.default_scopes.find_all { |scope|
+    @target.default_scopes.select do |scope|
       scope[:include] == @association
-    }.present?
+    end.present?
   end
 
   def failure_message

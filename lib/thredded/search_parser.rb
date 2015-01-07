@@ -2,7 +2,7 @@ module Thredded
   class SearchParser
     def initialize(query)
       @query = query
-      @keywords = ['in', 'by', 'order']
+      @keywords = %w(in by order)
     end
 
     def parse
@@ -15,7 +15,7 @@ module Thredded
       found_terms_hash = {}
 
       @keywords.each do |keyword|
-        regex = Regexp.new(keyword+'\s*:\s*\w+', Regexp::IGNORECASE)
+        regex = Regexp.new(keyword + '\s*:\s*\w+', Regexp::IGNORECASE)
         keyword_scan = @query.scan(regex)
         @query = @query.gsub(regex, '')
 
@@ -38,7 +38,7 @@ module Thredded
     def parse_text
       regex = Regexp.new('\"[^"]*\"')
       found_terms = @query.scan(regex)
-      @query = @query.sub(regex,'')
+      @query = @query.sub(regex, '')
       found_terms.concat(@query.split(/\s+/))
     end
   end

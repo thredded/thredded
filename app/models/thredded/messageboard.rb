@@ -1,16 +1,16 @@
 module Thredded
   class Messageboard < ActiveRecord::Base
-    SECURITY = %w{private logged_in public}
-    PERMISSIONS = %w{members logged_in anonymous}
-    FILTERS = %w{markdown bbcode}
+    SECURITY = %w(private logged_in public)
+    PERMISSIONS = %w(members logged_in anonymous)
+    FILTERS = %w(markdown bbcode)
 
     extend FriendlyId
     friendly_id :name, use: :slugged
 
-    validates :filter, inclusion: {in: FILTERS}, presence: true
-    validates :name, uniqueness: true, length: {maximum: 60}, presence: true
-    validates :posting_permission, inclusion: {in: PERMISSIONS}
-    validates :security, inclusion: {in: SECURITY}
+    validates :filter, inclusion: { in: FILTERS }, presence: true
+    validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
+    validates :posting_permission, inclusion: { in: PERMISSIONS }
+    validates :security, inclusion: { in: SECURITY }
     validates :topics_count, numericality: true
 
     has_many :categories, dependent: :destroy
@@ -20,19 +20,17 @@ module Thredded
     has_many :roles, dependent: :destroy
     has_many :topics, dependent: :destroy
     has_many :users, through: :roles, class_name: Thredded.user_class
-    has_many :active_roles, -> {
+    has_many :active_roles, (lambda do
       includes(:user)
         .references(:user)
         .where('last_seen > ?', 5.minutes.ago)
         .order(:last_seen)
-    }, class_name: Thredded::Role
+    end), class_name: Thredded::Role
 
     def self.find_by_slug(slug)
-      begin
-        friendly.find(slug)
-      rescue ActiveRecord::RecordNotFound
-        raise Thredded::Errors::MessageboardNotFound
-      end
+      friendly.find(slug)
+    rescue ActiveRecord::RecordNotFound
+      raise Thredded::Errors::MessageboardNotFound
     end
 
     def self.default_scope
@@ -62,7 +60,7 @@ module Thredded
       roles.create(user_id: user.id, level: as)
     end
 
-    def has_member?(user)
+    def member?(user)
       roles.where(user_id: user.id).exists?
     end
 

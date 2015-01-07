@@ -151,7 +151,7 @@ module Thredded
       @post.content = "# Header\nhttp://www.google.com"
       @post.filter = 'markdown'
 
-      expect(@post.filtered_content).to eq %Q(<h1>Header</h1>\n\n<p><a href="http://www.google.com">http://www.google.com</a></p>)
+      expect(@post.filtered_content).to eq "<h1>Header</h1>\n\n<p><a href=\"http://www.google.com\">http://www.google.com</a></p>"
     end
 
     it 'performs some syntax highlighting in markdown' do
@@ -161,7 +161,7 @@ module Thredded
 
   right here"
 
-      expected_output = %Q(<p>this is code</p>\n\n<pre><code>  def hello; puts 'world'; end\n</code></pre>\n\n<p>right here</p>)
+      expected_output = "<p>this is code</p>\n\n<pre><code>  def hello; puts 'world'; end\n</code></pre>\n\n<p>right here</p>"
 
       @post.content = input
       @post.filter = 'markdown'
