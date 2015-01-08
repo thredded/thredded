@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'shoulda-matchers', '~> 2.7'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'timecop'
+  s.add_development_dependency 'test-unit'
 
   # dummy app dependencies
   s.add_development_dependency 'jquery-rails'
