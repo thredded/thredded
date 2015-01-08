@@ -1,7 +1,6 @@
 module Thredded
   class MessageboardDecorator < SimpleDelegator
-    include ActionView::Helpers::NumberHelper
-    include ActionView::Helpers::TagHelper
+    include Thredded::HtmlDecorator
 
     def initialize(messageboard)
       super
@@ -28,19 +27,7 @@ module Thredded
     end
 
     def latest_topic_timeago
-      if latest_topic.updated_at.nil?
-        <<-eohtml.html_safe
-          <abbr>
-            a little while ago
-          </abbr>
-        eohtml
-      else
-        <<-eohtml.html_safe
-          <abbr class="timeago" title="#{topic_updated_at_utc}">
-            #{topic_updated_at_str}
-          </abbr>
-        eohtml
-      end
+      timeago_tag latest_topic.updated_at, class: 'latest_topic'
     end
 
     def latest_topic
@@ -62,13 +49,5 @@ module Thredded
     private
 
     attr_reader :messageboard
-
-    def topic_updated_at_utc
-      latest_topic.updated_at.getutc.iso8601
-    end
-
-    def topic_updated_at_str
-      latest_topic.updated_at.to_s
-    end
   end
 end

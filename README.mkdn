@@ -10,7 +10,7 @@ is an engine - not a standalone app.
 
 <a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
 
-<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development 
+<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development
 
 [Discourse]: http://www.discourse.org/
 [Forem]: https://www.github.com/radar/forem
@@ -83,15 +83,51 @@ A couple of notes with regards to your layout.
 
 * When using route helpers -- eg: `new_session_path`, et al -- make sure to prepend main_app to the helper: `main_app.new_session_path` as rails engines like thredded will not know about those routes' existence unless explicitly told so.
 * As noted above, by default thredded will look for a layout file in your application called `thredded.html.erb`. If you would like to use something else, like your main application layout, you may change it to that in your initializer.
-* The chosen layout has two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`. The views within thredded pass those up through to your layout if you would like to use them.  Example layout:
+* The chosen layout has two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`. The views within thredded pass those up through to your layout if you would like to use them.
+* The layout body must have a `thredded-page` class for default JS and styles to work. Example layout:
 
 ```html
 <html>
   <head>
   <title>My Application | <%= yield :thredded_page_title %></title>
   </head>
-  <body id="<%= yield :thredded_page_id %>">
+  <body class="thredded-page" id="<%= yield :thredded_page_id %>">
     <%= yield %>
   </body>
 </html>
 ```
+
+### JavaScript
+
+Require thredded JS in your application.
+
+```js
+// Require everything:
+//= require thredded
+
+// Or, require without including the dependencies:
+//= require thredded/application
+```
+
+### CSS
+
+Thredded does not ship with standalone styles yet.
+
+To import a default theme for Bootstrap 3 Sass:
+
+```sass
+@import "bootstrap-sprockets"
+@import "bootstrap"
+
+// Import default thredded bootstrap-sass theme
+@import "thredded/bootstrap"
+```
+
+If you use Bootstrap with thredded, you may also want to the styles for its' JS plugins:
+
+```sass
+// Import select2 styles provided by select2-rails
+@import "select2"
+@import "select2-bootstrap"
+```
+

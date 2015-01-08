@@ -34,6 +34,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'sanitize'
   s.add_dependency 'unf'
 
+  # client-side dependencies
+  s.add_dependency 'sass-rails'
+  s.add_dependency 'jquery-rails'
+  s.add_dependency 'select2-rails', '~> 3.5'
+  s.add_dependency 'rails-timeago', '~> 2.11'
+
   # test dependencies
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'chronic'
@@ -47,9 +53,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'test-unit'
 
   # dummy app dependencies
-  s.add_development_dependency 'jquery-rails'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'mysql2'
+  s.add_development_dependency 'bootstrap-sass'
+  s.add_development_dependency 'puma'
 
   # debug dependencies
   s.add_development_dependency 'pry-rails'

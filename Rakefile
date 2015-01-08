@@ -64,6 +64,7 @@ desc 'Start development web server'
 task :dev do
   host = 'localhost'
   port = ENV['PORT'] || 9292
+  require 'puma'
   require 'rails/commands/server'
   ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'development'
   Dir.chdir 'spec/dummy'
@@ -71,6 +72,7 @@ task :dev do
       environment: 'development',
       Host: host,
       Port: port,
+      Threads: '0:8',
       config: 'config.ru'
   )
 end

@@ -48,13 +48,9 @@ module Thredded
         messageboard = create(:messageboard)
         create(:topic, messageboard: messageboard, updated_at: new_years)
         decorated_messageboard = MessageboardDecorator.new(messageboard)
-        abbr = <<-abbr
-          <abbr class="timeago" title="2013-01-01T15:00:00Z">
-            2013-01-01 15:00:00 UTC
-          </abbr>
-        abbr
+        timeago_html = '<time class="latest_topic" data-time-ago="2013-01-01T15:00:00Z" datetime="2013-01-01T15:00:00Z" title="Tue, 01 Jan 2013 15:00:00 +0000">2013-01-01</time>'
 
-        expect(decorated_messageboard.latest_topic_timeago).to eq abbr
+        expect(decorated_messageboard.latest_topic_timeago).to eq timeago_html
       end
     end
   end
