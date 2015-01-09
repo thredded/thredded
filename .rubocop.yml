@@ -7,6 +7,9 @@ AllCops:
     - !ruby/regexp /\/db\/schema\.(postgresql|mysql2)\.rb$/
     - !ruby/regexp /\/db\/migrate\/.*/
 
+AbcSize:
+  Enabled: false
+
 AccessorMethodName:
   Enabled: true
 
@@ -58,7 +61,10 @@ DotPosition:
 EmptyLines:
   Enabled: true
 
-EmptyLinesAroundBody:
+EmptyLinesAroundClassBody:
+  Enabled: true
+
+EmptyLinesAroundModuleBody:
   Enabled: true
 
 EndAlignment:
@@ -85,6 +91,9 @@ MethodLength:
 MultilineTernaryOperator:
   Enabled: true
 
+MultilineOperationIndentation:
+  Enabled: false
+
 Next:
   Enabled: false
 
@@ -96,6 +105,9 @@ ParenthesesAroundCondition:
 
 ParenthesesAsGroupedExpression:
   Enabled: true
+
+PerceivedComplexity:
+  Enabled: false
 
 PerlBackrefs:
   Enabled: true

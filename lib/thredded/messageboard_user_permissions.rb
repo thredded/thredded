@@ -9,14 +9,12 @@ module Thredded
 
     def readable?
       (messageboard.restricted_to_private? && messageboard.member?(user)) ||
-      (messageboard.restricted_to_logged_in? && user.valid?) ||
-      messageboard.public?
+        (messageboard.restricted_to_logged_in? && user.valid?) ||
+        messageboard.public?
     end
 
     def postable?
-      if messageboard.posting_for_anonymous? &&
-        (messageboard.restricted_to_private? || messageboard.restricted_to_logged_in?)
-
+      if messageboard.posting_for_anonymous? && (messageboard.restricted_to_private? || messageboard.restricted_to_logged_in?)
         false
       else
         messageboard.posting_for_anonymous? ||

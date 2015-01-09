@@ -69,7 +69,6 @@ FactoryGirl.define do
       name 'beer'
       description 'a delicious adult beverage'
     end
-
   end
 
   factory :messageboard, class: Thredded::Messageboard do
@@ -161,6 +160,7 @@ FactoryGirl.define do
 
   factory :post_notification, class: Thredded::PostNotification do
     email 'someone@example.com'
+
     post
   end
 

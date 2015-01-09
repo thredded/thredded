@@ -9,20 +9,19 @@ module Thredded
       :preferences,
       :unread_private_topics_count
 
-    rescue_from CanCan::AccessDenied,
+    rescue_from \
+      CanCan::AccessDenied,
       Thredded::Errors::MessageboardNotFound,
       Thredded::Errors::MessageboardReadDenied,
       Thredded::Errors::TopicCreateDenied,
       Thredded::Errors::PrivateTopicCreateDenied do |exception|
-
       redirect_to thredded.root_path, alert: exception.message
     end
 
-    rescue_from Thredded::Errors::EmptySearchResults,
+    rescue_from \
+      Thredded::Errors::EmptySearchResults,
       Thredded::Errors::TopicNotFound do |exception|
-
-      redirect_to messageboard_topics_path(messageboard),
-        alert: exception.message
+      redirect_to messageboard_topics_path(messageboard), alert: exception.message
     end
 
     def signed_in?
