@@ -10,7 +10,6 @@ module Thredded
 
   describe Post, 'associations' do
     it { should have_many(:post_notifications).dependent(:destroy) }
-    it { should have_many(:attachments).dependent(:destroy) }
     it { should belong_to(:user_detail) }
   end
 

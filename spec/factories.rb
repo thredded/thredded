@@ -8,56 +8,6 @@ FactoryGirl.define do
     from 'user@email.com'
     subject 'email subject'
     body 'Hello!'
-    attachments { [] }
-
-    trait :with_attachment do
-      attachments do
-        [
-          ActionDispatch::Http::UploadedFile.new(
-            filename: 'img.png',
-            type: 'image/png',
-            tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
-          )
-        ]
-      end
-    end
-
-    trait :with_attachments do
-      attachments do
-        [
-          ActionDispatch::Http::UploadedFile.new(
-            filename: 'img.png',
-            type: 'image/png',
-            tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/img.png")
-          ),
-          ActionDispatch::Http::UploadedFile.new(
-            filename: 'zip.png',
-            type: 'image/png',
-            tempfile: File.new("#{File.expand_path File.dirname(__FILE__)}/samples/zip.png")
-          )
-        ]
-      end
-    end
-  end
-
-  factory :attachment, class: Thredded::Attachment do
-    attachment { fixture_file_upload('spec/samples/img.png', 'image/png') }
-    content_type 'image/png'
-    file_size 1000
-
-    factory :imgpng
-
-    factory :pdfpng do
-      attachment  { fixture_file_upload('spec/samples/pdf.png', 'image/png') }
-    end
-
-    factory :txtpng do
-      attachment  { fixture_file_upload('spec/samples/txt.png', 'image/png') }
-    end
-
-    factory :zippng do
-      attachment  { fixture_file_upload('spec/samples/zip.png', 'image/png') }
-    end
   end
 
   factory :category, class: Thredded::Category do

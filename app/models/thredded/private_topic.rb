@@ -4,7 +4,7 @@ module Thredded
     extend FriendlyId
     friendly_id :title, use: :scoped, scope: :messageboard
 
-    has_many :posts, -> { includes :attachments }, as: :postable
+    has_many :posts, as: :postable
     has_many :private_users
     has_many :users, through: :private_users
 

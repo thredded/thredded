@@ -1,7 +1,0 @@
-<li>
-  <% if attachment.attachment %>
-    <%= link_to attachment.filename,
-                attachment.attachment.to_s,
-                data: { type: attachment.content_type } %>
-  <% end %>
-</li>

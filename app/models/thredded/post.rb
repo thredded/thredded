@@ -22,7 +22,6 @@ module Thredded
 
     belongs_to :user, class_name: Thredded.user_class
     delegate :email, :anonymous?, to: :user, prefix: true, allow_nil: true
-    has_many :attachments, dependent: :destroy
     has_many :post_notifications, dependent: :destroy
 
     validates :content, presence: true

@@ -15,7 +15,7 @@ module Thredded
       authorize! :read, topic
 
       @posts = topic.posts
-        .includes(:user, :messageboard, :attachments, :postable)
+        .includes(:user, :messageboard, :postable)
         .order('id ASC')
         .page(current_page)
 

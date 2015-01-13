@@ -19,7 +19,7 @@ module Thredded
 
       @posts = private_topic
         .posts
-        .includes(:user, :messageboard, :attachments)
+        .includes(:user, :messageboard)
         .order('id ASC')
 
       @post = messageboard.posts.build(postable: private_topic)

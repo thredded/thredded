@@ -12,10 +12,7 @@ module Thredded
                inverse_of:    :topics,
                counter_cache: :topics_count
 
-    has_many :posts,
-      -> { includes :attachments },
-      as: :postable,
-      dependent: :destroy
+    has_many :posts, as: :postable, dependent: :destroy
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads, dependent: :destroy
