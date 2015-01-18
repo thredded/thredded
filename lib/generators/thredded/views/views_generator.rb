@@ -6,6 +6,12 @@ module Thredded
       def copy_view_files
         directory 'thredded', 'app/views/thredded'
       end
+
+      def copy_layout
+        copy_file \
+          'layouts/thredded.html.erb',
+          'app/views/layouts/thredded.html.erb'
+      end
     end
   end
 end
