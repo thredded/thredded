@@ -23,7 +23,7 @@ is an engine - not a standalone app.
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded'
+gem 'thredded', github: 'jayroh/thredded'
 ```
 
 Add a thredded initializer to your parent app by running the install generator.
