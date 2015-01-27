@@ -47,6 +47,7 @@ mount Thredded::Engine => '/forum'
 
 [The initializer]: https://github.com/jayroh/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
+
 ## Development dependencies
 
 * PostgreSQL & MySQL - `brew install postgres mysql`
@@ -69,29 +70,46 @@ There are a few things you need in your app to get things looking just right.
 
 1. Add a to_s method to your user model. The following example assumes a column in my user model called `name`:
 
-```ruby
-class User < ActiveRecord::Base
-  def to_s
-    name
+  ```ruby
+  class User < ActiveRecord::Base
+    def to_s
+      name
+    end
   end
-end
-```
+  ```
 
 2. Ensure you have a view layout that thredded will wrap around its views.
 
-A couple of notes with regards to your layout.
+  A couple of notes with regards to your layout.
 
-* When using route helpers -- eg: `new_session_path`, et al -- make sure to prepend main_app to the helper: `main_app.new_session_path` as rails engines like thredded will not know about those routes' existence unless explicitly told so.
-* As noted above, by default thredded will look for a layout file in your application called `thredded.html.erb`. If you would like to use something else, like your main application layout, you may change it to that in your initializer.
-* The chosen layout has two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`. The views within thredded pass those up through to your layout if you would like to use them.  Example layout:
+  * When using route helpers -- eg: `new_session_path`, et al -- make sure to prepend main_app 
+    to the helper: `main_app.new_session_path` as rails engines like thredded will not know 
+    about those routes' existence unless explicitly told so.
+  * As noted above, by default thredded will look for a layout file in your application 
+    called `thredded.html.erb`. If you would like to use something else, like your main application
+    layout, you may change it to that in your initializer.
+  * The chosen layout has two content_tags available to yield - `:thredded_page_title` and 
+    `:thredded_page_id`. The views within thredded pass those up through to your layout if you 
+    would like to use them.  Example layout:
 
-```html
-<html>
-  <head>
-  <title>My Application | <%= yield :thredded_page_title %></title>
-  </head>
-  <body id="<%= yield :thredded_page_id %>">
-    <%= yield %>
-  </body>
-</html>
-```
+  ```html
+  <html>
+    <head>
+    <title>My Application | <%= yield :thredded_page_title %></title>
+    </head>
+    <body id="<%= yield :thredded_page_id %>">
+      <%= yield %>
+    </body>
+  </html>
+  ```
+
+3. Make you, or one of your users, a super-admin so they'll have the permissions to create a new forum. 
+
+  ```
+  rake thredded:superadmin[joel] # bash
+  rake "thredded:superadmin[yourname]" # zsh
+  ```
+
+  Two examples are given for bash and zsh. Zsh typically reserves brackets, `[]`, for other uses 
+  hence the wrapping with quotes. Pro-tip: did you know [you can escape the brackets by 
+  default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
