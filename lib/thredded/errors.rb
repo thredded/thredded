@@ -3,6 +3,12 @@ module Thredded
   end
 
   module Errors
+    class UserNotFound < Thredded::Error
+      def message
+        'This user could not be found. Is their name misspelled?'
+      end
+    end
+
     class PrivateTopicNotFound < Thredded::Error
       def message
         'This private topic does not exist.'
