@@ -16,3 +16,7 @@
 <section id="messageboards">
   <%= render @messageboards %>
 </section>
+
+<% if can? :create, Thredded::Messageboard %>
+  <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'new_messageboard' %>
+<% end %>

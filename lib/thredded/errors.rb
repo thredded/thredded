@@ -33,6 +33,12 @@ module Thredded
       end
     end
 
+    class MessageboardCreateDenied < Thredded::Error
+      def message
+        'You are not authorized to create a new messageboard.'
+      end
+    end
+
     class TopicCreateDenied < Thredded::Error
       def message
         'You are not authorized to post in this messageboard.'

@@ -1,0 +1,42 @@
+<% content_for :thredded_page_title, 'Create a New Messageboard' %>
+<% content_for :thredded_page_id, 'thredded_messageboards_new' %>
+
+<header>
+  <nav>
+    <ul class="breadcrumbs">
+      <li><%= link_to 'Forums', thredded.root_path %></li>
+      <li><span>New Messageboard</span></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="messageboard forms">
+  <%= form_for @messageboard do |f| %>
+    <ul>
+      <li>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </li>
+      <li>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+      </li>
+      <li>
+        <%= f.label :security %>
+        <%= f.select :security, [:private, :public, :logged_in] %>
+        <p>
+          This will set the visibility of your messageboard to the public
+          members.
+        </p>
+      </li>
+      <li>
+        <%= f.label :posting_permission %>
+        <%= f.select :posting_permission, [:members, :logged_in, :anonymous] %>
+        <p>
+          The required minimum permissions to post in your messageboard.
+        </p>
+      </li>
+      <li><%= f.submit 'Create New Messageboard' %></li>
+    </ul>
+  <% end %>
+</div>

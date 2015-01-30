@@ -14,6 +14,7 @@ module Thredded
       Thredded::Errors::MessageboardNotFound,
       Thredded::Errors::MessageboardReadDenied,
       Thredded::Errors::TopicCreateDenied,
+      Thredded::Errors::MessageboardCreateDenied,
       Thredded::Errors::PrivateTopicCreateDenied do |exception|
       redirect_to thredded.root_path, alert: exception.message
     end
@@ -56,6 +57,8 @@ module Thredded
     end
 
     def authorize_creating(obj)
+      obj = obj.new if obj.class == Class
+
       return if can? :create, obj
 
       class_name = obj.class.to_s
