@@ -5,20 +5,26 @@ module Thredded
     gravtastic :user_email
     paginates_per 50
 
-    belongs_to :messageboard, counter_cache: true
-    belongs_to :postable, polymorphic: true, counter_cache: true
-
+    belongs_to :messageboard,
+      counter_cache: true,
+      class_name: 'Thredded::Messageboard'
+    belongs_to :postable,
+      polymorphic: true,
+      counter_cache: true
     belongs_to :user_detail,
-               primary_key:   :user_id,
-               foreign_key:   :user_id,
-               inverse_of:    :posts,
-               counter_cache: true
+       primary_key:   :user_id,
+       foreign_key:   :user_id,
+       inverse_of:    :posts,
+       counter_cache: true
 
-    # Postable types to enable joins, e.g. Thredded::Post.joins(:private_topic)
+    # Postable types to enable joins,
+    # e.g. Thredded::Post.joins(:private_topic)
+
     belongs_to :private_topic, -> _p { where(thredded_posts: { postable_type: 'Thredded::PrivateTopic' }) },
-               foreign_key: :postable_id, inverse_of: :posts
+       foreign_key: :postable_id, inverse_of: :posts
+
     belongs_to :topic, -> _p { where(thredded_posts: { postable_type: 'Thredded::Topic' }) },
-               foreign_key: :postable_id, inverse_of: :posts
+       foreign_key: :postable_id, inverse_of: :posts
 
     belongs_to :user, class_name: Thredded.user_class
     delegate :email, :anonymous?, to: :user, prefix: true, allow_nil: true

@@ -40,15 +40,7 @@
 
   <% if can? :create, @post %>
     <div class="forms">
-      <%= form_for [messageboard, topic, @post] do |form| %>
-        <ul>
-          <%= render 'thredded/posts/form', form: form %>
-
-          <li class="submit">
-            <%= form.submit 'Submit reply' %>
-          </li>
-        </ul>
-      <% end %>
+      <%= render 'thredded/posts/form', messageboard: messageboard, topic: topic, post: @post, button_text: 'Submit Reply' %>
     </div>
   <% end %>
 

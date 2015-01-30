@@ -19,21 +19,9 @@ module Thredded
       "#{topics_count} topics, #{posts_count} posts".downcase
     end
 
-    def description
-      if messageboard.description.blank?
-        ''
-      else
-        content_tag :p, messageboard.description
-      end
-    end
-
     def latest_topic_timeago
       if latest_topic.updated_at.nil?
-        <<-eohtml.html_safe
-          <abbr>
-            a little while ago
-          </abbr>
-        eohtml
+        '<abbr>a little while ago</abbr>'
       else
         <<-eohtml.html_safe
           <abbr class="timeago" title="#{topic_updated_at_utc}">
@@ -44,7 +32,10 @@ module Thredded
     end
 
     def latest_topic
-      @latest_topic ||= messageboard.topics.order_latest_first.first || Thredded::NullTopic.new
+      @latest_topic ||= begin
+        messageboard.topics.order_latest_first.first ||
+          Thredded::NullTopic.new
+      end
     end
 
     def latest_user
