@@ -1,0 +1,22 @@
+<%= content_tag_for :article, private_topic, class: private_topic.css_class do %>
+  <div class="post_count"><%= private_topic.posts_count %></div>
+
+  <h1>
+    <%= link_to private_topic.title, [messageboard, private_topic.original] %>
+  </h1>
+
+  <cite class="updated_by">
+    <%== private_topic.updated_at_timeago %>
+    <%== private_topic.last_user_link %>
+  </cite>
+
+  <cite class="started_by">
+    <%== private_topic.created_at_timeago %>
+    <%== private_topic.user_link %>
+  </cite>
+
+  <ul class="categories">
+    <%= render private_topic.categories %>
+  </ul>
+<% end %>
+

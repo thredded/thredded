@@ -1,4 +1,9 @@
-<li class="content">
-  <%= form.label :content %>
-  <%= form.text_area :content, { rows: 5 }  %>
-</li>
+<%= form_for [messageboard, topic, post] do |form| %>
+  <ul>
+    <%= render 'thredded/posts/content_field', form: form %>
+
+    <li class="submit">
+      <%= form.submit button_text %>
+    </li>
+  </ul>
+<% end %>

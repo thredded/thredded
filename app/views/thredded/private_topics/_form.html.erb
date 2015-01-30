@@ -1,0 +1,22 @@
+<%= form_for [messageboard, private_topic], url: messageboard_private_topics_path(messageboard, @private_topic) do |form| %>
+  <ul>
+    <li class="title">
+      <%= form.label :title %>
+      <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus' } %>
+    </li>
+
+    <li class="private_users">
+      <%= form.select :user_ids,
+        form.object.users_options,
+        form.object.selected_options,
+        form.object.html_options %>
+    </li>
+
+    <%= render 'thredded/posts/content_field', form: form %>
+
+    <li class="submit">
+      <%= form.submit 'Create New Private Topic' %>
+    </li>
+  </ul>
+<% end %>
+

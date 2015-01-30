@@ -17,7 +17,7 @@ module PageObject
     def submit_reply(content = 'I replied')
       self.reply_content = content
       fill_in 'Content', with: reply_content
-      click_button 'Submit reply'
+      click_button 'Submit Reply'
     end
 
     def posts

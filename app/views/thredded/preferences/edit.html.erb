@@ -1,22 +1,8 @@
 <% content_for :thredded_page_title, 'Messageboard Preferences' %>
 <% content_for :thredded_page_id, 'thredded_preferences' %>
 
-<fieldset>
-  <legend>Update Preferences For <%= messageboard.name %></legend>
+<div class="preference form">
+  <h1>Update Preferences For <%= messageboard.name %></h1>
 
-  <%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard) do |f| %>
-    <%= render 'thredded/shared/error_msgs' %>
-
-    <ul>
-      <li>
-        <%= f.label :notify_on_mention, "Notify me when I am @'ed" %>
-        <%= f.check_box :notify_on_mention %>
-      </li>
-      <li>
-        <%= f.label :notify_on_message, 'Notify me when I am included in a private topic' %>
-        <%= f.check_box :notify_on_message %>
-      </li>
-      <li class="submit"><%= f.submit 'Update Preferences' %></li>
-    </ul>
-  <% end %>
-</fieldset>
+  <%= render 'form', messageboard: messageboard, preference: preference %>
+</div>

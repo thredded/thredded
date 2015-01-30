@@ -59,20 +59,4 @@ module Thredded
       end
     end
   end
-
-  describe MessageboardDecorator, '#description' do
-    it 'returns nothing if there is no description' do
-      messageboard = create(:messageboard, description: nil)
-      decorated_messageboard = MessageboardDecorator.new(messageboard)
-
-      expect(decorated_messageboard.description).to eq ''
-    end
-
-    it 'wraps the description in a paragraph tag' do
-      messageboard = create(:messageboard, description: 'Stuff')
-      decorated_messageboard = MessageboardDecorator.new(messageboard)
-
-      expect(decorated_messageboard.description).to eq '<p>Stuff</p>'
-    end
-  end
 end

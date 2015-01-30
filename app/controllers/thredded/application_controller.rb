@@ -16,14 +16,14 @@ module Thredded
       Thredded::Errors::TopicCreateDenied,
       Thredded::Errors::MessageboardCreateDenied,
       Thredded::Errors::PrivateTopicCreateDenied do |exception|
-      redirect_to thredded.root_path, alert: exception.message
-    end
+        redirect_to thredded.root_path, alert: exception.message
+      end
 
     rescue_from \
       Thredded::Errors::EmptySearchResults,
       Thredded::Errors::TopicNotFound do |exception|
-      redirect_to messageboard_topics_path(messageboard), alert: exception.message
-    end
+        redirect_to messageboard_topics_path(messageboard), alert: exception.message
+      end
 
     def signed_in?
       !current_user.anonymous?

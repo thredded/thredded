@@ -18,13 +18,5 @@
 </header>
 
 <div class="topic forms">
-  <ul>
-    <%= form_for [messageboard, topic, @post], html: { method: :put, class: :topic_form } do |form| %>
-      <%= render 'form', form: form %>
-
-      <li class="submit">
-        <%= form.submit 'Update Post' %>
-      </li>
-    <% end %>
-  </ul>
+  <%= render 'thredded/posts/form', messageboard: messageboard, topic: topic, post: @post, button_text: 'Update Post' %>
 </div>

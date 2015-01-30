@@ -1,0 +1,37 @@
+<%= form_for [messageboard, topic] do |form| %>
+  <ul>
+    <li class="title">
+      <%= form.label :title %>
+      <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
+    </li>
+
+    <% if form.object.categories.any? %>
+      <li class="category">
+        <%= form.select :category_ids,
+          form.object.category_options,
+          {},
+          { multiple: true, 'data-placeholder' => 'Categories' } %>
+      </li>
+    <% end %>
+
+    <% if can? :admin, form.object.topic %>
+      <li class="locked">
+        <%= form.label :locked do %>
+          Locked <%= form.check_box :locked %>
+        <% end %>
+      </li>
+
+      <li class="sticky">
+        <%= form.label :sticky do %>
+          Sticky <%= form.check_box :sticky %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <%= render 'thredded/posts/content_field', form: form %>
+
+    <li class="submit">
+      <%= form.submit 'Create New Topic' %>
+    </li>
+  </ul>
+<% end %>
