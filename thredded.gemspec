@@ -51,6 +51,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'jquery-rails'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'mysql2'
+  s.add_development_dependency 'puma'
 
   # debug dependencies
   s.add_development_dependency 'pry-rails'
