@@ -68,7 +68,11 @@ module Thredded
   end
 
   def self.theme=(theme_name)
-    ActionController::Base.prepend_view_path("app/themes/#{theme_name}")
+    Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/javascripts"
+    Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/stylesheets"
+    Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/images"
+    ActionController::Base.prepend_view_path("#{Rails.root}/app/themes/#{theme_name}/views")
+
     @@theme = theme_name
   end
 
