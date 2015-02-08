@@ -33,6 +33,8 @@ module Thredded
     :queue_memory_log_level,
     :queue_inline
 
+  mattr_reader :theme
+
   self.user_name_column = :name
   self.avatar_url = -> (_user, post) { post.gravatar_url(default: 'mm') }
   self.file_storage = :file # or :fog
@@ -63,6 +65,11 @@ module Thredded
     else
       '/'
     end
+  end
+
+  def self.theme=(theme_name)
+    ActionController::Base.prepend_view_path("app/themes/#{theme_name}")
+    @@theme = theme_name
   end
 
   def self.use_adapter!(db_adapter)

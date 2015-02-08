@@ -27,5 +27,8 @@ module Thredded
     initializer 'thredded.set_adapter' do
       Thredded.use_adapter! Thredded::Post.connection_config[:adapter]
     end
+
+    initializer 'thredded.adjust_view_paths' do
+    end
   end
 end
