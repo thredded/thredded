@@ -4,10 +4,21 @@ require 'spec_helper'
 describe Thredded, '.theme' do
   it 'is added to the view path' do
     Thredded.theme = :edith
-    paths = ActionController::Base.view_paths.map(&:to_s)
-    base_path = File.dirname(__FILE__)[0..-9]
+    view_paths = ActionController::Base.view_paths.map(&:to_s)
 
-    expect(paths).to include("#{base_path}app/themes/edith")
+    expect(view_paths).to include("#{Rails.root}/app/themes/edith/views")
+  end
+
+  it 'is added to the asset path' do
+    Thredded.theme = :edith
+    asset_paths = Thredded::Engine.config.assets.paths
+    javascripts_path = "#{Rails.root}/app/themes/edith/assets/javascripts"
+    stylesheets_path = "#{Rails.root}/app/themes/edith/assets/stylesheets"
+    images_path = "#{Rails.root}/app/themes/edith/assets/images"
+
+    expect(asset_paths).to include(javascripts_path)
+    expect(asset_paths).to include(stylesheets_path)
+    expect(asset_paths).to include(images_path)
   end
 end
 
