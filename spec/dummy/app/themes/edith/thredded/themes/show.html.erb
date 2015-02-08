@@ -1,0 +1,129 @@
+<% content_for :thredded_page_title, "Theme Preview" %>
+<% content_for :thredded_page_id, 'thredded_theme' %>
+
+<div class="container">
+  <header>
+    <%= render 'thredded/shared/top_nav' %>
+    <%= render 'thredded/search/form' %>
+  </header>
+
+  <div class="main">
+
+    <!-- ************************ -->
+    <!-- messageboards#index      -->
+    <!-- ************************ -->
+
+    <%= content_tag :section, class: 'messageboards' do %>
+      <%= render @messageboards %>
+      <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'new_messageboard' %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- topics#index             -->
+    <!-- ************************ -->
+
+    <%= content_tag :section, class: 'topics' do %>
+      <%= render 'thredded/shared/new_topic' %>
+      <%= render @decorated_topics  %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- topics#show              -->
+    <!-- ************************ -->
+
+    <%= content_tag_for :section, @topic, class: @user_topic.css_class do %>
+      <header>
+        <h1><%= @topic.title %></h1>
+      </header>
+
+      <%= render @posts %>
+
+      <%= render 'thredded/posts/form',
+        messageboard: @messageboard,
+        topic: @topic,
+        post: @post,
+        button_text: 'Submit Reply'
+        %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- posts#edit               -->
+    <!-- ************************ -->
+
+    <%= content_tag :section, class: 'posts form' do %>
+      <%= render 'thredded/posts/form',
+        messageboard: @messageboard,
+        topic: @topic,
+        post: @post,
+        button_text: 'Update Post'
+        %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- preferences#edit         -->
+    <!-- ************************ -->
+
+    <%= content_tag :section, class: 'preferences form' do %>
+      <h1>Update Preferences For <%= messageboard.name %></h1>
+
+      <%= render 'thredded/preferences/form',
+        messageboard: messageboard,
+        preference: @preference
+        %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- private_topics#index     -->
+    <!-- ************************ -->
+
+    <%= content_tag :section, class: 'preferences form' do %>
+      <%= render 'thredded/private_topics/no_private_topics' %>
+      <!-- 👆  no topics found || 👇  existing private topics  -->
+      <%= render @decorated_private_topics %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- private_topics#new       -->
+    <!-- ************************ -->
+
+    <%= content_tag :section, class: 'private-topics form' do %>
+      <%= render 'thredded/private_topics/form',
+        messageboard: messageboard,
+        private_topic: @new_private_topic
+        %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- private_topics#show      -->
+    <!-- ************************ -->
+
+    <%= content_tag_for :section, @private_topic do %>
+      <header>
+        <h1><%= @private_topic.title %></h1>
+      </header>
+
+      <%= render @private_topic.posts %>
+
+      <%= render 'thredded/posts/form',
+        messageboard: @messageboard,
+        topic: @private_topic,
+        post: @post,
+        button_text: 'Submit Reply'
+        %>
+    <% end %>
+
+    <!-- ************************ -->
+    <!-- topics#pagination        -->
+    <!-- ************************ -->
+
+    <footer>
+      <%= paginate @topics %>
+    </footer>
+  </div>
+
+  <aside>
+    <%= render 'thredded/shared/topic_nav' %>
+    <%= render 'thredded/shared/currently_online' %>
+  </aside>
+</div>
+

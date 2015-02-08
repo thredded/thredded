@@ -5,10 +5,8 @@ module Thredded
     include FactoryGirl::Syntax::Methods
 
     before_filter :create_messageboard_and_topics, if: :no_messageboard?
-    before_filter :theme_view_path
 
     def show
-      @theme = params[:id]
       @messageboard = messageboard
       @messageboards = Messageboard.where(closed: false).decorate
       @topics = messageboard.topics.on_page(current_page)
@@ -19,7 +17,8 @@ module Thredded
       @user_topic = UserTopicDecorator.new(user, @topic)
       @posts = @topic.posts
       @new_topic = TopicForm.new(messageboard: messageboard)
-      @private_topic = PrivateTopicForm.new(messageboard: messageboard)
+      @new_private_topic = PrivateTopicForm.new(messageboard: messageboard)
+      @private_topic = PrivateTopic.all.first
       @post = Post.new
       @preference = preference
     end
@@ -40,10 +39,6 @@ module Thredded
 
     def current_page
       1
-    end
-
-    def theme_view_path
-      prepend_view_path "themes/#{params[:id]}/views"
     end
 
     private

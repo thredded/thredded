@@ -1,4 +1,15 @@
+require 'pry'
 require 'spec_helper'
+
+describe Thredded, '.theme' do
+  it 'is added to the view path' do
+    Thredded.theme = :edith
+    paths = ActionController::Base.view_paths.map(&:to_s)
+    base_path = File.dirname(__FILE__)[0..-9]
+
+    expect(paths).to include("#{base_path}app/themes/edith")
+  end
+end
 
 describe Thredded, '.queue_backend' do
   it 'defaults the queue backend to in memory' do
