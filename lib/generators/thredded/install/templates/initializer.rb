@@ -73,3 +73,17 @@ Thredded.layout = 'thredded'
 # Where carrierwave will be storing its files - on the cloud, or filesystem.
 # Configure :fog with your own carrierwave initializer.
 Thredded.file_storage = Rails.env.production? ? :fog : :file
+
+# ==> Theme Configuration
+# Thredded can easily switch between different views and assets by changing
+# the theme via `Thredded.theme`. If you set the theme to be `my_custom_theme`
+# it will look for its view files in `app/themes/my_custom_theme/`.
+#
+# To copy the theme files from the gem to your parent application, run the
+# rails generator that will copy the files over. EG:
+#
+# `rails g thredded:theme:install base`
+#
+# And set your theme in this initializer:
+#
+# Thredded.theme = 'base'
