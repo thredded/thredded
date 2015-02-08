@@ -1,0 +1,15 @@
+<% content_for :thredded_page_title, topic.title %>
+<% content_for :thredded_page_id, 'thredded_posts' %>
+
+<%= content_tag_for :section, topic,
+  class: user_topic.css_class,
+  data: { 'latest-read' => user_topic.farthest_post.id } do %>
+
+  <header>
+    <h1><%= topic.title %></h1>
+  </header>
+
+  <section class="posts" id="topics_posts">
+    <%= render @posts %>
+  </section>
+<% end %>
