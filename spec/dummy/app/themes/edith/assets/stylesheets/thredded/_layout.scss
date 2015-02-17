@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+$tablet: new-breakpoint(max-width 700px 8);
+$mobile: new-breakpoint(max-width 400px 4);
+
+div.container {
+  @include outer-container;
+
+  div.main {
+    @include span-columns(9);
+    padding: 4.92%;
+
+    @include media($tablet) {
+      @include span-columns(8);
+    }
+
+    > section {
+      // background: green;
+    }
+  }
+
+  > aside {
+    @include span-columns(3);
+    @include omega();
+
+    @include media($tablet) {
+      display: none;
+    }
+  }
+}
