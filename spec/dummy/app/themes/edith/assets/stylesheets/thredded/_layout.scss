@@ -3,9 +3,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-$tablet: new-breakpoint(max-width 700px 8);
-$mobile: new-breakpoint(max-width 400px 4);
-
 div.container {
   @include outer-container;
 
@@ -15,10 +12,6 @@ div.container {
 
     @include media($tablet) {
       @include span-columns(8);
-    }
-
-    > section {
-      // background: green;
     }
   }
 
