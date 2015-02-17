@@ -2,9 +2,10 @@
 <% content_for :thredded_page_id, 'thredded_theme' %>
 
 <div class="container">
-  <header>
+  <header class="navigation" role="banner">
     <%= render 'thredded/shared/top_nav' %>
     <%= render 'thredded/search/form' %>
+    <%= render 'thredded/shared/topic_nav' %>
   </header>
 
   <div class="main">
@@ -15,7 +16,10 @@
 
     <%= content_tag :section, class: 'messageboards' do %>
       <%= render @messageboards %>
-      <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'new_messageboard' %>
+      <%= link_to 'Create a New Messageboard',
+        new_messageboard_path,
+        class: 'new_messageboard'
+        %>
     <% end %>
 
     <!-- ************************ -->
@@ -31,7 +35,10 @@
     <!-- topics#show              -->
     <!-- ************************ -->
 
-    <%= content_tag_for :section, @topic, class: @user_topic.css_class do %>
+    <%= content_tag_for :section,
+      @topic,
+      class: @user_topic.css_class do %>
+
       <header>
         <h1><%= @topic.title %></h1>
       </header>
@@ -122,7 +129,6 @@
   </div>
 
   <aside>
-    <%= render 'thredded/shared/topic_nav' %>
     <%= render 'thredded/shared/currently_online' %>
   </aside>
 </div>
