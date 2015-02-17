@@ -16,6 +16,8 @@ module Thredded
       end
 
       def decorate_all(user, topics)
+        return [] if topics.blank?
+
         topics.map do |topic|
           new(user, topic)
         end

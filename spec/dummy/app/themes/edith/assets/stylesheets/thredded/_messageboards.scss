@@ -1,0 +1,32 @@
+.messageboards {
+}
+
+.messageboard {
+  border-bottom: solid 1px;
+  border-color: lighten(black, 20%);
+  margin-bottom: 5%;
+
+  header {
+    margin: 0 0 0.75em;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    font-size: .9em;
+  }
+
+  .messageboard-meta {
+    font-size: .7em;
+    color: lighten(black, 80%);
+  }
+
+  footer {
+    font-size: .7em;
+    color: lighten(black, 80%);
+    font-style: italic;
+    margin: 0 0 0.75em;
+  }
+}

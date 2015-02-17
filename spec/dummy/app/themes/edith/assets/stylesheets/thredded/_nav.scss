@@ -1,0 +1,62 @@
+.main-nav {
+  background: black;
+  height: 44px;
+
+  li {
+    display: inline-block;
+    float: right;
+    font-size: .8em;
+    line-height: 44px;
+    padding: 0px 8px;
+
+    &.main-nav-menu { float: left; }
+    &.main-nav-home { float: none; }
+
+    a {
+      color: white;
+    }
+  }
+}
+
+.search-bar {
+  display: block;
+  font-size: 1em;
+  position: absolute;
+  height: 44px;
+  width: 100%;
+
+  label {
+    display: none;
+  }
+
+  input[type="submit"] {
+    display: none;
+  }
+
+  input[type="search"] {
+    margin: 1%;
+    width: 98%;
+    height: 40px;
+  }
+}
+
+.topic-nav {
+  height: 44px;
+  text-align: center;
+  margin: 0 20px;
+
+  li {
+    display: inline-block;
+    font-size: .9em;
+    line-height: 44px;
+    padding: 0 12px;
+  }
+}
+
+.is-hidden {
+  display: none;
+}
+
+.is-visible {
+  display: block;
+}

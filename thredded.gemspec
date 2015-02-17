@@ -52,6 +52,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'puma'
+  s.add_development_dependency 'bourbon'
+  s.add_development_dependency 'neat'
+  s.add_development_dependency 'bitters'
+  s.add_development_dependency 'sass-rails'
 
   # debug dependencies
   s.add_development_dependency 'pry-rails'
