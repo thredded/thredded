@@ -1,3 +1,8 @@
+.navigation {
+  position: relative;
+  margin-bottom: 20px;
+}
+
 .main-nav {
   background: black;
   height: 44px;
@@ -19,11 +24,18 @@
 }
 
 .search-bar {
+  @include span-columns(12);
+  background-color: white;
   display: block;
   font-size: 1em;
   position: absolute;
   height: 44px;
   width: 100%;
+
+  form {
+    display: inline-block;
+    width: 100%;
+  }
 
   label {
     display: none;
@@ -34,10 +46,14 @@
   }
 
   input[type="search"] {
-    margin: 1%;
+    margin: 5px 1%;
     width: 98%;
-    height: 40px;
+    height: 34px;
   }
+}
+
+#search:target {
+  display: block;
 }
 
 .topic-nav {
