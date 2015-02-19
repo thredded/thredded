@@ -2,7 +2,10 @@
   <ul>
     <li class="title">
       <%= form.label :title %>
-      <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
+      <%= form.text_field :title, {
+        placeholder: 'Begin a New Topic',
+        autofocus: 'autofocus',
+        } %>
     </li>
 
     <% if form.object.categories.any? %>
@@ -31,7 +34,7 @@
     <%= render 'thredded/posts/content_field', form: form %>
 
     <li class="submit">
-      <%= form.submit 'Create New Topic' %>
+      <%= form.submit 'Create New Topic', class: 'button-wide' %>
     </li>
   </ul>
 <% end %>

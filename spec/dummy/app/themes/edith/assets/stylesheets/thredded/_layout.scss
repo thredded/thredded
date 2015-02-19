@@ -8,7 +8,6 @@ div.container {
 
   div.main {
     @include span-columns(9);
-    padding: 4.92%;
 
     @include media($tablet) {
       @include span-columns(8);
@@ -23,4 +22,8 @@ div.container {
       display: none;
     }
   }
+}
+
+.main-section {
+  margin-bottom: 5%;
 }
