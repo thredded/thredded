@@ -1,0 +1,7 @@
+.button {
+  @include button(flat, $base-accent-color);
+}
+
+.button-wide {
+  width: 100%;
+}
