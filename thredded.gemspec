@@ -56,6 +56,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'neat'
   s.add_development_dependency 'bitters'
   s.add_development_dependency 'sass-rails'
+  s.add_development_dependency 'sprockets'
+  s.add_development_dependency 'sprockets-es6'
 
   # debug dependencies
   s.add_development_dependency 'pry-rails'

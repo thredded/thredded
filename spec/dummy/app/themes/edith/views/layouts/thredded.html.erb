@@ -3,12 +3,12 @@
   <head>
     <title>Thredded | <%= yield :thredded_page_title %></title>
     <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'head' %>
     <%= csrf_meta_tag %>
   </head>
   <%= content_tag(:body, id: (yield :thredded_page_id), class: 'layout-application') do %>
     <%= yield %>
 
     <%= javascript_include_tag 'application' %>
+    <%= yield :thredded_javascript %>
   <% end %>
 </html>
