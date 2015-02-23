@@ -1,0 +1,27 @@
+form.topic-form {
+  &.is-compact {
+    label {
+      height: 0;
+      visibility: hidden;
+    }
+
+    .content,
+    .submit {
+      height: 0;
+      visibility: hidden;
+    }
+  }
+
+  &.is-expanded {
+    label {
+      height: auto;
+      visibility: visible;
+    }
+
+    .content,
+    .submit {
+      height: auto;
+      visibility: visible;
+    }
+  }
+}

@@ -1,5 +1,14 @@
 <% content_for :thredded_page_title, "Theme Preview" %>
 <% content_for :thredded_page_id, 'thredded_theme' %>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.topicForm.init();
+    thredded.postForm.init();
+    thredded.timestamps.init();
+    thredded.searchBar.init();
+  </script>
+<% end %>
 
 <div class="container">
   <header class="navigation" role="banner">
@@ -28,7 +37,10 @@
     <!-- ************************ -->
 
     <%= content_tag :section, class: 'main-section topics' do %>
-      <%= render 'thredded/shared/new_topic' %>
+      <%= render 'thredded/topics/form',
+        messageboard: messageboard,
+        topic: @new_topic
+        %>
       <%= render @decorated_topics  %>
     <% end %>
 
