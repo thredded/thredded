@@ -1,11 +1,8 @@
-<%= form_for [messageboard, topic] do |form| %>
+<%= form_for [messageboard, topic], html: { class: 'topic-form is-compact' } do |form| %>
   <ul>
     <li class="title">
       <%= form.label :title %>
-      <%= form.text_field :title, {
-        placeholder: 'Begin a New Topic',
-        autofocus: 'autofocus',
-        } %>
+      <%= form.text_field :title, { placeholder: 'Begin a New Topic?' } %>
     </li>
 
     <% if form.object.categories.any? %>
