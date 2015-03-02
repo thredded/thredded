@@ -3,6 +3,11 @@ form.topic-form {
     label {
       height: 0;
       visibility: hidden;
+      margin: 0;
+    }
+
+    input {
+      margin: 0;
     }
 
     .content,
@@ -16,6 +21,11 @@ form.topic-form {
     label {
       height: auto;
       visibility: visible;
+      margin: auto;
+    }
+
+    input {
+      margin: auto;
     }
 
     .content,
@@ -23,5 +33,54 @@ form.topic-form {
       height: auto;
       visibility: visible;
     }
+  }
+}
+
+article.topic {
+  padding: 0.75em;
+
+  h1 {
+    margin: 0 40px 0 0;
+  }
+
+  cite {
+    font-size: 12px;
+  }
+}
+
+.topic-updated-by {
+  abbr {
+    &::before { content: 'updated '; }
+    &::after  { content: ' by '; }
+  }
+}
+
+.topic-started-by {
+  @include media($mobile) {
+    display: none;
+  }
+}
+
+.topic-posts-count {
+  float: right;
+  background: lighten(#c4c4c4, 10%);
+  width: 2em;
+  height: 2em;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 2em;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    border: solid 5px lighten(#c4c4c4, 10%);
+    border-top-color: transparent;
+    border-right-color: transparent;
+    width: 0px;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
   }
 }
