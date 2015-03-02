@@ -1,6 +1,5 @@
 .navigation {
   position: relative;
-  margin-bottom: 20px;
 }
 
 .main-nav {
@@ -67,6 +66,16 @@
     line-height: 44px;
     padding: 0 12px;
   }
+
+  a {
+    display: block;
+    padding: 0 5px;
+    border-bottom: solid 2px transparent;
+  }
+}
+
+.topic-nav-active a {
+  border-bottom: solid 2px;
 }
 
 .is-hidden {

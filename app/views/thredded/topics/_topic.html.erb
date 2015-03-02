@@ -1,5 +1,5 @@
 <%= content_tag_for :article, topic, class: topic.css_class do %>
-  <div class="post_count"><%= topic.posts_count %></div>
+  <div class="topic-posts-count"><%= topic.posts_count %></div>
 
   <h1>
     <%= link_to topic.title,
@@ -11,18 +11,18 @@
     %>
   </h1>
 
-  <cite class="updated_by">
+  <cite class="topic-updated-by">
     <%== topic.updated_at_timeago %>
     <%== topic.last_user_link %>
   </cite>
 
-  <cite class="started_by">
+  <cite class="topic-started-by">
     <%== topic.created_at_timeago %>
     <%== topic.user_link %>
   </cite>
 
   <% if topic.categories.any? %>
-    <ul class="categories">
+    <ul class="topic-categories">
       <%= render topic.categories %>
     </ul>
   <% end %>
