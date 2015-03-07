@@ -7,6 +7,7 @@
     thredded.postForm.init();
     thredded.timestamps.init();
     thredded.searchBar.init();
+    thredded.dropForms.init();
   </script>
 <% end %>
 
@@ -17,7 +18,7 @@
     <%= render 'thredded/shared/topic_nav' %>
   </header>
 
-  <div class="main">
+  <div class="main" id="main-container">
 
     <!-- ************************ -->
     <!-- messageboards#index      -->
@@ -51,6 +52,11 @@
     <%= content_tag_for :section, @topic, class: "main-section #{@user_topic.css_class}" do %>
       <header>
         <h1><%= @topic.title %></h1>
+
+        <cite class="topic-started-by">
+          <%== @topic.decorate.created_at_timeago %>
+          <%== @topic.decorate.user_link %>
+        </cite>
       </header>
 
       <%= render @posts %>
@@ -68,24 +74,13 @@
     <!-- ************************ -->
 
     <%= content_tag :section, class: 'main-section posts-form' do %>
+      <h1>Edit Post</h1>
+
       <%= render 'thredded/posts/form',
         messageboard: @messageboard,
         topic: @topic,
         post: @post,
         button_text: 'Update Post'
-        %>
-    <% end %>
-
-    <!-- ************************ -->
-    <!-- preferences#edit         -->
-    <!-- ************************ -->
-
-    <%= content_tag :section, class: 'main-section preferences-form' do %>
-      <h1>Update Preferences For <%= messageboard.name %></h1>
-
-      <%= render 'thredded/preferences/form',
-        messageboard: messageboard,
-        preference: @preference
         %>
     <% end %>
 
@@ -141,4 +136,13 @@
   <aside>
     <%= render 'thredded/shared/currently_online' %>
   </aside>
+
+  <%= content_tag :section, class: 'notification-preferences is-hidden' do %>
+    <h1>Your Notification Settings For <em><%= messageboard.name %></em></h1>
+
+    <%= render 'thredded/preferences/form',
+      messageboard: messageboard,
+      preference: @preference
+      %>
+  <% end %>
 </div>

@@ -5,6 +5,7 @@ class Thredded {
     this.kbShortcuts = new ThreddedKeyboardShortcuts();
     this.timestamps = new ThreddedTimeStamps();
     this.searchBar = new ThreddedSearchBar();
+    this.dropForms = new ThreddedDropForms();
   }
 }
 
