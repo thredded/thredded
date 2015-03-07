@@ -19,6 +19,20 @@
     a {
       color: white;
     }
+
+    span {
+      @include media($mobile) {
+        display: none;
+      }
+    }
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    display: inline-block;
+    margin-bottom: -5px;
   }
 }
 
@@ -76,12 +90,4 @@
 
 .topic-nav-active a {
   border-bottom: solid 2px;
-}
-
-.is-hidden {
-  display: none;
-}
-
-.is-visible {
-  display: block;
 }

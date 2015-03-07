@@ -1,4 +1,4 @@
-<div id="search" class="search-bar is-hidden">
+<div id="search-bar" class="search-bar is-hidden">
   <%= form_tag messageboard_topics_path(messageboard), method: 'get' do %>
     <%= label :q, :search, 'Search', for: 'q', class: 'show-for-small', data: {toggle: '#q'} %>
     <%= text_field_tag(:q, params[:q], { placeholder: 'Search Topics and Posts', type: 'search', class: 'input-search' }) %>

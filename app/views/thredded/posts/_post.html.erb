@@ -1,16 +1,16 @@
 <% cache [current_user, 'post', post] do %>
   <% post = Thredded::PostDecorator.new(post) %>
 
-  <%= content_tag_for(:article, post) do %>
+  <%= content_tag_for :article, post do %>
     <header>
-      <%= image_tag post.avatar_url, class: 'avatar' unless post.user_anonymous? %>
+      <%= image_tag post.avatar_url, class: 'post-avatar' unless post.user_anonymous? %>
       <cite>
         <%= post.user_link %>
         <%= post.created_at_timeago %>
       </cite>
     </header>
 
-    <div class="content">
+    <div class="post-content">
       <%== post.filtered_content %>
     </div>
 
