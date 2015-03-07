@@ -1,14 +1,16 @@
 class ThreddedSearchBar {
   constructor() {
-    this.toggleSelector = '.main-nav-search';
-    this.searchBarSelector = '#search';
+    this.toggleSelector = '.main-nav-search a';
+    this.searchBarSelector = '#search-bar';
   }
 
   init() {
+    var _self = this;
+
     jQuery(this.toggleSelector).on('click', e => {
       e.preventDefault()
 
-      jQuery(this.searchBarSelector).toggleClass('is-hidden is-visible')
+      jQuery(_self.searchBarSelector).toggleClass('is-hidden is-visible')
     })
   }
 }

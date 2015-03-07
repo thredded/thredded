@@ -84,3 +84,21 @@ article.topic {
     left: 2px;
   }
 }
+
+section.topic {
+  > header {
+    padding: 0.75em;
+    border-bottom: dotted 1px gray;
+
+    h1 {
+      margin: 0;
+    }
+
+    cite {
+      font-size: 12px;
+
+      abbr::before { content: "started " }
+      abbr::after { content: " by " }
+    }
+  }
+}
