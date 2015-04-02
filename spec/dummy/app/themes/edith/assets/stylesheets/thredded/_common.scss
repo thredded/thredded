@@ -69,4 +69,33 @@
     color: $blue;
     text-align: center;
   }
+
+  label {
+    float: right;
+    font-size: .8em;
+    font-weight: normal;
+    width: 90%;
+    margin: 4px 0 0;
+  }
+
+  li {
+    overflow: auto;
+    clear: both;
+  }
+
+  input[type="text"],
+  input[type="checkbox"] {
+    margin: 0px;
+  }
+
+  .submit input {
+    width: 100%;
+    font-size: .9em;
+    clear: both;
+    overflow: auto;
+  }
+
+  .submit {
+    margin-top: 0.75em;
+  }
 }
