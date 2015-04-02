@@ -1,0 +1,25 @@
+.notification-preferences {
+  @extend .drop-form;
+
+  &::before {
+    @include media($mobile) {
+      left: auto;
+      right: 31px;
+    }
+  }
+}
+
+.session-preferences {
+  @extend .drop-form;
+
+  &::before {
+    @include media($mobile) {
+      left: auto;
+      right: 10px;
+    }
+  }
+}
+
+.notification-preferences-form {
+  padding: 0 !important;
+}

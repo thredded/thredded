@@ -1,6 +1,6 @@
 class ThreddedDropForms {
   constructor() {
-    this.toggleSelectors = '.main-nav-sign-in a, .main-nav-notification-preferences a';
+    this.toggleSelectors = '.main-nav-session-preferences a, .main-nav-notification-preferences a';
   }
 
   init() {

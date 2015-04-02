@@ -145,4 +145,10 @@
       preference: @preference
       %>
   <% end %>
+
+  <%= content_tag :section, class: 'session-preferences is-hidden' do %>
+    <h1>Sign In or Register</h1>
+
+    <%= render 'thredded/sessions/form'%>
+  <% end %>
 </div>
