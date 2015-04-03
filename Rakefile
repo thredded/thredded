@@ -63,14 +63,35 @@ namespace :db do
     end
     Rake::Task['app:db:schema:load'].enhance(%w(db:schema:set_env))
   end
+
+  desc 'Truncate all tables'
+  task truncate: :environment do
+    ActiveRecord::Base.connection.tables.each do |table|
+      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table};")
+    end
+  end
 end
 
-desc 'Start development web server'
-task :dev do
-  host = 'localhost'
-  port = ENV['PORT'] || 9292
-  require 'rails/commands/server'
-  ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'development'
-  Dir.chdir 'spec/dummy'
-  Rack::Server.start(environment: 'development', Host: host, Port: port, config: 'config.ru')
+namespace :dev do
+  desc 'Start development web server'
+  task :server do
+    require 'rails/commands/server'
+
+    host = 'localhost'
+    port = ENV['PORT'] || 9292
+    ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'development'
+    Dir.chdir 'spec/dummy'
+
+    Rack::Server.start(
+      environment: 'development',
+      Host: host,
+      Port: port,
+      config: 'config.ru'
+    )
+  end
+
+  desc 'Seed DB for dummy app development'
+  task seed: :environment do
+    Thredded::SeedDatabase.run
+  end
 end

@@ -1,10 +1,6 @@
-require_relative '../../../spec/factories'
-
 module Thredded
   class ThemesController < ApplicationController
-    include FactoryGirl::Syntax::Methods
-
-    before_filter :create_messageboard_and_topics, if: :no_messageboard?
+    before_filter :fail_on_empty_database, if: :no_messageboard?
 
     def show
       @messageboard = messageboard
@@ -43,36 +39,8 @@ module Thredded
 
     private
 
-    def create_messageboard_and_topics
-      board = create(
-        :messageboard,
-        name: 'Theme Test',
-        slug: 'theme-test',
-        description: 'A theme is not a theme without some test data'
-      )
-
-      topics = create_list(
-        :topic, 3,
-        messageboard: board,
-        user: user,
-        last_user: user
-      )
-
-      private_topics = create_list(
-        :private_topic, 3,
-        messageboard: board,
-        user: user,
-        last_user: user,
-        users: [user]
-      )
-
-      create(:post, postable: topics[0], messageboard: board, user: user)
-      create(:post, postable: topics[1], messageboard: board, user: user)
-      create(:post, postable: topics[2], messageboard: board, user: user)
-
-      create(:post, postable: private_topics[0], messageboard: board, user: user)
-      create(:post, postable: private_topics[1], messageboard: board, user: user)
-      create(:post, postable: private_topics[2], messageboard: board, user: user)
+    def fail_on_empty_database
+      fail Thredded::Errors::DatabaseEmpty
     end
 
     def no_messageboard?
