@@ -3,6 +3,12 @@ module Thredded
   end
 
   module Errors
+    class DatabaseEmpty < Thredded::Error
+      def message
+        'Seed the database with "rake thredded:dev:seed".'
+      end
+    end
+
     class UserNotFound < Thredded::Error
       def message
         'This user could not be found. Is their name misspelled?'
