@@ -1,5 +1,5 @@
 <%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard), html: { class: 'notification-preferences-form' } do |f| %>
-  <%= render 'thredded/shared/error_msgs' %>
+  <%= render 'thredded/shared/error_messages' %>
   <ul>
     <li>
       <%= f.label :notify_on_mention, "Notify me when I am @'ed" %>
