@@ -1,15 +1,14 @@
 defaults: &defaults
-  host: localhost
+  host: <%= ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost') %>
+  port: <%= ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_PORT', 5432) %>
   adapter: <%= ENV['DB'] || 'postgresql' %>
   encoding: utf8
   min_messages: WARNING
 
 development:
   <<: *defaults
-  host: localhost
   database: thredded_gem_dev
 
 test:
   <<: *defaults
-  host: localhost
   database: thredded_gem_test

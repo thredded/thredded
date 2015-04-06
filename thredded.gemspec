@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.authors     = ['Joel Oliveira']
   s.email       = ['joel@thredded.com']
   s.homepage    = 'https://www.thredded.com'
-  s.summary     = 'A forum engine'
+  s.summary     = 'A messageboard engine'
   s.license     = 'MIT'
-  s.description = 'A messageboard and/or forum engine for Rails 4.0 apps'
+  s.description = 'A messageboard engine for Rails 4.0 apps'
 
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'bourbon'

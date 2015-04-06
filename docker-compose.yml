@@ -1,0 +1,16 @@
+db:
+  image: postgres:9.4.1
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_USER: root
+web:
+  build: .
+  volumes:
+    - .:/thredded
+  working_dir: /thredded
+  command: ./bin/docker_command.sh
+  ports:
+    - "9292:9292"
+  links:
+    - db
