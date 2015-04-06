@@ -32,7 +32,7 @@ module Thredded
     end
 
     it 'creates an abbr tag with the right html and content' do
-      topic = build_stubbed(:topic, updated_at: Chronic.parse('March 1 at noon'))
+      topic = build_stubbed(:topic, updated_at: Chronic.parse('March 1, 2015 at noon'))
       decorated_topic = BaseTopicDecorator.new(topic)
       expected_html = <<-eohtml.html_safe.strip_heredoc
         <abbr class="timeago" title="2015-03-01T12:00:00Z">

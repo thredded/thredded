@@ -3,8 +3,10 @@ module Thredded
     include Q::Methods
 
     queue(:send_at_notifications) do |post_id|
-      post = Post.find(post_id)
-      NotifyMentionedUsers.new(post).run
+      ActiveRecord::Base.connection_pool.with_connection do
+        post = Post.find(post_id)
+        NotifyMentionedUsers.new(post).run if post
+      end
     end
   end
 end
