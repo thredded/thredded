@@ -10,20 +10,24 @@ module Thredded
 
     it 'returns everyone but the sender' do
       post = create(:post, post_notifications: [])
-      private_topic = create(:private_topic,
+      private_topic = create(
+        :private_topic,
         user: @john,
         users: [@john, @joel, @sam],
         posts: [post],
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @john,
         messageboard: private_topic.messageboard,
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @joel,
         messageboard: private_topic.messageboard,
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
          user: @sam,
          messageboard: private_topic.messageboard,
       )
@@ -34,16 +38,19 @@ module Thredded
 
     it 'excludes anyone whose preferences say not to notify' do
       post = create(:post, post_notifications: [])
-      private_topic = create(:private_topic,
+      private_topic = create(
+        :private_topic,
         user: @john,
         users: [@john, @joel, @sam],
         posts: [post]
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @joel,
         messageboard: private_topic.messageboard
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @sam,
         messageboard: private_topic.messageboard,
         notify_on_message: true
@@ -60,12 +67,14 @@ module Thredded
         users: [@john, @joel, @sam])
       post = create(:post, postable: private_topic)
       create(:post_notification, email: @joel.email, post: post)
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @joel,
         messageboard: private_topic.messageboard,
         notify_on_message: true
       )
-      create(:messageboard_preference,
+      create(
+        :messageboard_preference,
         user: @sam,
         messageboard: private_topic.messageboard,
         notify_on_message: true

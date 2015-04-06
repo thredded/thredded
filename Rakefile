@@ -72,10 +72,5 @@ task :dev do
   require 'rails/commands/server'
   ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'development'
   Dir.chdir 'spec/dummy'
-  Rack::Server.start(
-      environment: 'development',
-      Host: host,
-      Port: port,
-      config: 'config.ru'
-  )
+  Rack::Server.start(environment: 'development', Host: host, Port: port, config: 'config.ru')
 end

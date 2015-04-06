@@ -5,7 +5,8 @@ require 'chronic'
 module Thredded
   describe MessageboardDecorator, '#meta' do
     it 'outputs a humanized count of topics and posts' do
-      messageboard = create(:messageboard,
+      messageboard = create(
+        :messageboard,
         topics_count: 40_343,
         posts_count: 134_500
       )

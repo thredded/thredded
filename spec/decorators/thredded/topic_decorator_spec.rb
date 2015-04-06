@@ -10,7 +10,8 @@ module Thredded
       Thredded.user_path = ->(user) { "/i_am/#{user}" }
       user = create(:user, name: 'joel')
       topic = create(:topic, user: user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
       )

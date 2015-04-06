@@ -18,10 +18,6 @@ module Thredded
       TopicDecorator.new(self)
     end
 
-    def private?
-      true
-    end
-
     def user_topic_reads
       []
     end

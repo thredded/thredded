@@ -66,7 +66,8 @@ feature 'User viewing private topics' do
     messageboard.add_member(me)
     messageboard.add_member(them)
 
-    private_topic = create(:private_topic,
+    private_topic = create(
+      :private_topic,
       user: me,
       users: [me, them],
       messageboard: messageboard

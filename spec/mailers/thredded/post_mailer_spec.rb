@@ -20,12 +20,14 @@ module Thredded
         joel = build_stubbed(:user, name: 'joel')
         build_stubbed(:user, email: 'john@email.com')
         build_stubbed(:user, email: 'sam@email.com')
-        topic = build_stubbed(:topic,
+        topic = build_stubbed(
+          :topic,
           hash_id: 'abcd',
           title: 'A title',
           user: joel,
         )
-        post = build_stubbed(:post,
+        post = build_stubbed(
+          :post,
           postable: topic,
           user: joel,
           content: 'hey @john @sam blarghy blurp',

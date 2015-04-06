@@ -12,12 +12,12 @@ module Thredded
       @topic        = create(:topic, messageboard: @messageboard, title: 'hi')
       @post         = create(:post, postable: @topic, content: 'hi')
       allow(controller).to receive_messages(
-                               topics:        [@topic],
-                               sticky_topics: [],
-                               cannot?:       false,
-                               current_user:  user,
-                               messageboard:  @messageboard
-                           )
+        topics:        [@topic],
+        sticky_topics: [],
+        cannot?:       false,
+        current_user:  user,
+        messageboard:  @messageboard
+      )
     end
 
     it 'renders GET index' do

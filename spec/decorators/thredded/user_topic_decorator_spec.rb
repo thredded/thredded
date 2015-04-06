@@ -28,7 +28,8 @@ module Thredded
     it 'is true if the posts counts match' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2
@@ -41,7 +42,8 @@ module Thredded
     it 'is false if the posts counts match' do
       topic = create(:topic, with_posts: 4)
       user = create(:user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2
@@ -64,7 +66,8 @@ module Thredded
     it 'returns the farthest page a user has gotten to' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2,
@@ -88,7 +91,8 @@ module Thredded
     it 'returns the last post a user has read up to' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2,
@@ -113,7 +117,8 @@ module Thredded
     it 'prepends a read class to a topic' do
       topic = create(:topic, :locked, :sticky, with_posts: 2)
       user = create(:user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
         posts_count: 2,
@@ -126,7 +131,8 @@ module Thredded
     it 'prepends a unread class to a topic' do
       topic = create(:topic, :locked, :sticky, with_posts: 2)
       user = create(:user)
-      create(:user_topic_read,
+      create(
+        :user_topic_read,
         topic: topic,
         user: user,
         posts_count: 1,

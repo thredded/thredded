@@ -16,7 +16,7 @@ counter = -1
 
 FileUtils.mkdir('log') unless File.directory?('log')
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger =
-    Logger.new(File.open("log/test.#{ENV['DB'] || 'postgresql'}.log", 'w'))
+  Logger.new(File.open("log/test.#{ENV['DB'] || 'postgresql'}.log", 'w'))
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
