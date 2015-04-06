@@ -3,6 +3,8 @@ defaults: &defaults
   adapter: <%= ENV['DB'] || 'postgresql' %>
   encoding: utf8
   min_messages: WARNING
+  pool: 10
+  reaping_frequency: 5
 
 development:
   <<: *defaults
