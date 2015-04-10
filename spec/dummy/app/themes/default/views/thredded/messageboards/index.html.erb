@@ -1,22 +1,18 @@
 <% content_for :thredded_page_title, 'Messageboards' %>
 <% content_for :thredded_page_id, 'thredded_messageboards_index' %>
-
-<header>
-  <nav>
-    <ul class="breadcrumbs">
-      <li><span>Forums</span></li>
-    </ul>
-  </nav>
-  <h2>
-    <%= number_to_human(Thredded::Messageboard.all.count) %> messageboards,
-    <%= number_to_human(Thredded::Messageboard.all.map(&:topics_count).sum, precision: 4) %> topics,
-    and <%= number_to_human(Thredded::Messageboard.all.map(&:posts_count).sum, precision: 5) %> posts</h2>
-</header>
-
-<section id="messageboards">
-  <%= render @messageboards %>
-</section>
-
-<% if can? :create, Thredded::Messageboard %>
-  <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'new_messageboard' %>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.timestamps.init();
+  </script>
 <% end %>
+
+<%= content_tag :section, class: 'main-section messageboards' do %>
+  <%= render @messageboards %>
+<% end %>
+
+<%= button_to 'Create a New Messageboard',
+  new_messageboard_path,
+  method: 'get',
+  class: 'button-wide'
+  %>
