@@ -1,50 +1,33 @@
 <% content_for :thredded_page_title, topic.title %>
 <% content_for :thredded_page_id, 'thredded_posts' %>
-
-<% content_for :breadcrumbs do %>
-  <ul class="breadcrumbs">
-    <li><%= link_to 'Forums', thredded.root_path %></li>
-    <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
-    <li>
-      <span>
-        <%= topic.title %>
-
-        <% if can? :edit, topic %>
-          <%= link_to 'edit',
-            edit_messageboard_topic_path(messageboard, topic) %>
-        <% end %>
-      </span>
-    </li>
-  </ul>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.postForm.init();
+    thredded.timestamps.init();
+  </script>
 <% end %>
 
-<header class="list_posts">
-  <nav><%= yield :breadcrumbs %></nav>
-  <%= render 'thredded/shared/currently_online' %>
-  <%= render 'thredded/shared/topic_nav' %>
-</header>
+<%= content_tag_for :section, topic, class: "main-section #{user_topic.css_class}" do %>
+  <header>
+    <h1><%= topic.title %></h1>
 
-<%= content_tag_for :section, topic,
-  class: user_topic.css_class,
-  data: { 'latest-read' => user_topic.farthest_post.id } do %>
+    <cite class="topic-started-by">
+      <%== topic.decorate.created_at_timeago %>
+      <%== topic.decorate.user_link %>
+    </cite>
+  </header>
 
-  <header><h1><%= topic.title %></h1></header>
+  <%= render @posts %>
 
-  <section class="posts" id="topics_posts">
-    <%= render @posts %>
-  </section>
+  <%= render 'thredded/posts/form',
+    messageboard: messageboard,
+    topic: topic,
+    post: @post,
+    button_text: 'Submit Reply'
+    %>
 <% end %>
 
 <footer>
   <%= paginate @posts %>
-
-  <% if can? :create, @post %>
-    <div class="forms">
-      <%= render 'thredded/posts/form', messageboard: messageboard, topic: topic, post: @post, button_text: 'Submit Reply' %>
-    </div>
-  <% end %>
-
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
 </footer>

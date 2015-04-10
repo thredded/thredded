@@ -1,54 +1,26 @@
 <% content_for :thredded_page_title, private_topic.title %>
 <% content_for :thredded_page_id, 'thredded_posts' %>
-
-<% content_for :breadcrumbs do %>
-  <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.name,
-        messageboard_private_topics_path(messageboard) %></li>
-      <li>
-        <span>
-          <%= private_topic.title %>
-
-          <% if can? :edit, private_topic %>
-            <%= link_to 'edit',
-              edit_messageboard_private_topic_path(messageboard, private_topic) %>
-          <% end %>
-        </span>
-      </li>
-    </ul>
-  </nav>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.topicForm.init();
+    thredded.postForm.init();
+    thredded.timestamps.init();
+  </script>
 <% end %>
 
-<header>
-  <%= yield :breadcrumbs %>
-  <%= render 'thredded/shared/currently_online' %>
-  <%= render 'thredded/shared/topic_nav' %>
-</header>
 
-<%= content_tag_for :section, private_topic do %>
-  <header><h1><%= private_topic.title %></h1></header>
+<%= content_tag_for :section, private_topic, class: 'main-section private-topic' do %>
+  <header>
+    <h1><%= private_topic.title %></h1>
+  </header>
 
-  <section class="posts" id="topics_posts">
-    <%= render @posts %>
-  </section>
+  <%= render private_topic.posts %>
+
+  <%= render 'thredded/posts/form',
+    messageboard: messageboard,
+    topic: private_topic,
+    post: @post,
+    button_text: 'Submit Reply'
+    %>
 <% end %>
-
-<footer>
-  <% if can? :create, @post %>
-    <div class="forms">
-      <%= form_for [messageboard, private_topic, @post] do |form| %>
-        <ul>
-          <%= render 'thredded/posts/content_field', form: form %>
-
-          <li class="submit">
-            <%= form.submit 'Submit reply' %>
-          </li>
-        </ul>
-      <% end %>
-    </div>
-  <% end %>
-
-  <%= yield :breadcrumbs %>
-</footer>
