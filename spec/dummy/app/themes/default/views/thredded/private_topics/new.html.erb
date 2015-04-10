@@ -1,19 +1,15 @@
 <% content_for :thredded_page_title, 'Create a New Private Topic' %>
 <% content_for :thredded_page_id, 'thredded_new_private_topic' %>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.postForm.init();
+  </script>
+<% end %>
 
-<header>
-  <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.name, [messageboard, @private_topic] %></li>
-      <li><span>Create New Private Topic</span></li>
-    </ul>
-  </nav>
-</header>
-
-<div class="topic forms">
-  <%= render 'form',
+<%= content_tag :section, class: 'main-section private-topics-form' do %>
+  <%= render 'thredded/private_topics/form',
     messageboard: messageboard,
     private_topic: @private_topic
     %>
-</div>
+<% end %>

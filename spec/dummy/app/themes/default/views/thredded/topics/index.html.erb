@@ -1,28 +1,22 @@
 <% content_for :thredded_page_title, 'Topics' %>
 <% content_for :thredded_page_id, 'thredded_topics_index' %>
-
-<% content_for :breadcrumbs do %>
-  <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><span><%= messageboard.name %></span></li>
-    </ul>
-  </nav>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.topicForm.init();
+    thredded.timestamps.init();
+  </script>
 <% end %>
 
-<header class="list_topics">
-  <%= yield :breadcrumbs %>
-  <%= render 'thredded/shared/currently_online' %>
-  <%= render 'thredded/shared/topic_nav' %>
-</header>
+<%= content_tag :section, class: 'main-section topics' do %>
+  <%= render 'thredded/topics/form',
+    messageboard: messageboard,
+    topic: @new_topic
+    %>
+  <%= render @decorated_topics  %>
+<% end %>
 
-<section class="topics" id="topics_listing">
-  <div class="currently">
-    <%= render @decorated_topics  %>
-  </div>
-</section>
 
 <footer>
   <%= paginate @topics %>
-  <%= yield :breadcrumbs %>
 </footer>

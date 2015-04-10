@@ -9,6 +9,7 @@ module Thredded
       @topics = topics
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(current_user, @topics)
+      @new_topic = TopicForm.new(messageboard: messageboard)
     end
 
     def show
