@@ -38,6 +38,16 @@ module Thredded
       create(:post, postable: private_topics[0], messageboard: board, user: user)
       create(:post, postable: private_topics[1], messageboard: board, user: user)
       create(:post, postable: private_topics[2], messageboard: board, user: user)
+
+
+      john = create(:user, name: 'john')
+      fred = create(:user, name: 'fred')
+      kyle = create(:user, name: 'kyle')
+
+      create(:role, user: john, messageboard: board)
+      create(:role, user: fred, messageboard: board)
+      create(:role, user: kyle, messageboard: board)
+      create(:role, user: user, messageboard: board)
     end
 
     private

@@ -1,5 +1,5 @@
 module Thredded
-  class ThemesController < ApplicationController
+  class ThemesController < Thredded::ApplicationController
     before_filter :fail_on_empty_database, if: :no_messageboard?
 
     def show
