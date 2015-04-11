@@ -9,9 +9,9 @@ module PageObject
       @messageboard = messageboard
     end
 
-    def visit_preferences
+    def visit_style_guide
       signs_in_as(user.to_s)
-      visit edit_messageboard_preferences_path(messageboard)
+      visit theme_path
     end
 
     def disable_at_notifications
