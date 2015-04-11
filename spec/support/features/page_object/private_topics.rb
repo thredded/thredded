@@ -16,7 +16,7 @@ module PageObject
     end
 
     def private_topics
-      all('.topics article.private_topic')
+      all('article.private_topic')
     end
 
     def read_private_topics

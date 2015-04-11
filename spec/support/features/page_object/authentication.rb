@@ -1,6 +1,7 @@
 module PageObject
   module Authentication
     def logged_in?
+      visit root_path
       has_css? 'a', text: 'Sign out'
     end
 

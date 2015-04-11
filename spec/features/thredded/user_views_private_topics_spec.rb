@@ -1,3 +1,4 @@
+require 'pry'
 require 'spec_helper'
 
 feature 'User viewing private topics' do
@@ -9,7 +10,7 @@ feature 'User viewing private topics' do
     private_topics = one_private_topic
     private_topics.visit_index
 
-    expect(private_topics.private_topic.size).to eq(1)
+    expect(private_topics.private_topics.size).to eq(1)
   end
 
   scenario 'reads a private topic and it is marked as read' do

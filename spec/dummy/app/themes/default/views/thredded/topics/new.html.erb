@@ -1,16 +1,16 @@
 <% content_for :thredded_page_title, 'Create a New Topic' %>
 <% content_for :thredded_page_id, 'thredded_new_topic' %>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.topicForm.init();
+    thredded.postForm.init();
+  </script>
+<% end %>
 
-<header>
-  <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', thredded.root_path %></li>
-      <li><%= link_to messageboard.name, [messageboard, @new_topic] %></li>
-      <li><span>Create New Topic</span></li>
-    </ul>
-  </nav>
-</header>
-
-<div class="topic forms">
-  <%= render 'form', messageboard: messageboard, topic: @new_topic %>
-</div>
+<%= render 'thredded/topics/form',
+  messageboard: messageboard,
+  topic: @new_topic,
+  css_class: 'topic-form',
+  placeholder: 'Start a New Topic'
+  %>

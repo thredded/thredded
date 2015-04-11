@@ -73,7 +73,9 @@ module Thredded
     Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/images"
     ActionController::Base.prepend_view_path("#{Rails.root}/app/themes/#{theme_name}/views")
 
+    # rubocop:disable ClassVars
     @@theme = theme_name
+    # rubocop:enable ClassVars
   end
 
   def self.use_adapter!(db_adapter)

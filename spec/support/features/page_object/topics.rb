@@ -47,6 +47,10 @@ module PageObject
       click_button 'Create New Topic'
     end
 
+    def visit_style_guide
+      visit theme_path
+    end
+
     def visit_index
       visit messageboard_topics_path(messageboard)
     end
@@ -145,7 +149,7 @@ module PageObject
 
     def search_for(title)
       fill_in 'Search', with: title
-      find('.search_form input[type="submit"]').click
+      find('.search-bar input[type="submit"]').click
     end
 
     private

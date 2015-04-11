@@ -14,7 +14,7 @@ module PageObject
     end
 
     def done?
-      has_css? '#messageboards h2 a', text: 'Chat'
+      has_css? '.messageboards header h2 a', text: 'Chat'
     end
 
     def has_a_sign_in_error_message?
@@ -42,7 +42,7 @@ module PageObject
     end
 
     def click_new_messageboard
-      find('a.new_messageboard').click
+      find('.button-wide').click
     end
   end
 end

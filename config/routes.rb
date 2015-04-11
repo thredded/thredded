@@ -3,7 +3,7 @@ Thredded::Engine.routes.draw do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
-  resource :theme, only: [:show] if Rails.env.development?
+  resource :theme, only: [:show] if %w(development test).include? Rails.env
 
   get '/messageboards/new' => 'messageboards#new', as: :new_messageboard
   get '/:messageboard_id/preferences/edit' => 'preferences#edit'
