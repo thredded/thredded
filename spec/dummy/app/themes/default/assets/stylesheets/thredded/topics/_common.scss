@@ -1,3 +1,4 @@
+form.private-topic-form,
 form.topic-form {
   &.is-compact {
     label {
@@ -10,6 +11,7 @@ form.topic-form {
       margin: 0;
     }
 
+    .private_users,
     .content,
     .submit {
       height: 0;
@@ -28,6 +30,7 @@ form.topic-form {
       margin: auto;
     }
 
+    .private_users,
     .content,
     .submit {
       height: auto;

@@ -4,6 +4,8 @@
   <script>
     thredded = new Thredded;
     thredded.topicForm.init();
+    thredded.privateTopicForm.init();
+    thredded.privateTopicForm.makeExpandable();
     thredded.postForm.init();
     thredded.timestamps.init();
     thredded.searchBar.init();
@@ -40,7 +42,8 @@
     <%= content_tag :section, class: 'main-section topics' do %>
       <%= render 'thredded/topics/form',
         messageboard: messageboard,
-        topic: @new_topic
+        topic: @new_topic,
+        placeholder: 'Start a New Topic'
         %>
       <%= render @decorated_topics  %>
     <% end %>
@@ -90,7 +93,16 @@
 
     <%= content_tag :section, class: 'main-section private-topics' do %>
       <%= render 'thredded/private_topics/no_private_topics' %>
+
       <!-- 👆  no topics found || 👇  existing private topics  -->
+
+      <%= render 'thredded/private_topics/form',
+        messageboard: messageboard,
+        private_topic: @new_private_topic,
+        css_class: 'private-topic-form is-compact',
+        placeholder: 'Start a New Private Topic'
+        %>
+
       <%= render @decorated_private_topics %>
     <% end %>
 
@@ -101,7 +113,9 @@
     <%= content_tag :section, class: 'main-section private-topics-form' do %>
       <%= render 'thredded/private_topics/form',
         messageboard: messageboard,
-        private_topic: @new_private_topic
+        private_topic: @new_private_topic,
+        css_class: 'private-topic-form',
+        placeholder: 'New Private Topic Title'
         %>
     <% end %>
 
