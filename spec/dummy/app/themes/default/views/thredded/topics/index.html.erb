@@ -11,7 +11,8 @@
 <%= content_tag :section, class: 'main-section topics' do %>
   <%= render 'thredded/topics/form',
     messageboard: messageboard,
-    topic: @new_topic
+    topic: @new_topic,
+    placeholder: 'Start a New Topic'
     %>
   <%= render @decorated_topics  %>
 <% end %>

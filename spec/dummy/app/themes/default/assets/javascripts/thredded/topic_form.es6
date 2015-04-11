@@ -1,7 +1,7 @@
 class ThreddedTopicForm {
   constructor() {
     this.titleSelector = '#topic_title';
-    this.formSelector = '.topic-form';
+    this.formSelector = '.topic-form.is-compact';
   }
 
   init() {

@@ -1,10 +1,27 @@
 <% content_for :thredded_page_title, 'Private Topics' %>
 <% content_for :thredded_page_id, 'thredded_private_topics_index' %>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.privateTopicForm.init();
+    thredded.timestamps.init();
+  </script>
+<% end %>
 
 <%= content_tag :section, class: 'main-section private-topics' do %>
-  <%= render 'thredded/private_topics/no_private_topics' %>
-  <!-- 👆  no topics found || 👇  existing private topics  -->
-  <%= render @decorated_private_topics %>
+  <% if @private_topics.empty? -%>
+    <%= render 'thredded/private_topics/no_private_topics' %>
+
+  <% else -%>
+    <%= render 'thredded/private_topics/form',
+      messageboard: messageboard,
+      private_topic: @new_private_topic,
+      css_class: 'private-topic-form is-compact',
+      placeholder: 'Start a New Private Topic'
+      %>
+
+    <%= render @decorated_private_topics %>
+  <% end -%>
 <% end %>
 
 <footer>
