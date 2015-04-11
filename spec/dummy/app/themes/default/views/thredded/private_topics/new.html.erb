@@ -4,12 +4,14 @@
   <script>
     thredded = new Thredded;
     thredded.postForm.init();
+    thredded.privateTopicForm.init();
   </script>
 <% end %>
 
 <%= content_tag :section, class: 'main-section private-topics-form' do %>
   <%= render 'thredded/private_topics/form',
     messageboard: messageboard,
-    private_topic: @private_topic
+    private_topic: @private_topic,
+    css_class: 'private-topic-form'
     %>
 <% end %>

@@ -8,6 +8,7 @@ module Thredded
         redirect_to default_home, flash: { error: error }
       end
 
+      @new_private_topic = PrivateTopicForm.new(messageboard: messageboard)
       @private_topics = private_topics
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
         .decorate_all(current_user, @private_topics)
