@@ -16,7 +16,7 @@ feature 'User searching topics' do
   scenario 'sees a list of found topics',
     skip: ('Indexed full text search on InnoDB tables requires MySQL v5.6.4+' unless Thredded.supports_fulltext_search?) do
     topics = @three_topics
-    topics.visit_index
+    topics.visit_style_guide
     topics.search_for('Rando thread')
 
     expect(page).to have_content('Results for "Rando thread"')

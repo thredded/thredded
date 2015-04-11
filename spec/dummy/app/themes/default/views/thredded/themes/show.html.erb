@@ -5,7 +5,6 @@
     thredded = new Thredded;
     thredded.topicForm.init();
     thredded.privateTopicForm.init();
-    thredded.privateTopicForm.makeExpandable();
     thredded.postForm.init();
     thredded.timestamps.init();
     thredded.searchBar.init();
@@ -43,8 +42,10 @@
       <%= render 'thredded/topics/form',
         messageboard: messageboard,
         topic: @new_topic,
+        css_class: 'topic-form is-compact',
         placeholder: 'Start a New Topic'
         %>
+
       <%= render @decorated_topics  %>
     <% end %>
 
@@ -71,6 +72,17 @@
         button_text: 'Submit Reply'
         %>
     <% end %>
+
+    <!-- ************************ -->
+    <!-- topics#new               -->
+    <!-- ************************ -->
+
+    <%= render 'thredded/topics/form',
+      messageboard: messageboard,
+      topic: @new_topic,
+      css_class: 'topic-form',
+      placeholder: 'Start a New Topic'
+      %>
 
     <!-- ************************ -->
     <!-- posts#edit               -->
