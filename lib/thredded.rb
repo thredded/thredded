@@ -33,9 +33,8 @@ module Thredded
     :layout,
     :queue_backend,
     :queue_memory_log_level,
-    :queue_inline
-
-  mattr_reader :theme
+    :queue_inline,
+    :theme
 
   self.user_name_column = :name
   self.avatar_url = -> (_user, post) { post.gravatar_url(default: 'mm') }
@@ -68,18 +67,6 @@ module Thredded
     else
       '/'
     end
-  end
-
-  def self.theme=(theme_name)
-    Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/javascripts"
-    Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/stylesheets"
-    Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/images"
-    Thredded::Engine.config.assets.precompile += %w(thredded.css thredded.js)
-    ActionController::Base.prepend_view_path("#{Rails.root}/app/themes/#{theme_name}/views")
-
-    # rubocop:disable ClassVars
-    @@theme = theme_name
-    # rubocop:enable ClassVars
   end
 
   def self.use_adapter!(db_adapter)
