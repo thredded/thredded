@@ -16,6 +16,8 @@ require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
 require 'thredded/search_sql_builder'
 require 'thredded/case_insensitive_string_finder'
+require 'bourbon'
+require 'neat'
 
 module Thredded
   mattr_accessor :user_class,
@@ -71,6 +73,7 @@ module Thredded
     Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/javascripts"
     Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/stylesheets"
     Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{theme_name}/assets/images"
+    Thredded::Engine.config.assets.precompile += %w(thredded.css thredded.js)
     ActionController::Base.prepend_view_path("#{Rails.root}/app/themes/#{theme_name}/views")
 
     # rubocop:disable ClassVars

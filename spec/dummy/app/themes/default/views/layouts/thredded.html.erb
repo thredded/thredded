@@ -3,14 +3,14 @@
   <head>
     <title>Thredded | <%= yield :thredded_page_title %></title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'thredded' %>
     <%= csrf_meta_tag %>
   </head>
   <%= content_tag(:body, id: (yield :thredded_page_id), class: 'layout-application') do %>
     <%= render 'thredded/shared/icons_svg' %>
     <%= yield %>
 
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'thredded' %>
     <%= yield :thredded_javascript %>
   <% end %>
 </html>
