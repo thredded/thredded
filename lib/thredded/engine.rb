@@ -28,7 +28,12 @@ module Thredded
       Thredded.use_adapter! Thredded::Post.connection_config[:adapter]
     end
 
-    initializer 'thredded.adjust_view_paths' do
+    initializer 'thredded.set_theme' do
+      Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{Thredded.theme}/assets/javascripts"
+      Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{Thredded.theme}/assets/stylesheets"
+      Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{Thredded.theme}/assets/images"
+      Thredded::Engine.config.assets.precompile += %w(thredded.css thredded.js)
+      ActionController::Base.prepend_view_path("#{Rails.root}/app/themes/#{Thredded.theme}/views")
     end
   end
 end
