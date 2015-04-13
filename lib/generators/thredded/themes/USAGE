@@ -1,0 +1,8 @@
+Description:
+    Install the themes (views and assets) for thredded so that the parent application can customize them.
+
+Example:
+    rails generate thredded:themes
+
+    This will create:
+        app/themes/*/**
