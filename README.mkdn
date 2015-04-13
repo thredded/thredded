@@ -10,7 +10,7 @@ is an engine - not a standalone app.
 
 <a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
 
-<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development 
+<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development
 
 [Discourse]: http://www.discourse.org/
 [Forem]: https://www.github.com/radar/forem
@@ -31,6 +31,12 @@ Add a thredded initializer to your parent app by running the install generator.
 
 ```ruby
 rails generate thredded:install
+```
+
+Copy the themes (views and assets) into your parent application:
+
+```
+rails generate thredded:themes
 ```
 
 Copy the migrations over to your parent application and migrate:
@@ -78,19 +84,20 @@ There are a few things you need in your app to get things looking just right.
   end
   ```
 
-2. Ensure you have a view layout that thredded will wrap around its views.
+2. Change the installed thredded theme to match your parent app's look and feel.
 
-  A couple of notes with regards to your layout.
+  The theme has very basic styles and markup. The main focus in building this theme was
+  to get the front-end views and assets to a point that are easily adjusted and
+  optimally organized.
 
-  * When using route helpers -- eg: `new_session_path`, et al -- make sure to prepend main_app 
-    to the helper: `main_app.new_session_path` as rails engines like thredded will not know 
-    about those routes' existence unless explicitly told so.
-  * As noted above, by default thredded will look for a layout file in your application 
-    called `thredded.html.erb`. If you would like to use something else, like your main application
-    layout, you may change it to that in your initializer.
-  * The chosen layout has two content_tags available to yield - `:thredded_page_title` and 
-    `:thredded_page_id`. The views within thredded pass those up through to your layout if you 
-    would like to use them.  Example layout:
+  A couple of notes:
+
+  * When using route helpers in the thredded views -- eg: `new_session_path`, et al -- make
+    sure to prepend `main_app` to the helper: `main_app.new_session_path` as rails engines
+    like thredded will not know about those routes' existence unless explicitly told so.
+  * The theme layout has three content_tags available to yield - `:thredded_page_title`,
+    `:thredded_page_id`, and `:thredded_javascript`. The views within thredded pass those
+    up through to your layout if you would like to use them.  Example layout:
 
   ```html
   <html>
@@ -99,17 +106,19 @@ There are a few things you need in your app to get things looking just right.
     </head>
     <body id="<%= yield :thredded_page_id %>">
       <%= yield %>
+
+      <%= yield :thredded_javascript %>
     </body>
   </html>
   ```
 
-3. Make you, or one of your users, a super-admin so they'll have the permissions to create a new forum. 
+3. Make you, or one of your users, a super-admin so they'll have the permissions to create a new forum.
 
   ```
   rake thredded:superadmin[joel] # bash
   rake "thredded:superadmin[yourname]" # zsh
   ```
 
-  Two examples are given for bash and zsh. Zsh typically reserves brackets, `[]`, for other uses 
-  hence the wrapping with quotes. Pro-tip: did you know [you can escape the brackets by 
+  Two examples are given for bash and zsh. Zsh typically reserves brackets, `[]`, for other uses
+  hence the wrapping with quotes. Pro-tip: did you know [you can escape the brackets by
   default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
