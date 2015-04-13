@@ -82,8 +82,15 @@ Thredded.file_storage = Rails.env.production? ? :fog : :file
 # To copy the theme files from the gem to your parent application, run the
 # rails generator that will copy the files over. EG:
 #
-# `rails g thredded:theme:install base`
+# `rails g thredded:themes`
 #
-# And set your theme in this initializer:
+# This will install the default theme - `default`. You may then customize
+# the files to your liking.
 #
-# Thredded.theme = 'base'
+# Thredded.theme = :default
+#
+# Or, if you copy things over to a new directory - for example: `acme_co`. You
+# can switch to that new theme by setting the configuration to match that new
+# directory name.
+#
+# Thredded.theme = :acme_co
