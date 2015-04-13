@@ -46,6 +46,7 @@ module Thredded
   self.queue_memory_log_level = Logger::WARN
   self.queue_inline = false
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
+  self.theme = :default
 
   def self.user_class
     if @@user_class.is_a?(Class)
