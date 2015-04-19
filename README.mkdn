@@ -125,8 +125,8 @@ There are a few things you need in your app to get things looking just right.
 
 ## Developing and Testing with [Docker Compose](http://docs.docker.com/compose/)
 
-To quickly try out _Thredded_ with the included dummy app you can fire up the
-included docker-compose.yml file like so:
+To quickly try out _Thredded_ with the included dummy app, clone the source and
+start the included docker-compose.yml file with:
 
 ```
 docker-compose build
