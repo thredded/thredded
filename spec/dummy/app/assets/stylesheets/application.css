@@ -11,3 +11,47 @@
  *= require_self
  *= require_tree .
  */
+
+h1, h2, h3 {
+  font-family: 'Arvo', Georgia, Times, serif;
+}
+
+h1 {
+  font-size: 45px;
+  line-height: 55px;
+}
+
+h2 {
+  font-size: 37px;
+  line-height: 45px;
+}
+
+h2 {
+  font-size: 29px;
+  line-height: 35px;
+}
+
+* {
+  font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.default {
+  background: #d8d8d8;
+}
+
+.container {
+  background: white;
+  padding: 2em;
+  border-right: solid 2px #a5a8ac;
+  border-bottom: solid 3px #a5a8ac;
+  margin: 2em auto;
+  width: 520px;
+}
+
+.container-header {
+  border-bottom: solid 1px #d8d8d8;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
