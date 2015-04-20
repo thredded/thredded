@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in?, :current_user
 
   def index
+    @messageboard = Thredded::Messageboard.first
   end
 
   def signed_in?

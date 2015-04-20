@@ -4,26 +4,31 @@
     <title>Dummy App Layout</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="default">
+    <div id="container" class="container">
+      <div id="header" class="container-header">
+        <% if signed_in? %>
+          You are <%= current_user %> |
+          <%= link_to 'Sign out', session_path, method: :delete %>
+        <% else %>
+          You are an anonymous visitor |
+          <%= link_to 'Sign in', sessions_new_path %>
+        <% end %>
+      </div>
 
-    <div id='header'>
-      <% if signed_in? %>
-        <%= current_user %> | <%= link_to 'Sign out', session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Sign in', sessions_new_path %>
+      <% [:info, :error, :notice, :alert, :warning].each do |key| %>
+        <% if flash[key] %>
+          <div class="<%= key %>" id="flash">
+            <%= flash[key] %>
+          </div>
+        <% end %>
       <% end %>
+
+      <%= yield %>
     </div>
-
-    <% [:info, :error, :notice, :alert, :warning].each do |key| %>
-      <% if flash[key] %>
-        <div class="<%= key %>" id="flash">
-          <%= flash[key] %>
-        </div>
-      <% end %>
-    <% end %>
-
-    <%= yield %>
   </body>
 </html>
