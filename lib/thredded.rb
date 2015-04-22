@@ -16,8 +16,6 @@ require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
 require 'thredded/search_sql_builder'
 require 'thredded/case_insensitive_string_finder'
-require 'bourbon'
-require 'neat'
 
 module Thredded
   mattr_accessor :user_class,
