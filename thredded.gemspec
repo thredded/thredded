@@ -14,9 +14,6 @@ Gem::Specification.new do |s|
   s.description = 'A messageboard engine for Rails 4.0 apps'
 
   s.add_dependency 'bbcoder', '~> 1.0'
-  s.add_dependency 'bourbon'
-  s.add_dependency 'neat'
-  s.add_dependency 'bitters'
   s.add_dependency 'cancancan'
   s.add_dependency 'carrierwave'
   s.add_dependency 'escape_utils'
@@ -38,6 +35,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'unf'
 
   # test dependencies
+  s.add_development_dependency 'bourbon'
+  s.add_development_dependency 'neat'
+  s.add_development_dependency 'bitters'
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'chronic'
   s.add_development_dependency 'database_cleaner'
