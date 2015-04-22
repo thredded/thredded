@@ -32,15 +32,15 @@ module Thredded
       end
 
       def gems
-        _gems = "\n"
+        gems = "\n"
 
         if options.sass_framework == 'bourbon'
-          _gems << "\ngem 'bourbon'" unless in_gemfile?('bourbon')
-          _gems << "\ngem 'neat'"    unless in_gemfile?('neat')
-          _gems << "\ngem 'bitters'" unless in_gemfile?('bitters')
+          gems << "\ngem 'bourbon'" unless in_gemfile?('bourbon')
+          gems << "\ngem 'neat'"    unless in_gemfile?('neat')
+          gems << "\ngem 'bitters'" unless in_gemfile?('bitters')
         end
 
-        _gems
+        gems
       end
 
       def in_gemfile?(gem_name)
