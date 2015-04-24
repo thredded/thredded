@@ -6,6 +6,7 @@
     <%= stylesheet_link_tag 'thredded' %>
     <%= csrf_meta_tag %>
   </head>
+
   <%= content_tag(:body, id: (yield :thredded_page_id), class: 'layout-application') do %>
     <%= render 'thredded/shared/icons_svg' %>
     <%= yield %>

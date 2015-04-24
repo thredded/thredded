@@ -39,28 +39,10 @@ form.topic-form {
   }
 }
 
-article.topic {
-  padding: 0.75em;
-
-  h1 {
-    margin: 0 40px 0 0;
-  }
-
-  cite {
-    font-size: 12px;
-  }
-}
-
 .topic-updated-by {
   abbr {
     &::before { content: 'updated '; }
     &::after  { content: ' by '; }
-  }
-}
-
-.topic-started-by {
-  @include media($mobile) {
-    display: none;
   }
 }
 
@@ -74,34 +56,13 @@ article.topic {
   border-radius: 50%;
   line-height: 2em;
   position: relative;
-
-  &::before {
-    content: '';
-    display: block;
-    border: solid 5px lighten(#c4c4c4, 10%);
-    border-top-color: transparent;
-    border-right-color: transparent;
-    width: 0px;
-    position: absolute;
-    bottom: 2px;
-    left: 2px;
-  }
 }
 
 section.topic {
-  > header {
-    padding: 0.75em;
-    border-bottom: dotted 1px gray;
+  cite {
+    font-size: 12px;
 
-    h1 {
-      margin: 0;
-    }
-
-    cite {
-      font-size: 12px;
-
-      abbr::before { content: "started " }
-      abbr::after { content: " by " }
-    }
+    abbr::before { content: "started " }
+    abbr::after { content: " by " }
   }
 }
