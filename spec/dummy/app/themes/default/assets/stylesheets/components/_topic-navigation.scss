@@ -1,0 +1,27 @@
+.topic-navigation {
+  float: right;
+
+  &--active {
+    border-bottom: 1px solid $action-color;
+    margin-bottom: -2px;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: $base-spacing;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a {
+    display: block;
+    padding-bottom: $base-spacing;
+    color: lighten($base-font-color, 10%);
+
+    &:hover {
+      color: $action-color;
+    }
+  }
+}

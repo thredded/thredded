@@ -1,45 +1,12 @@
-.button {
-  @include button(flat, $base-accent-color);
-}
-
-.button-wide {
-  width: 100%;
-}
-
-.is-hidden {
-  display: none !important;
-}
-
-.is-visible {
-  display: block !important;
-}
-
-.is-in-the-background {
-  &::before {
-    background: black;
-    bottom: 0;
-    content: '';
-    display: block;
-    left: 0;
-    opacity: 0.7;
-    position: absolute;
-    right: 0;
-    top: 44px;
-    z-index: 99;
-  }
-}
-
 .drop-form {
-  display: none;
-  position: absolute;
-  width: 250px;
-  top: 50px;
-  right: 56px;
+  @include position(absolute, 50px 56px null null);
   background: white;
-  padding: .75em;
-  border: solid 1px lighten(gray, 20%);
+  border: $base-border;
   border-radius: 3px;
-  z-index: 100;
+  display: none;
+  padding: 0.75em;
+  width: 250px;
+  z-index: $drop-form-z-index;
 
   @include media($mobile) {
     left: 0.75em;
@@ -50,19 +17,15 @@
 
   &::before {
     @include transform(rotate(45deg));
-
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
     background: white;
-    border: solid 1px lighten(gray, 20%);
     border-bottom: none;
     border-right: none;
-    top: 0px;
-    position: absolute;
-    left: 50%;
+    border: solid 1px lighten(gray, 20%);
+    content: "";
+    display: block;
+    @include size(20px);
     margin-top: -11px;
+    @include position(absolute, 0 null null 50%);
   }
 
   h1 {

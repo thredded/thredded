@@ -1,11 +1,11 @@
 <% if can? :read, messageboard.original %>
   <div class="messageboard">
     <header>
-      <h2>
+      <h2 class="messageboard--title">
         <%= link_to messageboard.name, messageboard_topics_path(messageboard) %>
       </h2>
 
-      <div class="messageboard-meta"><%= messageboard.meta %></div>
+      <h3 class="messageboard--meta"><%= messageboard.meta %></h3>
     </header>
 
     <p><%= messageboard.description %></p>

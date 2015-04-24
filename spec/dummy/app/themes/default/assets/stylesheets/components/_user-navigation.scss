@@ -1,0 +1,18 @@
+.user-navigation {
+  font-size: em(13);
+  margin-top: $large-spacing;
+  text-align: right;
+
+  li {
+    display: inline-block;
+    margin-right: $large-spacing;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a {
+    color: lighten($base-font-color, 30%);
+  }
+}
