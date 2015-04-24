@@ -1,11 +1,20 @@
-<div class="topic-nav">
-  <ul>
-    <li class="topic-nav-active">
+<div class="main-navigation">
+  <ul class="navigation-breadcrumbs">
+    <li>
+      <a href="">All Message Boards</a>
+    </li>
+    <li>
+      <a href="">Meta</a>
+    </li>
+  </ul>
+
+  <ul class="topic-navigation">
+    <li class="topic-navigation--active">
       <%= link_to 'topics', messageboard_topics_path(messageboard) %>
     </li>
     <li>
       <%= link_to messageboard_private_topics_path(messageboard), class: "unread-#{unread_private_topics_count}" do %>
-        private topics <span><%= unread_private_topics_count %></span>
+      private topics <span><%= unread_private_topics_count %></span>
       <% end %>
     </li>
   </ul>
