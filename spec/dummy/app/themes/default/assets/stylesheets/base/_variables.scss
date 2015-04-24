@@ -1,5 +1,5 @@
 // Typography
-$base-font-family: $helvetica;
+$base-font-family: "Merriweather Sans", $helvetica;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
@@ -11,19 +11,23 @@ $heading-line-height: 1.2;
 
 // Other Sizes
 $base-border-radius: 3px;
+$large-spacing: $base-line-height * 2em;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
+$is-in-the-background-z-index: $base-z-index + 99;
+$drop-form-z-index: $base-z-index + 100;
 
 // Colors
 $blue: #477dca;
+$dark-blue: #575d6b;
 $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
 
 // Font Colors
 $base-background-color: #fff;
-$base-font-color: $dark-gray;
+$base-font-color: $dark-blue;
 $action-color: $blue;
 
 // Border

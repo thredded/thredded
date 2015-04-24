@@ -1,0 +1,38 @@
+.main-navigation {
+  @include row;
+  border-bottom: $base-border;
+  margin-top: $base-spacing;
+  margin-bottom: $large-spacing;
+  font-size: em(15);
+}
+
+.navigation-breadcrumbs {
+  float: left;
+
+  li {
+    display: inline-block;
+
+    &:after {
+      @include size(6px 10px);
+      background-image: image-url("breadcrumb-cheveron.svg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      content: "";
+      display: inline-block;
+      margin: 0 $small-spacing;
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+  }
+
+  a {
+    color: $base-font-color;
+    font-weight: bold;
+
+    &:hover {
+      color: $action-color;
+    }
+  }
+}
