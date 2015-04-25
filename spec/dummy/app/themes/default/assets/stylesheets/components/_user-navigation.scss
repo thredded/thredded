@@ -23,13 +23,13 @@
 
     input[type="search"] {
       @include transition();
-      display: inline-block;
-      font-size: rem(14);
-      width: auto;
       border-color: transparent;
       box-shadow: none;
+      display: inline-block;
+      font-size: rem(14);
       margin-bottom: 0;
       min-width: em(190, 14);
+      width: auto;
 
       &:hover {
         border-color: $base-border-color;
