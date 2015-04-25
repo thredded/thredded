@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="7px" height="11px" viewBox="0 0 7 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.3 (11970) - http://www.bohemiancoding.com/sketch -->
-    <title>breadcrumb-cheveron</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Desktop-HD-Copy-2" sketch:type="MSArtboardGroup" transform="translate(-488.000000, -328.000000)" fill="#B0AEBC">
-            <path d="M489.958625,328.190742 C489.769625,327.991742 489.462625,327.991742 489.274625,328.190742 L488.591625,328.907742 C488.401625,329.104742 488.401625,329.425742 488.591625,329.622742 L491.886625,333.027742 L488.563625,336.461742 C488.374625,336.659742 488.374625,336.979742 488.563625,337.177742 L489.247625,337.894742 C489.435625,338.091742 489.741625,338.091742 489.931625,337.894742 L494.280625,333.386742 C494.468625,333.187742 494.468625,332.867742 494.280625,332.669742 L489.958625,328.190742" id="breadcrumb-cheveron" sketch:type="MSShapeGroup"></path>
-        </g>
-    </g>
-</svg>
+<svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg"><title>breadcrumb-cheveron</title><desc>Created with Sketch.</desc><g fill="none" fill-rule="evenodd"><g fill="#B0AEBC"><path d="M1.96.19c-.19-.198-.497-.198-.685 0L.592.91c-.19.197-.19.518 0 .715l3.295 3.405L.564 8.462c-.19.198-.19.518 0 .716l.684.717c.188.197.494.197.684 0l4.35-4.508c.187-.2.187-.52 0-.717L1.958.19"/></g></g></svg>

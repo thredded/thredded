@@ -1,8 +1,8 @@
 .drop-form {
   @include position(absolute, 50px 56px null null);
   background: white;
-  border: $base-border;
   border-radius: 3px;
+  border: $base-border;
   display: none;
   padding: 0.75em;
   width: 250px;
@@ -16,6 +16,8 @@
   }
 
   &::before {
+    @include position(absolute, 0 null null 50%);
+    @include size(20px);
     @include transform(rotate(45deg));
     background: white;
     border-bottom: none;
@@ -23,9 +25,7 @@
     border: solid 1px lighten(gray, 20%);
     content: "";
     display: block;
-    @include size(20px);
     margin-top: -11px;
-    @include position(absolute, 0 null null 50%);
   }
 
   h1 {
@@ -37,13 +37,13 @@
     float: right;
     font-size: .8em;
     font-weight: normal;
-    width: 90%;
     margin: 4px 0 0;
+    width: 90%;
   }
 
   li {
-    overflow: auto;
     clear: both;
+    overflow: auto;
   }
 
   input[type="text"],
@@ -52,10 +52,10 @@
   }
 
   .submit input {
-    width: 100%;
-    font-size: .9em;
     clear: both;
+    font-size: .9em;
     overflow: auto;
+    width: 100%;
   }
 
   .submit {

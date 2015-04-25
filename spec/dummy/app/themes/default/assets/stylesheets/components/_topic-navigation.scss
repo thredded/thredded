@@ -1,7 +1,6 @@
 .topic-navigation {
   float: right;
 
-
   li {
     display: inline-block;
     margin-right: $base-spacing;
@@ -12,9 +11,9 @@
   }
 
   a {
+    color: lighten($base-font-color, 10%);
     display: block;
     padding-bottom: $base-spacing;
-    color: lighten($base-font-color, 10%);
 
     &:hover {
       color: $action-color;
@@ -27,12 +26,12 @@
   }
 
   &--unread {
-    color: #fff;
     background-color: $action-color;
     border-radius: 10px;
+    color: #fff;
     font-size: rem(10);
-    padding: 2px 5px;
-    margin-left: $small-spacing;
     line-height: 1;
+    margin-left: $small-spacing;
+    padding: 2px 5px;
   }
 }
