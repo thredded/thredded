@@ -1,5 +1,11 @@
 <nav role="navigation" class="user-navigation">
   <ul>
+    <!-- always -->
+    <li class="user-navigation--search">
+      <!-- <svg viewBox="0 0 32 32"><use xlink:href="#search1"></use></svg> -->
+      <%= render 'thredded/search/form' %>
+    </li>
+
     <!-- if logged in -->
     <li class="">
       <a href="#">
@@ -22,13 +28,5 @@
     <!--     <span>UserName</span> -->
     <!--   </a> -->
     <!-- </li> -->
-
-    <!-- always -->
-    <li class="main-nav-search">
-      <a href="#search">
-        <!-- <svg viewBox="0 0 32 32"><use xlink:href="#search1"></use></svg> -->
-        <span>Search</span>
-      </a>
-    </li>
   </ul>
 </nav>
