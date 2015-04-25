@@ -38,31 +38,3 @@ form.topic-form {
     }
   }
 }
-
-.topic-updated-by {
-  abbr {
-    &::before { content: 'updated '; }
-    &::after  { content: ' by '; }
-  }
-}
-
-.topic-posts-count {
-  float: right;
-  background: lighten(#c4c4c4, 10%);
-  width: 2em;
-  height: 2em;
-  color: white;
-  text-align: center;
-  border-radius: 50%;
-  line-height: 2em;
-  position: relative;
-}
-
-section.topic {
-  cite {
-    font-size: 12px;
-
-    abbr::before { content: "started " }
-    abbr::after { content: " by " }
-  }
-}
