@@ -1,8 +1,8 @@
 .main-navigation {
   @include row;
   border-bottom: $base-border;
-  margin-top: $base-spacing;
   margin-bottom: $large-spacing;
+  margin-top: $base-spacing;
 }
 
 .navigation-breadcrumbs {
