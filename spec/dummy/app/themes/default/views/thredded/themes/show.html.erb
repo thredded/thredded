@@ -51,7 +51,7 @@
   <!-- ************************ -->
 
   <%= content_tag_for :section, @topic, class: "main-section #{@user_topic.css_class}" do %>
-    <header>
+    <header class="topic--title">
       <h1><%= @topic.title %></h1>
 
       <cite class="topic-started-by">
