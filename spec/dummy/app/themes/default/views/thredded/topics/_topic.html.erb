@@ -1,7 +1,7 @@
-<%= content_tag_for :article, topic, class: topic.css_class do %>
-  <div class="topic-posts-count"><%= topic.posts_count %></div>
+<%= content_tag_for :article, topic, class: "topics--topic #{topic.css_class}" do %>
+  <div class="topics--posts-count"><%= topic.posts_count %></div>
 
-  <h1>
+  <h1 class="topics--title">
     <%= link_to topic.title,
       paged_messageboard_topic_posts_path(
         messageboard.slug,
@@ -11,20 +11,19 @@
     %>
   </h1>
 
-  <cite class="topic-updated-by">
+  <cite class="topics--updated-by">
     <%== topic.updated_at_timeago %>
     <%== topic.last_user_link %>
   </cite>
 
-  <cite class="topic-started-by">
+  <cite class="topics--started-by">
     <%== topic.created_at_timeago %>
     <%== topic.user_link %>
   </cite>
 
   <% if topic.categories.any? %>
-    <ul class="topic-categories">
+    <ul class="topics--categories">
       <%= render topic.categories %>
     </ul>
   <% end %>
 <% end %>
-
