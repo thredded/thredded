@@ -1,10 +1,6 @@
 .topic-navigation {
   float: right;
 
-  &--active {
-    border-bottom: 1px solid $action-color;
-    margin-bottom: -2px;
-  }
 
   li {
     display: inline-block;
@@ -23,5 +19,20 @@
     &:hover {
       color: $action-color;
     }
+  }
+
+  &--active {
+    border-bottom: 1px solid $action-color;
+    margin-bottom: -2px;
+  }
+
+  &--unread {
+    color: #fff;
+    background-color: $action-color;
+    border-radius: 10px;
+    font-size: rem(10);
+    padding: 2px 5px;
+    margin-left: $small-spacing;
+    line-height: 1;
   }
 }
