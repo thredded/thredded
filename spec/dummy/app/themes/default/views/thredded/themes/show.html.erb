@@ -54,7 +54,7 @@
     <header class="topic--title">
       <h1><%= @topic.title %></h1>
 
-      <cite class="topic-started-by">
+      <cite class="topic--title-started-by">
         <%== @topic.decorate.created_at_timeago %>
         <%== @topic.decorate.user_link %>
       </cite>
