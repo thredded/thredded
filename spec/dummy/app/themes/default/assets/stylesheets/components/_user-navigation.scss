@@ -1,0 +1,49 @@
+.user-navigation {
+  font-size: em(14);
+  margin-top: $large-spacing;
+  text-align: right;
+
+  li {
+    display: inline-block;
+    margin-right: $base-spacing;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a {
+    color: lighten($base-font-color, 30%);
+  }
+
+  &--search {
+    label {
+      display: none;
+    }
+
+    input[type="search"] {
+      @include transition();
+      border-color: transparent;
+      box-shadow: none;
+      display: inline-block;
+      font-size: rem(14);
+      margin-bottom: 0;
+      min-width: em(190, 14);
+      width: auto;
+
+      &:hover {
+        border-color: $base-border-color;
+      }
+
+      &:focus {
+        @include transition();
+        border-color: $action-color;
+        min-width: em(290, 14);
+      }
+    }
+
+    input[type="submit"] {
+      display: none;
+    }
+  }
+}

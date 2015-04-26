@@ -1,0 +1,64 @@
+.drop-form {
+  @include position(absolute, 50px 56px null null);
+  background: white;
+  border-radius: 3px;
+  border: $base-border;
+  display: none;
+  padding: 0.75em;
+  width: 250px;
+  z-index: $drop-form-z-index;
+
+  @include media($mobile) {
+    left: 0.75em;
+    right: 0.75em;
+    top: 50px;
+    width: auto;
+  }
+
+  &::before {
+    @include position(absolute, 0 null null 50%);
+    @include size(20px);
+    @include transform(rotate(45deg));
+    background: white;
+    border-bottom: none;
+    border-right: none;
+    border: solid 1px lighten(gray, 20%);
+    content: "";
+    display: block;
+    margin-top: -11px;
+  }
+
+  h1 {
+    color: $blue;
+    text-align: center;
+  }
+
+  label {
+    float: right;
+    font-size: .8em;
+    font-weight: normal;
+    margin: 4px 0 0;
+    width: 90%;
+  }
+
+  li {
+    clear: both;
+    overflow: auto;
+  }
+
+  input[type="text"],
+  input[type="checkbox"] {
+    margin: 0px;
+  }
+
+  .submit input {
+    clear: both;
+    font-size: .9em;
+    overflow: auto;
+    width: 100%;
+  }
+
+  .submit {
+    margin-top: 0.75em;
+  }
+}

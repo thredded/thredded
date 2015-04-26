@@ -149,7 +149,7 @@ module PageObject
 
     def search_for(title)
       fill_in 'Search', with: title
-      find('.search-bar input[type="submit"]').click
+      find('.user-navigation--search input[type="submit"]').click
     end
 
     private
