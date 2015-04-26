@@ -1,8 +1,14 @@
-<div class="online">
-  <h3>Currently Online</h3>
-  <ul>
+<aside class="currently-online">
+  <header>
+    <h3 class="currently-online--title open">Currently Online</h3>
+  </header>
+
+  <ul class="currently-online--users">
     <% active_users.each do |user| %>
-      <li><%= user %></li>
+      <li class="currently-online--user">
+        <img src="" alt="" class="currently-online--avatar" />
+        <%= user %>
+      </li>
     <% end %>
   </ul>
-</div>
+</aside>
