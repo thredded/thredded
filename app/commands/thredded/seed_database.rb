@@ -16,6 +16,10 @@ module Thredded
           ::User.create(name: 'joe', email: 'joe@example.com')
       end
 
+      john = create(:user, name: 'john')
+      fred = create(:user, name: 'fred')
+      kyle = create(:user, name: 'kyle')
+
       @messageboard = create(
         :messageboard,
         name: 'Theme Test',
@@ -46,14 +50,12 @@ module Thredded
       create(:post, postable: private_topics[1], messageboard: messageboard, user: user)
       create(:post, postable: private_topics[2], messageboard: messageboard, user: user)
 
-      john = create(:user, name: 'john')
-      fred = create(:user, name: 'fred')
-      kyle = create(:user, name: 'kyle')
-
+      create(:role, user: user, messageboard: messageboard)
+      create(:role, user: kyle, messageboard: messageboard)
       create(:role, user: john, messageboard: messageboard)
       create(:role, user: fred, messageboard: messageboard)
-      create(:role, user: kyle, messageboard: messageboard)
-      create(:role, user: user, messageboard: messageboard)
+
+      self
     end
   end
 end
