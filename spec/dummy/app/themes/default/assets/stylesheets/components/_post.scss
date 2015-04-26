@@ -1,0 +1,37 @@
+.post {
+  position: relative;
+  margin-bottom: $large-spacing;
+
+  &--avatar {
+    @include position(absolute, -0.5rem null null -3rem);
+    @include size(rem(36));
+    border-radius: 50%;
+  }
+
+  &--user {
+    display: inline-block;
+    font-size: rem(18);
+    margin-right: $small-spacing;
+    margin-bottom: 1.25rem;
+
+    a {
+      color: $base-font-color;
+    }
+  }
+
+  &--created-at {
+    font-size: rem(14);
+    color: lighten($base-font-color, 30%);
+    display: inline-block;
+  }
+
+  &--edit {
+    float: right;
+    font-size: rem(14);
+  }
+
+  &--content {
+    font-size: rem(17);
+    line-height: 1.65;
+  }
+}
