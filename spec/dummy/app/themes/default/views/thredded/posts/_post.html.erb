@@ -3,23 +3,19 @@
 
   <%= content_tag_for :article, post do %>
     <header>
-      <%= image_tag post.avatar_url, class: 'post-avatar' unless post.user_anonymous? %>
-      <cite>
-        <%= post.user_link %>
-        <%= post.created_at_timeago %>
-      </cite>
+      <%= image_tag post.avatar_url, class: 'post--avatar' unless post.user_anonymous? %>
+      <h2 class="post--user"><%= post.user_link %></h2>
+      <p class="post--created-at"><%= post.created_at_timeago %></p>
+
+      <% if can? :edit, post.original %>
+        <%= link_to 'Edit Post',
+        edit_polymorphic_path([messageboard, post.postable, post]),
+        class: 'post--edit' %>
+      <% end %>
     </header>
 
-    <div class="post-content">
+    <div class="post--content">
       <%== post.filtered_content %>
     </div>
-
-    <footer>
-      <% if can? :edit, post.original %>
-        <%= link_to 'edit post',
-          edit_polymorphic_path([messageboard, post.postable, post]),
-          class: 'edit' %>
-      <% end %>
-    </footer>
   <% end %>
 <% end %>

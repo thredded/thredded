@@ -1,0 +1,10 @@
+.topic {
+  &--title {
+    font-size: rem(24);
+    margin-bottom: $large-spacing;
+  }
+
+  &--title-started-by {
+    display: none;
+  }
+}
