@@ -156,7 +156,9 @@
   </footer>
 </div>
 
-<%= render 'thredded/shared/currently_online' %>
+<aside class="currently-online">
+  <%= render 'thredded/shared/currently_online' %>
+</aside>
 
 <%= content_tag :section, class: 'notification-preferences is-hidden' do %>
   <h1>Your Notification Settings For <em><%= messageboard.name %></em></h1>
