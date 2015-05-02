@@ -1,0 +1,13 @@
+.messageboard {
+  &--title {
+    display: inline-block;
+    font-size: em(17);
+  }
+
+  &--meta {
+    color: lighten($base-font-color, 30%);
+    display: inline-block;
+    font-size: em(13);
+    font-weight: normal;
+  }
+}
