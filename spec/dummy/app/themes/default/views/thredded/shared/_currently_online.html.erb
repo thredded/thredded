@@ -4,9 +4,11 @@
   </header>
 
   <ul class="currently-online--users">
-    <% active_users.each do |user| %>
+    <% active_users.each_with_index do |user, index| %>
       <li class="currently-online--user">
-        <img src="" alt="" class="currently-online--avatar" />
+        <img src="http://api.adorable.io/avatars/40/noreply+<%= index %>@thredded.com.png"
+          alt="" class="currently-online--avatar" />
+
         <%= user %>
       </li>
     <% end %>
