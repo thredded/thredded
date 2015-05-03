@@ -2,31 +2,39 @@
   <ul>
     <!-- always -->
     <li class="user-navigation--search">
-      <!-- <svg viewBox="0 0 32 32"><use xlink:href="#search1"></use></svg> -->
       <%= render 'thredded/search/form' %>
     </li>
 
-    <!-- if logged in -->
-    <li class="">
-      <a href="#">
-        <!-- <svg viewBox="0 0 32 32"><use xlink:href="#user1"></use></svg> -->
-        <span>Sign In / Register</span>
-      </a>
-    </li>
+    <% if signed_in? %>
+      <!-- signed in users -->
 
-    <!-- if not logged in -->
-    <!-- <li class="main&#45;nav&#45;notification&#45;preferences"> -->
-    <!--   <a href="#"> -->
-    <!--     <!&#45;&#45; <svg viewBox="0 0 32 32"><use xlink:href="#bell"></use></svg> &#45;&#45;> -->
-    <!--     <span>Notification Settings</span> -->
-    <!--   </a> -->
-    <!-- </li> -->
-    <!--  -->
-    <!-- <li class="main&#45;nav&#45;notification&#45;preferences"> -->
-    <!--   <a href="#"> -->
-    <!--     <!&#45;&#45; <svg viewBox="0 0 32 32"><use xlink:href="#bell"></use></svg> &#45;&#45;> -->
-    <!--     <span>UserName</span> -->
-    <!--   </a> -->
-    <!-- </li> -->
+      <% if messageboard %>
+        <li class="main--nav--notification--preferences">
+          <%= link_to edit_messageboard_preferences_path(messageboard) do %>
+            <span>Notification Settings</span>
+          <% end %>
+        </li>
+      <% end %>
+
+      <li class="main--nav--user">
+        <%= link_to "/users/#{current_user}" do %>
+          <span><%= current_user %></span>
+        <% end %>
+      </li>
+
+      <li class="main--nav--sign-out">
+        <%= link_to main_app.session_path, method: :delete do %>
+         <span>Sign Out</span>
+        <% end %>
+      </li>
+
+    <% else %>
+      <!-- anonymous visitors -->
+      <li class="">
+        <%= link_to main_app.sessions_new_path do %>
+          <span>Sign In / Register</span>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </nav>
