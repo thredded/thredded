@@ -1,13 +1,10 @@
 <nav role="navigation" class="user-navigation">
   <ul>
-    <!-- always -->
     <li class="user-navigation--search">
       <%= render 'thredded/search/form' %>
     </li>
 
     <% if signed_in? %>
-      <!-- signed in users -->
-
       <% if messageboard %>
         <li class="main--nav--notification--preferences">
           <%= link_to edit_messageboard_preferences_path(messageboard) do %>
@@ -29,8 +26,7 @@
       </li>
 
     <% else %>
-      <!-- anonymous visitors -->
-      <li class="">
+      <li class="main--nav--sign-in-register">
         <%= link_to main_app.sessions_new_path do %>
           <span>Sign In / Register</span>
         <% end %>
