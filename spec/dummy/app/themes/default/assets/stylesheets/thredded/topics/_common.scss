@@ -1,40 +1,41 @@
-form.private-topic-form,
-form.topic-form {
-  &.is-compact {
-    label {
-      height: 0;
-      visibility: hidden;
-      margin: 0;
-    }
-
-    input {
-      margin: 0;
-    }
-
-    .private_users,
-    .content,
-    .submit {
-      height: 0;
-      visibility: hidden;
-    }
+.is-compact {
+  label {
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
   }
 
-  &.is-expanded {
-    label {
-      height: auto;
-      visibility: visible;
-      margin: auto;
-    }
+  input {
+    margin: 0;
+  }
 
-    input {
-      margin: auto;
-    }
+  .private_users,
+  .content,
+  .submit {
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
 
-    .private_users,
-    .content,
-    .submit {
-      height: auto;
-      visibility: visible;
-    }
+  li {
+    margin-bottom: 0;
+  }
+}
+
+.is-expanded {
+  label {
+    height: auto;
+    margin-bottom: $small-spacing / 2;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .private_users,
+  .content,
+  .submit {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
   }
 }

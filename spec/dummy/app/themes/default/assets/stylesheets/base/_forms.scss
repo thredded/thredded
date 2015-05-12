@@ -30,14 +30,12 @@ label {
 select[multiple=multiple],
 textarea {
   background-color: $base-background-color;
-  border: $base-border;
-  border-radius: $base-border-radius;
+  border: $form-border;
   box-shadow: $form-box-shadow;
   box-sizing: border-box;
   font-family: $base-font-family;
   font-size: $base-font-size;
-  margin-bottom: $base-spacing / 2;
-  padding: $base-spacing / 3;
+  padding: $small-spacing;
   transition: border-color;
   width: 100%;
 
@@ -47,7 +45,6 @@ textarea {
 
   &:focus {
     border-color: $action-color;
-    box-shadow: $form-box-shadow-focus;
     outline: none;
   }
 }
