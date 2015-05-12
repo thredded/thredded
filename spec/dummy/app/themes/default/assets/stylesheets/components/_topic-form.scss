@@ -1,0 +1,23 @@
+.topic-form {
+  padding-bottom: $small-spacing;
+  margin-bottom: $large-spacing;
+  border-bottom: $base-border;
+
+  li {
+    @include transition();
+    margin-bottom: $small-spacing;
+  }
+
+  label {
+    @include transition();
+  }
+}
+
+.admin-options {
+  label {
+    display: inline-block;
+    margin-right: $base-spacing;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
