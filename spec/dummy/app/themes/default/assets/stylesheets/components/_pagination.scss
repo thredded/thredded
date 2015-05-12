@@ -1,0 +1,11 @@
+.pagination {
+  border-top: $base-border;
+  margin-top: $base-spacing;
+  padding-top: $base-spacing;
+  text-align: center;
+
+  span {
+    padding: 0 $small-spacing / 2;
+  }
+}
+

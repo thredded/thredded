@@ -14,21 +14,19 @@
       </li>
     <% end %>
 
-    <% if can? :admin, form.object.topic %>
-      <li class="locked">
-        <%= form.label :locked do %>
-          Locked <%= form.check_box :locked %>
-        <% end %>
-      </li>
+    <%= render 'thredded/posts/content_field', form: form %>
 
-      <li class="sticky">
+    <% if can? :admin, form.object.topic %>
+      <li class="admin-options">
+        <%= form.label :locked do %>
+          <%= form.check_box :locked %> Locked
+        <% end %>
+
         <%= form.label :sticky do %>
-          Sticky <%= form.check_box :sticky %>
+          <%= form.check_box :sticky %> Sticky 
         <% end %>
       </li>
     <% end %>
-
-    <%= render 'thredded/posts/content_field', form: form %>
 
     <li class="submit">
       <%= form.submit 'Create New Topic', class: 'button-wide' %>
