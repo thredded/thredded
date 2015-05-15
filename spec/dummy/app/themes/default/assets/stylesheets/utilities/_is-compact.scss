@@ -23,19 +23,3 @@
   }
 }
 
-.is-expanded {
-  label {
-    height: auto;
-    margin-bottom: $small-spacing / 2;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .private_users,
-  .content,
-  .submit {
-    height: auto;
-    opacity: 1;
-    visibility: visible;
-  }
-}

@@ -1,13 +1,25 @@
 .messageboard {
+  margin-bottom: $large-spacing;
+
   &--title {
-    display: inline-block;
-    font-size: em(17);
+    font-size: rem(18);
+    margin-right: $small-spacing;
+    margin-bottom: 0;
   }
 
   &--meta {
     color: lighten($base-font-color, 30%);
-    display: inline-block;
+    font-weight: normal;
+    margin-bottom: $small-spacing;;
+  }
+
+  &--description {
+    margin-bottom: 0;
+  }
+
+  &--byline {
     font-size: em(13);
     font-weight: normal;
+    color: lighten($base-font-color, 30%);
   }
 }

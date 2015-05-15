@@ -8,13 +8,11 @@
       <h3 class="messageboard--meta"><%= messageboard.meta %></h3>
     </header>
 
-    <p><%= messageboard.description %></p>
+    <p class="messageboard--description"><%= messageboard.description %></p>
 
-    <footer>
-      <p>
-        <%= messageboard.latest_topic_timeago %>
-        <cite>by <%= messageboard.latest_user %></cite>
-      </p>
-    </footer>
+    <p class="messageboard--byline">
+      Updated <%= messageboard.latest_topic_timeago %>
+      <cite>by <%= messageboard.latest_user %></cite>
+    </p>
   </div>
 <% end %>

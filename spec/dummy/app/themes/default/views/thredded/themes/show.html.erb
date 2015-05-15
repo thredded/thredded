@@ -12,149 +12,147 @@
   </script>
 <% end %>
 
-<div class="main-container">
-  <header class="navigation" role="banner">
-    <%= render 'thredded/shared/top_nav' %>
-    <%= render 'thredded/shared/topic_nav' %>
-  </header>
+<header class="navigation" role="banner">
+  <%= render 'thredded/shared/top_nav' %>
+  <%= render 'thredded/shared/topic_nav' %>
+</header>
 
-  <!-- ************************ -->
-  <!-- messageboards#index      -->
-  <!-- ************************ -->
+<!-- ************************ -->
+<!-- messageboards#index      -->
+<!-- ************************ -->
 
-  <%= content_tag :section, class: 'main-section messageboards' do %>
-    <%= render @messageboards %>
-    <%= button_to 'Create a New Messageboard',
-      new_messageboard_path,
-      method: 'get',
-      class: 'button-wide'
-      %>
-  <% end %>
+<%= content_tag :section, class: 'main-section messageboards' do %>
+  <%= render @messageboards %>
+  <%= button_to 'Create a New Messageboard',
+    new_messageboard_path,
+    method: 'get',
+    class: 'button-wide'
+    %>
+<% end %>
 
-  <!-- ************************ -->
-  <!-- topics#index             -->
-  <!-- ************************ -->
+<!-- ************************ -->
+<!-- topics#index             -->
+<!-- ************************ -->
 
-  <%= content_tag :section, class: 'main-section topics' do %>
-    <%= render 'thredded/topics/form',
-      messageboard: messageboard,
-      topic: @new_topic,
-      css_class: 'topic-form is-compact',
-      placeholder: 'Start a New Topic'
-      %>
-
-    <%= render @decorated_topics  %>
-  <% end %>
-
-  <!-- ************************ -->
-  <!-- topics#show              -->
-  <!-- ************************ -->
-
-  <%= content_tag_for :section, @topic, class: "main-section #{@user_topic.css_class}" do %>
-    <header class="topic--title">
-      <h1><%= @topic.title %></h1>
-
-      <cite class="topic--title-started-by">
-        <%== @topic.decorate.created_at_timeago %>
-        <%== @topic.decorate.user_link %>
-      </cite>
-    </header>
-
-    <%= render @posts %>
-
-    <%= render 'thredded/posts/form',
-      messageboard: @messageboard,
-      topic: @topic,
-      post: @post,
-      button_text: 'Submit Reply'
-      %>
-  <% end %>
-
-  <!-- ************************ -->
-  <!-- topics#new               -->
-  <!-- ************************ -->
-
+<%= content_tag :section, class: 'main-section topics' do %>
   <%= render 'thredded/topics/form',
     messageboard: messageboard,
     topic: @new_topic,
-    css_class: 'topic-form',
+    css_class: 'topic-form is-compact',
     placeholder: 'Start a New Topic'
     %>
 
-  <!-- ************************ -->
-  <!-- posts#edit               -->
-  <!-- ************************ -->
+  <%= render @decorated_topics  %>
+<% end %>
 
-  <%= content_tag :section, class: 'main-section posts-form' do %>
-    <h1>Edit Post</h1>
+<!-- ************************ -->
+<!-- topics#show              -->
+<!-- ************************ -->
 
-    <%= render 'thredded/posts/form',
-      messageboard: @messageboard,
-      topic: @topic,
-      post: @post,
-      button_text: 'Update Post'
-      %>
-  <% end %>
+<%= content_tag_for :section, @topic, class: "main-section #{@user_topic.css_class}" do %>
+  <header class="topic--title">
+    <h1><%= @topic.title %></h1>
 
-  <!-- ************************ -->
-  <!-- private_topics#index     -->
-  <!-- ************************ -->
+    <cite class="topic--title-started-by">
+      <%== @topic.decorate.created_at_timeago %>
+      <%== @topic.decorate.user_link %>
+    </cite>
+  </header>
 
-  <%= content_tag :section, class: 'main-section private-topics' do %>
-    <%= render 'thredded/private_topics/no_private_topics' %>
+  <%= render @posts %>
 
-    <!-- 👆  no topics found || 👇  existing private topics  -->
+  <%= render 'thredded/posts/form',
+    messageboard: @messageboard,
+    topic: @topic,
+    post: @post,
+    button_text: 'Submit Reply'
+    %>
+<% end %>
 
-    <%= render 'thredded/private_topics/form',
-      messageboard: messageboard,
-      private_topic: @new_private_topic,
-      css_class: 'private-topic-form is-compact',
-      placeholder: 'Start a New Private Topic'
-      %>
+<!-- ************************ -->
+<!-- topics#new               -->
+<!-- ************************ -->
 
-    <%= render @decorated_private_topics %>
-  <% end %>
+<%= render 'thredded/topics/form',
+  messageboard: messageboard,
+  topic: @new_topic,
+  css_class: 'topic-form',
+  placeholder: 'Start a New Topic'
+  %>
 
-  <!-- ************************ -->
-  <!-- private_topics#new       -->
-  <!-- ************************ -->
+<!-- ************************ -->
+<!-- posts#edit               -->
+<!-- ************************ -->
 
-  <%= content_tag :section, class: 'main-section private-topics-form' do %>
-    <%= render 'thredded/private_topics/form',
-      messageboard: messageboard,
-      private_topic: @new_private_topic,
-      css_class: 'private-topic-form',
-      placeholder: 'New Private Topic Title'
-      %>
-  <% end %>
+<%= content_tag :section, class: 'main-section posts-form' do %>
+  <h1>Edit Post</h1>
 
-  <!-- ************************ -->
-  <!-- private_topics#show      -->
-  <!-- ************************ -->
+  <%= render 'thredded/posts/form',
+    messageboard: @messageboard,
+    topic: @topic,
+    post: @post,
+    button_text: 'Update Post'
+    %>
+<% end %>
 
-  <%= content_tag_for :section, @private_topic, class: 'main-section private-topic' do %>
-    <header>
-      <h1><%= @private_topic.title %></h1>
-    </header>
+<!-- ************************ -->
+<!-- private_topics#index     -->
+<!-- ************************ -->
 
-    <%= render @private_topic.posts %>
+<%= content_tag :section, class: 'main-section private-topics' do %>
+  <%= render 'thredded/private_topics/no_private_topics' %>
 
-    <%= render 'thredded/posts/form',
-      messageboard: @messageboard,
-      topic: @private_topic,
-      post: @post,
-      button_text: 'Submit Reply'
-      %>
-  <% end %>
+  <!-- 👆  no topics found || 👇  existing private topics  -->
 
-  <!-- ************************ -->
-  <!-- topics#pagination        -->
-  <!-- ************************ -->
+  <%= render 'thredded/private_topics/form',
+    messageboard: messageboard,
+    private_topic: @new_private_topic,
+    css_class: 'private-topic-form is-compact',
+    placeholder: 'Start a New Private Topic'
+    %>
 
-  <footer>
-    <%= paginate @topics %>
-  </footer>
-</div>
+  <%= render @decorated_private_topics %>
+<% end %>
+
+<!-- ************************ -->
+<!-- private_topics#new       -->
+<!-- ************************ -->
+
+<%= content_tag :section, class: 'main-section private-topics-form' do %>
+  <%= render 'thredded/private_topics/form',
+    messageboard: messageboard,
+    private_topic: @new_private_topic,
+    css_class: 'private-topic-form',
+    placeholder: 'New Private Topic Title'
+    %>
+<% end %>
+
+<!-- ************************ -->
+<!-- private_topics#show      -->
+<!-- ************************ -->
+
+<%= content_tag_for :section, @private_topic, class: 'main-section private-topic' do %>
+  <header>
+    <h1><%= @private_topic.title %></h1>
+  </header>
+
+  <%= render @private_topic.posts %>
+
+  <%= render 'thredded/posts/form',
+    messageboard: @messageboard,
+    topic: @private_topic,
+    post: @post,
+    button_text: 'Submit Reply'
+    %>
+<% end %>
+
+<!-- ************************ -->
+<!-- topics#pagination        -->
+<!-- ************************ -->
+
+<footer>
+  <%= paginate @topics %>
+</footer>
 
 <aside class="currently-online">
   <%= render 'thredded/shared/currently_online' %>

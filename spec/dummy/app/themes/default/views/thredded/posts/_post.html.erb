@@ -7,15 +7,14 @@
       <h2 class="post--user"><%= post.user_link %></h2>
       <p class="post--created-at"><%= post.created_at_timeago %></p>
 
-      <% if can? :edit, post.original %>
-        <%= link_to 'Edit Post',
-        edit_polymorphic_path([messageboard, post.postable, post]),
-        class: 'post--edit' %>
-      <% end %>
     </header>
 
     <div class="post--content">
       <%== post.filtered_content %>
     </div>
+
+    <% if can? :edit, post.original %>
+      <%= link_to 'Edit Post', edit_polymorphic_path([messageboard, post.postable, post]), class: 'post--edit' %>
+    <% end %>
   <% end %>
 <% end %>
