@@ -8,23 +8,16 @@
   </script>
 <% end %>
 
-<div class="main-container">
-  <header class="navigation" role="banner">
-    <%= render 'thredded/shared/top_nav' %>
-    <%= render 'thredded/shared/topic_nav' %>
-  </header>
+<%= content_tag :section, class: 'main-section topics' do %>
+  <%= render 'thredded/topics/form',
+    messageboard: messageboard,
+    topic: @new_topic,
+    css_class: 'topic-form is-compact',
+    placeholder: 'Start a New Topic'
+    %>
+  <%= render @decorated_topics  %>
+<% end %>
 
-  <%= content_tag :section, class: 'main-section topics' do %>
-    <%= render 'thredded/topics/form',
-      messageboard: messageboard,
-      topic: @new_topic,
-      css_class: 'topic-form is-compact',
-      placeholder: 'Start a New Topic'
-      %>
-    <%= render @decorated_topics  %>
-  <% end %>
-
-  <footer>
-    <%= paginate @topics %>
-  </footer>
-</div>
+<footer>
+  <%= paginate @topics %>
+</footer>
