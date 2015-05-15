@@ -1,0 +1,14 @@
+.topic-header {
+  margin-bottom: $large-spacing * 1.5;
+
+  &--title {
+    font-size: rem(24);
+    margin-bottom: $small-spacing / 2;
+  }
+
+  &--started-by {
+    font-size: rem(14);
+    color: lighten($base-font-color, 30%);
+    font-style: normal;
+  }
+}
