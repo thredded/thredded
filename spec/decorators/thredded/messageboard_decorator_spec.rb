@@ -11,7 +11,7 @@ module Thredded
         posts_count: 134_500
       )
       decorated_messageboard = MessageboardDecorator.new(messageboard)
-      expected_result = '40.3 thousand topics, 135 thousand posts'
+      expected_result = '40.3 thousand topics / 135 thousand posts'
 
       expect(decorated_messageboard.meta).to eq expected_result
     end
