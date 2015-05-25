@@ -1,20 +1,21 @@
 .messageboard {
-  border-bottom: $base-border;
-  margin-bottom: $base-spacing * 1.5;
-  padding-bottom: $base-spacing * 1.5;
+  border: $base-border;
+  margin-bottom: $base-spacing;
+  padding: $base-spacing;
+  position: relative;
 
   &--title {
     float: left;
     font-size: rem(18);
-    margin-bottom: 0;
+    margin-bottom: $small-spacing;
     margin-right: $small-spacing;
   }
 
   &--meta {
-    color: lighten($base-font-color, 30%);
-    float: right;
+    @include position(absolute, -1px -1px null null);
+    background-color: $base-border-color;
     font-weight: normal;
-    margin-bottom: $small-spacing;;
+    padding: $small-spacing / 2;
   }
 
   &--description {
