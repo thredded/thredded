@@ -32,9 +32,6 @@ BlockAlignment:
 BlockNesting:
   Max: 4
 
-Blocks:
-  Enabled: true
-
 BracesAroundHashParameters:
   Enabled: true
 
@@ -88,6 +85,9 @@ LineLength:
 
 MethodLength:
   Max: 120
+
+ModuleLength:
+  Max: 160
 
 MultilineTernaryOperator:
   Enabled: true
