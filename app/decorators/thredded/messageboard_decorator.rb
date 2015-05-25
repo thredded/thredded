@@ -16,7 +16,7 @@ module Thredded
       topics_count = number_to_human(messageboard.topics_count)
       posts_count = number_to_human(messageboard.posts_count)
 
-      "#{topics_count} topics, #{posts_count} posts".downcase
+      "#{topics_count} topics / #{posts_count} posts".downcase
     end
 
     def latest_topic_timeago
