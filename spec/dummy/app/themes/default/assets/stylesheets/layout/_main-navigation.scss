@@ -6,7 +6,12 @@
 }
 
 .navigation-breadcrumbs {
-  float: left;
+  margin-bottom: $small-spacing;
+
+  @include media(rem(600)) {
+    float: left;
+    margin-bottom: 0;
+  }
 
   li {
     display: inline-block;
