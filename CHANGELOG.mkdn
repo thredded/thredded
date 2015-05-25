@@ -1,4 +1,19 @@
-# MASTER (pre-0.0.15)
+# MASTER
+
+# 0.1.0
+
+## Changes
+
+* A relatively large effort was put in effect for 0.1.0 to provide more thorough support for themes, new css and design, a small bit of javascript.
+* Views have had a nice overhaul.
+* Provide a generator that installs the default theme and integrates the associated css framework (if necessary). In the first theme we're using bourbon and neat.
+* Add a Dockerfile and docker-compose.yml to aid in getting a fully working instance of the thredded dummy app up and running.
+* Instead of having a messageboard "setup" controller that is only available on the first run of the gem, move it over to `messageboards#new`.
+
+## Bug Fixes
+
+* Active users now shows the current user in addition to everyone else on the first (without having to refresh).
+
 
 # 0.0.14
 
