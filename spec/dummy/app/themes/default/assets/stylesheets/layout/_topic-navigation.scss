@@ -1,5 +1,7 @@
 .topic-navigation {
-  float: right;
+  @include media(rem(600)) {
+    float: right;
+  }
 
   li {
     display: inline-block;

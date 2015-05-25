@@ -2,6 +2,10 @@
   &--topic {
     margin-bottom: $base-spacing;
     position: relative;
+
+    @include media(max-width $max-width) {
+      margin-left: 3rem;
+    }
   }
 
   &--title {

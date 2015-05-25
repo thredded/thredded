@@ -10,12 +10,14 @@
     margin: 0;
   }
 
+  .admin-options,
   .private_users,
   .content,
   .submit {
     height: 0;
     visibility: hidden;
     opacity: 0;
+    margin: 0;
   }
 
   li {

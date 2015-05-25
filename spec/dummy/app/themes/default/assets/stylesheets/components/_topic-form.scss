@@ -1,7 +1,7 @@
 .topic-form {
-  padding-bottom: $small-spacing;
-  margin-bottom: $large-spacing;
   border-bottom: $base-border;
+  margin-bottom: $large-spacing;
+  padding-bottom: $small-spacing;
 
   li {
     @include transition();
@@ -15,9 +15,9 @@
 
 .admin-options {
   label {
-    display: inline-block;
-    margin-right: $base-spacing;
-    margin-bottom: 0;
     cursor: pointer;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: $base-spacing;
   }
 }
