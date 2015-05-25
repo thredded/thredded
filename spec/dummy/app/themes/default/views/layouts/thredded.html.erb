@@ -10,15 +10,16 @@
   <%= content_tag(:body, id: (yield :thredded_page_id), class: 'layout-application') do %>
     <%= render 'thredded/shared/icons_svg' %>
 
-  <div class="main-container">
-    <header class="navigation" role="banner">
-      <%#= render 'thredded/shared/top_nav' %>
-      <%#= render 'thredded/shared/topic_nav' %>
-    </header>
+    <div class="main-container">
+      <header class="navigation" role="banner">
+        <%#= render 'thredded/shared/top_nav' %>
+        <%#= render 'thredded/shared/topic_nav' %>
+      </header>
 
       <%= yield %>
 
-      </div>
+    </div>
+
     <%= javascript_include_tag 'thredded' %>
     <%= yield :thredded_javascript %>
   <% end %>

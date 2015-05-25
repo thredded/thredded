@@ -3,8 +3,8 @@
 
   &--title {
     font-size: rem(18);
-    margin-right: $small-spacing;
     margin-bottom: 0;
+    margin-right: $small-spacing;
   }
 
   &--meta {
@@ -18,8 +18,8 @@
   }
 
   &--byline {
+    color: lighten($base-font-color, 30%);
     font-size: em(13);
     font-weight: normal;
-    color: lighten($base-font-color, 30%);
   }
 }

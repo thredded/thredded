@@ -3,9 +3,17 @@
   margin-bottom: $large-spacing;
 
   &--avatar {
-    @include position(absolute, -0.5rem null null -3rem);
-    @include size(rem(36));
+    @include size(rem(28));
     border-radius: 50%;
+    display: inline-block;
+    margin-right: $small-spacing;
+    position: relative;
+    top: 6px;
+
+    @include media($max-width + 4em) {
+      @include position(absolute, -0.5rem null null -3rem);
+      @include size(rem(36));
+    }
   }
 
   &--user {
