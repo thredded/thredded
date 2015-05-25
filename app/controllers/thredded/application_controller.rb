@@ -89,11 +89,9 @@ module Thredded
     end
 
     def active_users
-      if messageboard
-        messageboard.active_users
-      else
-        []
-      end
+      users = messageboard.try(:active_users) || []
+      users.push(current_user).uniq unless current_user.is_a?(NullUser)
+      users
     end
   end
 end
