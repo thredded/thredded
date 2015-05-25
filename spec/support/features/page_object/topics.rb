@@ -1,3 +1,4 @@
+require 'pry'
 require 'support/features/page_object/base'
 
 module PageObject
@@ -86,11 +87,11 @@ module PageObject
     end
 
     def has_a_locked_checkbox?
-      has_css? '.locked input'
+      has_css? 'label[for=topic_locked] input[type=checkbox]'
     end
 
     def has_a_sticky_checkbox?
-      has_css? '.sticky input'
+      has_css? 'label[for=topic_sticky] input[type=checkbox]'
     end
 
     def locked?
