@@ -1,7 +1,10 @@
 .messageboard {
-  margin-bottom: $large-spacing;
+  border-bottom: $base-border;
+  margin-bottom: $base-spacing * 1.5;
+  padding-bottom: $base-spacing * 1.5;
 
   &--title {
+    float: left;
     font-size: rem(18);
     margin-bottom: 0;
     margin-right: $small-spacing;
@@ -9,17 +12,20 @@
 
   &--meta {
     color: lighten($base-font-color, 30%);
+    float: right;
     font-weight: normal;
     margin-bottom: $small-spacing;;
   }
 
   &--description {
-    margin-bottom: 0;
+    clear: both;
+    margin-bottom: $small-spacing / 2;
   }
 
   &--byline {
     color: lighten($base-font-color, 30%);
     font-size: em(13);
     font-weight: normal;
+    margin-bottom: 0;
   }
 }
