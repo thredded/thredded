@@ -1,0 +1,18 @@
+.post-form {
+  border-top: $base-border;
+  padding-top: $large-spacing;
+  margin-top: $base-spacing;
+
+  label {
+    display: none;
+  }
+}
+
+.post-form--title {
+  font-size: rem(20);
+  margin-bottom: $base-spacing;
+}
+
+.post-form--submit {
+  margin-top: $small-spacing;
+}
