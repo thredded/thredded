@@ -1,21 +1,34 @@
+.messageboards {
+  .button_to {
+    text-align: center;
+  }
+}
+
 .messageboard {
   border: $base-border;
   margin-bottom: $base-spacing;
   padding: $base-spacing;
   position: relative;
 
+  header {
+    margin-bottom: $small-spacing;
+  }
+
   &--title {
+    display: inline-block;
     float: left;
     font-size: rem(18);
-    margin-bottom: $small-spacing;
+    margin-bottom: 0;
     margin-right: $small-spacing;
+    vertical-align: baseline;
   }
 
   &--meta {
-    @include position(absolute, -1px -1px null null);
-    background-color: $base-border-color;
+    color: lighten($base-font-color, 30%);
+    display: inline-block;
     font-weight: normal;
-    padding: $small-spacing / 2;
+    margin-bottom: 0;
+    vertical-align: baseline;
   }
 
   &--description {
