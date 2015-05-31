@@ -1,11 +1,13 @@
 .post-form {
-  border-top: $base-border;
-  padding-top: $large-spacing;
-  margin-top: $base-spacing;
-
   label {
     display: none;
   }
+}
+
+.post-form--wrapper {
+  margin-top: $base-spacing;
+  padding-top: $large-spacing;
+  border-top: $base-border;
 }
 
 .post-form--title {

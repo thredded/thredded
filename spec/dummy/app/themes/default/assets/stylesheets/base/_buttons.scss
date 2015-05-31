@@ -24,6 +24,11 @@ button {
     color: #fff;
   }
 
+  &:focus {
+    box-shadow: 0 0 3px $action-color;
+    outline: none;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
