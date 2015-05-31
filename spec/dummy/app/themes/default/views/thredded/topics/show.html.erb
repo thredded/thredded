@@ -22,12 +22,15 @@
 
   <%= render @posts %>
 
-  <%= render 'thredded/posts/form',
-    messageboard: messageboard,
-    topic: topic,
-    post: @post,
-    button_text: 'Submit Reply'
-    %>
+  <div class="post-form--wrapper">
+    <h3 class="post-form--title">Add a post</h3>
+    <%= render 'thredded/posts/form',
+      messageboard: messageboard,
+      topic: topic,
+      post: @post,
+      button_text: 'Submit Reply'
+      %>
+  </div>
 <% end %>
 
 <footer>

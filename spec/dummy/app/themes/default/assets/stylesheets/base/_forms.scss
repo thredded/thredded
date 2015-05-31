@@ -45,11 +45,13 @@ textarea {
 
   &:focus {
     border-color: $action-color;
+    box-shadow: $form-box-shadow, 0 0 3px $action-color;
     outline: none;
   }
 }
 
 textarea {
+  line-height: $base-line-height;
   resize: vertical;
 }
 
