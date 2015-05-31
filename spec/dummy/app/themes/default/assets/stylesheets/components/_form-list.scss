@@ -1,0 +1,31 @@
+.form-list {
+  &.on-top {
+    border-bottom: $base-border;
+    margin-bottom: $large-spacing;
+    padding-bottom: $small-spacing;
+  }
+
+  &.on-bottom {
+    border-top: $base-border;
+    margin-top: $large-spacing;
+    padding-top: $small-spacing;
+  }
+
+  li {
+    @include transition();
+    margin-bottom: $small-spacing;
+  }
+
+  label {
+    @include transition();
+  }
+}
+
+.form-list--admin-options {
+  label {
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: $base-spacing;
+  }
+}

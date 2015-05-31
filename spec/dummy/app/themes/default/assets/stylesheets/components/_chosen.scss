@@ -1,0 +1,18 @@
+.chosen-container {
+  .chosen-choices {
+    border: $form-border;
+    padding: $small-spacing;
+    box-shadow: $form-box-shadow;
+    background-image: none;
+
+    li.search-field {
+      float: none;
+
+      input[type="text"] {
+        font-family: $base-font-family;
+        font-size: 1rem;
+        width: auto;
+      }
+    }
+  }
+}
