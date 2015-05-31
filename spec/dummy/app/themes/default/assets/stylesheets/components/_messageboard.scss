@@ -13,33 +13,33 @@
   header {
     margin-bottom: $small-spacing;
   }
+}
 
-  &--title {
-    display: inline-block;
-    float: left;
-    font-size: rem(18);
-    margin-bottom: 0;
-    margin-right: $small-spacing;
-    vertical-align: baseline;
-  }
+.messageboard--title {
+  display: inline-block;
+  float: left;
+  font-size: rem(18);
+  margin-bottom: 0;
+  margin-right: $small-spacing;
+  vertical-align: baseline;
+}
 
-  &--meta {
-    color: lighten($base-font-color, 30%);
-    display: inline-block;
-    font-weight: normal;
-    margin-bottom: 0;
-    vertical-align: baseline;
-  }
+.messageboard--meta {
+  color: lighten($base-font-color, 30%);
+  display: inline-block;
+  font-weight: normal;
+  margin-bottom: 0;
+  vertical-align: baseline;
+}
 
-  &--description {
-    clear: both;
-    margin-bottom: $small-spacing / 2;
-  }
+.messageboard--description {
+  clear: both;
+  margin-bottom: $small-spacing / 2;
+}
 
-  &--byline {
-    color: lighten($base-font-color, 30%);
-    font-size: em(13);
-    font-weight: normal;
-    margin-bottom: 0;
-  }
+.messageboard--byline {
+  color: lighten($base-font-color, 30%);
+  font-size: em(13);
+  font-weight: normal;
+  margin-bottom: 0;
 }

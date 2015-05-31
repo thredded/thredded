@@ -22,18 +22,19 @@
     }
   }
 
-  &--active {
-    border-bottom: 1px solid $action-color;
-    margin-bottom: -2px;
-  }
+}
 
-  &--unread {
-    background-color: $action-color;
-    border-radius: 10px;
-    color: #fff;
-    font-size: rem(10);
-    line-height: 1;
-    margin-left: $small-spacing;
-    padding: 2px 5px;
-  }
+.topic-navigation--active {
+  border-bottom: 1px solid $action-color;
+  margin-bottom: -2px;
+}
+
+.topic-navigation--unread {
+  background-color: $action-color;
+  border-radius: 10px;
+  color: #fff;
+  font-size: rem(10);
+  line-height: 1;
+  margin-left: $small-spacing;
+  padding: 2px 5px;
 }

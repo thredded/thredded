@@ -1,87 +1,85 @@
-.topics {
-  &--topic {
-    margin-bottom: $base-spacing;
-    position: relative;
+.topics--topic {
+  margin-bottom: $base-spacing;
+  position: relative;
 
-    @include media(max-width $max-width) {
-      margin-left: 3rem;
+  @include media(max-width $max-width) {
+    margin-left: 3rem;
+  }
+}
+
+.topics--title {
+  display: inline-block;
+  font-size: rem(18);
+  margin-right: $small-spacing / 2;
+  margin-bottom: 0;
+
+  a {
+    color: $base-font-color;
+
+    &:hover {
+      color: $action-color;
+    }
+  }
+}
+
+.topics--started-by,
+.topics--updated-by {
+  color: lighten($base-font-color, 30%);
+  font-size: rem(14);
+  font-style: normal;
+
+  a {
+    color: lighten($base-font-color, 20%);
+
+    &:hover {
+
+      color: $action-color;
     }
   }
 
-  &--title {
-    display: inline-block;
-    font-size: rem(18);
-    margin-right: $small-spacing / 2;
-    margin-bottom: 0;
-
-    a {
-      color: $base-font-color;
-
-      &:hover {
-        color: $action-color;
-      }
+  abbr {
+    &::after  {
+      content: ' by ';
     }
   }
+}
 
-  &--started-by,
-  &--updated-by {
-    color: lighten($base-font-color, 30%);
-    font-size: rem(14);
-    font-style: normal;
+.topics--updated-by {
+  margin-right: $small-spacing;
 
-    a {
-      color: lighten($base-font-color, 20%);
-
-      &:hover {
-
-        color: $action-color;
-      }
-    }
-
-    abbr {
-      &::after  {
-        content: ' by ';
-      }
+  abbr {
+    &::before {
+      content: 'updated ';
     }
   }
+}
 
-  &--updated-by {
-    margin-right: $small-spacing;
+.topics--started-by {
+  display: none;
 
-    abbr {
-      &::before {
-        content: 'updated ';
-      }
+  abbr {
+    &::before {
+      content: 'started ';
     }
   }
+}
 
-  &--started-by {
-    display: none;
+.topics--posts-count {
+  @include position(absolute, -0.25rem null null -3rem);
+  @include size(2rem);
+  border-radius: 50%;
+  color: white;
+  display: inline-block;
+  font-weight: 900;
+  line-height: 2;
+  margin-right: $base-spacing;
+  text-align: center;
 
-    abbr {
-      &::before {
-        content: 'started ';
-      }
-    }
+  .unread & {
+    background: $action-color;
   }
 
-  &--posts-count {
-    @include position(absolute, -0.25rem null null -3rem);
-    @include size(2rem);
-    border-radius: 50%;
-    color: white;
-    display: inline-block;
-    font-weight: 900;
-    line-height: 2;
-    margin-right: $base-spacing;
-    text-align: center;
-
-    .unread & {
-      background: $action-color;
-    }
-
-    .read & {
-      background: lighten($base-font-color, 45%);
-    }
+  .read & {
+    background: lighten($base-font-color, 45%);
   }
 }

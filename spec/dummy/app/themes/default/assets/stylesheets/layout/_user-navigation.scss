@@ -29,44 +29,44 @@
   a {
     color: lighten($base-font-color, 30%);
   }
+}
 
-  &--search {
-    label {
-      display: none;
-    }
+.user-navigation--search {
+  label {
+    display: none;
+  }
 
-    input[type="search"] {
-      @include transition();
-      box-shadow: none;
-      font-size: rem(14);
-      text-align: center;
-      width: 100%;
+  input[type="search"] {
+    @include transition();
+    box-shadow: none;
+    font-size: rem(14);
+    text-align: center;
+    width: 100%;
 
-      @include media(rem(600)) {
-        border-color: transparent;
-        display: inline-block;
-        margin-bottom: 0;
-        min-width: em(190, 14);
-        text-align: left;
-        width: auto;
-
-        &:focus {
-          @include transition();
-          min-width: em(290, 14);
-        }
-      }
-
-      &:hover {
-        border-color: $base-border-color;
-      }
+    @include media(rem(600)) {
+      border-color: transparent;
+      display: inline-block;
+      margin-bottom: 0;
+      min-width: em(190, 14);
+      text-align: left;
+      width: auto;
 
       &:focus {
-        border-color: $action-color;
+        @include transition();
+        min-width: em(290, 14);
       }
     }
 
-    input[type="submit"] {
-      display: none;
+    &:hover {
+      border-color: $base-border-color;
     }
+
+    &:focus {
+      border-color: $action-color;
+    }
+  }
+
+  input[type="submit"] {
+    display: none;
   }
 }
