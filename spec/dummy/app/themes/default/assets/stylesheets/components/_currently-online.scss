@@ -1,27 +1,23 @@
 .currently-online {
   @include position(fixed, null 0 0 null);
   background-color: $base-border-color;
-  padding: $base-spacing * 1.5;
-  width: rem(320);
+  padding: $base-spacing;
+  width: rem(260);
+}
 
-  &--title {
-    margin-bottom: $base-spacing;
-  }
-  &--users {
-    border-top: 1px solid darken($base-border-color, 5%);
-    padding-top: $base-spacing;
-  }
+.currently-online--title {
+  margin-bottom: $base-spacing;
+}
 
-  &--avatar {
-    @include size(rem(28));
-    background-color: $base-font-color;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: $small-spacing;
-    vertical-align: middle;
-  }
+.currently-online--avatar {
+  @include size(rem(28));
+  background-color: $base-font-color;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: $small-spacing;
+  vertical-align: middle;
+}
 
-  &--user {
-    padding: $small-spacing 0;
-  }
+.currently-online--user {
+  padding: $small-spacing 0;
 }

@@ -1,44 +1,44 @@
 .post {
   position: relative;
   margin-bottom: $large-spacing;
+}
 
-  &--avatar {
-    @include size(rem(28));
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: $small-spacing;
-    position: relative;
-    top: 6px;
+.post--avatar {
+  @include size(rem(28));
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: $small-spacing;
+  position: relative;
+  top: 6px;
 
-    @include media($max-width + 4em) {
-      @include position(absolute, -0.5rem null null -3rem);
-      @include size(rem(36));
-    }
+  @include media($max-width + 4em) {
+    @include position(absolute, -0.5rem null null -3rem);
+    @include size(rem(36));
   }
+}
 
-  &--user {
-    display: inline-block;
-    font-size: rem(18);
-    margin-right: $small-spacing;
-    margin-bottom: 1.25rem;
+.post--user {
+  display: inline-block;
+  font-size: rem(18);
+  margin-right: $small-spacing;
+  margin-bottom: 1.25rem;
 
-    a {
-      color: $base-font-color;
-    }
+  a {
+    color: $base-font-color;
   }
+}
 
-  &--created-at {
-    font-size: rem(14);
-    color: lighten($base-font-color, 30%);
-    display: inline-block;
-  }
+.post--created-at {
+  font-size: rem(14);
+  color: lighten($base-font-color, 30%);
+  display: inline-block;
+}
 
-  &--edit {
-    font-size: rem(14);
-  }
+.post--edit {
+  font-size: rem(14);
+}
 
-  &--content {
-    font-size: rem(17);
-    line-height: 1.65;
-  }
+.post--content {
+  font-size: rem(17);
+  line-height: 1.65;
 }
