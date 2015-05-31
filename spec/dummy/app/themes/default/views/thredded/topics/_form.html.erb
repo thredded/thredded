@@ -1,5 +1,5 @@
 <%= form_for [messageboard, topic], html: { class: css_class } do |form| %>
-  <ul>
+  <ul class="form-list on-top">
     <li class="title">
       <%= form.label :title %>
       <%= form.text_field :title, { placeholder: placeholder } %>
@@ -17,7 +17,7 @@
     <%= render 'thredded/posts/content_field', form: form %>
 
     <% if can? :admin, form.object.topic %>
-      <li class="admin-options">
+      <li class="form-list--admin-options">
         <%= form.label :locked do %>
           <%= form.check_box :locked %> Locked
         <% end %>
@@ -27,9 +27,7 @@
         <% end %>
       </li>
     <% end %>
-
-    <li class="submit">
-      <%= form.submit 'Create New Topic', class: 'button-wide' %>
-    </li>
   </ul>
+
+  <%= form.submit 'Create New Topic' %>
 <% end %>

@@ -12,13 +12,13 @@
 
     <div class="main-container">
       <header class="navigation" role="banner">
-        <%#= render 'thredded/shared/top_nav' %>
-        <%#= render 'thredded/shared/topic_nav' %>
+        <%= render 'thredded/shared/top_nav' %>
+        <%= render 'thredded/shared/topic_nav' %>
       </header>
 
       <%= yield %>
 
-      <%#= render 'thredded/shared/currently_online' %>
+      <%= render 'thredded/shared/currently_online' %>
     </div>
 
     <%= javascript_include_tag 'thredded' %>
