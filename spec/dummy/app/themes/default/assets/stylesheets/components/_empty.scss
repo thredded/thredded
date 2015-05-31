@@ -1,0 +1,10 @@
+.empty {
+  border: $base-border;
+  padding: $base-spacing;
+  text-align: center;
+}
+
+.empty--title {
+  font-size: rem(24);
+  margin-bottom: $base-spacing;
+}

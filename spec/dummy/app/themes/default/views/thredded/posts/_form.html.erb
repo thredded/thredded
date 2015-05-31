@@ -1,4 +1,6 @@
 <%= form_for [messageboard, topic, post], html: { class: 'post-form' } do |form| %>
-  <%= render 'thredded/posts/content_field', form: form %>
+  <ul>
+    <%= render 'thredded/posts/content_field', form: form %>
+  </ul>
   <%= form.submit button_text, class: "post-form--submit" %>
 <% end %>

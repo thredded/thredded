@@ -1,10 +1,4 @@
-<div class="question">
-  <p class="q">
-    You have no private topics to read. Would you like to create one?
-  </p>
-
-  <p class="a">
-    <%= link_to 'Yes', new_messageboard_private_topic_path(messageboard), class: 'yes' %>
-    <%= link_to 'No', :back, class: 'no' %>
-  </p>
+<div class="empty">
+  <h3 class="empty--title">You have no private topics.</h3>
+  <%= link_to 'Create your first private topic', new_messageboard_private_topic_path(messageboard), class: "button" %>
 </div>
