@@ -19,8 +19,10 @@
     </li>
 
     <%= render 'thredded/posts/content_field', form: form %>
-  </ul>
 
-  <%= form.submit 'Create New Private Topic', class: 'button-wide' %>
+    <li class="submit">
+      <%= form.submit 'Create New Private Topic', class: 'button-wide' %>
+    </li>
+  </ul>
 <% end %>
 

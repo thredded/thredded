@@ -1,4 +1,6 @@
 .is-compact {
+
+  input[type="submit"],
   label {
     height: 0;
     margin: 0;
@@ -10,18 +12,15 @@
     margin: 0;
   }
 
-  .admin-options,
-  .private_users,
-  .content,
-  .submit {
-    height: 0;
-    visibility: hidden;
-    opacity: 0;
-    margin: 0;
-  }
-
   li {
     margin-bottom: 0;
+
+    &:not(.title) {
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+      margin: 0;
+    }
   }
 }
 
