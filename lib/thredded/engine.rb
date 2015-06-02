@@ -2,6 +2,7 @@ module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
 
+    config.autoload_paths << File.expand_path('../../../app/view_models', __FILE__)
     config.autoload_paths << File.expand_path('../../../app/decorators', __FILE__)
     config.autoload_paths << File.expand_path('../../../app/forms', __FILE__)
     config.autoload_paths << File.expand_path('../../../app/commands', __FILE__)

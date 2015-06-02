@@ -13,14 +13,14 @@
 
 <%= content_tag :section, class: 'main-section topics' do %>
   <%= render 'thredded/topics/form',
-    messageboard: messageboard,
-    topic: @new_topic,
+    messageboard: topics.messageboard,
+    topic: topics.new_topic,
     css_class: 'topic-form is-compact',
     placeholder: 'Start a New Topic'
     %>
-  <%= render @decorated_topics  %>
+  <%= render topics.decorated  %>
 <% end %>
 
 <footer>
-  <%= paginate @topics %>
+  <%= paginate topics %>
 </footer>

@@ -2,8 +2,8 @@ require 'thredded/base_topic_decorator'
 
 module Thredded
   class TopicDecorator < SimpleDelegator
-    def initialize(private_topic)
-      super(Thredded::BaseTopicDecorator.new(private_topic))
+    def initialize(topic)
+      super(Thredded::BaseTopicDecorator.new(topic))
     end
 
     def self.model_name
