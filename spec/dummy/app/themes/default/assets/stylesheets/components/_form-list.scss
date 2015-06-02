@@ -1,14 +1,8 @@
 .form-list {
   &.on-top {
     border-bottom: $base-border;
-    margin-bottom: $large-spacing;
+    margin-bottom: $base-spacing * 1.5;
     padding-bottom: $small-spacing;
-  }
-
-  &.on-bottom {
-    border-top: $base-border;
-    margin-top: $large-spacing;
-    padding-top: $small-spacing;
   }
 
   li {
