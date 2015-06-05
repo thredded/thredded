@@ -186,9 +186,8 @@ module Thredded
     end
 
     context 'when a messageboard is not found' do
-      it 'raises Thredded::Errors::MessageboardNotFound' do
-        expect { Messageboard.find_by_slug('rubbish') }
-          .to raise_error(Thredded::Errors::MessageboardNotFound)
+      it 'returns nil' do
+        expect(Messageboard.find_by_slug('rubbish')).to eq nil
       end
     end
   end

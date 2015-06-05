@@ -28,9 +28,7 @@ module Thredded
     end), class_name: Thredded::Role
 
     def self.find_by_slug(slug)
-      friendly.find(slug)
-    rescue ActiveRecord::RecordNotFound
-      raise Thredded::Errors::MessageboardNotFound
+      where(slug: slug).first
     end
 
     def self.default_scope
