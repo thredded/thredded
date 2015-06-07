@@ -15,4 +15,17 @@
       }
     }
   }
+
+  .chosen-drop {
+    border-color: darken($base-border-color, 5%);
+    box-shadow: 0 1px 1px $base-border-color;
+  }
+
+  .chosen-results li.active-result {
+    padding: $small-spacing;
+
+    &.highlighted {
+      background: $action-color;
+    }
+  }
 }

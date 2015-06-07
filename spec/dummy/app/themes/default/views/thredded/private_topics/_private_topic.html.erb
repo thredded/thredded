@@ -1,21 +1,21 @@
-<%= content_tag_for :article, private_topic, class: private_topic.css_class do %>
-  <div class="post_count"><%= private_topic.posts_count %></div>
+<%= content_tag_for :article, private_topic, class: "topics--topic #{private_topic.css_class}" do %>
+  <div class="topics--posts-count"><%= private_topic.posts_count %></div>
 
-  <h1>
+  <h1 class="topics--title">
     <%= link_to private_topic.title, [messageboard, private_topic.original] %>
   </h1>
 
-  <cite class="updated_by">
+  <cite class="topics--updated-by">
     <%== private_topic.updated_at_timeago %>
     <%== private_topic.last_user_link %>
   </cite>
 
-  <cite class="started_by">
+  <cite class="topics--started-by">
     <%== private_topic.created_at_timeago %>
     <%== private_topic.user_link %>
   </cite>
 
-  <ul class="categories">
+  <ul class="topics--categories">
     <%= render private_topic.categories %>
   </ul>
 <% end %>
