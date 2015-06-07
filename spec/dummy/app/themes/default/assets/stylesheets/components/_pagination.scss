@@ -5,6 +5,19 @@
   text-align: center;
 
   span {
-    padding: 0 $small-spacing / 2;
+    border-radius: $base-border-radius;
+    border: $base-border;
+    color: lighten($base-font-color, 30%);
+    margin-right: $small-spacing;
+    padding: ($small-spacing / 2) $small-spacing;
+
+    a {
+      color: $base-font-color;
+
+      &:focus,
+      &:hover {
+        color: $action-color;
+      }
+    }
   }
 }
