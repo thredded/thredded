@@ -1,30 +1,29 @@
 <nav role="navigation" class="user-navigation">
-  <ul>
-    <li class="user-navigation--search">
-      <%= render 'thredded/search/form' %>
-    </li>
+  <div class="user-navigation--search">
+    <%= render 'thredded/search/form' %>
+  </div>
 
+  <ul class="user-navigation--actions">
     <% if signed_in? %>
-      <% if messageboard %>
-        <li class="main--nav--notification--preferences">
-          <%= link_to edit_messageboard_preferences_path(messageboard) do %>
-            <span>Notification Settings</span>
-          <% end %>
-        </li>
-      <% end %>
-
       <li class="main--nav--user">
         <%= link_to "/users/#{current_user}" do %>
-          <span><%= current_user %></span>
+        <span><%= current_user %></span>
         <% end %>
       </li>
+
+      <% if messageboard %>
+      <li class="main--nav--notification--preferences">
+        <%= link_to edit_messageboard_preferences_path(messageboard) do %>
+        <span>Notification Settings</span>
+        <% end %>
+      </li>
+      <% end %>
 
       <li class="main--nav--sign-out">
         <%= link_to main_app.session_path, method: :delete do %>
-         <span>Sign Out</span>
+        <span>Sign Out</span>
         <% end %>
       </li>
-
     <% else %>
       <li class="main--nav--sign-in-register">
         <%= link_to main_app.sessions_new_path do %>

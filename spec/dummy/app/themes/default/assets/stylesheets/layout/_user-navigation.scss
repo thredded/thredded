@@ -1,4 +1,5 @@
 .user-navigation {
+  @include clearfix;
   font-size: em(14);
   margin-bottom: 1rem;
   text-align: center;
@@ -6,8 +7,17 @@
   @include media(rem(600)) {
     margin-bottom: 0;
     margin-top: $large-spacing;
-    text-align: right;
+    text-align: left;
   }
+
+  a {
+    color: lighten($base-font-color, 30%);
+  }
+}
+
+.user-navigation--actions {
+  float: left;
+  padding: $small-spacing 0;
 
   li {
     display: inline-block;
@@ -16,22 +26,14 @@
     &:last-child {
       margin-right: 0;
     }
-
-    &.user-navigation--search {
-      @include media(max-width rem(600)) {
-        display: block;
-        margin-bottom: 0.5rem;
-        margin-right: 0;
-      }
-    }
-  }
-
-  a {
-    color: lighten($base-font-color, 30%);
   }
 }
 
 .user-navigation--search {
+  @include media(max-width rem(600)) {
+    margin-bottom: 0.5rem;
+  }
+
   label {
     display: none;
   }
@@ -45,24 +47,28 @@
 
     @include media(rem(600)) {
       border-color: transparent;
-      display: inline-block;
-      margin-bottom: 0;
-      min-width: em(190, 14);
-      text-align: left;
+      float: right;
+      min-width: em(200, 14);
+      margin-right: -$base-spacing;
+      text-align: right;
       width: auto;
 
       &:focus {
         @include transition();
         min-width: em(290, 14);
+        text-align: left;
+        margin-right: 0;
       }
     }
 
     &:hover {
-      border-color: $base-border-color;
+      @include placeholder {
+        color: $action-color;
+      }
     }
 
     &:focus {
-      border-color: $action-color;
+      border-color: $base-border-color;
     }
   }
 
