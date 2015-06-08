@@ -24,7 +24,8 @@
 
 }
 
-.topic-navigation--active {
+#thredded_topics_index .topic-navigation--public,
+#thredded_private_topics_index .topic-navigation--private {
   border-bottom: 1px solid $action-color;
   margin-bottom: -2px;
 }
