@@ -11,12 +11,12 @@
         <% end %>
       </li>
 
-      <% if messageboard %>
-      <li class="main--nav--notification--preferences">
-        <%= link_to edit_messageboard_preferences_path(messageboard) do %>
-        <span>Notification Settings</span>
-        <% end %>
-      </li>
+      <% if messageboard.try(:persisted?) %>
+        <li class="main--nav--notification--preferences">
+          <%= link_to edit_messageboard_preferences_path(messageboard) do %>
+          <span>Notification Settings</span>
+          <% end %>
+        </li>
       <% end %>
 
       <li class="main--nav--sign-out">

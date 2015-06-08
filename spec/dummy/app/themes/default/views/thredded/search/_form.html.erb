@@ -1,4 +1,4 @@
-<% if messageboard %>
+<% if messageboard.try(:persisted?) %>
   <%= form_tag messageboard_topics_path(messageboard), method: 'get' do %>
     <%= label :q, :search, 'Search', for: 'q', class: 'show-for-small', data: {toggle: '#q'} %>
     <%= text_field_tag(:q, params[:q], { placeholder: 'Search Topics and Posts', type: 'search', class: 'input-search' }) %>
