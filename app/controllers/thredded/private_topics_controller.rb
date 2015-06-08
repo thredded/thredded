@@ -35,9 +35,14 @@ module Thredded
       @private_topic = PrivateTopicForm.new(new_private_topic_params)
       @private_topic.save
 
+      EnsureRoleExists
+        .new(user: current_user, messageboard: messageboard)
+        .run
+
       NotifyPrivateTopicUsersJob
         .queue
         .send_notifications(@private_topic.private_topic.id)
+
       UserResetsPrivateTopicToUnread
         .new(@private_topic.private_topic, current_user)
         .run
