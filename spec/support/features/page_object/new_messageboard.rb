@@ -42,7 +42,7 @@ module PageObject
     end
 
     def click_new_messageboard
-      find('.button-wide').click
+      find('.messageboards--new-action').click
     end
   end
 end
