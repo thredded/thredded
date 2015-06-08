@@ -24,9 +24,17 @@
 
 }
 
-.topic-navigation--active {
+%topic-navigation--active {
   border-bottom: 1px solid $action-color;
   margin-bottom: -2px;
+}
+
+#thredded_topics_index .topic-navigation--public {
+  @extend %topic-navigation--active;
+}
+
+#thredded_private_topics_index .topic-navigation--private {
+  @extend %topic-navigation--active;
 }
 
 .topic-navigation--unread {
