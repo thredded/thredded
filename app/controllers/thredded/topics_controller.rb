@@ -56,6 +56,11 @@ module Thredded
     def create
       @new_topic = TopicForm.new(new_topic_params)
       @new_topic.save
+
+      EnsureRoleExists
+        .new(user: current_user, messageboard: messageboard)
+        .run
+
       redirect_to messageboard_topics_path(messageboard)
     end
 
