@@ -1,11 +1,9 @@
-<h3 class="post-form--title">New Private Topic</h3>
-
 <%= form_for [messageboard, private_topic],
   url: messageboard_private_topics_path(messageboard, @private_topic),
   html: { class: css_class } do |form| %>
 
-  <ul class="form-list">
-    <li>
+  <ul class="form-list on-top">
+    <li class="title">
       <%= form.label :title %>
       <%= form.text_field :title, { placeholder: placeholder, autofocus: 'autofocus' } %>
     </li>
