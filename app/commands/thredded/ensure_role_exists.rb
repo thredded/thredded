@@ -1,6 +1,6 @@
 module Thredded
   class EnsureRoleExists
-    def initialize(params={})
+    def initialize(params = {})
       @user = params.fetch(:user)
       @messageboard = params.fetch(:messageboard)
     end
