@@ -62,6 +62,7 @@ module Thredded
       false
     end
 
+    # rubocop:disable all
     def self.inherited(child)
       child.instance_eval do
         def model_name
@@ -71,6 +72,7 @@ module Thredded
 
       super
     end
+    # rubocop:enable all
 
     def self.select_options
       subclasses.map(&:to_s).sort
