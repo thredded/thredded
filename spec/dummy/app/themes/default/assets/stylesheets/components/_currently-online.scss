@@ -1,8 +1,17 @@
 .currently-online {
-  @include position(fixed, null 0 0 null);
+  @include position(fixed, null 0 -1.25rem null);
   background-color: $base-border-color;
   padding: $base-spacing;
   width: rem(260);
+
+  &.is-expanded {
+    @include position(fixed, null 0 0 null);
+
+    .currently-online--users {
+      height: auto;
+      visibility: visible;
+    }
+  }
 }
 
 .currently-online--title {
@@ -20,4 +29,9 @@
 
 .currently-online--user {
   padding: $small-spacing 0;
+}
+
+.currently-online--users {
+  height: 0;
+  visibility: hidden;
 }
