@@ -23,5 +23,9 @@
 
     <%= javascript_include_tag 'thredded' %>
     <%= yield :thredded_javascript %>
+    <script>
+      thredded = (typeof thredded === 'undefined') ? new Thredded : thredded;
+      thredded.currentlyOnline.init();
+    </script>
   <% end %>
 </html>
