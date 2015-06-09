@@ -8,9 +8,9 @@ class ThreddedSearchBar {
     var _self = this;
 
     jQuery(this.toggleSelector).on('click', e => {
-      e.preventDefault()
+      e.preventDefault();
 
-      jQuery(_self.searchBarSelector).toggleClass('is-hidden is-visible')
+      jQuery(_self.searchBarSelector).toggleClass('is-hidden is-visible');
     })
   }
 }
