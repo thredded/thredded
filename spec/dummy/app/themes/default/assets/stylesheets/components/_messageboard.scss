@@ -1,9 +1,3 @@
-.messageboards {
-  .button_to {
-    text-align: center;
-  }
-}
-
 .messageboard {
   border: $base-border;
   margin-bottom: $base-spacing;
@@ -42,4 +36,8 @@
   font-size: em(13);
   font-weight: normal;
   margin-bottom: 0;
+}
+
+.messageboard--create {
+  text-align: center;
 }

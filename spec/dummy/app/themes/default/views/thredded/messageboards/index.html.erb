@@ -11,8 +11,9 @@
   <%= render @messageboards %>
 <% end %>
 
-<%= button_to 'Create a New Messageboard',
-  new_messageboard_path,
-  method: 'get',
-  class: 'messageboards--new-action'
+<div class="messageboard--create">
+  <%= button_to 'Create a New Messageboard',
+    new_messageboard_path,
+    method: 'get'
   %>
+</div>
