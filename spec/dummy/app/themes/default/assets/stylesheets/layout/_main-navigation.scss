@@ -11,6 +11,7 @@
   @include media(rem(600)) {
     float: left;
     margin-bottom: 0;
+    padding-bottom: $base-spacing;
   }
 
   li {
