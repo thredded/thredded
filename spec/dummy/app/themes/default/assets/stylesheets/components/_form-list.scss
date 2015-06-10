@@ -23,3 +23,12 @@
     margin-right: $base-spacing;
   }
 }
+
+.form-list--hint {
+  color: lighten($base-font-color, 20%);
+  display: inline-block;
+  font-size: rem(14);
+  margin-bottom: $small-spacing;
+  position: relative;
+  top: -($small-spacing / 2);
+}
