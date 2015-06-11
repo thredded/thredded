@@ -1,0 +1,8 @@
+scss:
+  enabled: true
+
+ruby:
+  enabled: false
+
+javascript:
+  enabled: false
