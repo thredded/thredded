@@ -42,7 +42,7 @@ module PageObject
     end
 
     def click_new_messageboard
-      find('.messageboards--new-action').click
+      find('.messageboard--create .button_to input').click
     end
   end
 end
