@@ -8,6 +8,9 @@
     thredded.timestamps.init();
   </script>
 <% end %>
+<% content_for :thredded_breadcrumbs do %>
+  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
+<% end %>
 
 <%= content_tag_for :section, private_topic, class: 'main-section private-topic' do %>
   <header class="topic-header">

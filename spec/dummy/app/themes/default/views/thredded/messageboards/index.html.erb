@@ -6,6 +6,9 @@
     thredded.timestamps.init();
   </script>
 <% end %>
+<% content_for :thredded_breadcrumbs do %>
+  <%= render 'thredded/shared/messageboard_breadcrumbs' %>
+<% end %>
 
 <%= content_tag :section, class: 'main-section messageboards' do %>
   <%= render @messageboards %>
