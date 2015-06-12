@@ -7,6 +7,9 @@
     thredded.postForm.init();
   </script>
 <% end %>
+<% content_for :thredded_breadcrumbs do %>
+  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
+<% end %>
 
 <%= render 'thredded/topics/form',
   messageboard: messageboard,

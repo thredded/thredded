@@ -1,12 +1,5 @@
 <div class="main-navigation">
-  <ul class="navigation-breadcrumbs">
-    <li>
-      <a href="#">All Message Boards</a>
-    </li>
-    <li>
-      <a href="#">Meta</a>
-    </li>
-  </ul>
+  <%= yield :thredded_breadcrumbs %>
 
   <% if messageboard.try(:persisted?) %>
     <ul class="topic-navigation">
