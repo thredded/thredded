@@ -7,7 +7,7 @@
     <%= csrf_meta_tag %>
   </head>
 
-  <%= content_tag(:body, id: (yield :thredded_page_id), class: 'layout-application') do %>
+  <body class="layout-application <%= yield :thredded_page_id %>" id="<%= yield :thredded_page_id %>">
     <%= render 'thredded/shared/icons_svg' %>
 
     <div class="main-container">
@@ -27,5 +27,5 @@
       thredded = (typeof thredded === 'undefined') ? new Thredded : thredded;
       thredded.currentlyOnline.init();
     </script>
-  <% end %>
+  </body>
 </html>
