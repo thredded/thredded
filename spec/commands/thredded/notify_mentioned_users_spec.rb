@@ -16,13 +16,13 @@ module Thredded
 
     it 'returns 2 users mentioned, not including post author' do
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         notify_on_mention: true,
         messageboard: @messageboard,
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @john,
         notify_on_mention: true,
         messageboard: @messageboard,
@@ -38,13 +38,13 @@ module Thredded
 
     it 'does not return any users already emailed about this post' do
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @john,
         messageboard: @messageboard,
         notify_on_mention: true,
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         messageboard: @messageboard,
         notify_on_mention: true,
@@ -62,7 +62,7 @@ module Thredded
 
     it 'does not return users not included in a private topic' do
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         messageboard: @messageboard,
         notify_on_mention: true,
@@ -82,13 +82,13 @@ module Thredded
 
     it 'does not return users that set their preference to "no @ notifications"' do
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @john,
         messageboard: @messageboard,
         notify_on_mention: true,
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         notify_on_mention: false,
         user: @joel,
         messageboard: @post.messageboard,
@@ -117,13 +117,13 @@ module Thredded
 
     it 'does not notify any users already emailed about this post' do
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @john,
         messageboard: @messageboard,
         notify_on_mention: true,
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         messageboard: @messageboard,
         notify_on_mention: true,

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/features/page_object/messageboard_preferences'
+require 'support/features/page_object/notification_preferences'
 
 feature 'User updating preferences' do
   scenario 'Allows @ notifications by default' do
@@ -36,7 +36,7 @@ feature 'User updating preferences' do
     messageboard = factories.messageboard
 
     default_user_preferences =
-      PageObject::MessageboardPreferences.new(user, messageboard)
+      PageObject::NotificationPreferences.new(user, messageboard)
     default_user_preferences.visit_style_guide
     default_user_preferences
   end

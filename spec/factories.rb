@@ -114,7 +114,7 @@ FactoryGirl.define do
     post
   end
 
-  factory :messageboard_preference, class: Thredded::MessageboardPreference do
+  factory :notification_preference, class: Thredded::NotificationPreference do
     user
     messageboard
 

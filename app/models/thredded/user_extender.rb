@@ -5,7 +5,7 @@ module Thredded
     extend ActiveSupport::Concern
 
     included do
-      has_many :thredded_messageboard_preferences, class_name: 'Thredded::MessageboardPreference', foreign_key: 'user_id'
+      has_many :thredded_notification_preferences, class_name: 'Thredded::NotificationPreference', foreign_key: 'user_id'
       has_many :thredded_posts, class_name: 'Thredded::Post', foreign_key: 'user_id'
       has_many :thredded_private_topics, through: :thredded_private_users, class_name: 'Thredded::PrivateTopic', source: :private_topic
       has_many :thredded_private_users, class_name: 'Thredded::PrivateUser', foreign_key: 'user_id'

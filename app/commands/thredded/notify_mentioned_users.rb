@@ -31,7 +31,7 @@ module Thredded
 
     def exclude_those_opting_out_of_at_notifications(members)
       members.select do |member|
-        Thredded::MessageboardPreference
+        Thredded::NotificationPreference
           .for(member)
           .in(post.messageboard)
           .first_or_create

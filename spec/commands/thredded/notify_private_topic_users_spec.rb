@@ -17,17 +17,17 @@ module Thredded
         posts: [post],
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @john,
         messageboard: private_topic.messageboard,
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         messageboard: private_topic.messageboard,
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
          user: @sam,
          messageboard: private_topic.messageboard,
       )
@@ -45,12 +45,12 @@ module Thredded
         posts: [post]
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         messageboard: private_topic.messageboard
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @sam,
         messageboard: private_topic.messageboard,
         notify_on_message: true
@@ -68,13 +68,13 @@ module Thredded
       post = create(:post, postable: private_topic)
       create(:post_notification, email: @joel.email, post: post)
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @joel,
         messageboard: private_topic.messageboard,
         notify_on_message: true
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: @sam,
         messageboard: private_topic.messageboard,
         notify_on_message: true
@@ -97,13 +97,13 @@ module Thredded
       )
       create(:post, content: 'hi', postable: private_topic)
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: sam,
         messageboard: messageboard,
         notify_on_message: true
       )
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: joel,
         messageboard: messageboard,
         notify_on_message: true

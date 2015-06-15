@@ -3,7 +3,7 @@ require 'spec_helper'
 module Thredded
   describe Messageboard, 'associations' do
     it { should have_many(:categories).dependent(:destroy) }
-    it { should have_many(:messageboard_preferences).dependent(:destroy) }
+    it { should have_many(:notification_preferences).dependent(:destroy) }
     it { should have_many(:posts).dependent(:destroy) }
     it { should have_many(:private_topics).dependent(:destroy) }
     it { should have_many(:roles).dependent(:destroy) }
@@ -61,7 +61,7 @@ module Thredded
       it 'finds an existing preference' do
         messageboard = create(:messageboard)
         user = create(:user)
-        prefs = create(:messageboard_preference,
+        prefs = create(:notification_preference,
           messageboard: messageboard, user: user)
 
         expect(messageboard.preferences_for user).to eq prefs

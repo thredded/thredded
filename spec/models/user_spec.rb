@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User, 'associations' do
-  it { should have_many(:thredded_messageboard_preferences) }
+  it { should have_many(:thredded_notification_preferences) }
   it { should have_many(:thredded_posts) }
   it { should have_many(:thredded_private_topics) }
   it { should have_many(:thredded_private_users) }

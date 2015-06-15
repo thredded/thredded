@@ -14,7 +14,7 @@ module Thredded
     validates :topics_count, numericality: true
 
     has_many :categories, dependent: :destroy
-    has_many :messageboard_preferences, dependent: :destroy
+    has_many :notification_preferences, dependent: :destroy
     has_many :posts, dependent: :destroy
     has_many :private_topics, dependent: :destroy
     has_many :roles, dependent: :destroy
@@ -47,7 +47,7 @@ module Thredded
 
     def preferences_for(user)
       @preferences_for ||=
-        messageboard_preferences.where(user_id: user).first_or_create
+        notification_preferences.where(user_id: user).first_or_create
     end
 
     def decorate

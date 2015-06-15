@@ -12,7 +12,7 @@ module Thredded
     end
 
     def preference
-      @preference ||= MessageboardPreference
+      @preference ||= NotificationPreference
         .where(messageboard_id: messageboard.id, user_id: current_user.id)
         .first_or_create!
     end
@@ -21,7 +21,7 @@ module Thredded
 
     def preference_params
       params
-        .require(:messageboard_preference)
+        .require(:notification_preference)
         .permit(:notify_on_mention, :notify_on_message, :filter)
     end
   end

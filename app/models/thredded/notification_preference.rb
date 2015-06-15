@@ -1,5 +1,5 @@
 module Thredded
-  class MessageboardPreference < ActiveRecord::Base
+  class NotificationPreference < ActiveRecord::Base
     belongs_to :user
     belongs_to :messageboard
 

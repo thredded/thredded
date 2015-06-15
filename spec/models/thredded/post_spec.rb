@@ -37,7 +37,7 @@ module Thredded
       joel = create(:user, name: 'joel', email: 'joel@example.com')
       messageboard.add_member(joel)
       create(
-        :messageboard_preference,
+        :notification_preference,
         user: joel,
         messageboard: messageboard,
         notify_on_mention: true

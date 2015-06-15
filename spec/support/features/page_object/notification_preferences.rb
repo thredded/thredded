@@ -1,7 +1,7 @@
 require 'support/features/page_object/base'
 
 module PageObject
-  class MessageboardPreferences < Base
+  class NotificationPreferences < Base
     attr_accessor :user, :messageboard
 
     def initialize(user, messageboard = create(:messageboard))
@@ -24,7 +24,7 @@ module PageObject
     end
 
     def has_at_mention_notifications?
-      has_checked_field? 'messageboard_preference_notify_on_mention'
+      has_checked_field? 'notification_preference_notify_on_mention'
     end
 
     def disable_private_topic_notifications
@@ -33,7 +33,7 @@ module PageObject
     end
 
     def has_private_topic_notifications?
-      has_checked_field? 'messageboard_preference_notify_on_message'
+      has_checked_field? 'notification_preference_notify_on_message'
     end
   end
 end
