@@ -9,13 +9,13 @@ module PageObject
       @messageboard = messageboard
     end
 
-    def visit_style_guide
+    def visit_notification_edit
       signs_in_as(user.to_s)
-      visit theme_path
+      visit edit_messageboard_preferences_path(messageboard)
     end
 
     def disable_at_notifications
-      uncheck "Notify me when I am @'ed"
+      uncheck '@ Notifications'
       click_button 'Update Preferences'
     end
 
@@ -28,7 +28,7 @@ module PageObject
     end
 
     def disable_private_topic_notifications
-      uncheck 'Notify me when I am included in a private topic'
+      uncheck 'Private Topic Notification'
       click_button 'Update Preferences'
     end
 

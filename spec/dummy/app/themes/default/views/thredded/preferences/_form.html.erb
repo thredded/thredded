@@ -1,13 +1,27 @@
+<%= render 'thredded/shared/error_messages' %>
+
 <%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard), html: { class: 'notification-preferences-form' } do |f| %>
-  <%= render 'thredded/shared/error_messages' %>
-  <ul>
+  <ul class="form-list">
     <li>
-      <%= f.label :notify_on_mention, "Notify me when I am @'ed" %>
-      <%= f.check_box :notify_on_mention %>
+      <%= f.label :notify_on_mention do %>
+        <%= f.check_box :notify_on_mention %>
+        @ Notifications
+      <% end %>
+      <p class="form-list--hint">
+        When someone mentions you by your username (eg: @sam)
+        you will receive an email with the contents of that post.
+      </p>
     </li>
     <li>
-      <%= f.label :notify_on_message, 'Notify me when I am included in a private topic' %>
-      <%= f.check_box :notify_on_message %>
+      <%= f.label :notify_on_message do %>
+        <%= f.check_box :notify_on_message %>
+        Private Topic Notification
+      <% end %>
+      <p class="form-list--hint">
+        When you are first added to a private topic's discussion
+        you will receive an email with the contents of that initial
+        post.
+      </p>
     </li>
     <li class="submit"><%= f.submit 'Update Preferences' %></li>
   </ul>

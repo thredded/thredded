@@ -37,7 +37,7 @@ feature 'User updating preferences' do
 
     default_user_preferences =
       PageObject::NotificationPreferences.new(user, messageboard)
-    default_user_preferences.visit_style_guide
+    default_user_preferences.visit_notification_edit
     default_user_preferences
   end
 end

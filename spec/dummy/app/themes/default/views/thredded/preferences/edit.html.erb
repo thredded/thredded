@@ -1,0 +1,16 @@
+<% content_for :thredded_page_title, 'Notification Preferences' %>
+<% content_for :thredded_page_id, 'thredded-preferences-new' %>
+<% content_for :thredded_javascript do %>
+<% end %>
+<% content_for :thredded_breadcrumbs do %>
+  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
+<% end %>
+
+<%= content_tag :section, class: 'main-section preferences' do %>
+  <h1>Notification Settings For <em><%= messageboard.name %></em></h1>
+
+  <%= render 'thredded/preferences/form',
+    messageboard: messageboard,
+    preference: preference
+    %>
+<% end %>
