@@ -142,6 +142,19 @@
 <% end %>
 
 <!-- ************************ -->
+<!-- preferences#edit         -->
+<!-- ************************ -->
+
+<%= content_tag :section, class: 'main-section preferences' do %>
+  <h1>Notification Settings For <em><%= messageboard.name %></em></h1>
+
+  <%= render 'thredded/preferences/form',
+    messageboard: @messageboard,
+    preference: @preference
+    %>
+<% end %>
+
+<!-- ************************ -->
 <!-- topics#pagination        -->
 <!-- ************************ -->
 
