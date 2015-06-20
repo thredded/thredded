@@ -12,6 +12,10 @@
       visibility: visible;
     }
   }
+
+  @include media($mobile) {
+    display: none;
+  }
 }
 
 .currently-online--title {
