@@ -7,6 +7,7 @@ module Thredded
     def create
       Thredded::Post.create(post_params)
 
+      ensure_role_exists
       reset_read_status if for_a_private_topic?
       redirect_to :back
     end
@@ -26,6 +27,12 @@ module Thredded
     end
 
     private
+
+    def ensure_role_exists
+      EnsureRoleExistsJob
+        .queue
+        .for_user_and_messageboard(current_user.id, messageboard.id)
+    end
 
     def reset_read_status
       Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, current_user).run

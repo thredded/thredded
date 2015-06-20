@@ -57,10 +57,7 @@ module Thredded
       @new_topic = TopicForm.new(new_topic_params)
       @new_topic.save
 
-      EnsureRoleExists
-        .new(user: current_user, messageboard: messageboard)
-        .run
-
+      ensure_role_exists
       redirect_to messageboard_topics_path(messageboard)
     end
 
@@ -74,6 +71,12 @@ module Thredded
     end
 
     private
+
+    def ensure_role_exists
+      EnsureRoleExistsJob
+        .queue
+        .for_user_and_messageboard(current_user.id, messageboard.id)
+    end
 
     def topic
       @topic ||= messageboard.topics.find_by_slug_with_user_topic_reads!(params[:id])
