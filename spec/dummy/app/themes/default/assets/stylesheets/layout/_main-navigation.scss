@@ -1,7 +1,7 @@
 .main-navigation {
   @include row;
   border-bottom: $base-border;
-  margin-bottom: $large-spacing;
+  margin-bottom: $base-spacing;
   margin-top: $small-spacing;
 }
 
