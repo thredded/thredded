@@ -86,6 +86,7 @@ module Thredded
       {
         multiple: true,
         'data-placeholder' => 'select users to participate in this topic',
+        required: true,
       }
     end
 
