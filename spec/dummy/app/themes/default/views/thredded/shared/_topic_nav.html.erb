@@ -9,8 +9,10 @@
       <li class="topic-navigation--private">
         <%= link_to messageboard_private_topics_path(messageboard), class: "unread-#{unread_private_topics_count}" do %>
           Private Topics
-          <% unless unread_private_topics_count == 0 %>
-            <span class="topic-navigation--unread"><%= unread_private_topics_count %></span>
+          <% if unread_private_topics_count > 0 %>
+            <span class="topic-navigation--unread">
+              <%= unread_private_topics_count %>
+            </span>
           <% end %>
         <% end %>
       </li>

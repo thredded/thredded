@@ -24,12 +24,16 @@
 
 }
 
-#thredded_new_topic .topic-navigation--public,
-#thredded_topics_index .topic-navigation--public,
-#thredded_new_private_topic .topic-navigation--private,
-#thredded_private_topics_index .topic-navigation--private {
+.thredded-new-topic .topic-navigation--public,
+.thredded-topics-index .topic-navigation--public,
+.thredded-new-private-topic .topic-navigation--private,
+.thredded-private-topics-index .topic-navigation--private {
   border-bottom: 1px solid $action-color;
   margin-bottom: -2px;
+
+  a {
+    color: $action-color;
+  }
 }
 
 .topic-navigation--unread {
