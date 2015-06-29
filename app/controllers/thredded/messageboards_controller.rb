@@ -1,5 +1,3 @@
-require 'pry'
-
 module Thredded
   class MessageboardsController < Thredded::ApplicationController
     def index
