@@ -29,6 +29,17 @@ $base-background-color: #fff;
 $base-font-color: $dark-blue;
 $action-color: $blue;
 
+// Flash Colors
+$flash-font-success-color: #56651a;
+$flash-font-error-color: #96151b;
+$flash-font-notice-color: $blue;
+$flash-font-alert-color: #8c7800;
+
+$flash-background-success-color: #e6efc2;
+$flash-background-error-color: #fbe3e4;
+$flash-background-notice-color: $light-gray;
+$flash-background-alert-color: #fff6bf;
+
 // Border
 $base-border-color: $light-gray;
 $base-border: 1px solid $base-border-color;
