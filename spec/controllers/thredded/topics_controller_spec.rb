@@ -47,7 +47,7 @@ module Thredded
         allow(Topic).to receive(:search) { fail Thredded::Errors::EmptySearchResults, 'hi' }
         get :search, messageboard_id: @messageboard.id, q: ''
 
-        expect(flash[:alert]).to eq "There are no results for your search - 'hi'"
+        expect(flash[:error]).to eq "There are no results for your search - 'hi'"
       end
     end
   end
