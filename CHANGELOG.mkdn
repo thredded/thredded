@@ -1,23 +1,32 @@
 # MASTER
 
-# 0.1.0
+# 0.1.0 - 2015-06-29
 
-## Changes
+## Added
 
+* Rake task to spin up a web server using the dummy application
+* Rake task to assign user to a superadmin role
 * A relatively large effort was put in effect for 0.1.0 to provide more thorough support for themes, new css and design, a small bit of javascript.
 * Views have had a nice overhaul.
-* Provide a generator that installs the default theme and integrates the associated css framework (if necessary). In the first theme we're using bourbon and neat.
+* Provide a generator that installs the default theme and integrates the associated css framework (if necessary). In the first theme we're using bourbon and neat. In the future - probably including foundation and bootstrap.
 * Add a Dockerfile and docker-compose.yml to aid in getting a fully working instance of the thredded dummy app up and running.
 * Instead of having a messageboard "setup" controller that is only available on the first run of the gem, move it over to `messageboards#new`.
 
-## Bug Fixes
+## Changed
 
+* Instead of creating a messageboard only once, allow superadmins to create new messageboards whenever through the messageboards resource.
+* Use Puma instead of Webrick for the dev server
+* Oft-used form elements (topics, posts) use the required html attribute.
+
+## Fixed
+
+* Remove Gemfile.lock from the repo
 * Active users now shows the current user in addition to everyone else on the first (without having to refresh).
 
 
 # 0.0.14
 
-## Changes
+## Changed
 
 * Until this release PrivateTopic inherited from Topic and used STI to reuse that table. Over time this led to some intermingling of concerns and more than the occasional shotgun surgery. As of now the Topic class has been split into Topic AND PrivateTopic, each with their own table.
 * Provide means to display, or inspect, the unread private topics count. This now allows us to see if there are any private topics that one has not read.
@@ -27,32 +36,32 @@
 * Remove unused columns in tables - `state` from `thredded_topics`.
 * Link to user from post on topic page (thanks @taylorkearns!)
 
-## Bug fixes
+## Fixed
 
 * Fix issue where post did not inherit the test filter set per messagebard
 * Building a new post for reply form must use the parent messageboard filter
 
 # 0.0.13
 
-## Bug Fixes
+## Fixed
 
 * Users' messageboard preferences are created if one does not exist for a given messageboard. This had caused people who had not updated their own preferences to NOT receive @ notifications by default. As of this release they will, by default, receive @'s and private thread notifications until they change their preferences.
 
-## Changes
+## Changed
 
 * A topic's categories can now be rendered in the view. `categories/category` partial addded.
 * Adding attachments to a post has been removed. (Attachment model and association will be removed in 0.0.15)
 
 # 0.0.12
 
-## Bug Fixes
+## Fixed
 
 * Requiring the sql search builder explicitly fixes the issue where anonymous visitors would not be able to search
 * Users, when they edit a topic they started, should not be able to pin/lock it. This has been changed to only allow admins to do so.
 * bbcode now renders line-breaks
 * html is now better sanitized
 
-## Changes
+## Changed
 
 * Replace the previously used inheritance-based filter chain with
 [html-pipeline](https://github.com/jch/html-pipeline). Much better.
@@ -74,18 +83,18 @@ either :file or :fog.
 
 # 0.0.10
 
-## Bug fixes
+## Fixed
 
 * Fixed: private topics not being created correctly
 * Test coverage for above
 
 # 0.0.8
 
-## Bug fixes
+## Fixed
 
 * Make sure messageboard slug is populated upon creation
 
-## Changes
+## Changed
 
 * Refactor controllers for a little more cleanliness
 * Exceptions raised and caught instead of asking for existence of objects
@@ -93,17 +102,17 @@ either :file or :fog.
 
 # 0.0.7
 
-## Bug Fixes
+## Fixed
 
 * Get search back to working
 
 # 0.0.6
 
-## Changes
+## Changed
 
 * Update rails dependency in gemspec to use a `~>` instead of `>=`
 
-## Bug Fixes
+## Fixed
 
 * Fix `convert_textile_to_markdown` migration to use proper sql syntax
 
@@ -113,14 +122,14 @@ either :file or :fog.
 
 * A CHANGELOG!
 
-## Bug Fixes
+## Fixed
 
 * Fix `PostsController#topic` to ensure the `user_topic_reads` association is eager loaded
 * Make that `topic` method pass along to an obviously named and intention revealing method
 * Delete the filter select from `posts/_form` partial
 * require `thredded/at_notifier` in `thredded.rb` (thanks @srussking)
 
-## Changes
+## Changed
 
 * Introduce a more robust `MessageboardDecorator`
 * Allow `messagebord` obj or collection to be decorated with `#decorate` method
