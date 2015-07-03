@@ -1,9 +1,14 @@
-require_relative '../../../spec/factories' unless FactoryGirl.factories.instance_variable_get(:@items).any?
+# rubocop:disable HandleExceptions
+begin
+  if FactoryGirl.factories.instance_variable_get(:@items).none?
+    require_relative '../../../spec/factories'
+  end
+rescue NameError
+end
+# rubocop:enable HandleExceptions
 
 module Thredded
   class SeedDatabase
-    include FactoryGirl::Syntax::Methods
-
     attr_reader :user, :messageboard
 
     def self.run
@@ -16,25 +21,25 @@ module Thredded
           ::User.create(name: 'joe', email: 'joe@example.com')
       end
 
-      john = create(:user, name: 'john')
-      fred = create(:user, name: 'fred')
-      kyle = create(:user, name: 'kyle')
+      john = FactoryGirl.create(:user, name: 'john')
+      fred = FactoryGirl.create(:user, name: 'fred')
+      kyle = FactoryGirl.create(:user, name: 'kyle')
 
-      @messageboard = create(
+      @messageboard = FactoryGirl.create(
         :messageboard,
         name: 'Theme Test',
         slug: 'theme-test',
         description: 'A theme is not a theme without some test data'
       )
 
-      topics = create_list(
+      topics = FactoryGirl.create_list(
         :topic, 3,
         messageboard: messageboard,
         user: user,
         last_user: user
       )
 
-      private_topics = create_list(
+      private_topics = FactoryGirl.create_list(
         :private_topic, 3,
         messageboard: messageboard,
         user: user,
@@ -42,18 +47,18 @@ module Thredded
         users: [user]
       )
 
-      create(:post, postable: topics[0], messageboard: messageboard, user: user)
-      create(:post, postable: topics[1], messageboard: messageboard, user: user)
-      create(:post, postable: topics[2], messageboard: messageboard, user: user)
+      FactoryGirl.create(:post, postable: topics[0], messageboard: messageboard, user: user)
+      FactoryGirl.create(:post, postable: topics[1], messageboard: messageboard, user: user)
+      FactoryGirl.create(:post, postable: topics[2], messageboard: messageboard, user: user)
 
-      create(:post, postable: private_topics[0], messageboard: messageboard, user: user)
-      create(:post, postable: private_topics[1], messageboard: messageboard, user: user)
-      create(:post, postable: private_topics[2], messageboard: messageboard, user: user)
+      FactoryGirl.create(:post, postable: private_topics[0], messageboard: messageboard, user: user)
+      FactoryGirl.create(:post, postable: private_topics[1], messageboard: messageboard, user: user)
+      FactoryGirl.create(:post, postable: private_topics[2], messageboard: messageboard, user: user)
 
-      create(:role, user: user, messageboard: messageboard)
-      create(:role, user: kyle, messageboard: messageboard)
-      create(:role, user: john, messageboard: messageboard)
-      create(:role, user: fred, messageboard: messageboard)
+      FactoryGirl.create(:role, user: user, messageboard: messageboard)
+      FactoryGirl.create(:role, user: kyle, messageboard: messageboard)
+      FactoryGirl.create(:role, user: john, messageboard: messageboard)
+      FactoryGirl.create(:role, user: fred, messageboard: messageboard)
 
       self
     end
