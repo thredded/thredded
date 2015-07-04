@@ -5,7 +5,7 @@ module Thredded
     def index
       authorize_reading messageboard
 
-      @topics = Thredded::TopicsViewModel.new(params)
+      @topics = topics
     end
 
     def show
@@ -74,6 +74,10 @@ module Thredded
 
     def topic
       @topic ||= messageboard.topics.find_by_slug_with_user_topic_reads!(params[:id])
+    end
+
+    def topics
+      @topics ||= Thredded::TopicsViewModel.new(params)
     end
 
     def topic_params

@@ -3,10 +3,9 @@
 
   <h1 class="topics--title">
     <%= link_to topic.title,
-      paged_messageboard_topic_posts_path(
+      messageboard_topic_posts_path(
         messageboard.slug,
-        topic.slug,
-        topic.farthest_page
+        topic.slug
       )
     %>
   </h1>
