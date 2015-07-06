@@ -1,0 +1,58 @@
+<% content_for :thredded_page_title, 'Search Results' %>
+<% content_for :thredded_page_id, 'thredded-topic-search-results' %>
+
+<% content_for :breadcrumbs do %>
+  <ul class="breadcrumbs">
+    <li><%= link_to 'Forums', thredded.root_path %></li>
+    <li><%= link_to messageboard.name,
+      messageboard_topics_path(messageboard) %></li>
+    <li><span>Results for "<%= params[:q]%>"</span></li>
+  </ul>
+<% end %>
+
+<header>
+  <nav>
+    <%= yield :breadcrumbs %>
+  </nav>
+
+  <%= render 'thredded/shared/currently_online' %>
+  <%= render 'thredded/shared/topic_nav' %>
+</header>
+
+<section class="topics" id="topics_listing">
+  <div class="currently">
+    <% @decorated_topics.each do |topic| %>
+      <%= content_tag_for :article, topic, class: topic.css_class do %>
+        <div class="post_count"><%= topic.posts_count %></div>
+
+        <h1>
+          <%= link_to topic.title,
+            messageboard_topic_posts_path(messageboard.slug, topic.slug)
+          %>
+        </h1>
+
+        <cite class="updated_by">
+          <%== topic.updated_at_timeago %>
+          <%== topic.last_user_link %>
+        </cite>
+
+        <cite class="started_by">
+          <%== topic.created_at_timeago %>
+          <%== topic.user_link %>
+        </cite>
+
+        <% if topic.categories.any? %>
+          <ul class="categories">
+            <%= render topic.categories %>
+          </ul>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</section>
+
+<footer>
+  <nav>
+    <%= yield :breadcrumbs %>
+  </nav>
+</footer>

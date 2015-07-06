@@ -9,7 +9,7 @@ module PageObject
     end
 
     def normal_topics
-      all('article.topic.read:not(.locked):not(.sticky)')
+      all('article.topic:not(.locked):not(.sticky)')
     end
 
     def locked_topics

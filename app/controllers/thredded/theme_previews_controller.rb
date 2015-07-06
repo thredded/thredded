@@ -6,12 +6,12 @@ module Thredded
       @messageboard = messageboard
       @messageboards = Messageboard.where(closed: false).decorate
       @topics = messageboard.topics.on_page(current_page).limit(3)
-      @decorated_topics = UserTopicDecorator.decorate_all(user, @topics)
+      @decorated_topics = TopicDecorator.decorate_all(user, @topics)
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
         .decorate_all(current_user, user.thredded_private_topics)
       @topic = @topics.find { |t| t.posts.present? } || @topics.first ||
         @messageboard.topics.build(title: 'Hello', slug: 'hello')
-      @user_topic = UserTopicDecorator.new(user, @topic)
+      @user_topic = TopicDecorator.new(user, @topic)
       @posts = @topic.posts.first(3)
       @post = @posts.first || @messageboard.posts.build(id: 1337, postable: @topic, content: 'Hello world')
       @new_post = @messageboard.posts.build(postable: @topic)

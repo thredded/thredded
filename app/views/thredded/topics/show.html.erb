@@ -3,7 +3,7 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag_for :section, topic, class: "main-section #{user_topic.css_class}" do %>
+  <%= content_tag_for :section, topic, class: "main-section #{topic.decorate.css_class}" do %>
     <%= render 'thredded/base_topics/header', topic: topic %>
     <%= render @posts %>
     <div class="thredded--post-form--wrapper">
@@ -16,7 +16,6 @@
     </div>
   <% end %>
 <% end %>
-
 
 <footer>
   <%= paginate @posts %>

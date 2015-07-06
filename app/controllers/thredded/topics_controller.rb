@@ -1,14 +1,13 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController
-    helper_method :current_page, :topic, :user_topic
+    helper_method :current_page, :topic
     before_filter :update_user_activity
 
     def index
       authorize_reading messageboard
 
       @topics = topics
-      @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(current_user, @topics)
+      @decorated_topics = Thredded::TopicDecorator.decorate_all(@topics)
       @new_topic = TopicForm.new(messageboard: messageboard)
     end
 
@@ -24,14 +23,11 @@ module Thredded
         postable: topic,
         filter: messageboard.filter
       )
-
-      update_read_status
     end
 
     def search
       @topics = Topic.search(params[:q], messageboard)
-      @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(current_user, @topics)
+      @decorated_topics = Thredded::TopicDecorator.decorate_all(@topics)
       flash.now[:notice] = "Search Results for '#{params[:q]}'"
     end
 
@@ -121,25 +117,6 @@ module Thredded
 
     def current_page
       params[:page] || 1
-    end
-
-    def user_topic
-      @user_topic ||= UserTopicDecorator.new(current_user, topic)
-    end
-
-    def update_read_status
-      return if current_user.anonymous?
-
-      read_history = UserTopicRead.where(
-        user_id: current_user,
-        topic: topic,
-      ).first_or_initialize
-
-      read_history.update_attributes(
-        farthest_post: @posts.last,
-        posts_count: topic.posts_count,
-        page: current_page,
-      )
     end
   end
 end

@@ -2,12 +2,18 @@ require 'thredded/base_topic_decorator'
 
 module Thredded
   class TopicDecorator < SimpleDelegator
-    def initialize(private_topic)
-      super(Thredded::BaseTopicDecorator.new(private_topic))
+    def initialize(topic)
+      super(Thredded::BaseTopicDecorator.new(topic))
     end
 
     def self.model_name
       ActiveModel::Name.new(self, nil, 'Topic')
+    end
+
+    def self.decorate_all(topics)
+      topics.map do |topic|
+        new(topic)
+      end
     end
 
     def css_class
