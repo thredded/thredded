@@ -71,6 +71,8 @@ module Thredded
     end
 
     def update_user_activity
+      return if messageboard.nil?
+
       Thredded::ActivityUpdaterJob.queue.update_user_activity(
         'messageboard_id' => messageboard.id,
         'user_id' => current_user.id
