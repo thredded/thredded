@@ -35,9 +35,10 @@ module Thredded
         gems = "\n"
 
         if options.sass_framework == 'bourbon'
-          gems << "\ngem 'bourbon'" unless in_gemfile?('bourbon')
-          gems << "\ngem 'neat'"    unless in_gemfile?('neat')
-          gems << "\ngem 'bitters'" unless in_gemfile?('bitters')
+          gems << "\ngem 'bourbon'"       unless in_gemfile?('bourbon')
+          gems << "\ngem 'neat'"          unless in_gemfile?('neat')
+          gems << "\ngem 'bitters'"       unless in_gemfile?('bitters')
+          gems << "\ngem 'sprockets-es6'" unless in_gemfile?('sprockets-es6')
         end
 
         gems
