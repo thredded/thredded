@@ -206,11 +206,4 @@ FactoryGirl.define do
   factory :user_detail, class: Thredded::UserDetail do
     user
   end
-
-  factory :user_topic_read, class: Thredded::UserTopicRead do
-    user
-    topic
-    farthest_post
-    page 1
-  end
 end

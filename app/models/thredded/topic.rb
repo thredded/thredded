@@ -15,7 +15,6 @@ module Thredded
     has_many :posts, as: :postable, dependent: :destroy
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
-    has_many :user_topic_reads, dependent: :destroy
 
     def self.stuck
       where(sticky: true)

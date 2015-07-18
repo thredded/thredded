@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614231954) do
+ActiveRecord::Schema.define(version: 20150718014315) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -197,19 +197,6 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   end
 
   add_index "thredded_user_preferences", ["user_id"], name: "index_thredded_user_preferences_on_user_id", using: :btree
-
-  create_table "thredded_user_topic_reads", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4,             null: false
-    t.integer  "topic_id",    limit: 4,             null: false
-    t.integer  "post_id",     limit: 4,             null: false
-    t.integer  "posts_count", limit: 4, default: 0, null: false
-    t.integer  "page",        limit: 4, default: 1, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
-  add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 255

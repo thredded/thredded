@@ -25,12 +25,10 @@ module Thredded
     def destroy_all_lower_dependencies
       say 'Destroying lower level dependencies ...'
 
-      [PostNotification, UserTopicRead].each do |child_t|
-        child_t
-          .joins(:post)
-          .merge(Post.where(messageboard_id: messageboard.id))
-          .delete_all
-      end
+      PostNotification
+        .joins(:post)
+        .merge(Post.where(messageboard_id: messageboard.id))
+        .delete_all
     end
 
     def destroy_all_posts

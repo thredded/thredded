@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614231954) do
+ActiveRecord::Schema.define(version: 20150718014315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150614231954) do
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed", using: :btree
   add_index "thredded_messageboards", ["slug"], name: "index_thredded_messageboards_on_slug", using: :btree
+  add_index "thredded_messageboards", ["topics_count"], name: "thredded_messageboards_topics_count_index", order: {"topics_count"=>:desc}, using: :btree
 
   create_table "thredded_notification_preferences", force: :cascade do |t|
     t.boolean  "notify_on_mention", default: true
@@ -198,19 +199,6 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   end
 
   add_index "thredded_user_preferences", ["user_id"], name: "index_thredded_user_preferences_on_user_id", using: :btree
-
-  create_table "thredded_user_topic_reads", force: :cascade do |t|
-    t.integer  "user_id",                 null: false
-    t.integer  "topic_id",                null: false
-    t.integer  "post_id",                 null: false
-    t.integer  "posts_count", default: 0, null: false
-    t.integer  "page",        default: 1, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
-  add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 255
