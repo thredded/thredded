@@ -54,9 +54,22 @@ mount Thredded::Engine => '/forum'
 [The initializer]: https://github.com/jayroh/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
 
-## Development dependencies
+## Gem development dependencies
+
+To be more clear - these are some dependencies for when you are working on *this* gem. Not for when you are implementing it into your Rails app.
 
 * PostgreSQL & MySQL - `brew install postgres mysql`
+
+If and when you generate new migrations for thredded there will be three database migrations and one schema dump you will want to run.
+
+1. `DB=mysql2 bundle exec rake db:migrate`
+2. `DB=postgresql bundle exec rake db:migrate`
+3. `RAILS_ENV=test bundle exec rake db:migrate`
+4. `bundle exec rake db:schema:dump`
+
+The first two are to generate the db schemas for both postgres and mysql, the third is to migrate your local test database, and the last is to take that schema information and save it to the two schema files (for when it tests against PG and MySql)
+
+*OR* you can just run `bin/migrate`!
 
 ## Background Job Requirements
 
