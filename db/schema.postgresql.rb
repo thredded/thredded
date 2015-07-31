@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20150718014315) do
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed", using: :btree
   add_index "thredded_messageboards", ["slug"], name: "index_thredded_messageboards_on_slug", using: :btree
-  add_index "thredded_messageboards", ["topics_count"], name: "thredded_messageboards_topics_count_index", order: {"topics_count"=>:desc}, using: :btree
 
   create_table "thredded_notification_preferences", force: :cascade do |t|
     t.boolean  "notify_on_mention", default: true
