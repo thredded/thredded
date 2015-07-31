@@ -1,5 +1,24 @@
 # MASTER
 
+## Added
+
+* Add rack-mini-profiler and flamegraph to the dummy app
+* Update instructions for how to get up and running with development dependencies for this gem's development. And to automate these things ...
+* ... Add `bin/migrate` with commit `#39da38c` to make the process of migrating all environments and related development dependencies easier.
+
+## Changed
+
+* Remove baked in "last topic and post read" functionality in favor of a future, smaller solution that isn't so coupled to the topics and posts controllers. This includes:
+  * `UserTopicDecorator` that wraps around the user and topic to determine that information
+  * Remove `UserTopicRead` model and backing database table
+  * Remove all related tests
+* Do NOT set a default theme for an app. Imposing that on the app that is wrapping around the thredded gem is not cool. Commit `0e256c762e86d3cb4479ef8676c68eec74777e30` removes that and defaults the theme to `nil`. Consequently this will NOT prepend to the view path if that config property is nil.
+
+## Fixed
+
+* Add es6 to parent app when the default theme is installed. This was missing and caused the associated `default` theme javascript files not to compile.
+* Commit #f3b5546 fixes an issue where the seed_database.rb file is included and tries to find the FactoryGirl constant .... which is probably not available in your non-test gem group. Oops. This fix rescues from that NameError exception.
+
 # 0.1.0 - 2015-06-29
 
 ## Added
