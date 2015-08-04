@@ -94,6 +94,10 @@ There are a few things you need in your app to get things looking just right.
     def to_s
       name
     end
+
+    def to_param
+      id # or `to_s.parameterize` if you'd like a slug
+    end
   end
   ```
 
