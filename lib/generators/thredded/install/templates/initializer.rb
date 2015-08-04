@@ -7,7 +7,14 @@
 Thredded.user_class = 'User'
 
 # User name column, used in @mention syntax and should be unique.
-Thredded.user_name_column = :name
+# This is where we define the table *and* the column we will use to search for
+# users' names if/when someone is @ mentioned.
+#
+#   Example: 'users.name'       => `users` table. `name` column
+#   Example: 'users.nickname'   => `users` table. `nickname` column
+#   Example: 'users.first_name' => `users` table. `first_name` column
+#
+Thredded.user_name_column = 'users.name'
 
 # The path (or URL) you will use to link to your users' profiles.
 # When linking to a user, Thredded will use this lambda to spit out

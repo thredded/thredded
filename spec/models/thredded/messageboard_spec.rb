@@ -163,6 +163,19 @@ module Thredded
       expect(board_members_from_list).to include(steve)
       expect(board_members_from_list).not_to include(john)
     end
+
+    it 'returns no one if the member list array is empty or nil' do
+      board = create(:messageboard)
+      joel = create(:user, name: 'Joel')
+      steve = create(:user, name: 'steve')
+      board.add_member(joel)
+      board.add_member(steve)
+      members_from_empty_array = board.members_from_list([])
+      members_from_nil_array = board.members_from_list(nil)
+
+      expect(members_from_empty_array).to be_empty
+      expect(members_from_nil_array).to be_empty
+    end
   end
 
   describe Messageboard, '#active_users' do
