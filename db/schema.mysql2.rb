@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.string   "posting_permission",   limit: 255,   default: "anonymous"
     t.integer  "topics_count",         limit: 4,     default: 0
     t.integer  "posts_count",          limit: 4,     default: 0
-    t.boolean  "closed",               limit: 1,     default: false,       null: false
+    t.boolean  "closed",                             default: false,       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "filter",               limit: 255,   default: "markdown",  null: false
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_messageboards", ["slug"], name: "index_thredded_messageboards_on_slug", using: :btree
 
   create_table "thredded_notification_preferences", force: :cascade do |t|
-    t.boolean  "notify_on_mention", limit: 1, default: true
-    t.boolean  "notify_on_message", limit: 1, default: true
+    t.boolean  "notify_on_mention",           default: true
+    t.boolean  "notify_on_message",           default: true
     t.integer  "user_id",           limit: 4,                null: false
     t.integer  "messageboard_id",   limit: 4,                null: false
     t.datetime "created_at"
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.integer  "user_id",          limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "read",             limit: 1, default: false
+    t.boolean  "read",                       default: false
   end
 
   add_index "thredded_private_users", ["private_topic_id"], name: "index_thredded_private_users_on_private_topic_id", using: :btree
@@ -162,8 +162,8 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.string   "slug",            limit: 191,                 null: false
     t.integer  "messageboard_id", limit: 4,                   null: false
     t.integer  "posts_count",     limit: 4,   default: 0,     null: false
-    t.boolean  "sticky",          limit: 1,   default: false, null: false
-    t.boolean  "locked",          limit: 1,   default: false, null: false
+    t.boolean  "sticky",                      default: false, null: false
+    t.boolean  "locked",                      default: false, null: false
     t.string   "hash_id",         limit: 191,                 null: false
     t.string   "type",            limit: 191
     t.datetime "created_at"
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.datetime "latest_activity_at"
     t.integer  "posts_count",        limit: 4, default: 0
     t.integer  "topics_count",       limit: 4, default: 0
-    t.boolean  "superadmin",         limit: 1, default: false
+    t.boolean  "superadmin",                   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
