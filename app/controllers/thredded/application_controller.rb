@@ -16,7 +16,7 @@ module Thredded
       Thredded::Errors::TopicCreateDenied,
       Thredded::Errors::MessageboardCreateDenied,
       Thredded::Errors::PrivateTopicCreateDenied do |exception|
-        redirect_to thredded.root_path,
+        redirect_to root_path,
           flash: { alert: exception.message }
       end
 
