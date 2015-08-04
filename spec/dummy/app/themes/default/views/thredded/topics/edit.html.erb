@@ -32,7 +32,7 @@
         </li>
       <% end %>
 
-      <% if can? :admin, form.object %>
+      <% if current_ability.can? :admin, form.object %>
         <li class="locked">
           <%= form.label :locked do %>
             Locked <%= form.check_box :locked %>

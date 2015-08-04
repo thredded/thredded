@@ -16,7 +16,7 @@
 
     <%= render 'thredded/posts/content_field', form: form %>
 
-    <% if can? :admin, form.object.topic %>
+    <% if current_ability.can? :admin, form.object.topic %>
       <li class="form-list--admin-options">
         <%= form.label :locked do %>
           <%= form.check_box :locked %> Locked

@@ -13,7 +13,7 @@
       <%== post.filtered_content %>
     </div>
 
-    <% if can? :edit, post.original %>
+    <% if current_ability.can? :edit, post.original %>
       <%= link_to 'Edit Post', edit_polymorphic_path([messageboard, post.postable, post]), class: 'post--edit' %>
     <% end %>
   <% end %>

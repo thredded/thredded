@@ -49,7 +49,7 @@ module Thredded
     end
 
     def authorize_reading(obj)
-      return if can? :read, obj
+      return if current_ability.can? :read, obj
 
       class_name = obj.class.to_s
       error = class_name
@@ -61,7 +61,7 @@ module Thredded
     def authorize_creating(obj)
       obj = obj.new if obj.class == Class
 
-      return if can? :create, obj
+      return if current_ability.can? :create, obj
 
       class_name = obj.class.to_s
       error = class_name
