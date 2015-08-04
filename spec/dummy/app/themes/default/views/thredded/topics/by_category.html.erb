@@ -13,7 +13,7 @@
   <ul class="actions">
     <%= render 'thredded/search/form' %>
 
-    <% if can? :create, Thredded::Topic %>
+    <% if current_ability.can? :create, Thredded::Topic %>
       <li class='new_topic'>
         <%= link_to 'new topic', new_messageboard_topic_path(messageboard) %>
       </li>

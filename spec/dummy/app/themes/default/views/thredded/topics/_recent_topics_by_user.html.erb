@@ -1,4 +1,4 @@
-<% if thredded_abilities.can? :read, topic %>
+<% if current_ability.can? :read, topic %>
   <tr>
     <td class="title table-first-column"> <%= topic.title %> </td>
     <td class="replies"> <%= topic.posts_count %> </td>

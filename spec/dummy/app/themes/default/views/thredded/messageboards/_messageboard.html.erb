@@ -1,4 +1,4 @@
-<% if can? :read, messageboard.original %>
+<% if current_ability.can? :read, messageboard.original %>
   <div class="messageboard">
     <header>
       <h2 class="messageboard--title">
