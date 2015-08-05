@@ -32,6 +32,7 @@ module Thredded
       @topics = Topic.search(params[:q], messageboard)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(current_user, @topics)
+      flash.now[:notice] = "Search Results for '#{params[:q]}'"
     end
 
     def new
