@@ -52,6 +52,7 @@ module Thredded
 
     def private_topics
       PrivateTopic
+        .uniq
         .for_messageboard(messageboard)
         .including_roles_for(current_user)
         .for_user(current_user)

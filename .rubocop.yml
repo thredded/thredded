@@ -87,7 +87,7 @@ MethodLength:
   Max: 120
 
 ModuleLength:
-  Max: 160
+  Max: 175
 
 MultilineTernaryOperator:
   Enabled: true

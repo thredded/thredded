@@ -19,7 +19,7 @@ feature 'User searching topics' do
     topics.visit_style_guide
     topics.search_for('Rando thread')
 
-    expect(page).to have_content('Results for "Rando thread"')
+    expect(page).to have_content("Search Results for 'Rando thread'")
     expect(topics.normal_topics.size).to eq(1)
     expect(topics).to have_topic_titled('Rando thread')
   end
