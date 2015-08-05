@@ -1,62 +1,16 @@
-<% content_for :thredded_page_title, 'Search Results' %>
+<% content_for :thredded_page_title, 'Topics Search Results' %>
 <% content_for :thredded_page_id, 'thredded-topic-search-results' %>
-
-<% content_for :breadcrumbs do %>
-  <ul class="breadcrumbs">
-    <li><%= link_to 'Forums', root_path %></li>
-    <li><%= link_to messageboard.name,
-      messageboard_topics_path(messageboard) %></li>
-    <li><span>Results for "<%= params[:q]%>"</span></li>
-  </ul>
+<% content_for :thredded_javascript do %>
+  <script>
+    thredded = new Thredded;
+    thredded.topicForm.init();
+    thredded.timestamps.init();
+  </script>
+<% end %>
+<% content_for :thredded_breadcrumbs do %>
+  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
 <% end %>
 
-<header>
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
-
-  <%= render 'thredded/shared/currently_online' %>
-  <%= render 'thredded/shared/topic_nav' %>
-</header>
-
-<section class="topics" id="topics_listing">
-  <div class="currently">
-    <% @decorated_topics.each do |topic| %>
-      <%= content_tag_for :article, topic, class: topic.css_class do %>
-        <div class="post_count"><%= topic.posts_count %></div>
-
-        <h1>
-          <%= link_to topic.title,
-            paged_messageboard_topic_posts_path(
-              messageboard.slug,
-              topic.slug,
-              topic.farthest_page
-            )
-          %>
-        </h1>
-
-        <cite class="updated_by">
-          <%== topic.updated_at_timeago %>
-          <%== topic.last_user_link %>
-        </cite>
-
-        <cite class="started_by">
-          <%== topic.created_at_timeago %>
-          <%== topic.user_link %>
-        </cite>
-
-        <% if topic.categories.any? %>
-          <ul class="categories">
-            <%= render topic.categories %>
-          </ul>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-</section>
-
-<footer>
-  <nav>
-    <%= yield :breadcrumbs %>
-  </nav>
-</footer>
+<%= content_tag :section, class: 'main-section topics' do %>
+  <%= render @decorated_topics  %>
+<% end %>
