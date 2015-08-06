@@ -6,3 +6,8 @@ Example:
 
     This will create:
         config/initializers/thredded.rb
+
+Options:
+
+    [--theme]   # Will copy thredded layout, views, and assets to the parent app
+

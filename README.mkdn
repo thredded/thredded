@@ -30,13 +30,9 @@ Add a thredded initializer to your parent app by running the install generator.
 [The initializer] has detailed descriptions of all of the configuration options.
 
 ```ruby
-rails generate thredded:install
-```
-
-Copy the themes (views and assets) into your parent application:
-
-```
-rails generate thredded:themes
+rails generate thredded:install           # install the initializer
+rails generate thredded:install --theme   # install initializer, views, and assets
+rails generate thredded:install --help    # see all options
 ```
 
 Copy the migrations over to your parent application and migrate:
@@ -54,23 +50,6 @@ mount Thredded::Engine => '/forum'
 [The initializer]: https://github.com/jayroh/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
 
-## Gem development dependencies
-
-To be more clear - these are some dependencies for when you are working on *this* gem. Not for when you are implementing it into your Rails app.
-
-* PostgreSQL & MySQL - `brew install postgres mysql`
-
-If and when you generate new migrations for thredded there will be three database migrations and one schema dump you will want to run.
-
-1. `DB=mysql2 bundle exec rake db:drop db:create db:migrate`
-2. `DB=postgresql bundle exec rake db:drop db:create db:migrate`
-3. `RAILS_ENV=test bundle exec rake db:drop db:create db:migrate`
-4. `bundle exec rake db:schema:dump`
-
-The first two are to generate the db schemas for both postgres and mysql, the third is to migrate your local test database, and the last is to take that schema information and save it to the two schema files (for when it tests against PG and MySql)
-
-*OR* you can just run `bin/migrate`!
-
 ## Background Job Requirements
 
 This gem has several gem agnostic background jobs. Currently resque, sidekiq, delayed_job, and a threaded in-memory queue are supported thanks to [Richard Schneeman's Q gem](https://github.com/schneems/Q). The configuration detailed above allows you to specify which job queue you prefer with `Thredded.queue_backend`. The available options are one of the following symbols - `:threaded_in_memory_queue`, `:sidekiq`, `:resque`, or `:delayed_job`.
@@ -87,7 +66,8 @@ Thredded.queue_inline = Rails.env.test?
 
 There are a few things you need in your app to get things looking just right.
 
-1. Add a to_s method to your user model. The following example assumes a column in my user model called `name`:
+1. Add `to_s` and `to_param` methods to your user model. The following example assumes
+that there is a column in my user model called `name`:
 
   ```ruby
   class User < ActiveRecord::Base
@@ -139,6 +119,25 @@ There are a few things you need in your app to get things looking just right.
   Two examples are given for bash and zsh. Zsh typically reserves brackets, `[]`, for other uses
   hence the wrapping with quotes. Pro-tip: did you know [you can escape the brackets by
   default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
+
+
+## Gem development dependencies
+
+To be more clear - these are some dependencies for when you are working on *this* gem. Not for when you are implementing it into your Rails app.
+
+* PostgreSQL & MySQL - `brew install postgres mysql`
+
+If and when you generate new migrations for thredded there will be three database migrations and one schema dump you will want to run.
+
+1. `DB=mysql2 bundle exec rake db:drop db:create db:migrate`
+2. `DB=postgresql bundle exec rake db:drop db:create db:migrate`
+3. `RAILS_ENV=test bundle exec rake db:drop db:create db:migrate`
+4. `bundle exec rake db:schema:dump`
+
+The first two are to generate the db schemas for both postgres and mysql, the third is to migrate your local test database, and the last is to take that schema information and save it to the two schema files (for when it tests against PG and MySql)
+
+*OR* you can just run `bin/migrate`!
+
 
 ## Developing and Testing with [Docker Compose](http://docs.docker.com/compose/)
 

@@ -33,11 +33,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'rinku'
   s.add_dependency 'sanitize'
   s.add_dependency 'unf'
+  s.add_dependency 'bourbon'
+  s.add_dependency 'neat'
+  s.add_dependency 'bitters'
+  s.add_dependency 'sprockets-es6'
 
   # test dependencies
-  s.add_development_dependency 'bourbon'
-  s.add_development_dependency 'neat'
-  s.add_development_dependency 'bitters'
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'chronic'
   s.add_development_dependency 'database_cleaner'
@@ -55,9 +56,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'puma'
-  s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'sprockets'
-  s.add_development_dependency 'sprockets-es6'
 
   # debug dependencies
   s.add_development_dependency 'byebug'

@@ -41,6 +41,7 @@ module Thredded
     end
 
     it 'returns link to root if config is not set' do
+      Thredded.user_path = nil
       user = build_stubbed(:user, name: 'joel')
       topic = build_stubbed(:topic, last_user: user)
       decorated_topic = TopicDecorator.new(topic)

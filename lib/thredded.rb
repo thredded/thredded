@@ -31,8 +31,7 @@ module Thredded
     :layout,
     :queue_backend,
     :queue_memory_log_level,
-    :queue_inline,
-    :theme
+    :queue_inline
 
   self.user_name_column = :name
   self.avatar_url = -> (_user, post) { post.gravatar_url(default: 'mm') }
@@ -43,7 +42,6 @@ module Thredded
   self.queue_memory_log_level = Logger::WARN
   self.queue_inline = false
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
-  self.theme = :default
 
   def self.user_class
     if @@user_class.is_a?(Class)

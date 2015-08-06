@@ -14,7 +14,9 @@ module Thredded
     end
 
     config.to_prepare do
-      Thredded.user_class.send(:include, Thredded::UserExtender)
+      if Thredded.user_class
+        Thredded.user_class.send(:include, Thredded::UserExtender)
+      end
 
       Q.setup do |config|
         config.queue = Thredded.queue_backend
@@ -28,12 +30,13 @@ module Thredded
       Thredded.use_adapter! Thredded::Post.connection_config[:adapter]
     end
 
-    initializer 'thredded.set_theme' do
-      Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{Thredded.theme}/assets/javascripts"
-      Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{Thredded.theme}/assets/stylesheets"
-      Thredded::Engine.config.assets.paths.unshift "#{Rails.root}/app/themes/#{Thredded.theme}/assets/images"
+    initializer 'thredded.setup_assets' do
       Thredded::Engine.config.assets.precompile << /\Athredded.*(?:js|css)\z/
-      ActionController::Base.prepend_view_path "#{Rails.root}/app/themes/#{Thredded.theme}/views"
+      Thredded::Engine.config.assets.precompile += %w(
+        chosen-sprite.png
+        chosen-sprite@2x.png
+        breadcrumb-chevron.svg
+      )
     end
   end
 end
