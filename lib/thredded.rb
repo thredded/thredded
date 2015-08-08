@@ -1,6 +1,5 @@
 require 'thredded/engine'
 require 'cancan'
-require 'carrierwave'
 require 'kaminari'
 require 'friendly_id'
 require 'gravtastic'
