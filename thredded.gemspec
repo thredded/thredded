@@ -59,5 +59,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rack-mini-profiler'
   s.add_development_dependency 'derailed'
-  s.add_development_dependency 'stackprof'
+
+  if RUBY_VERSION != '2.0.0'
+    s.add_development_dependency 'stackprof'
+  end
 end
