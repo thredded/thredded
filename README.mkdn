@@ -81,35 +81,7 @@ that there is a column in my user model called `name`:
   end
   ```
 
-2. Change the installed and active thredded theme to match your parent app's look and feel.
-
-  The theme has very basic styles and markup. The main focus in building this theme was
-  to get the front-end views and assets to a point that are easily adjusted and
-  optimally organized.
-
-  A couple of notes:
-
-  * When using route helpers in the thredded views -- eg: `new_session_path`, et al -- make
-    sure to prepend `main_app` to the helper: `main_app.new_session_path` as rails engines
-    like thredded will not know about those routes' existence unless explicitly told so.
-  * The theme layout has three content_tags available to yield - `:thredded_page_title`,
-    `:thredded_page_id`, and `:thredded_javascript`. The views within thredded pass those
-    up through to your layout if you would like to use them.  Example layout:
-
-  ```html
-  <html>
-    <head>
-    <title>My Application | <%= yield :thredded_page_title %></title>
-    </head>
-    <body id="<%= yield :thredded_page_id %>">
-      <%= yield %>
-
-      <%= yield :thredded_javascript %>
-    </body>
-  </html>
-  ```
-
-3. Make you, or one of your users, a super-admin so they'll have the permissions to create a new forum.
+2. Make you, or one of your users, a super-admin so they'll have the permissions to create a new forum.
 
   ```
   rake thredded:superadmin[yourusername] # bash
@@ -120,6 +92,36 @@ that there is a column in my user model called `name`:
   hence the wrapping with quotes. Pro-tip: did you know [you can escape the brackets by
   default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
 
+
+## Layout, Views, Assets and everything in the view layer
+
+The engine comes by default with a light and effective implementation of the views,
+styles, and javascript. Once you mount the engine you will be presented with a "themed"
+version of thredded.
+
+If you would like to customize it -- and I am assuming you will -- the install
+generator has an option to copy over all of the views and assets to your parent app for
+customization - `rails g thredded:install --theme`. This will copy over, into your app,
+the following files in addition to the initializer:
+
+```
+vendor/views/thredded
+vendor/views/layouts/thredded.html.erb
+vendor/assets/javascripts/thredded.es6
+vendor/assets/javascripts/thredded
+vendor/assets/stylesheets/thredded.scss
+vendor/assets/stylesheets/thredded
+vendor/assets/images/thredded
+```
+
+A couple of notes:
+
+* When using route helpers in the thredded views -- eg: `new_session_path`, et al -- make
+  sure to prepend `main_app` to the helper: `main_app.new_session_path` as rails engines
+  like thredded will not know about those routes' existence unless explicitly told so.
+* The theme layout has three content_tags available to yield - `:thredded_page_title`,
+  `:thredded_page_id`, and `:thredded_javascript`. The views within thredded pass those
+  up through to your layout if you would like to use them.
 
 ## Gem development dependencies
 
