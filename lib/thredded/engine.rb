@@ -31,7 +31,7 @@ module Thredded
     end
 
     initializer 'thredded.setup_assets' do
-      Thredded::Engine.config.assets.precompile.unshift /\Athredded.*(?:js|css)\z/
+      Thredded::Engine.config.assets.precompile.unshift(/\Athredded.*(?:js|css)\z/)
       Thredded::Engine.config.assets.precompile += %w(
         thredded/chosen-sprite.png
         thredded/chosen-sprite@2x.png
