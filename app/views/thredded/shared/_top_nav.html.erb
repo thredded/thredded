@@ -6,7 +6,7 @@
   <ul class="user-navigation--actions">
     <% if signed_in? %>
       <li class="main--nav--user">
-        <%= link_to "/users/#{current_user}" do %>
+        <%= link_to Thredded.user_path(current_user) do %>
         <span><%= current_user %></span>
         <% end %>
       </li>
