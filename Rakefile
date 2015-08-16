@@ -38,15 +38,15 @@ end
 Bundler::GemHelper.install_tasks
 
 # Dump / load schema in all supported flavours
-supported_dbs = %w(mysql2 postgresql)
+dbs = Array(ENV.fetch('DB', %w(mysql2 postgresql)))
 schema_path   = -> db { "db/schema.#{db}.rb" }
 connect_to_db = -> db { ActiveRecord::Base.establish_connection(ActiveRecord::Base.connection_config.merge(adapter: db)) }
 namespace :db do
   namespace :schema do
-    desc "Create #{supported_dbs.map { |db| schema_path.call(db) }.to_sentence}"
+    desc "Create #{dbs.map { |db| schema_path.call(db) }.to_sentence}"
     Rake::Task['db:schema:dump'].clear
     task dump: :environment do
-      supported_dbs.each do |db|
+      dbs.each do |db|
         connect_to_db.call(db)
         path = schema_path.call(db)
         puts "Create #{path}"
@@ -55,7 +55,7 @@ namespace :db do
         end
       end
     end
-    desc supported_dbs.map { |db| schema_path.call(db) }.to_sentence(two_words_connector: ' or ', last_word_connector: ', or ')
+    desc dbs.map { |db| schema_path.call(db) }.to_sentence(two_words_connector: ' or ', last_word_connector: ', or ')
     task :load
     task set_env: :environment do
       ENV['SCHEMA'] = schema_path.call(ActiveRecord::Base.connection_config[:adapter])

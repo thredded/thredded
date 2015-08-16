@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [ -n "$1" ]; then cat <<'HELP'; exit; fi
+Usage: script/migrate
+Re-create the database schemas, run the migrations, dump the schemas, and seed all the supported databases.
+If the `DB` environment variable is set, do the above only for that database.
+HELP
+
+set -e
+log() { if [ -t 1 ]; then echo -e >&2 "\e[0;36m$@\e[0m"; else echo >&2 "$@"; fi }
+
+if [ -z "$DB" ]; then
+  declare -a DBS=(mysql2 postgresql)
+else
+  declare -a DBS=("$DB")
+fi
+each_db() {
+  for db in "${DBS[@]}"; do
+    DB="$db" "${@}"
+  done
+}
+
+log "Migrating databases: ${DBS[@]}"
+each_db bundle exec rake db:drop db:create db:migrate
+
+log 'Dumping schemas to ruby files'
+bundle exec rake db:schema:dump
+
+log "Preparing test databases"
+RAILS_ENV=test each_db bundle exec rake db:schema:load
+
+log 'Seeding the databases'
+each_db rake dev:seed

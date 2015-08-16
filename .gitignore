@@ -2,7 +2,6 @@ Gemfile.lock
 *.gemfile.lock
 .bundle/
 bin/
-!bin/migrate
 log/*.log
 pkg/
 spec/dummy/db/*.sqlite3
