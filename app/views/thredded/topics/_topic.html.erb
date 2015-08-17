@@ -12,13 +12,13 @@
   </h1>
 
   <cite class="topics--updated-by">
-    <%== topic.updated_at_timeago %>
-    <%== topic.last_user_link %>
+    <%= time_ago topic.updated_at %>
+    <%= user_link topic.last_user %>
   </cite>
 
   <cite class="topics--started-by">
-    <%== topic.created_at_timeago %>
-    <%== topic.user_link %>
+    <%= time_ago topic.created_at %>
+    <%= user_link topic.user %>
   </cite>
 
   <% if topic.categories.any? %>

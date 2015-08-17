@@ -6,13 +6,13 @@
   </h1>
 
   <cite class="topics--updated-by">
-    <%== private_topic.updated_at_timeago %>
-    <%== private_topic.last_user_link %>
+    <%= time_ago private_topic.updated_at %>
+    <%= user_link private_topic.last_user %>
   </cite>
 
   <cite class="topics--started-by">
-    <%== private_topic.created_at_timeago %>
-    <%== private_topic.user_link %>
+    <%= time_ago private_topic.created_at %>
+    <%= user_link private_topic.user %>
   </cite>
 
   <ul class="topics--categories">

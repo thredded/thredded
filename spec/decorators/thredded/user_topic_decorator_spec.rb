@@ -7,10 +7,7 @@ module Thredded
       user = create(:user)
       decorator = UserTopicDecorator.new(user, topic)
 
-      expect(decorator).to respond_to(:created_at_timeago)
-      expect(decorator).to respond_to(:last_user_link)
       expect(decorator).to respond_to(:original)
-      expect(decorator).to respond_to(:updated_at_timeago)
     end
   end
 

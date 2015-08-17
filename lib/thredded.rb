@@ -42,6 +42,7 @@ module Thredded
   self.queue_inline = false
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
 
+  # @return [Class] the user class from the host application.
   def self.user_class
     if @@user_class.is_a?(Class)
       fail 'Please use a string instead of a class'
@@ -56,9 +57,12 @@ module Thredded
     end
   end
 
-  def self.user_path(user)
+  # @param view_context [Object] context to execute the lambda in.
+  # @param user [Thredded.user_class]
+  # @return [String] path to the user evaluated in the specified context.
+  def self.user_path(view_context, user)
     if @@user_path.respond_to? :call
-      @@user_path.call(user)
+      view_context.instance_exec(user, &@@user_path)
     else
       '/'
     end

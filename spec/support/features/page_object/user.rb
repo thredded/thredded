@@ -18,7 +18,7 @@ module PageObject
     end
 
     def load_page
-      visit Thredded.user_path(@user)
+      visit Thredded.user_path(nil, @user)
     end
 
     def displaying_the_profile?

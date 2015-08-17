@@ -53,7 +53,8 @@ module Thredded
       %w(bbcode markdown)
     end
 
-    def filtered_content
+    # @param view_context [Object] the context of the rendering view.
+    def filtered_content(view_context)
       pipeline = HTML::Pipeline.new [
         html_filter_for_pipeline,
         HTML::Pipeline::SanitizationFilter,
@@ -62,8 +63,8 @@ module Thredded
         HTML::Pipeline::AutolinkFilter,
       ], context_options
 
-      result = pipeline.call(content)
-      result[:output].to_s
+      result = pipeline.call(content, view_context: view_context)
+      result[:output].to_s.html_safe
     end
 
     private

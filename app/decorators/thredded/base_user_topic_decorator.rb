@@ -3,7 +3,7 @@ module Thredded
     extend ActiveModel::Naming
     include ActiveModel::Conversion
 
-    delegate :created_at_timeago, :last_user_link, :original, :updated_at_timeago, to: :topic
+    delegate :original, to: :topic
 
     class << self
       # @return [Class<ActiveRecord::Base>]

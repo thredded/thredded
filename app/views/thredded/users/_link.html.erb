@@ -1,0 +1,9 @@
+<% if user %>
+  <% if !user.anonymous? %>
+<a href="<%= user_path(user) %>"><%= user.to_s %></a>
+  <% else %>
+<%= user.to_s %>
+  <% end %>
+<% else %>
+<em>Deleted user</em>
+<% end %>
