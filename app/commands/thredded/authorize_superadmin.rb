@@ -18,11 +18,7 @@ module Thredded
     private
 
     def user
-      @user ||= begin
-        column = Thredded.user_name_column
-        klass = Thredded.user_class
-        klass.where("#{column} = '#{username}'").first
-      end
+      @user ||= Thredded.user_class.where(Thredded.user_name_column => username).first
     end
   end
 end
