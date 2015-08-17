@@ -5,6 +5,8 @@ rvm:
   - 2.1.0
   - 2.2.0
 
+cache: bundler
+bundler_args: --path ../../vendor/bundle
 gemfile:
   - spec/gemfiles/rails_4_0.gemfile
   - spec/gemfiles/rails_4_1.gemfile

@@ -4,9 +4,9 @@
 
 AllCops:
   Exclude:
-    - !ruby/regexp /.*\/schema\.rb$/
-    - !ruby/regexp /\/db\/schema\.(postgresql|mysql2)\.rb$/
-    - !ruby/regexp /\/db\/migrate\/.*/
+    - 'db/**/*'
+    - 'spec/dummy/db/**/*'
+    - 'vendor/**/*'
 
 AbcSize:
   Enabled: false
