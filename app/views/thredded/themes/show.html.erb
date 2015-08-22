@@ -48,8 +48,8 @@
     <h1><%= @topic.title %></h1>
 
     <cite class="topic--title-started-by">
-      <%== @topic.decorate.created_at_timeago %>
-      <%== @topic.decorate.user_link %>
+      <%= time_ago @topic.created_at %>
+      <%= user_link @topic.user %>
     </cite>
   </header>
 

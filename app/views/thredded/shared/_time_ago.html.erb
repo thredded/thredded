@@ -1,0 +1,7 @@
+<% if datetime.nil? %>
+<abbr>a little while ago</abbr>
+<% else %>
+<abbr class="timeago" title="<%= datetime.getutc.iso8601 %>">
+  <%= datetime.to_s %>
+</abbr>
+<% end %>

@@ -106,10 +106,17 @@ module Thredded
     end
   end
 
-  describe Post, '.filtered_content' do
+  describe Post, '#filtered_content' do
     before(:each) do
       @post  = build(:post)
     end
+
+    module ViewContextStub
+      def main_app
+      end
+    end
+
+    let(:view_context) { ViewContextStub }
 
     after do
       Thredded.user_path = nil
@@ -119,13 +126,15 @@ module Thredded
       @post.content = 'go to [url]http://google.com[/url]'
       @post.filter = 'bbcode'
 
-      expect(@post.filtered_content).to eq '<p>go to <a href="http://google.com">http://google.com</a></p>'
+      expect(@post.filtered_content(view_context))
+          .to eq('<p>go to <a href="http://google.com">http://google.com</a></p>')
     end
 
     it 'converts bbcode to html' do
       @post.content = 'this is [b]bold[/b]'
       @post.filter = 'bbcode'
-      expect(@post.filtered_content).to eq '<p>this is <strong>bold</strong></p>'
+      expect(@post.filtered_content(view_context))
+          .to eq('<p>this is <strong>bold</strong></p>')
     end
 
     it 'handles quotes' do
@@ -133,7 +142,7 @@ module Thredded
       @post.filter = 'bbcode'
       expected_output = "<p></p><br>  <blockquote>\n<br>    hi<br>  </blockquote><br><br> <br>  john says<br>  <blockquote>\n<br>    hey<br>  </blockquote><br><br>"
 
-      expect(parsed_html(@post.filtered_content))
+      expect(parsed_html(@post.filtered_content(view_context)))
         .to eq(parsed_html(expected_output))
     end
 
@@ -142,7 +151,7 @@ module Thredded
       @post.filter = 'bbcode'
       expected_output = "<p></p><br>  joel says<br>  <blockquote>\n<br>    <br>  john says<br>  <blockquote>\n<br>    hello<br>  </blockquote>\n<br><br> hi<br>  </blockquote><br><br>"
 
-      expect(parsed_html(@post.filtered_content))
+      expect(parsed_html(@post.filtered_content(view_context)))
         .to eq(parsed_html(expected_output))
     end
 
@@ -150,7 +159,8 @@ module Thredded
       @post.content = "# Header\nhttp://www.google.com"
       @post.filter = 'markdown'
 
-      expect(@post.filtered_content).to eq "<h1>Header</h1>\n\n<p><a href=\"http://www.google.com\">http://www.google.com</a></p>"
+      expect(@post.filtered_content(view_context))
+          .to eq("<h1>Header</h1>\n\n<p><a href=\"http://www.google.com\">http://www.google.com</a></p>")
     end
 
     it 'performs some syntax highlighting in markdown' do
@@ -165,7 +175,7 @@ module Thredded
       @post.content = input
       @post.filter = 'markdown'
 
-      expect(@post.filtered_content).to eq expected_output
+      expect(@post.filtered_content(view_context)).to eq expected_output
     end
 
     it 'links @names of members' do
@@ -176,7 +186,7 @@ module Thredded
       post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
       expectation = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
 
-      expect(post.filtered_content).to eq expectation
+      expect(post.filtered_content(view_context)).to eq expectation
     end
 
     def parsed_html(html)

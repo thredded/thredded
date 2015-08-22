@@ -4,13 +4,13 @@
   <%= content_tag_for :article, post do %>
     <header>
       <%= image_tag post.avatar_url, class: 'post--avatar' unless post.user_anonymous? %>
-      <h2 class="post--user"><%= post.user_link %></h2>
-      <p class="post--created-at"><%= post.created_at_timeago %></p>
+      <h2 class="post--user"><%= user_link post.user %></h2>
+      <p class="post--created-at"><%= time_ago post.created_at %></p>
 
     </header>
 
     <div class="post--content">
-      <%== post.filtered_content %>
+      <%= post.filtered_content(self) %>
     </div>
 
     <% if current_ability.can? :edit, post.original %>

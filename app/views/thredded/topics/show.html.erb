@@ -17,9 +17,9 @@
 
     <cite class="topic-header--started-by">
       Started 
-      <%== topic.decorate.created_at_timeago %>
+      <%= time_ago topic.created_at %>
       by
-      <%== topic.decorate.user_link %>
+      <%= user_link topic.user %>
     </cite>
   </header>
 

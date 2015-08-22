@@ -7,10 +7,11 @@ module HTML
         super text, context, result
         @text = text.to_s.gsub "\r", ''
         @post = context[:post]
+        @view_context = context[:view_context]
       end
 
       def call
-        html = Thredded::AtUsers.render(@text, @post.messageboard)
+        html = Thredded::AtUsers.render(@text, @post.messageboard, @view_context)
         html.rstrip!
         html
       end

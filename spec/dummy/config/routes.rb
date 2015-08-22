@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   delete '/session' => 'sessions#destroy'
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:show]
+  resources :users, only: [:show], path: 'u'
 
   mount Thredded::Engine => '/thredded'
 end

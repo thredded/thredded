@@ -12,8 +12,11 @@ Thredded.user_name_column = :name
 
 # The path (or URL) you will use to link to your users' profiles.
 # When linking to a user, Thredded will use this lambda to spit out
-# the path or url to your user.
-Thredded.user_path = ->(user) { "/users/#{user.to_param}" }
+# the path or url to your user. This lambda is evaluated in the view context.
+Thredded.user_path = lambda do |user|
+  user_path = :"#{Thredded.user_class.name.underscore}_path"
+  main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
+end
 
 # User avatar URL. Thredded uses Gravatar via the gravtastic gem by default.
 # Visit the gravtastic project - https://github.com/chrislloyd/gravtastic#usage
