@@ -13,26 +13,30 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.description = 'A messageboard engine for Rails 4.0 apps'
 
+  # backend
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'cancancan'
-  s.add_dependency 'escape_utils'
   s.add_dependency 'friendly_id'
-  s.add_dependency 'gemoji'
-  s.add_dependency 'github-markdown'
   s.add_dependency 'gravtastic'
   s.add_dependency 'html-pipeline'
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
-  s.add_dependency 'multi_json'
   s.add_dependency 'nokogiri'
   s.add_dependency 'q'
   s.add_dependency 'rails', '>= 4.0.0'
+
+  # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
+  s.add_dependency 'gemoji'
+  s.add_dependency 'github-markdown'
   s.add_dependency 'rinku'
   s.add_dependency 'sanitize'
+
+  # frontend
   s.add_dependency 'bourbon'
   s.add_dependency 'neat'
   s.add_dependency 'bitters'
   s.add_dependency 'sprockets-es6'
+  s.add_dependency 'jquery-rails'
 
   # test dependencies
   s.add_development_dependency 'capybara', '~> 2.4'
@@ -43,24 +47,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop', '0.32.0'
   s.add_development_dependency 'shoulda-matchers', '~> 2.7'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'timecop'
   s.add_development_dependency 'test-unit'
+  s.add_development_dependency 'timecop'
 
   # dummy app dependencies
-  s.add_development_dependency 'jquery-rails'
-  s.add_development_dependency 'pg'
   s.add_development_dependency 'mysql2'
+  s.add_development_dependency 'pg'
   s.add_development_dependency 'puma'
-
-  # debug dependencies
-  s.add_development_dependency 'byebug'
-  s.add_development_dependency 'flamegraph'
-  s.add_development_dependency 'pry-rails'
-  s.add_development_dependency 'rack-mini-profiler'
-  s.add_development_dependency 'derailed'
-
-  if RUBY_VERSION != '2.0.0'
-    s.add_development_dependency 'stackprof'
-  end
 end

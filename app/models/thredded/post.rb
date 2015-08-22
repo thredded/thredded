@@ -93,7 +93,7 @@ module Thredded
             return if node_name != 'iframe'
             return if (node['src'] =~ %r{\A(https?:)?//(?:www\.)?youtube(?:-nocookie)?\.com/}).nil?
 
-            Sanitize.clean_node!(
+            Sanitize.node!(
               node,
               elements: %w(iframe),
               attributes: {
