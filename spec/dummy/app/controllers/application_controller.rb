@@ -11,8 +11,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return nil unless session[:user_id]
-
-    @current_user ||= Thredded.user_class.find(session[:user_id])
+    return unless session[:user_id]
+    @current_user ||= Thredded.user_class.find_by_id(session[:user_id]).tap do |user|
+      # If the database has been recreated, user_id may be invalid.
+      session.delete(:user_id) if user.nil?
+    end
   end
 end
