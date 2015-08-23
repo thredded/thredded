@@ -1,6 +1,6 @@
 <%= form_tag('/sessions') do %>
   <ul>
-    <li><%= text_field_tag 'name' %></li>
+    <li><%= text_field_tag 'name', 'Joe', placeholder: 'Name' %></li>
     <li><%= submit_tag 'Sign in' %></li>
   </ul>
 <% end %>

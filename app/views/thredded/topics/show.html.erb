@@ -1,40 +1,22 @@
 <% content_for :thredded_page_title, topic.title %>
 <% content_for :thredded_page_id, 'thredded-posts' %>
-<% content_for :thredded_javascript do %>
-  <script>
-    thredded = new Thredded;
-    thredded.postForm.init();
-    thredded.timestamps.init();
-  </script>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
+
+<%= thredded_page do %>
+  <%= content_tag_for :section, topic, class: "main-section #{user_topic.css_class}" do %>
+    <%= render 'thredded/base_topics/header', topic: topic %>
+    <%= render @posts %>
+    <div class="post-form--wrapper">
+      <h3 class="post-form--title">Add a post</h3>
+      <%= render 'thredded/posts/form',
+                 messageboard: messageboard,
+                 topic:        topic,
+                 post:         @post,
+                 button_text:  'Submit Reply' %>
+    </div>
+  <% end %>
 <% end %>
-<% content_for :thredded_breadcrumbs do %>
-  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
-<% end %>
 
-<%= content_tag_for :section, topic, class: "main-section #{user_topic.css_class}" do %>
-  <header class="topic-header">
-    <h1 class="topic-header--title"><%= topic.title %></h1>
-
-    <cite class="topic-header--started-by">
-      Started 
-      <%= time_ago topic.created_at %>
-      by
-      <%= user_link topic.user %>
-    </cite>
-  </header>
-
-  <%= render @posts %>
-
-  <div class="post-form--wrapper">
-    <h3 class="post-form--title">Add a post</h3>
-    <%= render 'thredded/posts/form',
-      messageboard: messageboard,
-      topic: topic,
-      post: @post,
-      button_text: 'Submit Reply'
-      %>
-  </div>
-<% end %>
 
 <footer>
   <%= paginate @posts %>

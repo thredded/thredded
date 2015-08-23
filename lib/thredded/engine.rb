@@ -18,6 +18,11 @@ module Thredded
         Thredded.user_class.send(:include, Thredded::UserExtender)
       end
 
+      unless Thredded.standalone_layout?
+        # Delegate all main_app routes to allow calling them directly.
+        ::Thredded::ApplicationController.helper ::Thredded::MainAppRouteDelegator
+      end
+
       Q.setup do |config|
         config.queue = Thredded.queue_backend
         config.queue_config.inline = Thredded.queue_inline

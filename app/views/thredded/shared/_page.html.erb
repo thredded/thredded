@@ -1,0 +1,6 @@
+<div id="thredded-container" class="thredded--main-container <%= yield(:thredded_page_id) %>" data-thredded-page-id="<%= yield(:thredded_page_id) %>">
+  <%= render 'thredded/shared/header' %>
+  <%= render 'thredded/shared/flash_messages' %>
+  <%= yield :thredded_page_content %>
+  <%= render 'thredded/shared/currently_online' %>
+</div>

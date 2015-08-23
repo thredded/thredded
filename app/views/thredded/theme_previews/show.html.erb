@@ -1,0 +1,109 @@
+<% content_for :thredded_page_title, "Theme Preview" %>
+<% content_for :thredded_page_id, 'thredded-theme' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= link_to 'Theme Preview', theme_preview_path %></li>
+  </ul>
+<% end %>
+
+<%= thredded_page do %>
+  <%= render 'section_title', label: 'messageboards#index', href: messageboards_path %>
+  <%= content_tag :section, class: 'main-section messageboards' do %>
+    <%= render @messageboards %>
+    <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
+  <% end %>
+
+
+  <%= render 'section_title', label: 'topics#index', href: messageboard_topics_path(@messageboard) %>
+  <%= content_tag :section, class: 'main-section topics' do %>
+    <%= render 'thredded/topics/form',
+               messageboard: @messageboard,
+               topic:        @new_topic,
+               css_class:    'topic-form is-compact',
+               placeholder:  'Start a New Topic' %>
+    <%= render @decorated_topics %>
+  <% end %>
+  <footer>
+    <%= paginate @topics %>
+  </footer>
+  <br>
+
+
+  <%= render 'section_title', label: 'topics#show', href: messageboard_topic_posts_path(@messageboard, @topic) %>
+  <%= content_tag_for :section, @topic, class: "main-section #{@user_topic.css_class}" do %>
+    <%= render 'thredded/base_topics/header', topic: @topic %>
+    <%= render @posts %>
+    <%= render 'thredded/posts/form',
+               messageboard: @messageboard,
+               topic:        @topic,
+               post:         @new_post,
+               button_text:  'Submit Reply'
+    %>
+  <% end %>
+
+  <%= render 'section_title', label: 'topics#new', href: new_messageboard_topic_path(@messageboard) %>
+  <%= render 'thredded/topics/form',
+             messageboard: @messageboard,
+             topic:        @new_topic,
+             css_class:    'topic-form',
+             placeholder:  'Start a New Topic' %>
+
+  <%= render 'section_title', label: 'posts#edit', href: edit_messageboard_topic_post_path(@messageboard, @post.postable, @post) %>
+  <%= content_tag :section, class: 'main-section posts-form' do %>
+    <h3 class="post-form--title">Edit Post</h3>
+
+    <%= render 'thredded/posts/form',
+               messageboard: @messageboard,
+               topic:        @topic,
+               post:         @post,
+               button_text:  'Update Post'
+    %>
+  <% end %>
+
+  <%= render 'section_title', label: 'private_topics#index', href: messageboard_private_topics_path(@messageboard) %>
+  <%= content_tag :section, class: 'main-section private-topics' do %>
+    <p><em>If the user has no private topics:</em></p>
+    <%= render 'thredded/private_topics/no_private_topics' %>
+
+    <hr>
+
+    <p><em>If the user has private topics:</em></p>
+    <%= render 'thredded/private_topics/form',
+               messageboard:  @messageboard,
+               private_topic: @new_private_topic,
+               css_class:     'private-topic-form is-compact',
+               placeholder:   'Start a New Private Topic' %>
+    <%= render @decorated_private_topics %>
+  <% end %>
+
+  <%= render 'section_title', label: 'private_topics/new', href: new_messageboard_private_topic_path(@messageboard) %>
+  <%= content_tag :section, class: 'main-section private-topics-form' do %>
+    <%= render 'thredded/private_topics/form',
+               messageboard:  @messageboard,
+               private_topic: @new_private_topic,
+               css_class:     'private-topic-form',
+               placeholder:   'New Private Topic Title' %>
+  <% end %>
+
+  <%= render 'section_title', label: 'private_topics#show', href: messageboard_private_topic_path(@messageboard, @private_topic) %>
+  <%= content_tag_for :section, @private_topic, class: 'main-section private-topic' do %>
+    <%= render 'thredded/base_topics/header', topic: @private_topic %>
+    <%= render @private_topic.posts.first(3) %>
+    <%= render 'thredded/posts/form',
+               messageboard: @messageboard,
+               topic:        @private_topic,
+               post:         @post,
+               button_text:  'Submit Reply'
+    %>
+  <% end %>
+
+  <%= render 'section_title', label: 'preferences#edit', href: edit_messageboard_preferences_path(@messageboard) %>
+  <%= content_tag :section, class: 'main-section preferences' do %>
+    <%= render 'thredded/preferences/header' %>
+    <%= render 'thredded/preferences/form',
+               messageboard: @messageboard,
+               preference:   @preference %>
+  <% end %>
+
+  <%= render 'thredded/shared/currently_online' %>
+<% end %>

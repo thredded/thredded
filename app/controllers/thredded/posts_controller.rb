@@ -1,15 +1,17 @@
 module Thredded
   class PostsController < Thredded::ApplicationController
+    include ActionView::RecordIdentifier
+
     load_and_authorize_resource only: [:index, :show]
     helper_method :messageboard, :topic
     before_filter :update_user_activity
 
     def create
-      Thredded::Post.create(post_params)
+      post = Thredded::Post.create!(post_params)
 
       ensure_role_exists
       reset_read_status if for_a_private_topic?
-      redirect_to :back
+      redirect_to post_path(post)
     end
 
     def edit
@@ -19,7 +21,7 @@ module Thredded
     def update
       post.update_attributes(post_params.except(:user, :ip))
 
-      redirect_to polymorphic_path([messageboard, post.postable])
+      redirect_to post_path(post)
     end
 
     def topic
@@ -27,6 +29,10 @@ module Thredded
     end
 
     private
+
+    def post_path(post)
+      polymorphic_path([messageboard, post.postable], anchor: dom_id(post))
+    end
 
     def ensure_role_exists
       EnsureRoleExistsJob

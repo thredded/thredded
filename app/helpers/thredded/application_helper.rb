@@ -1,5 +1,13 @@
 module Thredded
   module ApplicationHelper
+    # Render the page container with the supplied block as content.
+    def thredded_page(&block)
+      # enable the host app to easily check whether a thredded view is being rendered:
+      content_for :thredded, true
+      content_for :thredded_page_content, &block
+      render partial: 'thredded/shared/page'
+    end
+
     # @param user [Thredded.user_class, Thredded::NullUser]
     # @return [String] path to the user as specified by {Thredded.user_path}
     def user_path(user)

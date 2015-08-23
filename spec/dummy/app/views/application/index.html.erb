@@ -1,25 +1,23 @@
-<h2>
-  Thredded
-  <a href="https://codeclimate.com/github/jayroh/thredded"><img src="https://camo.githubusercontent.com/d052a11e8ed383efc24b7af12926a5f704c08054/68747470733a2f2f636f6465636c696d6174652e636f6d2f6769746875622f6a6179726f682f74687265646465642f6261646765732f6770612e737667" alt="Code Climate" data-canonical-src="https://codeclimate.com/github/jayroh/thredded/badges/gpa.svg" style="max-width:100%;"></a>
-  <a href="https://travis-ci.org/jayroh/thredded/"><img src="https://camo.githubusercontent.com/9a77c277afac9e0166099a9f22203a1d8de1dd6c/68747470733a2f2f6170692e7472617669732d63692e6f72672f6a6179726f682f74687265646465642e7376673f6272616e63683d6d6173746572" alt="Travis-CI" data-canonical-src="https://api.travis-ci.org/jayroh/thredded.svg?branch=master" style="max-width:100%;"></a>
-  <a href="https://gitter.im/jayroh/thredded?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://camo.githubusercontent.com/da2edb525cde1455a622c58c0effc3a90b9a181c/68747470733a2f2f6261646765732e6769747465722e696d2f4a6f696e253230436861742e737667" alt="Gitter" data-canonical-src="https://badges.gitter.im/Join%20Chat.svg" style="max-width:100%;"></a>
-</h2>
-
 <p>Thredded is a rails 4+ forum/messageboard engine. Its goal is to be as simple and feature-rich as possible.</p>
 
-<h3>Demo URLs of Note</h3>
-
-<ul>
-  <li><%= link_to 'sign in', new_session_path %> as anyone to post, create threads, etc. The only requirement in this demo app is a username.</li>
-  <li><%= link_to 'messagebards', thredded.messageboards_path %> - the top-most page, a list of created messageboards.</li>
-  <% if @messageboard %>
-    <li><%= link_to_if @messageboard.present?, 'topics', thredded.messageboard_topics_path(@messageboard) %> - topics for the first messageboard.</li>
+<h2>
+  <%= link_to thredded.messageboards_path, class: 'button' do %>
+    Forums &raquo;
   <% end %>
-  <li><%= link_to 'style guide', thredded.theme_path %> - a single page aggregating all of the views and styles.</li>
+</h2>
+
+<h3>Demo URLs of Note</h3>
+<ul>
+  <li><%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the views and styles.</li>
+  <li><%= link_to 'Sign in', new_session_path %> as anyone to post, create threads, etc. The only requirement in this demo app is a username.</li>
+  <li><%= link_to 'Messageboards', thredded.messageboards_path %> - the top-most page, a list of created messageboards.</li>
+  <% if @messageboard %>
+    <li><%= link_to_if @messageboard.present?, 'Topics', thredded.messageboard_topics_path(@messageboard) %> - topics for the first messageboard.</li>
+  <% end %>
 </ul>
 
-<h3>External URLs of Note</h3>
 
+<h3>External URLs of Note</h3>
 <ul>
   <li><a href="https://www.thredded.com">thredded.com</a> - hosted thredded forums.</li>
   <li><a href="https://github.com/jayroh/thredded">GitHub project</a> - source code at GitHub.</li>
@@ -30,5 +28,4 @@
 
 <ul>
   <li><code>./spec/dummy</code> - dummy/demo app root.</li>
-  <li><code>./spec/dummy/app/themes</code> - all themes' source (views, js, [s]css).</li>
 </ul>

@@ -12,10 +12,14 @@
 @import "thredded/utilities/is-expanded";
 @import "thredded/utilities/is-in-the-background";
 
-@import "thredded/layout/main-container";
-@import "thredded/layout/user-navigation";
-@import "thredded/layout/topic-navigation";
-@import "thredded/layout/main-navigation";
+.thredded {
+  @import "thredded/layout/main-container";
+  @import "thredded/layout/user-navigation";
+  @import "thredded/layout/topic-navigation";
+  @import "thredded/layout/main-navigation";
+
+  @import "thredded/components/preferences";
+}
 
 @import "thredded/components/pagination";
 @import "thredded/components/messageboard";

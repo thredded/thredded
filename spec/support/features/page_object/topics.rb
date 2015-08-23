@@ -48,7 +48,7 @@ module PageObject
     end
 
     def visit_style_guide
-      visit theme_path
+      visit theme_preview_path
     end
 
     def visit_index
@@ -149,7 +149,7 @@ module PageObject
 
     def search_for(title)
       fill_in 'Search', with: title
-      find('.user-navigation--search input[type="submit"]').click
+      find('.thredded--user-navigation--search input[type="submit"]').click
     end
 
     private

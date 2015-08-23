@@ -1,19 +1,11 @@
 <% content_for :thredded_page_title, 'Create a New Topic' %>
 <% content_for :thredded_page_id, 'thredded-new-topic' %>
-<% content_for :thredded_javascript do %>
-  <script>
-    thredded = new Thredded;
-    thredded.topicForm.init();
-    thredded.postForm.init();
-  </script>
-<% end %>
-<% content_for :thredded_breadcrumbs do %>
-  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
-<% end %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
-<%= render 'thredded/topics/form',
-  messageboard: messageboard,
-  topic: @new_topic,
-  css_class: 'topic-form is-compact',
-  placeholder: 'Start a New Topic'
-  %>
+<%= thredded_page do %>
+  <%= render 'thredded/topics/form',
+             messageboard: messageboard,
+             topic:        @new_topic,
+             css_class:    'topic-form is-compact',
+             placeholder:  'Start a New Topic' %>
+<% end %>

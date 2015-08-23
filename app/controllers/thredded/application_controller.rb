@@ -84,7 +84,7 @@ module Thredded
     end
 
     def messageboard
-      @messageboard ||= Messageboard.find_by_slug(params[:messageboard_id])
+      @messageboard ||= params[:messageboard_id].presence && Messageboard.find_by_slug!(params[:messageboard_id])
     end
 
     def preferences

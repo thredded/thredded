@@ -1,28 +1,15 @@
 <% content_for :thredded_page_title, private_topic.title %>
 <% content_for :thredded_page_id, 'thredded-posts' %>
-<% content_for :thredded_javascript do %>
-  <script>
-    thredded = new Thredded;
-    thredded.topicForm.init();
-    thredded.postForm.init();
-    thredded.timestamps.init();
-  </script>
-<% end %>
-<% content_for :thredded_breadcrumbs do %>
-  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
-<% end %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
-<%= content_tag_for :section, private_topic, class: 'main-section private-topic' do %>
-  <header class="topic-header">
-    <h1 class="topic-header--title"><%= private_topic.title %></h1>
-  </header>
-
-  <%= render private_topic.posts %>
-
-  <%= render 'thredded/posts/form',
-    messageboard: messageboard,
-    topic: private_topic,
-    post: @post,
-    button_text: 'Submit Reply'
-    %>
+<%= thredded_page do %>
+  <%= content_tag_for :section, private_topic, class: 'main-section private-topic' do %>
+    <%= render 'thredded/base_topics/header', topic: private_topic %>
+    <%= render @posts %>
+    <%= render 'thredded/posts/form',
+               messageboard: messageboard,
+               topic:        private_topic,
+               post:         @post,
+               button_text:  'Submit Reply' %>
+  <% end %>
 <% end %>

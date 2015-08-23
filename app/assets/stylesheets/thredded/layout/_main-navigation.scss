@@ -1,11 +1,11 @@
-.main-navigation {
+&--main-navigation {
   @include row;
   border-bottom: $base-border;
   margin-bottom: $base-spacing;
   margin-top: $small-spacing;
 }
 
-.navigation-breadcrumbs {
+&--navigation-breadcrumbs {
   margin-bottom: $small-spacing;
 
   @include media(rem(600)) {

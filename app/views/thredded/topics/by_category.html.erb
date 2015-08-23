@@ -24,31 +24,33 @@
   </ul>
 <% end %>
 
-<header>
-  <nav>
-    <%= yield :breadcrumbs %>
-    <%= yield :actions %>
-  </nav>
+<%= thredded_page do %>
+  <header>
+    <nav>
+      <%= yield :breadcrumbs %>
+      <%= yield :actions %>
+    </nav>
 
-  <%= render 'thredded/shared/currently_online' %>
-</header>
+    <%= render 'thredded/shared/currently_online' %>
+  </header>
 
-<section class="topics">
-  <% if @sticky.any? %>
-    <div class="stuck">
-      <%= render partial: 'thredded/topics/topic_condensed', collection: @sticky, as: :t %>
+  <section class="topics">
+    <% if @sticky.any? %>
+      <div class="stuck">
+        <%= render partial: 'thredded/topics/topic_condensed', collection: @sticky, as: :t %>
+      </div>
+    <% end %>
+
+    <div class="currently">
+      <%= render partial: 'thredded/topics/topic_condensed', collection: @topics, as: :t %>
     </div>
-  <% end %>
+  </section>
 
-  <div class="currently">
-    <%= render partial: 'thredded/topics/topic_condensed', collection: @topics, as: :t %>
-  </div>
-</section>
-
-<footer>
-  <%= paginate @topics %>
-  <nav>
-    <%= yield :actions %>
-    <%= yield :breadcrumbs %>
-  </nav>
-</footer>
+  <footer>
+    <%= paginate @topics %>
+    <nav>
+      <%= yield :actions %>
+      <%= yield :breadcrumbs %>
+    </nav>
+  </footer>
+<% end %>

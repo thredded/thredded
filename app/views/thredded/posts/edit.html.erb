@@ -1,20 +1,13 @@
 <% content_for :thredded_page_title, 'Edit Post' %>
 <% content_for :thredded_page_id, 'thredded-edit-post' %>
-<% content_for :thredded_javascript do %>
-  <script>
-    thredded = new Thredded;
-    thredded.postForm.init();
-    thredded.timestamps.init();
-  </script>
-<% end %>
+<%= thredded_page do %>
+  <%= content_tag :section, class: 'main-section posts-form' do %>
+    <h3 class="post-form--title">Edit Post</h3>
 
-<%= content_tag :section, class: 'main-section posts-form' do %>
-  <h3 class="post-form--title">Edit Post</h3>
-
-  <%= render 'thredded/posts/form',
-    messageboard: messageboard,
-    topic: topic,
-    post: @post,
-    button_text: 'Update Post'
-    %>
+    <%= render 'thredded/posts/form',
+               messageboard: messageboard,
+               topic:        topic,
+               post:         @post,
+               button_text:  'Update Post' %>
+  <% end %>
 <% end %>

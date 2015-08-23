@@ -14,7 +14,7 @@ module PageObject
     end
 
     def done?
-      has_css? '.messageboards header h2 a', text: 'Chat'
+      has_css? '.messageboards header h2', text: 'Chat'
     end
 
     def has_a_sign_in_error_message?
@@ -30,7 +30,7 @@ module PageObject
     end
 
     def on_the_messageboard_list?
-      has_css? 'body#thredded-messageboards-index'
+      has_css? '#thredded-container[data-thredded-page-id="thredded-messageboards-index"]'
     end
 
     def visit_messageboard_list
@@ -42,7 +42,7 @@ module PageObject
     end
 
     def click_new_messageboard
-      find('.messageboard--create .button_to input').click
+      find('.messageboard--create a').click
     end
   end
 end

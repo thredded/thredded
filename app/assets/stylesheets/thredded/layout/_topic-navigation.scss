@@ -1,4 +1,6 @@
-.topic-navigation {
+&--topic-navigation {
+  margin-bottom: 0;
+
   @include media(rem(600)) {
     float: right;
   }
@@ -24,10 +26,10 @@
 
 }
 
-.thredded-new-topic .topic-navigation--public,
-.thredded-topics-index .topic-navigation--public,
-.thredded-new-private-topic .topic-navigation--private,
-.thredded-private-topics-index .topic-navigation--private {
+.thredded-new-topic &--topic-navigation--public,
+.thredded-topics-index &--topic-navigation--public,
+.thredded-new-private-topic &--topic-navigation--private,
+.thredded-private-topics-index &--topic-navigation--private {
   border-bottom: 1px solid $action-color;
   margin-bottom: -2px;
 
@@ -36,7 +38,7 @@
   }
 }
 
-.topic-navigation--unread {
+&--topic-navigation--unread {
   background-color: $action-color;
   border-radius: 10px;
   color: #fff;
