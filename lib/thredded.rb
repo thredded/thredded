@@ -1,14 +1,22 @@
-require 'thredded/engine'
+# Backend
 require 'cancan'
-require 'kaminari'
 require 'friendly_id'
 require 'gravtastic'
+require 'html/pipeline'
+require 'html/pipeline/at_mention_filter'
+require 'html/pipeline/bbcode_filter'
+require 'kaminari'
 require 'q'
 require 'threaded_in_memory_queue'
+
+# Asset compilation
+require 'bitters'
+require 'bourbon'
+require 'neat'
+require 'sprockets/es6'
+
+require 'thredded/engine'
 require 'thredded/errors'
-require 'html/pipeline'
-require 'html/pipeline/bbcode_filter'
-require 'html/pipeline/at_mention_filter'
 require 'thredded/messageboard_user_permissions'
 require 'thredded/post_user_permissions'
 require 'thredded/private_topic_user_permissions'
