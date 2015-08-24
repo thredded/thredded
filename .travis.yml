@@ -1,12 +1,10 @@
 language: ruby
 
 rvm:
-  - 2.0.0
-  - 2.1.0
-  - 2.2.0
+  - 2.2
 
 cache: bundler
-bundler_args: --path ../../vendor/bundle
+bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
   - spec/gemfiles/rails_4_0.gemfile
   - spec/gemfiles/rails_4_1.gemfile
@@ -21,7 +19,8 @@ sudo: false
 
 before_script: "RAILS_ENV=test bundle exec rake db:create db:migrate"
 
-script: "bundle exec rake"
+# Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
+script: "bundle exec rspec && bundle exec rubocop"
 
 notifications:
   slack:

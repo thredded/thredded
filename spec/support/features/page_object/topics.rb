@@ -1,4 +1,3 @@
-require 'pry'
 require 'support/features/page_object/base'
 
 module PageObject

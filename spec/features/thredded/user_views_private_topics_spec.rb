@@ -1,4 +1,3 @@
-require 'pry'
 require 'spec_helper'
 
 feature 'User viewing private topics' do

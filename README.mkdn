@@ -1,6 +1,6 @@
 # Thredded [![Code Climate](https://codeclimate.com/github/jayroh/thredded/badges/gpa.svg)](https://codeclimate.com/github/jayroh/thredded) [![Travis-CI](https://api.travis-ci.org/jayroh/thredded.svg?branch=master)](https://travis-ci.org/jayroh/thredded/) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/jayroh/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-_Thredded_ is a rails 4+ forum/messageboard engine. Its goal is to be as
+_Thredded_ is a Rails 4+ forum/messageboard engine. Its goal is to be as
 simple and feature rich as possible.
 
 If you're looking for variations on a theme - see [Discourse], [Forem],
@@ -17,6 +17,8 @@ is an engine - not a standalone app.
 [Tectura]: https://github.com/caelum/tectura
 [Heterotic Beast]: https://github.com/distler/heterotic_beast
 [Altered Beast]: https://www.github.com/courtenay/altered_beast
+
+Currently only MRI Ruby 2.2+ is supported. We would love to support JRuby and Rubinius as well.
 
 ## Installation
 
