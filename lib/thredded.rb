@@ -12,6 +12,7 @@ require 'threaded_in_memory_queue'
 # Asset compilation
 require 'bitters'
 require 'bourbon'
+require 'jquery/rails'
 require 'neat'
 require 'sprockets/es6'
 
