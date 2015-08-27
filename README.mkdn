@@ -31,21 +31,21 @@ gem 'thredded', github: 'jayroh/thredded'
 Add a thredded initializer to your parent app by running the install generator.
 [The initializer] has detailed descriptions of all of the configuration options.
 
-```ruby
+```bash
 rails generate thredded:install           # install the initializer
 rails generate thredded:install --theme   # install initializer, views, and assets
 rails generate thredded:install --help    # see all options
 ```
 
-Copy the migrations over to your parent application and migrate:
+Thredded run automatically when you run `db:migrate`:
 
-```
-rake thredded:install:migrations db:migrate db:test:prepare
+```bash
+rake db:migrate db:test:prepare
 ```
 
 Mount the thredded engine in your routes file:
 
-```
+```ruby
 mount Thredded::Engine => '/forum'
 ```
 
