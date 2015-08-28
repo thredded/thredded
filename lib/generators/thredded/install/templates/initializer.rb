@@ -59,10 +59,8 @@ Thredded.queue_inline = Rails.env.test?
 # Thredded.queue_memory_log_level = Logger::WARN
 
 # ==> View Configuration
-# When rendering the thredded views you can specify which layout you would
-# like them to use. It defaults to 'thredded' and will look for it in
-# `app/views/layouts/thredded.html.erb`.
-Thredded.layout = 'thredded'
+# Set the layout for rendering the thredded views.
+Thredded.layout = 'thredded/application'
 
 # ==> Asset / File Storage Configuration
 # Root location where you have placed emojis (used when rendering posts).

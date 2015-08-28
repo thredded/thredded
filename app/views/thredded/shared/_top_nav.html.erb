@@ -1,35 +1,41 @@
-<nav role="navigation" class="user-navigation">
-  <div class="user-navigation--search">
-    <%= render 'thredded/search/form' %>
-  </div>
+<% unless !messageboard.try(:persisted?) && !Thredded.standalone_layout? %>
+  <nav class="thredded--user-navigation" role="navigation">
+    <div class="thredded--user-navigation--search">
+      <%= render 'thredded/search/form' %>
+    </div>
 
-  <ul class="user-navigation--actions">
-    <% if signed_in? %>
-      <li class="main--nav--user">
-        <%= link_to user_path(current_user) do %>
-        <span><%= current_user %></span>
+    <ul class="thredded--user-navigation--actions">
+      <% if signed_in? %>
+        <% if Thredded.standalone_layout? %>
+          <li>
+            <%= link_to user_path(current_user) do %>
+              <span><%= current_user %></span>
+            <% end %>
+          </li>
         <% end %>
-      </li>
 
-      <% if messageboard.try(:persisted?) %>
-        <li class="main--nav--notification--preferences">
-          <%= link_to edit_messageboard_preferences_path(messageboard) do %>
-          <span>Notification Settings</span>
+        <% if messageboard.try(:persisted?) %>
+          <li>
+            <%= link_to edit_messageboard_preferences_path(messageboard) do %>
+              <span>Notification Settings</span>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if Thredded.standalone_layout? %>
+          <li>
+            <%= link_to main_app.session_path, method: :delete do %>
+              <span>Sign Out</span>
+            <% end %>
+          </li>
+        <% end %>
+      <% elsif Thredded.standalone_layout? %>
+        <li>
+          <%= link_to main_app.sessions_new_path do %>
+            <span>Sign In / Register</span>
           <% end %>
         </li>
       <% end %>
-
-      <li class="main--nav--sign-out">
-        <%= link_to main_app.session_path, method: :delete do %>
-        <span>Sign Out</span>
-        <% end %>
-      </li>
-    <% else %>
-      <li class="main--nav--sign-in-register">
-        <%= link_to main_app.sessions_new_path do %>
-          <span>Sign In / Register</span>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-</nav>
+    </ul>
+  </nav>
+<% end %>

@@ -1,5 +1,6 @@
 .messageboard {
   border: $base-border;
+  display: block;
   margin-bottom: $base-spacing;
   padding: $base-spacing;
   position: relative;
@@ -7,12 +8,17 @@
   header {
     margin-bottom: $small-spacing;
   }
+
+  &:hover {
+    background-color: lighten($blue, 40%);
+  }
 }
 
 .messageboard--title {
   display: inline-block;
   float: left;
   font-size: rem(18);
+  line-height: 1.2;
   margin-bottom: 0;
   margin-right: $small-spacing;
   vertical-align: baseline;
@@ -29,6 +35,7 @@
 .messageboard--description {
   clear: both;
   margin-bottom: $small-spacing / 2;
+  color: $base-font-color;
 }
 
 .messageboard--byline {

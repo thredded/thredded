@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'chronic'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'faker'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop', '0.32.0'
@@ -54,4 +55,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'puma'
+
+  # dummy app frontend
+  s.add_development_dependency 'jquery-turbolinks'
+  s.add_development_dependency 'turbolinks'
 end

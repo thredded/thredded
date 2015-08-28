@@ -31,9 +31,9 @@ feature 'User updating preferences' do
   end
 
   def default_user_preferences
-    factories = Thredded::SeedDatabase.run
-    user = factories.user
-    messageboard = factories.messageboard
+    seed = Thredded::SeedDatabase.new
+    user = seed.create_first_user
+    messageboard = seed.create_messageboard
 
     default_user_preferences =
       PageObject::NotificationPreferences.new(user, messageboard)

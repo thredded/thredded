@@ -24,6 +24,7 @@ require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
 require 'thredded/search_sql_builder'
 require 'thredded/case_insensitive_string_finder'
+require 'thredded/main_app_route_delegator'
 
 module Thredded
   mattr_accessor :user_class,
@@ -45,7 +46,7 @@ module Thredded
   self.avatar_url = -> (_user, post) { post.gravatar_url(default: 'mm') }
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
-  self.layout = 'thredded'
+  self.layout = 'thredded/application'
   self.queue_backend = :threaded_in_memory_queue
   self.queue_memory_log_level = Logger::WARN
   self.queue_inline = false
@@ -75,6 +76,11 @@ module Thredded
     else
       '/'
     end
+  end
+
+  # Whether the layout is a thredded layout as opposed to the application layout.
+  def self.standalone_layout?
+    layout.is_a?(String) && layout.start_with?('thredded/')
   end
 
   def self.use_adapter!(db_adapter)

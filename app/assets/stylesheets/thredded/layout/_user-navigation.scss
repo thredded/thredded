@@ -1,4 +1,4 @@
-.user-navigation {
+&--user-navigation {
   @include clearfix;
   font-size: em(14);
   margin-bottom: 1rem;
@@ -15,7 +15,7 @@
   }
 }
 
-.user-navigation--actions {
+&--user-navigation--actions {
   float: left;
   padding: $small-spacing 0;
 
@@ -29,7 +29,7 @@
   }
 }
 
-.user-navigation--search {
+&--user-navigation--search {
   @include media(max-width rem(600)) {
     margin-bottom: 0.5rem;
   }
@@ -42,7 +42,6 @@
     @include transition();
     box-shadow: none;
     font-size: rem(14);
-    text-align: center;
     width: 100%;
 
     @include media(rem(600)) {

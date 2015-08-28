@@ -1,3 +1,5 @@
 class UsersController < ApplicationController
-  def show; end
+  def show
+    @slug = params[:id].to_s
+  end
 end

@@ -21,7 +21,7 @@ each_db() {
 }
 
 log "Migrating databases: ${DBS[@]}"
-each_db bundle exec rake db:drop db:create db:migrate
+each_db bundle exec rake db:drop db:create db:schema:load db:migrate
 
 log 'Dumping schemas to ruby files'
 bundle exec rake db:schema:dump

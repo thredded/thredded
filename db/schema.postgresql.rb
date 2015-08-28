@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   enable_extension "plpgsql"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
+    t.string   "slug",           limit: 255, null: false
+    t.integer  "sluggable_id",               null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+    t.string   "scope",          limit: 255
     t.datetime "created_at"
   end
 
@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "thredded_categories", force: :cascade do |t|
-    t.integer  "messageboard_id", null: false
-    t.string   "name",            null: false
-    t.string   "description"
+    t.integer  "messageboard_id",             null: false
+    t.string   "name",            limit: 255, null: false
+    t.string   "description",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",            null: false
+    t.string   "slug",            limit: 255, null: false
   end
 
   add_index "thredded_categories", ["messageboard_id", "slug"], name: "index_thredded_categories_on_messageboard_id_and_slug", unique: true, using: :btree
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.integer  "post_id"
     t.integer  "width"
     t.integer  "height"
-    t.string   "orientation"
+    t.string   "orientation", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,18 +53,18 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_images", ["post_id"], name: "index_thredded_images_on_post_id", using: :btree
 
   create_table "thredded_messageboards", force: :cascade do |t|
-    t.string   "name",                                       null: false
-    t.string   "slug"
+    t.string   "name",                 limit: 255,                       null: false
+    t.string   "slug",                 limit: 255
     t.text     "description"
-    t.string   "security",             default: "public"
-    t.string   "posting_permission",   default: "anonymous"
-    t.integer  "topics_count",         default: 0
-    t.integer  "posts_count",          default: 0
-    t.boolean  "closed",               default: false,       null: false
+    t.string   "security",             limit: 255, default: "public"
+    t.string   "posting_permission",   limit: 255, default: "anonymous"
+    t.integer  "topics_count",                     default: 0
+    t.integer  "posts_count",                      default: 0
+    t.boolean  "closed",                           default: false,       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "filter",               default: "markdown",  null: false
-    t.integer  "private_topics_count", default: 0
+    t.string   "filter",               limit: 255, default: "markdown",  null: false
+    t.integer  "private_topics_count",             default: 0
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed", using: :btree
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_notification_preferences", ["user_id"], name: "index_thredded_notification_preferences_on_user_id", using: :btree
 
   create_table "thredded_post_notifications", force: :cascade do |t|
-    t.string   "email",      null: false
-    t.integer  "post_id",    null: false
+    t.string   "email",      limit: 255, null: false
+    t.integer  "post_id",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -94,14 +94,14 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   create_table "thredded_posts", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "content"
-    t.string   "ip"
-    t.string   "filter",          default: "markdown"
-    t.string   "source",          default: "web"
+    t.string   "ip",              limit: 255
+    t.string   "filter",          limit: 255, default: "markdown"
+    t.string   "source",          limit: 255, default: "web"
     t.integer  "postable_id"
-    t.integer  "messageboard_id",                      null: false
+    t.integer  "messageboard_id",                                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "postable_type"
+    t.string   "postable_type",   limit: 255
   end
 
   add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id", using: :btree
@@ -110,13 +110,13 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id", using: :btree
 
   create_table "thredded_private_topics", force: :cascade do |t|
-    t.integer  "user_id",                     null: false
-    t.integer  "last_user_id",                null: false
-    t.string   "title",                       null: false
-    t.string   "slug",                        null: false
-    t.integer  "messageboard_id",             null: false
-    t.integer  "posts_count",     default: 0
-    t.string   "hash_id",                     null: false
+    t.integer  "user_id",                                 null: false
+    t.integer  "last_user_id",                            null: false
+    t.string   "title",           limit: 255,             null: false
+    t.string   "slug",            limit: 255,             null: false
+    t.integer  "messageboard_id",                         null: false
+    t.integer  "posts_count",                 default: 0
+    t.string   "hash_id",         limit: 255,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_private_users", ["user_id"], name: "index_thredded_private_users_on_user_id", using: :btree
 
   create_table "thredded_roles", force: :cascade do |t|
-    t.string   "level"
+    t.string   "level",           limit: 255
     t.integer  "user_id"
     t.integer  "messageboard_id"
     t.datetime "last_seen"
@@ -158,16 +158,16 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_topic_categories", ["topic_id"], name: "index_thredded_topic_categories_on_topic_id", using: :btree
 
   create_table "thredded_topics", force: :cascade do |t|
-    t.integer  "user_id",                         null: false
-    t.integer  "last_user_id",                    null: false
-    t.string   "title",                           null: false
-    t.string   "slug",                            null: false
-    t.integer  "messageboard_id",                 null: false
-    t.integer  "posts_count",     default: 0,     null: false
-    t.boolean  "sticky",          default: false, null: false
-    t.boolean  "locked",          default: false, null: false
-    t.string   "hash_id",                         null: false
-    t.string   "type"
+    t.integer  "user_id",                                     null: false
+    t.integer  "last_user_id",                                null: false
+    t.string   "title",           limit: 255,                 null: false
+    t.string   "slug",            limit: 255,                 null: false
+    t.integer  "messageboard_id",                             null: false
+    t.integer  "posts_count",                 default: 0,     null: false
+    t.boolean  "sticky",                      default: false, null: false
+    t.boolean  "locked",                      default: false, null: false
+    t.string   "hash_id",         limit: 255,                 null: false
+    t.string   "type",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_user_details", ["user_id"], name: "index_thredded_user_details_on_user_id", using: :btree
 
   create_table "thredded_user_preferences", force: :cascade do |t|
-    t.integer  "user_id",                                           null: false
-    t.string   "time_zone",  default: "Eastern Time (US & Canada)"
+    t.integer  "user_id",                                                       null: false
+    t.string   "time_zone",  limit: 255, default: "Eastern Time (US & Canada)"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -213,8 +213,8 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end

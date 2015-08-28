@@ -1,26 +1,18 @@
 <% content_for :thredded_page_title, 'Topics' %>
 <% content_for :thredded_page_id, 'thredded-topics-index' %>
-<% content_for :thredded_javascript do %>
-  <script>
-    thredded = new Thredded;
-    thredded.topicForm.init();
-    thredded.timestamps.init();
-  </script>
-<% end %>
-<% content_for :thredded_breadcrumbs do %>
-  <%= render 'thredded/shared/messageboard_topics_breadcrumbs' %>
-<% end %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
-<%= content_tag :section, class: 'main-section topics' do %>
-  <%= render 'thredded/topics/form',
-    messageboard: messageboard,
-    topic: @new_topic,
-    css_class: 'topic-form is-compact',
-    placeholder: 'Start a New Topic'
-    %>
-  <%= render @decorated_topics  %>
-<% end %>
+<%= thredded_page do %>
+  <%= content_tag :section, class: 'main-section topics' do %>
+    <%= render 'thredded/topics/form',
+               messageboard: messageboard,
+               topic:        @new_topic,
+               css_class:    'topic-form is-compact',
+               placeholder:  'Start a New Topic' %>
+    <%= render @decorated_topics %>
+  <% end %>
 
-<footer>
-  <%= paginate @topics %>
-</footer>
+  <footer>
+    <%= paginate @topics %>
+  </footer>
+<% end %>

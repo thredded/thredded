@@ -9,58 +9,56 @@ end
 
 module Thredded
   class SeedDatabase
-    attr_reader :user, :messageboard
+    attr_reader :user, :users, :messageboard, :topics, :private_topics, :posts
 
-    def self.run
-      new.run
+    def self.run(users: 5, topics: 26, posts: (0..20))
+      s = new
+      s.create_messageboard
+      s.create_first_user
+      s.create_users(count: users)
+      s.create_topics(count: topics)
+      s.create_posts(count: posts)
     end
 
-    def run
+    def create_first_user
       @user ||= begin
         ::User.first ||
           ::User.create(name: 'joe', email: 'joe@example.com')
       end
+    end
 
-      john = FactoryGirl.create(:user, name: 'john')
-      fred = FactoryGirl.create(:user, name: 'fred')
-      kyle = FactoryGirl.create(:user, name: 'kyle')
+    def create_users(count: 5)
+      @users = [user] + FactoryGirl.create_list(:user, count)
+    end
 
+    def create_messageboard
       @messageboard = FactoryGirl.create(
         :messageboard,
-        name: 'Theme Test',
-        slug: 'theme-test',
-        description: 'A theme is not a theme without some test data'
+        name:        'Main Board',
+        slug:        'main-board',
+        description: 'A board is not a board without some posts'
       )
+    end
 
-      topics = FactoryGirl.create_list(
-        :topic, 3,
+    def create_topics(count: 26)
+      @topics = FactoryGirl.create_list(
+        :topic, count,
         messageboard: messageboard,
-        user: user,
-        last_user: user
-      )
+        user:         users.sample,
+        last_user:    users.sample)
 
-      private_topics = FactoryGirl.create_list(
-        :private_topic, 3,
+      @private_topics = FactoryGirl.create_list(
+        :private_topic, count,
         messageboard: messageboard,
-        user: user,
-        last_user: user,
-        users: [user]
-      )
+        user:         users.sample,
+        last_user:    users.sample,
+        users:        [user])
+    end
 
-      FactoryGirl.create(:post, postable: topics[0], messageboard: messageboard, user: user)
-      FactoryGirl.create(:post, postable: topics[1], messageboard: messageboard, user: user)
-      FactoryGirl.create(:post, postable: topics[2], messageboard: messageboard, user: user)
-
-      FactoryGirl.create(:post, postable: private_topics[0], messageboard: messageboard, user: user)
-      FactoryGirl.create(:post, postable: private_topics[1], messageboard: messageboard, user: user)
-      FactoryGirl.create(:post, postable: private_topics[2], messageboard: messageboard, user: user)
-
-      FactoryGirl.create(:role, user: user, messageboard: messageboard)
-      FactoryGirl.create(:role, user: kyle, messageboard: messageboard)
-      FactoryGirl.create(:role, user: john, messageboard: messageboard)
-      FactoryGirl.create(:role, user: fred, messageboard: messageboard)
-
-      self
+    def create_posts(count: (0..30))
+      @posts = (topics + private_topics).flat_map do |topic|
+        (count.min + rand(count.max + 1)).times { FactoryGirl.create(:post, postable: topic, messageboard: messageboard, user: users.sample) }
+      end
     end
   end
 end

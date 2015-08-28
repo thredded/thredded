@@ -1,0 +1,30 @@
+h1, h2, h3 {
+  font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+}
+
+h1 {
+  font-size: 45px;
+  line-height: 55px;
+}
+
+h2 {
+  font-size: 37px;
+  line-height: 45px;
+}
+
+h2 {
+  font-size: 29px;
+  line-height: 35px;
+}
+
+ul {
+  margin-bottom: 1em;
+}
+
+body {
+  background: #d8d8d8;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 25px;
+  margin: 0;
+}

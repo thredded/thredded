@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dummy App Layout</title>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
+    <title>
+      <%= content_for?(:thredded_page_title) ? "#{yield(:thredded_page_title)} | Dummy App" : 'Dummy App' %>
+    </title>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="default">
-    <div id="container" class="container">
-      <div id="header" class="container-header">
-        <% if signed_in? %>
-          You are <%= current_user %> |
-          <%= link_to 'Sign out', session_path, method: :delete %>
-        <% else %>
-          You are an anonymous visitor |
-          <%= link_to 'Sign in', sessions_new_path %>
-        <% end %>
-      </div>
+  <body>
+    <div class="app-container">
+      <header class="app-container-header">
+        <span class="app-nav-auth">
+          <% if signed_in? %>
+            You are <%= current_user %> |
+            <%= link_to 'Sign out', session_path, method: :delete %>
+          <% else %>
+            You are an anonymous visitor |
+            <%= link_to 'Sign in', sessions_new_path %>
+          <% end %>
+        </span>
+        <a class="app-nav-logo" href="/">Thredded: Example App</a>
+      </header>
 
-      <% [:info, :error, :notice, :alert, :warning].each do |key| %>
-        <% if flash[key] %>
-          <div class="<%= key %>" id="flash">
-            <%= flash[key] %>
-          </div>
+      <% unless content_for?(:thredded)  # thredded already renders the flash messages  %>
+        <% [:info, :error, :notice, :alert, :warning].each do |key| %>
+          <% if flash[key] %>
+            <div class="<%= key %>" id="flash">
+              <%= flash[key] %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
 

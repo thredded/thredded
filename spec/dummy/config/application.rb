@@ -6,6 +6,8 @@ require 'action_mailer/railtie'
 require 'sprockets/railtie'
 require 'sprockets/es6'
 require 'jquery/rails'
+require 'turbolinks'
+require 'jquery-turbolinks'
 require 'bourbon'
 require 'neat'
 

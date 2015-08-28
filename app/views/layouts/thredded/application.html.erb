@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Thredded | <%= yield :thredded_page_title %></title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <%= stylesheet_link_tag 'thredded' %>
+    <%= csrf_meta_tag %>
+    <%= javascript_include_tag 'thredded' %>
+    <%= yield :thredded_javascript %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

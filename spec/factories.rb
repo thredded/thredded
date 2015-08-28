@@ -1,3 +1,4 @@
+require 'faker'
 include ActionDispatch::TestProcess
 
 FactoryGirl.define do
@@ -89,7 +90,7 @@ FactoryGirl.define do
     association :postable, factory: :topic
     messageboard
 
-    sequence(:content) { |n| "A post about the number #{n}" }
+    content { Faker::Hacker.say_something_smart }
     ip '127.0.0.1'
     filter 'markdown'
 
@@ -128,7 +129,7 @@ FactoryGirl.define do
       with_categories 0
     end
 
-    title 'New topic started here'
+    title { Faker::Lorem.sentence[0..-2] }
     hash_id { generate(:topic_hash) }
 
     user
@@ -168,7 +169,7 @@ FactoryGirl.define do
     messageboard
     association :last_user, factory: :user
 
-    title 'New private topic started here'
+    title { Faker::Lorem.sentence[0..-2] }
     hash_id { generate(:topic_hash) }
   end
 
@@ -179,7 +180,7 @@ FactoryGirl.define do
 
   factory :user, aliases: [:email_confirmed_user, :last_user], class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
-    sequence(:name) { |n| "name#{n}" }
+    name { Faker::Name.name }
 
     trait :admin do
       after(:create) do |user, _|

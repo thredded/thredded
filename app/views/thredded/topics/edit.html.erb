@@ -1,54 +1,56 @@
 <% content_for :thredded_page_title, "Edit \"#{topic.title}\"" %>
 <% content_for :thredded_page_id, 'thredded-edit-topic' %>
 
-<header>
-  <nav>
-    <ul class="breadcrumbs">
-      <li><%= link_to 'Forums', root_path %></li>
-      <li><%= link_to messageboard.name, messageboard_topics_path(messageboard, topic) %></li>
-      <li>
+<%= thredded_page do %>
+  <header>
+    <nav>
+      <ul class="breadcrumbs">
+        <li><%= link_to 'Forums', root_path %></li>
+        <li><%= link_to messageboard.name, messageboard_topics_path(messageboard, topic) %></li>
+        <li>
         <span>
           Editing Topic <em><%= link_to topic.title, [messageboard, topic] %></em>
         </span>
-      </li>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="topic forms">
+    <ul>
+      <%= form_for [messageboard, @topic] do |form| %>
+        <li class="title">
+          <%= form.label :title %>
+          <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
+        </li>
+
+        <% if messageboard.categories.any? %>
+          <li class="category">
+            <%= form.select :category_ids,
+                            form.object.decorate.category_options,
+                            {},
+                            { multiple: true, 'data-placeholder' => 'Categories' } %>
+          </li>
+        <% end %>
+
+        <% if current_ability.can? :admin, form.object %>
+          <li class="locked">
+            <%= form.label :locked do %>
+              Locked <%= form.check_box :locked %>
+            <% end %>
+          </li>
+
+          <li class="sticky">
+            <%= form.label :sticky do %>
+              Sticky <%= form.check_box :sticky %>
+            <% end %>
+          </li>
+        <% end %>
+
+        <li class="submit">
+          <%= form.submit 'Update Topic' %>
+        </li>
+      <% end %>
     </ul>
-  </nav>
-</header>
-
-<div class="topic forms">
-  <ul>
-    <%= form_for [messageboard, @topic] do |form| %>
-      <li class="title">
-        <%= form.label :title %>
-        <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
-      </li>
-
-      <% if messageboard.categories.any? %>
-        <li class="category">
-          <%= form.select :category_ids,
-            form.object.decorate.category_options,
-            {},
-            { multiple: true, 'data-placeholder' => 'Categories' } %>
-        </li>
-      <% end %>
-
-      <% if current_ability.can? :admin, form.object %>
-        <li class="locked">
-          <%= form.label :locked do %>
-            Locked <%= form.check_box :locked %>
-          <% end %>
-        </li>
-
-        <li class="sticky">
-          <%= form.label :sticky do %>
-            Sticky <%= form.check_box :sticky %>
-          <% end %>
-        </li>
-      <% end %>
-
-      <li class="submit">
-        <%= form.submit 'Update Topic' %>
-      </li>
-    <% end %>
-  </ul>
-</div>
+  </div>
+<% end %>
