@@ -3,11 +3,10 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, class: 'main-section private-topics-form' do %>
+  <section class="main-section">
     <%= render 'thredded/private_topics/form',
                messageboard:  messageboard,
                private_topic: @private_topic,
-               css_class:     'private-topic-form',
                placeholder:   'New Private Topic Title' %>
-  <% end %>
+  </section>
 <% end %>

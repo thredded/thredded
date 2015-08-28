@@ -1,11 +1,8 @@
-class ThreddedTimeStamps {
-  constructor() {
-    jQuery.timeago.settings.allowFuture = true;
-    this.selector = 'abbr.timeago';
-  }
+jQuery(function($) {
+  const COMPONENT_SELECTOR = '#thredded--container abbr.timeago';
 
-  init() {
-    jQuery(this.selector).timeago();
-  }
-}
-
+  var allowFutureWas = jQuery.timeago.settings.allowFuture;
+  $.timeago.settings.allowFuture = true;
+  $(COMPONENT_SELECTOR).timeago();
+  $.timeago.settings.allowFuture = allowFutureWas;
+});

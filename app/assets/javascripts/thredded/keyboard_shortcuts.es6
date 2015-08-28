@@ -1,5 +1,0 @@
-class ThreddedKeyboardShortcuts {
-  constructor() { }
-  init() { }
-}
-

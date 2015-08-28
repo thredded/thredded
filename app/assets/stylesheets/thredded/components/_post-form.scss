@@ -1,20 +1,20 @@
-.post-form {
+.thredded--post-form {
   label {
     display: none;
   }
-}
 
-.post-form--wrapper {
-  margin-top: $base-spacing;
-  padding-top: $large-spacing;
-  border-top: $base-border;
-}
+  &--wrapper {
+    border-top: $base-border;
+    margin-top: $base-spacing;
+    padding-top: $large-spacing;
+  }
 
-.post-form--title {
-  font-size: rem(20);
-  margin-bottom: $base-spacing;
-}
+  &--title {
+    font-size: rem(20);
+    margin-bottom: $base-spacing;
+  }
 
-.post-form--submit {
-  margin-top: $small-spacing;
+  &--submit {
+    margin-top: $small-spacing;
+  }
 }
