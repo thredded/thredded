@@ -1,11 +1,11 @@
 # Backend
 require 'cancan'
 require 'friendly_id'
-require 'gravtastic'
 require 'html/pipeline'
 require 'html/pipeline/at_mention_filter'
 require 'html/pipeline/bbcode_filter'
 require 'kaminari'
+require 'rb-gravatar'
 require 'q'
 require 'threaded_in_memory_queue'
 
@@ -43,7 +43,7 @@ module Thredded
     :queue_inline
 
   self.user_name_column = :name
-  self.avatar_url = -> (_user, post) { post.gravatar_url(default: 'mm') }
+  self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded/application'

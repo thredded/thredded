@@ -5,4 +5,4 @@ Thredded.email_incoming_host = 'incoming.example.com'
 Thredded.email_from = 'no-reply@example.com'
 Thredded.email_outgoing_prefix = '[Thredded] '
 Thredded.layout = 'application' unless ENV['THREDDED_DUMMY_LAYOUT_STANDALONE']
-Thredded.avatar_url = ->(_user, post) { post.gravatar_url(default: 'retro') }
+Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'retro') }
