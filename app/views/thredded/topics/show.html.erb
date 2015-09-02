@@ -6,8 +6,8 @@
   <%= content_tag_for :section, topic, class: "main-section #{user_topic.css_class}" do %>
     <%= render 'thredded/base_topics/header', topic: topic %>
     <%= render @posts %>
-    <div class="post-form--wrapper">
-      <h3 class="post-form--title">Add a post</h3>
+    <div class="thredded--post-form--wrapper">
+      <h3 class="thredded--post-form--title">Add a post</h3>
       <%= render 'thredded/posts/form',
                  messageboard: messageboard,
                  topic:        topic,

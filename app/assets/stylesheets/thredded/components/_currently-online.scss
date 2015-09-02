@@ -1,41 +1,41 @@
-.currently-online {
+.thredded--currently-online {
   @include position(fixed, null 0 -1.25rem null);
   background-color: $base-border-color;
   padding: $base-spacing;
   width: rem(260);
 
-  &.is-expanded {
-    @include position(fixed, null 0 0 null);
-
-    .currently-online--users {
-      height: auto;
-      visibility: visible;
-    }
-  }
-
   @include media($mobile) {
     display: none;
   }
-}
 
-.currently-online--title {
-  margin-bottom: $base-spacing;
-}
+  &.is-expanded {
+    @include position(fixed, null 0 0 null);
+  }
 
-.currently-online--avatar {
-  @include size(rem(28));
-  background-color: $base-font-color;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: $small-spacing;
-  vertical-align: middle;
-}
+  &--title {
+    margin-bottom: $base-spacing;
+  }
 
-.currently-online--user {
-  padding: $small-spacing 0;
-}
+  &--avatar {
+    @include size(rem(28));
+    background-color: $base-font-color;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: $small-spacing;
+    vertical-align: middle;
+  }
 
-.currently-online--users {
-  height: 0;
-  visibility: hidden;
+  &--user {
+    padding: $small-spacing 0;
+  }
+
+  &--users {
+    height: 0;
+    visibility: hidden;
+  }
+
+  &.is-expanded &--users {
+    height: auto;
+    visibility: visible;
+  }
 }

@@ -1,19 +1,19 @@
 <%= form_for [messageboard, private_topic],
-  url: messageboard_private_topics_path(messageboard, @private_topic),
-  html: { class: css_class } do |form| %>
+             url:  messageboard_private_topics_path(messageboard, @private_topic),
+             html: { class: local_assigns[:css_class], 'data-thredded-topic-form' => true } do |form| %>
 
   <ul class="form-list on-top">
     <li class="title">
       <%= form.label :title, 'Private Topic Title' %>
-      <%= form.text_field :title, { placeholder: placeholder, required: true } %>
+      <%= form.text_field :title, { placeholder: placeholder, required: true, 'data-thredded-topic-form-title' => true } %>
     </li>
 
     <li>
       <%= form.label :user_id, 'Users in Private Topic' %>
       <%= form.select :user_ids,
-        form.object.users_options,
-        form.object.selected_options,
-        form.object.html_options %>
+                      form.object.users_options,
+                      form.object.users_selected_options,
+                      form.object.users_select_html_options %>
     </li>
 
     <%= render 'thredded/posts/content_field', form: form %>

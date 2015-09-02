@@ -19,7 +19,7 @@
     <%= render 'thredded/topics/form',
                messageboard: @messageboard,
                topic:        @new_topic,
-               css_class:    'topic-form is-compact',
+               css_class:    'is-compact',
                placeholder:  'Start a New Topic' %>
     <%= render @decorated_topics %>
   <% end %>
@@ -45,12 +45,11 @@
   <%= render 'thredded/topics/form',
              messageboard: @messageboard,
              topic:        @new_topic,
-             css_class:    'topic-form',
              placeholder:  'Start a New Topic' %>
 
   <%= render 'section_title', label: 'posts#edit', href: edit_messageboard_topic_post_path(@messageboard, @post.postable, @post) %>
   <%= content_tag :section, class: 'main-section posts-form' do %>
-    <h3 class="post-form--title">Edit Post</h3>
+    <h3 class="thredded--post-form--title">Edit Post</h3>
 
     <%= render 'thredded/posts/form',
                messageboard: @messageboard,
@@ -71,22 +70,21 @@
     <%= render 'thredded/private_topics/form',
                messageboard:  @messageboard,
                private_topic: @new_private_topic,
-               css_class:     'private-topic-form is-compact',
+               css_class:     'is-compact',
                placeholder:   'Start a New Private Topic' %>
     <%= render @decorated_private_topics %>
   <% end %>
 
   <%= render 'section_title', label: 'private_topics/new', href: new_messageboard_private_topic_path(@messageboard) %>
-  <%= content_tag :section, class: 'main-section private-topics-form' do %>
+  <section class="main-section">
     <%= render 'thredded/private_topics/form',
                messageboard:  @messageboard,
                private_topic: @new_private_topic,
-               css_class:     'private-topic-form',
                placeholder:   'New Private Topic Title' %>
-  <% end %>
+  </section>
 
   <%= render 'section_title', label: 'private_topics#show', href: messageboard_private_topic_path(@messageboard, @private_topic) %>
-  <%= content_tag_for :section, @private_topic, class: 'main-section private-topic' do %>
+  <section class="main-section">
     <%= render 'thredded/base_topics/header', topic: @private_topic %>
     <%= render @private_topic.posts.first(3) %>
     <%= render 'thredded/posts/form',
@@ -95,7 +93,7 @@
                post:         @post,
                button_text:  'Submit Reply'
     %>
-  <% end %>
+  </section>
 
   <%= render 'section_title', label: 'preferences#edit', href: edit_messageboard_preferences_path(@messageboard) %>
   <%= content_tag :section, class: 'main-section preferences' do %>

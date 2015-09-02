@@ -1,13 +1,13 @@
 <% content_for :thredded_page_title, 'Edit Post' %>
 <% content_for :thredded_page_id, 'thredded-edit-post' %>
 <%= thredded_page do %>
-  <%= content_tag :section, class: 'main-section posts-form' do %>
-    <h3 class="post-form--title">Edit Post</h3>
+  <section class="main-section">
+    <h3 class="thredded--post-form--title">Edit Post</h3>
 
     <%= render 'thredded/posts/form',
                messageboard: messageboard,
                topic:        topic,
                post:         @post,
                button_text:  'Update Post' %>
-  <% end %>
+  </section>
 <% end %>

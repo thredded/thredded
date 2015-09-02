@@ -78,15 +78,16 @@ module Thredded
       )
     end
 
-    def selected_options
+    def users_selected_options
       { selected: private_user_ids }
     end
 
-    def html_options
+    def users_select_html_options
       {
         multiple: true,
-        'data-placeholder' => 'select users to participate in this topic',
         required: true,
+        'data-placeholder' => 'select users to participate in this topic',
+        'data-thredded-users-select' => true
       }
     end
 
