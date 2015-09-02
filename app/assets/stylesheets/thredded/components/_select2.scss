@@ -1,0 +1,38 @@
+.thredded--main-container .select2-container {
+  width: 100%;
+
+  > .select2-choices {
+    background-image: none;
+    border: $form-border;
+    box-shadow: $form-box-shadow;
+    padding: $small-spacing;
+
+    > .select2-search-choice {
+      margin: 0 6px 0 0;
+    }
+
+    > .select2-search-field {
+      > [type="text"] {
+        font-family: $base-font-family;
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.thredded--select2-drop {
+  border-color: darken($base-border-color, 5%);
+  box-shadow: 0 1px 1px $base-border-color;
+
+  .select2-result {
+    &.select2-highlighted {
+      background: $action-color;
+    }
+
+    > .select2-result-label {
+      padding: $small-spacing;
+    }
+  }
+}

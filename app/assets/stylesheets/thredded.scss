@@ -3,8 +3,8 @@
 @import "bourbon";
 @import "thredded/base/grid-settings";
 @import "neat";
+@import "select2";
 @import "thredded/base/base";
-@import "thredded/vendor/chosen";
 
 @import "thredded/utilities/is-hidden";
 @import "thredded/utilities/is-visible";
@@ -31,7 +31,7 @@
 @import "thredded/components/post-form";
 @import "thredded/components/currently-online";
 @import "thredded/components/empty";
-@import "thredded/components/chosen";
+@import "thredded/components/select2";
 @import "thredded/components/flash-message";
 
 @import "thredded/components/main-section";

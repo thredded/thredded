@@ -10,11 +10,17 @@ require 'q'
 require 'threaded_in_memory_queue'
 
 # Asset compilation
+require 'autosize/rails'
 require 'bitters'
 require 'bourbon'
+require 'jquery-turbolinks'
+require 'jquery/rails'
 require 'jquery/rails'
 require 'neat'
+require 'rails-timeago'
+require 'select2-rails'
 require 'sprockets/es6'
+require 'turbolinks'
 
 require 'thredded/engine'
 require 'thredded/errors'
