@@ -1,3 +1,7 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
 gem 'rails', '~> 4.2.0'
+
+# mysql2 is not yet compatible with rails 4.2, but will be in the next release
+# see https://github.com/rails/rails/issues/21544
+gem 'mysql2', '~> 0.3.20'
