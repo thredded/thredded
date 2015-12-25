@@ -23,7 +23,7 @@ module Thredded
         return unless options.theme?
 
         copy_file \
-          'app/views/layouts/thredded.html.erb',
+          'app/views/layouts/thredded/application.html.erb',
           'vendor/views/layouts/thredded.html.erb'
 
         directory \
