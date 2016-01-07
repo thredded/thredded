@@ -5,7 +5,7 @@ module Thredded
     end
 
     def thredded_private_topics
-      false
+      Thredded::PrivateTopic.none
     end
 
     def can_read_messageboard?(messageboard)

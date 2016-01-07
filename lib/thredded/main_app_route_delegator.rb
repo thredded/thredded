@@ -11,7 +11,7 @@ module Thredded
       end
     end
 
-    def respond_to?(method)
+    def respond_to?(method, *args)
       super || main_app_route_method?(method)
     end
 

@@ -28,7 +28,7 @@ module Thredded
       end
 
       if @read_status.blank?
-        NullTopicRead.new
+        Thredded::NullTopicRead.new
       else
         @read_status.first
       end

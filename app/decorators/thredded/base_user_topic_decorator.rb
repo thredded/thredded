@@ -1,9 +1,7 @@
 module Thredded
-  class BaseUserTopicDecorator < Module
+  class BaseUserTopicDecorator < SimpleDelegator
     extend ActiveModel::Naming
     include ActiveModel::Conversion
-
-    delegate :original, to: :topic
 
     class << self
       # @return [Class<ActiveRecord::Base>]
@@ -16,11 +14,7 @@ module Thredded
       end
 
       def decorate_all(user, topics)
-        return [] if topics.blank?
-
-        topics.map do |topic|
-          new(user, topic)
-        end
+        topics.map { |topic| new(user, topic) }
       end
 
       def model_name
@@ -29,20 +23,9 @@ module Thredded
     end
 
     def initialize(user, topic)
-      @user  = user || NullUser.new
+      @user  = user || Thredded::NullUser.new
       @topic = self.class.decorator_class.new(topic)
-    end
-
-    def method_missing(meth, *args)
-      if topic.respond_to?(meth)
-        topic.send(meth, *args)
-      else
-        super
-      end
-    end
-
-    def respond_to?(meth)
-      super || topic.respond_to?(meth)
+      super(@topic)
     end
 
     def to_model
@@ -67,6 +50,10 @@ module Thredded
 
     def read?
       fail 'Subclass responsibility'
+    end
+
+    def to_ary
+      [self]
     end
 
     private
