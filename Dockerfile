@@ -9,9 +9,8 @@ RUN mkdir -p /tmp/lib/thredded
 ADD ./lib/thredded/version.rb /tmp/lib/thredded/
 ADD thredded.gemspec /tmp/
 ADD Gemfile /tmp/
-RUN bundle install
+RUN bundle install --jobs=5
 
 ENV APP_HOME /thredded
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
-ADD . $APP_HOME
