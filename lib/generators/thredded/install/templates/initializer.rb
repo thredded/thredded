@@ -18,10 +18,8 @@ Thredded.user_path = lambda do |user|
   main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
 end
 
-# User avatar URL. Thredded uses Gravatar via the gravtastic gem by default.
-# Visit the gravtastic project - https://github.com/chrislloyd/gravtastic#usage
-# for further instructions on how to customize.
-Thredded.avatar_url = ->(_user, post) { post.gravatar_url(default: 'mm') }
+# User avatar URL. rb-gravatar gem is used by default:
+Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
 
 # ==> Email Configuration
 # Email "From:" field will use the following

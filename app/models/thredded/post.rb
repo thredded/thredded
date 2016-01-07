@@ -1,8 +1,5 @@
 module Thredded
   class Post < ActiveRecord::Base
-    include Gravtastic
-
-    gravtastic :user_email
     paginates_per 50
 
     belongs_to :messageboard,
@@ -46,7 +43,7 @@ module Thredded
     end
 
     def avatar_url
-      Thredded.avatar_url.call(user, self)
+      Thredded.avatar_url.call(user)
     end
 
     def self.filters

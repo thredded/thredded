@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'cancancan'
   s.add_dependency 'friendly_id'
-  s.add_dependency 'gravtastic'
   s.add_dependency 'html-pipeline'
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
   s.add_dependency 'q'
   s.add_dependency 'rails', '>= 4.0.0'
+  s.add_dependency 'rb-gravatar'
 
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
   s.add_dependency 'gemoji'
