@@ -4,15 +4,6 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
-require 'sprockets/es6'
-require 'jquery/rails'
-require 'turbolinks'
-require 'jquery-turbolinks'
-require 'bourbon'
-require 'neat'
-
-Bundler.require(*Rails.groups)
-
 require 'thredded'
 
 module Dummy

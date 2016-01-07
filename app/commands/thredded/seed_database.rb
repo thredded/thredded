@@ -1,3 +1,5 @@
+require 'factory_girl_rails'
+
 # rubocop:disable HandleExceptions
 begin
   if FactoryGirl.factories.instance_variable_get(:@items).none?

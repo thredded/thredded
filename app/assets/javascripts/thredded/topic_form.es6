@@ -3,6 +3,7 @@
   class ThreddedTopicForm {
     constructor() {
       this.titleSelector = '[data-thredded-topic-form-title]';
+      this.textareaSelector = 'textarea';
       this.compactSelector = 'form.is-compact';
       this.expandedSelector = 'form.is-expanded';
       this.escapeElements = 'input, textarea';
@@ -14,6 +15,7 @@
     }
 
     init($nodes) {
+      $nodes.find(this.textareaSelector).autosize();
       $nodes.filter(this.compactSelector).
         on('focus', this.titleSelector, e => {
           this.toggleExpanded(e.target, true);

@@ -4,5 +4,7 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require_tree ./thredded/vendor
+//= require jquery.autosize
+//= require rails-timeago
+//= require select2
 //= require_tree ./thredded
