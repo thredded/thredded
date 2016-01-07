@@ -23,6 +23,10 @@ module Thredded
       super.sub(/\Ahttp:/, '')
     end
 
+    def to_ary
+      [self]
+    end
+
     private
 
     def created_at_str
