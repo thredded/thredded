@@ -1,15 +1,15 @@
 module Thredded
   class NullTopic
     def updated_at
-      Time.now
+      nil
     end
 
     def user
-      'Anonymous User'
+      Thredded::NullUser.new
     end
 
     def last_user
-      'Anonymous User'
+      Thredded::NullUser.new
     end
   end
 end
