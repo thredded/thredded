@@ -19,18 +19,6 @@ module Thredded
       "#{topics_count} topics / #{posts_count} posts".downcase
     end
 
-    def latest_topic_timeago
-      if latest_topic.updated_at.nil?
-        '<abbr>a little while ago</abbr>'
-      else
-        <<-eohtml.html_safe
-          <abbr class="timeago" title="#{topic_updated_at_utc}">
-            #{topic_updated_at_str}
-          </abbr>
-        eohtml
-      end
-    end
-
     def latest_topic
       @latest_topic ||= begin
         messageboard.topics.order_latest_first.first ||

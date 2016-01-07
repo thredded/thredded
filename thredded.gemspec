@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'neat'
   s.add_dependency 'bitters'
   s.add_dependency 'rails-timeago'
-  s.add_dependency 'select2-rails'
+  s.add_dependency 'select2-rails', '~> 3.5'
   s.add_dependency 'autosize-rails'
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'jquery-rails'
