@@ -131,10 +131,12 @@ To be more clear - these are some dependencies for when you are working on *this
 
 * PostgreSQL & MySQL - `brew install postgres mysql`
 
-Then, create the `thredded` database users for both MySQL and Postgres:
+Then, create the `thredded` database users for both MySQL and Postgres. Optional
+ENV's you can use are to specify the db's - `DB=postgresql` or `DB=mysql2` - or
+the user account that postgresql is running as - `PG_DAEMON_USER=$(whoami)`.
 
 ```console
-$ script/create-db-users
+$ [DB=postgresql|mysql2] [PG_DAEMON_USER=$(whoami)] script/create-db-users
 ```
 
 If and when you generate new migrations for thredded there will be three database migrations and one schema dump you will want to run.
@@ -144,9 +146,16 @@ If and when you generate new migrations for thredded there will be three databas
 3. `RAILS_ENV=test bundle exec rake db:drop db:create db:migrate`
 4. `bundle exec rake db:schema:dump`
 
-The first two are to generate the db schemas for both postgres and mysql, the third is to migrate your local test database, and the last is to take that schema information and save it to the two schema files (for when it tests against PG and MySql)
+The first two, in the steps above, are to generate the db schemas for both
+postgres and mysql, the third is to migrate your local test database, and the
+last is to take that schema information and save it to the two schema files
+(for when it tests against PG and MySql).
 
-*OR* you can just run `script/migrate`!
+*Or*, use the included script (it's got all that good stuff in it)
+
+```console
+$ script/migrate
+```
 
 Finally, run the development server with either `DB=postgresql` or `DB=mysql2`:
 

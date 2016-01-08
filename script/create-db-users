@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+GREEN='\033[0;32m'
+RESET_COLOR='\033[0m'
+
 if [ -n "$1" ]; then cat <<'HELP'; exit; fi
 Usage: script/create-db-users
 Create the thredded database users for all the supported databases.
@@ -7,10 +10,10 @@ If the `DB` environment variable is set, do the above only for that database.
 HELP
 
 set -e
-log() { if [ -t 1 ]; then echo -e >&2 "\e[0;36m$@\e[0m"; else echo >&2 "$@"; fi }
+log() { if [ -t 1 ]; then echo -e >&2 "${GREEN}$@${RESET_COLOR}"; else echo >&2 "$@"; fi }
 
 create_mysql_user() {
-  log 'Creating MySQL thredded user. MySQL root password required.'
+  log "\nCreating MySQL thredded user. MySQL root password required.\n"
   mysql --verbose -uroot -p <<'SQL'
 -- This will create a user if one does not exist.
 GRANT ALL PRIVILEGES ON `thredded_gem_dev`.* TO 'thredded'@'localhost' IDENTIFIED BY 'thredded';
@@ -19,8 +22,8 @@ SQL
 }
 
 create_postgresql_user() {
-  log 'Creating Postgres thredded user. Sudo / root required.'
-  sudo -u postgres psql --echo-all postgres <<'SQL'
+  log "\nCreating Postgres thredded user. Sudo / root required.\n"
+  sudo -u $PG_DAEMON_USER psql --echo-all postgres <<'SQL'
 DO
 $body$
 BEGIN
@@ -33,5 +36,6 @@ $body$
 SQL
 }
 
+[ -z "$PG_DAEMON_USER" ] && PG_DAEMON_USER=postgres
 [ -z "$DB" -o "$DB" = 'mysql2' ] && create_mysql_user
 [ -z "$DB" -o "$DB" = 'postgresql' ] && create_postgresql_user
