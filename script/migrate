@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+GREEN='\033[0;32m'
+RESET_COLOR='\033[0m'
+
 if [ -n "$1" ]; then cat <<'HELP'; exit; fi
 Usage: script/migrate
 Re-create the database schemas, run the migrations, dump the schemas, and seed all the supported databases.
@@ -7,7 +10,7 @@ If the `DB` environment variable is set, do the above only for that database.
 HELP
 
 set -e
-log() { if [ -t 1 ]; then echo -e >&2 "\e[0;36m$@\e[0m"; else echo >&2 "$@"; fi }
+log() { if [ -t 1 ]; then echo -e >&2 "${GREEN}$@${RESET_COLOR}"; else echo >&2 "$@"; fi }
 
 if [ -z "$DB" ]; then
   declare -a DBS=(mysql2 postgresql)

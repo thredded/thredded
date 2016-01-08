@@ -1,7 +1,15 @@
+<%
+db_adapter = ENV.fetch('DB', 'postgresql')
+db_adapter_port = db_adapter == 'postgresql' ? 5432 : 3306
+
+db_host = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
+db_port = ENV.fetch('DB_PORT', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', db_adapter_port))
+%>
+
 defaults: &defaults
-  host: <%= ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost') %>
-  port: <%= ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_PORT', 5432) %>
-  adapter: <%= ENV.fetch('DB', 'postgresql') %>
+  host: <%= db_host %>
+  port: <%= db_port %>
+  adapter: <%= db_adapter %>
   encoding: utf8
   min_messages: WARNING
   username: <%= ENV.fetch('DB_USERNAME', 'thredded').inspect %>
