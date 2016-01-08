@@ -31,7 +31,7 @@ gem 'thredded', github: 'jayroh/thredded'
 Add a thredded initializer to your parent app by running the install generator.
 [The initializer] has detailed descriptions of all of the configuration options.
 
-```ruby
+```console
 rails generate thredded:install           # install the initializer
 rails generate thredded:install --theme   # install initializer, views, and assets
 rails generate thredded:install --help    # see all options
@@ -39,13 +39,13 @@ rails generate thredded:install --help    # see all options
 
 Copy the migrations over to your parent application and migrate:
 
-```
+```console
 rake thredded:install:migrations db:migrate db:test:prepare
 ```
 
 Mount the thredded engine in your routes file:
 
-```
+```ruby
 mount Thredded::Engine => '/forum'
 ```
 
@@ -90,21 +90,21 @@ that there is a column in my user model called `name`:
   rake "thredded:superadmin[yourusername]" # zsh
   ```
 
-  Two examples are given for bash and zsh. Zsh typically reserves brackets, `[]`, for other uses
-  hence the wrapping with quotes. Pro-tip: did you know [you can escape the brackets by
-  default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
+  Two examples are given for bash and zsh. Zsh typically reserves brackets,
+  `[]`, for other uses hence the wrapping with quotes. Pro-tip: did you know
+  [you can escape the brackets by default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
 
 
 ## Layout, Views, Assets and everything in the view layer
 
-The engine comes by default with a light and effective implementation of the views,
-styles, and javascript. Once you mount the engine you will be presented with a "themed"
-version of thredded.
+The engine comes by default with a light and effective implementation of the
+views, styles, and javascript. Once you mount the engine you will be presented
+with a "themed" version of thredded.
 
 If you would like to customize it -- and I am assuming you will -- the install
-generator has an option to copy over all of the views and assets to your parent app for
-customization - `rails g thredded:install --theme`. This will copy over, into your app,
-the following files in addition to the initializer:
+generator has an option to copy over all of the views and assets to your parent
+app for customization - `rails g thredded:install --theme`. This will copy over,
+into your app, the following files in addition to the initializer:
 
 ```
 vendor/views/thredded
@@ -118,16 +118,19 @@ vendor/assets/images/thredded
 
 A couple of notes:
 
-* When using route helpers in the thredded views -- eg: `new_session_path`, et al -- make
-  sure to prepend `main_app` to the helper: `main_app.new_session_path` as rails engines
-  like thredded will not know about those routes' existence unless explicitly told so.
-* The theme layout has three content_tags available to yield - `:thredded_page_title`,
-  `:thredded_page_id`, and `:thredded_javascript`. The views within thredded pass those
-  up through to your layout if you would like to use them.
+* When using route helpers in the thredded views -- eg: `new_session_path`, et
+  al -- make sure to prepend `main_app` to the helper:
+  `main_app.new_session_path` as rails engines like thredded will not know about
+  those routes' existence unless explicitly told so.
+* The theme layout has three content_tags available to yield -
+  `:thredded_page_title`, `:thredded_page_id`, and `:thredded_javascript`. The
+  views within thredded pass those up through to your layout if you would like
+  to use them.
 
 ## Gem development dependencies
 
-To be more clear - these are some dependencies for when you are working on *this* gem. Not for when you are implementing it into your Rails app.
+To be more clear - these are some dependencies for when you are working on
+*this* gem. Not for when you are implementing it into your Rails app.
 
 * PostgreSQL & MySQL - `brew install postgres mysql`
 
@@ -137,7 +140,8 @@ Then, create the `thredded` database users for both MySQL and Postgres:
 $ script/create-db-users
 ```
 
-If and when you generate new migrations for thredded there will be three database migrations and one schema dump you will want to run.
+If and when you generate new migrations for thredded there will be three
+database migrations and one schema dump you will want to run.
 
 1. `DB=mysql2 bundle exec rake db:drop db:create db:migrate`
 2. `DB=postgresql bundle exec rake db:drop db:create db:migrate`
