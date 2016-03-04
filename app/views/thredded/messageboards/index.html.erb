@@ -12,7 +12,9 @@
     <%= render @messageboards %>
   </section>
 
-  <div class="messageboard--create">
-    <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
-  </div>
+  <% if current_ability.can? :create, Thredded::Messageboard %>
+    <div class="messageboard--create">
+      <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
+    </div>
+  <% end %>
 <% end %>
