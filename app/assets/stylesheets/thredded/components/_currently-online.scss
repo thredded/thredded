@@ -8,7 +8,7 @@
     display: none;
   }
 
-  &.is-expanded {
+  &.thredded--is-expanded {
     @include position(fixed, null 0 0 null);
   }
 
@@ -35,7 +35,7 @@
     visibility: hidden;
   }
 
-  &.is-expanded &--users {
+  &.thredded--is-expanded &--users {
     height: auto;
     visibility: visible;
   }

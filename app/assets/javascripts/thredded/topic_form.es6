@@ -4,14 +4,14 @@
     constructor() {
       this.titleSelector = '[data-thredded-topic-form-title]';
       this.textareaSelector = 'textarea';
-      this.compactSelector = 'form.is-compact';
-      this.expandedSelector = 'form.is-expanded';
+      this.compactSelector = 'form.thredded--is-compact';
+      this.expandedSelector = 'form.thredded--is-expanded';
       this.escapeElements = 'input, textarea';
       this.escapeKeyCode = 27;
     }
 
     toggleExpanded(child, expanded) {
-      jQuery(child).closest(expanded ? this.compactSelector : this.expandedSelector).toggleClass('is-compact is-expanded');
+      jQuery(child).closest(expanded ? this.compactSelector : this.expandedSelector).toggleClass('thredded--is-compact thredded--is-expanded');
     }
 
     init($nodes) {

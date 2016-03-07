@@ -5,13 +5,13 @@
     init($nodes) {
       $($nodes).
         on('mouseenter', function(e) {
-          $(this).addClass('is-expanded');
+          $(this).addClass('thredded--is-expanded');
         }).
         on('mouseleave', function(e) {
-          $(this).removeClass('is-expanded');
+          $(this).removeClass('thredded--is-expanded');
         }).
         on('touchstart', function(e) {
-          $(this).toggleClass('is-expanded');
+          $(this).toggleClass('thredded--is-expanded');
         });
     }
   }

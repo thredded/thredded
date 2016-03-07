@@ -4,13 +4,10 @@
 @import "select2";
 @import "thredded/base/base";
 
-@import "thredded/utilities/is-hidden";
-@import "thredded/utilities/is-visible";
-@import "thredded/utilities/is-compact";
-@import "thredded/utilities/is-expanded";
-@import "thredded/utilities/is-in-the-background";
-
 .thredded {
+  @import "thredded/utilities/is-compact";
+  @import "thredded/utilities/is-expanded";
+
   @import "thredded/layout/main-container";
   @import "thredded/layout/user-navigation";
   @import "thredded/layout/topic-navigation";
