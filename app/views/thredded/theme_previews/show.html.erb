@@ -8,7 +8,7 @@
 
 <%= thredded_page do %>
   <%= render 'section_title', label: 'messageboards#index', href: messageboards_path %>
-  <%= content_tag :section, class: 'thredded--thredded--main-section messageboards' do %>
+  <%= content_tag :section, class: 'thredded--thredded--main-section thredded--messageboards' do %>
     <%= render @messageboards %>
     <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
   <% end %>

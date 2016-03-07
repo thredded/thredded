@@ -1,13 +1,13 @@
 <% if current_ability.can? :read, messageboard.original %>
-  <%= link_to messageboard_topics_path(messageboard), class: 'messageboard' do %>
+  <%= link_to messageboard_topics_path(messageboard), class: 'thredded--messageboard' do %>
     <header>
-      <h2 class="messageboard--title"><%= messageboard.name %></h2>
-      <h3 class="messageboard--meta"><%= messageboard.meta %></h3>
+      <h2 class="thredded--messageboard--title"><%= messageboard.name %></h2>
+      <h3 class="thredded--messageboard--meta"><%= messageboard.meta %></h3>
     </header>
 
-    <p class="messageboard--description"><%= messageboard.description %></p>
+    <p class="thredded--messageboard--description"><%= messageboard.description %></p>
 
-    <p class="messageboard--byline">
+    <p class="thredded--messageboard--byline">
       Updated <%= time_ago messageboard.latest_topic.updated_at %>
       <cite>by <%= messageboard.latest_user %></cite>
     </p>

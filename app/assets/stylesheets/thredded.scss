@@ -16,6 +16,7 @@
   @import "thredded/layout/topic-navigation";
   @import "thredded/layout/main-navigation";
 
+  @import "thredded/components/messageboard";
   @import "thredded/components/pagination";
   @import "thredded/components/preferences";
   @import "thredded/components/topics";
@@ -23,7 +24,6 @@
   @import "thredded/components/main-section";
 }
 
-@import "thredded/components/messageboard";
 @import "thredded/components/topic";
 @import "thredded/components/form-list";
 @import "thredded/components/topic-header";

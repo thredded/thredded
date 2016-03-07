@@ -8,12 +8,12 @@
   </ul>
 <% end %>
 <%= thredded_page do %>
-  <section class="thredded--main-section messageboards">
+  <section class="thredded--main-section thredded--messageboards">
     <%= render @messageboards %>
   </section>
 
   <% if current_ability.can? :create, Thredded::Messageboard %>
-    <div class="messageboard--create">
+    <div class="thredded--messageboard--create">
       <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
     </div>
   <% end %>

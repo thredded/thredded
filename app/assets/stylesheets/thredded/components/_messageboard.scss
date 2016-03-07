@@ -14,7 +14,7 @@
   }
 }
 
-.messageboard--title {
+&--messageboard--title {
   display: inline-block;
   float: left;
   font-size: 1.125rem; // 18px
@@ -24,7 +24,7 @@
   vertical-align: baseline;
 }
 
-.messageboard--meta {
+&--messageboard--meta {
   color: lighten($base-font-color, 30%);
   display: inline-block;
   font-weight: normal;
@@ -32,19 +32,19 @@
   vertical-align: baseline;
 }
 
-.messageboard--description {
+&--messageboard--description {
   clear: both;
   margin-bottom: $small-spacing / 2;
   color: $base-font-color;
 }
 
-.messageboard--byline {
+&--messageboard--byline {
   color: lighten($base-font-color, 30%);
   font-size: 0.875em;
   font-weight: normal;
   margin-bottom: 0;
 }
 
-.messageboard--create {
+&--messageboard--create {
   text-align: center;
 }
