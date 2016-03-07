@@ -14,7 +14,7 @@
 
   <% if current_ability.can? :create, Thredded::Messageboard %>
     <div class="thredded--messageboard--create">
-      <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
+      <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
     </div>
   <% end %>
 <% end %>

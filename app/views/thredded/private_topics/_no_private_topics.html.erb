@@ -1,4 +1,6 @@
 <div class="thredded--empty">
   <h3 class="thredded--empty--title">You have no private topics.</h3>
-  <%= link_to 'Create your first private topic', new_messageboard_private_topic_path(messageboard), class: "button" %>
+  <a class="thredded--button" href="<%= new_messageboard_private_topic_path(messageboard) %>">
+    Create your first private topic
+  </a>
 </div>

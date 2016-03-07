@@ -49,3 +49,6 @@ $thredded-base-border: 1px solid $thredded-base-border-color !default;
 // Forms
 $thredded-form-border: 1px solid darken($thredded-base-border-color, 5%) !default;
 $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
+
+// Buttons
+$thredded-all-buttons: ('.thredded--button', '.thredded--form--submit') !default;

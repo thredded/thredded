@@ -22,7 +22,7 @@
         <%= f.select :posting_permission, [:members, :logged_in, :anonymous] %>
       </li>
 
-      <li class="submit"><%= f.submit 'Create New Messageboard' %></li>
+      <li><%= f.submit 'Create New Messageboard', class: 'thredded--form--submit' %></li>
     </ul>
   <% end %>
 <% end %>
