@@ -1,7 +1,7 @@
 &--topic-navigation {
   margin-bottom: 0;
 
-  @include media(rem(600)) {
+  @include media(600px) {
     float: right;
   }
 
@@ -42,7 +42,7 @@
   background-color: $action-color;
   border-radius: 10px;
   color: #fff;
-  font-size: rem(10);
+  font-size: 0.625rem; // 10px
   line-height: 1;
   margin-left: $small-spacing;
   padding: 2px 5px;

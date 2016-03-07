@@ -9,7 +9,7 @@
 
 .topics--title {
   display: inline-block;
-  font-size: rem(18);
+  font-size: 1.125rem; // 18px
   line-height: 1.5;
   margin-right: $small-spacing / 2;
   margin-bottom: 0;
@@ -26,7 +26,7 @@
 .topics--started-by,
 .topics--updated-by {
   color: lighten($base-font-color, 30%);
-  font-size: rem(14);
+  font-size: 0.875rem; // 14px
   font-style: normal;
 
   a {

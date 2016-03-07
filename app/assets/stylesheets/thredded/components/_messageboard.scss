@@ -17,7 +17,7 @@
 .messageboard--title {
   display: inline-block;
   float: left;
-  font-size: rem(18);
+  font-size: 1.125rem; // 18px
   line-height: 1.2;
   margin-bottom: 0;
   margin-right: $small-spacing;
@@ -40,7 +40,7 @@
 
 .messageboard--byline {
   color: lighten($base-font-color, 30%);
-  font-size: em(13);
+  font-size: 0.875em;
   font-weight: normal;
   margin-bottom: 0;
 }

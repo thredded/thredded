@@ -1,7 +1,5 @@
-.button,
-#{$all-button-inputs},
-button {
-  @include appearance(none);
+#{$all-buttons} {
+  appearance: none;
   -webkit-font-smoothing: antialiased;
   background-color: $action-color;
   border-radius: $base-border-radius;
@@ -10,7 +8,7 @@ button {
   cursor: pointer;
   display: inline-block;
   font-family: $base-font-family;
-  font-size: rem(14);
+  font-size: 0.875rem; // 14px
   font-weight: 600;
   line-height: 1;
   padding: 0.75em 1em;

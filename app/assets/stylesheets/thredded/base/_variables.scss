@@ -1,5 +1,6 @@
 // Typography
-$base-font-family: "Lato", $helvetica;
+// Bourbon renamed $helvetica to $font-stack-helvetica since v5.0.0.beta1
+$base-font-family: "Lato", if(global-variable-exists(font-stack-helvetica), $font-stack-helvetica, $helvetica);
 $heading-font-family: $base-font-family;
 
 // Font Sizes

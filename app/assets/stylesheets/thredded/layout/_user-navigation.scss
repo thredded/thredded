@@ -1,10 +1,10 @@
 &--user-navigation {
   @include clearfix;
-  font-size: em(14);
+  font-size: 0.875em;
   margin-bottom: 1rem;
   text-align: center;
 
-  @include media(rem(600)) {
+  @include media(600px) {
     margin-bottom: 0;
     margin-top: $large-spacing;
     text-align: left;
@@ -30,7 +30,7 @@
 }
 
 &--user-navigation--search {
-  @include media(max-width rem(600)) {
+  @include media(max-width 600px) {
     margin-bottom: 0.5rem;
   }
 
@@ -39,31 +39,29 @@
   }
 
   input[type="search"] {
-    @include transition();
     box-shadow: none;
-    font-size: rem(14);
+    font-size: 0.875rem; // 14px
+    transition: all 0.15s ease-out 0s;
     width: 100%;
 
-    @include media(rem(600)) {
+    @include media(600px) {
       border-color: transparent;
       float: right;
-      min-width: em(200, 14);
+      min-width: 200px;
       margin-right: -$base-spacing;
       text-align: right;
       width: auto;
 
       &:focus {
-        @include transition();
-        min-width: em(290, 14);
+        min-width: 290px;
         text-align: left;
+        transition: all 0.15s ease-out 0s;
         margin-right: 0;
       }
     }
 
-    &:hover {
-      @include placeholder {
-        color: $action-color;
-      }
+    &:hover::placeholder {
+      color: $action-color;
     }
 
     &:focus {

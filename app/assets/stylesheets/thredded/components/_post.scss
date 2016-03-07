@@ -4,25 +4,25 @@
 }
 
 .post--avatar {
-  @include size(rem(28));
+  @include size(1.75rem); // 28px
   border-radius: 50%;
   display: inline-block;
   margin-right: $small-spacing;
   position: relative;
   top: 6px;
 
-  @include media($max-width + 4em) {
+  @include media($max-width + 64px) {
     @include position(absolute, -0.5rem null null -3rem);
-    @include size(rem(36));
+    @include size(2.25rem); // 36px
   }
 }
 
 .post--user {
   display: inline-block;
-  font-size: rem(18);
+  font-size: 1.125rem; // 18px
   line-height: 1.2;
   margin-right: $small-spacing;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem; // 20px
 
   a {
     color: $base-font-color;
@@ -30,16 +30,16 @@
 }
 
 .post--created-at {
-  font-size: rem(14);
+  font-size: 0.875rem; // 14px
   color: lighten($base-font-color, 30%);
   display: inline-block;
 }
 
 .post--edit {
-  font-size: rem(14);
+  font-size: 0.875rem; // 14px
 }
 
 .post--content {
-  font-size: rem(17);
+  font-size: 1.063rem; // 17px
   line-height: 1.65;
 }

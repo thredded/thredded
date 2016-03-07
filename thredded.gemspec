@@ -32,9 +32,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'sanitize'
 
   # frontend
+  s.add_dependency 'autoprefixer-rails'
   s.add_dependency 'bourbon'
   s.add_dependency 'neat'
-  s.add_dependency 'bitters'
+  s.add_dependency 'bitters', '>= 1.3.1'
   s.add_dependency 'rails-timeago'
   s.add_dependency 'select2-rails', '~> 3.5'
   s.add_dependency 'autosize-rails'
