@@ -5,12 +5,9 @@
   text-align: center;
 
   > span {
-    border-radius: $thredded-base-border-radius;
-    border: $thredded-base-border;
     color: lighten($thredded-base-font-color, 30%);
     display: inline-block;
     margin-right: $thredded-small-spacing;
-
 
     > a {
       color: $thredded-base-font-color;
