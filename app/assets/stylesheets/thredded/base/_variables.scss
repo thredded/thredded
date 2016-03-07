@@ -4,8 +4,8 @@ $thredded-grid-container-max-width: 720px !default;
 $thredded-grid-breakpoint-max-widths: (mobile: 400px, tablet: 600px) !default;
 
 // Typography
-$thredded-base-font-family: "Lato", if(global-variable-exists(font-stack-helvetica), $font-stack-helvetica, $helvetica) !default;
-$thredded-heading-font-family: $thredded-base-font-family !default;
+$thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !default;;
+$thredded-heading-font-family: inherit !default;
 
 // Font Sizes
 $thredded-base-font-size: 1rem !default;
