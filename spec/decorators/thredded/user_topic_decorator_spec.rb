@@ -122,7 +122,7 @@ module Thredded
         page: 4
       )
       decorator = UserTopicDecorator.new(user, topic)
-      expect(decorator.css_class).to eq 'read locked sticky'
+      expect(decorator.css_class).to eq 'thredded--topic--read thredded--topic--locked thredded--topic--sticky'
     end
 
     it 'prepends a unread class to a topic' do
@@ -136,7 +136,7 @@ module Thredded
         page: 4
       )
       decorator = UserTopicDecorator.new(user, topic)
-      expect(decorator.css_class).to eq 'unread locked sticky'
+      expect(decorator.css_class).to eq 'thredded--topic--unread thredded--topic--locked thredded--topic--sticky'
     end
   end
 end

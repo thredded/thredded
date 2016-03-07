@@ -26,10 +26,10 @@
 
 }
 
-.thredded-new-topic &--topic-navigation--public,
-.thredded-topics-index &--topic-navigation--public,
-.thredded-new-private-topic &--topic-navigation--private,
-.thredded-private-topics-index &--topic-navigation--private {
+.thredded--new-topic &--topic-navigation--public,
+.thredded--topics-index &--topic-navigation--public,
+.thredded--new-private-topic &--topic-navigation--private,
+.thredded--private-topics-index &--topic-navigation--private {
   border-bottom: 1px solid $action-color;
   margin-bottom: -2px;
 
@@ -42,8 +42,8 @@
   background-color: $action-color;
   border-radius: 10px;
   color: #fff;
-  font-size: 0.625rem; // 10px
+  font-size: 0.75rem; // 12px
   line-height: 1;
   margin-left: $small-spacing;
-  padding: 2px 5px;
+  padding: 2px 6px;
 }

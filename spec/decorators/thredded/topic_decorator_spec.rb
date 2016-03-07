@@ -8,14 +8,14 @@ module Thredded
       topic = build_stubbed(:topic, locked: true)
       decorated_topic = TopicDecorator.new(topic)
 
-      expect(decorated_topic.css_class).to include 'locked'
+      expect(decorated_topic.css_class).to include 'thredded--topic--locked'
     end
 
     it 'builds a class with sticky if the topic is sticky' do
       topic = build_stubbed(:topic, sticky: true)
       decorated_topic = TopicDecorator.new(topic)
 
-      expect(decorated_topic.css_class).to include 'sticky'
+      expect(decorated_topic.css_class).to include 'thredded--topic--sticky'
     end
 
     it 'returns nothing if plain vanilla topic' do
@@ -29,7 +29,7 @@ module Thredded
       topic = build_stubbed(:topic, sticky: true, locked: true)
       decorated_topic = TopicDecorator.new(topic)
 
-      expect(decorated_topic.css_class).to include 'locked sticky'
+      expect(decorated_topic.css_class).to include 'thredded--topic--locked thredded--topic--sticky'
     end
   end
 end

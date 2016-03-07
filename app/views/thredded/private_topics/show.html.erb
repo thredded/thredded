@@ -1,9 +1,9 @@
 <% content_for :thredded_page_title, private_topic.title %>
-<% content_for :thredded_page_id, 'thredded-posts' %>
+<% content_for :thredded_page_id, 'thredded--posts' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag_for :section, private_topic, class: 'thredded--main-section private-topic' do %>
+  <%= content_tag_for :section, private_topic, class: 'thredded--main-section thredded--topic thredded--private-topic' do %>
     <%= render 'thredded/base_topics/header', topic: private_topic %>
     <%= render @posts %>
     <%= render 'thredded/posts/form',

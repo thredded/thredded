@@ -12,9 +12,9 @@ module Thredded
 
     def css_class
       classes = []
-      classes << 'locked' if locked?
-      classes << 'sticky' if sticky?
-      classes += ['category'] + categories.map(&:name) if categories.present?
+      classes << 'thredded--topic--locked' if locked?
+      classes << 'thredded--topic--sticky' if sticky?
+      classes += ['thredded--topic--category'] + categories.map { |c| "thredded--topic--category--#{c.name}" } if categories.present?
       classes.join(' ')
     end
 

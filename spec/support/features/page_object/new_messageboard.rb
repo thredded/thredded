@@ -30,7 +30,7 @@ module PageObject
     end
 
     def on_the_messageboard_list?
-      has_css? '#thredded--container[data-thredded-page-id="thredded-messageboards-index"]'
+      has_css? '#thredded--container[data-thredded-page-id="thredded--messageboards-index"]'
     end
 
     def visit_messageboard_list

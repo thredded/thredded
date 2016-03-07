@@ -4,17 +4,16 @@
   <% if messageboard.try(:persisted?) %>
     <ul class="thredded--topic-navigation">
       <li class="thredded--topic-navigation--public">
-        <%= link_to 'Topics', messageboard_topics_path(messageboard) %>
+        <a href="<%= messageboard_topics_path(messageboard) %>">Topics</a>
       </li>
       <li class="thredded--topic-navigation--private">
-        <%= link_to messageboard_private_topics_path(messageboard), class: "unread-#{unread_private_topics_count}" do %>
-          Private Topics
+        <a href="<%= messageboard_private_topics_path(messageboard) %>">Private Topics
           <% if unread_private_topics_count > 0 %>
             <span class="thredded--topic-navigation--unread">
               <%= unread_private_topics_count %>
             </span>
           <% end %>
-        <% end %>
+        </a>
       </li>
     </ul>
   <% end %>

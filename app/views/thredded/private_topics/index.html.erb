@@ -1,9 +1,9 @@
 <% content_for :thredded_page_title, 'Private Topics' %>
-<% content_for :thredded_page_id, 'thredded-private-topics-index' %>
+<% content_for :thredded_page_id, 'thredded--private-topics-index' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, class: 'thredded--main-section private-topics' do %>
+  <%= content_tag :section, class: 'thredded--main-section thredded--private-topics' do %>
     <% if @private_topics.empty? -%>
       <%= render 'thredded/private_topics/no_private_topics' %>
     <% else -%>

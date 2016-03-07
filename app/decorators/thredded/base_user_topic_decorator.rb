@@ -42,9 +42,9 @@ module Thredded
 
     def read_status_class
       if read?
-        'read'
+        'thredded--topic--read'
       else
-        'unread'
+        'thredded--topic--unread'
       end
     end
 

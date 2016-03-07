@@ -30,7 +30,7 @@ module PageObject
     end
 
     def locked?
-      has_css?('.topic.locked')
+      has_css?('.thredded--topic.thredded--topic--locked')
     end
   end
 end

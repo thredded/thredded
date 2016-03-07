@@ -9,15 +9,15 @@ module PageObject
     end
 
     def normal_topics
-      all('article.topic.read:not(.locked):not(.sticky)')
+      all('article.thredded--topics--topic.thredded--topic--read:not(.thredded--topic--locked):not(.thredded--topic--sticky)')
     end
 
     def locked_topics
-      all('.topics article.locked')
+      all('.thredded--topics article.thredded--topic--locked')
     end
 
     def stuck_topics
-      all('.topics article.sticky')
+      all('.thredded--topics article.thredded--topic--sticky')
     end
 
     def create_topic
@@ -78,7 +78,7 @@ module PageObject
     alias_method :has_the_title_and_content?, :displayed?
 
     def has_topic_titled?(title)
-      has_css?('article.topic h1 a', text: title)
+      has_css?('article.thredded--topics--topic h1 a', text: title)
     end
 
     def has_category_input?
@@ -94,15 +94,15 @@ module PageObject
     end
 
     def locked?
-      has_css? '.topic.locked'
+      has_css? '.thredded--topic--locked'
     end
 
     def stuck?
-      has_css? '.topic.sticky'
+      has_css? '.thredded--topic--sticky'
     end
 
     def categorized?
-      has_css? '.topic.category'
+      has_css? '.thredded--topic--category'
     end
 
     def with_title(text)
@@ -130,11 +130,11 @@ module PageObject
     end
 
     def read?
-      has_css? '.topics article.read h1 a', text: topic_title
+      has_css? '.thredded--topics article.thredded--topic--read h1 a', text: topic_title
     end
 
     def view_topic
-      find('.topics h1 a').click
+      find('.thredded--topics h1 a').click
     end
 
     def view_read_topic

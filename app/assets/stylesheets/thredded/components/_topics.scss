@@ -77,10 +77,10 @@
   text-align: center;
 }
 
-&--topics--topic.unread > &--topics--posts-count {
+&--topic--unread > &--topics--posts-count {
   background: $action-color;
 }
 
-&--topics--topic.read > &--topics--posts-count {
+&--topic--read > &--topics--posts-count {
   background: lighten($base-font-color, 45%);
 }

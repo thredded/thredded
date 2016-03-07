@@ -35,18 +35,15 @@ module Thredded
     private
 
     def unread_private_topics_count
-      Rails.cache.fetch("private_topics_count_#{messageboard.id}_#{current_user.id}") do
-        Thredded::PrivateTopic
-          .joins(:private_users)
-          .where(
-            messageboard: messageboard,
-            thredded_private_users: {
-              user_id: current_user.id,
-              read: false,
-            }
-          )
-          .count
-      end
+      Thredded::PrivateTopic
+        .joins(:private_users)
+        .where(
+          messageboard: messageboard,
+          thredded_private_users: {
+            user_id: current_user.id,
+            read: false,
+          }
+        ).count
     end
 
     def authorize_reading(obj)

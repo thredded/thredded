@@ -16,7 +16,7 @@ module Thredded
 
     def css_class
       classes = []
-      classes << 'private_topic'
+      classes << 'thredded--private-topic'
       classes.join(' ')
     end
   end
