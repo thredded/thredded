@@ -1,4 +1,4 @@
-.form-list {
+&--form-list {
   &.on-top {
     border-bottom: $base-border;
     margin-bottom: $base-spacing * 1.5;
@@ -15,7 +15,7 @@
   }
 }
 
-.form-list--admin-options {
+&--form-list--admin-options {
   label {
     cursor: pointer;
     display: inline-block;
@@ -24,7 +24,7 @@
   }
 }
 
-.form-list--hint {
+&--form-list--hint {
   color: lighten($base-font-color, 20%);
   display: inline-block;
   font-size: 0.875rem; // 14px

@@ -1,6 +1,6 @@
 <%= form_for [messageboard, topic],
              html: { class: local_assigns[:css_class], 'data-thredded-topic-form' => true } do |form| %>
-  <ul class="form-list on-top">
+  <ul class="thredded--form-list on-top">
     <li class="title">
       <%= form.label :title %>
       <%= form.text_field :title, { placeholder: placeholder, required: true, 'data-thredded-topic-form-title' => true } %>
@@ -18,13 +18,13 @@
     <%= render 'thredded/posts/content_field', form: form %>
 
     <% if current_ability.can? :admin, form.object.topic %>
-      <li class="form-list--admin-options">
+      <li class="thredded--form-list--admin-options">
         <%= form.label :locked do %>
           <%= form.check_box :locked %> Locked
         <% end %>
 
         <%= form.label :sticky do %>
-          <%= form.check_box :sticky %> Sticky 
+          <%= form.check_box :sticky %> Sticky
         <% end %>
       </li>
     <% end %>

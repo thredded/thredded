@@ -1,11 +1,11 @@
 <%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard), html: { class: 'notification-preferences-form' } do |f| %>
-  <ul class="form-list">
+  <ul class="thredded--form-list">
     <li>
       <%= f.label :notify_on_mention do %>
         <%= f.check_box :notify_on_mention %>
         @ Notifications
       <% end %>
-      <p class="form-list--hint">
+      <p class="thredded--form-list--hint">
         When someone mentions you by your username (eg: @sam)
         you will receive an email with the contents of that post.
       </p>
@@ -15,7 +15,7 @@
         <%= f.check_box :notify_on_message %>
         Private Topic Notification
       <% end %>
-      <p class="form-list--hint">
+      <p class="thredded--form-list--hint">
         When you are first added to a private topic's discussion
         you will receive an email with the contents of that initial
         post.

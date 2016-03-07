@@ -2,7 +2,7 @@
 <% content_for :thredded_page_id, 'thredded-messageboards-new' %>
 <%= thredded_page do %>
   <%= form_for @messageboard do |f| %>
-    <ul class="form-list">
+    <ul class="thredded--form-list">
       <li>
         <%= f.label :name %>
         <%= f.text_field :name %>
@@ -11,14 +11,14 @@
         <%= f.label :description %>
         <%= f.text_field :description %>
       </li>
-      <li class="form-list--with-hint">
+      <li class="thredded--form-list--with-hint">
         <%= f.label :security %>
-        <p class="form-list--hint">This will set the visibility of your messageboard to the public members.</p>
+        <p class="thredded--form-list--hint">This will set the visibility of your messageboard to the public members.</p>
         <%= f.select :security, [:private, :public, :logged_in] %>
       </li>
-      <li class="form-list--with-hint">
+      <li class="thredded--form-list--with-hint">
         <%= f.label :posting_permission %>
-        <p class="form-list--hint">The required minimum permissions to post in your messageboard.</p>
+        <p class="thredded--form-list--hint">The required minimum permissions to post in your messageboard.</p>
         <%= f.select :posting_permission, [:members, :logged_in, :anonymous] %>
       </li>
 
