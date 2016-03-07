@@ -1,6 +1,6 @@
-<%= form_tag('/sessions') do %>
-  <ul>
+<%= form_tag('/sessions', class: 'thredded--main-container') do %>
+  <ul class="thredded--form-list">
     <li><%= text_field_tag 'name', 'Joe', placeholder: 'Name' %></li>
-    <li><%= submit_tag 'Sign in' %></li>
+    <li><%= submit_tag 'Sign in', class: 'thredded--form--submit' %></li>
   </ul>
 <% end %>

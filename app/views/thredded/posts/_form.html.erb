@@ -1,5 +1,5 @@
 <%= form_for [messageboard, topic, post], html: { class: 'thredded--post-form', 'data-thredded-post-form' => true } do |form| %>
-  <ul>
+  <ul class="thredded--form-list">
     <%= render 'thredded/posts/content_field', form: form %>
 
     <li>

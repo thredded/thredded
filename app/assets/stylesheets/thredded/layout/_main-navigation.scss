@@ -1,12 +1,13 @@
 &--main-navigation {
+  @extend %thredded--list-unstyled;
   @include clearfix;
   border-bottom: $thredded-base-border;
   display: block;
-  margin-bottom: $thredded-small-spacing;
-  margin-top: $thredded-small-spacing;
+  margin: $thredded-small-spacing 0;
 }
 
 &--navigation-breadcrumbs {
+  @extend %thredded--list-unstyled;
   margin-bottom: $thredded-small-spacing;
 
   @include thredded-media-tablet-and-up {

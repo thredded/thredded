@@ -3,6 +3,7 @@
 }
 
 &--topic-header--title {
+  @extend %thredded--heading;
   font-size: 1.5rem; // 24px
   line-height: 1.2;
   margin-bottom: $thredded-small-spacing / 2;

@@ -10,6 +10,7 @@
   }
 
   &--title {
+    @extend %thredded--heading;
     font-size: 1.25rem; // 20px
     margin-bottom: $thredded-base-spacing;
   }

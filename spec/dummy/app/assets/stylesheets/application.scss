@@ -35,7 +35,9 @@ body {
 }
 
 .app-nav-logo {
+  @extend %thredded--link;
   color: $thredded-dark-blue;
+  text-decoration: none;
   font-weight: bold;
 }
 

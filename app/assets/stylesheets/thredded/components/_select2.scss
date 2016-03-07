@@ -5,6 +5,7 @@
     background-image: none;
     border: $thredded-form-border;
     box-shadow: $thredded-form-box-shadow;
+    min-height: unset;
     padding: $thredded-small-spacing;
 
     > .select2-search-choice {
@@ -25,6 +26,9 @@
 &--select2-drop {
   border-color: darken($thredded-base-border-color, 5%);
   box-shadow: 0 1px 1px $thredded-base-border-color;
+  font-family: $thredded-base-font-family;
+  font-size: $thredded-base-font-size;
+  line-height: $thredded-base-line-height;
 
   .select2-result {
     &.select2-highlighted {

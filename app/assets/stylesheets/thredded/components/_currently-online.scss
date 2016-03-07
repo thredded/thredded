@@ -13,6 +13,7 @@
   }
 
   &--title {
+    @extend %thredded--heading;
     margin-bottom: $thredded-base-spacing;
   }
 
@@ -31,6 +32,7 @@
   }
 
   &--users {
+    @extend %thredded--list-unstyled;
     height: 0;
     visibility: hidden;
   }

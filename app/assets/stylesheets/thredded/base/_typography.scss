@@ -1,29 +1,11 @@
-.thredded--main-container {
-  -webkit-font-smoothing: antialiased;
-  color: $thredded-base-font-color;
-  font-family: $thredded-base-font-family;
-  font-size: $thredded-base-font-size;
-  line-height: $thredded-base-line-height;
-  margin: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+%thredded--heading {
   font-family: $thredded-heading-font-family;
   font-size: $thredded-base-font-size;
   line-height: $thredded-heading-line-height;
   margin: 0 0 $thredded-small-spacing;
 }
 
-p {
-  margin: 0 0 $thredded-small-spacing;
-}
-
-a {
+%thredded--link {
   color: $thredded-action-color;
   text-decoration: none;
   transition: color 0.1s linear;
@@ -40,7 +22,7 @@ a {
   }
 }
 
-hr {
+%thredded--hr {
   border-bottom: $thredded-base-border;
   border-left: none;
   border-right: none;
@@ -48,8 +30,23 @@ hr {
   margin: $thredded-base-spacing 0;
 }
 
-img,
-picture {
+.thredded--main-container {
+  -webkit-font-smoothing: antialiased;
+  color: $thredded-base-font-color;
+  font-family: $thredded-base-font-family;
+  font-size: $thredded-base-font-size;
+  line-height: $thredded-base-line-height;
   margin: 0;
-  max-width: 100%;
+
+  p {
+    margin: 0 0 $thredded-small-spacing;
+  }
+
+  a {
+    @extend %thredded--link;
+  }
+
+  hr {
+    @extend %thredded--hr;
+  }
 }

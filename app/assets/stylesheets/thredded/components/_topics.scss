@@ -8,6 +8,7 @@
 }
 
 &--topics--title {
+  @extend %thredded--heading;
   display: inline-block;
   font-size: 1.125rem; // 18px
   line-height: 1.5;

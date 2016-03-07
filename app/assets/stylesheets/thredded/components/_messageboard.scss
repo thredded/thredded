@@ -15,6 +15,7 @@
 }
 
 &--messageboard--title {
+  @extend %thredded--heading;
   display: inline-block;
   float: left;
   font-size: 1.125rem; // 18px
@@ -25,6 +26,7 @@
 }
 
 &--messageboard--meta {
+  @extend %thredded--heading;
   color: lighten($thredded-base-font-color, 30%);
   display: inline-block;
   font-weight: normal;

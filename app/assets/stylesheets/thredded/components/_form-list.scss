@@ -1,4 +1,6 @@
 &--form-list {
+  @extend %thredded--list-unstyled;
+
   &.on-top {
     border-bottom: $thredded-base-border;
     margin-bottom: $thredded-base-spacing * 1.5;

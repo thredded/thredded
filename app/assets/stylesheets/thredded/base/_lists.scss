@@ -1,31 +1,33 @@
-ul,
-ol {
+%thredded--list-unstyled {
   list-style-type: none;
   margin: 0;
   padding: 0;
-
-  &%default-ul {
-    list-style-type: disc;
-    margin-bottom: $thredded-small-spacing;
-    padding-left: $thredded-base-spacing;
-  }
-
-  &%default-ol {
-    list-style-type: decimal;
-    margin-bottom: $thredded-small-spacing;
-    padding-left: $thredded-base-spacing;
-  }
 }
 
-dl {
+%thredded--default-ul {
+  list-style-type: disc;
   margin-bottom: $thredded-small-spacing;
+  padding-left: $thredded-base-spacing;
+}
 
-  dt {
-    font-weight: bold;
-    margin-top: $thredded-small-spacing;
-  }
+%thredded--default-ol {
+  list-style-type: decimal;
+  margin-bottom: $thredded-small-spacing;
+  padding-left: $thredded-base-spacing;
+}
 
-  dd {
-    margin: 0;
+.thredded--main-container {
+  dl {
+    margin-bottom: $thredded-small-spacing;
+
+    dt {
+      font-weight: bold;
+      margin-top: $thredded-small-spacing;
+    }
+
+    dd {
+      margin: 0;
+    }
   }
 }
+

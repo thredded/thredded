@@ -5,6 +5,7 @@
 }
 
 &--empty--title {
+  @extend %thredded--heading;
   font-size: 1.5rem; // 24px
   margin-bottom: $thredded-base-spacing;
 }

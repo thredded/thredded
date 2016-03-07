@@ -1,4 +1,5 @@
 &--user-navigation {
+  @extend %thredded--list-unstyled;
   @include clearfix;
   font-size: 0.875em;
   margin-bottom: 1rem;
@@ -16,6 +17,7 @@
 }
 
 &--user-navigation--actions {
+  @extend %thredded--list-unstyled;
   float: left;
   padding: $thredded-small-spacing 0;
 
@@ -53,10 +55,16 @@
       width: auto;
 
       &:focus {
+        box-shadow: none;
         min-width: 290px;
         text-align: left;
         transition: all 0.15s ease-out 0s;
         margin-right: 0;
+      }
+
+      &:hover {
+        border-color: transparent;
+        box-shadow: none;
       }
     }
 
