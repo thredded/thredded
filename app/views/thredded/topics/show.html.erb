@@ -15,9 +15,8 @@
                  button_text:  'Submit Reply' %>
     </div>
   <% end %>
+
+  <footer>
+    <%= paginate @posts %>
+  </footer>
 <% end %>
-
-
-<footer>
-  <%= paginate @posts %>
-</footer>
