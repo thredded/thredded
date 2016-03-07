@@ -1,7 +1,7 @@
 &--currently-online {
   @include position(fixed, null 0 -1.25rem null);
-  background-color: $base-border-color;
-  padding: $base-spacing;
+  background-color: $thredded-base-border-color;
+  padding: $thredded-base-spacing;
   width: 16.25rem; // 260px
 
   @include thredded-media-mobile {
@@ -13,21 +13,21 @@
   }
 
   &--title {
-    margin-bottom: $base-spacing;
+    margin-bottom: $thredded-base-spacing;
   }
 
   &--avatar {
-    background-color: $base-font-color;
+    background-color: $thredded-base-font-color;
     border-radius: 50%;
     display: inline-block;
     height: 1.75rem;
-    margin-right: $small-spacing;
+    margin-right: $thredded-small-spacing;
     vertical-align: middle;
     width: 1.75rem;
   }
 
   &--user {
-    padding: $small-spacing 0;
+    padding: $thredded-small-spacing 0;
   }
 
   &--users {

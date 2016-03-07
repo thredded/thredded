@@ -4,17 +4,17 @@
   }
 
   &--wrapper {
-    border-top: $base-border;
-    margin-top: $base-spacing;
-    padding-top: $large-spacing;
+    border-top: $thredded-base-border;
+    margin-top: $thredded-base-spacing;
+    padding-top: $thredded-large-spacing;
   }
 
   &--title {
     font-size: 1.25rem; // 20px
-    margin-bottom: $base-spacing;
+    margin-bottom: $thredded-base-spacing;
   }
 
   &--submit {
-    margin-top: $small-spacing;
+    margin-top: $thredded-small-spacing;
   }
 }

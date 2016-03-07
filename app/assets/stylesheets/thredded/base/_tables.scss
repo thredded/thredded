@@ -1,21 +1,21 @@
 table {
   font-feature-settings: "kern", "liga", "tnum";
   border-collapse: collapse;
-  margin: $small-spacing 0;
+  margin: $thredded-small-spacing 0;
   table-layout: fixed;
   width: 100%;
 }
 
 th {
-  border-bottom: 1px solid darken($base-border-color, 15%);
+  border-bottom: 1px solid darken($thredded-base-border-color, 15%);
   font-weight: 600;
-  padding: $small-spacing 0;
+  padding: $thredded-small-spacing 0;
   text-align: left;
 }
 
 td {
-  border-bottom: $base-border;
-  padding: $small-spacing 0;
+  border-bottom: $thredded-base-border;
+  padding: $thredded-small-spacing 0;
 }
 
 tr,

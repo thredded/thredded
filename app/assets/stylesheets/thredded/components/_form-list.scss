@@ -1,13 +1,13 @@
 &--form-list {
   &.on-top {
-    border-bottom: $base-border;
-    margin-bottom: $base-spacing * 1.5;
-    padding-bottom: $small-spacing;
+    border-bottom: $thredded-base-border;
+    margin-bottom: $thredded-base-spacing * 1.5;
+    padding-bottom: $thredded-small-spacing;
   }
 
   li {
     transition: all 0.15s ease-out 0s;
-    margin-bottom: $small-spacing;
+    margin-bottom: $thredded-small-spacing;
   }
 
   label {
@@ -20,15 +20,15 @@
     cursor: pointer;
     display: inline-block;
     margin-bottom: 0;
-    margin-right: $base-spacing;
+    margin-right: $thredded-base-spacing;
   }
 }
 
 &--form-list--hint {
-  color: lighten($base-font-color, 20%);
+  color: lighten($thredded-base-font-color, 20%);
   display: inline-block;
   font-size: 0.875rem; // 14px
-  margin-bottom: $small-spacing;
+  margin-bottom: $thredded-small-spacing;
   position: relative;
-  top: -($small-spacing / 2);
+  top: -($thredded-small-spacing / 2);
 }

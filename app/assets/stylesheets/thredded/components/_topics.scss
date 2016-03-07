@@ -1,5 +1,5 @@
 &--topics--topic {
-  margin-bottom: $base-spacing;
+  margin-bottom: $thredded-base-spacing;
   position: relative;
 
   @media (max-width: $thredded-grid-container-max-width) {
@@ -11,30 +11,30 @@
   display: inline-block;
   font-size: 1.125rem; // 18px
   line-height: 1.5;
-  margin-right: $small-spacing / 2;
+  margin-right: $thredded-small-spacing / 2;
   margin-bottom: 0;
 
   a {
-    color: $base-font-color;
+    color: $thredded-base-font-color;
 
     &:hover {
-      color: $action-color;
+      color: $thredded-action-color;
     }
   }
 }
 
 &--topics--started-by,
 &--topics--updated-by {
-  color: lighten($base-font-color, 30%);
+  color: lighten($thredded-base-font-color, 30%);
   font-size: 0.875rem; // 14px
   font-style: normal;
 
   a {
-    color: lighten($base-font-color, 20%);
+    color: lighten($thredded-base-font-color, 20%);
 
     &:hover {
 
-      color: $action-color;
+      color: $thredded-action-color;
     }
   }
 
@@ -46,7 +46,7 @@
 }
 
 &--topics--updated-by {
-  margin-right: $small-spacing;
+  margin-right: $thredded-small-spacing;
 
   abbr {
     &::before {
@@ -73,14 +73,14 @@
   display: inline-block;
   font-weight: 900;
   line-height: 2;
-  margin-right: $base-spacing;
+  margin-right: $thredded-base-spacing;
   text-align: center;
 }
 
 &--topic--unread > &--topics--posts-count {
-  background: $action-color;
+  background: $thredded-action-color;
 }
 
 &--topic--read > &--topics--posts-count {
-  background: lighten($base-font-color, 45%);
+  background: lighten($thredded-base-font-color, 45%);
 }

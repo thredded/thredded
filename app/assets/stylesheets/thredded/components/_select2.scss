@@ -3,9 +3,9 @@
 
   > .select2-choices {
     background-image: none;
-    border: $form-border;
-    box-shadow: $form-box-shadow;
-    padding: $small-spacing;
+    border: $thredded-form-border;
+    box-shadow: $thredded-form-box-shadow;
+    padding: $thredded-small-spacing;
 
     > .select2-search-choice {
       margin: 0 6px 0 0;
@@ -13,7 +13,7 @@
 
     > .select2-search-field {
       > [type="text"] {
-        font-family: $base-font-family;
+        font-family: $thredded-base-font-family;
         font-size: 1rem;
         margin: 0;
         padding: 0;
@@ -23,16 +23,16 @@
 }
 
 &--select2-drop {
-  border-color: darken($base-border-color, 5%);
-  box-shadow: 0 1px 1px $base-border-color;
+  border-color: darken($thredded-base-border-color, 5%);
+  box-shadow: 0 1px 1px $thredded-base-border-color;
 
   .select2-result {
     &.select2-highlighted {
-      background: $action-color;
+      background: $thredded-action-color;
     }
 
     > .select2-result-label {
-      padding: $small-spacing;
+      padding: $thredded-small-spacing;
     }
   }
 }

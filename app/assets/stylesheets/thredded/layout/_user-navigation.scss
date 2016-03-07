@@ -6,22 +6,22 @@
 
   @include thredded-media-tablet-and-up {
     margin-bottom: 0;
-    margin-top: $large-spacing;
+    margin-top: $thredded-large-spacing;
     text-align: left;
   }
 
   a {
-    color: lighten($base-font-color, 30%);
+    color: lighten($thredded-base-font-color, 30%);
   }
 }
 
 &--user-navigation--actions {
   float: left;
-  padding: $small-spacing 0;
+  padding: $thredded-small-spacing 0;
 
   li {
     display: inline-block;
-    margin-right: $base-spacing;
+    margin-right: $thredded-base-spacing;
 
     &:last-child {
       margin-right: 0;
@@ -48,7 +48,7 @@
       border-color: transparent;
       float: right;
       min-width: 200px;
-      margin-right: -$base-spacing;
+      margin-right: -$thredded-base-spacing;
       text-align: right;
       width: auto;
 
@@ -61,11 +61,11 @@
     }
 
     &:hover::placeholder {
-      color: $action-color;
+      color: $thredded-action-color;
     }
 
     &:focus {
-      border-color: $base-border-color;
+      border-color: $thredded-base-border-color;
     }
   }
 

@@ -1,16 +1,16 @@
 .messageboard {
-  border: $base-border;
+  border: $thredded-base-border;
   display: block;
-  margin-bottom: $base-spacing;
-  padding: $base-spacing;
+  margin-bottom: $thredded-base-spacing;
+  padding: $thredded-base-spacing;
   position: relative;
 
   header {
-    margin-bottom: $small-spacing;
+    margin-bottom: $thredded-small-spacing;
   }
 
   &:hover {
-    background-color: lighten($blue, 40%);
+    background-color: lighten($thredded-blue, 40%);
   }
 }
 
@@ -20,12 +20,12 @@
   font-size: 1.125rem; // 18px
   line-height: 1.2;
   margin-bottom: 0;
-  margin-right: $small-spacing;
+  margin-right: $thredded-small-spacing;
   vertical-align: baseline;
 }
 
 &--messageboard--meta {
-  color: lighten($base-font-color, 30%);
+  color: lighten($thredded-base-font-color, 30%);
   display: inline-block;
   font-weight: normal;
   margin-bottom: 0;
@@ -34,12 +34,12 @@
 
 &--messageboard--description {
   clear: both;
-  margin-bottom: $small-spacing / 2;
-  color: $base-font-color;
+  margin-bottom: $thredded-small-spacing / 2;
+  color: $thredded-base-font-color;
 }
 
 &--messageboard--byline {
-  color: lighten($base-font-color, 30%);
+  color: lighten($thredded-base-font-color, 30%);
   font-size: 0.875em;
   font-weight: normal;
   margin-bottom: 0;
