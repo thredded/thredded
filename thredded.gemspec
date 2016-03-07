@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sanitize'
 
   # frontend
+  s.add_dependency 'sass', '>= 3.4.21'
   s.add_dependency 'autoprefixer-rails'
   s.add_dependency 'rails-timeago'
   s.add_dependency 'select2-rails', '~> 3.5'
