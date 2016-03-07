@@ -1,0 +1,25 @@
+@import "base/base";
+
+.thredded {
+  @import "utilities/is-compact";
+  @import "utilities/is-expanded";
+
+  @import "layout/main-container";
+  @import "layout/main-navigation";
+  @import "layout/topic-navigation";
+  @import "layout/user-navigation";
+
+  @import "components/currently-online";
+  @import "components/empty";
+  @import "components/flash-message";
+  @import "components/form-list";
+  @import "components/main-section";
+  @import "components/messageboard";
+  @import "components/pagination";
+  @import "components/post";
+  @import "components/post-form";
+  @import "components/preferences";
+  @import "components/select2";
+  @import "components/topic-header";
+  @import "components/topics";
+}

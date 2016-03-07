@@ -1,28 +1,3 @@
-@import "select2";
-@import "thredded/base/base";
-
-.thredded {
-  @import "thredded/utilities/is-compact";
-  @import "thredded/utilities/is-expanded";
-
-  @import "thredded/layout/main-container";
-  @import "thredded/layout/user-navigation";
-  @import "thredded/layout/topic-navigation";
-  @import "thredded/layout/main-navigation";
-
-  @import "thredded/components/messageboard";
-  @import "thredded/components/pagination";
-  @import "thredded/components/preferences";
-  @import "thredded/components/topics";
-  @import "thredded/components/topic-header";
-  @import "thredded/components/form-list";
-  @import "thredded/components/post";
-
-  @import "thredded/components/main-section";
-  @import "thredded/components/post-form";
-  @import "thredded/components/currently-online";
-  @import "thredded/components/select2";
-  @import "thredded/components/empty";
-  @import "thredded/components/flash-message";
-}
+@import "thredded/dependencies";
+@import "thredded/thredded";
 
