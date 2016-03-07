@@ -1,0 +1,66 @@
+$thredded-grid-container-max-width: 880px;
+@import "thredded";
+
+body {
+  margin: 0;
+}
+
+.thredded--user-navigation {
+  margin-top: 0;
+}
+
+.app-container {
+  background: white;
+  padding: 2em 4em;
+  border: 1px solid $thredded-light-gray;
+  margin: 2em auto;
+  box-sizing: border-box;
+  font-family: $thredded-base-font-family;
+  max-width: $thredded-grid-container-max-width;
+
+  @media (max-width: $thredded-grid-container-max-width) {
+    padding: 2em;
+    margin: 0;
+    border: none;
+  }
+}
+
+.app-container-header {
+  border-bottom: solid 1px #d8d8d8;
+  padding-bottom: 1em;
+  margin: 0em -2em 1em;
+  @media (max-width: $thredded-grid-container-max-width) {
+    margin: -1em -1.5em 0.6em;
+  }
+}
+
+.app-nav-logo {
+  color: $thredded-dark-blue;
+  font-weight: bold;
+}
+
+.app-nav-auth {
+  float: right;
+}
+
+
+.app-home {
+  font-size: 16px;
+  line-height: $thredded-base-line-height;
+
+  .demo-lead {
+    display: block;
+    font-size: 32px;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+
+  section {
+    margin-top: 2rem;
+
+    a {
+      font-weight: bold;
+    }
+  }
+}

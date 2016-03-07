@@ -1,31 +1,36 @@
-<p>Thredded is a rails 4+ forum/messageboard engine. Its goal is to be as simple and feature-rich as possible.</p>
+<div class="app-home">
+  <a class="demo-lead" href="<%= thredded.messageboards_path %>">Forums Demo ›</a>
 
-<h2>
-  <%= link_to thredded.messageboards_path, class: 'button' do %>
-    Forums &raquo;
-  <% end %>
-</h2>
+  <p>
+    Thredded is a Rails 4+ forum/messageboard engine.<br>
+    Its goal is to be as simple and feature-rich as possible.
+  </p>
 
-<h3>Demo URLs of Note</h3>
-<ul>
-  <li><%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the views and styles.</li>
-  <li><%= link_to 'Sign in', new_session_path %> as anyone to post, create threads, etc. The only requirement in this demo app is a username.</li>
-  <li><%= link_to 'Messageboards', thredded.messageboards_path %> - the top-most page, a list of created messageboards.</li>
-  <% if @messageboard %>
-    <li><%= link_to_if @messageboard.present?, 'Topics', thredded.messageboard_topics_path(@messageboard) %> - topics for the first messageboard.</li>
-  <% end %>
-</ul>
+  <section>
+    <h3>Demo URLs of Note</h3>
+    <ul>
+      <li><%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the views and
+        styles.
+      </li>
+      <li><%= link_to 'Sign in', new_session_path %> as anyone to post, create threads, etc. The only requirement in
+        this demo app is a username.
+      </li>
+    </ul>
+  </section>
 
+  <section>
+    <h3>External URLs of Note</h3>
+    <ul>
+      <li><a href="https://www.thredded.com">thredded.com</a> - hosted thredded forums.</li>
+      <li><a href="https://github.com/jayroh/thredded">GitHub project</a> - source code at GitHub.</li>
+      <li><a href="https://waffle.io/jayroh/thredded">Issues at Waffle.io</a> - open issues kanban board.</li>
+    </ul>
+  </section>
 
-<h3>External URLs of Note</h3>
-<ul>
-  <li><a href="https://www.thredded.com">thredded.com</a> - hosted thredded forums.</li>
-  <li><a href="https://github.com/jayroh/thredded">GitHub project</a> - source code at GitHub.</li>
-  <li><a href="https://waffle.io/jayroh/thredded">Issues at Waffle.io</a> - open issues kanban board.</li>
-</ul>
-
-<h3>Source Directories of Note</h3>
-
-<ul>
-  <li><code>./spec/dummy</code> - dummy/demo app root.</li>
-</ul>
+  <section>
+    <h3>Source Directories of Note</h3>
+    <ul>
+      <li><code>./spec/dummy</code> - demo app root.</li>
+    </ul>
+  </section>
+</div>
