@@ -26,7 +26,7 @@ module PageObject
     end
 
     def authored_by?(name)
-      has_css? '.post--user', text: name
+      has_css? '.thredded--post--user', text: name
     end
 
     def has_content?(content)

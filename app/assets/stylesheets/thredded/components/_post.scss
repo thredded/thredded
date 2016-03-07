@@ -1,9 +1,9 @@
-.post {
+&--post {
   position: relative;
   margin-bottom: $large-spacing;
 }
 
-.post--avatar {
+&--post--avatar {
   border-radius: 50%;
   display: inline-block;
   height: 1.75rem; // 28px
@@ -19,7 +19,7 @@
   }
 }
 
-.post--user {
+&--post--user {
   display: inline-block;
   font-size: 1.125rem; // 18px
   line-height: 1.2;
@@ -31,17 +31,17 @@
   }
 }
 
-.post--created-at {
+&--post--created-at {
   font-size: 0.875rem; // 14px
   color: lighten($base-font-color, 30%);
   display: inline-block;
 }
 
-.post--edit {
+&--post--edit {
   font-size: 0.875rem; // 14px
 }
 
-.post--content {
+&--post--content {
   font-size: 1.063rem; // 17px
   line-height: 1.65;
 }
