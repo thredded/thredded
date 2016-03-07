@@ -1,4 +1,4 @@
-.thredded--currently-online {
+&--currently-online {
   @include position(fixed, null 0 -1.25rem null);
   background-color: $base-border-color;
   padding: $base-spacing;

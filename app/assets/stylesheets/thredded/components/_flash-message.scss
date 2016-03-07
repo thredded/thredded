@@ -15,25 +15,25 @@
   }
 }
 
-.flash-message {
+&--flash-message {
   border: solid 1px;
   margin-bottom: $base-spacing;
   padding: $small-spacing;
   border-radius: 3px;
 }
 
-.flash-message--success {
+&--flash-message--success {
   @include flash($flash-font-success-color, $flash-background-success-color);
 }
 
-.flash-message--error {
+&--flash-message--error {
   @include flash($flash-font-error-color, $flash-background-error-color);
 }
 
-.flash-message--notice {
+&--flash-message--notice {
   @include flash($flash-font-notice-color, $flash-background-notice-color);
 }
 
-.flash-message--alert {
+&--flash-message--alert {
   @include flash($flash-font-alert-color, $flash-background-alert-color);
 }

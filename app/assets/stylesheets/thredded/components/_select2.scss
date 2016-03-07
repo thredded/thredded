@@ -1,4 +1,4 @@
-.thredded--main-container .select2-container {
+&--main-container .select2-container {
   width: 100%;
 
   > .select2-choices {
@@ -22,7 +22,7 @@
   }
 }
 
-.thredded--select2-drop {
+&--select2-drop {
   border-color: darken($base-border-color, 5%);
   box-shadow: 0 1px 1px $base-border-color;
 

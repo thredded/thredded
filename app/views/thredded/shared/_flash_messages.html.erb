@@ -1,6 +1,6 @@
 <% [:success, :error, :notice, :alert].each do |key| %>
   <% if flash[key] %>
-    <div class="flash-message flash-message--<%= key %>" id="flash">
+    <div class="thredded--flash-message thredded--flash-message--<%= key %>" id="flash">
       <%= flash[key] %>
     </div>
   <% end %>
