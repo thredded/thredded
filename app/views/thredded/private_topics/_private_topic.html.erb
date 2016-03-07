@@ -1,21 +1,21 @@
-<%= content_tag_for :article, private_topic, class: "topics--topic #{private_topic.css_class}" do %>
-  <div class="topics--posts-count"><%= private_topic.posts_count %></div>
+<%= content_tag_for :article, private_topic, class: "thredded--topics--topic #{private_topic.css_class}" do %>
+  <div class="thredded--topics--posts-count"><%= private_topic.posts_count %></div>
 
-  <h1 class="topics--title">
+  <h1 class="thredded--topics--title">
     <%= link_to private_topic.title, [messageboard, private_topic.original] %>
   </h1>
 
-  <cite class="topics--updated-by">
+  <cite class="thredded--topics--updated-by">
     <%= time_ago private_topic.updated_at %>
     <%= user_link private_topic.last_user %>
   </cite>
 
-  <cite class="topics--started-by">
+  <cite class="thredded--topics--started-by">
     <%= time_ago private_topic.created_at %>
     <%= user_link private_topic.user %>
   </cite>
 
-  <ul class="topics--categories">
+  <ul class="thredded--topics--categories">
     <%= render private_topic.categories %>
   </ul>
 <% end %>

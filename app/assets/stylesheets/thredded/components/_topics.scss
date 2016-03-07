@@ -1,4 +1,4 @@
-.topics--topic {
+&--topics--topic {
   margin-bottom: $base-spacing;
   position: relative;
 
@@ -7,7 +7,7 @@
   }
 }
 
-.topics--title {
+&--topics--title {
   display: inline-block;
   font-size: 1.125rem; // 18px
   line-height: 1.5;
@@ -23,8 +23,8 @@
   }
 }
 
-.topics--started-by,
-.topics--updated-by {
+&--topics--started-by,
+&--topics--updated-by {
   color: lighten($base-font-color, 30%);
   font-size: 0.875rem; // 14px
   font-style: normal;
@@ -45,7 +45,7 @@
   }
 }
 
-.topics--updated-by {
+&--topics--updated-by {
   margin-right: $small-spacing;
 
   abbr {
@@ -55,7 +55,7 @@
   }
 }
 
-.topics--started-by {
+&--topics--started-by {
   display: none;
 
   abbr {
@@ -65,7 +65,7 @@
   }
 }
 
-.topics--posts-count {
+&--topics--posts-count {
   @include position(absolute, -0.25rem null null -3rem);
   @include size(2rem);
   border-radius: 50%;
@@ -75,12 +75,12 @@
   line-height: 2;
   margin-right: $base-spacing;
   text-align: center;
+}
 
-  .unread & {
-    background: $action-color;
-  }
+&--topics--topic.unread > &--topics--posts-count {
+  background: $action-color;
+}
 
-  .read & {
-    background: lighten($base-font-color, 45%);
-  }
+&--topics--topic.read > &--topics--posts-count {
+  background: lighten($base-font-color, 45%);
 }

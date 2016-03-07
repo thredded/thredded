@@ -1,7 +1,7 @@
-<%= content_tag_for :article, topic, class: "topics--topic #{topic.css_class}" do %>
-  <div class="topics--posts-count"><%= topic.posts_count %></div>
+<%= content_tag_for :article, topic, class: "thredded--topics--topic #{topic.css_class}" do %>
+  <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
-  <h1 class="topics--title">
+  <h1 class="thredded--topics--title">
     <%= link_to topic.title,
       paged_messageboard_topic_posts_path(
         messageboard.slug,
@@ -11,18 +11,18 @@
     %>
   </h1>
 
-  <cite class="topics--updated-by">
+  <cite class="thredded--topics--updated-by">
     <%= time_ago topic.updated_at %>
     <%= user_link topic.last_user %>
   </cite>
 
-  <cite class="topics--started-by">
+  <cite class="thredded--topics--started-by">
     <%= time_ago topic.created_at %>
     <%= user_link topic.user %>
   </cite>
 
   <% if topic.categories.any? %>
-    <ul class="topics--categories">
+    <ul class="thredded--topics--categories">
       <%= render topic.categories %>
     </ul>
   <% end %>
