@@ -1,14 +1,14 @@
-.topic-header {
+&--topic-header {
   margin-bottom: $large-spacing * 1.5;
 }
 
-.topic-header--title {
+&--topic-header--title {
   font-size: 1.5rem; // 24px
   line-height: 1.2;
   margin-bottom: $small-spacing / 2;
 }
 
-.topic-header--started-by {
+&--topic-header--started-by {
   font-size: 0.875rem; // 14px
   color: lighten($base-font-color, 30%);
   font-style: normal;
