@@ -10,7 +10,9 @@
   <%= render 'section_title', label: 'messageboards#index', href: messageboards_path %>
   <%= content_tag :section, class: 'thredded--thredded--main-section thredded--messageboards' do %>
     <%= render @messageboards %>
-    <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
+    <div class="thredded--messageboard--create">
+      <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
+    </div>
   <% end %>
 
 

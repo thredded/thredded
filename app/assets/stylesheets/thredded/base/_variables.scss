@@ -4,7 +4,8 @@ $thredded-grid-container-max-width: 720px !default;
 $thredded-grid-breakpoint-max-widths: (mobile: 400px, tablet: 600px) !default;
 
 // Typography
-$thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !default;;
+$thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !default;
+;
 $thredded-heading-font-family: inherit !default;
 
 // Font Sizes
@@ -52,3 +53,8 @@ $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
 
 // Buttons
 $thredded-all-buttons: ('.thredded--button', '.thredded--form--submit') !default;
+$thredded-all-text-inputs: (
+        "[type='color']", "[type='date']", "[type='datetime']", "[type='datetime-local']",
+        "[type='email']", "[type='month']", "[type='number']", "[type='password']", "[type='search']", "[type='tel']",
+        "[type='text']", "[type='time']", "[type='url']", "[type='week']", 'input:not([type])',
+        textarea) !default;

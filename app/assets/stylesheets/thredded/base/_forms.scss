@@ -1,77 +1,78 @@
-fieldset {
-  background-color: lighten($thredded-base-border-color, 10%);
-  border: $thredded-base-border;
-  margin: 0 0 $thredded-small-spacing;
-  padding: $thredded-base-spacing;
-}
-
-input,
-label,
-select {
-  display: block;
-  font-family: $thredded-base-font-family;
-  font-size: $thredded-base-font-size;
-}
-
-label {
-  font-weight: 600;
-  margin-bottom: $thredded-small-spacing / 2;
-
-  &.required::after {
-    content: "*";
+.thredded--main-container {
+  fieldset {
+    background-color: lighten($thredded-base-border-color, 10%);
+    border: $thredded-base-border;
+    margin: 0 0 $thredded-small-spacing;
+    padding: $thredded-base-spacing;
   }
 
-  abbr {
-    display: none;
-  }
-}
-
-#{$all-text-inputs},
-select[multiple=multiple],
-textarea {
-  background-color: $thredded-base-background-color;
-  border: $thredded-form-border;
-  box-shadow: $thredded-form-box-shadow;
-  box-sizing: border-box;
-  font-family: $thredded-base-font-family;
-  font-size: $thredded-base-font-size;
-  padding: $thredded-small-spacing;
-  transition: border-color;
-  width: 100%;
-
-  &:hover {
-    border-color: darken($thredded-base-border-color, 10%);
+  input,
+  label,
+  select {
+    display: block;
+    font-family: $thredded-base-font-family;
+    font-size: $thredded-base-font-size;
   }
 
-  &:focus {
-    border-color: $thredded-action-color;
-    box-shadow: $thredded-form-box-shadow, 0 0 3px $thredded-action-color;
-    outline: none;
+  label {
+    font-weight: 600;
+    margin-bottom: $thredded-small-spacing / 2;
+
+    &.required::after {
+      content: "*";
+    }
+
+    abbr {
+      display: none;
+    }
   }
-}
 
-textarea {
-  line-height: $thredded-base-line-height;
-  resize: vertical;
-}
+  #{$thredded-all-text-inputs},
+  select[multiple=multiple] {
+    background-color: $thredded-base-background-color;
+    border: $thredded-form-border;
+    box-shadow: $thredded-form-box-shadow;
+    box-sizing: border-box;
+    font-family: $thredded-base-font-family;
+    font-size: $thredded-base-font-size;
+    padding: $thredded-small-spacing;
+    transition: border-color;
+    width: 100%;
 
-input[type="search"] {
-  appearance: none;
-}
+    &:hover {
+      border-color: darken($thredded-base-border-color, 10%);
+    }
 
-input[type="checkbox"],
-input[type="radio"] {
-  display: inline;
-  margin-right: $thredded-small-spacing / 2;
-}
+    &:focus {
+      border-color: $thredded-action-color;
+      box-shadow: $thredded-form-box-shadow, 0 0 3px $thredded-action-color;
+      outline: none;
+    }
+  }
 
-input[type="file"] {
-  padding-bottom: $thredded-small-spacing;
-  width: 100%;
-}
+  textarea {
+    line-height: $thredded-base-line-height;
+    resize: vertical;
+  }
 
-select {
-  margin-bottom: $thredded-small-spacing;
-  max-width: 100%;
-  width: auto;
+  input[type="search"] {
+    appearance: none;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    display: inline;
+    margin-right: $thredded-small-spacing / 2;
+  }
+
+  input[type="file"] {
+    padding-bottom: $thredded-small-spacing;
+    width: 100%;
+  }
+
+  select {
+    margin-bottom: $thredded-small-spacing;
+    max-width: 100%;
+    width: auto;
+  }
 }
