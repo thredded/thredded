@@ -1,4 +1,6 @@
 <ul class="thredded--navigation-breadcrumbs">
   <li><%= link_to 'All Message Boards', messageboards_path %></li>
-  <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
+  <% if messageboard %>
+    <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
+  <% end %>
 </ul>

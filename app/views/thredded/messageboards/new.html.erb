@@ -11,16 +11,6 @@
         <%= f.label :description %>
         <%= f.text_field :description %>
       </li>
-      <li class="thredded--form-list--with-hint">
-        <%= f.label :security %>
-        <p class="thredded--form-list--hint">This will set the visibility of your messageboard to the public members.</p>
-        <%= f.select :security, [:private, :public, :logged_in] %>
-      </li>
-      <li class="thredded--form-list--with-hint">
-        <%= f.label :posting_permission %>
-        <p class="thredded--form-list--hint">The required minimum permissions to post in your messageboard.</p>
-        <%= f.select :posting_permission, [:members, :logged_in, :anonymous] %>
-      </li>
 
       <li><%= f.submit 'Create New Messageboard', class: 'thredded--form--submit' %></li>
     </ul>

@@ -7,6 +7,7 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'database_cleaner'
+require 'test_after_commit'
 require 'chronic'
 require 'fileutils'
 
@@ -27,6 +28,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    TestAfterCommit.enabled = true
     Q.queue_config.inline = true
   end
 
@@ -52,6 +54,5 @@ RSpec.configure do |config|
     end
   end
 
-  ActiveSupport::Dependencies.clear
   ThreadedInMemoryQueue.logger.level = Logger::ERROR
 end

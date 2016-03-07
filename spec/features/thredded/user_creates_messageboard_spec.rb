@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 feature 'Creating a messageboard' do
-  scenario 'superadmin bootstraps the app' do
-    user = a_superadmin
-    user.signs_in_as('joe')
+  scenario 'admin bootstraps the app' do
+    user = an_admin
+    user.log_in
 
     create_board = set_up_a_messageboard
     create_board.visit_messageboard_list
@@ -16,7 +16,7 @@ feature 'Creating a messageboard' do
 
   scenario 'regular user does not see the new messageboard link' do
     user = regular_user
-    user.signs_in_as('joe')
+    user.log_in
     expect(user).to be_logged_in
 
     create_board = set_up_a_messageboard
@@ -27,7 +27,7 @@ feature 'Creating a messageboard' do
 
   scenario 'regular user is redirected if trying to directly access form' do
     user = regular_user
-    user.signs_in_as('joe')
+    user.log_in
     expect(user).to be_logged_in
 
     create_board = set_up_a_messageboard
@@ -40,8 +40,8 @@ feature 'Creating a messageboard' do
     PageObject::NewMessageboard.new
   end
 
-  def a_superadmin
-    PageObject::Owner.new
+  def an_admin
+    PageObject::User.new(create(:user, name: 'joe-admin', admin: true))
   end
 
   def regular_user

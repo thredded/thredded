@@ -4,3 +4,5 @@ gem 'rails', '~> 4.0.10'
 
 # mysql2 0.4 is not compatible with rails 4.0
 gem 'mysql2', '~> 0.3.20'
+
+gem 'test_after_commit', group: :test

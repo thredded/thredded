@@ -3,7 +3,7 @@ require 'thredded/base_topic_decorator'
 module Thredded
   class PrivateTopicDecorator < SimpleDelegator
     def initialize(private_topic)
-      super BaseTopicDecorator.new(private_topic)
+      super Thredded::BaseTopicDecorator.new(private_topic)
     end
 
     def self.model_name

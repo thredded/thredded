@@ -62,17 +62,12 @@ feature 'User viewing private topics' do
   def one_private_topic
     me = user
     them = create(:user, name: 'them')
-    messageboard = create(:messageboard)
-    messageboard.add_member(me)
-    messageboard.add_member(them)
 
     private_topic = create(
       :private_topic,
       user: me,
-      users: [me, them],
-      messageboard: messageboard
-    )
-    PageObject::PrivateTopics.new(messageboard, private_topic.title)
+      users: [me, them])
+    PageObject::PrivateTopics.new(private_topic.title)
   end
 
   def app_navigation

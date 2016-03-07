@@ -28,22 +28,6 @@ describe Thredded, '.queue_memory_log_level' do
   end
 end
 
-describe Thredded, '.queue_inline' do
-  after do
-    Thredded.queue_inline = false
-  end
-
-  it 'defaults to false' do
-    expect(Thredded.queue_inline).to eq false
-  end
-
-  it 'can be changed to true' do
-    Thredded.queue_inline = true
-
-    expect(Thredded.queue_inline).to eq true
-  end
-end
-
 describe Thredded, '.user_path' do
   it 'returns "/" if lambda is not set' do
     Thredded.user_path = nil

@@ -21,26 +21,25 @@ $thredded-base-spacing: $thredded-base-line-height * 1rem !default;
 $thredded-small-spacing: $thredded-base-spacing / 2 !default;
 
 // Colors
-$thredded-blue: #4a90e2 !default;
-$thredded-dark-blue: #575d6b !default;
+$thredded-brand: #4a90e2 !default;
 $thredded-dark-gray: #333 !default;
 $thredded-light-gray: #eee !default;
 
 // Font Colors
 $thredded-base-background-color: #fff !default;
-$thredded-base-font-color: $thredded-dark-blue !default;
-$thredded-action-color: $thredded-blue !default;
+$thredded-base-font-color: #575d6b !default;
+$thredded-action-color: $thredded-brand !default;
 
-// Flash Colors
-$thredded-flash-font-success-color: #56651a !default;
-$thredded-flash-font-error-color: #96151b !default;
-$thredded-flash-font-notice-color: $thredded-blue !default;
-$thredded-flash-font-alert-color: #8c7800 !default;
+// Alerts and flash messages
+$thredded-alert-danger-color: #a94442 !default;
+$thredded-alert-info-color: darken($thredded-brand, 15%) !default;
+$thredded-alert-success-color: #3c763d !default;
+$thredded-alert-warning-color: #8a6d3b !default;
 
-$thredded-flash-background-success-color: #e6efc2 !default;
-$thredded-flash-background-error-color: #fbe3e4 !default;
-$thredded-flash-background-notice-color: $thredded-light-gray !default;
-$thredded-flash-background-alert-color: #fff6bf !default;
+$thredded-alert-danger-background: #fbe3e4 !default;
+$thredded-alert-info-background: #e6f3fa !default;
+$thredded-alert-success-background: #e6efc2 !default;
+$thredded-alert-warning-background: #fcf8e3 !default;
 
 // Border
 $thredded-base-border-color: $thredded-light-gray !default;

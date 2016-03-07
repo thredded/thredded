@@ -27,9 +27,9 @@ feature 'User editing topics' do
     expect(topic).not_to be_editable
   end
 
-  context 'as a superadmin' do
+  context 'as an admin' do
     scenario "can edit someone else's topic" do
-      user = superadmin
+      user = admin
       user.log_in
       topic = someone_elses_topic
       topic.visit_topic_edit
@@ -48,8 +48,8 @@ feature 'User editing topics' do
     PageObject::User.new(@user)
   end
 
-  def superadmin
-    @user = create(:user, :superadmin)
+  def admin
+    @user = create(:user, :admin)
     PageObject::User.new(@user)
   end
 

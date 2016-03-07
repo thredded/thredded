@@ -12,18 +12,6 @@ module Thredded
 
         expect(permissions).to be_editable
       end
-
-      it 'can be edited by an admin' do
-        post = build_stubbed(:post)
-        messageboard = post.messageboard
-        allow(messageboard).to receive_messages(member_is_a?: true)
-        user = build_stubbed(:user)
-
-        user_details = UserDetail.new
-        permissions = PostUserPermissions.new(post, user, user_details)
-
-        expect(permissions).to be_editable
-      end
     end
 
     describe '#manageable?' do
@@ -36,10 +24,10 @@ module Thredded
         expect(permissions).to be_manageable
       end
 
-      it 'can be managed by superadmin' do
-        user = build_stubbed(:user)
+      it 'can be managed by an admin' do
+        user = build_stubbed(:user, admin: true)
         post = build_stubbed(:post, user: user)
-        user_details = build_stubbed(:user_detail, superadmin: true)
+        user_details = build_stubbed(:user_detail)
         permissions = PostUserPermissions.new(post, user, user_details)
 
         expect(permissions).to be_manageable
@@ -48,19 +36,15 @@ module Thredded
 
     describe '#creatable?' do
       it 'can create a post if you are allowed to create a topic' do
-        topic_permissions = double('creatable?' => true)
-        allow(TopicUserPermissions).to receive_messages(new: topic_permissions)
-        permissions = post_permissions
-
-        expect(permissions).to be_creatable
+        messageboard_permissions = double('postable?' => true)
+        expect(MessageboardUserPermissions).to receive(:new).and_return(messageboard_permissions)
+        expect(post_permissions).to be_creatable
       end
 
       it 'can NOT create a post if you are not allowed to create a topic' do
-        topic_permissions = double('creatable?' => false)
-        allow(TopicUserPermissions).to receive_messages(new: topic_permissions)
-        permissions = post_permissions
-
-        expect(permissions).not_to be_creatable
+        messageboard_permissions = double('postable?' => false)
+        expect(MessageboardUserPermissions).to receive(:new).and_return(messageboard_permissions)
+        expect(post_permissions).not_to be_creatable
       end
 
       it 'cannot create a post if the topic is locked' do

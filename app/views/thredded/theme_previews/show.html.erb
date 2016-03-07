@@ -33,7 +33,7 @@
 
   <%= render 'section_title', label: 'topics#show', href: messageboard_topic_posts_path(@messageboard, @topic) %>
   <%= content_tag_for :section, @topic, class: "thredded--thredded--main-section #{@user_topic.css_class}" do %>
-    <%= render 'thredded/base_topics/header', topic: @topic %>
+    <%= render 'thredded/topics_common/header', topic: @topic %>
     <%= render @posts %>
     <%= render 'thredded/posts/form',
                messageboard: @messageboard,
@@ -61,7 +61,7 @@
     %>
   <% end %>
 
-  <%= render 'section_title', label: 'private_topics#index', href: messageboard_private_topics_path(@messageboard) %>
+  <%= render 'section_title', label: 'private_topics#index', href: private_topics_path %>
   <%= content_tag :section, class: 'thredded--thredded--main-section private-topics' do %>
     <p><em>If the user has no private topics:</em></p>
     <%= render 'thredded/private_topics/no_private_topics' %>
@@ -70,30 +70,29 @@
 
     <p><em>If the user has private topics:</em></p>
     <%= render 'thredded/private_topics/form',
-               messageboard:  @messageboard,
                private_topic: @new_private_topic,
                css_class:     'thredded--is-compact',
-               placeholder:   'Start a New Private Topic' %>
+               placeholder:   'Start a New Private Topic',
+               button_text:   'Create New Private Topic' %>
     <%= render @decorated_private_topics %>
   <% end %>
 
-  <%= render 'section_title', label: 'private_topics#new', href: new_messageboard_private_topic_path(@messageboard) %>
+  <%= render 'section_title', label: 'private_topics#new', href: new_private_topic_path %>
   <section class="thredded--thredded--main-section">
     <%= render 'thredded/private_topics/form',
-               messageboard:  @messageboard,
                private_topic: @new_private_topic,
-               placeholder:   'New Private Topic Title' %>
+               placeholder:   'New Private Topic Title',
+               button_text:   'Create New Private Topic' %>
   </section>
 
-  <%= render 'section_title', label: 'private_topics#show', href: messageboard_private_topic_path(@messageboard, @private_topic) %>
+  <%= render 'section_title', label: 'private_topics#show', href: private_topic_path(@private_topic) %>
   <section class="thredded--thredded--main-section">
-    <%= render 'thredded/base_topics/header', topic: @private_topic %>
+    <%= render 'thredded/topics_common/header', topic: @private_topic %>
     <%= render @private_topic.posts.first(3) %>
-    <%= render 'thredded/posts/form',
-               messageboard: @messageboard,
-               topic:        @private_topic,
-               post:         @post,
-               button_text:  'Submit Reply'
+    <%= render 'thredded/private_posts/form',
+               topic:       @private_topic,
+               post:        @private_post,
+               button_text: 'Submit Reply'
     %>
   </section>
 

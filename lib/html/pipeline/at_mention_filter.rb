@@ -11,7 +11,7 @@ module HTML
       end
 
       def call
-        html = Thredded::AtUsers.render(@text, @post.messageboard, @view_context)
+        html = Thredded::AtUsers.render(@text, @post, @view_context)
         html.rstrip!
         html
       end

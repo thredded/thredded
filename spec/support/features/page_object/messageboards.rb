@@ -3,7 +3,7 @@ require 'support/features/page_object/base'
 module PageObject
   class Messageboards < Base
     def visit_index_as(user)
-      signs_in_as(user.to_s)
+      signs_in_as user
       visit root_path
     end
 

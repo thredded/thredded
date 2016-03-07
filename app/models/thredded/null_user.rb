@@ -1,15 +1,13 @@
 module Thredded
   class NullUser
-    def admins?(_)
-      false
-    end
+    include ::Thredded::UserPermissions::Read::All
+    include ::Thredded::UserPermissions::Write::None
+    include ::Thredded::UserPermissions::Message::ReadersOfWriteableBoards
+    include ::Thredded::UserPermissions::Moderate::None
+    include ::Thredded::UserPermissions::Admin::None
 
     def thredded_private_topics
       Thredded::PrivateTopic.none
-    end
-
-    def can_read_messageboard?(messageboard)
-      messageboard.public?
     end
 
     def id
@@ -32,7 +30,7 @@ module Thredded
       false
     end
 
-    def anonymous?
+    def thredded_anonymous?
       true
     end
 

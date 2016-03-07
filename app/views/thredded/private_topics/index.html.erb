@@ -1,6 +1,6 @@
 <% content_for :thredded_page_title, 'Private Topics' %>
 <% content_for :thredded_page_id, 'thredded--private-topics-index' %>
-<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
+<% content_for :thredded_breadcrumbs, render('thredded/private_topics/breadcrumbs') %>
 
 <%= thredded_page do %>
   <%= content_tag :section, class: 'thredded--main-section thredded--private-topics' do %>
@@ -11,7 +11,8 @@
                  messageboard:  messageboard,
                  private_topic: @new_private_topic,
                  css_class:     'thredded--is-compact',
-                 placeholder:   'Start a New Private Topic' %>
+                 placeholder:   'Start a New Private Topic',
+                 button_text:   'Create New Private Topic' %>
       <%= render @decorated_private_topics %>
     <% end -%>
   <% end %>

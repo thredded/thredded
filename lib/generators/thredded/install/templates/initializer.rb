@@ -21,6 +21,18 @@ end
 # User avatar URL. rb-gravatar gem is used by default:
 Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
 
+# ==> Permissions Configuration
+# By default, thredded uses a simple permission model, where all the users can post to all message boards,
+# and admins and moderators are determined by a flag on the users table.
+
+# The name of the moderator flag column on the users table.
+Thredded.moderator_column = :admin
+# The name of the admin flag column on the users table.
+Thredded.admin_column = :admin
+
+# This model can be customized further by overriding a handful of methods on the User model.
+# For more information, see app/models/thredded/user_extender.rb.
+
 # ==> Email Configuration
 # Email "From:" field will use the following
 # Thredded.email_from = 'no-reply@example.com'

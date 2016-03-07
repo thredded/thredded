@@ -3,13 +3,13 @@ module Thredded
     helper_method :private_topic
 
     def index
-      if cannot? :read, messageboard
-        error = 'You are not authorized access to this messageboard.'
-        redirect_to default_home, flash: { error: error }
-      end
-
-      @new_private_topic = PrivateTopicForm.new(messageboard: messageboard)
-      @private_topics = private_topics
+      @new_private_topic = PrivateTopicForm.new(user: current_user)
+      @private_topics = PrivateTopic
+                          .uniq
+                          .for_user(current_user)
+                          .order('updated_at DESC')
+                          .on_page(params[:page])
+                          .load
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
         .decorate_all(current_user, @private_topics)
     end
@@ -20,51 +20,38 @@ module Thredded
 
       @posts = private_topic
         .posts
-        .includes(:user, :messageboard)
+        .includes(:user)
         .order('id ASC')
 
-      @post = messageboard.posts.build(postable: private_topic)
+      @post = private_topic.posts.build
     end
 
     def new
-      @private_topic = PrivateTopicForm.new(messageboard: messageboard)
+      @private_topic = PrivateTopicForm.new(user: current_user)
       authorize_creating @private_topic.private_topic
     end
 
     def create
       @private_topic = PrivateTopicForm.new(new_private_topic_params)
-      @private_topic.save
+      if @private_topic.save
+        NotifyPrivateTopicUsersJob
+          .queue
+          .send_notifications(@private_topic.private_topic.id)
 
-      EnsureRoleExists
-        .new(user: current_user, messageboard: messageboard)
-        .run
+        UserResetsPrivateTopicToUnread
+          .new(@private_topic.private_topic, current_user)
+          .run
 
-      NotifyPrivateTopicUsersJob
-        .queue
-        .send_notifications(@private_topic.private_topic.id)
-
-      UserResetsPrivateTopicToUnread
-        .new(@private_topic.private_topic, current_user)
-        .run
-
-      redirect_to [messageboard, @private_topic.private_topic]
-    end
-
-    def private_topics
-      PrivateTopic
-        .uniq
-        .for_messageboard(messageboard)
-        .including_roles_for(current_user)
-        .for_user(current_user)
-        .order('updated_at DESC')
-        .on_page(params[:page])
-        .load
+        redirect_to @private_topic.private_topic
+      else
+        render :new
+      end
     end
 
     private
 
     def private_topic
-      @private_topic ||= messageboard.private_topics.find_by_slug(params[:id])
+      @private_topic ||= Thredded::PrivateTopic.find_by_slug(params[:id])
     end
 
     def new_private_topic_params
@@ -72,10 +59,8 @@ module Thredded
         .require(:private_topic)
         .permit(:title, :locked, :sticky, :content, user_ids: [], category_ids: [])
         .merge(
-          messageboard: messageboard,
           user: current_user,
-          ip: request.remote_ip,
-        )
+          ip: request.remote_ip)
     end
   end
 end

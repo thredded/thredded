@@ -4,24 +4,24 @@
       <%= f.label :notify_on_mention do %>
         <%= f.check_box :notify_on_mention %>
         @ Notifications
+        <p class="thredded--form-list--hint">
+          When someone mentions you by your username (eg: @sam)
+          you will receive an email with the contents of that post.
+        </p>
       <% end %>
-      <p class="thredded--form-list--hint">
-        When someone mentions you by your username (eg: @sam)
-        you will receive an email with the contents of that post.
-      </p>
     </li>
     <li>
       <%= f.label :notify_on_message do %>
         <%= f.check_box :notify_on_message %>
         Private Topic Notification
+        <p class="thredded--form-list--hint">
+          When you are first added to a private topic's discussion
+          you will receive an email with the contents of that initial
+          post.
+        </p>
       <% end %>
-      <p class="thredded--form-list--hint">
-        When you are first added to a private topic's discussion
-        you will receive an email with the contents of that initial
-        post.
-      </p>
     </li>
-    <li><%= f.submit 'Update Preferences', class: 'thredded--button' %></li>
+    <li><%= f.submit 'Update Settings', class: 'thredded--form--submit' %></li>
   </ul>
 <% end %>
 

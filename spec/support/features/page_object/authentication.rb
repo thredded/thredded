@@ -9,11 +9,8 @@ module PageObject
       visit '/users/sign_out'
     end
 
-    def signs_in_as(name)
-      ::User.where(name: name).first_or_create!(email: "#{name}@example.com")
-      visit '/sessions/new'
-      fill_in 'name', with: name
-      click_button 'Sign in'
+    def signs_in_as(user)
+      PageObject::User.new(user).log_in
     end
   end
 end

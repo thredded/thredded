@@ -9,7 +9,9 @@ module Thredded
       @topics = topics
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(current_user, @topics)
-      @new_topic = TopicForm.new(messageboard: messageboard)
+      initialize_new_topic.tap do |new_topic|
+        @new_topic = new_topic if current_ability.can?(:create, new_topic.topic)
+      end
     end
 
     def show
@@ -20,7 +22,7 @@ module Thredded
         .order('id ASC')
         .page(current_page)
 
-      @post  = messageboard.posts.build(
+      @new_post = messageboard.posts.build(
         postable: topic,
         filter: messageboard.filter
       )
@@ -36,7 +38,7 @@ module Thredded
     end
 
     def new
-      @new_topic = TopicForm.new(messageboard: messageboard)
+      @new_topic = TopicForm.new(messageboard: messageboard, user: current_user)
       authorize_creating @new_topic.topic
     end
 
@@ -56,10 +58,12 @@ module Thredded
 
     def create
       @new_topic = TopicForm.new(new_topic_params)
-      @new_topic.save
-
-      ensure_role_exists
-      redirect_to messageboard_topics_path(messageboard)
+      authorize_creating @new_topic.topic
+      if @new_topic.save
+        redirect_to messageboard_topics_path(messageboard)
+      else
+        render :new
+      end
     end
 
     def edit
@@ -68,23 +72,19 @@ module Thredded
 
     def update
       topic.update_attributes!(topic_params.merge(last_user_id: current_user.id))
-      redirect_to messageboard_topic_posts_url(messageboard, topic)
+      redirect_to messageboard_topic_posts_url(messageboard, topic), flash: { notice: 'Topic updated' }
     end
 
     def destroy
       authorize! :destroy, topic
-
-      topic.destroy
-
+      topic.destroy!
       redirect_to messageboard_topics_path(messageboard), flash: { notice: 'Topic deleted' }
     end
 
     private
 
-    def ensure_role_exists
-      EnsureRoleExistsJob
-        .queue
-        .for_user_and_messageboard(current_user.id, messageboard.id)
+    def initialize_new_topic
+      TopicForm.new(messageboard: messageboard, user: current_user)
     end
 
     def topic
@@ -136,7 +136,7 @@ module Thredded
     end
 
     def update_read_status
-      return if current_user.anonymous?
+      return if current_user.thredded_anonymous?
 
       read_history = UserTopicRead.where(
         user_id: current_user,

@@ -6,7 +6,7 @@ module Thredded
       user ||= Thredded::NullUser.new
       user_details = user.thredded_user_detail
 
-      can :manage, :all if user_details.try(:superadmin?)
+      can :manage, :all if user.thredded_admin?
 
       can :read, Thredded::Messageboard do |messageboard|
         Thredded::MessageboardUserPermissions.new(messageboard, user).readable?
@@ -30,12 +30,6 @@ module Thredded
 
       can :create, Thredded::Topic do |topic|
         Thredded::TopicUserPermissions.new(topic, user, user_details).creatable?
-      end
-
-      cannot :manage, Thredded::PrivateTopic
-
-      can :list, Thredded::PrivateTopic do |private_topic|
-        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).listable?
       end
 
       can :manage, Thredded::PrivateTopic do |private_topic|

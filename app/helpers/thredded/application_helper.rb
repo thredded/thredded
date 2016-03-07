@@ -29,5 +29,13 @@ module Thredded
     def paginate(collection, args = {})
       super(collection, args.reverse_merge(views_prefix: 'thredded'))
     end
+
+    def edit_post_path(post)
+      if post.private_topic_post?
+        edit_private_topic_private_post_path(post.postable, post)
+      else
+        edit_messageboard_topic_post_path(messageboard, post.postable, post)
+      end
+    end
   end
 end

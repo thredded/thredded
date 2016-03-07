@@ -107,21 +107,15 @@ feature 'User creates new topic' do
   def new_topic_as_an_admin
     messageboard = create(:messageboard)
     create(:category, :beer, messageboard: messageboard)
-    sign_in_as_admin_for(messageboard)
+    sign_in_as_admin
     PageObject::Topics.new(messageboard)
   end
 
   def sign_in
-    PageObject::User.new(user).log_in
+    PageObject::User.new(create(:user, name: 'joel')).log_in
   end
 
-  def sign_in_as_admin_for(messageboard)
-    admin = user
-    messageboard.add_member(admin, 'admin')
-    PageObject::User.new(admin).log_in
-  end
-
-  def user
-    @user ||= create(:user, name: 'joel')
+  def sign_in_as_admin
+    PageObject::User.new(create(:user, :admin, name: 'joel-admin')).log_in
   end
 end

@@ -7,9 +7,8 @@ module Thredded
     before_filter :update_user_activity
 
     def create
-      post = Thredded::Post.create!(post_params)
+      post = parent_topic.posts.create!(post_params)
 
-      ensure_role_exists
       reset_read_status if for_a_private_topic?
       redirect_to post_path(post)
     end
@@ -31,13 +30,11 @@ module Thredded
     private
 
     def post_path(post)
-      polymorphic_path([messageboard, post.postable], anchor: dom_id(post))
-    end
-
-    def ensure_role_exists
-      EnsureRoleExistsJob
-        .queue
-        .for_user_and_messageboard(current_user.id, messageboard.id)
+      if for_a_private_topic?
+        private_topic_path(post.postable, anchor: dom_id(post))
+      else
+        messageboard_topic_path(messageboard, post.postable, anchor: dom_id(post))
+      end
     end
 
     def reset_read_status
@@ -48,20 +45,14 @@ module Thredded
       params
         .require(:post)
         .permit(:content)
-        .merge!(
-          ip: request.remote_ip,
-          user: current_user,
-          messageboard: messageboard,
-          filter: messageboard.filter,
-          postable: parent_topic,
-        )
+        .merge!(user: current_user, ip: request.remote_ip)
+        .tap { |p| p.merge!(messageboard: messageboard) unless for_a_private_topic? }
     end
 
     def parent_topic
       if for_a_private_topic?
         PrivateTopic
           .includes(:private_users)
-          .where(messageboard: messageboard)
           .friendly
           .find(params[:private_topic_id])
       else
@@ -77,7 +68,7 @@ module Thredded
     end
 
     def post
-      @post ||= Thredded::Post.find(params[:id])
+      @post ||= (for_a_private_topic? ? Thredded::PrivatePost : Thredded::Post).find(params[:id])
     end
 
     def current_page

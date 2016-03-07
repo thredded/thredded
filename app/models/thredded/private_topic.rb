@@ -2,9 +2,13 @@ module Thredded
   class PrivateTopic < ActiveRecord::Base
     include TopicCommon
     extend FriendlyId
-    friendly_id :title, use: :scoped, scope: :messageboard
+    friendly_id :title, use: :history
 
-    has_many :posts, as: :postable
+    has_many :posts,
+             class_name:  'Thredded::PrivatePost',
+             foreign_key: :postable_id,
+             inverse_of:  :postable,
+             dependent:   :destroy
     has_many :private_users
     has_many :users, through: :private_users
 
@@ -26,11 +30,6 @@ module Thredded
       []
     end
 
-    def self.including_roles_for(user)
-      joins(messageboard: :roles)
-        .where(thredded_roles: { user_id: user.id })
-    end
-
     def self.for_user(user)
       joins(:private_users)
         .where(thredded_private_users: { user_id: user.id })
@@ -46,10 +45,6 @@ module Thredded
 
     def public?
       false
-    end
-
-    def private?
-      true
     end
 
     def user_id=(ids)

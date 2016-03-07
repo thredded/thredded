@@ -9,35 +9,19 @@ module Thredded
     end
 
     it 'returns everyone but the sender' do
-      post = create(:post, post_notifications: [])
+      post = create(:private_post, post_notifications: [])
       private_topic = create(
         :private_topic,
         user: @john,
         users: [@john, @joel, @sam],
         posts: [post],
       )
-      create(
-        :notification_preference,
-        user: @john,
-        messageboard: private_topic.messageboard,
-      )
-      create(
-        :notification_preference,
-        user: @joel,
-        messageboard: private_topic.messageboard,
-      )
-      create(
-        :notification_preference,
-         user: @sam,
-         messageboard: private_topic.messageboard,
-      )
-
       recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
       expect(recipients).not_to include @john
     end
 
-    it 'excludes anyone whose preferences say not to notify' do
-      post = create(:post, post_notifications: [])
+    xit 'excludes anyone whose preferences say not to notify' do
+      post = create(:private_post, post_notifications: [])
       private_topic = create(
         :private_topic,
         user: @john,
@@ -47,13 +31,10 @@ module Thredded
       create(
         :notification_preference,
         user: @joel,
-        messageboard: private_topic.messageboard
       )
       create(
         :notification_preference,
         user: @sam,
-        messageboard: private_topic.messageboard,
-        notify_on_message: true
       )
 
       recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
@@ -65,20 +46,8 @@ module Thredded
         :private_topic,
         user: @john,
         users: [@john, @joel, @sam])
-      post = create(:post, postable: private_topic)
+      post = create(:private_post, postable: private_topic)
       create(:post_notification, email: @joel.email, post: post)
-      create(
-        :notification_preference,
-        user: @joel,
-        messageboard: private_topic.messageboard,
-        notify_on_message: true
-      )
-      create(
-        :notification_preference,
-        user: @sam,
-        messageboard: private_topic.messageboard,
-        notify_on_message: true
-      )
 
       recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
       expect(recipients).to eq [@sam]
@@ -88,26 +57,12 @@ module Thredded
       joel = create(:user, email: 'joel@example.com')
       sam = create(:user, email: 'sam@example.com')
       john = create(:user)
-      messageboard = create(:messageboard)
       private_topic = create(
         :private_topic,
         user: john,
-        users: [john, joel, sam],
-        messageboard: messageboard
+        users: [john, joel, sam]
       )
-      create(:post, content: 'hi', postable: private_topic)
-      create(
-        :notification_preference,
-        user: sam,
-        messageboard: messageboard,
-        notify_on_message: true
-      )
-      create(
-        :notification_preference,
-        user: joel,
-        messageboard: messageboard,
-        notify_on_message: true
-      )
+      create(:private_post, content: 'hi', postable: private_topic)
 
       NotifyPrivateTopicUsers.new(private_topic).run
 

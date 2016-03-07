@@ -34,10 +34,6 @@ module Thredded
       messageboard.categories.map { |cat| [cat.name, cat.id] }
     end
 
-    def users_options
-      messageboard.users.map { |user| [user.to_s, user.id] }
-    end
-
     private
 
     attr_reader :messageboard

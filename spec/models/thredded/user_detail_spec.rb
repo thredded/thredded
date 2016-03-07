@@ -3,7 +3,6 @@ require 'spec_helper'
 module Thredded
   describe UserDetail, 'associations' do
     it { should belong_to(:user) }
-    it { should have_db_column(:superadmin) }
   end
 
   describe UserDetail, 'validations' do

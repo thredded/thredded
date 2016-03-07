@@ -1,5 +1,5 @@
 <% if user %>
-  <% if !user.anonymous? %>
+  <% if !user.thredded_anonymous? %>
 <a href="<%= user_path(user) %>"><%= user.to_s %></a>
   <% else %>
 <%= user.to_s %>

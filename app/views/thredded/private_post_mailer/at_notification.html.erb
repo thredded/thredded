@@ -1,0 +1,11 @@
+<%= @post.filtered_content(self) %>
+
+<hr />
+
+<p>
+  This email was sent to you because <%= @post.user %> mentioned you in
+  "<%= link_to @post.postable.title, private_topic_private_post_url(@post.postable, @post, anchor: "post_#{@post.id}") %>".
+  <%= link_to 'View the conversation here.', private_topic_url(@post.postable) %>
+</p>
+
+<% # TODO: implement global notification preferences for private topics. %>

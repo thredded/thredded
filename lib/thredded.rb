@@ -41,10 +41,18 @@ module Thredded
     :layout,
     :queue_backend,
     :queue_memory_log_level,
-    :queue_inline
+    :queue_inline,
+    :active_user_threshold
+
+  # @return [Symbol] The name of the moderator flag column on the users table for the default permissions model
+  mattr_accessor :moderator_column
+
+  # @return [Symbol] The name of the admin flag column on the users table for the default permissions model
+  mattr_accessor :admin_column
 
   self.user_name_column = :name
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
+  self.active_user_threshold = 5.minutes
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded/application'
@@ -52,8 +60,10 @@ module Thredded
   self.queue_memory_log_level = Logger::WARN
   self.queue_inline = false
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
+  self.moderator_column = :admin
+  self.admin_column = :admin
 
-  # @return [Class] the user class from the host application.
+  # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
     if @@user_class.is_a?(Class)
       fail 'Please use a string instead of a class'
