@@ -3,7 +3,7 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, class: 'main-section private-topics' do %>
+  <%= content_tag :section, class: 'thredded--main-section private-topics' do %>
     <% if @private_topics.empty? -%>
       <%= render 'thredded/private_topics/no_private_topics' %>
     <% else -%>

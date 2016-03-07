@@ -8,14 +8,14 @@
 
 <%= thredded_page do %>
   <%= render 'section_title', label: 'messageboards#index', href: messageboards_path %>
-  <%= content_tag :section, class: 'main-section messageboards' do %>
+  <%= content_tag :section, class: 'thredded--thredded--main-section messageboards' do %>
     <%= render @messageboards %>
     <%= link_to 'Create a New Messageboard', new_messageboard_path, class: 'button' %>
   <% end %>
 
 
   <%= render 'section_title', label: 'topics#index', href: messageboard_topics_path(@messageboard) %>
-  <%= content_tag :section, class: 'main-section topics' do %>
+  <%= content_tag :section, class: 'thredded--thredded--main-section topics' do %>
     <%= render 'thredded/topics/form',
                messageboard: @messageboard,
                topic:        @new_topic,
@@ -30,7 +30,7 @@
 
 
   <%= render 'section_title', label: 'topics#show', href: messageboard_topic_posts_path(@messageboard, @topic) %>
-  <%= content_tag_for :section, @topic, class: "main-section #{@user_topic.css_class}" do %>
+  <%= content_tag_for :section, @topic, class: "thredded--thredded--main-section #{@user_topic.css_class}" do %>
     <%= render 'thredded/base_topics/header', topic: @topic %>
     <%= render @posts %>
     <%= render 'thredded/posts/form',
@@ -48,7 +48,7 @@
              placeholder:  'Start a New Topic' %>
 
   <%= render 'section_title', label: 'posts#edit', href: edit_messageboard_topic_post_path(@messageboard, @post.postable, @post) %>
-  <%= content_tag :section, class: 'main-section posts-form' do %>
+  <%= content_tag :section, class: 'thredded--thredded--main-section posts-form' do %>
     <h3 class="thredded--post-form--title">Edit Post</h3>
 
     <%= render 'thredded/posts/form',
@@ -60,7 +60,7 @@
   <% end %>
 
   <%= render 'section_title', label: 'private_topics#index', href: messageboard_private_topics_path(@messageboard) %>
-  <%= content_tag :section, class: 'main-section private-topics' do %>
+  <%= content_tag :section, class: 'thredded--thredded--main-section private-topics' do %>
     <p><em>If the user has no private topics:</em></p>
     <%= render 'thredded/private_topics/no_private_topics' %>
 
@@ -76,7 +76,7 @@
   <% end %>
 
   <%= render 'section_title', label: 'private_topics/new', href: new_messageboard_private_topic_path(@messageboard) %>
-  <section class="main-section">
+  <section class="thredded--thredded--main-section">
     <%= render 'thredded/private_topics/form',
                messageboard:  @messageboard,
                private_topic: @new_private_topic,
@@ -84,7 +84,7 @@
   </section>
 
   <%= render 'section_title', label: 'private_topics#show', href: messageboard_private_topic_path(@messageboard, @private_topic) %>
-  <section class="main-section">
+  <section class="thredded--thredded--main-section">
     <%= render 'thredded/base_topics/header', topic: @private_topic %>
     <%= render @private_topic.posts.first(3) %>
     <%= render 'thredded/posts/form',
@@ -96,7 +96,7 @@
   </section>
 
   <%= render 'section_title', label: 'preferences#edit', href: edit_messageboard_preferences_path(@messageboard) %>
-  <%= content_tag :section, class: 'main-section preferences' do %>
+  <%= content_tag :section, class: 'thredded--thredded--main-section preferences' do %>
     <%= render 'thredded/preferences/header' %>
     <%= render 'thredded/preferences/form',
                messageboard: @messageboard,
