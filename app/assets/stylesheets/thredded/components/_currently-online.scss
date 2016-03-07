@@ -4,7 +4,7 @@
   padding: $base-spacing;
   width: 16.25rem; // 260px
 
-  @include media($mobile) {
+  @include thredded-media-mobile {
     display: none;
   }
 

@@ -1,0 +1,11 @@
+@mixin thredded-media-mobile {
+  @media screen and (max-width: map-get($thredded-grid-breakpoint-max-widths, mobile)) {
+    @content;
+  }
+}
+
+@mixin thredded-media-tablet-and-up {
+  @media screen and (min-width: map-get($thredded-grid-breakpoint-max-widths, mobile) + 1px) {
+    @content;
+  }
+}

@@ -4,7 +4,7 @@
   margin-bottom: 1rem;
   text-align: center;
 
-  @include media(600px) {
+  @include thredded-media-tablet-and-up {
     margin-bottom: 0;
     margin-top: $large-spacing;
     text-align: left;
@@ -30,7 +30,7 @@
 }
 
 &--user-navigation--search {
-  @include media(max-width 600px) {
+  @include thredded-media-mobile {
     margin-bottom: 0.5rem;
   }
 
@@ -44,7 +44,7 @@
     transition: all 0.15s ease-out 0s;
     width: 100%;
 
-    @include media(600px) {
+    @include thredded-media-tablet-and-up {
       border-color: transparent;
       float: right;
       min-width: 200px;

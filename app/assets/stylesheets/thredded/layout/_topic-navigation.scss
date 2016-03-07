@@ -1,7 +1,7 @@
 &--topic-navigation {
   margin-bottom: 0;
 
-  @include media(600px) {
+  @include thredded-media-tablet-and-up {
     float: right;
   }
 

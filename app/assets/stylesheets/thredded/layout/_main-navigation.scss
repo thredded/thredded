@@ -1,6 +1,7 @@
 &--main-navigation {
-  @include row;
+  @include clearfix;
   border-bottom: $base-border;
+  display: block;
   margin-bottom: $base-spacing;
   margin-top: $small-spacing;
 }
@@ -8,7 +9,7 @@
 &--navigation-breadcrumbs {
   margin-bottom: $small-spacing;
 
-  @include media(600px) {
+  @include thredded-media-tablet-and-up {
     float: left;
     margin-bottom: 0;
     padding-bottom: $base-spacing;
