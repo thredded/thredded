@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'thredded/seed_database'
 require 'support/features/page_object/notification_preferences'
 
 feature 'User updating preferences' do
