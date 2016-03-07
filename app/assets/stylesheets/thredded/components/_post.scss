@@ -13,8 +13,10 @@
   width: 1.75rem; // 28px
 
   @media (min-width: $thredded-grid-container-max-width + 64px) {
-    @include position(absolute, -0.5rem null null -3rem);
     height: 2.25rem; // 36px
+    left: -3rem;
+    position: absolute;
+    top: -0.5rem;
     width: 2.25rem; // 36px
   }
 }

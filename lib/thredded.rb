@@ -12,8 +12,6 @@ require 'threaded_in_memory_queue'
 # Asset compilation
 require 'autoprefixer-rails'
 require 'autosize/rails'
-require 'bourbon'
-require 'jquery/rails'
 require 'jquery/rails'
 require 'rails-timeago'
 require 'select2-rails'

@@ -1,6 +1,6 @@
 &--main-navigation {
   @extend %thredded--list-unstyled;
-  @include clearfix;
+  @include thredded--clearfix;
   border-bottom: $thredded-base-border;
   display: block;
   margin: $thredded-small-spacing 0;

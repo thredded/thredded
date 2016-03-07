@@ -1,6 +1,6 @@
 &--user-navigation {
   @extend %thredded--list-unstyled;
-  @include clearfix;
+  @include thredded--clearfix;
   font-size: 0.875em;
   margin-bottom: 1rem;
   text-align: center;

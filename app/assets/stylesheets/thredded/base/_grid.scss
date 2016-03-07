@@ -9,3 +9,11 @@
     @content;
   }
 }
+
+@mixin thredded--clearfix {
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}

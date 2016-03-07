@@ -67,15 +67,18 @@
 }
 
 &--topics--posts-count {
-  @include position(absolute, -0.25rem null null -3rem);
-  @include size(2rem);
   border-radius: 50%;
   color: white;
   display: inline-block;
   font-weight: 900;
+  height: 2rem;
+  left: -3rem;
   line-height: 2;
   margin-right: $thredded-base-spacing;
+  position: absolute;
   text-align: center;
+  top: -0.25rem;
+  width: 2rem;
 }
 
 &--topic--unread > &--topics--posts-count {

@@ -1,7 +1,9 @@
 &--currently-online {
-  @include position(fixed, null 0 -1.25rem null);
   background-color: $thredded-base-border-color;
+  bottom: -1.25rem;
   padding: $thredded-base-spacing;
+  position: fixed;
+  right: 0;
   width: 16.25rem; // 260px
 
   @include thredded-media-mobile {
@@ -9,7 +11,9 @@
   }
 
   &.thredded--is-expanded {
-    @include position(fixed, null 0 0 null);
+    bottom: 0;
+    position: fixed;
+    right: 0;
   }
 
   &--title {

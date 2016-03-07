@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
 
   # frontend
   s.add_dependency 'autoprefixer-rails'
-  s.add_dependency 'bourbon'
   s.add_dependency 'rails-timeago'
   s.add_dependency 'select2-rails', '~> 3.5'
   s.add_dependency 'autosize-rails'
