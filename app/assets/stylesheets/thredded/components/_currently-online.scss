@@ -17,12 +17,13 @@
   }
 
   &--avatar {
-    @include size(1.75rem);
     background-color: $base-font-color;
     border-radius: 50%;
     display: inline-block;
+    height: 1.75rem;
     margin-right: $small-spacing;
     vertical-align: middle;
+    width: 1.75rem;
   }
 
   &--user {

@@ -4,16 +4,18 @@
 }
 
 .post--avatar {
-  @include size(1.75rem); // 28px
   border-radius: 50%;
   display: inline-block;
+  height: 1.75rem; // 28px
   margin-right: $small-spacing;
   position: relative;
   top: 6px;
+  width: 1.75rem; // 28px
 
   @include media($max-width + 64px) {
     @include position(absolute, -0.5rem null null -3rem);
-    @include size(2.25rem); // 36px
+    height: 2.25rem; // 36px
+    width: 2.25rem; // 36px
   }
 }
 

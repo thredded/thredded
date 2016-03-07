@@ -18,13 +18,12 @@
     display: inline-block;
 
     &:after {
-      @include size(6px, 10px);
-      background-image: image-url("thredded/breadcrumb-chevron.svg");
-      background-position: center center;
-      background-repeat: no-repeat;
+      background: image-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
       content: "";
       display: inline-block;
+      height: 10px;
       margin: 0 $small-spacing;
+      width: 6px;
     }
 
     &:last-child:after {
