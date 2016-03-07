@@ -25,5 +25,9 @@ module Thredded
     def time_ago(datetime)
       render partial: 'thredded/shared/time_ago', locals: { datetime: datetime }
     end
+
+    def paginate(collection, args = {})
+      super(collection, args.reverse_merge(views_prefix: 'thredded'))
+    end
   end
 end

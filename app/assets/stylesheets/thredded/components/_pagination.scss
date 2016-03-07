@@ -1,23 +1,29 @@
-.pagination {
+&--pagination {
   border-top: $base-border;
   margin-top: $base-spacing;
   padding-top: $base-spacing;
   text-align: center;
 
-  span {
+  > span {
     border-radius: $base-border-radius;
     border: $base-border;
     color: lighten($base-font-color, 30%);
+    display: inline-block;
     margin-right: $small-spacing;
-    padding: ($small-spacing / 2) $small-spacing;
 
-    a {
+
+    > a {
       color: $base-font-color;
+      display: inline-block;
 
       &:focus,
       &:hover {
         color: $action-color;
       }
+    }
+
+    &.current, > a {
+      padding: ($small-spacing / 2) $small-spacing;
     }
   }
 }
