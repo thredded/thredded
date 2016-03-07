@@ -4,48 +4,48 @@ $thredded-grid-container-max-width: 720px !default;
 $thredded-grid-breakpoint-max-widths: (mobile: 400px, tablet: 600px) !default;
 
 // Typography
-$thredded-base-font-family: "Lato", if(global-variable-exists(font-stack-helvetica), $font-stack-helvetica, $helvetica);
-$thredded-heading-font-family: $thredded-base-font-family;
+$thredded-base-font-family: "Lato", if(global-variable-exists(font-stack-helvetica), $font-stack-helvetica, $helvetica) !default;
+$thredded-heading-font-family: $thredded-base-font-family !default;
 
 // Font Sizes
-$thredded-base-font-size: 1rem;
+$thredded-base-font-size: 1rem !default;
 
 // Line height
-$thredded-base-line-height: 1.5;
-$thredded-heading-line-height: 1.2;
+$thredded-base-line-height: 1.5 !default;
+$thredded-heading-line-height: 1.2 !default;
 
 // Other Sizes
-$thredded-base-border-radius: 3px;
-$thredded-large-spacing: $thredded-base-line-height * 2rem;
-$thredded-base-spacing: $thredded-base-line-height * 1rem;
-$thredded-small-spacing: $thredded-base-spacing / 2;
+$thredded-base-border-radius: 3px !default;
+$thredded-large-spacing: $thredded-base-line-height * 2rem !default;
+$thredded-base-spacing: $thredded-base-line-height * 1rem !default;
+$thredded-small-spacing: $thredded-base-spacing / 2 !default;
 
 // Colors
-$thredded-blue: #4a90e2;
-$thredded-dark-blue: #575d6b;
-$thredded-dark-gray: #333;
-$thredded-light-gray: #eee;
+$thredded-blue: #4a90e2 !default;
+$thredded-dark-blue: #575d6b !default;
+$thredded-dark-gray: #333 !default;
+$thredded-light-gray: #eee !default;
 
 // Font Colors
-$thredded-base-background-color: #fff;
-$thredded-base-font-color: $thredded-dark-blue;
-$thredded-action-color: $thredded-blue;
+$thredded-base-background-color: #fff !default;
+$thredded-base-font-color: $thredded-dark-blue !default;
+$thredded-action-color: $thredded-blue !default;
 
 // Flash Colors
-$thredded-flash-font-success-color: #56651a;
-$thredded-flash-font-error-color: #96151b;
-$thredded-flash-font-notice-color: $thredded-blue;
-$thredded-flash-font-alert-color: #8c7800;
+$thredded-flash-font-success-color: #56651a !default;
+$thredded-flash-font-error-color: #96151b !default;
+$thredded-flash-font-notice-color: $thredded-blue !default;
+$thredded-flash-font-alert-color: #8c7800 !default;
 
-$thredded-flash-background-success-color: #e6efc2;
-$thredded-flash-background-error-color: #fbe3e4;
-$thredded-flash-background-notice-color: $thredded-light-gray;
-$thredded-flash-background-alert-color: #fff6bf;
+$thredded-flash-background-success-color: #e6efc2 !default;
+$thredded-flash-background-error-color: #fbe3e4 !default;
+$thredded-flash-background-notice-color: $thredded-light-gray !default;
+$thredded-flash-background-alert-color: #fff6bf !default;
 
 // Border
-$thredded-base-border-color: $thredded-light-gray;
-$thredded-base-border: 1px solid $thredded-base-border-color;
+$thredded-base-border-color: $thredded-light-gray !default;
+$thredded-base-border: 1px solid $thredded-base-border-color !default;
 
 // Forms
-$thredded-form-border: 1px solid darken($thredded-base-border-color, 5%);
-$thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$thredded-form-border: 1px solid darken($thredded-base-border-color, 5%) !default;
+$thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
