@@ -7,7 +7,8 @@ module Thredded
       :active_users,
       :messageboard,
       :preferences,
-      :unread_private_topics_count
+      :unread_private_topics_count,
+      :signed_in?
 
     rescue_from \
       CanCan::AccessDenied,
