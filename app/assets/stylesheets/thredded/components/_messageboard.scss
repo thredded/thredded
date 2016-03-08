@@ -1,4 +1,4 @@
-.messageboard {
+&--messageboard {
   border: $thredded-base-border;
   display: block;
   margin-bottom: $thredded-base-spacing;
@@ -35,12 +35,14 @@
 }
 
 &--messageboard--description {
+  @extend %thredded--paragraph;
   clear: both;
   margin-bottom: $thredded-small-spacing / 2;
   color: $thredded-base-font-color;
 }
 
 &--messageboard--byline {
+  @extend %thredded--paragraph;
   color: lighten($thredded-base-font-color, 30%);
   font-size: 0.875em;
   font-weight: normal;

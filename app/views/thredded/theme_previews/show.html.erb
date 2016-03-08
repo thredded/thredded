@@ -77,7 +77,7 @@
     <%= render @decorated_private_topics %>
   <% end %>
 
-  <%= render 'section_title', label: 'private_topics/new', href: new_messageboard_private_topic_path(@messageboard) %>
+  <%= render 'section_title', label: 'private_topics#new', href: new_messageboard_private_topic_path(@messageboard) %>
   <section class="thredded--thredded--main-section">
     <%= render 'thredded/private_topics/form',
                messageboard:  @messageboard,

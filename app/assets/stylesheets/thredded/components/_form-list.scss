@@ -27,6 +27,7 @@
 }
 
 &--form-list--hint {
+  @extend %thredded--paragraph;
   color: lighten($thredded-base-font-color, 20%);
   display: inline-block;
   font-size: 0.875rem; // 14px
