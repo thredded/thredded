@@ -71,6 +71,14 @@ module Thredded
       redirect_to messageboard_topic_posts_url(messageboard, topic)
     end
 
+    def destroy
+      authorize! :destroy, topic
+
+      topic.destroy
+
+      redirect_to messageboard_topics_path(messageboard), flash: { notice: 'Topic deleted' }
+    end
+
     private
 
     def ensure_role_exists

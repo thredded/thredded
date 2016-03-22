@@ -14,6 +14,14 @@
                  post:         @post,
                  button_text:  'Submit Reply' %>
     </div>
+
+    <% if current_ability.can? :destroy, topic %>
+      <div class="thredded--topic-delete--wrapper">
+        <%= form_tag messageboard_topic_path(messageboard, topic), method: :delete, class: 'thredded--topic-delete-form' do %>
+          <%= submit_tag 'Delete Topic', class: 'thredded--form--submit' %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <footer>
