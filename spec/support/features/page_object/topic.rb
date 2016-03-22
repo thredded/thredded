@@ -9,12 +9,24 @@ module PageObject
       @messageboard = topic.messageboard
     end
 
+    def visit_topic
+      visit messageboard_topic_path(messageboard, topic)
+    end
+
     def visit_topic_edit
       visit edit_messageboard_topic_path(messageboard, topic)
     end
 
     def editable?
       has_css? 'input#topic_title'
+    end
+
+    def deletable?
+      has_button? 'Delete Topic'
+    end
+
+    def listed?
+      all('a', text: topic.title).any?
     end
 
     def change_title_to(title)
@@ -29,8 +41,16 @@ module PageObject
       click_button 'Update Topic'
     end
 
+    def delete
+      click_button 'Delete Topic'
+    end
+
     def locked?
       has_css?('.thredded--topic.thredded--topic--locked')
+    end
+
+    def has_redirected_after_delete?
+      has_content?('Topic deleted')
     end
   end
 end
