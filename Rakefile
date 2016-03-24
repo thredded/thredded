@@ -101,7 +101,7 @@ namespace :db do
   desc 'Truncate all tables'
   task truncate: :environment do
     ActiveRecord::Base.connection.tables.each do |table|
-      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table};")
+      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
     end
   end
 end
