@@ -1,9 +1,8 @@
 <%
-db_adapter = ENV.fetch('DB', 'postgresql')
-db_adapter_port = db_adapter == 'postgresql' ? 5432 : 3306
-
-db_host = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
-db_port = ENV.fetch('DB_PORT', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', db_adapter_port))
+db_adapter = ENV.fetch('DB', 'sqlite3')
+db_host    = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
+db_port    = ENV['DB_PORT'] || ENV['THREDDED_DB_1_PORT_5432_TCP_ADDR'] ||
+  {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
 %>
 
 defaults: &defaults
@@ -17,8 +16,8 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: thredded_gem_dev
+  database: <%= db_adapter == 'sqlite3' ? 'db/development.sqlite3' : 'thredded_gem_dev' %>
 
 test:
   <<: *defaults
-  database: thredded_gem_test
+  database: <%= db_adapter == 'sqlite3' ? "':memory:'" : 'thredded_gem_test' %>

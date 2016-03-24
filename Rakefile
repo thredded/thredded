@@ -37,7 +37,9 @@ task default: [:spec, :rubocop]
 module TestTasks
   module_function
 
-  def run_all(envs, cmd = 'bundle install --quiet && bundle exec rspec', success_message:)
+  TEST_CMD = 'bundle exec rspec'
+
+  def run_all(envs, cmd = "bundle install --quiet && #{TEST_CMD}", success_message:)
     statuses = envs.map { |env| run(env, cmd) }
     failed   = statuses.reject(&:first).map(&:last)
     if failed.empty?
@@ -72,7 +74,7 @@ module TestTasks
   end
 
   def dbs
-    %w(mysql2 postgresql)
+    %w(sqlite3 mysql2 postgresql)
   end
 
   def to_bash_cmd_with_env(cmd, env)
@@ -89,7 +91,7 @@ end
 desc 'Test all supported databases'
 task :test_all_dbs do
   envs = TestTasks.dbs.map { |db| { 'DB' => db } }
-  TestTasks.run_all envs, 'bundle exec rspec', success_message: "✓ Tests pass with all #{envs.size} databases"
+  TestTasks.run_all envs, TestTasks::TEST_CMD, success_message: "✓ Tests pass with all #{envs.size} databases"
 end
 
 desc 'Test all databases x gemfiles'
@@ -101,41 +103,6 @@ task :test_all do
 end
 
 Bundler::GemHelper.install_tasks
-
-# Dump / load schema in all supported flavours
-dbs = Array(ENV.fetch('DB', TestTasks.dbs))
-schema_path   = -> db { "db/schema.#{db}.rb" }
-connect_to_db = -> db { ActiveRecord::Base.establish_connection(ActiveRecord::Base.connection_config.merge(adapter: db)) }
-namespace :db do
-  namespace :schema do
-    desc "Create #{dbs.map { |db| schema_path.call(db) }.to_sentence}"
-    Rake::Task['db:schema:dump'].clear
-    task dump: :environment do
-      dbs.each do |db|
-        connect_to_db.call(db)
-        path = schema_path.call(db)
-        puts "Create #{path}"
-        File.open(File.expand_path(path, File.dirname(__FILE__)), 'w:utf-8') do |file|
-          ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
-        end
-      end
-    end
-    desc dbs.map { |db| schema_path.call(db) }.to_sentence(two_words_connector: ' or ', last_word_connector: ', or ')
-    task :load
-    task set_env: :environment do
-      ENV['SCHEMA'] = schema_path.call(ActiveRecord::Base.connection_config[:adapter])
-      puts "Load #{ENV['SCHEMA']}"
-    end
-    Rake::Task['app:db:schema:load'].enhance(%w(db:schema:set_env))
-  end
-
-  desc 'Truncate all tables'
-  task truncate: :environment do
-    ActiveRecord::Base.connection.tables.each do |table|
-      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
-    end
-  end
-end
 
 namespace :dev do
   desc 'Start development web server'
