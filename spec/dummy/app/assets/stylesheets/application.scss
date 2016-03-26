@@ -1,6 +1,4 @@
 $thredded-grid-container-max-width: 880px;
-$thredded-grid-container-medium-width: 500px;
-$thredded-grid-container-small-width: 400px;
 @import "thredded";
 
 body {
@@ -8,7 +6,7 @@ body {
 }
 
 .thredded--main-container {
-  @media (max-width: $thredded-grid-container-medium-width) {
+  @include thredded-media-mobile {
     padding-left: 0;
     padding-right: 0;
   }
@@ -39,7 +37,7 @@ body {
   padding-bottom: 1em;
   margin: 0em -2em 1em;
 
-  @media (max-width: $thredded-grid-container-max-width) {
+  @include thredded-media-mobile {
     margin: -1em -1.5em 0.6em;
   }
 }
@@ -54,7 +52,7 @@ body {
 .app-nav-auth {
   float: right;
 
-  @media (max-width: $thredded-grid-container-small-width) {
+  @include thredded-media-mobile {
     color: white;
     font-size: 0;
 
