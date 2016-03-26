@@ -1,4 +1,4 @@
-# Thredded [![Code Climate](https://codeclimate.com/github/jayroh/thredded/badges/gpa.svg)](https://codeclimate.com/github/jayroh/thredded) [![Travis-CI](https://api.travis-ci.org/jayroh/thredded.svg?branch=master)](https://travis-ci.org/jayroh/thredded/) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/jayroh/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Thredded [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded) [![Travis-CI](https://api.travis-ci.org/thredded/thredded.svg?branch=master)](https://travis-ci.org/thredded/thredded/) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 _Thredded_ is a Rails 4+ forum/messageboard engine. Its goal is to be as
 simple and feature rich as possible.
@@ -25,7 +25,7 @@ Currently only MRI Ruby 2.2+ is supported. We would love to support JRuby and Ru
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', github: 'jayroh/thredded'
+gem 'thredded', github: 'thredded/thredded'
 ```
 
 Add a thredded initializer to your parent app by running the install generator.
@@ -49,7 +49,7 @@ Mount the thredded engine in your routes file:
 mount Thredded::Engine => '/forum'
 ```
 
-[The initializer]: https://github.com/jayroh/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
+[The initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
 
 ## Background Job Requirements
