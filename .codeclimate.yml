@@ -1,7 +1,5 @@
 ---
 engines:
-  brakeman:
-    enabled: true
   duplication:
     enabled: true
     config:
