@@ -1,8 +1,17 @@
 $thredded-grid-container-max-width: 880px;
+$thredded-grid-container-medium-width: 500px;
+$thredded-grid-container-small-width: 400px;
 @import "thredded";
 
 body {
   margin: 0;
+}
+
+.thredded--main-container {
+  @media (max-width: $thredded-grid-container-medium-width) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .thredded--user-navigation {
@@ -29,6 +38,7 @@ body {
   border-bottom: solid 1px #d8d8d8;
   padding-bottom: 1em;
   margin: 0em -2em 1em;
+
   @media (max-width: $thredded-grid-container-max-width) {
     margin: -1em -1.5em 0.6em;
   }
@@ -43,6 +53,15 @@ body {
 
 .app-nav-auth {
   float: right;
+
+  @media (max-width: $thredded-grid-container-small-width) {
+    color: white;
+    font-size: 0;
+
+    a {
+      font-size: 16px;
+    }
+  }
 }
 
 

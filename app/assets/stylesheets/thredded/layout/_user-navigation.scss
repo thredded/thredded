@@ -18,8 +18,11 @@
 
 &--user-navigation--actions {
   @extend %thredded--list-unstyled;
-  float: left;
   padding: $thredded-small-spacing 0;
+
+  @include thredded-media-tablet-and-up {
+    float: left;
+  }
 
   li {
     display: inline-block;
