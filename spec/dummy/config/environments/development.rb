@@ -26,4 +26,8 @@ Dummy::Application.configure do
   config.assets.debug = true
 
   config.reload_plugins = true
+
+  config.action_mailer.default_url_options = {
+    host: 'localhost:9292'
+  }
 end

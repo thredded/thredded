@@ -34,17 +34,11 @@ module Thredded
     end
 
     describe '#creatable?' do
-      it 'delegates to normal Topic permissions' do
-        user = build_stubbed(:user)
+      it 'for non-anonymous users' do
+        user = create(:user)
         private_topic = build_stubbed(:private_topic, user: user)
-
-        permissions = double('creatable?' => true)
-        allow(Thredded::TopicUserPermissions).to receive_messages(new: permissions)
-        expect(permissions).to receive(:creatable?)
-
-        PrivateTopicUserPermissions
-          .new(private_topic, user, user_details)
-          .creatable?
+        expect(PrivateTopicUserPermissions.new(private_topic, user, user_details)).to be_creatable
+        expect(PrivateTopicUserPermissions.new(private_topic, Thredded::NullUser.new, nil)).to_not be_creatable
       end
     end
   end

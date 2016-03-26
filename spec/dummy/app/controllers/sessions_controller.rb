@@ -3,21 +3,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = Thredded.user_class.where(name: params[:name]).first_or_create!
-    superduper!(user) if Rails.env.development?
-
-    session[:user_id] = user.id
+    session[:user_id] = Thredded.user_class.where(name: params[:name])
+      .first_or_initialize.tap { |user| user.update!(admin: params[:admin]) }.id
     redirect_to root_path
   end
 
   def destroy
     session[:user_id] = nil
     redirect_to root_path
-  end
-
-  private
-
-  def superduper!(user)
-    Thredded::UserDetail.where(user: user).first_or_create(superadmin: true)
   end
 end

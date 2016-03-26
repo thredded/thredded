@@ -20,6 +20,7 @@ module Thredded
       s.create_users(count: users)
       s.create_topics(count: topics)
       s.create_posts(count: posts)
+      s.create_private_posts(count: posts)
     end
 
     def create_first_user
@@ -51,15 +52,24 @@ module Thredded
 
       @private_topics = FactoryGirl.create_list(
         :private_topic, count,
-        messageboard: messageboard,
         user:         users.sample,
         last_user:    users.sample,
         users:        [user])
     end
 
     def create_posts(count: (0..30))
-      @posts = (topics + private_topics).flat_map do |topic|
-        (count.min + rand(count.max + 1)).times { FactoryGirl.create(:post, postable: topic, messageboard: messageboard, user: users.sample) }
+      @posts = topics.flat_map do |topic|
+        (count.min + rand(count.max + 1)).times do
+          FactoryGirl.create(:post, postable: topic, messageboard: messageboard, user: users.sample)
+        end
+      end
+    end
+
+    def create_private_posts(count: (0..30))
+      @private_posts = private_topics.flat_map do |topic|
+        (count.min + rand(count.max + 1)).times do
+          FactoryGirl.create(:private_post, postable: topic, user: users.sample)
+        end
       end
     end
   end

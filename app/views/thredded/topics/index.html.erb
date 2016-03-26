@@ -8,7 +8,7 @@
                messageboard: messageboard,
                topic:        @new_topic,
                css_class:    'thredded--is-compact',
-               placeholder:  'Start a New Topic' %>
+               placeholder:  'Start a New Topic' if @new_topic %>
     <%= render @decorated_topics %>
   <% end %>
 

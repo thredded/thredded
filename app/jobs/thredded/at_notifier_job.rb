@@ -2,10 +2,9 @@ module Thredded
   class AtNotifierJob
     include Q::Methods
 
-    queue(:send_at_notifications) do |post_id|
+    queue(:send_at_notifications) do |post_type, post_id|
       ActiveRecord::Base.connection_pool.with_connection do
-        post = Post.find(post_id)
-        NotifyMentionedUsers.new(post).run if post
+        NotifyMentionedUsers.new(post_type.to_s.constantize.find(post_id)).run
       end
     end
   end

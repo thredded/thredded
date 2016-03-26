@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 gemspec
 
+gem 'test_after_commit', group: :test
+
 group :debug do
   gem 'derailed'
   gem 'pry-rails'

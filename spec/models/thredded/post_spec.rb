@@ -14,7 +14,7 @@ module Thredded
   end
 
   context 'when a parent user is nil' do
-    describe Post, '#user_email and #anonymous?' do
+    describe Post, '#user_email and #user_anonymous?' do
       it 'is nil' do
         post = build_stubbed(:post, user: nil)
 
@@ -30,23 +30,18 @@ module Thredded
     end
 
     it 'notifies anyone @ mentioned in the post' do
-      mail = double(deliver: true)
-      allow(Thredded::PostMailer).to receive_messages(at_notification: mail)
+      mail = double('Thredded::PostMailer.at_notification(...)', deliver: true)
+      expect(Thredded::PostMailer).to receive(:at_notification).with(1, ['joel@example.com']).and_return(mail)
 
       messageboard = create(:messageboard)
       joel = create(:user, name: 'joel', email: 'joel@example.com')
-      messageboard.add_member(joel)
       create(
         :notification_preference,
         user: joel,
         messageboard: messageboard,
         notify_on_mention: true
       )
-
-      expect(Thredded::PostMailer)
-        .to receive(:at_notification).with(1, ['joel@example.com'])
       expect(mail).to receive(:deliver)
-
       create(:post, id: 1, content: 'hi @joel', messageboard: messageboard)
     end
 
@@ -71,17 +66,13 @@ module Thredded
     it 'updates the topic updated_at field to that of the new post' do
       joel  = create(:user)
       topic = create(:topic)
-      new_years_at_3pm = Chronic.parse('Jan 1st 2012 at 3:00pm').to_s
-
-      Timecop.travel(Chronic.parse('Jan 1st 2012 at 12:00pm')) do
-        create(:post, postable: topic, user: joel, content: 'posting here')
-      end
-
-      Timecop.travel(Chronic.parse('Jan 1st 2012 at 3:00pm')) do
+      future_time = 3.hours.from_now
+      create(:post, postable: topic, user: joel, content: 'posting here')
+      Timecop.freeze(future_time) do
         create(:post, postable: topic, user: joel, content: 'posting more')
       end
 
-      expect(topic.updated_at.to_s).to eq new_years_at_3pm
+      expect(topic.updated_at.to_s).to eq future_time.to_s
     end
 
     it 'sets the post user email on creation' do
@@ -182,8 +173,9 @@ module Thredded
       Thredded.user_path = ->(user) { "/whois/#{user}" }
       sam = build_stubbed(:user, name: 'sam')
       joe = build_stubbed(:user, name: 'joe')
-      allow_any_instance_of(Messageboard).to receive_messages(members_from_list: [sam, joe])
-      post = build_stubbed(:post, content: 'for @sam but not @al or @kek. And @joe.')
+      post = build_stubbed(:post,
+                           content: 'for @sam but not @al or @kek. And @joe.')
+      expect(post).to receive(:readers_from_user_names).with(%w(sam al kek joe)).and_return([sam, joe])
       expectation = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
 
       expect(post.filtered_content(view_context)).to eq expectation

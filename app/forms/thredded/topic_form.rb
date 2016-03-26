@@ -13,7 +13,7 @@ module Thredded
       @locked = params[:locked] || false
       @sticky = params[:sticky] || false
       @content = params[:content]
-      @user = params[:user]
+      @user = params[:user] || fail('user is required')
       @messageboard = params[:messageboard]
     end
 
@@ -34,12 +34,13 @@ module Thredded
     end
 
     def save
-      return unless valid?
+      return false unless valid?
 
       ActiveRecord::Base.transaction do
         topic.save!
         post.save!
       end
+      true
     end
 
     def topic
@@ -47,8 +48,8 @@ module Thredded
         title: title,
         locked: locked,
         sticky: sticky,
-        user: user,
-        last_user: user,
+        user: non_null_user,
+        last_user: non_null_user,
         categories: topic_categories,
       )
     end
@@ -56,13 +57,19 @@ module Thredded
     def post
       @post ||= topic.posts.build(
         content: content,
-        user: user,
+        user: non_null_user,
         messageboard: messageboard,
         filter: messageboard.filter
       )
     end
 
     private
+
+    # @return [Thredded.user_class, nil] return a user or nil if the user is a NullUser
+    # This is necessary because assigning a NullUser to an ActiveRecord association results in an exception.
+    def non_null_user
+      @user unless @user.thredded_anonymous?
+    end
 
     def topic_categories
       if category_ids

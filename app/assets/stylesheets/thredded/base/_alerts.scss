@@ -1,0 +1,40 @@
+@mixin thredded-alert($font-color, $background-color, $border-color: lighten($font-color, 50%)) {
+  background: $background-color;
+  border-color: $border-color;
+  color: $font-color;
+
+  a {
+    color: darken($font-color, 10%);
+    text-decoration: underline;
+
+    &:focus,
+    &:hover {
+      color: darken($font-color, 15%);
+    }
+  }
+}
+
+%thredded--alert {
+  border: solid 1px;
+  border-radius: 3px;
+  margin-bottom: $thredded-base-spacing;
+  padding: $thredded-small-spacing;
+  text-decoration: none;
+}
+
+%thredded--alert--success {
+  @include thredded-alert($thredded-alert-success-color, $thredded-alert-success-background);
+}
+
+%thredded--alert--danger {
+  @include thredded-alert($thredded-alert-danger-color, $thredded-alert-danger-background);
+}
+
+%thredded--alert--info {
+  @include thredded-alert($thredded-alert-info-color, $thredded-alert-info-background);
+}
+
+%thredded--alert--warning {
+  @include thredded-alert($thredded-alert-warning-color, $thredded-alert-warning-background);
+}
+

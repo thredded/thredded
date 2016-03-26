@@ -26,25 +26,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
     filter 'markdown'
-    posting_permission 'anonymous'
-    security 'public'
     closed false
-
-    trait :postable_for_logged_in do
-      posting_permission 'logged_in'
-    end
-
-    trait :restricted_to_logged_in do
-      security 'logged_in'
-    end
-
-    trait :private do
-      security 'private'
-    end
-
-    trait :public do
-      security 'public'
-    end
 
     trait :bbcode do
       filter 'bbcode'
@@ -52,36 +34,6 @@ FactoryGirl.define do
 
     trait :markdown do
       filter 'markdown'
-    end
-  end
-
-  factory :role, class: Thredded::Role do
-    level 'member'
-    user
-    messageboard
-
-    trait :admin do
-      level 'admin'
-    end
-
-    trait :superadmin do
-      level 'superadmin'
-    end
-
-    trait :moderator do
-      level 'moderator'
-    end
-
-    trait :member do
-      level 'member'
-    end
-
-    trait :active do
-      last_seen Time.now
-    end
-
-    trait :inactive do
-      last_seen 3.days.ago
     end
   end
 
@@ -94,10 +46,6 @@ FactoryGirl.define do
     ip '127.0.0.1'
     filter 'markdown'
 
-    trait :private do
-      association :postable, factory: :private_topic
-    end
-
     trait :markdown do
       filter 'markdown'
     end
@@ -107,6 +55,15 @@ FactoryGirl.define do
         post.messageboard.update_attributes(filter: 'bbcode')
       end
     end
+  end
+
+  factory :private_post, class: Thredded::PrivatePost do
+    user
+    association :postable, factory: :private_topic
+
+    content { Faker::Hacker.say_something_smart }
+    ip '127.0.0.1'
+    filter 'markdown'
   end
 
   factory :post_notification, class: Thredded::PostNotification do
@@ -166,7 +123,6 @@ FactoryGirl.define do
 
   factory :private_topic, class: Thredded::PrivateTopic do
     user
-    messageboard
     association :last_user, factory: :user
 
     title { Faker::Lorem.sentence[0..-2] }
@@ -183,22 +139,15 @@ FactoryGirl.define do
     name { Faker::Name.name }
 
     trait :admin do
+      admin true
       after(:create) do |user, _|
-        Thredded::Messageboard.all.each do |messageboard|
-          messageboard.add_member(user, 'admin')
-        end
+        create(:user_detail, user: user)
       end
     end
 
     trait :with_user_details do
       after(:create) do |user, _|
         create(:user_detail, user: user)
-      end
-    end
-
-    trait :superadmin do
-      after(:create) do |user, _|
-        create(:user_detail, user: user, superadmin: true)
       end
     end
   end

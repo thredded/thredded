@@ -8,10 +8,9 @@ module Thredded
     def create
       @messageboard = Messageboard.new(messageboard_params)
 
-      if signed_in? && @messageboard.valid? && @messageboard.save
-        @topic = Topic.create(topic_params)
-        @post = Post.create(post_params)
-        @messageboard.add_member(current_user, 'admin')
+      if signed_in? && @messageboard.save
+        @topic = Topic.create!(topic_params)
+        @post = Post.create!(post_params)
 
         redirect_to root_path
       else

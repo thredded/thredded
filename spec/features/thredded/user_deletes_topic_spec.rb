@@ -9,9 +9,9 @@ feature 'User deleting topics' do
     expect(topic).to_not be_deletable
   end
 
-  context 'as a superadmin' do
+  context 'as an admin' do
     scenario "can delete someone else's topic" do
-      superadmin.log_in
+      admin.log_in
       topic = someone_elses_topic
       topic.visit_topic
 
@@ -29,8 +29,8 @@ feature 'User deleting topics' do
     PageObject::User.new(@user)
   end
 
-  def superadmin
-    @user = create(:user, :superadmin)
+  def admin
+    @user = create(:user, :admin)
     PageObject::User.new(@user)
   end
 

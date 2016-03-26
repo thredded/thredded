@@ -8,19 +8,15 @@ module Thredded
     end
 
     def readable?
-      (messageboard.restricted_to_private? && messageboard.member?(user)) ||
-        (messageboard.restricted_to_logged_in? && user.valid?) ||
-        messageboard.public?
+      user.thredded_can_read_messageboards.include?(messageboard)
     end
 
     def postable?
-      if messageboard.posting_for_anonymous? && (messageboard.restricted_to_private? || messageboard.restricted_to_logged_in?)
-        false
-      else
-        messageboard.posting_for_anonymous? ||
-          (messageboard.posting_for_logged_in? && user.try(:valid?)) ||
-          (messageboard.posting_for_members? && messageboard.member?(user))
-      end
+      user.thredded_can_write_messageboards.include?(messageboard)
+    end
+
+    def moderatable?
+      user.thredded_can_moderate_messageboards.include?(messageboard)
     end
   end
 end

@@ -7,7 +7,7 @@ module Thredded
     end
 
     def read?
-      topic.private_users.find_by(user: user).read?
+      topic.private_users.find_by(user: user).try(:read?)
     end
   end
 end

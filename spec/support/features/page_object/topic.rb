@@ -18,7 +18,7 @@ module PageObject
     end
 
     def editable?
-      has_css? 'input#topic_title'
+      has_css? "form#edit_topic_#{topic.id}"
     end
 
     def deletable?

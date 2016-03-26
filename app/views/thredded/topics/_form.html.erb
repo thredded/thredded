@@ -16,18 +16,7 @@
     <% end %>
 
     <%= render 'thredded/posts/content_field', form: form %>
-
-    <% if current_ability.can? :admin, form.object.topic %>
-      <li class="thredded--form-list--admin-options">
-        <%= form.label :locked do %>
-          <%= form.check_box :locked %> Locked
-        <% end %>
-
-        <%= form.label :sticky do %>
-          <%= form.check_box :sticky %> Sticky
-        <% end %>
-      </li>
-    <% end %>
+    <%= render 'thredded/topics/topic_form_admin_options', form: form %>
 
     <li><%= form.submit 'Create New Topic', class: 'thredded--form--submit' %></li>
   </ul>

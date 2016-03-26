@@ -57,7 +57,6 @@ feature 'User editing posts' do
     someone_else = create(:user, name: 'sal')
     topic = create(:topic)
     messageboard = topic.messageboard
-    messageboard.add_member(admin.user, 'admin')
     post = create(:post, user: someone_else, postable: topic, messageboard: messageboard)
     PageObject::Post.new(post)
   end

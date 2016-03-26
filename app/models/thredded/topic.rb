@@ -3,8 +3,16 @@ require 'thredded/search_sql_builder'
 module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon
+
+    scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
+
     extend FriendlyId
     friendly_id :title, use: [:history, :scoped], scope: :messageboard
+
+    belongs_to :messageboard,
+               counter_cache: true,
+               touch: true
+    validates_presence_of :messageboard_id
 
     belongs_to :user_detail,
                primary_key:   :user_id,
@@ -12,7 +20,11 @@ module Thredded
                inverse_of:    :topics,
                counter_cache: :topics_count
 
-    has_many :posts, as: :postable, dependent: :destroy
+    has_many :posts,
+             class_name:  'Thredded::Post',
+             foreign_key: :postable_id,
+             inverse_of:  :postable,
+             dependent:   :destroy
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads, dependent: :destroy
@@ -56,10 +68,6 @@ module Thredded
 
     def public?
       true
-    end
-
-    def private?
-      false
     end
 
     # rubocop:disable all

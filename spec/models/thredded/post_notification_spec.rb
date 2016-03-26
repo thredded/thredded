@@ -3,7 +3,7 @@ require 'spec_helper'
 module Thredded
   describe PostNotification, 'validations' do
     it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:post_id) }
+    it { should validate_presence_of(:post) }
   end
 
   describe PostNotification, 'associations' do

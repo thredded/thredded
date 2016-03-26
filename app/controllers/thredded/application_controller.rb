@@ -29,7 +29,7 @@ module Thredded
       end
 
     def signed_in?
-      !current_user.anonymous?
+      !current_user.thredded_anonymous?
     end
 
     private
@@ -38,12 +38,11 @@ module Thredded
       Thredded::PrivateTopic
         .joins(:private_users)
         .where(
-          messageboard: messageboard,
           thredded_private_users: {
             user_id: current_user.id,
-            read: false,
-          }
-        ).count
+            read: false
+          })
+        .count
     end
 
     def authorize_reading(obj)
@@ -94,7 +93,11 @@ module Thredded
     end
 
     def active_users
-      users = messageboard.try(:active_users) || []
+      users = if messageboard
+                messageboard.recently_active_users
+              else
+                Thredded.user_class.joins(:thredded_user_detail).merge(Thredded::UserDetail.recently_active).to_a
+              end.to_a
       users.push(current_user) unless current_user.is_a?(NullUser)
       users.uniq
     end

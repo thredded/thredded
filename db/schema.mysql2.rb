@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614231954) do
+ActiveRecord::Schema.define(version: 20160323025225) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -49,18 +49,26 @@ ActiveRecord::Schema.define(version: 20150614231954) do
 
   add_index "thredded_images", ["post_id"], name: "index_thredded_images_on_post_id", using: :btree
 
+  create_table "thredded_messageboard_users", force: :cascade do |t|
+    t.integer  "thredded_user_detail_id",  limit: 4, null: false
+    t.integer  "thredded_messageboard_id", limit: 4, null: false
+    t.datetime "last_seen_at",                       null: false
+  end
+
+  add_index "thredded_messageboard_users", ["thredded_messageboard_id", "last_seen_at"], name: "index_thredded_messageboard_users_for_recently_active", using: :btree
+  add_index "thredded_messageboard_users", ["thredded_messageboard_id", "thredded_user_detail_id"], name: "index_thredded_messageboard_users_primary", using: :btree
+  add_index "thredded_messageboard_users", ["thredded_user_detail_id"], name: "fk_rails_06e42c62f5", using: :btree
+
   create_table "thredded_messageboards", force: :cascade do |t|
-    t.string   "name",                 limit: 255,                         null: false
+    t.string   "name",                 limit: 255,                        null: false
     t.string   "slug",                 limit: 191
     t.text     "description",          limit: 65535
-    t.string   "security",             limit: 255,   default: "public"
-    t.string   "posting_permission",   limit: 255,   default: "anonymous"
     t.integer  "topics_count",         limit: 4,     default: 0
     t.integer  "posts_count",          limit: 4,     default: 0
-    t.boolean  "closed",                             default: false,       null: false
+    t.boolean  "closed",                             default: false,      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "filter",               limit: 255,   default: "markdown",  null: false
+    t.string   "filter",               limit: 255,   default: "markdown", null: false
     t.integer  "private_topics_count", limit: 4,     default: 0
   end
 
@@ -84,9 +92,10 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.integer  "post_id",    limit: 4,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "post_type",  limit: 255
   end
 
-  add_index "thredded_post_notifications", ["post_id"], name: "index_thredded_post_notifications_on_post_id", using: :btree
+  add_index "thredded_post_notifications", ["post_id", "post_type"], name: "index_thredded_post_notifications_on_post", using: :btree
 
   create_table "thredded_posts", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -98,29 +107,36 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.integer  "messageboard_id", limit: 4,                          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "postable_type",   limit: 191
   end
 
   add_index "thredded_posts", ["content"], name: "index_thredded_posts_on_content", type: :fulltext
   add_index "thredded_posts", ["messageboard_id"], name: "index_thredded_posts_on_messageboard_id", using: :btree
-  add_index "thredded_posts", ["postable_id", "postable_type"], name: "index_thredded_posts_on_postable_id_and_postable_type", using: :btree
   add_index "thredded_posts", ["postable_id"], name: "index_thredded_posts_on_postable_id", using: :btree
+  add_index "thredded_posts", ["postable_id"], name: "index_thredded_posts_on_postable_id_and_postable_type", using: :btree
   add_index "thredded_posts", ["user_id"], name: "index_thredded_posts_on_user_id", using: :btree
 
+  create_table "thredded_private_posts", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.text     "content",     limit: 65535
+    t.string   "ip",          limit: 255
+    t.string   "filter",      limit: 255,   default: "markdown"
+    t.integer  "postable_id", limit: 4,                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "thredded_private_topics", force: :cascade do |t|
-    t.integer  "user_id",         limit: 4,               null: false
-    t.integer  "last_user_id",    limit: 4,               null: false
-    t.string   "title",           limit: 255,             null: false
-    t.string   "slug",            limit: 191,             null: false
-    t.integer  "messageboard_id", limit: 4,               null: false
-    t.integer  "posts_count",     limit: 4,   default: 0
-    t.string   "hash_id",         limit: 191,             null: false
+    t.integer  "user_id",      limit: 4,               null: false
+    t.integer  "last_user_id", limit: 4,               null: false
+    t.string   "title",        limit: 255,             null: false
+    t.string   "slug",         limit: 191,             null: false
+    t.integer  "posts_count",  limit: 4,   default: 0
+    t.string   "hash_id",      limit: 191,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "thredded_private_topics", ["hash_id"], name: "index_thredded_private_topics_on_hash_id", using: :btree
-  add_index "thredded_private_topics", ["messageboard_id"], name: "index_thredded_private_topics_on_messageboard_id", using: :btree
   add_index "thredded_private_topics", ["slug"], name: "index_thredded_private_topics_on_slug", using: :btree
 
   create_table "thredded_private_users", force: :cascade do |t|
@@ -134,18 +150,6 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_private_users", ["private_topic_id"], name: "index_thredded_private_users_on_private_topic_id", using: :btree
   add_index "thredded_private_users", ["read"], name: "index_thredded_private_users_on_read", using: :btree
   add_index "thredded_private_users", ["user_id"], name: "index_thredded_private_users_on_user_id", using: :btree
-
-  create_table "thredded_roles", force: :cascade do |t|
-    t.string   "level",           limit: 255
-    t.integer  "user_id",         limit: 4
-    t.integer  "messageboard_id", limit: 4
-    t.datetime "last_seen"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "thredded_roles", ["messageboard_id"], name: "index_thredded_roles_on_messageboard_id", using: :btree
-  add_index "thredded_roles", ["user_id"], name: "index_thredded_roles_on_user_id", using: :btree
 
   create_table "thredded_topic_categories", force: :cascade do |t|
     t.integer "topic_id",    limit: 4, null: false
@@ -177,13 +181,13 @@ ActiveRecord::Schema.define(version: 20150614231954) do
   add_index "thredded_topics", ["user_id"], name: "index_thredded_topics_on_user_id", using: :btree
 
   create_table "thredded_user_details", force: :cascade do |t|
-    t.integer  "user_id",            limit: 4,                 null: false
+    t.integer  "user_id",            limit: 4,             null: false
     t.datetime "latest_activity_at"
     t.integer  "posts_count",        limit: 4, default: 0
     t.integer  "topics_count",       limit: 4, default: 0
-    t.boolean  "superadmin",                   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_seen_at"
   end
 
   add_index "thredded_user_details", ["latest_activity_at"], name: "index_thredded_user_details_on_latest_activity_at", using: :btree
@@ -216,6 +220,9 @@ ActiveRecord::Schema.define(version: 20150614231954) do
     t.string   "email",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",                  default: false, null: false
   end
 
+  add_foreign_key "thredded_messageboard_users", "thredded_messageboards"
+  add_foreign_key "thredded_messageboard_users", "thredded_user_details"
 end

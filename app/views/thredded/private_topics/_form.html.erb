@@ -1,5 +1,5 @@
-<%= form_for [messageboard, private_topic],
-             url:  messageboard_private_topics_path(messageboard, @private_topic),
+<%= form_for private_topic,
+             url:  private_topics_path(@private_topic),
              html: { class: local_assigns[:css_class], 'data-thredded-topic-form' => true } do |form| %>
 
   <ul class="thredded--form-list on-top">
@@ -11,14 +11,14 @@
     <li>
       <%= form.label :user_id, 'Users in Private Topic' %>
       <%= form.select :user_ids,
-                      form.object.users_options,
+                      form.object.users_for_select,
                       form.object.users_selected_options,
                       form.object.users_select_html_options %>
     </li>
 
     <%= render 'thredded/posts/content_field', form: form %>
 
-    <li><%= form.submit 'Create New Private Topic', class: 'thredded--form--submit' %></li>
+    <li><%= form.submit button_text, class: 'thredded--form--submit' %></li>
   </ul>
 <% end %>
 

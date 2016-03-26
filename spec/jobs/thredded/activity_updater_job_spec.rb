@@ -8,19 +8,18 @@ module Thredded
       march_2 = Chronic.parse('Mar 2 2014 at 2:00pm')
 
       Timecop.freeze(march_1) do
-        @role = create(:role)
-        @user = @role.user
-        @messageboard = @role.messageboard
+        @user_detail = create(:user_detail)
+        @user = @user_detail.user
+        @messageboard = create(:messageboard)
       end
 
       Timecop.freeze(march_2) do
         Thredded::ActivityUpdaterJob.queue.update_user_activity(
           'messageboard_id' => @messageboard.id,
-          'user_id' => @user.id
-        )
+          'user_id' => @user.id)
       end
 
-      expect(@role.reload.last_seen).to eq(march_2)
+      expect(@user_detail.reload.last_seen_at).to eq(march_2)
     end
   end
 end

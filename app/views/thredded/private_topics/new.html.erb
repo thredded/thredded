@@ -1,12 +1,13 @@
 <% content_for :thredded_page_title, 'Create a New Private Topic' %>
 <% content_for :thredded_page_id, 'thredded--new-private-topic' %>
-<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
+<% content_for :thredded_breadcrumbs, render('thredded/private_topics/breadcrumbs') %>
 
 <%= thredded_page do %>
   <section class="thredded--main-section">
     <%= render 'thredded/private_topics/form',
                messageboard:  messageboard,
                private_topic: @private_topic,
-               placeholder:   'New Private Topic Title' %>
+               placeholder:   'New Private Topic Title',
+               button_text:   'Create New Private Topic' %>
   </section>
 <% end %>

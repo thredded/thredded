@@ -1,56 +1,38 @@
 <% content_for :thredded_page_title, "Edit \"#{topic.title}\"" %>
 <% content_for :thredded_page_id, 'thredded--edit-topic' %>
 
+<% content_for :thredded_breadcrumbs, capture { %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= link_to 'All Message Boards', messageboards_path %></li>
+    <li><%= link_to messageboard.name, messageboard_topics_path(messageboard, topic) %></li>
+    <li>
+      <a href="<%= edit_messageboard_topic_path(messageboard, topic) %>">Editing Topic <em><%= topic.title %></em></a>
+    </li>
+  </ul>
+<% } %>
+
 <%= thredded_page do %>
-  <header>
-    <nav>
-      <ul class="breadcrumbs">
-        <li><%= link_to 'Forums', root_path %></li>
-        <li><%= link_to messageboard.name, messageboard_topics_path(messageboard, topic) %></li>
-        <li>
-        <span>
-          Editing Topic <em><%= link_to topic.title, [messageboard, topic] %></em>
-        </span>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <%= form_for [messageboard, @topic],
+               html: { class: 'thredded--is-expanded', 'data-thredded-topic-form' => true } do |form| %>
+    <ul class="thredded--form-list on-top">
 
-  <div class="topic forms">
-    <ul class="thredded--form-list">
-      <%= form_for [messageboard, @topic] do |form| %>
-        <li class="title">
-          <%= form.label :title %>
-          <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
-        </li>
+      <li class="title">
+        <%= form.label :title %>
+        <%= form.text_field :title, { placeholder: 'Title', autofocus: 'autofocus', } %>
+      </li>
 
-        <% if messageboard.categories.any? %>
-          <li class="category">
-            <%= form.select :category_ids,
-                            form.object.decorate.category_options,
-                            {},
-                            { multiple: true, 'data-placeholder' => 'Categories' } %>
-          </li>
-        <% end %>
-
-        <% if current_ability.can? :admin, form.object %>
-          <li class="locked">
-            <%= form.label :locked do %>
-              Locked <%= form.check_box :locked %>
-            <% end %>
-          </li>
-
-          <li class="sticky">
-            <%= form.label :sticky do %>
-              Sticky <%= form.check_box :sticky %>
-            <% end %>
-          </li>
-        <% end %>
-
-        <li class="submit">
-          <%= form.submit 'Update Topic' %>
+      <% if messageboard.categories.any? %>
+        <li class="category">
+          <%= form.select :category_ids,
+                          form.object.decorate.category_options,
+                          {},
+                          { multiple: true, 'data-placeholder' => 'Categories' } %>
         </li>
       <% end %>
-    </ul>
-  </div>
+
+      <%= render 'thredded/topics/topic_form_admin_options', form: form %>
+
+      <li><%= form.submit 'Update Topic', class: 'thredded--form--submit' %></li>
+  <% end %>
+  </ul>
 <% end %>

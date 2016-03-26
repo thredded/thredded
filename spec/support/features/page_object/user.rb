@@ -14,6 +14,7 @@ module PageObject
     def log_in
       visit new_session_path
       fill_in 'name', with: user.to_s
+      uncheck 'Admin' unless user.admin?
       click_button 'Sign in'
     end
 

@@ -1,39 +1,19 @@
-@mixin flash($font-color, $background-color) {
-  color: $font-color;
-  background: $background-color;
-  border-color: $font-color;
-  text-decoration: none;
-
-  a {
-    color: darken($font-color, 70%);
-    text-decoration: underline;
-
-    &:focus,
-    &:hover {
-      color: darken($font-color, 90%);
-    }
-  }
-}
-
 &--flash-message {
-  border: solid 1px;
-  margin-bottom: $thredded-base-spacing;
-  padding: $thredded-small-spacing;
-  border-radius: 3px;
+  @extend %thredded--alert;
 }
 
 &--flash-message--success {
-  @include flash($thredded-flash-font-success-color, $thredded-flash-background-success-color);
+  @extend %thredded--alert--success;
 }
 
 &--flash-message--error {
-  @include flash($thredded-flash-font-error-color, $thredded-flash-background-error-color);
+  @extend %thredded--alert--danger;
 }
 
 &--flash-message--notice {
-  @include flash($thredded-flash-font-notice-color, $thredded-flash-background-notice-color);
+  @extend %thredded--alert--info;
 }
 
 &--flash-message--alert {
-  @include flash($thredded-flash-font-alert-color, $thredded-flash-background-alert-color);
+  @extend %thredded--alert--warning;
 }

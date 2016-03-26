@@ -1,10 +1,10 @@
 module Thredded
   class AtUsers
-    def self.render(content, messageboard, view_context)
+    def self.render(content, post, view_context)
       at_names = AtNotificationExtractor.new(content).run
 
       if at_names.any?
-        members = messageboard.members_from_list(at_names)
+        members = post.readers_from_user_names(at_names)
 
         members.each do |member|
           member_path = Thredded.user_path(view_context, member)

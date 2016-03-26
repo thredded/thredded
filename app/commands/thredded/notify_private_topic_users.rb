@@ -32,13 +32,8 @@ module Thredded
     end
 
     def exclude_those_opting_out_of_message_notifications(members)
-      members.reject do |member|
-        !Thredded::NotificationPreference
-          .for(member)
-          .in(private_topic.messageboard)
-          .first
-          .try(:notify_on_message?)
-      end
+      # TODO: implement global notification preferences for private topics.
+      members
     end
 
     def exclude_previously_notified(members)

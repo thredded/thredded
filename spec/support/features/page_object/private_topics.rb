@@ -2,13 +2,12 @@ require 'support/features/page_object/base'
 
 module PageObject
   class PrivateTopics < Base
-    def initialize(messageboard, title = 'this is private')
-      @messageboard = messageboard
+    def initialize(title = 'this is private')
       @private_title = title
     end
 
     def visit_index
-      visit messageboard_private_topics_path(messageboard)
+      visit private_topics_path(messageboard)
     end
 
     def view_private_topic
@@ -28,7 +27,8 @@ module PageObject
     end
 
     def create_private_topic
-      visit new_messageboard_private_topic_path(messageboard)
+      create(:user, name: 'carl')
+      visit new_private_topic_path
       fill_in 'Title', with: private_title
       select 'carl', from: 'private_topic_user_ids'
       fill_in 'Content', with: 'not for others'
@@ -41,17 +41,11 @@ module PageObject
     end
 
     def visit_private_topic_list
-      visit messageboard_private_topics_path(messageboard)
-    end
-
-    def on_public_list?
-      visit messageboard_topics_path(messageboard)
-
-      has_css? 'article h1 a', text: private_title
+      visit private_topics_path(messageboard)
     end
 
     def on_private_list?
-      visit messageboard_private_topics_path(messageboard)
+      visit private_topics_path(messageboard)
 
       has_css? 'article h1 a', text: private_title
     end

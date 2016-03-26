@@ -8,7 +8,7 @@ module Thredded
     def update
       preference.update_attributes(preference_params)
 
-      redirect_to :back, flash: { notice: 'Your preferences are updated' }
+      redirect_to :back, flash: { notice: 'Your settings have been updated.' }
     end
 
     def preference
