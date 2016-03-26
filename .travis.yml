@@ -25,3 +25,8 @@ script: "bundle exec rspec && bundle exec rubocop"
 notifications:
   slack:
     secure: bnoj7Q/2yA3gtJ2IR/YtXrWCGvN7ukHKnhg1oNYJsOYNk0oEMMgjmGnIRrcdxO4peyOid6aKlcMmP7zrOzPEJsN3qAA4UUCRGq0TgZ2RDMX1sRZ8NN/xCyt84WU9aEtTF0V1hUyG/OaQ7G65XN/XuwJGzw6VDSZE54FSdR/5/eQ=
+
+addons:
+  code_climate:
+    repo_token:
+      secure: "DCUhAN7mEsRCVT7wuno3vpgeE12+QQCA8BDZ9dM1dltrJAbO+XX2iqMB7p1uL0GX3AdXJVnIyjl7ySp2yx24q5md3xGxEaqN+yyNG164VrGaQq6F/Bi2kf/dmYCMfUf5Hz3VlXzEzyy/Txy6/sSFpRoEpRQ30m6mCY2UkKv7BGI="

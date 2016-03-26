@@ -1,15 +1,3 @@
 source 'https://rubygems.org'
 gemspec
-
-gem 'test_after_commit', group: :test
-
-group :debug do
-  gem 'derailed'
-  gem 'pry-rails'
-  gem 'rack-mini-profiler'
-  platform :mri do
-    gem 'byebug'
-    gem 'flamegraph'
-    gem 'stackprof'
-  end
-end
+eval_gemfile './shared.gemfile'

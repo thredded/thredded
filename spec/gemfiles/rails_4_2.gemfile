@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
+eval_gemfile './shared.gemfile'
 gem 'rails', '~> 4.2.5'
-
-gem 'test_after_commit', group: :test

@@ -1,5 +1,8 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] = 'test'
+if ENV['TRAVIS'] && !(defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx')
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
 require File.expand_path('../dummy/config/environment', __FILE__)
 require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)
 require 'rspec/rails'

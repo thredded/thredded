@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
+eval_gemfile './shared.gemfile'
 gem 'rails', '~> 4.1.6'
 
 # mysql2 0.4 is not compatible with rails 4.1
 gem 'mysql2', '~> 0.3.20'
-
-gem 'test_after_commit', group: :test
