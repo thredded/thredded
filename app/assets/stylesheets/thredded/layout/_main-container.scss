@@ -3,5 +3,9 @@
   margin-left: auto;
   margin-right: auto;
   max-width: $thredded-grid-container-max-width;
-  padding: 2rem;
+  padding: 1rem;
+
+  @include thredded-media-tablet-and-up {
+    padding: 2rem;
+  }
 }

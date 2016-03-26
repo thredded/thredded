@@ -5,6 +5,13 @@ body {
   margin: 0;
 }
 
+.thredded--main-container {
+  @include thredded-media-mobile {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .thredded--user-navigation {
   margin-top: 0;
 }
@@ -29,7 +36,8 @@ body {
   border-bottom: solid 1px #d8d8d8;
   padding-bottom: 1em;
   margin: 0em -2em 1em;
-  @media (max-width: $thredded-grid-container-max-width) {
+
+  @include thredded-media-mobile {
     margin: -1em -1.5em 0.6em;
   }
 }
@@ -43,6 +51,15 @@ body {
 
 .app-nav-auth {
   float: right;
+
+  @include thredded-media-mobile {
+    color: white;
+    font-size: 0;
+
+    a {
+      font-size: 16px;
+    }
+  }
 }
 
 
