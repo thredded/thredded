@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323025225) do
+ActiveRecord::Schema.define(version: 20160327010825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,17 +41,6 @@ ActiveRecord::Schema.define(version: 20160323025225) do
   add_index "thredded_categories", ["messageboard_id", "slug"], name: "index_thredded_categories_on_messageboard_id_and_slug", unique: true, using: :btree
   add_index "thredded_categories", ["messageboard_id"], name: "index_thredded_categories_on_messageboard_id", using: :btree
 
-  create_table "thredded_images", force: :cascade do |t|
-    t.integer  "post_id"
-    t.integer  "width"
-    t.integer  "height"
-    t.string   "orientation", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "thredded_images", ["post_id"], name: "index_thredded_images_on_post_id", using: :btree
-
   create_table "thredded_messageboard_users", force: :cascade do |t|
     t.integer  "thredded_user_detail_id",  null: false
     t.integer  "thredded_messageboard_id", null: false
@@ -62,16 +51,15 @@ ActiveRecord::Schema.define(version: 20160323025225) do
   add_index "thredded_messageboard_users", ["thredded_messageboard_id", "thredded_user_detail_id"], name: "index_thredded_messageboard_users_primary", using: :btree
 
   create_table "thredded_messageboards", force: :cascade do |t|
-    t.string   "name",                 limit: 255,                      null: false
-    t.string   "slug",                 limit: 255
+    t.string   "name",         limit: 255,                      null: false
+    t.string   "slug",         limit: 255
     t.text     "description"
-    t.integer  "topics_count",                     default: 0
-    t.integer  "posts_count",                      default: 0
-    t.boolean  "closed",                           default: false,      null: false
+    t.integer  "topics_count",             default: 0
+    t.integer  "posts_count",              default: 0
+    t.boolean  "closed",                   default: false,      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "filter",               limit: 255, default: "markdown", null: false
-    t.integer  "private_topics_count",             default: 0
+    t.string   "filter",       limit: 255, default: "markdown", null: false
   end
 
   add_index "thredded_messageboards", ["closed"], name: "index_thredded_messageboards_on_closed", using: :btree
