@@ -2,19 +2,21 @@
   <%= yield :thredded_breadcrumbs %>
 
   <ul class="thredded--topic-navigation">
-    <% if messageboard.try(:persisted?) %>
+    <% if messageboard.try(:persisted?) -%>
       <li class="thredded--topic-navigation--public">
-        <a href="<%= messageboard_topics_path(messageboard) %>">Topics</a>
+        <%= link_to 'Topics', messageboard_topics_path(messageboard) %>
       </li>
-    <% end %>
+    <% end -%>
+
     <li class="thredded--topic-navigation--private">
-      <a href="<%= private_topics_path %>">Private Topics
-        <% if (unread_count = unread_private_topics_count) > 0 %>
-            <span class="thredded--topic-navigation--unread">
-              <%= unread_private_topics_count %>
-            </span>
-        <% end %>
-      </a>
+      <%= link_to private_topics_path do %>
+        Private Topics
+        <% if unread_private_topics_count > 0 -%>
+          <span class="thredded--topic-navigation--unread">
+            <%= unread_private_topics_count %>
+          </span>
+        <% end -%>
+      <% end -%>
     </li>
   </ul>
 </div>
