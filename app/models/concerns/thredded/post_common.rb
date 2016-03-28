@@ -87,6 +87,8 @@ module Thredded
     end
 
     def update_parent_last_user_and_timestamp
+      return unless postable && user
+
       postable.update!(last_user: user, updated_at: Time.zone.now)
     end
 
