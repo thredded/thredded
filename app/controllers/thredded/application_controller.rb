@@ -35,7 +35,7 @@ module Thredded
     private
 
     def unread_private_topics_count
-      Thredded::PrivateTopic
+      @unread_private_topics_count ||= Thredded::PrivateTopic
         .joins(:private_users)
         .where(
           thredded_private_users: {
