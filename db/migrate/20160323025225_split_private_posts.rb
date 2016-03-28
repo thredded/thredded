@@ -30,12 +30,13 @@ class SplitPrivatePosts < ActiveRecord::Migration
       each do |(id, user_id, content, ip, filter, postable_id, created_at, updated_at)|
       private_post              = Thredded::PrivatePost.create!(
         user_id:     user_id,
-        content:     content,
+        content:     content.blank? ? '...' : content,
         ip:          ip,
         filter:      filter,
         postable_id: postable_id,
         created_at:  created_at,
-        updated_at:  updated_at)
+        updated_at:  updated_at,
+      )
       old_private_notifications = Thredded::PostNotification.where(post_id: id)
       old_private_notifications.each do |old_private_notification|
         Thredded::PostNotification.create!(email: old_private_notification.email, post: private_post)
