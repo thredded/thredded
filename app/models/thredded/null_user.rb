@@ -1,3 +1,9 @@
+require_relative './user_permissions/read/all'
+require_relative './user_permissions/write/none'
+require_relative './user_permissions/message/readers_of_writeable_boards'
+require_relative './user_permissions/moderate/none'
+require_relative './user_permissions/admin/none'
+
 module Thredded
   class NullUser
     include ::Thredded::UserPermissions::Read::All

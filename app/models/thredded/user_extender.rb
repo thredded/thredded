@@ -1,3 +1,9 @@
+require_relative './user_permissions/read/all'
+require_relative './user_permissions/write/all'
+require_relative './user_permissions/message/readers_of_writeable_boards'
+require_relative './user_permissions/moderate/if_moderator_column_true'
+require_relative './user_permissions/admin/if_admin_column_true'
+
 module Thredded
   module UserExtender
     extend ActiveSupport::Concern
