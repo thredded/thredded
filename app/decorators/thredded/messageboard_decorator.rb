@@ -37,13 +37,5 @@ module Thredded
     private
 
     attr_reader :messageboard
-
-    def topic_updated_at_utc
-      latest_topic.updated_at.getutc.iso8601
-    end
-
-    def topic_updated_at_str
-      latest_topic.updated_at.to_s
-    end
   end
 end
