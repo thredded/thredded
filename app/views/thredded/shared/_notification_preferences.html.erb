@@ -1,0 +1,7 @@
+<% if messageboard.try(:persisted?) %>
+  <li>
+    <%= link_to edit_messageboard_preferences_path(messageboard) do %>
+      <span>Notification Settings</span>
+    <% end %>
+  </li>
+<% end %>
