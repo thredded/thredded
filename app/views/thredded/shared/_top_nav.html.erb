@@ -14,13 +14,8 @@
           </li>
         <% end %>
 
-        <% if messageboard.try(:persisted?) %>
-          <li>
-            <%= link_to edit_messageboard_preferences_path(messageboard) do %>
-              <span>Notification Settings</span>
-            <% end %>
-          </li>
-        <% end %>
+        <%= render 'thredded/shared/notification_preferences',
+          messageboard: messageboard %>
 
         <% if Thredded.standalone_layout? %>
           <li>
