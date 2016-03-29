@@ -17,7 +17,7 @@ module Thredded
 
     # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.
     def readers_from_user_names(user_names)
-      CaseInsensitiveStringFinder
+      DbTextSearch::CaseInsensitiveEq
         .new(postable.users, Thredded.user_name_column)
         .find(user_names)
     end

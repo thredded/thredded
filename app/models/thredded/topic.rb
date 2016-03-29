@@ -46,13 +46,8 @@ module Thredded
     end
 
     def self.search(query, messageboard)
-      sql_builder = SearchSqlBuilder.new(query, messageboard)
-      sql = sql_builder.build
-      sql_params = [sql].concat(sql_builder.binds)
-      results = find_by_sql(sql_params)
-
+      results = find_by_sql(SearchSqlBuilder.new(query, messageboard).build)
       fail(Thredded::Errors::EmptySearchResults, query) if results.empty?
-
       results
     end
 

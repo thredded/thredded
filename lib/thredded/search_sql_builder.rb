@@ -17,9 +17,5 @@ module Thredded
         'LIMIT 50'
       ].join(' ')
     end
-
-    def binds
-      @post_builder.binds.concat(@topic_builder.binds)
-    end
   end
 end
