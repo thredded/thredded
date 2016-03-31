@@ -6,14 +6,17 @@ rvm:
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
-  - spec/gemfiles/rails_4_0.gemfile
   - spec/gemfiles/rails_4_1.gemfile
   - spec/gemfiles/rails_4_2.gemfile
 
 env:
+  matrix:
   # Username and password from http://docs.travis-ci.com/user/database-setup/
   - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-  - DB=mysql2     DB_USERNAME=travis   DB_PASSWORD=""
+  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
+  global:
+  # CODECLIMATE_REPO_TOKEN
+  - secure: "X+Tmtm+12rDF71aqNzeVRRF5CiiKRaxlKJV0ZJLgWwLHOWX693YGMoy+FYTkN0aYTQYfNrlal8H+9VnABaotwwmElSqFWBj0Mv6VIpxPuFJ/PgtQG3TpO23qBZLiW1Nq/Y4RJL8whyx3QTX7rALLBLnEsSIrrq4VcSIU9jV5JAs="
 
 sudo: false
 
@@ -26,7 +29,12 @@ notifications:
   slack:
     secure: bnoj7Q/2yA3gtJ2IR/YtXrWCGvN7ukHKnhg1oNYJsOYNk0oEMMgjmGnIRrcdxO4peyOid6aKlcMmP7zrOzPEJsN3qAA4UUCRGq0TgZ2RDMX1sRZ8NN/xCyt84WU9aEtTF0V1hUyG/OaQ7G65XN/XuwJGzw6VDSZE54FSdR/5/eQ=
 
+# TODO: remove this once travis gets on with times and upgrades MySQL to 5.6.4+
+dist: trusty
+sudo: required
 addons:
-  code_climate:
-    repo_token:
-      secure: "bAVePGoWCKSYduOY92IB4VOmTqSBy6jFL+U4oVvshO8FlIujWFWNMMm7vpPRFDBbTJCbfjtGh3emOeSth+RNSrX85bhd16E83zsRmshbw2Aau+t9hK7LRE2P6BLhYe26Ax1UE3s7JhTvqjtK9fUTKe5uTP5ZR2d/Z8AidF/2UPw="
+  apt:
+    packages:
+    - mysql-server-5.6
+    - mysql-client-core-5.6
+    - mysql-client-5.6

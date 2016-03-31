@@ -31,10 +31,6 @@ module Thredded
       ThreadedInMemoryQueue.logger.level = Thredded.queue_memory_log_level
     end
 
-    initializer 'thredded.set_adapter' do
-      Thredded.use_adapter! Thredded::Post.connection_config[:adapter]
-    end
-
     initializer 'thredded.setup_assets' do
       Thredded::Engine.config.assets.precompile += %w(
         thredded.js

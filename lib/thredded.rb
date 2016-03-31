@@ -1,5 +1,6 @@
 # Backend
 require 'cancan'
+require 'db_text_search'
 require 'friendly_id'
 require 'html/pipeline'
 require 'html/pipeline/at_mention_filter'
@@ -24,7 +25,6 @@ require 'thredded/post_user_permissions'
 require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
 require 'thredded/search_sql_builder'
-require 'thredded/case_insensitive_string_finder'
 require 'thredded/main_app_route_delegator'
 
 module Thredded
@@ -92,10 +92,5 @@ module Thredded
   # Whether the layout is a thredded layout as opposed to the application layout.
   def self.standalone_layout?
     layout.is_a?(String) && layout.start_with?('thredded/')
-  end
-
-  def self.use_adapter!(db_adapter)
-    TableSqlBuilder.use_adapter! db_adapter
-    CaseInsensitiveStringFinder.use_adapter! db_adapter
   end
 end

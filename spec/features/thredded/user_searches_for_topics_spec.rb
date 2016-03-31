@@ -13,8 +13,7 @@ feature 'User searching topics' do
     @three_topics.messageboard.destroy
   end
 
-  scenario 'sees a list of found topics',
-    skip: ('Indexed full text search on InnoDB tables requires MySQL v5.6.4+' unless Thredded.supports_fulltext_search?) do
+  scenario 'sees a list of found topics' do
     topics = @three_topics
     topics.visit_style_guide
     topics.search_for('Rando thread')
