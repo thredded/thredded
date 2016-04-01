@@ -8,7 +8,7 @@ module Thredded
       @topics = messageboard.topics.on_page(current_page).limit(3)
       @decorated_topics = UserTopicDecorator.decorate_all(user, @topics)
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
-        .decorate_all(current_user, user.thredded_private_topics)
+        .decorate_all(thredded_current_user, user.thredded_private_topics)
       @topic = @topics.find { |t| t.posts.present? } || @topics.first ||
         @messageboard.topics.build(title: 'Hello', slug: 'hello', user: user)
       @user_topic = UserTopicDecorator.new(user, @topic)
@@ -49,10 +49,10 @@ module Thredded
     end
 
     def user
-      @user ||= if current_user.thredded_anonymous?
+      @user ||= if thredded_current_user.thredded_anonymous?
                   Thredded.user_class.first_or_create!(slug: 'joe', name: 'joe', email: 'joe@example.com')
                 else
-                  current_user
+                  thredded_current_user
                 end
     end
   end

@@ -8,7 +8,7 @@ module Thredded
 
       @topics = topics
       @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(current_user, @topics)
+        .decorate_all(thredded_current_user, @topics)
       initialize_new_topic.tap do |new_topic|
         @new_topic = new_topic if current_ability.can?(:create, new_topic.topic)
       end
@@ -33,12 +33,12 @@ module Thredded
     def search
       @topics = Topic.search(params[:q], messageboard)
       @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(current_user, @topics)
+        .decorate_all(thredded_current_user, @topics)
       flash.now[:notice] = "Search Results for '#{params[:q]}'"
     end
 
     def new
-      @new_topic = TopicForm.new(messageboard: messageboard, user: current_user)
+      @new_topic = TopicForm.new(messageboard: messageboard, user: thredded_current_user)
       authorize_creating @new_topic.topic
     end
 
@@ -51,7 +51,7 @@ module Thredded
         .on_page(current_page)
         .load
       @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(current_user, @topics)
+        .decorate_all(thredded_current_user, @topics)
 
       render :index
     end
@@ -71,7 +71,7 @@ module Thredded
     end
 
     def update
-      topic.update_attributes!(topic_params.merge(last_user_id: current_user.id))
+      topic.update_attributes!(topic_params.merge(last_user_id: thredded_current_user.id))
       redirect_to messageboard_topic_posts_url(messageboard, topic), flash: { notice: 'Topic updated' }
     end
 
@@ -84,7 +84,7 @@ module Thredded
     private
 
     def initialize_new_topic
-      TopicForm.new(messageboard: messageboard, user: current_user)
+      TopicForm.new(messageboard: messageboard, user: thredded_current_user)
     end
 
     def topic
@@ -104,7 +104,7 @@ module Thredded
       params
         .require(:topic)
         .permit(:title, :locked, :sticky, category_ids: [])
-        .merge(user: current_user)
+        .merge(user: thredded_current_user)
     end
 
     def new_topic_params
@@ -113,7 +113,7 @@ module Thredded
         .permit(:title, :locked, :sticky, :content, category_ids: [])
         .merge(
           messageboard: messageboard,
-          user: current_user,
+          user: thredded_current_user,
           ip: request.remote_ip,
         )
     end
@@ -132,14 +132,14 @@ module Thredded
     end
 
     def user_topic
-      @user_topic ||= UserTopicDecorator.new(current_user, topic)
+      @user_topic ||= UserTopicDecorator.new(thredded_current_user, topic)
     end
 
     def update_read_status
-      return if current_user.thredded_anonymous?
+      return if thredded_current_user.thredded_anonymous?
 
       read_history = UserTopicRead.where(
-        user_id: current_user,
+        user_id: thredded_current_user,
         topic: topic,
       ).first_or_initialize
 

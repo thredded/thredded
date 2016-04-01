@@ -38,14 +38,14 @@ module Thredded
     end
 
     def reset_read_status
-      Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, current_user).run
+      Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, thredded_current_user).run
     end
 
     def post_params
       params
         .require(:post)
         .permit(:content)
-        .merge!(user: current_user, ip: request.remote_ip)
+        .merge!(user: thredded_current_user, ip: request.remote_ip)
         .tap { |p| p.merge!(messageboard: messageboard) unless for_a_private_topic? }
     end
 

@@ -3,20 +3,20 @@ module Thredded
     helper_method :private_topic
 
     def index
-      @new_private_topic = PrivateTopicForm.new(user: current_user)
+      @new_private_topic = PrivateTopicForm.new(user: thredded_current_user)
       @private_topics = PrivateTopic
                           .uniq
-                          .for_user(current_user)
+                          .for_user(thredded_current_user)
                           .order('updated_at DESC')
                           .on_page(params[:page])
                           .load
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
-        .decorate_all(current_user, @private_topics)
+        .decorate_all(thredded_current_user, @private_topics)
     end
 
     def show
       authorize! :read, private_topic
-      UserReadsPrivateTopic.new(private_topic, current_user).run
+      UserReadsPrivateTopic.new(private_topic, thredded_current_user).run
 
       @posts = private_topic
         .posts
@@ -27,7 +27,7 @@ module Thredded
     end
 
     def new
-      @private_topic = PrivateTopicForm.new(user: current_user)
+      @private_topic = PrivateTopicForm.new(user: thredded_current_user)
       authorize_creating @private_topic.private_topic
     end
 
@@ -39,7 +39,7 @@ module Thredded
           .send_notifications(@private_topic.private_topic.id)
 
         UserResetsPrivateTopicToUnread
-          .new(@private_topic.private_topic, current_user)
+          .new(@private_topic.private_topic, thredded_current_user)
           .run
 
         redirect_to @private_topic.private_topic
@@ -59,7 +59,7 @@ module Thredded
         .require(:private_topic)
         .permit(:title, :locked, :sticky, :content, user_ids: [], category_ids: [])
         .merge(
-          user: current_user,
+          user: thredded_current_user,
           ip: request.remote_ip)
     end
   end

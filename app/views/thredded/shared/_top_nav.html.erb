@@ -8,8 +8,8 @@
       <% if signed_in? %>
         <% if Thredded.standalone_layout? %>
           <li>
-            <%= link_to user_path(current_user) do %>
-              <span><%= current_user %></span>
+            <%= link_to user_path(thredded_current_user) do %>
+              <span><%= thredded_current_user %></span>
             <% end %>
           </li>
         <% end %>
