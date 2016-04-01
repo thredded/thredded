@@ -34,8 +34,8 @@ module Thredded
     def topic_params
       {
         messageboard: @messageboard,
-        user: current_user,
-        last_user: current_user,
+        user: thredded_current_user,
+        last_user: thredded_current_user,
         title: "Welcome to your messageboard's very first thread",
       }
     end
@@ -46,7 +46,7 @@ module Thredded
         postable: @topic,
         content: "There's not a whole lot here for now.",
         ip: request.ip,
-        user: current_user,
+        user: thredded_current_user,
       }
     end
   end

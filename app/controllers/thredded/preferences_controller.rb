@@ -13,7 +13,7 @@ module Thredded
 
     def preference
       @preference ||= NotificationPreference
-        .where(messageboard_id: messageboard.id, user_id: current_user.id)
+        .where(messageboard_id: messageboard.id, user_id: thredded_current_user.id)
         .first_or_create!
     end
 

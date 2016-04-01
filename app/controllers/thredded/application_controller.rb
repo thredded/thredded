@@ -29,7 +29,7 @@ module Thredded
       end
 
     def signed_in?
-      !current_user.thredded_anonymous?
+      !thredded_current_user.thredded_anonymous?
     end
 
     private
@@ -39,7 +39,7 @@ module Thredded
         .joins(:private_users)
         .where(
           thredded_private_users: {
-            user_id: current_user.id,
+            user_id: thredded_current_user.id,
             read: false
           })
         .count
@@ -72,12 +72,12 @@ module Thredded
 
       Thredded::ActivityUpdaterJob.queue.update_user_activity(
         'messageboard_id' => messageboard.id,
-        'user_id' => current_user.id
+        'user_id' => thredded_current_user.id
       )
     end
 
     def current_ability
-      @current_ability ||= Ability.new(current_user)
+      @current_ability ||= Ability.new(thredded_current_user)
     end
 
     def messageboard
@@ -85,11 +85,11 @@ module Thredded
     end
 
     def preferences
-      @preferences ||= current_user.thredded_user_preference
+      @preferences ||= thredded_current_user.thredded_user_preference
     end
 
-    def current_user
-      super || NullUser.new
+    def thredded_current_user
+      current_user || NullUser.new
     end
 
     def active_users
@@ -98,7 +98,7 @@ module Thredded
               else
                 Thredded.user_class.joins(:thredded_user_detail).merge(Thredded::UserDetail.recently_active).to_a
               end.to_a
-      users.push(current_user) unless current_user.is_a?(NullUser)
+      users.push(thredded_current_user) unless thredded_current_user.is_a?(NullUser)
       users.uniq
     end
   end
