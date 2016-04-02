@@ -1,7 +1,7 @@
 <% content_for :thredded_page_title, 'Create a New Messageboard' %>
 <% content_for :thredded_page_id, 'thredded--messageboards-new' %>
 <%= thredded_page do %>
-  <%= form_for @messageboard do |f| %>
+  <%= form_for @messageboard, class: 'thredded--form' do |f| %>
     <ul class="thredded--form-list">
       <li>
         <%= f.label :name %>

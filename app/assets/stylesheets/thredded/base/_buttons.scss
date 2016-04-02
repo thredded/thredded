@@ -1,4 +1,4 @@
-.thredded--main-container #{$thredded-all-buttons} {
+%thredded--button {
   appearance: none;
   -webkit-font-smoothing: antialiased;
   background-color: $thredded-action-color;

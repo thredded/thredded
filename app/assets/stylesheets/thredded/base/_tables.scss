@@ -1,11 +1,9 @@
-.thredded-main-container {
-  table {
-    font-feature-settings: "kern", "liga", "tnum";
-    border-collapse: collapse;
-    margin: $thredded-small-spacing 0;
-    table-layout: fixed;
-    width: 100%;
-  }
+%thredded--table {
+  font-feature-settings: "kern", "liga", "tnum";
+  border-collapse: collapse;
+  margin: $thredded-small-spacing 0;
+  table-layout: fixed;
+  width: 100%;
 
   th {
     border-bottom: 1px solid darken($thredded-base-border-color, 15%);

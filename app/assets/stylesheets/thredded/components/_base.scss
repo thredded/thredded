@@ -1,0 +1,13 @@
+// Common classes for base placeholders.
+
+&--button, &--form--submit {
+  @extend %thredded--button;
+}
+
+&--form {
+  @extend %thredded--form;
+}
+
+&--link {
+  @extend %thredded--link;
+}

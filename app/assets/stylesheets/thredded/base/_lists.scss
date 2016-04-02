@@ -16,18 +16,16 @@
   padding-left: $thredded-base-spacing;
 }
 
-.thredded--main-container {
-  dl {
-    margin-bottom: $thredded-small-spacing;
+%thredded--dl {
+  margin-bottom: $thredded-small-spacing;
 
-    dt {
-      font-weight: bold;
-      margin-top: $thredded-small-spacing;
-    }
+  dt {
+    font-weight: bold;
+    margin-top: $thredded-small-spacing;
+  }
 
-    dd {
-      margin: 0;
-    }
+  dd {
+    margin: 0;
   }
 }
 

@@ -1,4 +1,5 @@
-<%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard), html: { class: 'notification-preferences-form' } do |f| %>
+<%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard),
+             html: { class: 'thredded--form thredded--notification-preferences-form' } do |f| %>
   <ul class="thredded--form-list">
     <li>
       <%= f.label :notify_on_mention do %>

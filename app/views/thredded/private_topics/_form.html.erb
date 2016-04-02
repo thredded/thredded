@@ -1,6 +1,6 @@
 <%= form_for private_topic,
              url:  private_topics_path(@private_topic),
-             html: { class: local_assigns[:css_class], 'data-thredded-topic-form' => true } do |form| %>
+             html: { class: "thredded--form #{local_assigns[:css_class]}", 'data-thredded-topic-form' => true } do |form| %>
 
   <ul class="thredded--form-list on-top">
     <li class="title">

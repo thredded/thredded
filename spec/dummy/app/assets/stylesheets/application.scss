@@ -22,7 +22,6 @@ body {
   border: 1px solid $thredded-light-gray;
   margin: 2em auto;
   box-sizing: border-box;
-  font-family: $thredded-base-font-family;
   max-width: $thredded-grid-container-max-width;
 
   @media (max-width: $thredded-grid-container-max-width) {
@@ -32,6 +31,14 @@ body {
   }
 }
 
+.app-home, .app-container-header {
+  font-family: $thredded-base-font-family;
+  a {
+    @extend %thredded--link;
+  }
+}
+
+
 .app-container-header {
   border-bottom: solid 1px #d8d8d8;
   padding-bottom: 1em;
@@ -40,14 +47,15 @@ body {
   @include thredded-media-mobile {
     margin: -1em -1.5em 0.6em;
   }
+
+  .app-nav-logo {
+    @extend %thredded--link;
+    color: $thredded-base-font-color;
+    text-decoration: none;
+    font-weight: bold;
+  }
 }
 
-.app-nav-logo {
-  @extend %thredded--link;
-  color: $thredded-base-font-color;
-  text-decoration: none;
-  font-weight: bold;
-}
 
 .app-nav-auth {
   float: right;
@@ -76,10 +84,6 @@ body {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     font-weight: bold;
-  }
-
-  a {
-    @extend %thredded--link;
   }
 
   section {
