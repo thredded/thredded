@@ -18,38 +18,6 @@ module Thredded
           'initializer.rb',
           'config/initializers/thredded.rb'
       end
-
-      def copy_views_and_assets
-        return unless options.theme?
-
-        copy_file \
-          'app/views/layouts/thredded/application.html.erb',
-          'vendor/views/layouts/thredded.html.erb'
-
-        directory \
-          'app/views/thredded',
-          'vendor/views/thredded'
-
-        copy_file \
-          'app/assets/javascripts/thredded.es6',
-          'vendor/assets/javascripts/thredded.es6'
-
-        directory \
-          'app/assets/javascripts/thredded',
-          'vendor/assets/javascripts/thredded'
-
-        copy_file \
-          'app/assets/stylesheets/thredded.scss',
-          'vendor/assets/stylesheets/thredded.scss'
-
-        directory \
-          'app/assets/stylesheets/thredded',
-          'vendor/assets/stylesheets/thredded'
-
-        directory \
-          'app/assets/images/thredded',
-          'vendor/assets/images/thredded'
-      end
     end
   end
 end

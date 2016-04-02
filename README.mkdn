@@ -28,13 +28,10 @@ Add the gem to your Gemfile:
 gem 'thredded', github: 'thredded/thredded'
 ```
 
-Add a thredded initializer to your parent app by running the install generator.
-[The initializer] has detailed descriptions of all of the configuration options.
+Add the Thredded [initializer] to your parent app by running the install generator.
 
 ```console
-rails generate thredded:install           # install the initializer
-rails generate thredded:install --theme   # install initializer, views, and assets
-rails generate thredded:install --help    # see all options
+rails generate thredded:install
 ```
 
 Copy the migrations over to your parent application and migrate:
@@ -49,7 +46,19 @@ Mount the thredded engine in your routes file:
 mount Thredded::Engine => '/forum'
 ```
 
-[The initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
+Add thredded styles to your `application.scss` (see below for customizing the styles):
+
+```scss
+@import "thredded";
+```
+
+Include thredded JavaScripts in your `application.js`:
+
+```js
+//= require thredded
+```
+
+[initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
 
 ## Background Job Requirements
@@ -95,26 +104,59 @@ that there is a column in my user model called `name`:
   [you can escape the brackets by default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
 
 
-## Layout, Views, Assets and everything in the view layer
+## Theming
 
 The engine comes by default with a light and effective implementation of the
 views, styles, and javascript. Once you mount the engine you will be presented
 with a "themed" version of thredded.
 
-If you would like to customize it -- and I am assuming you will -- the install
-generator has an option to copy over all of the views and assets to your parent
-app for customization - `rails g thredded:install --theme`. This will copy over,
-into your app, the following files in addition to the initializer:
+### Styles
 
+Thredded comes with a light Sass theme controlled by a handful of variables that can be found here:
+https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/base/_variables.scss.
+
+To override the styles, override the variables *before* importing Thredded styles, e.g.:
+
+```scss
+// application.scss
+$thredded-brand: #9c27b0;
+@import "thredded";
 ```
-vendor/views/thredded
-vendor/views/layouts/thredded.html.erb
-vendor/assets/javascripts/thredded.es6
-vendor/assets/javascripts/thredded
-vendor/assets/stylesheets/thredded.scss
-vendor/assets/stylesheets/thredded
-vendor/assets/images/thredded
+
+The `@import "thredded"` directive above will import thredded styles and the [dependencies][thredded-scss-dependencies] 
+(currently just "select2" from [select2-rails]). If you already include your own styles for any of thredded
+dependencies, you can import just the thredded styles alone like this:
+
+```scss
+// application.scss
+@import "thredded/thredded";
 ```
+
+If you are writing a Thredded plugin, import the [`thredded/base`][thredded-scss-base] Sass package instead.
+The `base` package only defines variables, mixins, and %-placeholders, so it can be imported safely without producing
+any duplicate CSS.
+
+[thredded-scss-dependencies]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_dependencies.scss
+[select2-rails]: https://github.com/argerim/select2-rails
+[thredded-scss-base]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_base.scss
+
+### Views and other assets
+
+By default, thredded renders in its own layout, but you can easily override this by setting `Thredded.layout` in the
+initializer.
+
+You can also override any views and assets by placing them in the same path in your application as they are in the gem.
+This uses the [standard Rails mechanism](http://guides.rubyonrails.org/engines.html#overriding-views) for overriding
+engine views. For example, to copy the post view for customization:
+
+```bash
+# Copy the post view into the application to customize it:
+mkdir -p app/views/thredded/posts && cp "$(bundle show thredded)/$_/_post.html.erb" "$_"
+```
+
+**NB:** Overriding the views like this means that on every update of the thredded gem you have to check that your
+customizations are still compatible with the new version of thredded. This is difficult and error-prone.
+Whenever possible, use the styles and i18n to customize Thredded to your needs.
 
 A couple of notes:
 
