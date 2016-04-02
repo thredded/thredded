@@ -1,12 +1,21 @@
 # Thredded [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded) [![Travis-CI](https://api.travis-ci.org/thredded/thredded.svg?branch=master)](https://travis-ci.org/thredded/thredded/) [![Test Coverage](https://codeclimate.com/github/thredded/thredded/badges/coverage.svg)](https://codeclimate.com/github/thredded/thredded/coverage) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-_Thredded_ is a Rails 4+ forum/messageboard engine. Its goal is to be as
-simple and feature rich as possible.
+_Thredded_ is a Rails 4.1+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
 
-If you're looking for variations on a theme - see [Discourse], [Forem],
-[Tectura] or [Heterotic Beast]. The last two are forks from Rick Olsen
-and Courtenay's [Altered Beast]. Of those it should be noted that Forem
-is an engine - not a standalone app.
+Some of the features currently in Thredded:
+
+* Markdown post formatting (by default).
+* (Un)read posts tracking.
+* Email notifications, @-mentions, per-messageboard notification settings.
+* Private group messaging.
+* Full-text search using the database.
+* List of currently online users, for all forums and per-messageboard.
+* Flexible permissions system.
+* Lightweight default theme configurable via Sass.
+
+Planned features:
+
+* Flexible moderation system with per-messageboard settings. #45
 
 <a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
 
@@ -14,11 +23,14 @@ is an engine - not a standalone app.
 
 [Discourse]: http://www.discourse.org/
 [Forem]: https://www.github.com/radar/forem
-[Tectura]: https://github.com/caelum/tectura
-[Heterotic Beast]: https://github.com/distler/heterotic_beast
-[Altered Beast]: https://www.github.com/courtenay/altered_beast
 
+Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL.
+Thredded has no infrastructure dependencies other than the database and, if configured in the parent application,
+the ActiveJob backend dependency such as Redis.
 Currently only MRI Ruby 2.2+ is supported. We would love to support JRuby and Rubinius as well.
+
+If you're looking for variations on a theme - see [Forem] and [Discourse].
+Forem is also an engine, while Discourse is a full app.
 
 ## Installation
 
@@ -34,7 +46,10 @@ Add the Thredded [initializer] to your parent app by running the install generat
 rails generate thredded:install
 ```
 
-Copy the migrations over to your parent application and migrate:
+Thredded needs to know the base application User model name and certain columns on it. Configure these in the
+initializer installed with the command above.
+
+Then, copy the migrations over to your parent application and migrate:
 
 ```console
 rake thredded:install:migrations db:migrate db:test:prepare
@@ -59,37 +74,6 @@ Include thredded JavaScripts in your `application.js`:
 ```
 
 [initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
-
-## Get Your Parent App Ready
-
-There are a few things you need in your app to get things looking just right.
-
-1. Add `to_s` and `to_param` methods to your user model. The following example assumes
-that there is a column in my user model called `name`:
-
-  ```ruby
-  class User < ActiveRecord::Base
-    def to_s
-      name
-    end
-
-    def to_param
-      id # or `to_s.parameterize` if you'd like a slug
-    end
-  end
-  ```
-
-2. Make you, or one of your users, a super-admin so they'll have the permissions to create a new forum.
-
-  ```
-  rake thredded:superadmin[yourusername] # bash
-  rake "thredded:superadmin[yourusername]" # zsh
-  ```
-
-  Two examples are given for bash and zsh. Zsh typically reserves brackets,
-  `[]`, for other uses hence the wrapping with quotes. Pro-tip: did you know
-  [you can escape the brackets by default](http://kinopyo.com/blog/escape-square-bracket-by-default-in-zsh/)?
-
 
 ## Theming
 
@@ -147,14 +131,11 @@ Whenever possible, use the styles and i18n to customize Thredded to your needs.
 
 A couple of notes:
 
-* When using route helpers in the thredded views -- eg: `new_session_path`, et
-  al -- make sure to prepend `main_app` to the helper:
-  `main_app.new_session_path` as rails engines like thredded will not know about
-  those routes' existence unless explicitly told so.
-* The theme layout has three content_tags available to yield -
-  `:thredded_page_title`, `:thredded_page_id`, and `:thredded_javascript`. The
-  views within thredded pass those up through to your layout if you would like
-  to use them.
+* When using route helpers in the thredded views -- eg: `new_session_path`, et al --
+  make sure to prepend `main_app` to the helper, e.g. `main_app.new_session_path` as Rails engines like Thredded
+  will not know about those routes' existence unless explicitly told so.
+* Thredded views provide two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`.
+  The views within Thredded pass those up through to your layout if you would like to use them.
 
 ## Gem development dependencies
 
