@@ -37,20 +37,26 @@
 
 &--post--created-at {
   @extend %thredded--paragraph;
-  font-size: 0.875rem; // 14px
+  font-size: $thredded-font-size-small;
   color: lighten($thredded-base-font-color, 30%);
   display: inline-block;
 }
 
 &--post--edit {
-  font-size: 0.875rem; // 14px
+  font-size: $thredded-font-size-small;
   @extend %thredded--link;
 }
 
 &--post--content {
   font-size: 1.063rem; // 17px
   line-height: 1.65;
+  a {
+    @extend %thredded--link;
+  }
   p {
     @extend %thredded--paragraph;
+  }
+  hr {
+    @extend %thredded--hr;
   }
 }

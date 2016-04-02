@@ -1,50 +1,54 @@
 // Grid
-
 $thredded-grid-container-max-width: 720px !default;
 $thredded-grid-breakpoint-max-widths: (mobile: 400px, tablet: 600px) !default;
 
 // Typography
 $thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !default;
-$thredded-heading-font-family: inherit !default;
-
-// Font Sizes
-$thredded-base-font-size: 1rem !default;
-
-// Line height
+$thredded-base-font-size: 1rem !default; // 16px
+$thredded-font-size-small: 0.875rem !default; // 14px
 $thredded-base-line-height: 1.5 !default;
+$thredded-heading-font-family: inherit !default;
 $thredded-heading-line-height: 1.2 !default;
 
-// Other Sizes
-$thredded-base-border-radius: 3px !default;
+// Spacings
 $thredded-large-spacing: $thredded-base-line-height * 2rem !default;
 $thredded-base-spacing: $thredded-base-line-height * 1rem !default;
 $thredded-small-spacing: $thredded-base-spacing / 2 !default;
 
-// Colors
+// Named colors
 $thredded-brand: #4a90e2 !default;
 $thredded-dark-gray: #333 !default;
 $thredded-light-gray: #eee !default;
 
-// Font Colors
-$thredded-base-background-color: #fff !default;
+// Colors of text, background, and actions (links)
 $thredded-base-font-color: #575d6b !default;
+$thredded-base-background-color: #fff !default;
 $thredded-action-color: $thredded-brand !default;
 
-// Alerts and flash messages
+// Colors of alerts and flash messages
+$thredded-alert-danger-background: #fbe3e4 !default;
 $thredded-alert-danger-color: #a94442 !default;
+$thredded-alert-info-background: #e6f3fa !default;
 $thredded-alert-info-color: darken($thredded-brand, 15%) !default;
+$thredded-alert-success-background: #e6efc2 !default;
 $thredded-alert-success-color: #3c763d !default;
+$thredded-alert-warning-background: #fcf8e3 !default;
 $thredded-alert-warning-color: #8a6d3b !default;
 
-$thredded-alert-danger-background: #fbe3e4 !default;
-$thredded-alert-info-background: #e6f3fa !default;
-$thredded-alert-success-background: #e6efc2 !default;
-$thredded-alert-warning-background: #fcf8e3 !default;
-
-// Border
+// Borders
 $thredded-base-border-color: $thredded-light-gray !default;
 $thredded-base-border: 1px solid $thredded-base-border-color !default;
 
 // Forms
 $thredded-form-border: 1px solid darken($thredded-base-border-color, 5%) !default;
 $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
+
+// Buttons
+$thredded-button-background: $thredded-action-color !default;
+$thredded-button-border-radius: 3px !default;
+$thredded-button-color: #fff !default;
+$thredded-button-font-family: $thredded-base-font-family !default;
+$thredded-button-font-size: $thredded-font-size-small !default;
+$thredded-button-font-weight: 600 !default;
+$thredded-button-hover-background: darken($thredded-button-background, 15%) !default;
+$thredded-button-line-height: 1 !default;

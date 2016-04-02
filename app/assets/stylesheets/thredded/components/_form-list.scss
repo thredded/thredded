@@ -29,7 +29,7 @@
 &--form-list--hint {
   @extend %thredded--paragraph;
   color: lighten($thredded-base-font-color, 20%);
-  font-size: 0.875rem; // 14px
+  font-size: $thredded-font-size-small;
   font-weight: normal;
   position: relative;
 }

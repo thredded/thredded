@@ -28,7 +28,7 @@
 &--topics--started-by,
 &--topics--updated-by {
   color: lighten($thredded-base-font-color, 30%);
-  font-size: 0.875rem; // 14px
+  font-size: $thredded-font-size-small;
   font-style: normal;
 
   a {

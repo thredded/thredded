@@ -1,16 +1,16 @@
 %thredded--button {
   appearance: none;
   -webkit-font-smoothing: antialiased;
-  background-color: $thredded-action-color;
-  border-radius: $thredded-base-border-radius;
+  background: $thredded-button-background;
+  border-radius: $thredded-button-border-radius;
   border: none;
-  color: #fff;
+  color: $thredded-button-color;
   cursor: pointer;
   display: inline-block;
-  font-family: $thredded-base-font-family;
-  font-size: 0.875rem; // 14px
-  font-weight: 600;
-  line-height: 1;
+  font-family: $thredded-button-font-family;
+  font-size: $thredded-button-font-size;
+  font-weight: $thredded-button-font-weight;
+  line-height: $thredded-button-line-height;
   padding: 0.75em 1em;
   text-decoration: none;
   user-select: none;
@@ -19,12 +19,12 @@
 
   &:hover,
   &:focus {
-    background-color: darken($thredded-action-color, 15%);
+    background-color: $thredded-button-hover-background;
     color: #fff;
   }
 
   &:focus {
-    box-shadow: 0 0 3px $thredded-action-color;
+    box-shadow: 0 0 3px $thredded-button-background;
     outline: none;
   }
 
@@ -33,7 +33,7 @@
     opacity: 0.5;
 
     &:hover {
-      background-color: $thredded-action-color;
+      background: $thredded-button-background;
     }
   }
 }
