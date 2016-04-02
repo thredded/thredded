@@ -35,8 +35,6 @@ module Thredded
       Thredded::Engine.config.assets.precompile += %w(
         thredded.js
         thredded.css
-        thredded/chosen-sprite.png
-        thredded/chosen-sprite@2x.png
         thredded/breadcrumb-chevron.svg
       )
     end
