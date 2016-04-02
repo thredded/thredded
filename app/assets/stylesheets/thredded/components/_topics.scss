@@ -16,6 +16,7 @@
   margin-bottom: 0;
 
   a {
+    @extend %thredded--link;
     color: $thredded-base-font-color;
 
     &:hover {
@@ -31,6 +32,7 @@
   font-style: normal;
 
   a {
+    @extend %thredded--link;
     color: lighten($thredded-base-font-color, 20%);
 
     &:hover {

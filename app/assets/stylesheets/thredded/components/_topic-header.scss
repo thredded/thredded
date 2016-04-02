@@ -14,4 +14,7 @@
   font-size: 0.875rem; // 14px
   color: lighten($thredded-base-font-color, 30%);
   font-style: normal;
+  a {
+    @extend %thredded--link;
+  }
 }

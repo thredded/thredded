@@ -52,6 +52,10 @@ body {
 .app-nav-auth {
   float: right;
 
+  a {
+    @extend %thredded--link;
+  }
+
   @include thredded-media-mobile {
     color: white;
     font-size: 0;
@@ -61,7 +65,6 @@ body {
     }
   }
 }
-
 
 .app-home {
   font-size: 16px;
@@ -73,6 +76,10 @@ body {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     font-weight: bold;
+  }
+
+  a {
+    @extend %thredded--link;
   }
 
   section {

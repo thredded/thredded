@@ -12,6 +12,7 @@
   }
 
   a {
+    @extend %thredded--link;
     color: lighten($thredded-base-font-color, 30%);
   }
 }

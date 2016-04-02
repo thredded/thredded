@@ -34,19 +34,3 @@
   margin: 0 0 $thredded-small-spacing;
 }
 
-.thredded--main-container {
-  -webkit-font-smoothing: antialiased;
-  color: $thredded-base-font-color;
-  font-family: $thredded-base-font-family;
-  font-size: $thredded-base-font-size;
-  line-height: $thredded-base-line-height;
-  margin: 0;
-
-  a {
-    @extend %thredded--link;
-  }
-
-  hr {
-    @extend %thredded--hr;
-  }
-}

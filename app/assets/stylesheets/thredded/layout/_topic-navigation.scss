@@ -18,6 +18,7 @@
   }
 
   a {
+    @extend %thredded--link;
     color: lighten($thredded-base-font-color, 10%);
     display: block;
     padding-bottom: $thredded-small-spacing;
@@ -36,6 +37,7 @@
   margin-bottom: -2px;
 
   a {
+    @extend %thredded--link;
     color: $thredded-action-color;
   }
 }

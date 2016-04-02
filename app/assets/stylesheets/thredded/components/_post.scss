@@ -30,6 +30,7 @@
   margin-bottom: 1.25rem; // 20px
 
   a {
+    @extend %thredded--link;
     color: $thredded-base-font-color;
   }
 }
@@ -43,6 +44,7 @@
 
 &--post--edit {
   font-size: 0.875rem; // 14px
+  @extend %thredded--link;
 }
 
 &--post--content {

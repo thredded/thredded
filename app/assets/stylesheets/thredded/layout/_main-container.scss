@@ -1,7 +1,11 @@
 &--main-container {
   @include thredded--clearfix;
-  margin-left: auto;
-  margin-right: auto;
+  -webkit-font-smoothing: antialiased;
+  color: $thredded-base-font-color;
+  font-family: $thredded-base-font-family;
+  font-size: $thredded-base-font-size;
+  line-height: $thredded-base-line-height;
+  margin: 0 auto;
   max-width: $thredded-grid-container-max-width;
   padding: 1rem;
 

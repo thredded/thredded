@@ -1,4 +1,5 @@
 &--messageboard {
+  @extend %thredded--link;
   border: $thredded-base-border;
   display: block;
   margin-bottom: $thredded-base-spacing;
