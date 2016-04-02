@@ -48,10 +48,3 @@ $thredded-base-border: 1px solid $thredded-base-border-color !default;
 // Forms
 $thredded-form-border: 1px solid darken($thredded-base-border-color, 5%) !default;
 $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
-
-// Buttons
-$thredded-all-text-inputs: (
-        "[type='color']", "[type='date']", "[type='datetime']", "[type='datetime-local']",
-        "[type='email']", "[type='month']", "[type='number']", "[type='password']", "[type='search']", "[type='tel']",
-        "[type='text']", "[type='time']", "[type='url']", "[type='week']", 'input:not([type])',
-        textarea) !default;

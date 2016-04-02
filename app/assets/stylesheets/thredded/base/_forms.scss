@@ -27,8 +27,9 @@
     }
   }
 
-  #{$thredded-all-text-inputs},
-  select[multiple=multiple] {
+  [type='color'], [type='date'], [type='datetime'], [type='datetime-local'], [type='email'], [type='month'],
+  [type='number'], [type='password'], [type='search'], [type='tel'], [type='text'], [type='time'], [type='url'],
+  [type='week'], input:not([type]), select [multiple=multiple] {
     background-color: $thredded-base-background-color;
     border: $thredded-form-border;
     box-shadow: $thredded-form-box-shadow;
