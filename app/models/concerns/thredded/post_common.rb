@@ -44,7 +44,7 @@ module Thredded
 
     def context_options
       {
-        asset_root: Thredded.asset_root,
+        asset_root: Rails.application.config.action_controller.asset_host || '',
         post:       self,
         whitelist:  sanitize_whitelist
       }

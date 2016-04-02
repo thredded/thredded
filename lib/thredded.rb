@@ -35,8 +35,6 @@ module Thredded
     :email_outgoing_prefix,
     :email_reply_to,
     :user_path,
-    :file_storage,
-    :asset_root,
     :layout,
     :active_user_threshold
 
@@ -49,8 +47,6 @@ module Thredded
   self.user_name_column = :name
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
   self.active_user_threshold = 5.minutes
-  self.file_storage = :file # or :fog
-  self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded/application'
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
   self.moderator_column = :admin

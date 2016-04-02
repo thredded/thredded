@@ -49,17 +49,3 @@ Thredded.admin_column = :admin
 # ==> View Configuration
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
-
-# ==> Asset / File Storage Configuration
-# Root location where you have placed emojis (used when rendering posts).
-# If you're hosting on a platform that allows you to keep your files local
-# to your app - this might not be necessary. If you're hosting somewhere
-# with an ephemeral filesystem, like heroku, you'll need to point this to
-# wherever you store files on the cloud.
-#
-# Thredded.asset_root = ''
-# Thredded.asset_root = 'https://my-app-bucket.s3.amazonaws.com/assets'
-#
-# Where carrierwave will be storing its files - on the cloud, or filesystem.
-# Configure :fog with your own carrierwave initializer.
-Thredded.file_storage = Rails.env.production? ? :fog : :file
