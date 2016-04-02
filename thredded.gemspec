@@ -6,8 +6,8 @@ require 'thredded/version'
 Gem::Specification.new do |s|
   s.name        = 'thredded'
   s.version     = Thredded::VERSION
-  s.authors     = ['Joel Oliveira']
-  s.email       = ['joel@thredded.com']
+  s.authors     = ['Joel Oliveira', 'Gleb Mazovetskiy']
+  s.email       = ['joel@thredded.com', 'glex.spb@gmail.com']
   s.homepage    = 'https://www.thredded.com'
   s.summary     = 'A messageboard engine'
   s.license     = 'MIT'
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
   s.add_dependency 'q'
-  s.add_dependency 'rails', '>= 4.0.0'
+  s.add_dependency 'rails', '>= 4.1.0'
   s.add_dependency 'rb-gravatar'
 
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
