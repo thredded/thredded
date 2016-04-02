@@ -32,7 +32,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
     TestAfterCommit.enabled = true
-    Q.queue_config.inline = true
+    ActiveJob::Base.queue_adapter = :inline
   end
 
   config.after(:suite) do
@@ -43,7 +43,6 @@ RSpec.configure do |config|
     DatabaseCleaner.start
     Time.zone = 'UTC'
     Chronic.time_class = Time.zone
-    Thredded.queue_backend = :threaded_in_memory_queue
   end
 
   config.after(:each) do
@@ -56,6 +55,4 @@ RSpec.configure do |config|
       counter = 0
     end
   end
-
-  ThreadedInMemoryQueue.logger.level = Logger::ERROR
 end

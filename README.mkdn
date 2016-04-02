@@ -60,19 +60,6 @@ Include thredded JavaScripts in your `application.js`:
 
 [initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
-
-## Background Job Requirements
-
-This gem has several gem agnostic background jobs. Currently resque, sidekiq, delayed_job, and a threaded in-memory queue are supported thanks to [Richard Schneeman's Q gem](https://github.com/schneems/Q). The configuration detailed above allows you to specify which job queue you prefer with `Thredded.queue_backend`. The available options are one of the following symbols - `:threaded_in_memory_queue`, `:sidekiq`, `:resque`, or `:delayed_job`.
-
-When using the threaded in-memory queue you may *optionally* update its log-level for more granular debugging with the `Thredded.queue_memory_log_level` setting.
-
-When running the app in a test environment you may want to set your queue to run the jobs inline. In your config you may want to set the option based on environment. EG:
-
-```ruby
-Thredded.queue_inline = Rails.env.test?
-```
-
 ## Get Your Parent App Ready
 
 There are a few things you need in your app to get things looking just right.
@@ -209,12 +196,24 @@ Finally, run the development server with either `DB=postgresql` or `DB=mysql2`:
 $ DB=postgresql rake dev:server
 ```
 
+## Rails 4.1 and ActiveJob Support
+
+If you're currently using Rails 4.1 make sure to add ...
+
+```ruby
+gem 'activejob_backport'
+```
+
+... to your Gemfile before thredded. ActiveJob is now the main background job
+abstraction layer in Thredded. It was not introduced to rails until 4.2 so
+you'll need the backport to provide the support for it.
+
 ## Developing and Testing with [Docker Compose](http://docs.docker.com/compose/)
 
 To quickly try out _Thredded_ with the included dummy app, clone the source and
 start the included docker-compose.yml file with:
 
-```
+```console
 docker-compose build
 docker-compose up -d
 ```

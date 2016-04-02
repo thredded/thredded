@@ -71,7 +71,10 @@ module Thredded
         messageboard   = create(:messageboard)
         active_user    = create(:user)
         _inactive_user = create(:user)
-        ActivityUpdaterJob.queue.update_user_activity('user_id' => active_user.id, 'messageboard_id' => messageboard.id)
+        Thredded::ActivityUpdaterJob.perform_later(
+          active_user.id,
+          messageboard.id
+        )
 
         expect(messageboard.recently_active_users).to eq [active_user]
       end

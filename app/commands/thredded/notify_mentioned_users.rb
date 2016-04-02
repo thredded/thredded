@@ -1,5 +1,7 @@
 module Thredded
   class NotifyMentionedUsers
+    DELIVER_METHOD = Rails.version < '4.2.0' ? :deliver : :deliver_later
+
     def initialize(post)
       @post = post
     end
@@ -9,7 +11,9 @@ module Thredded
       return unless members.present?
 
       user_emails = members.map(&:email)
-      (post.private_topic_post? ? PrivatePostMailer : PostMailer).at_notification(post.id, user_emails).deliver
+      (post.private_topic_post? ? PrivatePostMailer : PostMailer)
+        .at_notification(post.id, user_emails)
+        .send(DELIVER_METHOD)
       MembersMarkedNotified.new(post, members).run
     end
 

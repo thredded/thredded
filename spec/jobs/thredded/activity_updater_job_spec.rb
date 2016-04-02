@@ -14,9 +14,7 @@ module Thredded
       end
 
       Timecop.freeze(march_2) do
-        Thredded::ActivityUpdaterJob.queue.update_user_activity(
-          'messageboard_id' => @messageboard.id,
-          'user_id' => @user.id)
+        Thredded::ActivityUpdaterJob.perform_later(@user.id, @messageboard.id)
       end
 
       expect(@user_detail.reload.last_seen_at).to eq(march_2)

@@ -1,12 +1,11 @@
 module Thredded
-  class NotifyPrivateTopicUsersJob
-    include Q::Methods
+  class NotifyPrivateTopicUsersJob < ::ActiveJob::Base
+    queue_as :default
 
-    queue(:send_notifications) do |private_topic_id|
-      ActiveRecord::Base.connection_pool.with_connection do
-        private_topic = PrivateTopic.find(private_topic_id)
-        NotifyPrivateTopicUsers.new(private_topic).run if private_topic
-      end
+    def perform(private_topic_id)
+      private_topic = Thredded::PrivateTopic.find(private_topic_id)
+
+      NotifyPrivateTopicUsers.new(private_topic).run
     end
   end
 end

@@ -46,28 +46,6 @@ Thredded.admin_column = :admin
 # Reply to field for email notifications
 # Thredded.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
 
-# ==> Background Job/Queue Configuration
-# Thredded uses the 'Q' gem, which provides a common interface for several
-# different background job / queueing libraries. The supported queue
-# backends are:
-#
-#   :threaded_in_memory_queue
-#   :sidekiq
-#   :resque
-#   :delayed_job
-#
-# By default, the in-memory queue is turned on, but we recommend sidekiq.
-Thredded.queue_backend = :threaded_in_memory_queue
-
-# Whether or not to inline the jobs being processed. Typically you would only
-# want to turn this on for when the test suite is being run.
-Thredded.queue_inline = Rails.env.test?
-
-# If using the threaded in-memory queue it will default its log level to
-# `Logger::WARN` but if you would like more information, change it to
-# `Logger::INFO` or `Logger::DEBUG`.
-# Thredded.queue_memory_log_level = Logger::WARN
-
 # ==> View Configuration
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'

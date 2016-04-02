@@ -35,8 +35,7 @@ module Thredded
       @private_topic = PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
         NotifyPrivateTopicUsersJob
-          .queue
-          .send_notifications(@private_topic.private_topic.id)
+          .perform_later(@private_topic.private_topic.id)
 
         UserResetsPrivateTopicToUnread
           .new(@private_topic.private_topic, thredded_current_user)

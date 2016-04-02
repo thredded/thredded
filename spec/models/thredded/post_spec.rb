@@ -30,7 +30,12 @@ module Thredded
     end
 
     it 'notifies anyone @ mentioned in the post' do
-      mail = double('Thredded::PostMailer.at_notification(...)', deliver: true)
+      if Rails.version < '4.2.0'
+        mail = double('Thredded::PostMailer.at_notification(...)', deliver: true)
+      else
+        mail = double('Thredded::PostMailer.at_notification(...)', deliver_later: true)
+      end
+
       expect(Thredded::PostMailer).to receive(:at_notification).with(1, ['joel@example.com']).and_return(mail)
 
       messageboard = create(:messageboard)
@@ -41,7 +46,13 @@ module Thredded
         messageboard: messageboard,
         notify_on_mention: true
       )
-      expect(mail).to receive(:deliver)
+
+      if Rails.version < '4.2.0'
+        expect(mail).to receive(:deliver)
+      else
+        expect(mail).to receive(:deliver_later)
+      end
+
       create(:post, id: 1, content: 'hi @joel', messageboard: messageboard)
     end
 

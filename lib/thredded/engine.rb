@@ -22,13 +22,6 @@ module Thredded
         # Delegate all main_app routes to allow calling them directly.
         ::Thredded::ApplicationController.helper ::Thredded::MainAppRouteDelegator
       end
-
-      Q.setup do |config|
-        config.queue = Thredded.queue_backend
-        config.queue_config.inline = Thredded.queue_inline
-      end
-
-      ThreadedInMemoryQueue.logger.level = Thredded.queue_memory_log_level
     end
 
     initializer 'thredded.setup_assets' do

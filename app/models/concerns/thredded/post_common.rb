@@ -93,7 +93,7 @@ module Thredded
     end
 
     def notify_at_users
-      AtNotifierJob.queue.send_at_notifications(self.class.name, id)
+      AtNotifierJob.perform_later(self.class.name, id)
     end
 
     module ClassMethods

@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://www.thredded.com'
   s.summary     = 'A messageboard engine'
   s.license     = 'MIT'
-  s.description = 'A messageboard engine for Rails 4.0 apps'
+  s.description = 'A messageboard engine for Rails 4.1+ apps'
 
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
-  s.add_dependency 'q'
   s.add_dependency 'rails', '>= 4.1.0'
   s.add_dependency 'rb-gravatar'
 

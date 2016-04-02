@@ -8,4 +8,3 @@ Thredded.layout = 'application' unless ENV['THREDDED_DUMMY_LAYOUT_STANDALONE']
 Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'retro') }
 Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
-Thredded.queue_inline = true

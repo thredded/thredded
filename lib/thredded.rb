@@ -7,8 +7,7 @@ require 'html/pipeline/at_mention_filter'
 require 'html/pipeline/bbcode_filter'
 require 'kaminari'
 require 'rb-gravatar'
-require 'q'
-require 'threaded_in_memory_queue'
+require 'active_job'
 
 # Asset compilation
 require 'autoprefixer-rails'
@@ -39,9 +38,6 @@ module Thredded
     :file_storage,
     :asset_root,
     :layout,
-    :queue_backend,
-    :queue_memory_log_level,
-    :queue_inline,
     :active_user_threshold
 
   # @return [Symbol] The name of the moderator flag column on the users table for the default permissions model
@@ -56,9 +52,6 @@ module Thredded
   self.file_storage = :file # or :fog
   self.asset_root = '' # or fully qualified URI to assets
   self.layout = 'thredded/application'
-  self.queue_backend = :threaded_in_memory_queue
-  self.queue_memory_log_level = Logger::WARN
-  self.queue_inline = false
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
   self.moderator_column = :admin
   self.admin_column = :admin
