@@ -289,46 +289,6 @@ Currently, the default behaviour is to redirect to the forums root page with a f
 
 [rescue_from]: http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html
 
-## Gem development dependencies
-
-To be more clear - these are some dependencies for when you are working on
-*this* gem. Not for when you are implementing it into your Rails app.
-
-* PostgreSQL & MySQL - `brew install postgres mysql`
-
-Then, create the `thredded` database users for both MySQL and Postgres. Optional
-ENV's you can use are to specify the db's - `DB=postgresql` or `DB=mysql2` - or
-the user account that postgresql is running as - `PG_DAEMON_USER=$(whoami)`.
-
-```console
-$ [DB=postgresql|mysql2] [PG_DAEMON_USER=$(whoami)] script/create-db-users
-```
-
-If and when you generate new migrations for thredded there will be three
-database migrations and one schema dump you will want to run.
-
-1. `DB=mysql2 bundle exec rake db:drop db:create db:migrate`
-2. `DB=postgresql bundle exec rake db:drop db:create db:migrate`
-3. `RAILS_ENV=test bundle exec rake db:drop db:create db:migrate`
-4. `bundle exec rake db:schema:dump`
-
-The first two, in the steps above, are to generate the db schemas for both
-postgres and mysql, the third is to migrate your local test database, and the
-last is to take that schema information and save it to the two schema files
-(for when it tests against PG and MySql).
-
-*Or*, use the included script (it's got all that good stuff in it)
-
-```console
-$ script/migrate
-```
-
-Finally, run the development server with either `DB=postgresql` or `DB=mysql2`:
-
-```console
-$ DB=postgresql rake dev:server
-```
-
 ## Rails 4.1 and ActiveJob Support
 
 If you're currently using Rails 4.1 make sure to add ...
@@ -337,9 +297,69 @@ If you're currently using Rails 4.1 make sure to add ...
 gem 'activejob_backport'
 ```
 
-... to your Gemfile before thredded. ActiveJob is now the main background job
-abstraction layer in Thredded. It was not introduced to rails until 4.2 so
-you'll need the backport to provide the support for it.
+... to your Gemfile. ActiveJob is now the main background job abstraction layer in Thredded. 
+It was not introduced to rails until 4.2 so you'll need the backport to provide the support for it.
+
+## Development
+
+To be more clear - this is the for when you are working on *this* gem.
+Not for when you are implementing it into your Rails app.
+
+First, to get started, migrate and seed the database (SQLite by default):
+
+```bash
+bundle
+rake db:migrate
+# Seed the development database with fake forum users, topics, and posts:
+rake dev:seed
+```
+
+Then, start the dummy app server:
+
+```bash
+rake dev:server
+```
+
+To run the tests, just run `rspec`. The test suite will re-create the test database on every run, so there is no need to
+run tasks that maintain the test database.
+
+Run `rubocop` to ensure a consistent code style across the codebase.
+
+By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, SQLite,
+and all the supported Rails versions.
+
+### Testing with all the databases and Rails versions locally.
+
+You can also test the gem with all the supported databases and Rails versions locally.
+
+First install PostgreSQL and MySQL, and run:
+
+```bash
+script/create-db-users
+```
+
+Then, to test with all the databases and the default Rails version (as defined in `Gemfile`), run:
+
+```bash
+rake test_all_dbs
+```
+
+To test with a specific database and all the Rails versions, run:
+
+```bash
+# Test with SQLite3:
+rake test_all_gemfiles
+# Test with MySQL:
+DB=mysql2 rake test_all_gemfiles
+# Test with PostgreSQL:
+DB=postgresql rake test_all_gemfiles
+```
+
+To test all combinations of supported databases and Rails versions, run:
+
+```bash
+rake test_all
+```
 
 ## Developing and Testing with [Docker Compose](http://docs.docker.com/compose/)
 
@@ -365,4 +385,6 @@ After booting up the containers you can run the test suite with the following:
 ```console
 docker-compose run web bundle exec rake
 ```
+
+The docker container uses PostgreSQL.
 

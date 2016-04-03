@@ -15,7 +15,7 @@ web:
     DB_PASSWORD:
   command: >
     bash -c 'script/wait-for-tcp $THREDDED_DB_1_PORT_5432_TCP_ADDR $THREDDED_DB_1_PORT_5432_TCP_PORT &&
-             script/migrate &&
+             rake db:drop db:create db:migrate dev:seed &&
              rake dev:server'
   ports:
     - "9292:9292"
