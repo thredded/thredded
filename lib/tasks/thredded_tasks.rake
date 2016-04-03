@@ -7,7 +7,7 @@ namespace :thredded do
   task :nuke, [:slug] => :destroy
 
   namespace :install do
-    desc "Copy emoji to the Rails `public/emoji` directory"
+    desc 'Copy emoji to the Rails `public/emoji` directory'
     task :emoji do
       require 'emoji'
 
