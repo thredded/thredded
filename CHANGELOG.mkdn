@@ -1,5 +1,10 @@
 # MASTER
 
+# Fixed
+
+* Rake task added to copy emojis to correct location in parent application.
+
+
 # 0.2.1 - 2016-04-03
 
 ## Changed
