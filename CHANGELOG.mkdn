@@ -1,5 +1,33 @@
 # MASTER
 
+# 0.2.0 - 2016-04-03
+
+## TLDR
+
+A lot was updated. Apologies for not keeping this updated since `0.1.0`!
+
+## Added
+
+* Entirely new default theme. Courtesy @kylefiedler
+* Full-text search abstracted out to gem (db_text_search) thanks to @glebm
+* Rack-mini-profiler added to dummy app
+
+## Changed
+
+* Rails depedency bumped up to raisl 4.1+
+* User permissions have been simplified considerably. (@glebm)
+* Changed from using Q gem to ActiveJob
+* Move SeedDatabase class out of an autoloaded path since it's for dev only (@cgunther)
+
+
+## Fixed
+
+* User path corrected (@saturnflyer)
+* Move requiring turbolinks from thredded to dummy app (@cgunther)
+* Fix location of layout in install generator (@mlaco)
+
+##
+
 # 0.1.0 - 2015-06-29
 
 ## Added
