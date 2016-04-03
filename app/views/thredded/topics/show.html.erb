@@ -13,8 +13,8 @@
                    topic:        topic,
                    post:         @new_post,
                    button_text:  'Submit Reply' %>
+      </div>
     <% end %>
-    </div>
 
     <% if current_ability.can? :destroy, topic %>
       <div class="thredded--topic-delete--wrapper">
