@@ -1,8 +1,16 @@
 # MASTER
 
-# Fixed
+## Fixed
+
+* Images are now no larger than the post container div. CSS now makes sure the images are
+  appropriately sized.
+* Fix an incorrectly closed div in `thredded/topics#show`
+* Small fix for topics count circle - making sure 3 digit numbers fit in container circle.
+
+## Added
 
 * Rake task added to copy emojis to correct location in parent application.
+* Properly styled categories in `thredded/topics#index`
 
 
 # 0.2.1 - 2016-04-03
