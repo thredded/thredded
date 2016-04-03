@@ -3,7 +3,16 @@ if ENV['TRAVIS'] && !(defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx')
   require 'codeclimate-test-reporter'
   CodeClimate::TestReporter.start
 end
+
 require File.expand_path('../dummy/config/environment', __FILE__)
+
+# Re-create the test database and run the migrations
+db = ENV.fetch('DB', 'sqlite3')
+system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
+ActiveRecord::Tasks::DatabaseTasks.drop_current
+ActiveRecord::Tasks::DatabaseTasks.create_current
+ActiveRecord::Migrator.migrate(['db/migrate/', File.join(Rails.root, 'db/migrate/')])
+
 require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
@@ -20,7 +29,7 @@ counter = -1
 
 FileUtils.mkdir('log') unless File.directory?('log')
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger =
-  Logger.new(File.open("log/test.#{ENV['DB'] || 'postgresql'}.log", 'w'))
+  Logger.new(File.open("log/test.#{db}.log", 'w'))
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
