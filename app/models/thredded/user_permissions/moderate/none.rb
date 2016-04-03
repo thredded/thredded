@@ -5,7 +5,7 @@ module Thredded
         extend ActiveSupport::Concern
         included { extend ClassMethods }
 
-        # @return [ActiveRecord::Relation] messageboards that the user can moderate
+        # @return [ActiveRecord::Relation<Thredded::Messageboard>] messageboards that the user can moderate
         def thredded_can_moderate_messageboards
           Thredded::Messageboard.none
         end
@@ -14,8 +14,7 @@ module Thredded
           # Users that can moderate the given messageboards.
           #
           # @param _messageboards [Array<Thredded::Messageboard>]
-          # @return [ActiveRecord::Relation] users that can read and post
-          #     in the given messageboards
+          # @return [ActiveRecord::Relation<Thredded.user_class>] users that can moderate the given messageboards
           def thredded_messageboards_moderators(_messageboards)
             none
           end
