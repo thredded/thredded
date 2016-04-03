@@ -25,13 +25,13 @@ Planned features:
 [Discourse]: http://www.discourse.org/
 [Forem]: https://www.github.com/radar/forem
 
-Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL.
-Thredded has no infrastructure dependencies other than the database and, if configured in the parent application,
-the ActiveJob backend dependency such as Redis.
-Currently only MRI Ruby 2.2+ is supported. We would love to support JRuby and Rubinius as well.
+Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. Thredded has no infrastructure
+dependencies other than the database and, if configured in the parent application, the ActiveJob
+backend dependency such as Redis. Currently only MRI Ruby 2.2+ is supported. We would love to
+support JRuby and Rubinius as well.
 
-If you're looking for variations on a theme - see [Forem] and [Discourse].
-Forem is also an engine, while Discourse is a full app.
+If you're looking for variations on a theme - see [Forem] and [Discourse]. Forem is also an engine,
+while Discourse is a full app.
 
 ## Installation
 
@@ -47,8 +47,14 @@ Add the Thredded [initializer] to your parent app by running the install generat
 rails generate thredded:install
 ```
 
-Thredded needs to know the base application User model name and certain columns on it. Configure these in the
-initializer installed with the command above.
+Copy emoji images to your `public/emoji` directory.
+
+```console
+rake thredded:install:emoji
+```
+
+Thredded needs to know the base application User model name and certain columns on it. Configure
+these in the initializer installed with the command above.
 
 Then, copy the migrations over to your parent application and migrate:
 
