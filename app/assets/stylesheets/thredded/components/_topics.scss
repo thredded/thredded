@@ -9,19 +9,39 @@
 
 &--topics--title {
   @extend %thredded--heading;
-  display: inline-block;
+  display: inline;
   font-size: 1.125rem; // 18px
   line-height: 1.5;
-  margin-right: $thredded-small-spacing / 2;
-  margin-bottom: 0;
 
   a {
     @extend %thredded--link;
     color: $thredded-base-font-color;
+    display: inline;
 
     &:hover {
       color: $thredded-action-color;
     }
+  }
+}
+
+&--topics--categories {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  line-height: 1rem;
+
+  li {
+    font-size: .5rem;
+    display: inline-block;
+    color: $thredded-base-font-color;
+    background-color: lighten($thredded-base-font-color, 55%);
+    box-shadow: inset 0 -1px 0 lighten($thredded-base-font-color, 40%);
+    padding: 1px 6px;
+    border-radius: 2px;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    vertical-align: bottom;
   }
 }
 
