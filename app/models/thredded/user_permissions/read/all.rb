@@ -5,7 +5,7 @@ module Thredded
         extend ActiveSupport::Concern
         included { extend ClassMethods }
 
-        # @return [ActiveRecord::Relation] messageboards that the user can read
+        # @return [ActiveRecord::Relation<Thredded::Messageboard>] messageboards that the user can read
         def thredded_can_read_messageboards
           Thredded::Messageboard.all
         end
@@ -14,8 +14,7 @@ module Thredded
           # Users that can read the given messageboards.
           #
           # @param _messageboards [Array<Thredded::Messageboard>]
-          # @return [ActiveRecord::Relation] users that can read and post
-          #     in the given messageboards
+          # @return [ActiveRecord::Relation<Thredded.user_class>] users that can read the given messageboards
           def thredded_messageboards_readers(_messageboards)
             all
           end
