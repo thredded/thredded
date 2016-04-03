@@ -11,6 +11,12 @@
     %>
   </h1>
 
+  <% if topic.categories.any? %>
+    <ul class="thredded--topics--categories">
+      <%= render topic.categories %>
+    </ul>
+  <% end %>
+
   <cite class="thredded--topics--updated-by">
     <%= time_ago topic.updated_at %>
     <%= user_link topic.last_user %>
@@ -20,10 +26,4 @@
     <%= time_ago topic.created_at %>
     <%= user_link topic.user %>
   </cite>
-
-  <% if topic.categories.any? %>
-    <ul class="thredded--topics--categories">
-      <%= render topic.categories %>
-    </ul>
-  <% end %>
 <% end %>
