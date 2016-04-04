@@ -259,7 +259,7 @@ Below is an overview of the default permissions, with links to the implementatio
   <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/write/none.rb">
     ❌ No
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/message/none.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/message/readers_of_writeable_boards.rb">
     ❌ No
   </a></td>
   <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/moderate/none.rb">
@@ -274,7 +274,7 @@ Below is an overview of the default permissions, with links to the implementatio
 
 ### Handling "Permission denied"
 
-Thredded defines a number of Exception classes that you can `[rescue_from]` in your `ApplicationController`
+Thredded defines a number of Exception classes that you can [`rescue_from`][rescue_from] in your `ApplicationController`
 to handle permission denied errors.
 
 These are:
