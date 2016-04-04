@@ -1,7 +1,12 @@
 # MASTER
 
+# 0.2.2 - 2016-04-04
+
 ## Fixed
 
+* Gemspec had been missing the file-listing for a while therefore previous gem versions would have
+  had installation issues. To use previous, broken, versions refer to the changelog notes for each
+  below.
 * Images are now no larger than the post container div. CSS now makes sure the images are
   appropriately sized.
 * Fix an incorrectly closed div in `thredded/topics#show`
@@ -15,12 +20,24 @@
 
 # 0.2.1 - 2016-04-03
 
+To install, in your Gemfile:
+
+```
+gem 'thredded', git: 'https://github.com/thredded/thredded.git', tag: 'v0.2.1'
+```
+
 ## Changed
 
 * All migrations have been squashed into one single db-agnostic migration.
 * README has been updated with better instructions/support
 
 # 0.2.0 - 2016-04-03
+
+To install, in your Gemfile:
+
+```
+gem 'thredded', git: 'https://github.com/thredded/thredded.git', tag: 'v0.2.0'
+```
 
 ## TLDR
 
