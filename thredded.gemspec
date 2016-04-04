@@ -13,6 +13,9 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.description = 'A messageboard engine for Rails 4.1+ apps'
 
+  s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec|script)/|^\.}) } -
+    %w(Dockerfile docker-compose.yml Rakefile Gemfile shared.gemfile)
+
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'cancancan'
