@@ -136,13 +136,8 @@ mkdir -p app/views/thredded/posts && cp "$(bundle show thredded)/$_/_post.html.e
 customizations are still compatible with the new version of thredded. This is difficult and error-prone.
 Whenever possible, use the styles and i18n to customize Thredded to your needs.
 
-A couple of notes:
-
-* When using route helpers in the thredded views -- eg: `new_session_path`, et al --
-  make sure to prepend `main_app` to the helper, e.g. `main_app.new_session_path` as Rails engines like Thredded
-  will not know about those routes' existence unless explicitly told so.
-* Thredded views provide two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`.
-  The views within Thredded pass those up through to your layout if you would like to use them.
+Thredded views also provide two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`.
+The views within Thredded pass those up through to your layout if you would like to use them.
 
 ## Permissions
 
