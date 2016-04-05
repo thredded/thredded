@@ -20,7 +20,8 @@
   &:hover,
   &:focus {
     background-color: $thredded-button-hover-background;
-    color: #fff;
+    color: $thredded-button-hover-color;
+    text-decoration: none;
   }
 
   &:focus {

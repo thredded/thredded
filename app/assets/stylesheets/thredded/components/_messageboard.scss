@@ -11,7 +11,7 @@
   }
 
   &:hover {
-    background-color: lighten($thredded-brand, 40%);
+    background-color: rgba($thredded-brand, 0.035);
   }
 }
 

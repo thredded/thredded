@@ -45,10 +45,11 @@ $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
 
 // Buttons
 $thredded-button-background: $thredded-action-color !default;
-$thredded-button-border-radius: 3px !default;
 $thredded-button-color: #fff !default;
+$thredded-button-hover-color: $thredded-button-color !default;
+$thredded-button-hover-background: darken($thredded-button-background, 15%) !default;
+$thredded-button-border-radius: 3px !default;
 $thredded-button-font-family: $thredded-base-font-family !default;
 $thredded-button-font-size: $thredded-font-size-small !default;
 $thredded-button-font-weight: 600 !default;
-$thredded-button-hover-background: darken($thredded-button-background, 15%) !default;
 $thredded-button-line-height: 1 !default;
