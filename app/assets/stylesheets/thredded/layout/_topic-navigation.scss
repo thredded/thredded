@@ -43,9 +43,9 @@
 }
 
 &--topic-navigation--unread {
-  background-color: $thredded-action-color;
+  background: $thredded-badge-active-background;
   border-radius: 10px;
-  color: #fff;
+  color: $thredded-badge-active-color;
   font-size: 0.75rem; // 12px
   line-height: 1;
   margin-left: $thredded-small-spacing;

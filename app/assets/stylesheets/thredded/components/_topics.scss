@@ -90,7 +90,6 @@
 
 &--topics--posts-count {
   border-radius: 50%;
-  color: white;
   display: inline-block;
   font-weight: 900;
   font-size: 0.8rem;
@@ -105,9 +104,11 @@
 }
 
 &--topic--unread > &--topics--posts-count {
-  background: $thredded-action-color;
+  background: $thredded-badge-active-background;
+  color: $thredded-badge-active-color;
 }
 
 &--topic--read > &--topics--posts-count {
-  background: lighten($thredded-base-font-color, 45%);
+  background: $thredded-badge-inactive-background;
+  color: $thredded-badge-inactive-color;
 }

@@ -53,3 +53,9 @@ $thredded-button-font-family: $thredded-base-font-family !default;
 $thredded-button-font-size: $thredded-font-size-small !default;
 $thredded-button-font-weight: 600 !default;
 $thredded-button-line-height: 1 !default;
+
+// Badges (unread count, posts count)
+$thredded-badge-active-color: $thredded-button-color !default;
+$thredded-badge-active-background: $thredded-action-color !default;
+$thredded-badge-inactive-color: $thredded-button-color !default;
+$thredded-badge-inactive-background: rgba($thredded-base-font-color, 0.3) !default;
