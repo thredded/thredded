@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:show], path: 'u'
 
+  mount RailsEmailPreview::Engine, at: '/emails'
   mount Thredded::Engine => '/thredded'
 end

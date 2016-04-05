@@ -1,6 +1,9 @@
 $thredded-grid-container-max-width: 880px;
 @import "thredded";
 
+$rep-brand-color: $thredded-brand;
+@import "rails_email_preview/application";
+
 body {
   margin: 0;
 }
