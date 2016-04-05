@@ -22,7 +22,7 @@ module Thredded
     end
 
     def user_anonymous?
-      user.try(:thredded_anonymous?)
+      !user || user.thredded_anonymous?
     end
 
     # @param view_context [Object] the context of the rendering view.
