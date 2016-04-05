@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd spec/dummy
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rails c
