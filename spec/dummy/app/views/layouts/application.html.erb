@@ -4,7 +4,7 @@
     <title>
       <%= content_for?(:thredded_page_title) ? "#{yield(:thredded_page_title)} | Dummy App" : 'Dummy App' %>
     </title>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
@@ -23,6 +23,15 @@
           <% end %>
         </span>
         <a class="app-nav-logo" href="/">Thredded: Example App</a>
+        <span class="app-nav-theme">
+          Theme:
+          <ul>
+            <% themes.each do |theme| %>
+              <%= content_tag :li, theme.humanize, class: ('app-current-theme' if theme == current_theme),
+                              'data-theme' => theme -%>
+            <% end %>
+          </ul>
+        </span>
       </header>
 
       <% unless content_for?(:thredded)  # thredded already renders the flash messages  %>

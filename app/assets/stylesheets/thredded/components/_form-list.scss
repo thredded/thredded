@@ -28,7 +28,7 @@
 
 &--form-list--hint {
   @extend %thredded--paragraph;
-  color: lighten($thredded-base-font-color, 20%);
+  color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;
   font-weight: normal;
   position: relative;

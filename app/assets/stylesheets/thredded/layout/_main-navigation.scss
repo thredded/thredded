@@ -34,12 +34,7 @@
   }
 
   a {
-    @extend %thredded--link;
-    color: $thredded-base-font-color;
+    @extend %thredded--nav-link;
     font-weight: bold;
-
-    &:hover {
-      color: $thredded-action-color;
-    }
   }
 }

@@ -15,7 +15,7 @@
 
   a {
     @extend %thredded--link;
-    color: $thredded-base-font-color;
+    color: $thredded-text-color;
     display: inline;
 
     &:hover {
@@ -34,9 +34,9 @@
   li {
     font-size: .5rem;
     display: inline-block;
-    color: $thredded-base-font-color;
-    background-color: lighten($thredded-base-font-color, 55%);
-    box-shadow: inset 0 -1px 0 lighten($thredded-base-font-color, 40%);
+    color: $thredded-text-color;
+    background-color: lighten($thredded-text-color, 55%);
+    box-shadow: inset 0 -1px 0 lighten($thredded-text-color, 40%);
     padding: 1px 6px;
     border-radius: 2px;
     text-transform: lowercase;
@@ -47,13 +47,13 @@
 
 &--topics--started-by,
 &--topics--updated-by {
-  color: lighten($thredded-base-font-color, 30%);
+  color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;
   font-style: normal;
 
   a {
     @extend %thredded--link;
-    color: lighten($thredded-base-font-color, 20%);
+    color: lighten($thredded-text-color, 20%);
 
     &:hover {
 

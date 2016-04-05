@@ -8,12 +8,12 @@
 %thredded--link {
   color: $thredded-action-color;
   text-decoration: none;
-  transition: color 0.1s linear;
+  transition: $thredded-action-transition;
 
   &:active,
   &:focus,
   &:hover {
-    color: darken($thredded-action-color, 15%);
+    color: $thredded-action-hover-color;
     text-decoration: none;
   }
 
@@ -24,10 +24,10 @@
 }
 
 %thredded--hr {
-  border-bottom: $thredded-base-border;
+  border-bottom: none;
   border-left: none;
   border-right: none;
-  border-top: none;
+  border-top: $thredded-base-border;
   margin: $thredded-base-spacing 0;
 }
 

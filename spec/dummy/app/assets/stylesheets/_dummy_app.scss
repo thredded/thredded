@@ -1,11 +1,13 @@
-$thredded-grid-container-max-width: 880px;
 @import "thredded";
 
 $rep-brand-color: $thredded-brand;
 @import "rails_email_preview/application";
 
+$dummy-app-bg: $thredded-background-color !default;
+
 body {
   margin: 0;
+  background: $dummy-app-bg;
 }
 
 .thredded--main-container {
@@ -20,12 +22,11 @@ body {
 }
 
 .app-container {
-  background: white;
-  padding: 2em 4em;
-  border: 1px solid $thredded-light-gray;
-  margin: 2em auto;
+  border: $thredded-base-border;
   box-sizing: border-box;
-  max-width: $thredded-grid-container-max-width;
+  margin: 2em auto;
+  max-width: 884px;
+  padding: 2em 4em;
 
   @media (max-width: $thredded-grid-container-max-width) {
     padding: 2em;
@@ -36,6 +37,7 @@ body {
 
 .app-home, .app-container-header {
   font-family: $thredded-base-font-family;
+  color: $thredded-text-color;
   a {
     @extend %thredded--link;
   }
@@ -43,36 +45,55 @@ body {
 
 
 .app-container-header {
-  border-bottom: solid 1px #d8d8d8;
+  border-bottom: $thredded-base-border;
   padding-bottom: 1em;
   margin: 0em -2em 1em;
 
   @include thredded-media-mobile {
     margin: -1em -1.5em 0.6em;
   }
-
-  .app-nav-logo {
-    @extend %thredded--link;
-    color: $thredded-base-font-color;
-    text-decoration: none;
-    font-weight: bold;
-  }
 }
 
+.app-nav-logo {
+  @extend %thredded--link;
+  color: $thredded-text-color;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.app-nav-theme {
+  display: block;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  ul {
+    @extend %thredded--list-unstyled;
+    display: inline-block;
+    li {
+      @extend %thredded--link;
+      cursor: pointer;
+      display: inline-block;
+      margin-left: 0.5rem;
+      &.app-current-theme {
+        color: $thredded-text-color;
+        font-weight: bold;
+      }
+    }
+  }
+  @include thredded-media-tablet-and-up {
+    display: inline-block;
+    margin-left: 2rem;
+    margin-top: 0;
+  }
+}
 
 .app-nav-auth {
   float: right;
 
-  a {
-    @extend %thredded--link;
-  }
-
   @include thredded-media-mobile {
-    color: white;
     font-size: 0;
 
     a {
-      font-size: 16px;
+      font-size: 1rem;
     }
   }
 }

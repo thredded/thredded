@@ -31,14 +31,14 @@
 
   a {
     @extend %thredded--link;
-    color: $thredded-base-font-color;
+    color: $thredded-text-color;
   }
 }
 
 &--post--created-at {
   @extend %thredded--paragraph;
   font-size: $thredded-font-size-small;
-  color: lighten($thredded-base-font-color, 30%);
+  color: $thredded-secondary-text-color;
   display: inline-block;
 }
 
