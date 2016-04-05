@@ -4,7 +4,7 @@ class CreateThredded < ActiveRecord::Migration
     unless table_exists?(:friendly_id_slugs)
       # The user might have installed FriendlyId separately already.
       create_table :friendly_id_slugs do |t|
-        t.string :slug, limit: 255, null: false
+        t.string :slug, limit: 191, null: false
         t.integer :sluggable_id, null: false
         t.string :sluggable_type, limit: 50
         t.string :scope, limit: 191
@@ -18,7 +18,7 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_categories do |t|
       t.integer :messageboard_id, null: false
-      t.string :name, limit: 255, null: false
+      t.string :name, limit: 191, null: false
       t.string :description, limit: 255
       t.timestamps null: false
       t.string :slug, limit: 191, null: false
@@ -51,10 +51,10 @@ class CreateThredded < ActiveRecord::Migration
     add_index :thredded_notification_preferences, [:user_id], name: :index_thredded_notification_preferences_on_user_id
 
     create_table :thredded_post_notifications do |t|
-      t.string :email, limit: 255, null: false
+      t.string :email, limit: 191, null: false
       t.integer :post_id, null: false
       t.timestamps null: false
-      t.string :post_type, limit: 255
+      t.string :post_type, limit: 191
     end
     add_index :thredded_post_notifications, [:post_id, :post_type], name: :index_thredded_post_notifications_on_post
 
