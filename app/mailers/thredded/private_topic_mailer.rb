@@ -1,7 +1,7 @@
 module Thredded
   class PrivateTopicMailer < Thredded::BaseMailer
     def message_notification(private_topic_id, emails)
-      @topic               = PrivateTopic.find(private_topic_id)
+      @topic               = find_record PrivateTopic, private_topic_id
       email_details        = TopicEmailDecorator.new(@topic)
       headers['X-SMTPAPI'] = email_details.smtp_api_tag('private_topic_mailer')
 

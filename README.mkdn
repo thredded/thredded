@@ -139,6 +139,14 @@ Whenever possible, use the styles and i18n to customize Thredded to your needs.
 Thredded views also provide two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`.
 The views within Thredded pass those up through to your layout if you would like to use them.
 
+### Emails
+
+Thredded sends several notification emails to the users. You can override in the same way as the views.
+If you use [Rails Email Preview], you can include Thredded emails into the list of previews by adding
+`Thredded::BaseMailerPreview.preview_classes` to the [Rails Email Preview] `preview_classes` config option.
+
+[Rails Email Preview]: https://github.com/glebm/rails_email_preview
+
 ## Permissions
 
 Thredded comes with a flexible permissions system that can be configured per messageboard/user.

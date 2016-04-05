@@ -1,4 +1,5 @@
 require 'faker'
+I18n.reload!
 include ActionDispatch::TestProcess
 
 FactoryGirl.define do
