@@ -80,6 +80,15 @@ Include thredded JavaScripts in your `application.js`:
 //= require thredded
 ```
 
+You also may want to add an index to the user name column in your users table.
+Thredded uses it to find @-mentions and perform name prefix autocompletion on the private topic form.
+Add the index in a migration like so:
+
+```ruby
+DbTextSearch::CaseInsensitive.add_index(
+    connection, Thredded.user_class.table_name, Thredded.user_name_column, unique: true)
+```
+
 [initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
 
 ## Theming

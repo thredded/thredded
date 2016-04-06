@@ -94,7 +94,7 @@ module Thredded
     def topics
       messageboard
         .topics
-        .includes(:user_topic_reads, :categories, :last_user, :user)
+        .includes(:categories, :last_user, :user)
         .order_by_stuck_and_updated_time
         .on_page(current_page)
         .load

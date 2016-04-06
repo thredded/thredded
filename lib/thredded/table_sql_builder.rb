@@ -17,8 +17,8 @@ module Thredded
     def categories
       @search_categories ||=
         if @terms['in']
-          DbTextSearch::CaseInsensitiveEq.new(Category, :name)
-            .find(@terms['in']).pluck(:id)
+          DbTextSearch::CaseInsensitive.new(Category, :name)
+            .in(@terms['in']).pluck(:id)
         else
           []
         end
@@ -27,8 +27,8 @@ module Thredded
     def users
       @search_users ||=
         if @terms['by']
-          DbTextSearch::CaseInsensitiveEq.new(Thredded.user_class, Thredded.user_name_column)
-            .find(@terms['by']).pluck(:id)
+          DbTextSearch::CaseInsensitive.new(Thredded.user_class, Thredded.user_name_column)
+            .in(@terms['by']).pluck(:id)
         else
           []
         end

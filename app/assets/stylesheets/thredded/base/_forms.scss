@@ -1,3 +1,24 @@
+%thredded--form--input {
+  background: $thredded-form-background;
+  border: $thredded-form-border;
+  box-shadow: $thredded-form-box-shadow;
+  color: $thredded-form-color;
+  font-family: $thredded-base-font-family;
+  font-size: $thredded-base-font-size;
+  padding: $thredded-small-spacing;
+  transition: border-color;
+
+  &:hover {
+    border-color: $thredded-form-border-hover-color;
+  }
+
+  &:focus {
+    border-color: $thredded-form-border-focus-color;
+    box-shadow: $thredded-form-box-shadow, 0 0 3px $thredded-action-color;
+    outline: none;
+  }
+}
+
 %thredded--form {
   fieldset {
     background-color: $thredded-light-gray;
@@ -30,26 +51,9 @@
   [type='color'], [type='date'], [type='datetime'], [type='datetime-local'], [type='email'], [type='month'],
   [type='number'], [type='password'], [type='search'], [type='tel'], [type='text'], [type='time'], [type='url'],
   [type='week'], input:not([type]), textarea, select[multiple=multiple] {
-    background-color: $thredded-background-color;
-    border: $thredded-form-border;
-    box-shadow: $thredded-form-box-shadow;
+    @extend %thredded--form--input;
     box-sizing: border-box;
-    color: $thredded-text-color;
-    font-family: $thredded-base-font-family;
-    font-size: $thredded-base-font-size;
-    padding: $thredded-small-spacing;
-    transition: border-color;
     width: 100%;
-
-    &:hover {
-      border-color: $thredded-form-border-hover-color;
-    }
-
-    &:focus {
-      border-color: $thredded-form-border-focus-color;
-      box-shadow: $thredded-form-box-shadow, 0 0 3px $thredded-action-color;
-      outline: none;
-    }
   }
 
   textarea {

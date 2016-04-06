@@ -3,11 +3,13 @@ module Thredded
     FILTERS = %w(markdown bbcode)
 
     extend FriendlyId
-    friendly_id :name, use: :slugged
+    friendly_id :slug_candidates,
+                use:            [:slugged, :reserved],
+                # Avoid route conflicts
+                reserved_words: %w(messageboards private-topics autocomplete-users theme-preview)
 
     validates :filter, inclusion: { in: FILTERS }, presence: true
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
-    validates :slug, exclusion: { in: %w(private-topics) }
     validates :topics_count, numericality: true
 
     has_many :categories, dependent: :destroy
@@ -17,18 +19,18 @@ module Thredded
     has_many :user_details, through: :posts
 
     has_many :messageboard_users,
-             class_name: 'Thredded::MessageboardUser',
-             inverse_of: :messageboard,
+             class_name:  'Thredded::MessageboardUser',
+             inverse_of:  :messageboard,
              foreign_key: :thredded_messageboard_id
     has_many :recently_active_user_details,
              -> { merge(Thredded::MessageboardUser.recently_active) },
              class_name: 'Thredded::UserDetail',
-             through: :messageboard_users,
-             source: :user_detail
+             through:    :messageboard_users,
+             source:     :user_detail
     has_many :recently_active_users,
              class_name: Thredded.user_class,
-             through: :recently_active_user_details,
-             source: :user
+             through:    :recently_active_user_details,
+             source:     :user
 
     default_scope { where(closed: false).order(topics_count: :desc) }
 
@@ -45,6 +47,13 @@ module Thredded
 
     def decorate
       MessageboardDecorator.new(self)
+    end
+
+    def slug_candidates
+      [
+        :name,
+        [:name, '-board']
+      ]
     end
   end
 end

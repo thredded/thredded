@@ -13,7 +13,15 @@ module Thredded
   class SeedDatabase
     attr_reader :user, :users, :messageboard, :topics, :private_topics, :posts
 
-    def self.run(users: 5, topics: 26, posts: (0..20))
+    SKIP_CALLBACKS = [
+      [Thredded::Post, :commit, :after, :notify_at_users],
+      [Thredded::PrivatePost, :commit, :after, :notify_at_users],
+    ]
+
+    def self.run(users: 200, topics: 100, posts: (0..30))
+      STDERR.puts 'Seeding the database...'
+      # Disable callbacks to avoid creating notifications and performing unnecessary updates
+      SKIP_CALLBACKS.each { |(klass, *args)| klass.skip_callback(*args) }
       s = new
       s.create_messageboard
       s.create_first_user
@@ -21,6 +29,13 @@ module Thredded
       s.create_topics(count: topics)
       s.create_posts(count: posts)
       s.create_private_posts(count: posts)
+    ensure
+      # Re-enable callbacks
+      SKIP_CALLBACKS.each { |(klass, *args)| klass.set_callback(*args) }
+    end
+
+    def log(message)
+      STDERR.puts "- #{message}"
     end
 
     def create_first_user
@@ -31,6 +46,7 @@ module Thredded
     end
 
     def create_users(count: 5)
+      log "Creating #{count} users..."
       @users = [user] + FactoryGirl.create_list(:user, count)
     end
 
@@ -44,6 +60,7 @@ module Thredded
     end
 
     def create_topics(count: 26)
+      log "Creating #{count} topics..."
       @topics = FactoryGirl.create_list(
         :topic, count,
         messageboard: messageboard,
@@ -58,6 +75,7 @@ module Thredded
     end
 
     def create_posts(count: (0..30))
+      log "Creating #{count} additional posts in each topic..."
       @posts = topics.flat_map do |topic|
         (count.min + rand(count.max + 1)).times do
           FactoryGirl.create(:post, postable: topic, messageboard: messageboard, user: users.sample)
@@ -66,6 +84,7 @@ module Thredded
     end
 
     def create_private_posts(count: (0..30))
+      log "Creating #{count} additional posts in each private topic..."
       @private_posts = private_topics.flat_map do |topic|
         (count.min + rand(count.max + 1)).times do
           FactoryGirl.create(:private_post, postable: topic, user: users.sample)
