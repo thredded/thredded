@@ -18,6 +18,7 @@
 
   li {
     display: inline-block;
+    font-weight: bold;
 
     &:after {
       background: image-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
@@ -35,6 +36,5 @@
 
   a {
     @extend %thredded--nav-link;
-    font-weight: bold;
   }
 }
