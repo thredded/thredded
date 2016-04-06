@@ -19,7 +19,7 @@ module Thredded
         post = build_stubbed(:post, user: nil)
 
         expect(post.user_email).to eq nil
-        expect(post.user_anonymous?).to eq nil
+        expect(post.user_anonymous?).to be_truthy
       end
     end
   end
