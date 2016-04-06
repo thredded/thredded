@@ -101,6 +101,7 @@
   text-align: center;
   top: 0;
   width: 2rem;
+  transition: background 0.1s linear, color 0.1s linear;
 }
 
 &--topic--unread > &--topics--posts-count {
