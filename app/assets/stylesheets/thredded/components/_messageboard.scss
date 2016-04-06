@@ -28,7 +28,7 @@
 
 &--messageboard--meta {
   @extend %thredded--heading;
-  color: lighten($thredded-base-font-color, 30%);
+  color: $thredded-secondary-text-color;
   display: inline-block;
   font-weight: normal;
   margin-bottom: 0;
@@ -39,12 +39,12 @@
   @extend %thredded--paragraph;
   clear: both;
   margin-bottom: $thredded-small-spacing / 2;
-  color: $thredded-base-font-color;
+  color: $thredded-text-color;
 }
 
 &--messageboard--byline {
   @extend %thredded--paragraph;
-  color: lighten($thredded-base-font-color, 30%);
+  color: $thredded-secondary-text-color;
   font-size: 0.875em;
   font-weight: normal;
   margin-bottom: 0;

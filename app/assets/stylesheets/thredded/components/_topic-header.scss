@@ -12,7 +12,7 @@
 
 &--topic-header--started-by {
   font-size: $thredded-font-size-small;
-  color: lighten($thredded-base-font-color, 30%);
+  color: $thredded-secondary-text-color;
   font-style: normal;
   a {
     @extend %thredded--link;

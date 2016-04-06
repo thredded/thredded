@@ -5,12 +5,12 @@
   text-align: center;
 
   > span {
-    color: lighten($thredded-base-font-color, 30%);
+    color: $thredded-secondary-text-color;
     display: inline-block;
     margin-right: $thredded-small-spacing;
 
     > a {
-      color: $thredded-base-font-color;
+      color: $thredded-text-color;
       display: inline-block;
 
       &:focus,

@@ -1,6 +1,6 @@
 %thredded--form {
   fieldset {
-    background-color: lighten($thredded-base-border-color, 10%);
+    background-color: $thredded-light-gray;
     border: $thredded-base-border;
     margin: 0 0 $thredded-small-spacing;
     padding: $thredded-base-spacing;
@@ -30,10 +30,11 @@
   [type='color'], [type='date'], [type='datetime'], [type='datetime-local'], [type='email'], [type='month'],
   [type='number'], [type='password'], [type='search'], [type='tel'], [type='text'], [type='time'], [type='url'],
   [type='week'], input:not([type]), textarea, select[multiple=multiple] {
-    background-color: $thredded-base-background-color;
+    background-color: $thredded-background-color;
     border: $thredded-form-border;
     box-shadow: $thredded-form-box-shadow;
     box-sizing: border-box;
+    color: $thredded-text-color;
     font-family: $thredded-base-font-family;
     font-size: $thredded-base-font-size;
     padding: $thredded-small-spacing;
@@ -41,11 +42,11 @@
     width: 100%;
 
     &:hover {
-      border-color: darken($thredded-base-border-color, 10%);
+      border-color: $thredded-form-border-hover-color;
     }
 
     &:focus {
-      border-color: $thredded-action-color;
+      border-color: $thredded-form-border-focus-color;
       box-shadow: $thredded-form-box-shadow, 0 0 3px $thredded-action-color;
       outline: none;
     }

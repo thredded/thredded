@@ -1,0 +1,21 @@
+%thredded--nav-link {
+  color: $thredded-nav-color;
+  text-decoration: none;
+  transition: $thredded-action-transition;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: $thredded-nav-hover-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+%thredded--nav-link-current {
+  color: $thredded-nav-current-color;
+}

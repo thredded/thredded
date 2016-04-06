@@ -1,5 +1,5 @@
 // Grid
-$thredded-grid-container-max-width: 720px !default;
+$thredded-grid-container-max-width: 690px !default;
 $thredded-grid-breakpoint-max-widths: (mobile: 400px, tablet: 600px) !default;
 
 // Typography
@@ -20,10 +20,17 @@ $thredded-brand: #4a90e2 !default;
 $thredded-dark-gray: #333 !default;
 $thredded-light-gray: #eee !default;
 
-// Colors of text, background, and actions (links)
-$thredded-base-font-color: #575d6b !default;
-$thredded-base-background-color: #fff !default;
+// Colors of text, background, actions (links), and navigation
+$thredded-text-color: #575d6b !default;
+$thredded-secondary-text-color: lighten($thredded-text-color, 30%) !default;
+$thredded-background-color: #fff !default;
 $thredded-action-color: $thredded-brand !default;
+$thredded-action-hover-color: darken($thredded-action-color, 15%) !default;
+$thredded-action-transition: color 0.1s linear !default;
+$thredded-nav-color: $thredded-text-color !default;
+$thredded-nav-hover-color: $thredded-action-color !default;
+$thredded-nav-current-color: $thredded-action-color !default;
+$thredded-secondary-nav-color: $thredded-secondary-text-color !default;
 
 // Colors of alerts and flash messages
 $thredded-alert-danger-background: #fbe3e4 !default;
@@ -40,7 +47,10 @@ $thredded-base-border-color: $thredded-light-gray !default;
 $thredded-base-border: 1px solid $thredded-base-border-color !default;
 
 // Forms
-$thredded-form-border: 1px solid darken($thredded-base-border-color, 5%) !default;
+$thredded-form-border-color: darken($thredded-base-border-color, 5%) !default;
+$thredded-form-border-hover-color: darken($thredded-form-border-color, 6.4%) !default;
+$thredded-form-border-focus-color: $thredded-action-color !default;
+$thredded-form-border: 1px solid $thredded-form-border-color !default;
 $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
 
 // Buttons
@@ -58,4 +68,4 @@ $thredded-button-line-height: 1 !default;
 $thredded-badge-active-color: $thredded-button-color !default;
 $thredded-badge-active-background: $thredded-action-color !default;
 $thredded-badge-inactive-color: $thredded-button-color !default;
-$thredded-badge-inactive-background: rgba($thredded-base-font-color, 0.3) !default;
+$thredded-badge-inactive-background: rgba($thredded-text-color, 0.3) !default;

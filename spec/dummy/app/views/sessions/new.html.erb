@@ -1,4 +1,4 @@
-<%= form_tag('/sessions', class: 'thredded--main-container') do %>
+<%= form_tag('/sessions', class: 'thredded--main-container thredded--form') do %>
   <ul class="thredded--form-list">
     <li><%= text_field_tag 'name', 'Joe', placeholder: 'Name' %></li>
     <li><label><%= check_box_tag 'admin', '1', true %> Admin</label></li>

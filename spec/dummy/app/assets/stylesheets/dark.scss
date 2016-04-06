@@ -1,0 +1,25 @@
+// See https://www.google.com/design/spec/style/color.html#color-color-palette
+$material-50: #e8f5e9;
+$material-100: #c8e6c9;
+$material-200: #a5d6a7;
+$material-200: #a5d6a7;
+$material-300: #81c784;
+$material-400: #66bb6a;
+$material-500: #4caf50;
+$material-600: #43a047;
+$material-700: #388e3C;
+
+$thredded-brand: $material-700;
+$thredded-text-color: $material-50;
+$thredded-secondary-text-color: $material-100;
+$thredded-background-color: rgba(#fff, 0.03);
+$thredded-action-hover-color: $material-600;
+$thredded-secondary-nav-color: $thredded-text-color;
+
+$thredded-button-color: $thredded-text-color;
+$thredded-button-hover-background: $material-600;
+$thredded-badge-active-background: $thredded-brand;
+$thredded-light-gray: rgba(#424242, 0.8);
+
+$dummy-app-bg: #212121;
+@import "dummy_app";

@@ -18,14 +18,9 @@
   }
 
   a {
-    @extend %thredded--link;
-    color: lighten($thredded-base-font-color, 10%);
+    @extend %thredded--nav-link;
     display: block;
     padding-bottom: $thredded-small-spacing;
-
-    &:hover {
-      color: $thredded-action-color;
-    }
   }
 }
 
@@ -37,8 +32,7 @@
   margin-bottom: -2px;
 
   a {
-    @extend %thredded--link;
-    color: $thredded-action-color;
+    @extend %thredded--nav-link-current;
   }
 }
 

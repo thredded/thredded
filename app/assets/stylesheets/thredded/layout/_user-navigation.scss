@@ -12,8 +12,8 @@
   }
 
   a {
-    @extend %thredded--link;
-    color: lighten($thredded-base-font-color, 30%);
+    @extend %thredded--nav-link;
+    color: $thredded-secondary-nav-color;
   }
 }
 
@@ -51,6 +51,7 @@
     width: 100%;
 
     @include thredded-media-tablet-and-up {
+      background: transparent;
       border-color: transparent;
       float: right;
       min-width: 200px;
@@ -59,6 +60,7 @@
       width: auto;
 
       &:focus {
+        background: $thredded-background-color;
         box-shadow: none;
         min-width: 290px;
         text-align: left;
@@ -70,10 +72,18 @@
         border-color: transparent;
         box-shadow: none;
       }
+
+      &::placeholder {
+        color: $thredded-secondary-nav-color;
+      }
     }
 
-    &:hover::placeholder {
-      color: $thredded-action-color;
+    &:hover:not(:focus) {
+      cursor: pointer;
+      &::placeholder {
+        color: $thredded-nav-hover-color;
+        transition: color 0.1s linear;
+      }
     }
 
     &:focus {
