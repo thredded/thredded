@@ -5,7 +5,7 @@ module Thredded
   module Errors
     class DatabaseEmpty < Thredded::Error
       def message
-        'Seed the database with "rake thredded:dev:seed".'
+        'Seed the database with "rake dev:seed".'
       end
     end
 
