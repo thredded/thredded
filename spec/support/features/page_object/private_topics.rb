@@ -27,10 +27,10 @@ module PageObject
     end
 
     def create_private_topic
-      create(:user, name: 'carl')
+      user = create(:user, name: 'carl')
       visit new_private_topic_path
       fill_in 'Title', with: private_title
-      select 'carl', from: 'private_topic_user_ids'
+      find(:css, '#private_topic_user_ids').set(user.id)
       fill_in 'Content', with: 'not for others'
 
       click_on 'Create New Private Topic'

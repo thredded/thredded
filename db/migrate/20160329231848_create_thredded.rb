@@ -25,7 +25,7 @@ class CreateThredded < ActiveRecord::Migration
     end
     add_index :thredded_categories, [:messageboard_id, :slug], name: :index_thredded_categories_on_messageboard_id_and_slug, unique: true
     add_index :thredded_categories, [:messageboard_id], name: :index_thredded_categories_on_messageboard_id
-    DbTextSearch::CaseInsensitiveEq.add_index connection, :thredded_categories, :name, name: :thredded_categories_name_ci
+    DbTextSearch::CaseInsensitive.add_index connection, :thredded_categories, :name, name: :thredded_categories_name_ci
 
     create_table :thredded_messageboards do |t|
       t.string :name, limit: 255, null: false
@@ -72,7 +72,7 @@ class CreateThredded < ActiveRecord::Migration
     add_index :thredded_posts, [:postable_id], name: :index_thredded_posts_on_postable_id
     add_index :thredded_posts, [:postable_id], name: :index_thredded_posts_on_postable_id_and_postable_type
     add_index :thredded_posts, [:user_id], name: :index_thredded_posts_on_user_id
-    DbTextSearch::FullTextSearch.add_index connection, :thredded_posts, :content, name: :thredded_posts_content_fts
+    DbTextSearch::FullText.add_index connection, :thredded_posts, :content, name: :thredded_posts_content_fts
 
     create_table :thredded_private_posts do |t|
       t.integer :user_id, limit: 4
@@ -129,7 +129,7 @@ class CreateThredded < ActiveRecord::Migration
     add_index :thredded_topics, [:messageboard_id, :slug], name: :index_thredded_topics_on_messageboard_id_and_slug, unique: true
     add_index :thredded_topics, [:messageboard_id], name: :index_thredded_topics_on_messageboard_id
     add_index :thredded_topics, [:user_id], name: :index_thredded_topics_on_user_id
-    DbTextSearch::FullTextSearch.add_index connection, :thredded_topics, :title, name: :thredded_topics_title_fts
+    DbTextSearch::FullText.add_index connection, :thredded_topics, :title, name: :thredded_topics_title_fts
 
     create_table :thredded_user_details do |t|
       t.integer :user_id, null: false

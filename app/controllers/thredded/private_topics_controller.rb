@@ -3,15 +3,16 @@ module Thredded
     helper_method :private_topic
 
     def index
-      @new_private_topic = PrivateTopicForm.new(user: thredded_current_user)
-      @private_topics = PrivateTopic
-                          .uniq
-                          .for_user(thredded_current_user)
-                          .order('updated_at DESC')
-                          .on_page(params[:page])
-                          .load
+      @new_private_topic        = PrivateTopicForm.new(user: thredded_current_user)
+      @private_topics           = PrivateTopic
+                                    .uniq
+                                    .for_user(thredded_current_user)
+                                    .order('updated_at DESC')
+                                    .includes(:last_user, :user)
+                                    .on_page(params[:page])
+                                    .load
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
-        .decorate_all(thredded_current_user, @private_topics)
+                                    .decorate_all(thredded_current_user, @private_topics)
     end
 
     def show
@@ -19,9 +20,9 @@ module Thredded
       UserReadsPrivateTopic.new(private_topic, thredded_current_user).run
 
       @posts = private_topic
-        .posts
-        .includes(:user)
-        .order('id ASC')
+                 .posts
+                 .includes(:user)
+                 .order('id ASC')
 
       @post = private_topic.posts.build
     end
@@ -56,10 +57,14 @@ module Thredded
     def new_private_topic_params
       params
         .require(:private_topic)
-        .permit(:title, :locked, :sticky, :content, user_ids: [], category_ids: [])
+        .permit(:title, :locked, :sticky, :content, :user_ids, user_ids: [], category_ids: [])
         .merge(
           user: thredded_current_user,
-          ip: request.remote_ip)
+          ip:   request.remote_ip
+        ).tap do |p|
+        # select2 returns a string of IDs joined with commas. Adapt:
+        p[:user_ids] = p[:user_ids].split(',') if p[:user_ids].is_a?(String)
+      end
     end
   end
 end

@@ -30,14 +30,6 @@ module Thredded
       Thredded::PrivateTopic.model_name
     end
 
-    def users
-      @user.thredded_can_message_users
-    end
-
-    def users_for_select
-      (users - [@user]).map { |user| [user.to_s, user.id] }
-    end
-
     def id
       private_topic.id
     end
@@ -64,19 +56,6 @@ module Thredded
       @post ||= private_topic.posts.build(
         content: content,
         user: non_null_user)
-    end
-
-    def users_selected_options
-      { selected: private_user_ids }
-    end
-
-    def users_select_html_options
-      {
-        multiple: true,
-        required: true,
-        'data-placeholder' => 'select users to participate in this topic',
-        'data-thredded-users-select' => true
-      }
     end
 
     private

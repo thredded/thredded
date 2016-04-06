@@ -46,12 +46,14 @@ $thredded-alert-warning-color: #8a6d3b !default;
 $thredded-base-border-color: $thredded-light-gray !default;
 $thredded-base-border: 1px solid $thredded-base-border-color !default;
 
-// Forms
+// Form inputs
+$thredded-form-background: $thredded-background-color !default;
 $thredded-form-border-color: darken($thredded-base-border-color, 5%) !default;
 $thredded-form-border-hover-color: darken($thredded-form-border-color, 6.4%) !default;
 $thredded-form-border-focus-color: $thredded-action-color !default;
 $thredded-form-border: 1px solid $thredded-form-border-color !default;
 $thredded-form-box-shadow: inset 0 1px 3px rgba(#000, 0.06) !default;
+$thredded-form-color: $thredded-text-color !default;
 
 // Buttons
 $thredded-button-background: $thredded-action-color !default;
