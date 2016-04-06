@@ -3,7 +3,7 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, class: 'thredded--main-section thredded--topics' do %>
+  <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
     <%= render 'thredded/topics/form',
                messageboard: messageboard,
                topic:        @new_topic,
