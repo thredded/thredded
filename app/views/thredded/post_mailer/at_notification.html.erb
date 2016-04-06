@@ -4,8 +4,8 @@
 
 <p>
   This email was sent to you because <%= @post.user %> mentioned you in
-  "<%= link_to @post.postable.title, messageboard_topic_posts_url(@post.messageboard, @post.postable, anchor: "post_#{@post.id}") %>".
-  <%= link_to 'View the conversation here.', messageboard_topic_posts_url(@post.messageboard, @post.postable) %>
+  "<%= link_to @post.postable.title, messageboard_topic_url(@post.messageboard, @post.postable, anchor: "post_#{@post.id}") %>".
+  <%= link_to 'View the conversation here.', messageboard_topic_url(@post.messageboard, @post.postable) %>
 </p>
 
 <p>

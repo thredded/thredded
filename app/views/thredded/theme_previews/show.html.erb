@@ -31,7 +31,7 @@
   <br>
 
 
-  <%= render 'section_title', label: 'topics#show', href: messageboard_topic_posts_path(@messageboard, @topic) %>
+  <%= render 'section_title', label: 'topics#show', href: messageboard_topic_path(@messageboard, @topic) %>
   <%= content_tag_for :section, @topic, class: "thredded--thredded--main-section #{@user_topic.css_class}" do %>
     <%= render 'thredded/topics_common/header', topic: @topic %>
     <%= render @posts %>

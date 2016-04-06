@@ -2,7 +2,10 @@ module Thredded
   class PrivateTopic < ActiveRecord::Base
     include TopicCommon
     extend FriendlyId
-    friendly_id :title, use: :history
+    friendly_id :slug_candidates,
+                use:            [:history, :reserved],
+                # Avoid route conflicts
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(new))
 
     has_many :posts,
              class_name:  'Thredded::PrivatePost',
@@ -55,6 +58,19 @@ module Thredded
 
     def users_to_sentence
       users.map { |user| user.to_s.capitalize }.to_sentence
+    end
+
+    def should_generate_new_friendly_id?
+      title_changed?
+    end
+
+    private
+
+    def slug_candidates
+      [
+        :title,
+        [:title, '-topic']
+      ]
     end
   end
 end

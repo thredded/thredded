@@ -72,7 +72,7 @@ module Thredded
 
     def update
       topic.update_attributes!(topic_params.merge(last_user_id: thredded_current_user.id))
-      redirect_to messageboard_topic_posts_url(messageboard, topic), flash: { notice: 'Topic updated' }
+      redirect_to messageboard_topic_url(messageboard, topic), flash: { notice: 'Topic updated' }
     end
 
     def destroy

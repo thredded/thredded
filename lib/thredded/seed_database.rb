@@ -18,17 +18,18 @@ module Thredded
       [Thredded::PrivatePost, :commit, :after, :notify_at_users],
     ]
 
-    def self.run(users: 200, topics: 100, posts: (0..30))
+    def self.run(users: 200, topics: 60, posts: (0..80))
       STDERR.puts 'Seeding the database...'
       # Disable callbacks to avoid creating notifications and performing unnecessary updates
       SKIP_CALLBACKS.each { |(klass, *args)| klass.skip_callback(*args) }
       s = new
-      s.create_messageboard
       s.create_first_user
       s.create_users(count: users)
+      s.create_messageboard
       s.create_topics(count: topics)
       s.create_posts(count: posts)
       s.create_private_posts(count: posts)
+      s.create_additional_messageboards
     ensure
       # Re-enable callbacks
       SKIP_CALLBACKS.each { |(klass, *args)| klass.set_callback(*args) }
@@ -51,6 +52,7 @@ module Thredded
     end
 
     def create_messageboard
+      log 'Creating a messageboard...'
       @messageboard = FactoryGirl.create(
         :messageboard,
         name:        'Main Board',
@@ -59,8 +61,20 @@ module Thredded
       )
     end
 
-    def create_topics(count: 26)
-      log "Creating #{count} topics..."
+    def create_additional_messageboards
+      additional_messageboards = [
+        ['Off-Topic', "Talk about whatever here, it's all good."],
+        ['Meta', 'Need help using the forum? Want to report a bug or make a suggestion? This is the place.']
+      ]
+      log "Creating #{additional_messageboards.length} additional messageboards..."
+      additional_messageboards.each do |(name, description)|
+        messageboard = Messageboard.create!(name: name, description: description)
+        create_topics(count: 1 + rand(3), messageboard: messageboard)
+      end
+    end
+
+    def create_topics(count: 26, messageboard: self.messageboard)
+      log "Creating #{count} topics in #{messageboard.name}..."
       @topics = FactoryGirl.create_list(
         :topic, count,
         messageboard: messageboard,
@@ -69,9 +83,9 @@ module Thredded
 
       @private_topics = FactoryGirl.create_list(
         :private_topic, count,
-        user:         users.sample,
-        last_user:    users.sample,
-        users:        [user])
+        user:      users.sample,
+        last_user: users.sample,
+        users:     [user])
     end
 
     def create_posts(count: (0..30))

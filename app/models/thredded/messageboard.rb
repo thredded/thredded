@@ -6,7 +6,8 @@ module Thredded
     friendly_id :slug_candidates,
                 use:            [:slugged, :reserved],
                 # Avoid route conflicts
-                reserved_words: %w(messageboards private-topics autocomplete-users theme-preview)
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
+                  %w(messageboards private-topics autocomplete-users theme-preview))
 
     validates :filter, inclusion: { in: FILTERS }, presence: true
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
@@ -15,7 +16,7 @@ module Thredded
     has_many :categories, dependent: :destroy
     has_many :notification_preferences, dependent: :destroy
     has_many :posts, dependent: :destroy
-    has_many :topics, dependent: :destroy
+    has_many :topics, dependent: :destroy, inverse_of: :messageboard
     has_many :user_details, through: :posts
 
     has_many :messageboard_users,
