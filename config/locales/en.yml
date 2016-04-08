@@ -1,7 +1,10 @@
+---
 en:
   thredded:
+    preferences:
+      updated_notice: Your settings have been updated.
     topics:
       search:
-        page_title: "Topics Search Results"
-        results_message: "Search Results for %{query}"
-        no_results_message: "There are no results for your search - %{query}"
+        no_results_message: There are no results for your search - %{query}
+        page_title: Topics Search Results
+        results_message: Search Results for %{query}

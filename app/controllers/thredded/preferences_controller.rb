@@ -6,9 +6,14 @@ module Thredded
     end
 
     def update
-      preference.update_attributes(preference_params)
-
-      redirect_to :back, flash: { notice: 'Your settings have been updated.' }
+      preference.update!(preference_params)
+      flash[:notice] = t('thredded.preferences.updated_notice')
+      fallback_location = messageboard_topics_url(messageboard)
+      if Rails::VERSION::MAJOR >= 5
+        redirect_back fallback_location: fallback_location
+      else
+        redirect_to(:back) rescue ActionController::RedirectBackError redirect_to(fallback_location)
+      end
     end
 
     def preference

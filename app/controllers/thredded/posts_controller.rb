@@ -34,11 +34,12 @@ module Thredded
     end
 
     def post_params
-      params
-        .require(:post)
-        .permit(:content)
-        .merge!(user: thredded_current_user, ip: request.remote_ip)
-        .tap { |p| p.merge!(messageboard: messageboard) unless for_a_private_topic? }
+      p = params
+            .require(:post)
+            .permit(:content)
+            .merge(user: thredded_current_user, ip: request.remote_ip)
+      p = p.merge(messageboard: messageboard) unless for_a_private_topic?
+      p
     end
 
     def parent_topic
