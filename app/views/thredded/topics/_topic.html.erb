@@ -2,13 +2,7 @@
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
-    <%= link_to topic.title,
-      paged_messageboard_topic_posts_path(
-        messageboard.slug,
-        topic.slug,
-        topic.farthest_page
-      )
-    %>
+    <%= link_to topic.title, topic_path(topic) %>
   </h1>
 
   <% if topic.categories.any? %>

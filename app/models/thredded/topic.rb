@@ -7,11 +7,16 @@ module Thredded
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
 
     extend FriendlyId
-    friendly_id :title, use: [:history, :scoped], scope: :messageboard
+    friendly_id :slug_candidates,
+                use:            [:history, :reserved, :scoped],
+                scope:          :messageboard,
+                # Avoid route conflicts
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(topics))
 
     belongs_to :messageboard,
                counter_cache: true,
-               touch: true
+               touch: true,
+               inverse_of: :topics
     validates_presence_of :messageboard_id
 
     belongs_to :user_detail,
@@ -99,6 +104,15 @@ module Thredded
 
     def should_generate_new_friendly_id?
       title_changed?
+    end
+
+    private
+
+    def slug_candidates
+      [
+        :title,
+        [:title, '-topic']
+      ]
     end
   end
 end

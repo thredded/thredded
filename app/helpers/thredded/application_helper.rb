@@ -37,5 +37,26 @@ module Thredded
         edit_messageboard_topic_post_path(messageboard, post.postable, post)
       end
     end
+
+    # @param topic [UserTopicDecorator, UserPrivateTopicDecorator]
+    # @return [String] path to the latest unread page of the given topic.
+    def topic_path(topic, params = {})
+      if topic.private?
+        # TODO: this should actually pass the latest read page.
+        private_topic_path(
+          topic.slug,
+          **params
+        )
+      else
+        # TODO: farthest_page always returns 1, investigate.
+        params[:page] ||= topic.farthest_page
+        params[:page] = nil if params[:page] == 1
+        messageboard_topic_path(
+          topic.messageboard.slug,
+          topic.slug,
+          **params
+        )
+      end
+    end
   end
 end

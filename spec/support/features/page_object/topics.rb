@@ -114,11 +114,11 @@ module PageObject
     end
 
     def make_locked
-      find('input[type="hidden"][name="topic[locked]"]').set('1')
+      check 'Locked'
     end
 
     def make_sticky
-      find('input[type="hidden"][name="topic[sticky]"]').set('1')
+      check 'Sticky'
     end
 
     def select_category(category)

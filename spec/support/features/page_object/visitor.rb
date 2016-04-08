@@ -42,7 +42,7 @@ module PageObject
 
     def visits_the_latest_thread_on(messageboard)
       topic = messageboard.topics.order('id desc').first
-      visit messageboard_topic_posts_path(messageboard, topic)
+      visit messageboard_topic_path(messageboard, topic)
     end
 
     def on_latest_thread_on?(messageboard)

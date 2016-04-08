@@ -2,7 +2,7 @@
   <div class="thredded--topics--posts-count"><%= private_topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
-    <%= link_to private_topic.title, private_topic.original %>
+    <%= link_to private_topic.title, topic_path(private_topic) %>
   </h1>
 
   <cite class="thredded--topics--updated-by">

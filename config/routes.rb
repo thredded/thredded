@@ -1,8 +1,16 @@
 Thredded::Engine.routes.draw do
   resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
 
-  resources :private_topics, path: 'private-topics' do
-    resources :private_posts, path: '', except: [:index], controller: 'posts'
+  page_constraint = { page: /[1-9]\d*/ }
+
+  scope path: 'private-topics' do
+    resource :private_topic, only: [:new], path: ''
+    resources :private_topics, except: [:new, :show], path: '' do
+      member do
+        get '(page-:page)', action: :show, as: '', constraints: page_constraint
+      end
+      resources :private_posts, path: '', except: [:index, :show], controller: 'posts'
+    end
   end
 
   resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
@@ -11,20 +19,19 @@ Thredded::Engine.routes.draw do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
-  get '/messageboards/new' => 'messageboards#new', as: :new_messageboard
-  scope path: '/:messageboard_id' do
-    get '/preferences/edit' => 'preferences#edit'
-    get '/new(.:format)' => 'topics#new', as: :new_messageboard_topic
-    get '/:id/edit(.:format)' => 'topics#edit', as: :edit_messageboard_topic
-    get '/:id/page-:page(.:format)' => 'topics#show', as: :paged_messageboard_topic_posts, constraints: { page: /\d+/ }
-    get '/category/:category_id' => 'topics#category', as: :messageboard_topics_categories
-  end
-
+  resource :messageboard, path: 'messageboards', only: [:new]
   resources :messageboards, only: [:index, :create], path: '' do
     resource :preferences, only: [:edit, :update]
-
-    resources :topics, path: '' do
-      resources :posts, path: '', except: [:index]
+    resource :topic, path: 'topics', only: [:new]
+    resources :topics, path: '', except: [:index, :new, :show] do
+      collection do
+        get '(page-:page)', action: :index, as: '', constraints: page_constraint
+        get '/category/:category_id', action: :category, as: :categories
+      end
+      member do
+        get '(page-:page)', action: :show, as: '', constraints: page_constraint
+      end
+      resources :posts, except: [:index, :show], path: ''
     end
   end
 
