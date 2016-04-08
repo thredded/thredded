@@ -19,9 +19,20 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'database_cleaner'
-require 'test_after_commit'
 require 'chronic'
 require 'fileutils'
+
+if Rails::VERSION::MAJOR >= 5
+  require 'rails-controller-testing'
+  # TODO: remove this configure block once rspec-rails 3.5.0 stable is released.
+  RSpec.configure do |config|
+    [:controller, :view, :request].each do |type|
+      config.include ::Rails::Controller::Testing::TestProcess, type: type
+      config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+      config.include ::Rails::Controller::Testing::Integration, type: type
+    end
+  end
+end
 
 Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 
@@ -33,14 +44,16 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger =
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
-  config.fixture_path = "#{::Rails.root}/../../spec/fixtures"
-  config.use_transactional_fixtures = true
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-    TestAfterCommit.enabled = true
+    if Rails::VERSION::MAJOR < 5
+      # after_commit testing is baked into rails 5.
+      require 'test_after_commit'
+      TestAfterCommit.enabled = true
+    end
     ActiveJob::Base.queue_adapter = :inline
   end
 

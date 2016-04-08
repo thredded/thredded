@@ -4,7 +4,7 @@ module Thredded
 
     load_and_authorize_resource only: [:index, :show]
     helper_method :messageboard, :topic
-    before_filter :update_user_activity
+    before_action :update_user_activity
 
     def create
       post = parent_topic.posts.create!(post_params)

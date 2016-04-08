@@ -1,6 +1,6 @@
 <% post = Thredded::PostDecorator.new(post) %>
 
-<%= content_tag_for :article, post, class: 'thredded--post' do %>
+<%= content_tag :article, id: dom_id(post), class: 'thredded--post' do %>
   <header>
     <%= image_tag post.avatar_url, class: 'thredded--post--avatar' unless post.user_anonymous? %>
     <h2 class="thredded--post--user"><%= user_link post.user %></h2>

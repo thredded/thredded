@@ -5,7 +5,7 @@ module Thredded
     def index
       @new_private_topic        = PrivateTopicForm.new(user: thredded_current_user)
       @private_topics           = PrivateTopic
-                                    .uniq
+                                    .distinct
                                     .for_user(thredded_current_user)
                                     .order('updated_at DESC')
                                     .includes(:last_user, :user)

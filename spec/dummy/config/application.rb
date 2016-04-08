@@ -49,7 +49,9 @@ module Dummy
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    config.active_record.raise_in_transactional_callbacks = true
+    if Rails::VERSION::MAJOR < 5
+      config.active_record.raise_in_transactional_callbacks = true
+    end
 
     # Enable the asset pipeline
     config.assets.enabled = true

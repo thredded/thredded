@@ -21,7 +21,7 @@ module PageObject
     end
 
     def posts
-      all('article.post')
+      all('article.thredded--post')
     end
 
     def has_new_reply?

@@ -1,7 +1,7 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController
     helper_method :current_page, :topic, :user_topic
-    before_filter :update_user_activity
+    before_action :update_user_activity
 
     def index
       authorize_reading messageboard

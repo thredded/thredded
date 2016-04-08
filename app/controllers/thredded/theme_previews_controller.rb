@@ -1,6 +1,6 @@
 module Thredded
   class ThemePreviewsController < Thredded::ApplicationController
-    before_filter :fail_on_empty_database, if: :no_messageboard?
+    before_action :fail_on_empty_database, if: :no_messageboard?
 
     def show
       @messageboard = messageboard

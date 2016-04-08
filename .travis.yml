@@ -7,6 +7,7 @@ cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
   - spec/gemfiles/rails_4_2.gemfile
+  - spec/gemfiles/rails_5_0.gemfile
 
 env:
   matrix:
@@ -17,6 +18,10 @@ env:
   global:
   # CODECLIMATE_REPO_TOKEN
   - secure: "X+Tmtm+12rDF71aqNzeVRRF5CiiKRaxlKJV0ZJLgWwLHOWX693YGMoy+FYTkN0aYTQYfNrlal8H+9VnABaotwwmElSqFWBj0Mv6VIpxPuFJ/PgtQG3TpO23qBZLiW1Nq/Y4RJL8whyx3QTX7rALLBLnEsSIrrq4VcSIU9jV5JAs="
+
+matrix:
+  allow_failures:
+  - gemfile: spec/gemfiles/rails_5_0.gemfile
 
 sudo: false
 

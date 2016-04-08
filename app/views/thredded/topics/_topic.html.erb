@@ -1,4 +1,4 @@
-<%= content_tag_for :article, topic, class: "thredded--topics--topic #{topic.css_class}" do %>
+<%= content_tag :article, id: dom_id(topic), class: "thredded--topics--topic #{topic.css_class}" do %>
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">

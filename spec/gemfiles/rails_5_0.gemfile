@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gemspec path: '../../'
+eval_gemfile './shared.gemfile'
+gem 'rails', '~> 5.0.0.beta3'
+gem 'rspec-rails', '~> 3.5.0.beta3'
+gem 'rails-controller-testing'
