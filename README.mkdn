@@ -41,7 +41,7 @@ If you're looking for variations on a theme - see [Forem] and [Discourse]. Forem
 while Discourse is a full app.
 
 [Discourse]: http://www.discourse.org/
-[Forem]: https://www.github.com/radar/forem
+[Forem]: https://github.com/rubysherpas/forem
 
 ## Installation
 
@@ -100,6 +100,13 @@ DbTextSearch::CaseInsensitive.add_index(
 ```
 
 [initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
+
+### Migrating from Forem
+
+Using [Forem]? Thredded provides [a migration][forem-to-thredded] to copy all your existing forums from Forem over
+to Thredded.
+
+[forem-to-thredded]: https://github.com/thredded/thredded/wiki/Migrate-from-Forem
 
 ## Theming
 
