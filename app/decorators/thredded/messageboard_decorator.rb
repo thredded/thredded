@@ -21,7 +21,7 @@ module Thredded
 
     def latest_topic
       @latest_topic ||= begin
-        messageboard.topics.order_latest_first.first ||
+        messageboard.topics.order_recently_updated_first.first ||
           Thredded::NullTopic.new
       end
     end

@@ -6,6 +6,8 @@ module Thredded
 
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
 
+    scope :order_sticky_first, -> { order(sticky: :desc) }
+
     extend FriendlyId
     friendly_id :slug_candidates,
                 use:            [:history, :reserved, :scoped],
@@ -40,14 +42,6 @@ module Thredded
 
     def self.unstuck
       where(sticky: false)
-    end
-
-    def self.order_by_updated_time
-      order('thredded_topics.updated_at DESC')
-    end
-
-    def self.order_by_stuck_and_updated_time
-      order('thredded_topics.sticky DESC, thredded_topics.updated_at DESC')
     end
 
     # @return [ActiveRecord::Relation<Topic>]

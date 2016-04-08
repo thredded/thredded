@@ -37,19 +37,6 @@ module Thredded
     end
   end
 
-  describe Topic, '.order_by_stuck_and_updated_time' do
-    it 'starts with stuck topics, followed by the rest' do
-      stuck = create(:topic, :sticky)
-      old = create(:topic, updated_at: 3.weeks.ago)
-      create(:topic)
-
-      topics = Topic.order_by_stuck_and_updated_time
-
-      expect(topics.first).to eq stuck
-      expect(topics.last).to eq old
-    end
-  end
-
   describe Topic, '.decorate' do
     it 'decorates topics returned from AR' do
       create_list(:topic, 3)

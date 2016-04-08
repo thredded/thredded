@@ -10,7 +10,7 @@ module Thredded
                  class_name: Thredded.user_class,
                  foreign_key: 'last_user_id'
 
-      scope :order_latest_first, -> { order(updated_at: :desc, id: :desc) }
+      scope :order_recently_updated_first, -> { order(updated_at: :desc, id: :desc) }
       scope :on_page, -> page_num { page(page_num).per(30) }
 
       validates_presence_of :hash_id
