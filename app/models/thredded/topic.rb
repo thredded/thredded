@@ -6,6 +6,11 @@ module Thredded
 
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
 
+    scope :stuck, -> { where(sticky: true) }
+    scope :unstuck, -> { where(sticky: false) }
+
+    scope :search, -> query { ::Thredded::TopicsSearch.new(query, self).search }
+
     scope :order_sticky_first, -> { order(sticky: :desc) }
 
     extend FriendlyId
@@ -35,19 +40,6 @@ module Thredded
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads, dependent: :destroy
-
-    def self.stuck
-      where(sticky: true)
-    end
-
-    def self.unstuck
-      where(sticky: false)
-    end
-
-    # @return [ActiveRecord::Relation<Topic>]
-    def self.search(query)
-      ::Thredded::TopicsSearch.new(query, self).search
-    end
 
     def self.find_by_slug_with_user_topic_reads!(slug)
       includes(:user_topic_reads).friendly.find(slug)
