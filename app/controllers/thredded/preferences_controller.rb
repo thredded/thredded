@@ -12,7 +12,11 @@ module Thredded
       if Rails::VERSION::MAJOR >= 5
         redirect_back fallback_location: fallback_location
       else
-        redirect_to(:back) rescue ActionController::RedirectBackError redirect_to(fallback_location)
+        begin
+          redirect_to :back
+        rescue ActionController::RedirectBackError
+          redirect_to fallback_location
+        end
       end
     end
 
