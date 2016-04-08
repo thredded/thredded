@@ -1,8 +1,0 @@
-<% if current_ability.can? :read, topic %>
-  <tr>
-    <td class="title table-first-column"> <%= topic.title %> </td>
-    <td class="replies"> <%= topic.posts_count %> </td>
-    <td class="created"> <%= formatted_user_profile_date(topic.created_at) %> </td>
-    <td class="updated"> <%= formatted_user_profile_date(topic.updated_at) %> </td>
-  </tr>
-<% end %>
