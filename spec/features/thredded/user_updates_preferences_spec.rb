@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'thredded/seed_database'
 require 'support/features/page_object/notification_preferences'
 
 feature 'User updating preferences' do
@@ -32,9 +31,8 @@ feature 'User updating preferences' do
   end
 
   def default_user_preferences
-    seed = Thredded::SeedDatabase.new
-    user = seed.create_first_user
-    messageboard = seed.create_messageboard
+    user = create(:user)
+    messageboard = create(:messageboard)
 
     default_user_preferences =
       PageObject::NotificationPreferences.new(user, messageboard)

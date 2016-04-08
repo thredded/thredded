@@ -3,7 +3,7 @@ require 'factory_girl_rails'
 # rubocop:disable HandleExceptions
 begin
   if FactoryGirl.factories.instance_variable_get(:@items).none?
-    require_relative '../../../spec/factories'
+    require_relative '../spec/factories'
   end
 rescue NameError
 end
@@ -107,3 +107,5 @@ module Thredded
     end
   end
 end
+
+Thredded::SeedDatabase.run

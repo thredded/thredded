@@ -121,11 +121,4 @@ namespace :dev do
       config: 'config.ru'
     )
   end
-
-  desc 'Seed DB for dummy app development'
-  task seed: :environment do
-    require 'thredded/seed_database'
-
-    Thredded::SeedDatabase.run
-  end
 end

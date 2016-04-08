@@ -333,9 +333,8 @@ First, to get started, migrate and seed the database (SQLite by default):
 
 ```bash
 bundle
-rake db:migrate
-# Seed the development database with fake forum users, topics, and posts:
-rake dev:seed
+# Create, migrate, and seed the development database with fake forum users, topics, and posts:
+rake db:create db:migrate db:seed
 ```
 
 Then, start the dummy app server:
