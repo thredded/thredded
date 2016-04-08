@@ -45,8 +45,8 @@ module Thredded
     end
 
     # @return [ActiveRecord::Relation<Topic>]
-    def self.search(query, messageboard)
-      ::Thredded::TopicsSearch.new(query, where(messageboard_id: messageboard.id)).search
+    def self.search(query)
+      ::Thredded::TopicsSearch.new(query, self).search
     end
 
     def self.find_by_slug_with_user_topic_reads!(slug)

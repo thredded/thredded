@@ -37,6 +37,75 @@ module Thredded
     end
   end
 
+  describe Topic, '.search' do
+    it 'with text' do
+      _not_a_result = create(:topic)
+      topic = create(:topic,
+                     title: 'xyzzy',
+                     user: create(:user, name: 'glebm'))
+      expect(Topic.search('xyzzy').to_a).to eq([topic])
+    end
+
+    it 'with "by:"' do
+      _not_a_result = create(:topic)
+      topic = create(:topic,
+                     title: 'A result',
+                     user: create(:user, name: 'glebm'),
+                     with_posts: 1)
+      expect(Topic.search('by:glebm').to_a).to eq([topic])
+    end
+
+    it 'with "in:"' do
+      messageboard = create(:messageboard)
+      _not_a_result = create(:topic, messageboard: messageboard)
+      topic = create(:topic,
+                     title: 'A result',
+                     categories: [create(:category, name: 'anime', messageboard: messageboard)],
+                     messageboard: messageboard)
+      expect(Topic.search('in:anime').to_a).to eq([topic])
+    end
+
+    it 'with "by:" and text' do
+      user = create(:user, name: 'glebm')
+      _not_a_result = create(:topic)
+      _not_a_result = create(:topic, user: user, with_posts: 1)
+      topic = create(:topic,
+                     title: 'xyzzy',
+                     user: user,
+                     with_posts: 1)
+      expect(Topic.search('xyzzy by:glebm').to_a).to eq([topic])
+    end
+
+    it 'with "in:" and text' do
+      messageboard = create(:messageboard)
+      category = create(:category, name: 'anime', messageboard: messageboard)
+      _not_a_result = create(:topic, messageboard: messageboard)
+      _not_a_result = create(:topic, categories: [category], messageboard: messageboard)
+      topic = create(:topic,
+                     title: 'xyzzy',
+                     categories: [category],
+                     messageboard: messageboard)
+      expect(Topic.search('xyzzy in:anime').to_a).to eq([topic])
+    end
+
+    it 'with "by:" and "in:" and text' do
+      messageboard = create(:messageboard)
+      category = create(:category, name: 'anime', messageboard: messageboard)
+      user = create(:user, name: 'glebm')
+      _not_a_result = create(:topic, messageboard: messageboard)
+      _not_a_result = create(:topic, categories: [category], user: user, messageboard: messageboard, with_posts: 1)
+      _not_a_result = create(:topic, title: 'xyzzy', user: create(:user), messageboard: messageboard, with_posts: 1)
+      _not_a_result = create(:topic, title: 'xyzzy', categories: [category], messageboard: messageboard, with_posts: 1)
+      topic = create(:topic,
+                     title: 'xyzzy',
+                     categories: [category],
+                     user: user,
+                     messageboard: messageboard,
+                     with_posts: 1)
+      expect(Topic.search('xyzzy in:anime by:glebm').to_a).to eq([topic])
+    end
+  end
+
   describe Topic, '.decorate' do
     it 'decorates topics returned from AR' do
       create_list(:topic, 3)

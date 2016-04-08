@@ -97,7 +97,7 @@ FactoryGirl.define do
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
         evaluator.with_posts.times do
-          create(:post, postable: topic, messageboard: topic.messageboard)
+          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard)
         end
 
         topic.posts_count = evaluator.with_posts

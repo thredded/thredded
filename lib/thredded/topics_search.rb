@@ -10,9 +10,11 @@ module Thredded
 
     # @return [ActiveRecord::Relation<Thredded::Topic>]
     def search
-      @scope = @scope.joins(:topic_categories).where(category_id: categories) if categories.present?
+      if categories.present?
+        @scope = @scope.joins(:topic_categories).merge(TopicCategory.where(category_id: categories))
+      end
       if text.present? || users.present?
-        [search_topics, search_posts].compact.reduce(:union_all)
+        [search_topics, search_posts].compact.reduce(:union)
       else
         @scope
       end
@@ -21,7 +23,10 @@ module Thredded
     protected
 
     def search_topics
-      DbTextSearch::FullText.new(@scope, :title).search(text) if text.present?
+      scope = @scope
+      scope = @scope.where(user_id: users) if users.present?
+      scope = DbTextSearch::FullText.new(scope, :title).search(text) if text.present?
+      scope
     end
 
     def search_posts
@@ -51,6 +56,7 @@ module Thredded
         end
     end
 
+    # @return [Array<String>]
     def text
       @terms['text']
     end
