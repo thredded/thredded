@@ -3,9 +3,7 @@ module Thredded
   # @abstract
   class BaseMailerPreview
     def self.preview_classes
-      Dir[File.join(File.dirname(__FILE__), '*_preview.rb')].map do |p|
-        "Thredded::#{File.basename(p, '.rb').camelize}"
-      end
+      RailsEmailPreview.find_preview_classes File.expand_path('..', File.dirname(__FILE__))
     end
 
     protected

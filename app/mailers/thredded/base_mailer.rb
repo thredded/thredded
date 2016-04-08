@@ -1,5 +1,7 @@
 module Thredded
   class BaseMailer < ActionMailer::Base
+    helper ::Thredded::UrlsHelper
+
     protected
 
     # Find a record by ID, or return the passed record.

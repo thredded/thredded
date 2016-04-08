@@ -25,6 +25,8 @@ module Thredded
           hash_id: 'abcd',
           title: 'A title',
           user: joel,
+          slug: 'a-title',
+          messageboard: build_stubbed(:messageboard, slug: 'a-messageboard')
         )
         post = build_stubbed(
           :post,

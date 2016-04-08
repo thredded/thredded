@@ -29,14 +29,6 @@ module Thredded
 
     private
 
-    def post_path(post)
-      if for_a_private_topic?
-        private_topic_path(post.postable, anchor: dom_id(post))
-      else
-        messageboard_topic_path(messageboard, post.postable, anchor: dom_id(post))
-      end
-    end
-
     def reset_read_status
       Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, thredded_current_user).run
     end
