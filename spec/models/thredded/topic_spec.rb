@@ -28,13 +28,6 @@ module Thredded
       expect { Topic.find_by_slug_with_user_topic_reads!('rubbish') }
         .to raise_error(Thredded::Errors::TopicNotFound)
     end
-
-    it 'eager loads user_topic_reads' do
-      create(:topic, title: 'Oh Hello')
-      topic = Topic.find_by_slug_with_user_topic_reads!('oh-hello')
-
-      expect(topic.association_cache).to include :user_topic_reads
-    end
   end
 
   describe Topic, '.search' do
