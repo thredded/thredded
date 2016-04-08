@@ -63,38 +63,6 @@ module Thredded
       true
     end
 
-    # rubocop:disable all
-    def self.inherited(child)
-      child.instance_eval do
-        def model_name
-          Topic.model_name
-        end
-      end
-
-      super
-    end
-    # rubocop:enable all
-
-    def self.select_options
-      subclasses.map(&:to_s).sort
-    end
-
-    def self.recent
-      limit(10)
-    end
-
-    def updating?
-      id.present?
-    end
-
-    def categories_to_sentence
-      categories.map(&:name).to_sentence if categories.any?
-    end
-
-    def users_to_sentence
-      []
-    end
-
     def should_generate_new_friendly_id?
       title_changed?
     end
