@@ -11,7 +11,13 @@ db = ENV.fetch('DB', 'sqlite3')
 system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
 ActiveRecord::Tasks::DatabaseTasks.drop_current
 ActiveRecord::Tasks::DatabaseTasks.create_current
-ActiveRecord::Migrator.migrate(['db/migrate/', File.join(Rails.root, 'db/migrate/')])
+begin
+  verbose_was = ActiveRecord::Migration.verbose
+  ActiveRecord::Migration.verbose = false
+  ActiveRecord::Migrator.migrate(['db/migrate/', File.join(Rails.root, 'db/migrate/')])
+ensure
+  ActiveRecord::Migration.verbose = verbose_was
+end
 
 require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)
 require 'rspec/rails'
