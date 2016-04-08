@@ -22,7 +22,7 @@ module Thredded
       @posts = private_topic
                  .posts
                  .includes(:user)
-                 .order('id ASC')
+                 .order_oldest_first
 
       @post = private_topic.posts.build
     end

@@ -19,7 +19,7 @@ module Thredded
 
       @posts = topic.posts
         .includes(:user, :messageboard, :postable)
-        .order('id ASC')
+        .order_oldest_first
         .page(current_page)
 
       @new_post = messageboard.posts.build(

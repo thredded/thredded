@@ -1,6 +1,7 @@
 module Thredded
   class ApplicationController < ::ApplicationController
     layout Thredded.layout
+    include ::Thredded::UrlsHelper
 
     helper Thredded::Engine.helpers
     helper_method \
