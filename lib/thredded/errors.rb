@@ -53,15 +53,5 @@ module Thredded
 
     class PrivateTopicCreateDenied < TopicCreateDenied
     end
-
-    class EmptySearchResults < Thredded::Error
-      def initialize(query)
-        @query = query
-      end
-
-      def message
-        "There are no results for your search - '#{@query}'"
-      end
-    end
   end
 end

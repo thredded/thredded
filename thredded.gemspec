@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'cancancan'
+  s.add_dependency 'active_record_union', '>= 1.1.1'
   s.add_dependency 'db_text_search', '~> 0.2.0'
   s.add_dependency 'friendly_id'
   s.add_dependency 'html-pipeline'

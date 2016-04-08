@@ -22,13 +22,6 @@ module Thredded
           flash: { alert: exception.message }
       end
 
-    rescue_from \
-      Thredded::Errors::EmptySearchResults,
-      Thredded::Errors::TopicNotFound do |exception|
-        redirect_to messageboard_topics_path(messageboard),
-          flash: { error: exception.message }
-      end
-
     def signed_in?
       !thredded_current_user.thredded_anonymous?
     end

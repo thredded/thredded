@@ -1,4 +1,4 @@
-require 'thredded/search_sql_builder'
+require 'thredded/topics_search'
 
 module Thredded
   class Topic < ActiveRecord::Base
@@ -50,10 +50,9 @@ module Thredded
       order('thredded_topics.sticky DESC, thredded_topics.updated_at DESC')
     end
 
+    # @return [ActiveRecord::Relation<Topic>]
     def self.search(query, messageboard)
-      results = find_by_sql(SearchSqlBuilder.new(query, messageboard).build)
-      fail(Thredded::Errors::EmptySearchResults, query) if results.empty?
-      results
+      ::Thredded::TopicsSearch.new(query, where(messageboard_id: messageboard.id)).search
     end
 
     def self.find_by_slug_with_user_topic_reads!(slug)

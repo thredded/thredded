@@ -31,10 +31,17 @@ module Thredded
     end
 
     def search
-      @topics = Topic.search(params[:q], messageboard)
+      query = params[:q].to_s
+      @topics = Topic.search(query, messageboard).order(updated_at: :desc).limit(50)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
-      flash.now[:notice] = "Search Results for '#{params[:q]}'"
+
+      # TODO: do not use flash.now, this should be handled by the view instead.
+      if @topics.present?
+        flash.now[:notice] = "Search Results for '#{query}'"
+      else
+        flash.now[:error] =  "There are no results for your search - '#{query}'"
+      end
     end
 
     def new
