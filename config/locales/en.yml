@@ -1,0 +1,7 @@
+en:
+  thredded:
+    topics:
+      search:
+        page_title: "Topics Search Results"
+        results_message: "Search Results for %{query}"
+        no_results_message: "There are no results for your search - %{query}"
