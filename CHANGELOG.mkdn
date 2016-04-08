@@ -1,5 +1,13 @@
 # MASTER
 
+Thredded now supports Rails 4.2+ only.
+
+## Fixed
+
+* Pagination and possible route conflicts throughout. [#202](https://github.com/thredded/thredded/pull/202)
+* Redirects to the correct page after posting a reply. [#205](https://github.com/thredded/thredded/pull/205)
+* Search with special `by:user` and `in:category` qualifiers. [#206](https://github.com/thredded/thredded/pull/206)
+
 ## Added
 
 * Private topic user select now looks prettier and loads the user via AJAX, instead of generating a huge select with all
