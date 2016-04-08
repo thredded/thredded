@@ -87,7 +87,7 @@ FactoryGirl.define do
       with_categories 0
     end
 
-    title { Faker::Lorem.sentence[0..-2] }
+    title { Faker::StarWars.quote }
     hash_id { generate(:topic_hash) }
 
     user

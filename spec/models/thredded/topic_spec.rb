@@ -38,71 +38,62 @@ module Thredded
   end
 
   describe Topic, '.search' do
-    it 'with text' do
+    test_title = 'Xyzzy'
+
+    # On MySQL, a transaction has to complete before the full text search index is updated
+    before :all do
+      @messageboard = create(:messageboard)
+      @user = create(:user, name: 'glebm')
+      @category = create(:category, name: 'anime', messageboard: @messageboard)
       _not_a_result = create(:topic)
-      topic = create(:topic,
-                     title: 'xyzzy',
-                     user: create(:user, name: 'glebm'))
-      expect(Topic.search('xyzzy').to_a).to eq([topic])
+      # On MySQL, if text is present in over 50% of the rows it won't be found. Create some dummy entries to avoid this.
+      3.times { _not_a_result = create(:topic, messageboard: @messageboard) }
+      defaults = {}
+      @topic_with_user = create(:topic, user: @user, **defaults)
+      @topic_with_category = create(:topic, categories: [@category], **defaults)
+      @topic_with_category_and_user = create(:topic, categories: [@category], user: @user, **defaults)
+      @topic_with_title = create(:topic, title: test_title, **defaults)
+      @topic_with_title_and_category = create(:topic, title: test_title, categories: [@category], **defaults)
+      @topic_with_title_and_user = create(:topic, title: test_title, user: @user, **defaults)
+      @topic_with_title_and_category_and_user = create(
+        :topic, title: test_title, categories: [@category], user: @user, **defaults)
+    end
+
+    after :all do
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    it 'with text' do
+      expect(Topic.search(test_title).to_a).to(
+        match_array([@topic_with_title, @topic_with_title_and_category, @topic_with_title_and_user,
+                     @topic_with_title_and_category_and_user]))
     end
 
     it 'with "by:"' do
-      _not_a_result = create(:topic)
-      topic = create(:topic,
-                     title: 'A result',
-                     user: create(:user, name: 'glebm'),
-                     with_posts: 1)
-      expect(Topic.search('by:glebm').to_a).to eq([topic])
+      expect(Topic.search("by:#{@user.name}").to_a).to(
+        match_array([@topic_with_user, @topic_with_category_and_user, @topic_with_title_and_user,
+                     @topic_with_title_and_category_and_user]))
     end
 
     it 'with "in:"' do
-      messageboard = create(:messageboard)
-      _not_a_result = create(:topic, messageboard: messageboard)
-      topic = create(:topic,
-                     title: 'A result',
-                     categories: [create(:category, name: 'anime', messageboard: messageboard)],
-                     messageboard: messageboard)
-      expect(Topic.search('in:anime').to_a).to eq([topic])
+      expect(Topic.search("in:#{@category.name}").to_a).to(
+        match_array([@topic_with_category, @topic_with_category_and_user, @topic_with_title_and_category,
+                     @topic_with_title_and_category_and_user]))
     end
 
     it 'with "by:" and text' do
-      user = create(:user, name: 'glebm')
-      _not_a_result = create(:topic)
-      _not_a_result = create(:topic, user: user, with_posts: 1)
-      topic = create(:topic,
-                     title: 'xyzzy',
-                     user: user,
-                     with_posts: 1)
-      expect(Topic.search('xyzzy by:glebm').to_a).to eq([topic])
+      expect(Topic.search("#{test_title} by:#{@user.name}").to_a).to(
+        match_array([@topic_with_title_and_user, @topic_with_title_and_category_and_user]))
     end
 
     it 'with "in:" and text' do
-      messageboard = create(:messageboard)
-      category = create(:category, name: 'anime', messageboard: messageboard)
-      _not_a_result = create(:topic, messageboard: messageboard)
-      _not_a_result = create(:topic, categories: [category], messageboard: messageboard)
-      topic = create(:topic,
-                     title: 'xyzzy',
-                     categories: [category],
-                     messageboard: messageboard)
-      expect(Topic.search('xyzzy in:anime').to_a).to eq([topic])
+      expect(Topic.search("#{test_title} in:#{@category.name}").to_a).to(
+        match_array([@topic_with_title_and_category, @topic_with_title_and_category_and_user]))
     end
 
     it 'with "by:" and "in:" and text' do
-      messageboard = create(:messageboard)
-      category = create(:category, name: 'anime', messageboard: messageboard)
-      user = create(:user, name: 'glebm')
-      _not_a_result = create(:topic, messageboard: messageboard)
-      _not_a_result = create(:topic, categories: [category], user: user, messageboard: messageboard, with_posts: 1)
-      _not_a_result = create(:topic, title: 'xyzzy', user: create(:user), messageboard: messageboard, with_posts: 1)
-      _not_a_result = create(:topic, title: 'xyzzy', categories: [category], messageboard: messageboard, with_posts: 1)
-      topic = create(:topic,
-                     title: 'xyzzy',
-                     categories: [category],
-                     user: user,
-                     messageboard: messageboard,
-                     with_posts: 1)
-      expect(Topic.search('xyzzy in:anime by:glebm').to_a).to eq([topic])
+      expect(Topic.search("#{test_title} by: #{@user.name} in:#{@category.name}").to_a).to(
+        match_array([@topic_with_title_and_category_and_user]))
     end
   end
 
