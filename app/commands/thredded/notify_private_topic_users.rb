@@ -1,7 +1,5 @@
 module Thredded
   class NotifyPrivateTopicUsers
-    DELIVER_METHOD = Rails.version < '4.2.0' ? :deliver : :deliver_later
-
     def initialize(private_topic)
       @post = private_topic.posts.first || Post.new
       @private_topic = private_topic
@@ -14,7 +12,7 @@ module Thredded
       user_emails = members.map(&:email)
       PrivateTopicMailer
         .message_notification(private_topic.id, user_emails)
-        .send(DELIVER_METHOD)
+        .deliver_later
       mark_notified(members)
     end
 

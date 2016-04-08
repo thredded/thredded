@@ -1,9 +1,21 @@
-<% content_for :thredded_page_title, 'Topics Search Results' %>
+<% content_for :thredded_page_title, t('thredded.topics.search.page_title') %>
 <% content_for :thredded_page_id, 'thredded--topic-search-results' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
 
 <%= thredded_page do %>
-  <section class="thredded--main-section thredded--topics">
-    <%= render @decorated_topics %>
-  </section>
+  <% if @decorated_topics.present? %>
+    <p class="thredded--alert thredded--alert-success">
+      <%= t 'thredded.topics.search.results_message', query: "'#{@query}'" %>
+    </p>
+    <section class="thredded--main-section thredded--topics">
+      <%= render @decorated_topics %>
+    </section>
+    <footer>
+      <%= paginate @topics %>
+    </footer>
+  <% else %>
+    <p class="thredded--alert thredded--alert-danger">
+      <%= t 'thredded.topics.search.no_results_message', query: "'#{@query}'" %>
+    </p>
+  <% end %>
 <% end %>

@@ -87,7 +87,7 @@ FactoryGirl.define do
       with_categories 0
     end
 
-    title { Faker::Lorem.sentence[0..-2] }
+    title { Faker::StarWars.quote }
     hash_id { generate(:topic_hash) }
 
     user
@@ -97,7 +97,7 @@ FactoryGirl.define do
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
         evaluator.with_posts.times do
-          create(:post, postable: topic, messageboard: topic.messageboard)
+          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard)
         end
 
         topic.posts_count = evaluator.with_posts

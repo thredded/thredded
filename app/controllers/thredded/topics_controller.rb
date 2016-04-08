@@ -6,7 +6,11 @@ module Thredded
     def index
       authorize_reading messageboard
 
-      @topics = topics
+      @topics = messageboard.topics
+                  .order_sticky_first.order_recently_updated_first
+                  .includes(:categories, :last_user, :user)
+                  .on_page(current_page)
+                  .load
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
       initialize_new_topic.tap do |new_topic|
@@ -31,10 +35,14 @@ module Thredded
     end
 
     def search
-      @topics = Topic.search(params[:q], messageboard)
+      @query = params[:q].to_s
+      @topics = messageboard.topics
+                  .search(@query)
+                  .order_recently_updated_first
+                  .includes(:categories, :last_user, :user)
+                  .page(current_page)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
-      flash.now[:notice] = "Search Results for '#{params[:q]}'"
     end
 
     def new
@@ -44,10 +52,9 @@ module Thredded
 
     def category
       @category = messageboard.categories.friendly.find(params[:category_id])
-      @topics = @category
-        .topics
+      @topics = @category.topics
         .unstuck
-        .order_by_updated_time
+        .order_recently_updated_first
         .on_page(current_page)
         .load
       @decorated_topics = Thredded::UserTopicDecorator
@@ -89,15 +96,6 @@ module Thredded
 
     def topic
       @topic ||= messageboard.topics.find_by_slug_with_user_topic_reads!(params[:id])
-    end
-
-    def topics
-      messageboard
-        .topics
-        .includes(:categories, :last_user, :user)
-        .order_by_stuck_and_updated_time
-        .on_page(current_page)
-        .load
     end
 
     def topic_params

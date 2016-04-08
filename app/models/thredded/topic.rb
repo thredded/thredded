@@ -1,10 +1,12 @@
-require 'thredded/search_sql_builder'
+require 'thredded/topics_search'
 
 module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon
 
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
+
+    scope :order_sticky_first, -> { order(sticky: :desc) }
 
     extend FriendlyId
     friendly_id :slug_candidates,
@@ -42,18 +44,9 @@ module Thredded
       where(sticky: false)
     end
 
-    def self.order_by_updated_time
-      order('thredded_topics.updated_at DESC')
-    end
-
-    def self.order_by_stuck_and_updated_time
-      order('thredded_topics.sticky DESC, thredded_topics.updated_at DESC')
-    end
-
-    def self.search(query, messageboard)
-      results = find_by_sql(SearchSqlBuilder.new(query, messageboard).build)
-      fail(Thredded::Errors::EmptySearchResults, query) if results.empty?
-      results
+    # @return [ActiveRecord::Relation<Topic>]
+    def self.search(query)
+      ::Thredded::TopicsSearch.new(query, self).search
     end
 
     def self.find_by_slug_with_user_topic_reads!(slug)

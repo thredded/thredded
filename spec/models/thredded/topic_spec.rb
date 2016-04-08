@@ -37,16 +37,63 @@ module Thredded
     end
   end
 
-  describe Topic, '.order_by_stuck_and_updated_time' do
-    it 'starts with stuck topics, followed by the rest' do
-      stuck = create(:topic, :sticky)
-      old = create(:topic, updated_at: 3.weeks.ago)
-      create(:topic)
+  describe Topic, '.search' do
+    test_title = 'Xyzzy'
 
-      topics = Topic.order_by_stuck_and_updated_time
+    # On MySQL, a transaction has to complete before the full text search index is updated
+    before :all do
+      @messageboard = create(:messageboard)
+      @user = create(:user, name: 'glebm')
+      @category = create(:category, name: 'anime', messageboard: @messageboard)
+      _not_a_result = create(:topic)
+      # On MySQL, if text is present in over 50% of the rows it won't be found. Create some dummy entries to avoid this.
+      3.times { _not_a_result = create(:topic, messageboard: @messageboard) }
+      defaults = {}
+      @topic_with_user = create(:topic, user: @user, **defaults)
+      @topic_with_category = create(:topic, categories: [@category], **defaults)
+      @topic_with_category_and_user = create(:topic, categories: [@category], user: @user, **defaults)
+      @topic_with_title = create(:topic, title: test_title, **defaults)
+      @topic_with_title_and_category = create(:topic, title: test_title, categories: [@category], **defaults)
+      @topic_with_title_and_user = create(:topic, title: test_title, user: @user, **defaults)
+      @topic_with_title_and_category_and_user = create(
+        :topic, title: test_title, categories: [@category], user: @user, **defaults)
+    end
 
-      expect(topics.first).to eq stuck
-      expect(topics.last).to eq old
+    after :all do
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    it 'with text' do
+      expect(Topic.search(test_title).to_a).to(
+        match_array([@topic_with_title, @topic_with_title_and_category, @topic_with_title_and_user,
+                     @topic_with_title_and_category_and_user]))
+    end
+
+    it 'with "by:"' do
+      expect(Topic.search("by:#{@user.name}").to_a).to(
+        match_array([@topic_with_user, @topic_with_category_and_user, @topic_with_title_and_user,
+                     @topic_with_title_and_category_and_user]))
+    end
+
+    it 'with "in:"' do
+      expect(Topic.search("in:#{@category.name}").to_a).to(
+        match_array([@topic_with_category, @topic_with_category_and_user, @topic_with_title_and_category,
+                     @topic_with_title_and_category_and_user]))
+    end
+
+    it 'with "by:" and text' do
+      expect(Topic.search("#{test_title} by:#{@user.name}").to_a).to(
+        match_array([@topic_with_title_and_user, @topic_with_title_and_category_and_user]))
+    end
+
+    it 'with "in:" and text' do
+      expect(Topic.search("#{test_title} in:#{@category.name}").to_a).to(
+        match_array([@topic_with_title_and_category, @topic_with_title_and_category_and_user]))
+    end
+
+    it 'with "by:" and "in:" and text' do
+      expect(Topic.search("#{test_title} by: #{@user.name} in:#{@category.name}").to_a).to(
+        match_array([@topic_with_title_and_category_and_user]))
     end
   end
 

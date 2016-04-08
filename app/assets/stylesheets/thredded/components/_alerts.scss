@@ -1,0 +1,19 @@
+&--alert {
+  @extend %thredded--alert;
+}
+
+&--alert-success {
+  @extend %thredded--alert--success;
+}
+
+&--alert-danger {
+  @extend %thredded--alert--danger;
+}
+
+&--alert-info {
+  @extend %thredded--alert--info;
+}
+
+&--alert-warning {
+  @extend %thredded--alert--warning;
+}

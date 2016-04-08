@@ -1,5 +1,6 @@
 # Backend
 require 'cancan'
+require 'active_record_union'
 require 'db_text_search'
 require 'friendly_id'
 require 'html/pipeline'
@@ -23,7 +24,6 @@ require 'thredded/messageboard_user_permissions'
 require 'thredded/post_user_permissions'
 require 'thredded/private_topic_user_permissions'
 require 'thredded/topic_user_permissions'
-require 'thredded/search_sql_builder'
 require 'thredded/main_app_route_delegator'
 
 module Thredded

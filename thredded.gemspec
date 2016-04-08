@@ -19,13 +19,14 @@ Gem::Specification.new do |s|
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'cancancan'
+  s.add_dependency 'active_record_union', '>= 1.1.1'
   s.add_dependency 'db_text_search', '~> 0.2.0'
   s.add_dependency 'friendly_id'
   s.add_dependency 'html-pipeline'
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
-  s.add_dependency 'rails', '>= 4.1.0'
+  s.add_dependency 'rails', '>= 4.2.0'
   s.add_dependency 'rb-gravatar'
 
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
@@ -62,6 +63,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'rails_email_preview', '>= 1.0.2'
+  s.add_development_dependency 'i18n-tasks'
 
   # dummy app frontend
   s.add_development_dependency 'jquery-turbolinks'
