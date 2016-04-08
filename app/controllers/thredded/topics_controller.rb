@@ -38,7 +38,8 @@ module Thredded
       @query = params[:q].to_s
       @topics = Topic.search(@query, messageboard)
                   .order_recently_updated_first
-                  .limit(50)
+                  .includes(:categories, :last_user, :user)
+                  .page(current_page)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
     end

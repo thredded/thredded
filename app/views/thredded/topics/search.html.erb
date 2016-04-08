@@ -10,6 +10,9 @@
     <section class="thredded--main-section thredded--topics">
       <%= render @decorated_topics %>
     </section>
+    <footer>
+      <%= paginate @topics %>
+    </footer>
   <% else %>
     <p class="thredded--alert thredded--alert-danger">
       <%= t 'thredded.topics.search.no_results_message', query: "'#{@query}'" %>
