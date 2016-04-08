@@ -1,8 +1,0 @@
-source 'https://rubygems.org'
-gemspec path: '../../'
-eval_gemfile './shared.gemfile'
-gem 'rails', '~> 4.1.6'
-gem 'activejob_backport'
-
-# mysql2 0.4 is not compatible with rails 4.1
-gem 'mysql2', '~> 0.3.20'

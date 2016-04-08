@@ -6,7 +6,6 @@ rvm:
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
-  - spec/gemfiles/rails_4_1.gemfile
   - spec/gemfiles/rails_4_2.gemfile
 
 env:

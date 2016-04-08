@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
-  s.add_dependency 'rails', '>= 4.1.0'
+  s.add_dependency 'rails', '>= 4.2.0'
   s.add_dependency 'rb-gravatar'
 
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
