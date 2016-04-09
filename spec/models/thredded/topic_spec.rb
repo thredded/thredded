@@ -143,9 +143,9 @@ module Thredded
 
     it 'changes updated_at when a new post is added' do
       old = @topic.updated_at
-      Timecop.freeze(1.day.from_now) {
+      Timecop.freeze 1.day.from_now do
         create(:post, postable: @topic)
-      }
+      end
 
       expect(@topic.reload.updated_at).not_to eq old
     end
