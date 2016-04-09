@@ -2,6 +2,10 @@
 
 Thredded now supports Rails 4.2+ only.
 
+Thredded now also fully supports the latest Rails 5 beta, but currently this requires using master versions of certain
+gems. See [rails_5_0.gemfile](https://github.com/thredded/thredded/blob/master/spec/gemfiles/rails_5_0.gemfile)
+for more information.
+
 ## Fixed
 
 * Pagination and possible route conflicts throughout. [#202](https://github.com/thredded/thredded/pull/202)
