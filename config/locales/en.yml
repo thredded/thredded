@@ -1,6 +1,10 @@
 ---
 en:
   thredded:
+    nav:
+      all_messageboards: All Messageboards
+      private_topics: Private Topics
+      topics: Topics
     preferences:
       updated_notice: Your settings have been updated.
     private_topics:

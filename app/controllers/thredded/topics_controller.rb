@@ -141,7 +141,7 @@ module Thredded
         topic: topic,
       ).first_or_initialize
 
-      read_history.update_attributes(
+      read_history.update!(
         farthest_post: @posts.last,
         posts_count: topic.posts_count,
         page: current_page,

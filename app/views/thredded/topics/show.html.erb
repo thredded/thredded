@@ -1,6 +1,6 @@
 <% content_for :thredded_page_title, topic.title %>
 <% content_for :thredded_page_id, 'thredded--posts' %>
-<% content_for :thredded_breadcrumbs, render('thredded/shared/messageboard_topics_breadcrumbs') %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
   <%= content_tag :section, id: dom_id(topic), class: "thredded--main-section thredded--topic #{user_topic.css_class}" do %>

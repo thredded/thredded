@@ -1,12 +1,6 @@
 <% content_for :thredded_page_title, 'Messageboards' %>
 <% content_for :thredded_page_id, 'thredded--messageboards-index' %>
-<% content_for :thredded_breadcrumbs do %>
-  <ul class="thredded--navigation-breadcrumbs">
-    <li>
-      <%= link_to 'All Message Boards', messageboards_path %>
-    </li>
-  </ul>
-<% end %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 <%= thredded_page do %>
   <section class="thredded--main-section thredded--messageboards">
     <%= render @messageboards %>

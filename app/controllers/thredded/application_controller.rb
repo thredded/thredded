@@ -7,20 +7,29 @@ module Thredded
     helper_method \
       :active_users,
       :messageboard,
+      :messageboard_or_nil,
       :preferences,
       :unread_private_topics_count,
       :signed_in?
 
-    rescue_from \
-      CanCan::AccessDenied,
-      Thredded::Errors::MessageboardNotFound,
-      Thredded::Errors::MessageboardReadDenied,
-      Thredded::Errors::TopicCreateDenied,
-      Thredded::Errors::MessageboardCreateDenied,
-      Thredded::Errors::PrivateTopicCreateDenied do |exception|
-        redirect_to root_path,
-          flash: { alert: exception.message }
-      end
+    rescue_from Thredded::Errors::MessageboardNotFound,
+                Thredded::Errors::PrivateTopicNotFound,
+                Thredded::Errors::TopicNotFound,
+                Thredded::Errors::UserNotFound do |exception|
+      @error   = exception
+      @message = exception.message
+      render template: 'thredded/error_pages/not_found', status: :not_found
+    end
+
+    rescue_from CanCan::AccessDenied,
+                Thredded::Errors::TopicCreateDenied,
+                Thredded::Errors::MessageboardCreateDenied,
+                Thredded::Errors::PrivateTopicCreateDenied,
+                Thredded::Errors::MessageboardReadDenied do |exception|
+      @error   = exception
+      @message = exception.message
+      render template: 'thredded/error_pages/forbidden', status: :forbidden
+    end
 
     def signed_in?
       !thredded_current_user.thredded_anonymous?
@@ -75,7 +84,15 @@ module Thredded
     end
 
     def messageboard
-      @messageboard ||= params[:messageboard_id].presence && Messageboard.find_by_slug!(params[:messageboard_id])
+      @messageboard ||= params[:messageboard_id].presence && Messageboard.friendly.find(params[:messageboard_id])
+    rescue ActiveRecord::RecordNotFound
+      raise Thredded::Errors::MessageboardNotFound
+    end
+
+    def messageboard_or_nil
+      messageboard
+    rescue Thredded::Errors::MessageboardNotFound
+      nil
     end
 
     def preferences
@@ -87,7 +104,7 @@ module Thredded
     end
 
     def active_users
-      users = if messageboard
+      users = if messageboard_or_nil
                 messageboard.recently_active_users
               else
                 Thredded.user_class.joins(:thredded_user_detail).merge(Thredded::UserDetail.recently_active).to_a

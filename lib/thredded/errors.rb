@@ -51,7 +51,10 @@ module Thredded
       end
     end
 
-    class PrivateTopicCreateDenied < TopicCreateDenied
+    class PrivateTopicCreateDenied < Thredded::Error
+      def message
+        'You are not authorized to create private topics.'
+      end
     end
   end
 end
