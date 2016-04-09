@@ -5,3 +5,6 @@ gem 'rails', '~> 5.0.0.beta3'
 gem 'rspec-rails', '~> 3.5.0.beta3'
 gem 'rails-controller-testing'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
+
+# TODO: switch back to the main repo once https://github.com/brianhempel/active_record_union/pull/10 is merged.
+gem 'active_record_union', git: 'https://github.com/glebm/active_record_union', branch: 'rails-5-test-harness'
