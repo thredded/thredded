@@ -25,7 +25,7 @@ feature 'Creating a messageboard' do
     expect(create_board).not_to have_a_new_messageboard_link
   end
 
-  scenario 'regular user is redirected if trying to directly access form' do
+  scenario 'regular user is shown an Unauthorized message if trying to directly access form' do
     user = regular_user
     user.log_in
     expect(user).to be_logged_in
@@ -33,7 +33,7 @@ feature 'Creating a messageboard' do
     create_board = set_up_a_messageboard
     create_board.visit_new_messageboard_form
 
-    expect(create_board).to be_on_the_messageboard_list
+    expect(create_board).to be_on_access_forbidden_page
   end
 
   def set_up_a_messageboard

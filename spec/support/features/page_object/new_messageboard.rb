@@ -33,6 +33,10 @@ module PageObject
       has_css? '#thredded--container[data-thredded-page-id="thredded--messageboards-index"]'
     end
 
+    def on_access_forbidden_page?
+      has_css? '#thredded--container[data-thredded-page-id="thredded--error-forbidden"]'
+    end
+
     def visit_messageboard_list
       visit messageboards_path
     end
