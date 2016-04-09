@@ -1,0 +1,6 @@
+<% content_for :thredded_page_title, @message %>
+<% content_for :thredded_page_id, 'thredded--error-not-found' %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
+<%= thredded_page do %>
+  <p class="thredded--alert thredded--alert-danger"><%= @message %></p>
+<% end %>

@@ -18,7 +18,7 @@ module Thredded
       [Thredded::PrivatePost, :commit, :after, :notify_at_users],
     ]
 
-    def self.run(users: 200, topics: 60, posts: (0..80))
+    def self.run(users: 200, topics: 55, posts: (0..60))
       STDERR.puts 'Seeding the database...'
       # Disable callbacks to avoid creating notifications and performing unnecessary updates
       SKIP_CALLBACKS.each { |(klass, *args)| klass.skip_callback(*args) }
@@ -69,7 +69,7 @@ module Thredded
       log "Creating #{additional_messageboards.length} additional messageboards..."
       additional_messageboards.each do |(name, description)|
         messageboard = Messageboard.create!(name: name, description: description)
-        create_topics(count: 1 + rand(3), messageboard: messageboard)
+        FactoryGirl.create_list(:topic, 1 + rand(3), messageboard: messageboard, with_posts: 1)
       end
     end
 

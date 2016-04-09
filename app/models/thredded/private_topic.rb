@@ -22,7 +22,7 @@ module Thredded
     has_many :private_users, inverse_of: :private_topic
     has_many :users, through: :private_users
 
-    validates_each :users do |model, attr, users|
+    validates_each :users do |model, _attr, users|
       # Must include the creator + at least one other user
       if users.length < 2
         model.errors.add(:user_ids, I18n.t('thredded.private_topics.errors.user_ids_length'))
@@ -71,9 +71,7 @@ module Thredded
     end
 
     def ensure_user_in_private_users
-      if user.present? && !users.include?(user)
-        users << user
-      end
+      users << user if user.present? && !users.include?(user)
     end
   end
 end

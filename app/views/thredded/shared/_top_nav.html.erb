@@ -1,4 +1,4 @@
-<% unless !messageboard.try(:persisted?) && !Thredded.standalone_layout? %>
+<% unless !messageboard_or_nil.try(:persisted?) && !Thredded.standalone_layout? %>
   <nav class="thredded--user-navigation" role="navigation">
     <div class="thredded--user-navigation--search">
       <%= render 'thredded/search/form' %>
