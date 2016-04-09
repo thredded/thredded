@@ -11,6 +11,9 @@ for more information.
 * Pagination and possible route conflicts throughout. [#202](https://github.com/thredded/thredded/pull/202)
 * Redirects to the correct page after posting a reply. [#205](https://github.com/thredded/thredded/pull/205)
 * Search with special `by:user` and `in:category` qualifiers. [#206](https://github.com/thredded/thredded/pull/206)
+* Private topics now validate presence of at least one user other than the creator. [#207](https://github.com/thredded/thredded/pull/207)
+* "Not found" and "Permission denied" errors now render with the correct response codes. [#208](https://github.com/thredded/thredded/pull/208)
+* Thredded user associations are now correctly nullified / destroyed when a user is destroyed in the parent app.
 
 ## Added
 
