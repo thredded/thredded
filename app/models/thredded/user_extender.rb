@@ -18,8 +18,8 @@ module Thredded
       has_many :thredded_notification_preferences, class_name: 'Thredded::NotificationPreference', foreign_key: 'user_id'
       has_many :thredded_posts, class_name: 'Thredded::Post', foreign_key: 'user_id'
       has_many :thredded_private_topics, through: :thredded_private_users, class_name: 'Thredded::PrivateTopic', source: :private_topic
-      has_many :thredded_private_users, class_name: 'Thredded::PrivateUser', foreign_key: 'user_id'
-      has_many :thredded_topics, class_name: 'Thredded::Topic', foreign_key: 'user_id'
+      has_many :thredded_private_users, class_name: 'Thredded::PrivateUser', foreign_key: 'user_id', inverse_of: :user
+      has_many :thredded_topics, class_name: 'Thredded::Topic', foreign_key: 'user_id', inverse_of: :user
       has_many :thredded_read_topics, class_name: 'Thredded::UserTopicRead', foreign_key: 'user_id'
 
       has_one :thredded_user_detail, class_name: 'Thredded::UserDetail', foreign_key: 'user_id'

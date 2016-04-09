@@ -3,6 +3,9 @@ en:
   thredded:
     preferences:
       updated_notice: Your settings have been updated.
+    private_topics:
+      errors:
+        user_ids_length: Please specify at least one other user.
     topics:
       search:
         no_results_message: There are no results for your search - %{query}

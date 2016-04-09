@@ -4,8 +4,6 @@ module Thredded
     included do
       paginates_per 50 if self.respond_to?(:paginates_per)
 
-      belongs_to :user,
-                 class_name: Thredded.user_class
       belongs_to :last_user,
                  class_name: Thredded.user_class,
                  foreign_key: 'last_user_id'

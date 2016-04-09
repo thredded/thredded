@@ -124,6 +124,7 @@ FactoryGirl.define do
 
   factory :private_topic, class: Thredded::PrivateTopic do
     user
+    users { build_list :user, 1 }
     association :last_user, factory: :user
 
     title { Faker::Lorem.sentence[0..-2] }

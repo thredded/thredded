@@ -20,6 +20,10 @@ module Thredded
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(topics))
 
+    belongs_to :user,
+               class_name: Thredded.user_class,
+               inverse_of: :thredded_topics
+
     belongs_to :messageboard,
                counter_cache: true,
                touch: true,
