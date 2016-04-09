@@ -2,6 +2,9 @@ module Thredded
   class Post < ActiveRecord::Base
     include PostCommon
 
+    belongs_to :user,
+               class_name: Thredded.user_class,
+               inverse_of: :thredded_posts
     belongs_to :messageboard,
                counter_cache: true
     belongs_to :postable,

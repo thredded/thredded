@@ -1,6 +1,6 @@
 module Thredded
   class UserDetail < ActiveRecord::Base
-    belongs_to :user, class_name: Thredded.user_class
+    belongs_to :user, class_name: Thredded.user_class, inverse_of: :thredded_user_detail
     validates :user_id, presence: true
 
     has_many :topics, class_name: 'Thredded::Topic', foreign_key: :user_id, primary_key: :user_id

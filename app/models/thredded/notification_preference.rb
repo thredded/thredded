@@ -1,6 +1,6 @@
 module Thredded
   class NotificationPreference < ActiveRecord::Base
-    belongs_to :user
+    belongs_to :user, inverse_of: :thredded_notification_preferences
     belongs_to :messageboard
 
     validates :user_id, presence: true

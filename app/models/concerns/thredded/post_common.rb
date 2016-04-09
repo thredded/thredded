@@ -4,7 +4,6 @@ module Thredded
     included do
       paginates_per 50
 
-      belongs_to :user, class_name: Thredded.user_class
       delegate :email, to: :user, prefix: true, allow_nil: true
 
       has_many :post_notifications, as: :post, dependent: :destroy

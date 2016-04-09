@@ -2,6 +2,9 @@ module Thredded
   class PrivatePost < ActiveRecord::Base
     include PostCommon
 
+    belongs_to :user,
+               class_name: Thredded.user_class,
+               inverse_of: :thredded_private_posts
     belongs_to :postable,
                class_name:    'Thredded::PrivateTopic',
                inverse_of:    :posts,
