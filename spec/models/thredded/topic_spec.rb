@@ -57,35 +57,35 @@ module Thredded
     end
 
     it 'with text' do
-      expect(Topic.search(test_title).to_a).to(
+      expect(Topic.search_query(test_title).to_a).to(
         match_array([@topic_with_title, @topic_with_title_and_category, @topic_with_title_and_user,
                      @topic_with_title_and_category_and_user]))
     end
 
     it 'with "by:"' do
-      expect(Topic.search("by:#{@user.name}").to_a).to(
+      expect(Topic.search_query("by:#{@user.name}").to_a).to(
         match_array([@topic_with_user, @topic_with_category_and_user, @topic_with_title_and_user,
                      @topic_with_title_and_category_and_user]))
     end
 
     it 'with "in:"' do
-      expect(Topic.search("in:#{@category.name}").to_a).to(
+      expect(Topic.search_query("in:#{@category.name}").to_a).to(
         match_array([@topic_with_category, @topic_with_category_and_user, @topic_with_title_and_category,
                      @topic_with_title_and_category_and_user]))
     end
 
     it 'with "by:" and text' do
-      expect(Topic.search("#{test_title} by:#{@user.name}").to_a).to(
+      expect(Topic.search_query("#{test_title} by:#{@user.name}").to_a).to(
         match_array([@topic_with_title_and_user, @topic_with_title_and_category_and_user]))
     end
 
     it 'with "in:" and text' do
-      expect(Topic.search("#{test_title} in:#{@category.name}").to_a).to(
+      expect(Topic.search_query("#{test_title} in:#{@category.name}").to_a).to(
         match_array([@topic_with_title_and_category, @topic_with_title_and_category_and_user]))
     end
 
     it 'with "by:" and "in:" and text' do
-      expect(Topic.search("#{test_title} by: #{@user.name} in:#{@category.name}").to_a).to(
+      expect(Topic.search_query("#{test_title} by: #{@user.name} in:#{@category.name}").to_a).to(
         match_array([@topic_with_title_and_category_and_user]))
     end
   end

@@ -37,7 +37,7 @@ module Thredded
     def search
       @query = params[:q].to_s
       @topics = messageboard.topics
-                  .search(@query)
+                  .search_query(@query)
                   .order_recently_updated_first
                   .includes(:categories, :last_user, :user)
                   .page(current_page)

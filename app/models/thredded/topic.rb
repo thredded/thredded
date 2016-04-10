@@ -9,7 +9,8 @@ module Thredded
     scope :stuck, -> { where(sticky: true) }
     scope :unstuck, -> { where(sticky: false) }
 
-    scope :search, -> query { ::Thredded::TopicsSearch.new(query, self).search }
+    # Using `search_query` instead of `search` to avoid conflict with Ransack.
+    scope :search_query, -> query { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
 
