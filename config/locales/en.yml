@@ -1,11 +1,33 @@
 ---
 en:
   thredded:
+    errors:
+      login_required: Please sign in first.
     nav:
       all_messageboards: All Messageboards
       private_topics: Private Topics
+      settings: Notification Settings
       topics: Topics
     preferences:
+      edit:
+        page_title: :thredded.nav.settings
+      form:
+        global_preferences_label: Global Settings
+        messageboard_notify_on_mention:
+          hint: 'When someone mentions you by your username (eg: @sam) in this messageboard you will receive an
+            email with the contents of that post.'
+          label: :thredded.preferences.form.notify_on_mention.label
+        messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
+        notify_on_mention:
+          hint: 'When someone mentions you by your username (eg: @sam) you will receive an email with the contents
+            of that post.'
+          label: "@ Notifications"
+        notify_on_message:
+          hint: When you are added to a private topic's discussion you will receive an email with the contents of
+            that post.
+          label: Private Topic Notifications
+        submit_btn: Update Settings
+        title: Settings
       updated_notice: Your settings have been updated.
     private_topics:
       errors:

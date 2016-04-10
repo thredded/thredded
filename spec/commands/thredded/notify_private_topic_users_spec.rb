@@ -20,7 +20,7 @@ module Thredded
       expect(recipients).not_to include @john
     end
 
-    xit 'excludes anyone whose preferences say not to notify' do
+    it 'excludes anyone whose preferences say not to notify' do
       post = create(:private_post, post_notifications: [])
       private_topic = create(
         :private_topic,
@@ -29,12 +29,14 @@ module Thredded
         posts: [post]
       )
       create(
-        :notification_preference,
+        :user_preference,
         user: @joel,
+        notify_on_message: false
       )
       create(
-        :notification_preference,
+        :user_preference,
         user: @sam,
+        notify_on_message: true
       )
 
       recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients

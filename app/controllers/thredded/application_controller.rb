@@ -22,6 +22,7 @@ module Thredded
     end
 
     rescue_from CanCan::AccessDenied,
+                Thredded::Errors::LoginRequired,
                 Thredded::Errors::TopicCreateDenied,
                 Thredded::Errors::MessageboardCreateDenied,
                 Thredded::Errors::PrivateTopicCreateDenied,
@@ -31,29 +32,40 @@ module Thredded
       render template: 'thredded/error_pages/forbidden', status: :forbidden
     end
 
+    protected
+
     def signed_in?
       !thredded_current_user.thredded_anonymous?
+    end
+
+    if Rails::VERSION::MAJOR < 5
+      # redirect_back polyfill
+      def redirect_back(fallback_location:)
+        redirect_to :back
+      rescue ActionController::RedirectBackError
+        redirect_to fallback_location
+      end
     end
 
     private
 
     def unread_private_topics_count
-      @unread_private_topics_count ||= Thredded::PrivateTopic
-        .joins(:private_users)
-        .where(
-          thredded_private_users: {
-            user_id: thredded_current_user.id,
-            read: false
-          })
-        .count
+      @unread_private_topics_count ||=
+        Thredded::PrivateTopic
+          .joins(:private_users)
+          .where(
+            thredded_private_users: {
+              user_id: thredded_current_user.id,
+              read:    false
+            })
+          .count
     end
 
     def authorize_reading(obj)
       return if current_ability.can? :read, obj
 
       class_name = obj.class.to_s
-      error = class_name
-        .gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
+      error      = class_name.gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
 
       fail error.constantize
     end
@@ -64,8 +76,7 @@ module Thredded
       return if current_ability.can? :create, obj
 
       class_name = obj.class.to_s
-      error = class_name
-        .gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
+      error      = class_name.gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
 
       fail error.constantize
     end
@@ -111,6 +122,10 @@ module Thredded
               end.to_a
       users.push(thredded_current_user) unless thredded_current_user.is_a?(NullUser)
       users.uniq
+    end
+
+    def thredded_require_login!
+      fail Thredded::Errors::LoginRequired if thredded_current_user.thredded_anonymous?
     end
   end
 end

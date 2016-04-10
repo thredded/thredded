@@ -15,25 +15,25 @@ module PageObject
     end
 
     def disable_at_notifications
-      uncheck '@ Notifications'
-      click_button 'Update Settings'
+      uncheck 'user_preferences_form[notify_on_mention]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
     def updated?
-      has_content? 'Your settings have been updated.'
+      has_content? I18n.t('thredded.preferences.updated_notice')
     end
 
     def has_at_mention_notifications?
-      has_checked_field? 'notification_preference_notify_on_mention'
+      has_checked_field? 'user_preferences_form[notify_on_mention]'
     end
 
     def disable_private_topic_notifications
-      uncheck 'Private Topic Notification'
-      click_button 'Update Settings'
+      uncheck 'user_preferences_form[notify_on_message]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
     def has_private_topic_notifications?
-      has_checked_field? 'notification_preference_notify_on_message'
+      has_checked_field? 'user_preferences_form[notify_on_message]'
     end
   end
 end

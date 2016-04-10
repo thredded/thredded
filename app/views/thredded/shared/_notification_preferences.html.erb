@@ -1,7 +1,1 @@
-<% if messageboard.try(:persisted?) %>
-  <li>
-    <%= link_to edit_messageboard_preferences_path(messageboard) do %>
-      <span>Notification Settings</span>
-    <% end %>
-  </li>
-<% end %>
+<li><%= link_to t('thredded.nav.settings'), edit_preferences_path(messageboard) %></li>

@@ -99,9 +99,7 @@
   <%= render 'section_title', label: 'preferences#edit', href: edit_messageboard_preferences_path(@messageboard) %>
   <%= content_tag :section, class: 'thredded--thredded--main-section preferences' do %>
     <%= render 'thredded/preferences/header' %>
-    <%= render 'thredded/preferences/form',
-               messageboard: @messageboard,
-               preference:   @preference %>
+    <%= render 'thredded/preferences/form', preferences: @preferences %>
   <% end %>
 
   <%= render 'thredded/shared/currently_online' %>

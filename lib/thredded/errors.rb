@@ -9,6 +9,12 @@ module Thredded
       end
     end
 
+    class LoginRequired < Thredded::Error
+      def message
+        I18n.t('thredded.errors.login_required')
+      end
+    end
+
     class UserNotFound < Thredded::Error
       def message
         'This user could not be found. Is their name misspelled?'

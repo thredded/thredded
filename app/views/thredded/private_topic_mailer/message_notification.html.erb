@@ -8,9 +8,6 @@
   <%= link_to 'Go here', @topic %> to view the conversation.
 </p>
 
-<% if false # TODO: implement global notification preferences for private topics. %>
 <p>
-  To unsubscribe from these emails, update your
-  <%= link_to 'preferences', edit_messageboard_preferences_url(@topic.messageboard) %>.
+  To unsubscribe from these emails, update your <%= link_to 'preferences', edit_preferences_url %>.
 </p>
-<% end %>

@@ -1,25 +1,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe Messageboard, 'associations' do
-    it { should have_many(:categories).dependent(:destroy) }
-    it { should have_many(:notification_preferences).dependent(:destroy) }
-    it { should have_many(:posts).dependent(:destroy) }
-    it { should have_many(:topics).dependent(:destroy) }
-  end
-
-  describe Messageboard, 'validations' do
-    it { should validate_presence_of(:filter) }
-    it { should validate_presence_of(:name) }
-  end
-
   describe Messageboard do
-    it { should have_db_column(:closed) }
-    it { should have_db_index(:closed) }
-    it { should have_db_index(:slug) }
-    it { should have_db_column(:filter) }
-    it { should validate_inclusion_of(:filter).in_array(%w(markdown bbcode)) }
-
     before(:each) do
       @messageboard = create(:messageboard, topics_count: 10)
     end
@@ -45,25 +27,6 @@ module Thredded
 
       expect(all_boards.first).to eq lots
       expect(all_boards.last).to eq @messageboard
-    end
-
-    describe '#preferences_for' do
-      it 'creates a new preference if it does not exist already' do
-        messageboard = create(:messageboard)
-        user         = create(:user)
-
-        expect(messageboard.preferences_for user).not_to be_nil
-        expect(messageboard.preferences_for user).to be_persisted
-      end
-
-      it 'finds an existing preference' do
-        messageboard = create(:messageboard)
-        user         = create(:user)
-        prefs        = create(:notification_preference,
-                              messageboard: messageboard, user: user)
-
-        expect(messageboard.preferences_for user).to eq prefs
-      end
     end
 
     describe '#recently_active_users' do

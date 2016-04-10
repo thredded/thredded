@@ -7,14 +7,14 @@ module Thredded
       category = create(:category, messageboard: messageboard)
       post = create(:post, messageboard: messageboard)
       topic = create(:topic, messageboard: messageboard)
-      notification_preference = create(:notification_preference, messageboard: messageboard)
+      preference = create(:user_messageboard_preference, messageboard: messageboard)
 
       Thredded::MessageboardDestroyer.new('goodbye').run
 
-      expect { Thredded::Category.find(category.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect { Thredded::NotificationPreference.find(notification_preference.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect { Thredded::Post.find(post.id) }.to raise_error(ActiveRecord::RecordNotFound)
-      expect { Thredded::Topic.find(topic.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(Thredded::Category.find_by_id(category.id)).to be_nil
+      expect(Thredded::UserMessageboardPreference.find_by_id(preference.id)).to be_nil
+      expect(Thredded::Post.find_by_id(post.id)).to be_nil
+      expect(Thredded::Topic.find_by_id(topic.id)).to be_nil
     end
   end
 end

@@ -1,37 +1,32 @@
 module Thredded
   class PreferencesController < Thredded::ApplicationController
-    helper_method :preference
+    before_action :thredded_require_login!,
+                  :init_preferences
 
     def edit
     end
 
     def update
-      preference.update!(preference_params)
-      flash[:notice] = t('thredded.preferences.updated_notice')
-      fallback_location = messageboard_topics_url(messageboard)
-      if Rails::VERSION::MAJOR >= 5
-        redirect_back fallback_location: fallback_location
+      if @preferences.save
+        flash[:notice] = t('thredded.preferences.updated_notice')
+        redirect_back fallback_location: edit_preferences_url(@preferences.messageboard)
       else
-        begin
-          redirect_to :back
-        rescue ActionController::RedirectBackError
-          redirect_to fallback_location
-        end
+        render :edit
       end
-    end
-
-    def preference
-      @preference ||= NotificationPreference
-        .where(messageboard_id: messageboard.id, user_id: thredded_current_user.id)
-        .first_or_create!
     end
 
     private
 
-    def preference_params
-      params
-        .require(:notification_preference)
-        .permit(:notify_on_mention, :notify_on_message, :filter)
+    def init_preferences
+      @preferences = UserPreferencesForm.new(
+        user:         thredded_current_user,
+        messageboard: messageboard_or_nil,
+        params:       params.fetch(:user_preferences_form, {}).permit(
+          :notify_on_mention,
+          :notify_on_message,
+          :messageboard_notify_on_mention,
+        )
+      )
     end
   end
 end

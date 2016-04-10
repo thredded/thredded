@@ -1,36 +1,33 @@
-<% unless !messageboard_or_nil.try(:persisted?) && !Thredded.standalone_layout? %>
-  <nav class="thredded--user-navigation" role="navigation">
+<nav class="thredded--user-navigation" role="navigation">
+  <% if messageboard_or_nil %>
     <div class="thredded--user-navigation--search">
       <%= render 'thredded/search/form' %>
     </div>
+  <% end %>
 
+  <% if signed_in? %>
     <ul class="thredded--user-navigation--actions">
-      <% if signed_in? %>
-        <% if Thredded.standalone_layout? %>
-          <li>
-            <%= link_to user_path(thredded_current_user) do %>
-              <span><%= thredded_current_user %></span>
-            <% end %>
-          </li>
-        <% end %>
+      <% if Thredded.standalone_layout? %>
+        <li><%= link_to thredded_current_user, user_path(thredded_current_user) %></li>
+      <% end %>
 
-        <%= render 'thredded/shared/notification_preferences',
-          messageboard: messageboard %>
+      <%= render 'thredded/shared/notification_preferences', messageboard: messageboard_or_nil %>
 
-        <% if Thredded.standalone_layout? %>
-          <li>
-            <%= link_to main_app.session_path, method: :delete do %>
-              <span>Sign Out</span>
-            <% end %>
-          </li>
-        <% end %>
-      <% elsif Thredded.standalone_layout? %>
+      <% if Thredded.standalone_layout? %>
         <li>
-          <%= link_to main_app.sessions_new_path do %>
-            <span>Sign In / Register</span>
+          <%= link_to main_app.session_path, method: :delete do %>
+            <span>Sign Out</span>
           <% end %>
         </li>
       <% end %>
     </ul>
-  </nav>
-<% end %>
+  <% elsif Thredded.standalone_layout? %>
+    <ul class="thredded--user-navigation--actions">
+      <li>
+        <%= link_to main_app.sessions_new_path do %>
+          <span>Sign In / Register</span>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
+</nav>
