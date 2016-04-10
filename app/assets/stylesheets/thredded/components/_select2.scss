@@ -49,6 +49,7 @@
 &--select2-drop {
   background: inherit;
   border-color: $thredded-form-border-focus-color;
+  border-top: $thredded-base-border;
   box-shadow: 0 1px 1px $thredded-form-border-focus-color;
   font-family: $thredded-base-font-family;
   font-size: $thredded-base-font-size;
@@ -57,7 +58,6 @@
   .select2-results {
     background: $thredded-form-background;
     padding: 4px;
-    border-top: $thredded-base-border;
     margin: 0;
   }
 
