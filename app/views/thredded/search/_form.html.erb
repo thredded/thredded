@@ -1,7 +1,10 @@
-<% if messageboard.try(:persisted?) %>
-  <%= form_tag messageboard_search_path(messageboard), class: 'thredded--form', method: 'get' do %>
-    <%= label :q, :search, 'Search', for: 'q', class: 'show-for-small', data: {toggle: '#q'} %>
-    <%= text_field_tag(:q, params[:q], { placeholder: 'Search Topics and Posts', type: 'search', class: 'input-search' }) %>
-    <%= submit_tag('Search', name: '') %>
-  <% end %>
+<%= form_tag search_path(messageboard), class: 'thredded--form', method: 'get' do %>
+  <%= label_tag :q, t('thredded.search.form.label') %>
+  <%= text_field_tag :q, @query,
+                     type:        'search',
+                     required:    true,
+                     # If there are no results the user will likely want to change the query, so auto-focus.
+                     autofocus:   @query.presence && !@topics.presence,
+                     placeholder: t('thredded.search.form.placeholder') %>
+  <button type="submit"><%= t 'thredded.search.form.btn_submit' %></button>
 <% end %>

@@ -148,8 +148,8 @@ module PageObject
     end
 
     def search_for(title)
-      fill_in 'Search', with: title
-      find('.thredded--user-navigation--search input[type="submit"]').click
+      fill_in 'q', with: title
+      find('.thredded--user-navigation--search [type="submit"]').click
     end
 
     private

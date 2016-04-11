@@ -76,5 +76,15 @@ module Thredded
     def edit_preferences_path(messageboard = nil, params = {})
       edit_preferences_url(messageboard, params.merge(only_path: true))
     end
+
+    # @param messageboard [Thredded::Messageboard, nil]
+    # @return [String] the path to the global or messageboard search.
+    def search_path(messageboard = nil)
+      if messageboard.try(:persisted?)
+        messageboard_search_path(messageboard)
+      else
+        messageboards_search_path
+      end
+    end
   end
 end
