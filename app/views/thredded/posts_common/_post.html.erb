@@ -19,6 +19,10 @@
   <% end %>
 
   <% if current_ability.can? :destroy, post.original %>
-    <%= link_to 'Delete Post', delete_post_path(post.original), method: :delete, class: 'thredded--post--delete' %>
+    <%= link_to 'Delete Post', delete_post_path(post.original),
+      method: :delete,
+      class: 'thredded--post--delete',
+      data: { confirm: I18n.t('thredded.posts.delete.confirm') }
+    %>
   <% end %>
 <% end %>
