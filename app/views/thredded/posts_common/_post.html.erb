@@ -19,6 +19,6 @@
   <% end %>
 
   <% if current_ability.can? :destroy, post.original %>
-    <%= link_to 'Delete Post', messageboard_topic_post_path(post.messageboard.slug, post.postable.slug, post.original), method: :delete, class: 'thredded--post--delete' %>
+    <%= link_to 'Delete Post', delete_post_path(post.original), method: :delete, class: 'thredded--post--delete' %>
   <% end %>
 <% end %>

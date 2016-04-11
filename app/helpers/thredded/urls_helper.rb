@@ -59,6 +59,16 @@ module Thredded
       end
     end
 
+    # @param post [Post, PrivatePost]
+    # @return [String] path to the DELETE PATCH PUT POST endpoint.
+    def delete_post_path(post)
+      if post.private_topic_post?
+        private_topic_private_post_path(post.postable, post)
+      else
+        messageboard_topic_post_path(messageboard, post.postable, post)
+      end
+    end
+
     # @param messageboard [Thredded::Messageboard, nil]
     # @param params [Hash] additional params
     # @return [String] the URL to the global or messageboard edit preferences page.
