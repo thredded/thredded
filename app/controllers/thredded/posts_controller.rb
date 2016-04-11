@@ -30,7 +30,7 @@ module Thredded
     def destroy
       post.destroy!
 
-      redirect_to request.referrer
+      redirect_to :back
     end
 
     private
