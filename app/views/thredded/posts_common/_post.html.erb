@@ -17,4 +17,8 @@
   <% if current_ability.can? :edit, post.original %>
     <%= link_to 'Edit Post', edit_post_path(post.original), class: 'thredded--post--edit' %>
   <% end %>
+
+  <% if current_ability.can? :destroy, post.original %>
+    <%= link_to 'Delete Post', messageboard_topic_post_path(post.messageboard.slug, post.postable.slug, post.original), method: :delete, class: 'thredded--post--delete' %>
+  <% end %>
 <% end %>
