@@ -58,5 +58,23 @@ module Thredded
         edit_messageboard_topic_post_path(messageboard, post.postable, post)
       end
     end
+
+    # @param messageboard [Thredded::Messageboard, nil]
+    # @param params [Hash] additional params
+    # @return [String] the URL to the global or messageboard edit preferences page.
+    def edit_preferences_url(messageboard = nil, params = {})
+      if messageboard.try(:persisted?)
+        edit_messageboard_preferences_url(messageboard, params)
+      else
+        super(params)
+      end
+    end
+
+    # @param messageboard [Thredded::Messageboard, nil]
+    # @param params [Hash] additional params
+    # @return [String] the path to the global or messageboard edit preferences page.
+    def edit_preferences_path(messageboard = nil, params = {})
+      edit_preferences_url(messageboard, params.merge(only_path: true))
+    end
   end
 end

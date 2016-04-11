@@ -21,17 +21,8 @@ module Thredded
     private
 
     def read_status
-      if user.id > 0
-        @read_status ||= topic.user_topic_reads.select do |reads|
-          reads.user_id == user.id
-        end
-      end
-
-      if @read_status.blank?
-        Thredded::NullTopicRead.new
-      else
-        @read_status.first
-      end
+      # TODO: Avoid loading read status for *all* the users.
+      @read_status ||= topic.user_topic_reads.find { |reads| reads.user_id == user.id } || Thredded::NullTopicRead.new
     end
   end
 end

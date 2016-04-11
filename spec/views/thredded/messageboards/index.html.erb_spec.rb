@@ -10,7 +10,8 @@ RSpec.describe 'thredded/messageboards/index' do
     assign(:messageboards, [])
 
     # Stub the helper methods defined in the controller
-    allow(view).to receive_messages(messageboard_or_nil: nil, active_users: [], unread_private_topics_count: 1)
+    allow(view).to(
+      receive_messages(signed_in?: true, messageboard_or_nil: nil, active_users: [], unread_private_topics_count: 1))
 
     # Use a generic Ability model so we can grant abilities on the fly
     allow(view).to receive(:current_ability).and_return(Object.new.extend(CanCan::Ability))

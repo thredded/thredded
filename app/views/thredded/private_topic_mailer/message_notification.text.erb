@@ -7,7 +7,5 @@ included you in the private topic "<%= @topic.title %>".
 Go here to view the conversation:
   <%= url_for @topic %>
 
-<% if false # TODO: implement global notification preferences for private topics. %>
 To unsubscribe from these emails, update your preferences here:
-  <%= edit_messageboard_preferences_url(@topic.messageboard) %>
-<% end %>
+  <%= edit_preferences_url %>

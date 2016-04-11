@@ -17,7 +17,7 @@ module Thredded
 
     def at_notifiable_members
       user_names = AtNotificationExtractor.new(post.content).run
-      members = post.readers_from_user_names(user_names).to_a
+      members    = post.readers_from_user_names(user_names).to_a
 
       members.delete post.user
       members = exclude_previously_notified(members)
@@ -32,31 +32,19 @@ module Thredded
     attr_reader :post
 
     def exclude_those_opting_out_of_at_notifications(members)
-      # TODO: implement global notification preferences for private topics.
-      return members if private_topic?
       members.select do |member|
-        Thredded::NotificationPreference
-          .for(member)
-          .in(post.messageboard)
-          .first_or_create
-          .notify_on_mention?
+        member.thredded_user_preference.notify_on_mention? &&
+          (private_topic? || member.thredded_user_messageboard_preferences.in(post.messageboard).notify_on_mention?)
       end
     end
 
     def exclude_those_that_are_not_private(members)
-      members.reject do |member|
-        private_topic? && post.postable.users.exclude?(member)
-      end
+      members.reject { |member| private_topic? && post.postable.users.exclude?(member) }
     end
 
     def exclude_previously_notified(members)
-      emails_notified = Thredded::PostNotification
-        .where(post: post)
-        .pluck(:email)
-
-      members.reject do |member|
-        emails_notified.include? member.email
-      end
+      emails_notified = Thredded::PostNotification.where(post: post).pluck(:email)
+      members.reject { |member| emails_notified.include? member.email }
     end
 
     def private_topic?

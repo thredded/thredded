@@ -1,28 +1,51 @@
-<%= form_for [messageboard, preference], url: messageboard_preferences_path(messageboard),
-             html: { class: 'thredded--form thredded--notification-preferences-form' } do |f| %>
+<%= form_for(
+        preferences,
+        method: :patch,
+        url:    (preferences.messageboard ? messageboard_preferences_path(preferences.messageboard) : preferences_path),
+        html:   {
+            class:                                'thredded--form thredded--notification-preferences-form',
+            'data-thredded-user-preferences-form' => true
+        }) do |f| %>
+
+  <h3><%= t 'thredded.preferences.form.global_preferences_label' %></h3>
   <ul class="thredded--form-list">
     <li>
       <%= f.label :notify_on_mention do %>
         <%= f.check_box :notify_on_mention %>
-        @ Notifications
+        <%= t 'thredded.preferences.form.notify_on_mention.label' %>
         <p class="thredded--form-list--hint">
-          When someone mentions you by your username (eg: @sam)
-          you will receive an email with the contents of that post.
+          <%= t 'thredded.preferences.form.notify_on_mention.hint' %>
         </p>
       <% end %>
     </li>
+
     <li>
       <%= f.label :notify_on_message do %>
         <%= f.check_box :notify_on_message %>
-        Private Topic Notification
+        <%= t 'thredded.preferences.form.notify_on_message.label' %>
         <p class="thredded--form-list--hint">
-          When you are first added to a private topic's discussion
-          you will receive an email with the contents of that initial
-          post.
+          <%= t 'thredded.preferences.form.notify_on_message.hint' %>
         </p>
       <% end %>
     </li>
-    <li><%= f.submit 'Update Settings', class: 'thredded--form--submit' %></li>
   </ul>
+  <% if preferences.messageboard %>
+    <h3>
+      <%= t 'thredded.preferences.form.messageboard_preferences_label_html', messageboard: messageboard.name %>
+    </h3>
+    <ul class="thredded--form-list" data-thredded-user-preferences-form-messageboard-fields>
+      <li>
+        <%= f.label :messageboard_notify_on_mention do %>
+          <%= f.check_box :messageboard_notify_on_mention %>
+          <%= t 'thredded.preferences.form.messageboard_notify_on_mention.label' %>
+          <p class="thredded--form-list--hint">
+            <%= t 'thredded.preferences.form.messageboard_notify_on_mention.hint' %>
+          </p>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
+  <button type="submit" class="thredded--form--submit">
+    <%= t 'thredded.preferences.form.submit_btn' %>
+  </button>
 <% end %>
-

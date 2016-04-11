@@ -7,20 +7,19 @@ module Thredded
                 use:            [:slugged, :reserved],
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
-                  %w(messageboards private-topics autocomplete-users theme-preview))
+                  %w(messageboards preferences private-topics autocomplete-users theme-preview))
 
     validates :filter, inclusion: { in: FILTERS }, presence: true
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
     validates :topics_count, numericality: true
 
     has_many :categories, dependent: :destroy
-    has_many :notification_preferences, dependent: :destroy
+    has_many :user_messageboard_preferences, dependent: :destroy
     has_many :posts, dependent: :destroy
     has_many :topics, dependent: :destroy, inverse_of: :messageboard
     has_many :user_details, through: :posts
 
     has_many :messageboard_users,
-             class_name:  'Thredded::MessageboardUser',
              inverse_of:  :messageboard,
              foreign_key: :thredded_messageboard_id
     has_many :recently_active_user_details,
@@ -39,11 +38,6 @@ module Thredded
       all.map do |messageboard|
         MessageboardDecorator.new(messageboard)
       end
-    end
-
-    def preferences_for(user)
-      @preferences_for ||=
-        notification_preferences.where(user_id: user).first_or_create
     end
 
     def decorate

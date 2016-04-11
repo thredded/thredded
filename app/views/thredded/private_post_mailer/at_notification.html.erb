@@ -8,4 +8,6 @@
   <%= link_to 'View the conversation here', topic_url(@post.postable) %>.
 </p>
 
-<% # TODO: implement global notification preferences for private topics. %>
+<p>
+  To unsubscribe from these emails, update your <%= link_to 'preferences', edit_preferences_url %>.
+</p>

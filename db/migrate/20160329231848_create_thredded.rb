@@ -40,16 +40,6 @@ class CreateThredded < ActiveRecord::Migration
     add_index :thredded_messageboards, [:closed], name: :index_thredded_messageboards_on_closed
     add_index :thredded_messageboards, [:slug], name: :index_thredded_messageboards_on_slug
 
-    create_table :thredded_notification_preferences do |t|
-      t.boolean :notify_on_mention, default: true
-      t.boolean :notify_on_message, default: true
-      t.integer :user_id, null: false
-      t.integer :messageboard_id, null: false
-      t.timestamps null: false
-    end
-    add_index :thredded_notification_preferences, [:messageboard_id], name: :index_thredded_notification_preferences_on_messageboard_id
-    add_index :thredded_notification_preferences, [:user_id], name: :index_thredded_notification_preferences_on_user_id
-
     create_table :thredded_post_notifications do |t|
       t.string :email, limit: 191, null: false
       t.integer :post_id, null: false
@@ -155,9 +145,20 @@ class CreateThredded < ActiveRecord::Migration
     create_table :thredded_user_preferences do |t|
       t.integer :user_id, null: false
       t.string :time_zone, limit: 191, default: 'Eastern Time (US & Canada)'
+      t.boolean :notify_on_mention, default: true, null: false
+      t.boolean :notify_on_message, default: true, null: false
       t.timestamps null: false
     end
     add_index :thredded_user_preferences, [:user_id], name: :index_thredded_user_preferences_on_user_id
+
+    create_table :thredded_user_messageboard_preferences do |t|
+      t.integer :user_id, null: false
+      t.integer :messageboard_id, null: false
+      t.boolean :notify_on_mention, default: true, null: false
+      t.timestamps null: false
+    end
+    add_index :thredded_user_messageboard_preferences, [:user_id, :messageboard_id], unique: true,
+              name: :thredded_user_messageboard_preferences_user_id_messageboard_id
 
     create_table :thredded_user_topic_reads do |t|
       t.integer :user_id, null: false

@@ -5,3 +5,12 @@
 ignore_missing:
 # The kaminari gem keys
 - views.pagination.*
+
+search:
+  paths:
+    - app/
+    - lib/
+data:
+  yaml:
+    write:
+      line_width: 110
