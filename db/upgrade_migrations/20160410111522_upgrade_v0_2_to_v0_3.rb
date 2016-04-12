@@ -9,9 +9,11 @@ class UpgradeV02ToV03 < ActiveRecord::Migration
     add_column :thredded_user_preferences, :notify_on_message, :boolean, default: true, null: false
     add_index :thredded_user_messageboard_preferences, [:user_id, :messageboard_id], unique: true,
       name: :thredded_user_messageboard_preferences_user_id_messageboard_id
+    remove_column :thredded_user_preferences, :time_zone
   end
 
   def down
+    add_column :thredded_user_preferences, :time_zone, :string, limit: 191, default: 'Eastern Time (US & Canada)'
     change_column_null :thredded_user_messageboard_preferences, :notify_on_mention, true
     remove_index :thredded_user_messageboard_preferences, name: :thredded_user_messageboard_preferences_user_id_messageboard_id
     rename_table :thredded_user_messageboard_preferences, :thredded_notification_preferences

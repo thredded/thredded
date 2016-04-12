@@ -144,7 +144,6 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_user_preferences do |t|
       t.integer :user_id, null: false
-      t.string :time_zone, limit: 191, default: 'Eastern Time (US & Canada)'
       t.boolean :notify_on_mention, default: true, null: false
       t.boolean :notify_on_message, default: true, null: false
       t.timestamps null: false
