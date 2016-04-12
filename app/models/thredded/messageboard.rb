@@ -1,15 +1,13 @@
 module Thredded
   class Messageboard < ActiveRecord::Base
-    FILTERS = %w(markdown bbcode)
-
     extend FriendlyId
     friendly_id :slug_candidates,
                 use:            [:slugged, :reserved],
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
-                  %w(messageboards preferences private-topics autocomplete-users theme-preview))
+                  %w(messageboards preferences private-topics autocomplete-users theme-preview)
+                )
 
-    validates :filter, inclusion: { in: FILTERS }, presence: true
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
     validates :topics_count, numericality: true
 

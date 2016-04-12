@@ -87,13 +87,13 @@ feature 'User creates new topic' do
 
   def new_bbcoded_topic
     sign_in
-    messageboard = create(:messageboard, :bbcode)
+    messageboard = create(:messageboard)
     PageObject::Topics.new(messageboard)
   end
 
   def new_markdowned_topic
     sign_in
-    messageboard = create(:messageboard, :markdown)
+    messageboard = create(:messageboard)
     PageObject::Topics.new(messageboard)
   end
 

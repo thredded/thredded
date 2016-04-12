@@ -26,16 +26,7 @@ FactoryGirl.define do
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
-    filter 'markdown'
     closed false
-
-    trait :bbcode do
-      filter 'bbcode'
-    end
-
-    trait :markdown do
-      filter 'markdown'
-    end
   end
 
   factory :post, aliases: [:farthest_post], class: Thredded::Post do
@@ -45,17 +36,6 @@ FactoryGirl.define do
 
     content { Faker::Hacker.say_something_smart }
     ip '127.0.0.1'
-    filter 'markdown'
-
-    trait :markdown do
-      filter 'markdown'
-    end
-
-    trait :bbcode do
-      before(:create) do |post, _|
-        post.messageboard.update_attributes(filter: 'bbcode')
-      end
-    end
   end
 
   factory :private_post, class: Thredded::PrivatePost do
@@ -64,7 +44,6 @@ FactoryGirl.define do
 
     content { Faker::Hacker.say_something_smart }
     ip '127.0.0.1'
-    filter 'markdown'
   end
 
   factory :post_notification, class: Thredded::PostNotification do
