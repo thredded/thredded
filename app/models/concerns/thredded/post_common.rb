@@ -60,30 +60,11 @@ module Thredded
 
     def sanitize_whitelist
       HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-        attributes:   {
+        attributes: {
           'code'       => ['class'],
           'img'        => %w(src class width height),
           'blockquote' => ['class'],
-        },
-        transformers: [(
-          lambda do |env|
-            node      = env[:node]
-            node_name = env[:node_name]
-
-            return if env[:is_whitelisted] || !node.element?
-            return if node_name != 'iframe'
-
-            Sanitize.node!(
-              node,
-              elements:   %w(iframe),
-              attributes: {
-                'iframe' => %w(allowfullscreen frameborder height src width)
-              }
-            )
-
-            { node_whitelist: [node] }
-          end
-        )]
+        }
       )
     end
 
