@@ -2,24 +2,15 @@
   font-feature-settings: "kern", "liga", "tnum";
   border-collapse: collapse;
   margin: $thredded-small-spacing 0;
-  table-layout: fixed;
-  width: 100%;
 
-  th {
-    border-bottom: 1px solid darken($thredded-base-border-color, 15%);
-    font-weight: 600;
-    padding: $thredded-small-spacing 0;
-    text-align: left;
-  }
-
-  td {
+  td, th {
+    text-align: center;
+    padding: 0.5rem 0.75rem;
     border-bottom: $thredded-base-border;
-    padding: $thredded-small-spacing 0;
+    vertical-align: middle;
   }
 
-  tr,
-  td,
   th {
-    vertical-align: middle;
+    font-weight: bold;
   }
 }
