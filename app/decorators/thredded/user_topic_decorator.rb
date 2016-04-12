@@ -1,5 +1,3 @@
-require 'thredded/base_user_topic_decorator'
-
 module Thredded
   class UserTopicDecorator < BaseUserTopicDecorator
     def self.topic_class

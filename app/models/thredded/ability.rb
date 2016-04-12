@@ -4,7 +4,6 @@ module Thredded
 
     def initialize(user)
       user ||= Thredded::NullUser.new
-      user_details = user.thredded_user_detail
 
       can :manage, :all if user.thredded_admin?
 
@@ -12,48 +11,42 @@ module Thredded
         Thredded::MessageboardUserPermissions.new(messageboard, user).readable?
       end
 
-      can :admin, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).adminable?
+      can [:moderate, :destroy], Thredded::Topic do |topic|
+        Thredded::TopicUserPermissions.new(topic, user).moderatable?
       end
 
-      can :edit, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).editable?
+      [[Thredded::Topic, Thredded::TopicUserPermissions],
+       [Thredded::PrivateTopic, Thredded::PrivateTopicUserPermissions]].each do |(topic_class, permissions_class)|
+        can [:edit, :update], topic_class do |private_topic|
+          permissions_class.new(private_topic, user).editable?
+        end
+
+        can :create, topic_class do |private_topic|
+          permissions_class.new(private_topic, user).creatable?
+        end
+
+        can :read, topic_class do |private_topic|
+          permissions_class.new(private_topic, user).readable?
+        end
       end
 
-      can :update, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).editable?
-      end
+      [[Thredded::Post, Thredded::PostUserPermissions],
+       [Thredded::PrivatePost, Thredded::PrivatePostUserPermissions]].each do |(post_class, permissions_class)|
+        can [:edit, :update, :destroy], post_class do |post|
+          # Cancan calls this even for admin users, although it ignores the result.
+          # Avoid unnecessary checks: https://github.com/CanCanCommunity/cancancan/issues/313
+          post_class == Thredded::Post && user.thredded_admin? ||
+            permissions_class.new(post, user).editable?
+        end
 
-      can :read, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).readable?
-      end
+        can :create, post_class do |post|
+          permissions_class.new(post, user).creatable?
+        end
 
-      can :create, Thredded::Topic do |topic|
-        Thredded::TopicUserPermissions.new(topic, user, user_details).creatable?
-      end
-
-      can :manage, Thredded::PrivateTopic do |private_topic|
-        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).manageable?
-      end
-
-      can :create, Thredded::PrivateTopic do |private_topic|
-        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).creatable?
-      end
-
-      can :read, Thredded::PrivateTopic do |private_topic|
-        Thredded::PrivateTopicUserPermissions.new(private_topic, user, user_details).readable?
-      end
-
-      can :edit, Thredded::Post do |post|
-        Thredded::PostUserPermissions.new(post, user, user_details).editable?
-      end
-
-      can :manage, Thredded::Post do |post|
-        Thredded::PostUserPermissions.new(post, user, user_details).manageable?
-      end
-
-      can :create, Thredded::Post do |post|
-        Thredded::PostUserPermissions.new(post, user, user_details).creatable?
+        # Use cannot to override admin permissions. Even admin cannot destroy the first post of a topic.
+        cannot :destroy, post_class do |post|
+          post.postable.first_post == post
+        end
       end
     end
   end

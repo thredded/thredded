@@ -6,7 +6,7 @@ feature 'User deleting topics' do
     topic = users_topic
     topic.visit_topic
 
-    expect(topic).to_not be_deletable
+    expect(topic).not_to be_deletable
   end
 
   context 'as an admin' do
@@ -20,7 +20,7 @@ feature 'User deleting topics' do
       topic.delete
 
       expect(topic).to have_redirected_after_delete
-      expect(topic).to_not be_listed
+      expect(topic).not_to be_listed
     end
   end
 

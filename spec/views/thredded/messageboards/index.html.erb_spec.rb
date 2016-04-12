@@ -28,6 +28,6 @@ RSpec.describe 'thredded/messageboards/index' do
   it 'does not show the Create button when not permitted to create a messageboard' do
     render
 
-    expect(rendered).to_not have_link('Create a New Messageboard')
+    expect(rendered).not_to have_link('Create a New Messageboard')
   end
 end

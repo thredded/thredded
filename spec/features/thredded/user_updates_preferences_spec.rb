@@ -27,7 +27,7 @@ feature 'User updating preferences' do
     preferences.disable_private_topic_notifications
 
     expect(preferences).to be_updated
-    expect(preferences).to_not have_private_topic_notifications
+    expect(preferences).not_to have_private_topic_notifications
   end
 
   def default_user_preferences

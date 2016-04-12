@@ -2,14 +2,15 @@ module Thredded
   class PostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
 
-    load_and_authorize_resource only: [:index, :show, :destroy]
-    helper_method :messageboard, :topic
+    helper_method :topic
     before_action :update_user_activity
 
     def create
-      post = parent_topic.posts.create!(post_params)
-
+      post = parent_topic.posts.build(post_params)
+      authorize_creating post
+      post.save!
       reset_read_status if for_a_private_topic?
+
       redirect_to post_path(post)
     end
 
@@ -18,22 +19,25 @@ module Thredded
     end
 
     def update
+      authorize! :update, post
       post.update_attributes(post_params.except(:user, :ip))
 
       redirect_to post_path(post)
     end
 
-    def topic
-      post.postable
-    end
-
     def destroy
+      authorize! :destroy, post
       post.destroy!
 
-      redirect_to :back
+      redirect_back fallback_location: topic_url(topic),
+                    notice: I18n.t('thredded.posts.deleted_notice')
     end
 
     private
+
+    def topic
+      post.postable
+    end
 
     def reset_read_status
       Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, thredded_current_user).run

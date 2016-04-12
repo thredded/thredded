@@ -19,6 +19,9 @@ module Thredded
              foreign_key: :postable_id,
              inverse_of:  :postable,
              dependent:   :destroy
+    has_one :first_post, -> { order_oldest_first },
+            class_name:  'Thredded::PrivatePost',
+            foreign_key: :postable_id
     has_many :private_users, inverse_of: :private_topic
     has_many :users, through: :private_users
 

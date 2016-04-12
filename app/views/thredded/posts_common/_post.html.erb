@@ -15,14 +15,14 @@
   </div>
 
   <% if current_ability.can? :edit, post.original %>
-    <%= link_to 'Edit Post', edit_post_path(post.original), class: 'thredded--post--edit' %>
+    <%= link_to t('thredded.posts.edit'), edit_post_path(post.original), class: 'thredded--post--edit' %>
   <% end %>
 
   <% if current_ability.can? :destroy, post.original %>
-    <%= link_to 'Delete Post', delete_post_path(post.original),
-      method: :delete,
-      class: 'thredded--post--delete',
-      data: { confirm: I18n.t('thredded.posts.delete.confirm') }
+    <%= link_to t('thredded.posts.delete'), delete_post_path(post.original),
+                method: :delete,
+                class: 'thredded--post--delete',
+                data: { confirm: I18n.t('thredded.posts.delete_confirm') }
     %>
   <% end %>
 <% end %>
