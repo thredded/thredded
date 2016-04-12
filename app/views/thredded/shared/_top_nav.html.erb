@@ -1,9 +1,7 @@
 <nav class="thredded--user-navigation" role="navigation">
-  <% if messageboard_or_nil %>
-    <div class="thredded--user-navigation--search">
-      <%= render 'thredded/search/form' %>
-    </div>
-  <% end %>
+  <div class="thredded--user-navigation--search">
+    <%= render 'thredded/search/form', messageboard: messageboard_or_nil %>
+  </div>
 
   <% if signed_in? %>
     <ul class="thredded--user-navigation--actions">

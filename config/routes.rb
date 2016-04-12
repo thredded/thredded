@@ -16,6 +16,7 @@ Thredded::Engine.routes.draw do
   resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
 
   constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
+    get '/' => 'topics#search', as: :messageboards_search
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
