@@ -37,5 +37,23 @@ module PageObject
       fill_in 'Content', with: content
       click_on 'Update Post'
     end
+
+    def css_selector
+      "article#post_#{post.id}"
+    end
+
+    def listed?
+      has_css? css_selector
+    end
+
+    def deletable?
+      has_css? "#{css_selector} .thredded--post--delete", text: 'Delete Post'
+    end
+
+    def delete
+      within(css_selector) do
+        click_link('Delete Post')
+      end
+    end
   end
 end

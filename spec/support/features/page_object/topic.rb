@@ -9,6 +9,10 @@ module PageObject
       @messageboard = topic.messageboard
     end
 
+    def posts
+      topic.posts
+    end
+
     def visit_topic
       visit messageboard_topic_path(messageboard, topic)
     end
