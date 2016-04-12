@@ -26,15 +26,5 @@ module Thredded
     def to_ary
       [self]
     end
-
-    private
-
-    def created_at_str
-      created_at.getutc.to_s
-    end
-
-    def created_at_utc
-      created_at.getutc.iso8601
-    end
   end
 end
