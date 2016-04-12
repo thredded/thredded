@@ -49,7 +49,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'chronic'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails'
-  s.add_development_dependency 'faker'
+  s.add_development_dependency 'faker', '>= 1.6.2'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop', '0.32.0'
