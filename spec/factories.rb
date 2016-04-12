@@ -153,12 +153,6 @@ FactoryGirl.define do
         create(:user_detail, user: user)
       end
     end
-
-    trait :with_user_preferences do
-      after(:create) do |user, _|
-        create(:user_preference, user: user)
-      end
-    end
   end
 
   factory :user_detail, class: Thredded::UserDetail do
