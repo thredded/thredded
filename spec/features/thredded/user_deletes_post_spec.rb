@@ -12,7 +12,7 @@ feature 'User deleting posts' do
 
     last_post.delete
 
-    expect(last_post).to_not be_listed
+    expect(last_post).not_to be_listed
   end
 
   scenario "cannot delete someone else's post" do
@@ -22,7 +22,7 @@ feature 'User deleting posts' do
     last_post = topic.last_post
 
     expect(last_post).to be_listed
-    expect(last_post).to_not be_deletable
+    expect(last_post).not_to be_deletable
   end
 
   context 'as an admin' do
@@ -37,7 +37,7 @@ feature 'User deleting posts' do
 
       last_post.delete
 
-      expect(last_post).to_not be_listed
+      expect(last_post).not_to be_listed
     end
   end
 
