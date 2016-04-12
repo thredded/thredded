@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'timecop'
-require 'chronic'
 
 module Thredded
   describe MessageboardDecorator, '#meta' do

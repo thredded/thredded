@@ -1,11 +1,10 @@
-require 'timecop'
 require 'spec_helper'
 
 module Thredded
   describe ActivityUpdaterJob do
     it 'updates a users activity' do
-      march_1 = Chronic.parse('Mar 1 2014 at 1:00pm')
-      march_2 = Chronic.parse('Mar 2 2014 at 2:00pm')
+      march_1 = Time.parse('2014-03-01 13:00:00')
+      march_2 = Time.parse('2014-03-02 14:00:00')
 
       Timecop.freeze(march_1) do
         @user_detail = create(:user_detail)

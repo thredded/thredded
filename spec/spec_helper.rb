@@ -25,7 +25,7 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'database_cleaner'
-require 'chronic'
+require 'timecop'
 require 'fileutils'
 
 if Rails::VERSION::MAJOR >= 5
@@ -70,7 +70,6 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
     Time.zone = 'UTC'
-    Chronic.time_class = Time.zone
   end
 
   config.after(:each) do

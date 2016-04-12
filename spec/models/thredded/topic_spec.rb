@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'timecop'
 
 module Thredded
   describe Topic, 'associations' do

@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'chronic'
-require 'timecop'
 
 module Thredded
   describe Post, 'validations' do
