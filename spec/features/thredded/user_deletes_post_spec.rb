@@ -5,7 +5,7 @@ feature 'User deleting posts' do
     user.log_in
     topic = users_topic
     topic.visit_topic
-    last_post = last_post(topic)
+    last_post = topic.last_post
 
     expect(last_post).to be_listed
     expect(last_post).to be_deletable
@@ -19,7 +19,7 @@ feature 'User deleting posts' do
     user.log_in
     topic = someone_elses_topic
     topic.visit_topic
-    last_post = last_post(topic)
+    last_post = topic.last_post
 
     expect(last_post).to be_listed
     expect(last_post).to_not be_deletable
@@ -30,7 +30,7 @@ feature 'User deleting posts' do
       admin.log_in
       topic = someone_elses_topic
       topic.visit_topic
-      last_post = last_post(topic)
+      last_post = topic.last_post
 
       expect(last_post).to be_listed
       expect(last_post).to be_deletable
@@ -59,10 +59,5 @@ feature 'User deleting posts' do
   def someone_elses_topic
     topic = create(:topic, with_posts: 2)
     PageObject::Topic.new(topic)
-  end
-
-  def last_post(topic)
-    post = topic.posts.last
-    PageObject::Post.new(post)
   end
 end
