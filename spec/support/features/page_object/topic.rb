@@ -2,11 +2,19 @@ require 'support/features/page_object/base'
 
 module PageObject
   class Topic < Base
-    attr_accessor :messageboard, :topic
+    attr_accessor \
+      :last_post,
+      :messageboard,
+      :topic
 
     def initialize(topic)
       @topic = topic
       @messageboard = topic.messageboard
+    end
+
+    def last_post
+      post = topic.posts.last
+      @last_post ||= PageObject::Post.new(post)
     end
 
     def visit_topic

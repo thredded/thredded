@@ -42,7 +42,7 @@
   display: inline-block;
 }
 
-&--post--edit {
+&--post--edit, &--post--delete {
   font-size: $thredded-font-size-small;
   @extend %thredded--link;
 }

@@ -2,7 +2,7 @@ module Thredded
   class PostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
 
-    load_and_authorize_resource only: [:index, :show]
+    load_and_authorize_resource only: [:index, :show, :destroy]
     helper_method :messageboard, :topic
     before_action :update_user_activity
 
@@ -25,6 +25,12 @@ module Thredded
 
     def topic
       post.postable
+    end
+
+    def destroy
+      post.destroy!
+
+      redirect_to :back
     end
 
     private
