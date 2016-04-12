@@ -1,3 +1,4 @@
+
 module Thredded
   module PostCommon
     extend ActiveSupport::Concern
@@ -34,6 +35,8 @@ module Thredded
     def filtered_content(view_context)
       pipeline = HTML::Pipeline.new(
         [
+          HTML::Pipeline::VimeoFilter,
+          HTML::Pipeline::YoutubeFilter,
           html_filter_for_pipeline,
           HTML::Pipeline::SanitizationFilter,
           HTML::Pipeline::AtMentionFilter,
@@ -62,24 +65,25 @@ module Thredded
           'img'        => %w(src class width height),
           'blockquote' => ['class'],
         },
-        transformers: [(lambda do |env|
-          node      = env[:node]
-          node_name = env[:node_name]
+        transformers: [(
+          lambda do |env|
+            node      = env[:node]
+            node_name = env[:node_name]
 
-          return if env[:is_whitelisted] || !node.element?
-          return if node_name != 'iframe'
-          return if (node['src'] =~ %r{\A(https?:)?//(?:www\.)?youtube(?:-nocookie)?\.com/}).nil?
+            return if env[:is_whitelisted] || !node.element?
+            return if node_name != 'iframe'
 
-          Sanitize.node!(
-            node,
-            elements:   %w(iframe),
-            attributes: {
-              'iframe' => %w(allowfullscreen frameborder height src width)
-            }
-          )
+            Sanitize.node!(
+              node,
+              elements:   %w(iframe),
+              attributes: {
+                'iframe' => %w(allowfullscreen frameborder height src width)
+              }
+            )
 
-          { node_whitelist: [node] }
-        end)]
+            { node_whitelist: [node] }
+          end
+        )]
       )
     end
 

@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'db_text_search', '~> 0.2.0'
   s.add_dependency 'friendly_id'
   s.add_dependency 'html-pipeline'
+  s.add_dependency 'html-pipeline-vimeo'
+  s.add_dependency 'html-pipeline-youtube'
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
