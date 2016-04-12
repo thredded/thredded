@@ -18,7 +18,6 @@ module Thredded
                counter_cache: true
 
     validates :messageboard_id, presence: true
-    before_validation :set_filter_from_messageboard
 
     def private_topic_post?
       false
@@ -29,12 +28,6 @@ module Thredded
       DbTextSearch::CaseInsensitive
         .new(Thredded.user_class.thredded_messageboards_readers([messageboard]), Thredded.user_name_column)
         .in(user_names)
-    end
-
-    private
-
-    def set_filter_from_messageboard
-      self.filter = messageboard.filter if messageboard
     end
   end
 end

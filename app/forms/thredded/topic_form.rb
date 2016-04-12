@@ -29,10 +29,6 @@ module Thredded
       topic.messageboard.decorate.category_options
     end
 
-    def filter
-      topic.messageboard.filter
-    end
-
     def save
       return false unless valid?
 
@@ -58,8 +54,7 @@ module Thredded
       @post ||= topic.posts.build(
         content: content,
         user: non_null_user,
-        messageboard: messageboard,
-        filter: messageboard.filter
+        messageboard: messageboard
       )
     end
 

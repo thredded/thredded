@@ -26,10 +26,7 @@ module Thredded
         .order_oldest_first
         .page(current_page)
 
-      @new_post = messageboard.posts.build(
-        postable: topic,
-        filter: messageboard.filter
-      )
+      @new_post = messageboard.posts.build(postable: topic)
 
       update_read_status
     end
