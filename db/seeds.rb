@@ -48,7 +48,7 @@ module Thredded
 
     def create_users(count: 5)
       log "Creating #{count} users..."
-      @users = [user] + FactoryGirl.create_list(:user, count)
+      @users = [user] + FactoryGirl.create_list(:user, count, :with_user_preferences)
     end
 
     def create_messageboard
