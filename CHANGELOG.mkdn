@@ -17,11 +17,14 @@ for more information.
 
 ## Added
 
+* Global search across all messageboards. [#215](https://github.com/thredded/thredded/pull/215)
+* Global notification settings, message notification settings. [#210](https://github.com/thredded/thredded/pull/210)
 * Private topic user select now looks prettier and loads the user via AJAX, instead of generating a huge select with all
   the users. [#199](https://github.com/thredded/thredded/pull/199).
 * The theme is now more customizable thanks to a number of fixes and new variables. [#197](https://github.com/thredded/thredded/pull/197)
 * The topic read state is now visually updated on click. [#198](https://github.com/thredded/thredded/pull/198)
 * Email preview classes are now provided. [#196](https://github.com/thredded/thredded/pull/196).
+* i18n'd navigation and search copy.
 
 ## Changed
 
