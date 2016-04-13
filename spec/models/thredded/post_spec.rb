@@ -23,10 +23,6 @@ module Thredded
   end
 
   describe Post, '#create' do
-    after(:each) do
-      Timecop.return
-    end
-
     it 'notifies anyone @ mentioned in the post' do
       mail = double('Thredded::PostMailer.at_notification(...)', deliver_later: true)
 
@@ -69,7 +65,7 @@ module Thredded
       topic = create(:topic)
       future_time = 3.hours.from_now
       create(:post, postable: topic, user: joel, content: 'posting here')
-      Timecop.freeze(future_time) do
+      travel_to future_time do
         create(:post, postable: topic, user: joel, content: 'posting more')
       end
 
@@ -86,66 +82,106 @@ module Thredded
   end
 
   describe Post, '#filtered_content' do
-    before(:each) do
-      @post  = build(:post)
-    end
+    let(:view_context) { ViewContextStub }
+    before(:each) { @post  = build(:post) }
+    after { Thredded.user_path = nil }
 
     module ViewContextStub
-      def main_app
-      end
+      def main_app; end
     end
 
-    let(:view_context) { ViewContextStub }
-
-    after do
-      Thredded.user_path = nil
-    end
-
-    xit 'renders implied urls' do
+    it 'renders bbcode url tags' do
       @post.content = 'go to [url]http://google.com[/url]'
-
-      expect(@post.filtered_content(view_context))
-          .to eq('<p>go to <a href="http://google.com">http://google.com</a></p>')
+      expected_html = '<p>go to <a href="http://google.com">google.com</a></p>'
+      expect(@post.filtered_content(view_context)).to eq(expected_html)
     end
 
-    xit 'converts bbcode to html' do
+    it 'renders more bbcode' do
       @post.content = 'this is [b]bold[/b]'
       expect(@post.filtered_content(view_context))
           .to eq('<p>this is <strong>bold</strong></p>')
     end
 
-    xit 'handles quotes' do
-      @post.content = '[quote]hi[/quote] [quote=john]hey[/quote]'
-      expected_output = "<br>  <blockquote>\n<br>    hi<br>  </blockquote><br><br> <br>  john says<br>  <blockquote>\n<br>    hey<br>  </blockquote><br><br>"
+    it 'handles bbcode quotes' do
+      @post.content = <<-BBCODE.strip_heredoc
+        [quote]hi[/quote]
+        [quote=john]hey[/quote]
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+        <fieldset>
+        <blockquote>
+        hi
+        </blockquote>
+        </fieldset>
 
-      expect(parsed_html(@post.filtered_content(view_context)))
-        .to eq(parsed_html(expected_output))
+        <fieldset>
+        <legend>john says</legend>
+        <blockquote>
+        hey
+        </blockquote>
+        </fieldset>
+      HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
-    xit 'handles nested quotes' do
-      @post.content = '[quote=joel][quote=john]hello[/quote] hi[/quote]'
-      expected_output = "<br>  joel says<br>  <blockquote>\n<br>    <br>  john says<br>  <blockquote>\n<br>    hello<br>  </blockquote>\n<br><br> hi<br>  </blockquote><br><br>"
+    it 'handles nested quotes' do
+      @post.content = <<-BBCODE.strip_heredoc
+      [quote=joel]
+      [quote=john]hello[/quote]
+      hi
+      [/quote]
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+        <fieldset>
+          <legend>joel says</legend>
+          <blockquote>
+          <fieldset>
+            <legend>john says</legend>
+            <blockquote>
+            hello
+            </blockquote>
+          </fieldset>
+          <p>hi</p>
+          <p></p>
+          </blockquote>
+          <br>
+        </fieldset>
+      HTML
 
-      expect(parsed_html(@post.filtered_content(view_context)))
-        .to eq(parsed_html(expected_output))
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'converts markdown to html' do
-      @post.content = "# Header\nhttp://www.google.com"
+      @post.content = <<-MARKDOWN.strip_heredoc
+        # Header
 
-      expect(@post.filtered_content(view_context))
-          .to eq("<h1>Header</h1>\n\n<p><a href=\"http://www.google.com\">http://www.google.com</a></p>")
+        http://www.google.com
+      MARKDOWN
+      expected_html = <<-HTML.strip_heredoc
+        <h1>Header</h1>
+        <p><a href="http://www.google.com">http://www.google.com</a></p>
+      HTML
+
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'performs some syntax highlighting in markdown' do
-      input = <<-MARKDOWN.strip_heredoc
+      @post.content = <<-MARKDOWN.strip_heredoc
         this is code
 
             def hello; puts 'world'; end
 
         right here
       MARKDOWN
-
       expected_html = <<-HTML.strip_heredoc.strip
         <p>this is code</p>
 
@@ -154,10 +190,10 @@ module Thredded
 
         <p>right here</p>
       HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
 
-      @post.content = input
-
-      expect(@post.filtered_content(view_context)).to eq expected_html
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'links @names of members' do
@@ -176,7 +212,11 @@ module Thredded
     end
 
     def parsed_html(html)
-      Nokogiri::HTML::DocumentFragment.parse(html).to_hash
+      Nokogiri::HTML::DocumentFragment.parse(html) { |config| config.noblanks }
+        .to_html
+        .gsub(/^\s*/, '')
+        .gsub(/\s*$/, '')
+        .gsub(/^$\n/, '')
     end
   end
 end

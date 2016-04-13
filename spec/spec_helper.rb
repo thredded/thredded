@@ -27,6 +27,7 @@ require 'shoulda-matchers'
 require 'database_cleaner'
 require 'timecop'
 require 'fileutils'
+require 'active_support/testing/time_helpers'
 
 if Rails::VERSION::MAJOR >= 5
   require 'rails-controller-testing'
@@ -51,6 +52,7 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger =
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.include FactoryGirl::Syntax::Methods
+  config.include ActiveSupport::Testing::TimeHelpers
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

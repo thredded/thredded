@@ -35,6 +35,7 @@ module Thredded
         [
           HTML::Pipeline::VimeoFilter,
           HTML::Pipeline::YoutubeFilter,
+          HTML::Pipeline::BbcodeFilter,
           HTML::Pipeline::MarkdownFilter,
           HTML::Pipeline::SanitizationFilter,
           HTML::Pipeline::AtMentionFilter,
@@ -57,19 +58,18 @@ module Thredded
     end
 
     def sanitize_whitelist
-      HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-        attributes: {
-          'code'       => ['class'],
-          'img'        => %w(src class width height),
-          'blockquote' => ['class'],
-        }
+      HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] += %w(
+        fieldset
+        legend
+        blockquote
       )
+      HTML::Pipeline::SanitizationFilter::WHITELIST
     end
 
     def update_parent_last_user_and_timestamp
       return unless postable && user
 
-      postable.update!(last_user: user, updated_at: Time.zone.now)
+      postable.update!(last_user: user, updated_at: Time.current)
     end
 
     def notify_at_users
