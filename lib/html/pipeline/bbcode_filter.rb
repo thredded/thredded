@@ -5,14 +5,22 @@ module HTML
     class BbcodeFilter < TextFilter
       def initialize(text, context = {}, result = nil)
         super text, context, result
-        @context = context
-        @text = @text.gsub "\r", ''
       end
 
       def call
-        html = BBCoder.new(@text).to_html.gsub(/\n|\r\n/, '<br />')
+        html = BBCoder.new(@text).to_html
+        html = remove_url_link_contents(html)
+        html.gsub('<br>', '')
         html.rstrip!
-        "<p>#{html}</p>"
+        html
+      end
+
+      def remove_url_link_contents(html)
+        doc = Nokogiri::HTML::DocumentFragment.parse(html)
+        doc.css('a').each do |link|
+          link.content = link.content.gsub(%r{https?://}, '')
+        end
+        doc.to_html
       end
     end
   end

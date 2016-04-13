@@ -11,24 +11,6 @@ feature 'User creates new topic' do
     expect(topic).to be_displayed
   end
 
-  scenario 'with bbcode formatted messageboard and content' do
-    topic = new_bbcoded_topic
-
-    topic.create_bbcoded_topic
-    topic.visit_latest_topic
-
-    expect(topic).to be_rendering_bbcode
-  end
-
-  scenario 'with markdown formatted messageboard and content' do
-    topic = new_markdowned_topic
-
-    topic.create_markdowned_topic
-    topic.visit_latest_topic
-
-    expect(topic).to be_rendering_markdown
-  end
-
   scenario 'and sees no categories in the form when none exist' do
     topic_form = new_topic
     topic_form.visit_form
@@ -82,18 +64,6 @@ feature 'User creates new topic' do
   def new_topic
     sign_in
     messageboard = create(:messageboard)
-    PageObject::Topics.new(messageboard)
-  end
-
-  def new_bbcoded_topic
-    sign_in
-    messageboard = create(:messageboard, :bbcode)
-    PageObject::Topics.new(messageboard)
-  end
-
-  def new_markdowned_topic
-    sign_in
-    messageboard = create(:messageboard, :markdown)
     PageObject::Topics.new(messageboard)
   end
 

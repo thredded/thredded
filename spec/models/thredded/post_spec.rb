@@ -23,10 +23,6 @@ module Thredded
   end
 
   describe Post, '#create' do
-    after(:each) do
-      Timecop.return
-    end
-
     it 'notifies anyone @ mentioned in the post' do
       mail = double('Thredded::PostMailer.at_notification(...)', deliver_later: true)
 
@@ -69,7 +65,7 @@ module Thredded
       topic = create(:topic)
       future_time = 3.hours.from_now
       create(:post, postable: topic, user: joel, content: 'posting here')
-      Timecop.freeze(future_time) do
+      travel_to future_time do
         create(:post, postable: topic, user: joel, content: 'posting more')
       end
 
@@ -85,105 +81,133 @@ module Thredded
     end
   end
 
-  describe Post, '#filter' do
-    it 'defaults to the parent messageboard filter' do
-      board_1 = create(:messageboard, filter: 'bbcode')
-      board_2 = create(:messageboard, filter: 'markdown')
-
-      post_1 = create(:post, messageboard: board_1)
-      post_2 = create(:post, messageboard: board_2)
-
-      expect(post_1.filter).to eq 'bbcode'
-      expect(post_2.filter).to eq 'markdown'
-    end
-  end
-
   describe Post, '#filtered_content' do
-    before(:each) do
-      @post  = build(:post)
-    end
+    let(:view_context) { ViewContextStub }
+    before(:each) { @post  = build(:post) }
+    after { Thredded.user_path = nil }
 
     module ViewContextStub
-      def main_app
-      end
+      def main_app; end
     end
 
-    let(:view_context) { ViewContextStub }
-
-    after do
-      Thredded.user_path = nil
-    end
-
-    it 'renders implied urls' do
+    it 'renders bbcode url tags' do
       @post.content = 'go to [url]http://google.com[/url]'
-      @post.filter = 'bbcode'
-
-      expect(@post.filtered_content(view_context))
-          .to eq('<p>go to <a href="http://google.com">http://google.com</a></p>')
+      expected_html = '<p>go to <a href="http://google.com">google.com</a></p>'
+      expect(@post.filtered_content(view_context)).to eq(expected_html)
     end
 
-    it 'converts bbcode to html' do
+    it 'renders more bbcode' do
       @post.content = 'this is [b]bold[/b]'
-      @post.filter = 'bbcode'
       expect(@post.filtered_content(view_context))
           .to eq('<p>this is <strong>bold</strong></p>')
     end
 
-    it 'handles quotes' do
-      @post.content = '[quote]hi[/quote] [quote=john]hey[/quote]'
-      @post.filter = 'bbcode'
-      expected_output = "<p></p><br>  <blockquote>\n<br>    hi<br>  </blockquote><br><br> <br>  john says<br>  <blockquote>\n<br>    hey<br>  </blockquote><br><br>"
+    it 'handles bbcode quotes' do
+      @post.content = <<-BBCODE.strip_heredoc
+        [quote]hi[/quote]
+        [quote=john]hey[/quote]
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+        <blockquote>
+        hi
+        </blockquote>
 
-      expect(parsed_html(@post.filtered_content(view_context)))
-        .to eq(parsed_html(expected_output))
+        john says
+        <blockquote>
+        hey
+        </blockquote>
+      HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'handles nested quotes' do
-      @post.content = '[quote=joel][quote=john]hello[/quote] hi[/quote]'
-      @post.filter = 'bbcode'
-      expected_output = "<p></p><br>  joel says<br>  <blockquote>\n<br>    <br>  john says<br>  <blockquote>\n<br>    hello<br>  </blockquote>\n<br><br> hi<br>  </blockquote><br><br>"
+      @post.content = <<-BBCODE.strip_heredoc
+      [quote=joel]
+      [quote=john]hello[/quote]
+      hi
+      [/quote]
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+          joel says
+          <blockquote>
+            john says
+            <blockquote>
+            hello
+            </blockquote>
+          <p>hi</p>
+          <p></p>
+          </blockquote><br>
+      HTML
 
-      expect(parsed_html(@post.filtered_content(view_context)))
-        .to eq(parsed_html(expected_output))
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'converts markdown to html' do
-      @post.content = "# Header\nhttp://www.google.com"
-      @post.filter = 'markdown'
+      @post.content = <<-MARKDOWN.strip_heredoc
+        # Header
 
-      expect(@post.filtered_content(view_context))
-          .to eq("<h1>Header</h1>\n\n<p><a href=\"http://www.google.com\">http://www.google.com</a></p>")
+        http://www.google.com
+      MARKDOWN
+      expected_html = <<-HTML.strip_heredoc
+        <h1>Header</h1>
+        <p><a href="http://www.google.com">http://www.google.com</a></p>
+      HTML
+
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'performs some syntax highlighting in markdown' do
-      input = "this is code
+      @post.content = <<-MARKDOWN.strip_heredoc
+        this is code
 
-      def hello; puts 'world'; end
+            def hello; puts 'world'; end
 
-  right here"
+        right here
+      MARKDOWN
+      expected_html = <<-HTML.strip_heredoc.strip
+        <p>this is code</p>
 
-      expected_output = "<p>this is code</p>\n\n<pre><code>  def hello; puts 'world'; end\n</code></pre>\n\n<p>right here</p>"
+        <pre><code>def hello; puts 'world'; end
+        </code></pre>
 
-      @post.content = input
-      @post.filter = 'markdown'
+        <p>right here</p>
+      HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
 
-      expect(@post.filtered_content(view_context)).to eq expected_output
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'links @names of members' do
       Thredded.user_path = ->(user) { "/whois/#{user}" }
+      post_content = 'for @sam but not @al or @kek. And @joe.'
       sam = build_stubbed(:user, name: 'sam')
       joe = build_stubbed(:user, name: 'joe')
-      post = build_stubbed(:post,
-                           content: 'for @sam but not @al or @kek. And @joe.')
-      expect(post).to receive(:readers_from_user_names).with(%w(sam al kek joe)).and_return([sam, joe])
-      expectation = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
+      post = build_stubbed(:post, content: post_content)
+      expected_html = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
 
-      expect(post.filtered_content(view_context)).to eq expectation
+      expect(post).to receive(:readers_from_user_names)
+        .with(%w(sam al kek joe))
+        .and_return([sam, joe])
+
+      expect(post.filtered_content(view_context)).to eq expected_html
     end
 
     def parsed_html(html)
-      Nokogiri::HTML::DocumentFragment.parse(html).to_hash
+      Nokogiri::HTML::DocumentFragment.parse(html) { |config| config.noblanks }
+        .to_html
+        .gsub(/^\s*/, '')
+        .gsub(/\s*$/, '')
+        .gsub(/^$\n/, '')
     end
   end
 end

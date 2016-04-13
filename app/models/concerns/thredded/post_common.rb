@@ -1,7 +1,7 @@
-
 module Thredded
   module PostCommon
     extend ActiveSupport::Concern
+
     included do
       paginates_per 50
 
@@ -15,8 +15,6 @@ module Thredded
 
       after_create :update_parent_last_user_and_timestamp
       after_commit :notify_at_users, on: [:create, :update]
-
-      extend ClassMethods
     end
 
     def page(per_page: self.class.default_per_page)
@@ -37,7 +35,8 @@ module Thredded
         [
           HTML::Pipeline::VimeoFilter,
           HTML::Pipeline::YoutubeFilter,
-          html_filter_for_pipeline,
+          HTML::Pipeline::BbcodeFilter,
+          HTML::Pipeline::MarkdownFilter,
           HTML::Pipeline::SanitizationFilter,
           HTML::Pipeline::AtMentionFilter,
           HTML::Pipeline::EmojiFilter,
@@ -54,42 +53,17 @@ module Thredded
       {
         asset_root: Rails.application.config.action_controller.asset_host || '',
         post:       self,
-        whitelist:  sanitize_whitelist
       }
-    end
-
-    def sanitize_whitelist
-      HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-        attributes: {
-          'code'       => ['class'],
-          'img'        => %w(src class width height),
-          'blockquote' => ['class'],
-        }
-      )
-    end
-
-    def html_filter_for_pipeline
-      if filter == 'bbcode'
-        HTML::Pipeline::BbcodeFilter
-      else
-        HTML::Pipeline::MarkdownFilter
-      end
     end
 
     def update_parent_last_user_and_timestamp
       return unless postable && user
 
-      postable.update!(last_user: user, updated_at: Time.zone.now)
+      postable.update!(last_user: user, updated_at: Time.current)
     end
 
     def notify_at_users
       AtNotifierJob.perform_later(self.class.name, id)
-    end
-
-    module ClassMethods
-      def filters
-        %w(bbcode markdown)
-      end
     end
   end
 end
