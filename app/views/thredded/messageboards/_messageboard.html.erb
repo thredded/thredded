@@ -2,14 +2,21 @@
   <%= link_to messageboard_topics_path(messageboard), class: 'thredded--messageboard' do %>
     <header>
       <h2 class="thredded--messageboard--title"><%= messageboard.name %></h2>
-      <h3 class="thredded--messageboard--meta"><%= messageboard.meta %></h3>
+      <h3 class="thredded--messageboard--meta">
+        <%= t 'thredded.messageboard.topics_and_posts_counts',
+              topics_count: number_to_human(messageboard.topics_count).downcase,
+              posts_count:  number_to_human(messageboard.posts_count).downcase %>
+      </h3>
     </header>
 
     <p class="thredded--messageboard--description"><%= messageboard.description %></p>
 
-    <p class="thredded--messageboard--byline">
-      Updated <%= time_ago messageboard.latest_topic.updated_at %>
-      <cite>by <%= messageboard.latest_user %></cite>
-    </p>
+    <% if messageboard.latest_topic %>
+      <p class="thredded--messageboard--byline">
+        <%= t 'thredded.messageboard.last_updated_by_html',
+              time_ago: time_ago(messageboard.latest_topic.updated_at),
+              user:     messageboard.latest_user %>
+      </p>
+    <% end %>
   <% end %>
 <% end %>
