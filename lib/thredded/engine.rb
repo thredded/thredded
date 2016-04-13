@@ -2,10 +2,9 @@ module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
 
-    config.autoload_paths << File.expand_path('../../../app/decorators', __FILE__)
-    config.autoload_paths << File.expand_path('../../../app/forms', __FILE__)
-    config.autoload_paths << File.expand_path('../../../app/commands', __FILE__)
-    config.autoload_paths << File.expand_path('../../../app/jobs', __FILE__)
+    %w(app/decorators app/forms app/commands app/jobs lib).each do |path|
+      config.autoload_paths << File.expand_path("../../#{path}", File.dirname(__FILE__))
+    end
 
     config.generators do |g|
       g.test_framework :rspec, fixture: true

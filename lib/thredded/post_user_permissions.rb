@@ -1,32 +1,28 @@
 module Thredded
   class PostUserPermissions
-    def initialize(post, user, _user_details)
-      @post                         = post
-      @topic                        = post.postable
-      @messageboard_user_permission = MessageboardUserPermissions.new(post.messageboard, user)
-      @user                         = user
+    # @param post [Thredded::Post]
+    # @param user [Thredded.user_class]
+    def initialize(post, user)
+      @post = post
+      @user = user
     end
 
     def editable?
-      created_post? || @messageboard_user_permission.moderatable?
-    end
-
-    def manageable?
-      created_post? || @messageboard_user_permission.moderatable?
+      own_post? || messageboard_user_permissions.moderatable?
     end
 
     def creatable?
-      thread_is_not_locked? && @messageboard_user_permission.postable?
+      !@post.postable.locked? && messageboard_user_permissions.postable?
     end
 
     private
 
-    def created_post?
-      @user.id == @post.user_id
+    def messageboard_user_permissions
+      @messageboard_user_permission ||= MessageboardUserPermissions.new(@post.messageboard, @user)
     end
 
-    def thread_is_not_locked?
-      @topic.private? || !@topic.locked?
+    def own_post?
+      @user.id == @post.user_id
     end
   end
 end

@@ -1,5 +1,3 @@
-require 'thredded/topics_search'
-
 module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon
@@ -42,6 +40,10 @@ module Thredded
              foreign_key: :postable_id,
              inverse_of:  :postable,
              dependent:   :destroy
+    has_one :first_post, -> { order_oldest_first },
+            class_name:  'Thredded::Post',
+            foreign_key: :postable_id
+
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
     has_many :user_topic_reads, dependent: :destroy

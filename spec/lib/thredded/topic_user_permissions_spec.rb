@@ -9,7 +9,7 @@ module Thredded
 
       it 'allows members to create a topic' do
         user = create(:user)
-        permissions = Thredded::TopicUserPermissions.new(topic, user, user_details)
+        permissions = Thredded::TopicUserPermissions.new(topic, user)
 
         expect(permissions).to be_creatable
       end
@@ -19,7 +19,7 @@ module Thredded
         topic = create(:topic, messageboard: messageboard)
         user = create(:user)
         allow(user).to receive(:thredded_can_write_messageboards) { Messageboard.none }
-        permissions = TopicUserPermissions.new(topic, user, user_details)
+        permissions = TopicUserPermissions.new(topic, user)
 
         expect(permissions).not_to be_creatable
       end

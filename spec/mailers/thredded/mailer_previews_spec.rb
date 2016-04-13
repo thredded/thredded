@@ -9,11 +9,11 @@ module Thredded
             let(:mail) { preview_class.new.send(method_name) }
 
             it 'renders' do
-              expect { mail.body }.to_not raise_exception
+              expect { mail.body }.not_to raise_exception
             end
 
             it 'does not create any records' do
-              expect { mail }.to_not change {
+              expect { mail }.not_to change {
                 [Messageboard.count, Topic.count, Post.count, PrivateTopic.count, PrivatePost.count,
                  Thredded.user_class.count, UserDetail.count, MessageboardUser.count]
               }

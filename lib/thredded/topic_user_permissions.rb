@@ -1,22 +1,21 @@
 module Thredded
   class TopicUserPermissions
-    def initialize(topic, user, _user_details)
+    def initialize(topic, user)
       @topic = topic
-      @messageboard = topic.messageboard
-      @messageboard_user_permission = MessageboardUserPermissions.new(topic.messageboard, user)
       @user = user
+      @messageboard_user_permission = MessageboardUserPermissions.new(topic.messageboard, user)
+    end
+
+    def moderatable?
+      @messageboard_user_permission.moderatable?
     end
 
     def creatable?
       @messageboard_user_permission.postable?
     end
 
-    def adminable?
-      @messageboard_user_permission.moderatable?
-    end
-
     def editable?
-      started_by_user? || adminable?
+      started_by_user? || moderatable?
     end
 
     def readable?

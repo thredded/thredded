@@ -12,8 +12,10 @@ en:
       settings: Notification Settings
       topics: Topics
     posts:
-      delete:
-        confirm: Are you sure you want to delete this post?
+      delete: Delete Post
+      delete_confirm: Are you sure you want to delete this post?
+      deleted_notice: Your post has been deleted.
+      edit: Edit Post
     preferences:
       edit:
         page_title: :thredded.nav.settings

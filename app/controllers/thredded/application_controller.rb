@@ -40,10 +40,10 @@ module Thredded
 
     if Rails::VERSION::MAJOR < 5
       # redirect_back polyfill
-      def redirect_back(fallback_location:)
-        redirect_to :back
+      def redirect_back(fallback_location:, **args)
+        redirect_to :back, args
       rescue ActionController::RedirectBackError
-        redirect_to fallback_location
+        redirect_to fallback_location, args
       end
     end
 

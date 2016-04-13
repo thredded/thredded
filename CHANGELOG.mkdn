@@ -17,6 +17,7 @@ for more information.
 
 ## Added
 
+* Ability to delete posts. [#214](https://github.com/thredded/thredded/pull/214)
 * Global search across all messageboards. [#215](https://github.com/thredded/thredded/pull/215)
 * Global notification settings, message notification settings. [#210](https://github.com/thredded/thredded/pull/210)
 * Private topic user select now looks prettier and loads the user via AJAX, instead of generating a huge select with all

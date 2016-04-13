@@ -2,31 +2,29 @@ require 'support/features/page_object/base'
 
 module PageObject
   class Topic < Base
-    attr_accessor \
-      :last_post,
-      :messageboard,
-      :topic
-
     def initialize(topic)
       @topic = topic
       @messageboard = topic.messageboard
     end
 
+    def first_post
+      @last_post ||= PageObject::Post.new(@topic.posts.first)
+    end
+
     def last_post
-      post = topic.posts.last
-      @last_post ||= PageObject::Post.new(post)
+      @last_post ||= PageObject::Post.new(@topic.posts.last)
     end
 
     def visit_topic
-      visit messageboard_topic_path(messageboard, topic)
+      visit messageboard_topic_path(@messageboard, @topic)
     end
 
     def visit_topic_edit
-      visit edit_messageboard_topic_path(messageboard, topic)
+      visit edit_messageboard_topic_path(@messageboard, @topic)
     end
 
     def editable?
-      has_css? "form#edit_topic_#{topic.id}"
+      has_css? "form#edit_topic_#{@topic.id}"
     end
 
     def deletable?
@@ -34,7 +32,7 @@ module PageObject
     end
 
     def listed?
-      all('a', text: topic.title).any?
+      all('a', text: @topic.title).any?
     end
 
     def change_title_to(title)

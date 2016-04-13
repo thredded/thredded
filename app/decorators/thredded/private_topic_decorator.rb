@@ -1,5 +1,3 @@
-require 'thredded/base_topic_decorator'
-
 module Thredded
   class PrivateTopicDecorator < SimpleDelegator
     def initialize(private_topic)

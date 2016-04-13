@@ -21,12 +21,6 @@ require 'select2-rails'
 require 'sprockets/es6'
 
 require 'thredded/engine'
-require 'thredded/errors'
-require 'thredded/messageboard_user_permissions'
-require 'thredded/post_user_permissions'
-require 'thredded/private_topic_user_permissions'
-require 'thredded/topic_user_permissions'
-require 'thredded/main_app_route_delegator'
 
 module Thredded
   mattr_accessor :user_class,

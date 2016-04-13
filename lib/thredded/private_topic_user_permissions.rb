@@ -1,20 +1,20 @@
 module Thredded
   class PrivateTopicUserPermissions
-    def initialize(private_topic, user, _user_details)
+    def initialize(private_topic, user)
       @private_topic = private_topic
       @user = user
     end
 
-    def readable?
-      @private_topic.users.include?(@user)
+    def creatable?
+      !@user.thredded_anonymous?
     end
 
-    def manageable?
+    def editable?
       user_started_topic?
     end
 
-    def creatable?
-      !@user.thredded_anonymous?
+    def readable?
+      @private_topic.users.include?(@user)
     end
 
     private
