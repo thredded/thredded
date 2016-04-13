@@ -108,18 +108,14 @@ module Thredded
         [quote=john]hey[/quote]
       BBCODE
       expected_html = <<-HTML.strip_heredoc
-        <fieldset>
         <blockquote>
         hi
         </blockquote>
-        </fieldset>
 
-        <fieldset>
-        <legend>john says</legend>
+        john says
         <blockquote>
         hey
         </blockquote>
-        </fieldset>
       HTML
       resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
       expected_parsed_html  = parsed_html(expected_html)
@@ -135,20 +131,15 @@ module Thredded
       [/quote]
       BBCODE
       expected_html = <<-HTML.strip_heredoc
-        <fieldset>
-          <legend>joel says</legend>
+          joel says
           <blockquote>
-          <fieldset>
-            <legend>john says</legend>
+            john says
             <blockquote>
             hello
             </blockquote>
-          </fieldset>
           <p>hi</p>
           <p></p>
-          </blockquote>
-          <br>
-        </fieldset>
+          </blockquote><br>
       HTML
 
       resulting_parsed_html = parsed_html(@post.filtered_content(view_context))

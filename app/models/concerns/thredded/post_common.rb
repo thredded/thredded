@@ -58,11 +58,6 @@ module Thredded
     end
 
     def sanitize_whitelist
-      HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] += %w(
-        fieldset
-        legend
-        blockquote
-      )
       HTML::Pipeline::SanitizationFilter::WHITELIST
     end
 
