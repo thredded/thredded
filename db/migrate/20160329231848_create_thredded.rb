@@ -35,7 +35,6 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :posts_count, default: 0
       t.boolean :closed, default: false, null: false
       t.timestamps null: false
-      t.string :filter, limit: 255, default: 'markdown', null: false
     end
     add_index :thredded_messageboards, [:closed], name: :index_thredded_messageboards_on_closed
     add_index :thredded_messageboards, [:slug], name: :index_thredded_messageboards_on_slug
@@ -52,7 +51,6 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :user_id, limit: 4
       t.text :content, limit: 65535
       t.string :ip, limit: 255
-      t.string :filter, limit: 255, default: 'markdown'
       t.string :source, limit: 255, default: 'web'
       t.integer :postable_id, limit: 4
       t.integer :messageboard_id, null: false
@@ -68,7 +66,6 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :user_id, limit: 4
       t.text :content, limit: 65535
       t.string :ip, limit: 255
-      t.string :filter, limit: 255, default: 'markdown'
       t.integer :postable_id, null: false
       t.timestamps null: false
     end

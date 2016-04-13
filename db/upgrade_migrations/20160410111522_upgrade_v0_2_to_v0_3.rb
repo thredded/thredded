@@ -7,12 +7,17 @@ class UpgradeV02ToV03 < ActiveRecord::Migration
     change_column_null :thredded_user_messageboard_preferences, :notify_on_mention, false
     add_column :thredded_user_preferences, :notify_on_mention, :boolean, default: true, null: false
     add_column :thredded_user_preferences, :notify_on_message, :boolean, default: true, null: false
-    add_index :thredded_user_messageboard_preferences, [:user_id, :messageboard_id], unique: true,
-      name: :thredded_user_messageboard_preferences_user_id_messageboard_id
+    add_index :thredded_user_messageboard_preferences, [:user_id, :messageboard_id], unique: true, name: :thredded_user_messageboard_preferences_user_id_messageboard_id
     remove_column :thredded_user_preferences, :time_zone
+    remove_column :thredded_messageboards, :filter
+    remove_column :thredded_posts, :filter
+    remove_column :thredded_private_posts, :filter
   end
 
   def down
+    add_column :thredded_private_posts, :filter, :string, default: 'markdown', null: false
+    add_column :thredded_posts, :filter, :string, default: 'markdown', null: false
+    add_column :thredded_messageboards, :filter, :string, default: 'markdown', null: false
     add_column :thredded_user_preferences, :time_zone, :string, limit: 191, default: 'Eastern Time (US & Canada)'
     change_column_null :thredded_user_messageboard_preferences, :notify_on_mention, true
     remove_index :thredded_user_messageboard_preferences, name: :thredded_user_messageboard_preferences_user_id_messageboard_id
