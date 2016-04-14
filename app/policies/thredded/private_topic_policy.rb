@@ -19,9 +19,5 @@ module Thredded
     def update?
       @user.id == @private_topic.user_id
     end
-
-    def destroy?
-      edit?
-    end
   end
 end
