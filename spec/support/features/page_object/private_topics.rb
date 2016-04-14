@@ -32,9 +32,9 @@ module PageObject
       visit new_private_topic_path
       fill_in 'Title', with: private_title
       find(:css, '#private_topic_user_ids').set(user.id)
-      fill_in 'Content', with: 'not for others'
+      fill_in I18n.t('thredded.private_topics.form.content_label'), with: 'not for others'
 
-      click_on 'Create New Private Topic'
+      click_on I18n.t('thredded.private_topics.form.create_btn')
     end
 
     def update_all_private_topics

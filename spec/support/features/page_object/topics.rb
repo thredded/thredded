@@ -162,7 +162,7 @@ module PageObject
 
     def content(text)
       self.topic_content = text
-      fill_in 'Content', with: text
+      fill_in I18n.t('thredded.topics.form.content_label'), with: text
     end
   end
 end
