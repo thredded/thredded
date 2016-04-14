@@ -2,21 +2,23 @@
 module Thredded
   class MessageboardsController < Thredded::ApplicationController
     def index
-      @messageboards = Messageboard.where(closed: false).decorate
+      @messageboards = thredded_current_user.thredded_can_read_messageboards.decorate
     end
 
     def new
-      authorize_creating Messageboard.new
-
       @messageboard = Messageboard.new
+      authorize_creating @messageboard
     end
 
     def create
       @messageboard = Messageboard.new(messageboard_params)
+      authorize_creating @messageboard
 
       if signed_in? && @messageboard.save
-        @topic = Topic.create!(topic_params)
-        @post = Post.create!(post_params)
+        Topic.transaction do
+          @topic = Topic.create!(topic_params)
+          @post = Post.create!(post_params)
+        end
 
         redirect_to root_path
       else

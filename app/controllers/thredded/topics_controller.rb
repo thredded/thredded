@@ -5,7 +5,7 @@ module Thredded
     before_action :update_user_activity
 
     def index
-      authorize messageboard, :read?
+      authorize_reading messageboard
 
       @topics = messageboard.topics
         .order_sticky_first.order_recently_updated_first
@@ -20,7 +20,7 @@ module Thredded
     end
 
     def show
-      authorize topic, :read?
+      authorize_reading topic
       @posts = topic.posts
         .includes(:user, :messageboard, :postable)
         .order_oldest_first
@@ -48,7 +48,7 @@ module Thredded
     end
 
     def category
-      authorize messageboard, :read?
+      authorize_reading messageboard
       @category = messageboard.categories.friendly.find(params[:category_id])
       @topics = @category.topics
         .unstuck

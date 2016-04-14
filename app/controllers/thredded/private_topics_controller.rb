@@ -7,7 +7,7 @@ module Thredded
       @private_topics = PrivateTopic
         .distinct
         .for_user(thredded_current_user)
-        .order('updated_at DESC')
+        .order_recently_updated_first
         .includes(:last_user, :user)
         .on_page(params[:page])
         .load
@@ -18,7 +18,7 @@ module Thredded
     end
 
     def show
-      authorize private_topic, :read?
+      authorize_reading private_topic
       UserReadsPrivateTopic.new(private_topic, thredded_current_user).run
 
       @posts = private_topic
