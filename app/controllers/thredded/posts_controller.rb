@@ -16,18 +16,18 @@ module Thredded
     end
 
     def edit
-      authorize! :edit, post
+      authorize post, :update?
     end
 
     def update
-      authorize! :update, post
+      authorize post, :update?
       post.update_attributes(post_params.except(:user, :ip))
 
       redirect_to post_path(post)
     end
 
     def destroy
-      authorize! :destroy, post
+      authorize post, :destroy?
       post.destroy!
 
       redirect_back fallback_location: topic_url(topic),

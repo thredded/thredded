@@ -6,7 +6,7 @@ module Thredded
     end
 
     def new
-      authorize_creating Messageboard
+      authorize_creating Messageboard.new
 
       @messageboard = Messageboard.new
     end

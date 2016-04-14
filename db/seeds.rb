@@ -17,7 +17,7 @@ module Thredded
     SKIP_CALLBACKS = [
       [Thredded::Post, :commit, :after, :notify_at_users],
       [Thredded::PrivatePost, :commit, :after, :notify_at_users],
-    ]
+    ].freeze
 
     def self.run(users: 200, topics: 55, posts: (0..60))
       STDERR.puts 'Seeding the database...'

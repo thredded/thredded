@@ -2,16 +2,6 @@
 require 'spec_helper'
 
 module Thredded
-  describe Post, 'validations' do
-    it { should validate_presence_of(:content) }
-    it { should validate_presence_of(:messageboard_id) }
-  end
-
-  describe Post, 'associations' do
-    it { should have_many(:post_notifications).dependent(:destroy) }
-    it { should belong_to(:user_detail) }
-  end
-
   context 'when a parent user is nil' do
     describe Post, '#user_email and #user_anonymous?' do
       it 'is nil' do

@@ -5,7 +5,7 @@ module Thredded
     before_action :update_user_activity
 
     def index
-      authorize_reading messageboard
+      authorize messageboard, :read?
 
       @topics = messageboard.topics
         .order_sticky_first.order_recently_updated_first
@@ -15,13 +15,12 @@ module Thredded
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
       initialize_new_topic.tap do |new_topic|
-        @new_topic = new_topic if current_ability.can?(:create, new_topic.topic)
+        @new_topic = new_topic if policy(new_topic.topic).create?
       end
     end
 
     def show
-      authorize! :read, topic
-
+      authorize topic, :read?
       @posts = topic.posts
         .includes(:user, :messageboard, :postable)
         .order_oldest_first
@@ -49,6 +48,7 @@ module Thredded
     end
 
     def category
+      authorize messageboard, :read?
       @category = messageboard.categories.friendly.find(params[:category_id])
       @topics = @category.topics
         .unstuck
@@ -72,16 +72,17 @@ module Thredded
     end
 
     def edit
-      authorize! :update, topic
+      authorize topic, :update?
     end
 
     def update
+      authorize topic, :update?
       topic.update_attributes!(topic_params.merge(last_user_id: thredded_current_user.id))
       redirect_to messageboard_topic_url(messageboard, topic), flash: { notice: 'Topic updated' }
     end
 
     def destroy
-      authorize! :destroy, topic
+      authorize topic, :destroy?
       topic.destroy!
       redirect_to messageboard_topics_path(messageboard), flash: { notice: 'Topic deleted' }
     end
@@ -112,15 +113,6 @@ module Thredded
           user: thredded_current_user,
           ip: request.remote_ip,
         )
-    end
-
-    def topics_by_category(category_id)
-      messageboard.categories.friendly.find(category_id)
-        .topics
-        .unstuck
-        .order_by_updated
-        .on_page(current_page)
-        .load
     end
 
     def current_page

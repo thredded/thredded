@@ -18,7 +18,7 @@ module Thredded
     end
 
     def show
-      authorize! :read, private_topic
+      authorize private_topic, :read?
       UserReadsPrivateTopic.new(private_topic, thredded_current_user).run
 
       @posts = private_topic

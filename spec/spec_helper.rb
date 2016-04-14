@@ -23,8 +23,8 @@ end
 require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'pundit/rspec'
 require 'factory_girl_rails'
-require 'shoulda-matchers'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'

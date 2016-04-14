@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Backend
-require 'cancan'
+require 'pundit'
 require 'active_record_union'
 require 'db_text_search'
 require 'friendly_id'

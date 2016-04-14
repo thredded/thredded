@@ -1,5 +1,5 @@
 <% topic = form.object.respond_to?(:topic) ? form.object.topic : form.object %>
-<% if current_ability.can? :moderate, topic %>
+<% if policy(topic).moderate? %>
   <li class="thredded--form-list--admin-options">
     <%= form.label :locked do %>
       <%= form.check_box :locked %> Locked

@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
-  s.add_dependency 'cancancan'
+  s.add_dependency 'pundit', '>= 1.1.0'
   s.add_dependency 'active_record_union', '>= 1.1.1'
   s.add_dependency 'db_text_search', '~> 0.2.0'
   s.add_dependency 'friendly_id'
@@ -55,7 +55,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop', '~> 0.39'
-  s.add_development_dependency 'shoulda-matchers', '~> 2.7'
   s.add_development_dependency 'test-unit'
 
   # dummy app dependencies

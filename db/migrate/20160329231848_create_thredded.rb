@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class CreateThredded < ActiveRecord::Migration
   def change
-
     unless table_exists?(:friendly_id_slugs)
       # The user might have installed FriendlyId separately already.
       create_table :friendly_id_slugs do |t|
@@ -50,7 +49,7 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_posts do |t|
       t.integer :user_id, limit: 4
-      t.text :content, limit: 65535
+      t.text :content, limit: 65_535
       t.string :ip, limit: 255
       t.string :source, limit: 255, default: 'web'
       t.integer :postable_id, limit: 4
@@ -65,7 +64,7 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_private_posts do |t|
       t.integer :user_id, limit: 4
-      t.text :content, limit: 65535
+      t.text :content, limit: 65_535
       t.string :ip, limit: 255
       t.integer :postable_id, null: false
       t.timestamps null: false
@@ -154,7 +153,8 @@ class CreateThredded < ActiveRecord::Migration
       t.boolean :notify_on_mention, default: true, null: false
       t.timestamps null: false
     end
-    add_index :thredded_user_messageboard_preferences, [:user_id, :messageboard_id], unique: true,
+    add_index :thredded_user_messageboard_preferences, [:user_id, :messageboard_id],
+              unique: true,
               name: :thredded_user_messageboard_preferences_user_id_messageboard_id
 
     create_table :thredded_user_topic_reads do |t|

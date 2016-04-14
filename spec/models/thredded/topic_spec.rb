@@ -2,21 +2,6 @@
 require 'spec_helper'
 
 module Thredded
-  describe Topic, 'associations' do
-    it { should have_many(:posts).dependent(:destroy) }
-    it { should have_many(:user_topic_reads).dependent(:destroy) }
-    it { should have_many(:categories) }
-    it { should belong_to(:last_user) }
-    it { should belong_to(:messageboard) }
-  end
-
-  describe Topic, 'validations' do
-    before { create(:topic) }
-    it { should validate_presence_of(:last_user_id) }
-    it { should validate_presence_of(:messageboard_id) }
-    it { should validate_uniqueness_of(:hash_id) }
-  end
-
   describe Topic, '.find_by_slug_with_user_topic_reads!' do
     it 'finds the topic' do
       topic = create(:topic, title: 'Oh Hello')
