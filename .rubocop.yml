@@ -5,7 +5,6 @@
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
-    - 'db/**/*'
     - 'spec/dummy/db/**/*'
     - 'vendor/**/*'
 
@@ -50,6 +49,8 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 120
+  Exclude:
+  - 'db/**/*'
 
 Metrics/ModuleLength:
   Max: 175

@@ -1,4 +1,4 @@
-<% if current_ability.can? :read, messageboard.original %>
+<% if policy(messageboard.original).read? %>
   <%= link_to messageboard_topics_path(messageboard), class: 'thredded--messageboard' do %>
     <header>
       <h2 class="thredded--messageboard--title"><%= messageboard.name %></h2>

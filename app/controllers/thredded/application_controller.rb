@@ -3,6 +3,7 @@ module Thredded
   class ApplicationController < ::ApplicationController
     layout Thredded.layout
     include ::Thredded::UrlsHelper
+    include Pundit
 
     helper Thredded::Engine.helpers
     helper_method \
@@ -22,7 +23,7 @@ module Thredded
       render template: 'thredded/error_pages/not_found', status: :not_found
     end
 
-    rescue_from CanCan::AccessDenied,
+    rescue_from Pundit::NotAuthorizedError,
                 Thredded::Errors::LoginRequired,
                 Thredded::Errors::TopicCreateDenied,
                 Thredded::Errors::MessageboardCreateDenied,
@@ -63,7 +64,7 @@ module Thredded
     end
 
     def authorize_reading(obj)
-      return if current_ability.can? :read, obj
+      return if policy(obj).read?
 
       class_name = obj.class.to_s
       error      = class_name.gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
@@ -72,9 +73,7 @@ module Thredded
     end
 
     def authorize_creating(obj)
-      obj = obj.new if obj.class == Class
-
-      return if current_ability.can? :create, obj
+      return if policy(obj).create?
 
       class_name = obj.class.to_s
       error      = class_name.gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
@@ -91,8 +90,8 @@ module Thredded
       )
     end
 
-    def current_ability
-      @current_ability ||= Ability.new(thredded_current_user)
+    def pundit_user
+      thredded_current_user
     end
 
     def messageboard

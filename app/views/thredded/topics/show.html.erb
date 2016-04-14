@@ -6,7 +6,7 @@
   <%= content_tag :section, id: dom_id(topic), class: "thredded--main-section thredded--topic #{user_topic.css_class}" do %>
     <%= render 'thredded/topics_common/header', topic: topic %>
     <%= render @posts %>
-    <% if can?(:create, @new_post) %>
+    <% if policy(@new_post).create? %>
       <div class="thredded--post-form--wrapper">
         <h3 class="thredded--post-form--title">Add a post</h3>
         <%= render 'thredded/posts/form',
@@ -16,7 +16,7 @@
       </div>
     <% end %>
 
-    <% if current_ability.can? :destroy, topic %>
+    <% if policy(topic).destroy? %>
       <div class="thredded--topic-delete--wrapper">
         <%= form_tag messageboard_topic_path(messageboard, topic), method: :delete, class: 'thredded--topic-delete-form' do %>
           <%= submit_tag 'Delete Topic', class: 'thredded--form--submit' %>

@@ -2,14 +2,6 @@
 require 'spec_helper'
 
 module Thredded
-  describe UserDetail, 'associations' do
-    it { should belong_to(:user) }
-  end
-
-  describe UserDetail, 'validations' do
-    it { should validate_presence_of(:user_id) }
-  end
-
   describe UserDetail, 'counter caching' do
     it 'bumps the posts count when a new post is created' do
       user = create(:user)
