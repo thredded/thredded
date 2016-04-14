@@ -4,20 +4,24 @@
 
   <ul class="thredded--form-list on-top">
     <li class="title">
-      <%= form.label :title, 'Private Topic Title' %>
+      <%= form.label :title, t('thredded.private_topics.form.title_label') %>
       <%= form.text_field :title, placeholder: placeholder, required: true, 'data-thredded-topic-form-title' => true %>
     </li>
     <li>
-      <%= form.label :user_ids, 'Users in Private Topic' %>
+      <%= form.label :user_ids, t('thredded.private_topics.form.users_label') %>
       <%= form.text_field :user_ids,
-                          placeholder:                 'Select users to participate in this topic',
+                          placeholder:                 t('thredded.private_topics.form.users_placeholder'),
                           'data-thredded-users-select' => true,
                           'data-autocomplete-url'      => autocomplete_users_path %>
     </li>
 
     <%= render 'thredded/posts/content_field', form: form %>
 
-    <li><%= form.submit button_text, class: 'thredded--form--submit' %></li>
+    <li>
+      <button type="submit" class="thredded--form--submit">
+        <%= t('thredded.private_topics.form.submit_btn') %>
+      </button>
+    </li>
   </ul>
 <% end %>
 

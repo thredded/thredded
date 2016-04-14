@@ -3,6 +3,8 @@ en:
   thredded:
     errors:
       login_required: Please sign in first.
+      private_topic_create_denied: You are not authorized to create private topics.
+      private_topic_not_found: This private topic does not exist.
     messageboard:
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
@@ -22,13 +24,15 @@ en:
       form:
         global_preferences_label: Global Settings
         messageboard_notify_on_mention:
-          hint: 'When someone mentions you by your username (eg: @sam) in this messageboard you will receive an
-            email with the contents of that post.'
+          hint: >-
+            When someone mentions you by your username (eg: @sam) in this messageboard you will receive an email
+            with the contents of that post.
           label: :thredded.preferences.form.notify_on_mention.label
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
         notify_on_mention:
-          hint: 'When someone mentions you by your username (eg: @sam) you will receive an email with the contents
-            of that post.'
+          hint: >-
+            When someone mentions you by your username (eg: @sam) you will receive an email with the contents of
+            that post.
           label: "@ Notifications"
         notify_on_message:
           hint: When you are added to a private topic's discussion you will receive an email with the contents of
@@ -40,6 +44,16 @@ en:
     private_topics:
       errors:
         user_ids_length: Please specify at least one other user.
+      form:
+        submit_btn: Create New Private Topic
+        title_label: Private Topic Title
+        title_placeholder_new: New Private Topic Title
+        title_placeholder_start: Start a New Private Topic
+        users_label: Users in Private Topic
+        users_placeholder: Select users to participate in this topic
+      no_private_topics:
+        create_btn: Create your first private topic
+        title: You have no private topics.
     search:
       form:
         btn_submit: :thredded.search.form.label

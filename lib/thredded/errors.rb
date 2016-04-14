@@ -24,7 +24,7 @@ module Thredded
 
     class PrivateTopicNotFound < Thredded::Error
       def message
-        'This private topic does not exist.'
+        I18n.t('thredded.errors.private_topic_not_found')
       end
     end
 
@@ -60,7 +60,7 @@ module Thredded
 
     class PrivateTopicCreateDenied < Thredded::Error
       def message
-        'You are not authorized to create private topics.'
+        I18n.t('thredded.errors.private_topic_create_denied')
       end
     end
   end

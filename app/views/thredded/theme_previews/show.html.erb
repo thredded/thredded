@@ -72,8 +72,7 @@
     <%= render 'thredded/private_topics/form',
                private_topic: @new_private_topic,
                css_class:     'thredded--is-compact',
-               placeholder:   'Start a New Private Topic',
-               button_text:   'Create New Private Topic' %>
+               placeholder:   t('thredded.private_topics.form.title_placeholder_start') %>
     <%= render @decorated_private_topics %>
   <% end %>
 
@@ -81,8 +80,7 @@
   <section class="thredded--thredded--main-section">
     <%= render 'thredded/private_topics/form',
                private_topic: @new_private_topic,
-               placeholder:   'New Private Topic Title',
-               button_text:   'Create New Private Topic' %>
+               placeholder:   t('thredded.private_topics.form.title_placeholder_new') %>
   </section>
 
   <%= render 'section_title', label: 'private_topics#show', href: private_topic_path(@private_topic) %>
