@@ -10,21 +10,20 @@
   <h3><%= t 'thredded.preferences.form.global_preferences_label' %></h3>
   <ul class="thredded--form-list">
     <li>
-      <%= f.label :notify_on_mention do %>
-        <%= f.check_box :notify_on_mention %>
-        <%= t 'thredded.preferences.form.notify_on_mention.label' %>
-        <p class="thredded--form-list--hint">
-          <%= t 'thredded.preferences.form.notify_on_mention.hint' %>
-        </p>
-      <% end %>
-    </li>
-
-    <li>
       <%= f.label :notify_on_message do %>
         <%= f.check_box :notify_on_message %>
         <%= t 'thredded.preferences.form.notify_on_message.label' %>
         <p class="thredded--form-list--hint">
           <%= t 'thredded.preferences.form.notify_on_message.hint' %>
+        </p>
+      <% end %>
+    </li>
+    <li>
+      <%= f.label :notify_on_mention do %>
+        <%= f.check_box :notify_on_mention %>
+        <%= t 'thredded.preferences.form.notify_on_mention.label' %>
+        <p class="thredded--form-list--hint">
+          <%= t 'thredded.preferences.form.notify_on_mention.hint' %>
         </p>
       <% end %>
     </li>

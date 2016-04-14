@@ -10,9 +10,9 @@
       <div class="thredded--post-form--wrapper">
         <h3 class="thredded--post-form--title">Add a post</h3>
         <%= render 'thredded/posts/form',
-                   topic:        topic,
-                   post:         @new_post,
-                   button_text:  'Submit Reply' %>
+                   topic:       topic,
+                   post:        @new_post,
+                   button_text: t('thredded.posts.form.create_btn') %>
       </div>
     <% end %>
 
