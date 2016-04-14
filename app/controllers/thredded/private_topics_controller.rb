@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
+    before_action :thredded_require_login!
     helper_method :private_topic
 
     def index
