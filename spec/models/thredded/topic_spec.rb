@@ -142,15 +142,13 @@ module Thredded
 
     it 'changes updated_at when a new post is added' do
       old = @topic.updated_at
-      Timecop.freeze 1.day.from_now do
-        create(:post, postable: @topic)
-      end
+      travel_to(1.day.from_now) { create(:post, postable: @topic) }
 
       expect(@topic.reload.updated_at).not_to eq old
     end
 
     it 'does not change updated_at when an old post is edited' do
-      Timecop.freeze(1.month.ago) { @post = create(:post) }
+      travel_to(1.month.ago) { @post = create(:post) }
       old_time = @post.postable.updated_at
       @post.update_attributes(content: 'hi there')
 

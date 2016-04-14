@@ -25,7 +25,6 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'database_cleaner'
-require 'timecop'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
 
