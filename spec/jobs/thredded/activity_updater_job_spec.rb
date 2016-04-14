@@ -6,13 +6,13 @@ module Thredded
       march_1 = Time.parse('2014-03-01 13:00:00')
       march_2 = Time.parse('2014-03-02 14:00:00')
 
-      Timecop.freeze(march_1) do
+      travel_to march_1 do
         @user_detail = create(:user_detail)
         @user = @user_detail.user
         @messageboard = create(:messageboard)
       end
 
-      Timecop.freeze(march_2) do
+      travel_to march_2 do
         Thredded::ActivityUpdaterJob.perform_later(@user.id, @messageboard.id)
       end
 
