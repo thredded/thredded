@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 module Thredded
@@ -116,7 +117,7 @@ module Thredded
 
   describe NotifyMentionedUsers, '#notifications_for_at_users' do
     before do
-      sam  = create(:user, name: 'sam')
+      sam = create(:user, name: 'sam')
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
       @john = create(:user, name: 'john', email: 'john@example.com')
       @post = create_post_by(sam)

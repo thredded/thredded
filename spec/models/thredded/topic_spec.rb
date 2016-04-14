@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 module Thredded
@@ -125,7 +126,7 @@ module Thredded
     before(:each) do
       @user = create(:user)
       @messageboard = create(:messageboard)
-      @topic  = create(:topic, messageboard: @messageboard)
+      @topic = create(:topic, messageboard: @messageboard)
     end
 
     it 'is associated with a messageboard' do

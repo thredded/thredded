@@ -1,18 +1,20 @@
+# frozen_string_literal: true
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
     helper_method :private_topic
 
     def index
-      @new_private_topic        = PrivateTopicForm.new(user: thredded_current_user)
-      @private_topics           = PrivateTopic
-                                    .distinct
-                                    .for_user(thredded_current_user)
-                                    .order('updated_at DESC')
-                                    .includes(:last_user, :user)
-                                    .on_page(params[:page])
-                                    .load
+      @private_topics = PrivateTopic
+        .distinct
+        .for_user(thredded_current_user)
+        .order('updated_at DESC')
+        .includes(:last_user, :user)
+        .on_page(params[:page])
+        .load
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator
-                                    .decorate_all(thredded_current_user, @private_topics)
+        .decorate_all(thredded_current_user, @private_topics)
+
+      @new_private_topic = PrivateTopicForm.new(user: thredded_current_user)
     end
 
     def show
@@ -20,9 +22,9 @@ module Thredded
       UserReadsPrivateTopic.new(private_topic, thredded_current_user).run
 
       @posts = private_topic
-                 .posts
-                 .includes(:user)
-                 .order_oldest_first
+        .posts
+        .includes(:user)
+        .order_oldest_first
 
       @post = private_topic.posts.build
     end

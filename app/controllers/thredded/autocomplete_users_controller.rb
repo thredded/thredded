@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class AutocompleteUsersController < Thredded::ApplicationController
     MIN_QUERY_LENGTH = 2

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class TopicDecorator < SimpleDelegator
     def initialize(private_topic)

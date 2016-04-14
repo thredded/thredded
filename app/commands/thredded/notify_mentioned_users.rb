@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class NotifyMentionedUsers
     def initialize(post)

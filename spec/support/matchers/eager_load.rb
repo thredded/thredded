@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EagerLoad
   def initialize(association)
     @association = association

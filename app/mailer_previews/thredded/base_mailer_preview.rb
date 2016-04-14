@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   # A base class for Thredded mailer previews.
   # @abstract

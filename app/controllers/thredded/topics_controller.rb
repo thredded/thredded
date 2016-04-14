@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class TopicsController < Thredded::ApplicationController
     helper_method :current_page, :topic, :user_topic
@@ -7,10 +8,10 @@ module Thredded
       authorize_reading messageboard
 
       @topics = messageboard.topics
-                  .order_sticky_first.order_recently_updated_first
-                  .includes(:categories, :last_user, :user)
-                  .on_page(current_page)
-                  .load
+        .order_sticky_first.order_recently_updated_first
+        .includes(:categories, :last_user, :user)
+        .on_page(current_page)
+        .load
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
       initialize_new_topic.tap do |new_topic|
@@ -34,10 +35,10 @@ module Thredded
     def search
       @query = params[:q].to_s
       @topics = (messageboard_or_nil ? messageboard.topics : Topic)
-                  .search_query(@query)
-                  .order_recently_updated_first
-                  .includes(:categories, :last_user, :user)
-                  .page(current_page)
+        .search_query(@query)
+        .order_recently_updated_first
+        .includes(:categories, :last_user, :user)
+        .page(current_page)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
     end

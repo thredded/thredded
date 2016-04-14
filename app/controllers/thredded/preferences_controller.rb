@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class PreferencesController < Thredded::ApplicationController
     before_action :thredded_require_login!,

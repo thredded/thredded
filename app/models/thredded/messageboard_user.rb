@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   # The state of a user with regards to a messageboard, such as the last time the user was active (visited)
   # the messageboard.

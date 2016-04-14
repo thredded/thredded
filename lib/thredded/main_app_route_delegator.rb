@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   # If thredded is rendered within an application layout, this module allows
   # referring to the routes in the layout directly, without having to use `main_app.`.

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class SearchParser
     def initialize(query)
@@ -21,7 +22,7 @@ module Thredded
 
         if keyword_scan.present?
           keyword_scan.each do |term|
-            keyword_term = term.gsub(' ', '').split(':')
+            keyword_term = term.delete(' ').split(':')
 
             if found_terms_hash[keyword].nil?
               found_terms_hash[keyword] = []

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.config.to_prepare do
   RailsEmailPreview.setup do |config|
     config.layout            = 'application'

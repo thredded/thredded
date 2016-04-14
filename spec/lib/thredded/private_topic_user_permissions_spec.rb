@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 require 'thredded/topic_user_permissions'
 require 'thredded/private_topic_user_permissions'

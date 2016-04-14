@@ -3,182 +3,189 @@
 # one by one as the offences are removed from the code base.
 
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - 'db/**/*'
     - 'spec/dummy/db/**/*'
     - 'vendor/**/*'
 
-AbcSize:
+Lint/AssignmentInCondition:
+  Enabled: true
+
+Lint/BlockAlignment:
+  Enabled: true
+
+Lint/Debugger:
+  Enabled: true
+
+Lint/EndAlignment:
+  Enabled: true
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+
+Lint/StringConversionInInterpolation:
+  Enabled: true
+
+Lint/UselessAssignment:
+  Enabled: true
+
+Metrics/AbcSize:
   Enabled: false
 
-AccessorMethodName:
-  Enabled: true
-
-Alias:
-  Enabled: false
-
-AlignHash:
-  Enabled: true
-
-AlignParameters:
-  Enabled: false
-
-AssignmentInCondition:
-  Enabled: true
-
-BlockAlignment:
-  Enabled: true
-
-BlockNesting:
+Metrics/BlockNesting:
   Max: 4
 
-BracesAroundHashParameters:
-  Enabled: true
-
-ClassLength:
+Metrics/ClassLength:
   Max: 154
 
-CollectionMethods:
-  Enabled: true
-
-ColonMethodCall:
-  Enabled: true
-
-CyclomaticComplexity:
+Metrics/CyclomaticComplexity:
   Max: 19
 
-Debugger:
-  Enabled: true
-
-Documentation:
-  Enabled: false
-
-DotPosition:
-  Enabled: true
-
-EmptyLines:
-  Enabled: true
-
-EmptyLinesAroundClassBody:
-  Enabled: true
-
-EmptyLinesAroundModuleBody:
-  Enabled: true
-
-EndAlignment:
-  Enabled: true
-
-NegatedIf:
-  Enabled: true
-
-HashSyntax:
-  Enabled: true
-
-IfUnlessModifier:
-  Enabled: false
-
-IndentationWidth:
-  Enabled: true
-
-LineLength:
+Metrics/LineLength:
   Max: 209
 
-MethodLength:
+Metrics/MethodLength:
   Max: 120
 
-ModuleLength:
+Metrics/ModuleLength:
   Max: 175
 
-MultilineTernaryOperator:
-  Enabled: true
-
-MultilineOperationIndentation:
+Metrics/PerceivedComplexity:
   Enabled: false
 
-Next:
+Style/AccessorMethodName:
+  Enabled: true
+
+Style/Alias:
   Enabled: false
 
-NumericLiterals:
+Style/AlignHash:
   Enabled: true
 
-ParenthesesAroundCondition:
-  Enabled: true
-
-ParenthesesAsGroupedExpression:
-  Enabled: true
-
-PerceivedComplexity:
+Style/AlignParameters:
   Enabled: false
 
-PerlBackrefs:
+Style/BracesAroundHashParameters:
   Enabled: true
 
-PredicateName:
+Style/CollectionMethods:
+  Enabled: true
+
+Style/ColonMethodCall:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/DotPosition:
+  Enabled: true
+
+Style/EmptyLines:
+  Enabled: true
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: true
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: true
+
+Style/NegatedIf:
+  Enabled: true
+
+Style/HashSyntax:
+  Enabled: true
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/IndentationWidth:
+  Enabled: true
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/MultilineTernaryOperator:
+  Enabled: true
+
+Style/MultilineOperationIndentation:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: true
+
+Style/ParenthesesAroundCondition:
+  Enabled: true
+
+Style/PerlBackrefs:
+  Enabled: true
+
+Style/PredicateName:
   Enabled: true
   Exclude:
     - !ruby/regexp /(\/)?spec\/.*/
 
-Proc:
+Style/Proc:
   Enabled: false
 
-RescueException:
+Style/RedundantSelf:
   Enabled: true
 
-RedundantSelf:
+Style/RegexpLiteral:
   Enabled: true
 
-RegexpLiteral:
-  Enabled: true
+Style/SignalException:
+  EnforcedStyle: semantic
 
-ShadowingOuterLocalVariable:
-  Enabled: true
-
-SignalException:
-  Enabled: true
-
-SingleLineBlockParams:
+Style/StabbyLambdaParentheses:
   Enabled: false
 
-SpaceAfterColon:
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SpaceAfterColon:
   Enabled: true
 
-SpaceAfterComma:
+Style/SpaceAfterComma:
   Enabled: true
 
-SpaceBeforeBlockBraces:
+Style/SpaceBeforeBlockBraces:
   Enabled: true
 
-SpaceInsideBlockBraces:
+Style/SpaceInsideBlockBraces:
   Enabled: true
 
-SpaceAroundEqualsInParameterDefault:
+Style/SpaceAroundEqualsInParameterDefault:
   Enabled: true
 
-SpaceInsideHashLiteralBraces:
+Style/SpaceInsideHashLiteralBraces:
   Enabled: true
 
-SpaceInsideParens:
+Style/SpaceInsideParens:
   Enabled: true
 
-StringConversionInInterpolation:
-  Enabled: true
-
-StringLiterals:
+Style/StringLiterals:
   Enabled: true
   Exclude:
     - !ruby/regexp /\/db\/migrate\/.*/
 
-TrailingBlankLines:
+Style/TrailingBlankLines:
   Enabled: true
 
-TrailingWhitespace:
+Style/TrailingWhitespace:
   Enabled: true
 
-TrailingComma:
+Style/TrailingCommaInLiteral:
   Enabled: false
 
-UselessAssignment:
-  Enabled: true
+Style/TrailingCommaInArguments:
+  Enabled: false
 
-WordArray:
+Style/WordArray:
   Enabled: true

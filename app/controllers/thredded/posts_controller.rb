@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class PostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
@@ -44,10 +45,9 @@ module Thredded
     end
 
     def post_params
-      p = params
-            .require(:post)
-            .permit(:content)
-            .merge(user: thredded_current_user, ip: request.remote_ip)
+      p = params.require(:post)
+        .permit(:content)
+        .merge(user: thredded_current_user, ip: request.remote_ip)
       p = p.merge(messageboard: messageboard) unless for_a_private_topic?
       p
     end

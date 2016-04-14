@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class PostMailer < Thredded::BaseMailer
     def at_notification(post_id, emails)

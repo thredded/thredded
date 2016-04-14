@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   module UrlsHelper
     # @param user [Thredded.user_class, Thredded::NullUser]

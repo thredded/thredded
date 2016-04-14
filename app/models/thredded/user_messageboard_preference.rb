@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class UserMessageboardPreference < ActiveRecord::Base
     belongs_to :user_preference,
