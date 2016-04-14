@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'bbcoder'
 
 module HTML
@@ -10,7 +11,7 @@ module HTML
       def call
         html = BBCoder.new(@text).to_html
         html = remove_url_link_contents(html)
-        html.gsub('<br>', '')
+        html.delete('<br>')
         html.rstrip!
         html
       end

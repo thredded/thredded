@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   # Keeps track of post notifications that have been sent already.
   class PostNotification < ActiveRecord::Base

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Thredded.user_class = 'User'
 Thredded.user_name_column = :name
 Thredded.user_path = ->(user) { main_app.user_path(user.to_param) }

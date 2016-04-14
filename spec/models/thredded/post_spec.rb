@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 module Thredded
@@ -51,7 +52,7 @@ module Thredded
     end
 
     it "increments the topic's and user's post counts" do
-      joel  = create(:user)
+      joel = create(:user)
       joel_details = create(:user_detail, user: joel)
       topic = create(:topic)
       create_list(:post, 3, postable: topic, user: joel)
@@ -83,7 +84,7 @@ module Thredded
 
   describe Post, '#filtered_content' do
     let(:view_context) { ViewContextStub }
-    before(:each) { @post  = build(:post) }
+    before(:each) { @post = build(:post) }
     after { Thredded.user_path = nil }
 
     module ViewContextStub
@@ -99,7 +100,7 @@ module Thredded
     it 'renders more bbcode' do
       @post.content = 'this is [b]bold[/b]'
       expect(@post.filtered_content(view_context))
-          .to eq('<p>this is <strong>bold</strong></p>')
+        .to eq('<p>this is <strong>bold</strong></p>')
     end
 
     it 'handles bbcode quotes' do
@@ -203,7 +204,7 @@ module Thredded
     end
 
     def parsed_html(html)
-      Nokogiri::HTML::DocumentFragment.parse(html) { |config| config.noblanks }
+      Nokogiri::HTML::DocumentFragment.parse(html, &:noblanks)
         .to_html
         .gsub(/^\s*/, '')
         .gsub(/\s*$/, '')

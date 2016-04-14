@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 module Thredded
   module TopicCommon
     extend ActiveSupport::Concern
     included do
-      paginates_per 50 if self.respond_to?(:paginates_per)
+      paginates_per 50 if respond_to?(:paginates_per)
 
       belongs_to :last_user,
                  class_name: Thredded.user_class,

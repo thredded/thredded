@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class PrivateTopicUserPermissions
     def initialize(private_topic, user)

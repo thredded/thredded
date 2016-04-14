@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :thredded do
   desc 'Destroy messageboard and all related data'
   task :destroy, [:slug] => :environment do |_, args|

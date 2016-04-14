@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class NotifyPrivateTopicUsersJob < ::ActiveJob::Base
     queue_as :default

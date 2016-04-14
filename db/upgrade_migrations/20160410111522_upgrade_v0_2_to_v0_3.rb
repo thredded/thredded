@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UpgradeV02ToV03 < ActiveRecord::Migration
   def up
     remove_index :thredded_notification_preferences, name: :index_thredded_notification_preferences_on_messageboard_id

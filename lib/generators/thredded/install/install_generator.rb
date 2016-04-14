@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   module Generators
     class InstallGenerator < Rails::Generators::Base

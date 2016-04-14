@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ENV['RAILS_ENV'] = 'test'
 if ENV['TRAVIS'] && !(defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx')
   require 'codeclimate-test-reporter'
@@ -45,8 +46,7 @@ Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 counter = -1
 
 FileUtils.mkdir('log') unless File.directory?('log')
-ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger =
-  Logger.new(File.open("log/test.#{db}.log", 'w'))
+ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!

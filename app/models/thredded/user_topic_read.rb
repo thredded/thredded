@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class UserTopicRead < ActiveRecord::Base
     belongs_to :topic

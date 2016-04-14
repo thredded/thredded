@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'thredded/at_users'
 
 module HTML
@@ -5,7 +6,7 @@ module HTML
     class AtMentionFilter < Filter
       def initialize(text, context = nil, result = nil)
         super text, context, result
-        @text = text.to_s.gsub "\r", ''
+        @text = text.to_s.delete("\r")
         @post = context[:post]
         @view_context = context[:view_context]
       end

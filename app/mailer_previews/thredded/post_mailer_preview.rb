@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   # Previews for the PostMailer
   class PostMailerPreview < BaseMailerPreview

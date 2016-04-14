@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'thredded/version'
@@ -53,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'faker', '>= 1.6.2'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'rubocop', '0.32.0'
+  s.add_development_dependency 'rubocop', '~> 0.39'
   s.add_development_dependency 'shoulda-matchers', '~> 2.7'
   s.add_development_dependency 'test-unit'
 

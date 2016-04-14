@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Thredded::Engine.routes.draw do
   resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'thredded/search_parser'
 module Thredded
   class TopicsSearch
@@ -39,7 +40,8 @@ module Thredded
     def categories
       @search_categories ||=
         if @terms['in'].present?
-          DbTextSearch::CaseInsensitive.new(Category, :name)
+          DbTextSearch::CaseInsensitive
+            .new(Category, :name)
             .in(@terms['in']).pluck(:id)
         else
           []
@@ -49,7 +51,8 @@ module Thredded
     def users
       @search_users ||=
         if @terms['by']
-          DbTextSearch::CaseInsensitive.new(Thredded.user_class, Thredded.user_name_column)
+          DbTextSearch::CaseInsensitive
+            .new(Thredded.user_class, Thredded.user_name_column)
             .in(@terms['by']).pluck(:id)
         else
           []

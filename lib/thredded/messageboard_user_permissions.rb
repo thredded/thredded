@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class MessageboardUserPermissions
     attr_reader :messageboard, :user

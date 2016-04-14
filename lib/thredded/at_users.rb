@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Thredded
   class AtUsers
     def self.render(content, post, view_context)
