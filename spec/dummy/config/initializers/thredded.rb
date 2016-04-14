@@ -9,3 +9,12 @@ Thredded.layout = 'application' unless ENV['THREDDED_DUMMY_LAYOUT_STANDALONE']
 Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'retro') }
 Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
+
+Rails.application.config.to_prepare do
+  Thredded::ApplicationController.module_eval do
+    rescue_from Thredded::Errors::LoginRequired do |exception|
+      @message = exception.message
+      render template: 'sessions/new', status: :forbidden
+    end
+  end
+end
