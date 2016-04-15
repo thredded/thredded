@@ -24,14 +24,16 @@ end
 APP_RAKEFILE = File.expand_path('../spec/dummy/Rakefile', __FILE__)
 load 'rails/tasks/engine.rake'
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
+unless Rails.env.production?
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
 
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
 
-task(:default).clear
-task default: [:spec, :rubocop]
+  task(:default).clear
+  task default: [:spec, :rubocop]
+end
 
 # Common methods for the test_all_dbs, test_all_gemfiles, and test_all Rake tasks.
 module TestTasks
