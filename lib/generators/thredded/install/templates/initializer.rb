@@ -19,6 +19,9 @@ Thredded.user_path = lambda do |user|
   main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
 end
 
+# This method is used by Thredded controllers and views to fetch the currently signed-in user
+Thredded.current_user_method = :"current_#{Thredded.user_class.name.underscore}"
+
 # User avatar URL. rb-gravatar gem is used by default:
 Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
 
