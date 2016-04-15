@@ -75,18 +75,13 @@ module Thredded
   describe Post, '#filtered_content' do
     let(:view_context) { ViewContextStub }
     before(:each) { @post = build(:post) }
-    after do
-      Thredded.user_path = nil
-      Thredded.host = nil
-    end
+    after { Thredded.user_path = nil }
 
     module ViewContextStub
       def main_app; end
     end
 
     it 'applies rel properties to links' do
-      Thredded.host = 'thredded.com'
-
       @post.content = <<-BBCODE.strip_heredoc
         [thredded](http://thredded.com)
         [a topic](/forum/a-topic)
@@ -94,7 +89,7 @@ module Thredded
         [link](http://example.com)
       BBCODE
       expected_html = <<-HTML.strip_heredoc
-        <p><a href="http://thredded.com">thredded</a><br>
+        <p><a href="http://thredded.com" rel="nofollow noopener">thredded</a><br>
         <a href="/forum/a-topic">a topic</a><br>
         <a href="http://example.com" rel="nofollow noopener">example.com</a><br>
         <a href="http://example.com" rel="nofollow noopener">link</a></p>
@@ -107,7 +102,7 @@ module Thredded
 
     it 'renders bbcode url tags' do
       @post.content = 'go to [url]http://google.com[/url]'
-      expected_html = '<p>go to <a href="http://google.com">google.com</a></p>'
+      expected_html = '<p>go to <a href="http://google.com" rel="nofollow noopener">google.com</a></p>'
       expect(@post.filtered_content(view_context)).to eq(expected_html)
     end
 
@@ -188,7 +183,7 @@ module Thredded
       MARKDOWN
       expected_html = <<-HTML.strip_heredoc
         <h1>Header</h1>
-        <p><a href="http://www.google.com">http://www.google.com</a></p>
+        <p><a href="http://www.google.com" rel="nofollow noopener">http://www.google.com</a></p>
       HTML
 
       resulting_parsed_html = parsed_html(@post.filtered_content(view_context))

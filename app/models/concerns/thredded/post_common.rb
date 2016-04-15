@@ -59,10 +59,20 @@ module Thredded
     end
 
     def sanitize_whitelist
+      HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] += [
+        lambda do |env|
+          node = env[:node]
+
+          a_tags = node.css('a')
+          a_tags.each do |a_tag|
+            a_tag['rel'] = 'nofollow noopener' if a_tag['href'].starts_with? 'http'
+          end
+        end,
+      ]
       HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
         attributes: {
           'a' => %w(href rel),
-        }
+        },
       )
     end
 

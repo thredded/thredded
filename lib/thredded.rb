@@ -31,7 +31,6 @@ module Thredded
     :email_incoming_host,
     :email_outgoing_prefix,
     :email_reply_to,
-    :host,
     :layout,
     :user_class,
     :user_name_column,
