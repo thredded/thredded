@@ -75,10 +75,32 @@ module Thredded
   describe Post, '#filtered_content' do
     let(:view_context) { ViewContextStub }
     before(:each) { @post = build(:post) }
-    after { Thredded.user_path = nil }
+    after do
+      Thredded.user_path = nil
+      Thredded.host = nil
+    end
 
     module ViewContextStub
       def main_app; end
+    end
+
+    it 'applies rel properties to links' do
+      Thredded.host = 'thredded.com'
+
+      @post.content = <<-BBCODE.strip_heredoc
+        [thredded](http://thredded.com)
+        [url]http://example.com[/url]
+        [link](http://example.com)
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+        <p><a href="http://thredded.com">thredded</a><br>
+        <a href="http://example.com" rel="nofollow noopener">example.com</a><br>
+        <a href="http://example.com" rel="nofollow noopener">link</a></p>
+      HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
     end
 
     it 'renders bbcode url tags' do

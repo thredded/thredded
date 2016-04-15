@@ -54,7 +54,16 @@ module Thredded
       {
         asset_root: Rails.application.config.action_controller.asset_host || '',
         post:       self,
+        whitelist:  sanitize_whitelist,
       }
+    end
+
+    def sanitize_whitelist
+      HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
+        attributes: {
+          'a' => %w(href rel),
+        }
+      )
     end
 
     def update_parent_last_user_and_timestamp
