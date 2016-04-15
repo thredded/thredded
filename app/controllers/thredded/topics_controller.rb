@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 module Thredded
   class TopicsController < Thredded::ApplicationController
-    helper_method :current_page, :topic, :user_topic
+    before_action :thredded_require_login!,
+                  only: [:edit, :new, :update, :create, :destroy]
     before_action :update_user_activity
+    helper_method :current_page, :topic, :user_topic
 
     def index
       authorize_reading messageboard
@@ -77,14 +79,19 @@ module Thredded
 
     def update
       authorize topic, :update?
-      topic.update_attributes!(topic_params.merge(last_user_id: thredded_current_user.id))
-      redirect_to messageboard_topic_url(messageboard, topic), flash: { notice: 'Topic updated' }
+      if topic.update(topic_params.merge(last_user_id: thredded_current_user.id))
+        redirect_to messageboard_topic_url(messageboard, topic),
+                    notice: t('thredded.topics.updated_notice')
+      else
+        render :edit
+      end
     end
 
     def destroy
       authorize topic, :destroy?
       topic.destroy!
-      redirect_to messageboard_topics_path(messageboard), flash: { notice: 'Topic deleted' }
+      redirect_to messageboard_topics_path(messageboard),
+                  notice: t('thredded.topics.deleted_notice')
     end
 
     private

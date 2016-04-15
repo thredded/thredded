@@ -4,10 +4,10 @@
 
 <%= thredded_page do %>
   <%= content_tag :section, id: dom_id(private_topic), class: 'thredded--main-section thredded--topic thredded--private-topic' do %>
-    <%= render 'thredded/topics_common/header', topic: private_topic %>
+    <%= render 'thredded/private_topics/header', topic: private_topic %>
     <%= render @posts %>
     <%= render 'thredded/private_posts/form',
-               topic:        private_topic,
-               post:         @post %>
+               topic: private_topic,
+               post:  @post %>
   <% end %>
 <% end %>

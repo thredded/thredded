@@ -10,6 +10,8 @@ en:
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
     nav:
       all_messageboards: All Messageboards
+      edit_private_topic: :thredded.nav.edit_topic
+      edit_topic: Edit
       private_topics: Private Messages
       settings: Notification Settings
       topics: Topics
@@ -49,28 +51,39 @@ en:
         content_label: Message
         create_btn: Send Message
     private_topics:
+      edit: Edit
       errors:
         user_ids_length: Please specify at least one other user.
       form:
         content_label: :thredded.private_posts.form.content_label
         create_btn: :thredded.private_posts.form.create_btn
-        title_label: Title
-        title_placeholder_new: Write the subject of this conversatino
+        title_label: :thredded.topics.form.title_label
+        title_placeholder_new: Write the subject of this conversation
         title_placeholder_start: Start a new conversation
+        update_btn: Update
         users_label: Participants
         users_placeholder: Select users to participate in this conversation
       no_private_topics:
         create_btn: Start your first private conversation
         title: You have no private messages.
+      updated_notice: Title updated
     search:
       form:
         btn_submit: :thredded.search.form.label
         label: Search
         placeholder: Search Topics and Posts
     topics:
+      deleted_notice: Topic deleted
+      edit: Edit Topic
       form:
+        categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label
+        title_label: Title
+        title_placeholder: :thredded.topics.form.title_label
+        update_btn: Update Topic
       search:
         no_results_message: There are no results for your search - %{query}
         page_title: Topics Search Results
         results_message: Search Results for %{query}
+      started_by_html: Started %{time_ago} by %{user}
+      updated_notice: Topic updated

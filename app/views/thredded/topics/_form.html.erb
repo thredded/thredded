@@ -2,16 +2,16 @@
              html: { class: "thredded--form #{local_assigns[:css_class]}", 'data-thredded-topic-form' => true } do |form| %>
   <ul class="thredded--form-list on-top">
     <li class="title">
-      <%= form.label :title %>
-      <%= form.text_field :title, { placeholder: placeholder, required: true, 'data-thredded-topic-form-title' => true } %>
+      <%= form.label :title, t('thredded.topics.form.title_label') %>
+      <%= form.text_field :title, placeholder: placeholder, required: true %>
     </li>
 
     <% if form.object.categories.any? %>
       <li class="category">
         <%= form.select :category_ids,
-          form.object.category_options,
-          {},
-          { multiple: true, 'data-placeholder' => 'Categories' } %>
+                        form.object.category_options,
+                        {},
+                        { multiple: true, 'data-placeholder' => t('thredded.topics.form.categories_placeholder') } %>
       </li>
     <% end %>
 
