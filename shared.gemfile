@@ -3,9 +3,11 @@ group :production do
 end
 
 gem 'test_after_commit', group: :test
+
 gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'rails_email_preview', '>= 1.0.2'
+gem 'pg'
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false
