@@ -1,5 +1,4 @@
 db/schema*.rb
-Gemfile.lock
 *.gemfile.lock
 .bundle/
 bin/

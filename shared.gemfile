@@ -1,3 +1,7 @@
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'test_after_commit', group: :test
 
 if ENV['TRAVIS']
@@ -8,6 +12,7 @@ group :debug do
   gem 'derailed'
   gem 'pry-rails'
   gem 'rack-mini-profiler'
+
   platform :mri do
     gem 'byebug'
     gem 'flamegraph'

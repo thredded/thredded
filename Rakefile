@@ -122,3 +122,12 @@ namespace :dev do
     )
   end
 end
+
+namespace :assets do
+  desc 'Precompile assets within dummy app'
+  task :precompile do
+    Dir.chdir('spec/dummy') do
+      system('bundle exec rake assets:precompile')
+    end
+  end
+end
