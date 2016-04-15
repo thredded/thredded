@@ -62,6 +62,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'puma'
-  s.add_development_dependency 'rails_email_preview', '>= 1.0.2'
   s.add_development_dependency 'i18n-tasks'
 end
