@@ -34,7 +34,7 @@ module Thredded
 
     initializer 'thredded.setup_bbcoder' do
       BBCoder.configure do
-        tag :img, match: /^https?:\/\/.*(png|bmp|jpe?g|gif)$/, singular: false do
+        tag :img, match: %r{^https?://.*(png|bmp|jpe?g|gif)$}, singular: false do
           %(<img src="#{singular? ? meta : content}" />)
         end
       end
