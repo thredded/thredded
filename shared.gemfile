@@ -8,6 +8,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'rails_email_preview', '>= 1.0.2'
 gem 'pg'
+gem 'puma'
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false
