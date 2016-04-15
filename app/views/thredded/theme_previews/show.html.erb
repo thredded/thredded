@@ -33,7 +33,7 @@
 
   <%= render 'section_title', label: 'topics#show', href: messageboard_topic_path(@messageboard, @topic) %>
   <%= content_tag :section, id: dom_id(@topic), class: "thredded--thredded--main-section #{@user_topic.css_class}" do %>
-    <%= render 'thredded/topics_common/header', topic: @topic %>
+    <%= render 'thredded/topics/header', topic: @topic %>
     <%= render @posts %>
     <%= render 'thredded/posts/form',
                messageboard: @messageboard,
@@ -85,7 +85,7 @@
 
   <%= render 'section_title', label: 'private_topics#show', href: private_topic_path(@private_topic) %>
   <section class="thredded--thredded--main-section">
-    <%= render 'thredded/topics_common/header', topic: @private_topic %>
+    <%= render 'thredded/private_topics/header', topic: @private_topic %>
     <%= render @private_topic.posts.first(3) %>
     <%= render 'thredded/private_posts/form',
                topic:       @private_topic,

@@ -18,3 +18,9 @@
     @extend %thredded--link;
   }
 }
+
+&--topic-header--edit-topic {
+  @extend %thredded--link;
+  font-size: $thredded-font-size-small;
+  margin-left: 0.4rem;
+}

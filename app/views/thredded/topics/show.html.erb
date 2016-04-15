@@ -4,7 +4,7 @@
 
 <%= thredded_page do %>
   <%= content_tag :section, id: dom_id(topic), class: "thredded--main-section thredded--topic #{user_topic.css_class}" do %>
-    <%= render 'thredded/topics_common/header', topic: topic %>
+    <%= render 'thredded/topics/header', topic: topic %>
     <%= render @posts %>
     <% if policy(@new_post).create? %>
       <div class="thredded--post-form--wrapper">

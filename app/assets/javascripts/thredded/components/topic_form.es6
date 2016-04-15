@@ -2,7 +2,7 @@
   const COMPONENT_SELECTOR = '[data-thredded-topic-form]';
   class ThreddedTopicForm {
     constructor() {
-      this.titleSelector = '[data-thredded-topic-form-title]';
+      this.titleSelector = '[name$="topic[title]"]';
       this.textareaSelector = 'textarea';
       this.compactSelector = 'form.thredded--is-compact';
       this.expandedSelector = 'form.thredded--is-expanded';

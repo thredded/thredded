@@ -37,7 +37,7 @@ module PageObject
     end
 
     def change_title_to(title)
-      fill_in 'Title', with: title
+      fill_in I18n.t('thredded.topics.form.title_label'), with: title
     end
 
     def make_locked
@@ -45,7 +45,7 @@ module PageObject
     end
 
     def submit
-      click_button 'Update Topic'
+      click_button I18n.t('thredded.topics.form.update_btn')
     end
 
     def delete

@@ -51,23 +51,45 @@ module Thredded
       end
     end
 
+    def edit
+      authorize private_topic, :update?
+    end
+
+    def update
+      authorize private_topic, :update?
+      if private_topic.update(private_topic_params)
+        redirect_to private_topic_url(private_topic),
+                    notice: t('thredded.private_topics.updated_notice')
+      else
+        render :edit
+      end
+    end
+
     private
 
     def private_topic
       @private_topic ||= Thredded::PrivateTopic.find_by_slug(params[:id])
     end
 
+    def private_topic_params
+      params
+        .require(:private_topic)
+        .permit(:title)
+    end
+
     def new_private_topic_params
       params
         .require(:private_topic)
-        .permit(:title, :locked, :sticky, :content, :user_ids, user_ids: [], category_ids: [])
+        .permit(:title, :content, :user_ids, user_ids: [])
         .merge(
           user: thredded_current_user,
           ip:   request.remote_ip
-        ).tap do |p|
-        # select2 returns a string of IDs joined with commas. Adapt:
-        p[:user_ids] = p[:user_ids].split(',') if p[:user_ids].is_a?(String)
-      end
+        ).tap { |p| adapt_user_ids! p }
+    end
+
+    # select2 returns a string of IDs joined with commas.
+    def adapt_user_ids!(p)
+      p[:user_ids] = p[:user_ids].split(',') if p[:user_ids].is_a?(String)
     end
   end
 end
