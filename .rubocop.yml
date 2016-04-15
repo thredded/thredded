@@ -53,7 +53,7 @@ Metrics/MethodLength:
   - 'db/**/*'
 
 Metrics/ModuleLength:
-  Max: 200
+  Max: 175
 
 Metrics/PerceivedComplexity:
   Enabled: false

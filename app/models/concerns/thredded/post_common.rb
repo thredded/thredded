@@ -17,10 +17,16 @@ module Thredded
       end
     ].freeze
 
+    WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + [
+      'iframe',
+    ].freeze
+
     WHITELIST = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
+      elements: WHITELIST_ELEMENTS,
       transformers: WHITELIST_TRANSFORMERS,
       attributes: {
         'a' => %w(href rel),
+        'iframe' => %w(src width height frameborder allowfullscreen)
       }
     ).freeze
 

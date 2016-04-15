@@ -81,137 +81,30 @@ module Thredded
       def main_app; end
     end
 
-    it 'applies rel properties to links' do
-      @post.content = <<-BBCODE.strip_heredoc
-        [thredded](http://thredded.com)
-        [a topic](/forum/a-topic)
-        [url]http://example.com[/url]
-        [link](http://example.com)
-      BBCODE
-      expected_html = <<-HTML.strip_heredoc
-        <p><a href="http://thredded.com" target="_blank" rel="nofollow noopener">thredded</a><br>
-        <a href="/forum/a-topic">a topic</a><br>
-        <a href="http://example.com" target="_blank" rel="nofollow noopener">example.com</a><br>
-        <a href="http://example.com" target="_blank" rel="nofollow noopener">link</a></p>
-      HTML
-      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
-      expected_parsed_html  = parsed_html(expected_html)
+    context 'various content from post_contents.yml' do
+      yml = YAML.load(
+        File.read("#{File.dirname(__FILE__)}/post_contents.yml")
+      )
 
-      expect(resulting_parsed_html).to eq(expected_parsed_html)
-    end
+      yml.each do |title, contents|
+        it "renders: '#{title}'" do
+          @post.content = contents[0]
+          expected_html = contents[1]
 
-    it 'renders bbcode url tags' do
-      @post.content = 'go to [url]http://google.com[/url]'
-      expected_html = '<p>go to <a href="http://google.com" target="_blank" rel="nofollow noopener">google.com</a></p>'
-      expect(@post.filtered_content(view_context)).to eq(expected_html)
-    end
+          resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+          expected_parsed_html  = parsed_html(expected_html)
 
-    it 'renders more bbcode' do
-      @post.content = 'this is [b]bold[/b]'
-      expect(@post.filtered_content(view_context))
-        .to eq('<p>this is <strong>bold</strong></p>')
-    end
+          expect(resulting_parsed_html).to eq(expected_parsed_html)
+        end
+      end
 
-    it 'handles image tags' do
-      @post.content = <<-BBCODE.strip_heredoc
-        [img]http://example.com/i.jpg[/img]
-        ![img](http://example.com/i.jpg)
-        ![](http://example.com/i.jpg)
-      BBCODE
-      expected_html = <<-HTML.strip_heredoc
-        <p><img src="http://example.com/i.jpg"><br>
-        <img src="http://example.com/i.jpg" alt="img"><br>
-        <img src="http://example.com/i.jpg" alt=""></p>
-      HTML
-      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
-      expected_parsed_html  = parsed_html(expected_html)
-
-      expect(resulting_parsed_html).to eq(expected_parsed_html)
-    end
-
-    it 'handles bbcode quotes' do
-      @post.content = <<-BBCODE.strip_heredoc
-        [quote]hi[/quote]
-        [quote=john]hey[/quote]
-      BBCODE
-      expected_html = <<-HTML.strip_heredoc
-        <blockquote>
-        hi
-        </blockquote>
-
-        john says
-        <blockquote>
-        hey
-        </blockquote>
-      HTML
-      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
-      expected_parsed_html  = parsed_html(expected_html)
-
-      expect(resulting_parsed_html).to eq(expected_parsed_html)
-    end
-
-    it 'handles nested quotes' do
-      @post.content = <<-BBCODE.strip_heredoc
-      [quote=joel]
-      [quote=john]hello[/quote]
-      hi
-      [/quote]
-      BBCODE
-      expected_html = <<-HTML.strip_heredoc
-          joel says
-          <blockquote>
-            john says
-            <blockquote>
-            hello
-            </blockquote>
-          <p>hi</p>
-          <p></p>
-          </blockquote><br>
-      HTML
-
-      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
-      expected_parsed_html  = parsed_html(expected_html)
-
-      expect(resulting_parsed_html).to eq(expected_parsed_html)
-    end
-
-    it 'converts markdown to html' do
-      @post.content = <<-MARKDOWN.strip_heredoc
-        # Header
-
-        http://www.google.com
-      MARKDOWN
-      expected_html = <<-HTML.strip_heredoc
-        <h1>Header</h1>
-        <p><a href="http://www.google.com" target="_blank" rel="nofollow noopener">http://www.google.com</a></p>
-      HTML
-
-      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
-      expected_parsed_html  = parsed_html(expected_html)
-
-      expect(resulting_parsed_html).to eq(expected_parsed_html)
-    end
-
-    it 'performs some syntax highlighting in markdown' do
-      @post.content = <<-MARKDOWN.strip_heredoc
-        this is code
-
-            def hello; puts 'world'; end
-
-        right here
-      MARKDOWN
-      expected_html = <<-HTML.strip_heredoc.strip
-        <p>this is code</p>
-
-        <pre><code>def hello; puts 'world'; end
-        </code></pre>
-
-        <p>right here</p>
-      HTML
-      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
-      expected_parsed_html  = parsed_html(expected_html)
-
-      expect(resulting_parsed_html).to eq(expected_parsed_html)
+      def parsed_html(html)
+        Nokogiri::HTML::DocumentFragment.parse(html, &:noblanks)
+          .to_html
+          .gsub(/^\s*/, '')
+          .gsub(/\s*$/, '')
+          .gsub(/^$\n/, '')
+      end
     end
 
     it 'links @names of members' do
@@ -227,14 +120,6 @@ module Thredded
         .and_return([sam, joe])
 
       expect(post.filtered_content(view_context)).to eq expected_html
-    end
-
-    def parsed_html(html)
-      Nokogiri::HTML::DocumentFragment.parse(html, &:noblanks)
-        .to_html
-        .gsub(/^\s*/, '')
-        .gsub(/\s*$/, '')
-        .gsub(/^$\n/, '')
     end
   end
 end
