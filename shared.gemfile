@@ -3,6 +3,8 @@ group :production do
 end
 
 gem 'test_after_commit', group: :test
+gem 'jquery-turbolinks'
+gem 'turbolinks'
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false
