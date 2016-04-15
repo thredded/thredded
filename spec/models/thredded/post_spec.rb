@@ -93,6 +93,23 @@ module Thredded
         .to eq('<p>this is <strong>bold</strong></p>')
     end
 
+    it 'handles image tags' do
+      @post.content = <<-BBCODE.strip_heredoc
+        [img]http://example.com/i.jpg[/img]
+        ![img](http://example.com/i.jpg)
+        ![](http://example.com/i.jpg)
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+        <p><img src="http://example.com/i.jpg"><br>
+        <img src="http://example.com/i.jpg" alt="img"><br>
+        <img src="http://example.com/i.jpg" alt=""></p>
+      HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
+    end
+
     it 'handles bbcode quotes' do
       @post.content = <<-BBCODE.strip_heredoc
         [quote]hi[/quote]
