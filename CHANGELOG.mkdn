@@ -8,6 +8,11 @@ for more information.
 
 ## Fixed
 
+* Editing topics and private message subjects. [#235](https://github.com/thredded/thredded/pull/235)
+* Require login for `PrivateTopicsController`.
+  [5739f5](https://github.com/thredded/thredded/commit/5739f50a513377392205a41958b5a2d3ca25dc10)
+* Current user method now configurable via initializer.
+  [#234](https://github.com/thredded/thredded/pull/234)
 * Pagination and possible route conflicts throughout. [#202](https://github.com/thredded/thredded/pull/202)
 * Redirects to the correct page after posting a reply. [#205](https://github.com/thredded/thredded/pull/205)
 * Search with special `by:user` and `in:category` qualifiers. [#206](https://github.com/thredded/thredded/pull/206)
@@ -17,6 +22,7 @@ for more information.
 
 ## Added
 
+* Added vimeo and youtube auto-embed support. [#216](https://github.com/thredded/thredded/pull/216)
 * Ability to delete posts. [#214](https://github.com/thredded/thredded/pull/214)
 * Global search across all messageboards. [#215](https://github.com/thredded/thredded/pull/215)
 * Global notification settings, message notification settings. [#210](https://github.com/thredded/thredded/pull/210)
@@ -25,10 +31,16 @@ for more information.
 * The theme is now more customizable thanks to a number of fixes and new variables. [#197](https://github.com/thredded/thredded/pull/197)
 * The topic read state is now visually updated on click. [#198](https://github.com/thredded/thredded/pull/198)
 * Email preview classes are now provided. [#196](https://github.com/thredded/thredded/pull/196).
-* i18n'd navigation and search copy.
+* I18n'd a *bunch* of static copy. (Thanks @glebm!)
 
 ## Changed
 
+* Changed from using Bbcode OR Markdown to *both*, simultaneously.
+  [#221](https://github.com/thredded/thredded/pull/221)
+* Removed Timecop in favor of built-in rails `travel_to` helper.
+  [#226](https://github.com/thredded/thredded/pull/226)
+* Moved from CanCanCan to Pundit. [#228](https://github.com/thredded/thredded/pull/228)
+* Renamed "Private Topics" to "Private Messages"
 * Renamed `$thredded-base-font-color` to `$thredded-text-color`.
 * Renamed `$thredded-base-background-color` to `$thredded-background-color`.
 
