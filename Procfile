@@ -1,1 +1,1 @@
-web: bundle exec rackup -p $PORT
+web: bundle exec rackup -p $PORT -E production
