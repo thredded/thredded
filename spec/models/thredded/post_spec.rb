@@ -89,11 +89,13 @@ module Thredded
 
       @post.content = <<-BBCODE.strip_heredoc
         [thredded](http://thredded.com)
+        [a topic](/forum/a-topic)
         [url]http://example.com[/url]
         [link](http://example.com)
       BBCODE
       expected_html = <<-HTML.strip_heredoc
         <p><a href="http://thredded.com">thredded</a><br>
+        <a href="/forum/a-topic">a topic</a><br>
         <a href="http://example.com" rel="nofollow noopener">example.com</a><br>
         <a href="http://example.com" rel="nofollow noopener">link</a></p>
       HTML
