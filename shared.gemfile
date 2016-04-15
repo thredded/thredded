@@ -2,7 +2,9 @@ group :production do
   gem 'rails_12factor'
 end
 
-gem 'test_after_commit', group: :test
+group: :test do
+  gem 'test_after_commit'
+end
 
 gem 'jquery-turbolinks'
 gem 'turbolinks'

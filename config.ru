@@ -1,3 +1,3 @@
 # frozen_string_literal: true
-require ::File.expand_path('../spec/dummy/config/environment.rb', __FILE__)
+require ::File.expand_path('../spec/dummy/config/environment', __FILE__)
 run Dummy::Application
