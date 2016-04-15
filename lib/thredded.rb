@@ -35,6 +35,9 @@ module Thredded
     :layout,
     :active_user_threshold
 
+  # @return [Symbol] The name of the method used by Thredded controllers and views to fetch the currently signed-in user
+  mattr_accessor :current_user_method
+
   # @return [Symbol] The name of the moderator flag column on the users table for the default permissions model
   mattr_accessor :moderator_column
 

@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 module Thredded
   class ApplicationController < ::ApplicationController
-    layout Thredded.layout
+    layout :thredded_layout
     include ::Thredded::UrlsHelper
     include Pundit
 
     helper Thredded::Engine.helpers
     helper_method \
       :active_users,
+      :thredded_current_user,
       :messageboard,
       :messageboard_or_nil,
       :preferences,
@@ -36,6 +37,10 @@ module Thredded
 
     protected
 
+    def thredded_current_user
+      send(Thredded.current_user_method) || NullUser.new
+    end
+
     def signed_in?
       !thredded_current_user.thredded_anonymous?
     end
@@ -50,6 +55,10 @@ module Thredded
     end
 
     private
+
+    def thredded_layout
+      Thredded.layout
+    end
 
     def unread_private_topics_count
       @unread_private_topics_count ||=
@@ -108,10 +117,6 @@ module Thredded
 
     def preferences
       @preferences ||= thredded_current_user.thredded_user_preference
-    end
-
-    def thredded_current_user
-      current_user || NullUser.new
     end
 
     def active_users
