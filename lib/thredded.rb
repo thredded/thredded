@@ -24,16 +24,17 @@ require 'sprockets/es6'
 require 'thredded/engine'
 
 module Thredded
-  mattr_accessor :user_class,
-    :user_name_column,
+  mattr_accessor \
+    :active_user_threshold,
     :avatar_url,
-    :email_incoming_host,
     :email_from,
+    :email_incoming_host,
     :email_outgoing_prefix,
     :email_reply_to,
-    :user_path,
     :layout,
-    :active_user_threshold
+    :user_class,
+    :user_name_column,
+    :user_path
 
   # @return [Symbol] The name of the method used by Thredded controllers and views to fetch the currently signed-in user
   mattr_accessor :current_user_method
@@ -44,13 +45,13 @@ module Thredded
   # @return [Symbol] The name of the admin flag column on the users table for the default permissions model
   mattr_accessor :admin_column
 
-  self.user_name_column = :name
-  self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
   self.active_user_threshold = 5.minutes
-  self.layout = 'thredded/application'
-  self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
-  self.moderator_column = :admin
   self.admin_column = :admin
+  self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
+  self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
+  self.layout = 'thredded/application'
+  self.moderator_column = :admin
+  self.user_name_column = :name
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class

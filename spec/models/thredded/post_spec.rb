@@ -81,9 +81,28 @@ module Thredded
       def main_app; end
     end
 
+    it 'applies rel properties to links' do
+      @post.content = <<-BBCODE.strip_heredoc
+        [thredded](http://thredded.com)
+        [a topic](/forum/a-topic)
+        [url]http://example.com[/url]
+        [link](http://example.com)
+      BBCODE
+      expected_html = <<-HTML.strip_heredoc
+        <p><a href="http://thredded.com" target="_blank" rel="nofollow noopener">thredded</a><br>
+        <a href="/forum/a-topic">a topic</a><br>
+        <a href="http://example.com" target="_blank" rel="nofollow noopener">example.com</a><br>
+        <a href="http://example.com" target="_blank" rel="nofollow noopener">link</a></p>
+      HTML
+      resulting_parsed_html = parsed_html(@post.filtered_content(view_context))
+      expected_parsed_html  = parsed_html(expected_html)
+
+      expect(resulting_parsed_html).to eq(expected_parsed_html)
+    end
+
     it 'renders bbcode url tags' do
       @post.content = 'go to [url]http://google.com[/url]'
-      expected_html = '<p>go to <a href="http://google.com">google.com</a></p>'
+      expected_html = '<p>go to <a href="http://google.com" target="_blank" rel="nofollow noopener">google.com</a></p>'
       expect(@post.filtered_content(view_context)).to eq(expected_html)
     end
 
@@ -164,7 +183,7 @@ module Thredded
       MARKDOWN
       expected_html = <<-HTML.strip_heredoc
         <h1>Header</h1>
-        <p><a href="http://www.google.com">http://www.google.com</a></p>
+        <p><a href="http://www.google.com" target="_blank" rel="nofollow noopener">http://www.google.com</a></p>
       HTML
 
       resulting_parsed_html = parsed_html(@post.filtered_content(view_context))

@@ -3,6 +3,27 @@ module Thredded
   module PostCommon
     extend ActiveSupport::Concern
 
+    WHITELIST_TRANSFORMERS = HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
+      lambda do |env|
+        node = env[:node]
+
+        a_tags = node.css('a')
+        a_tags.each do |a_tag|
+          if a_tag['href'].starts_with? 'http'
+            a_tag['target'] = '_blank'
+            a_tag['rel'] = 'nofollow noopener'
+          end
+        end
+      end
+    ].freeze
+
+    WHITELIST = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
+      transformers: WHITELIST_TRANSFORMERS,
+      attributes: {
+        'a' => %w(href rel),
+      }
+    ).freeze
+
     included do
       paginates_per 50
 
@@ -54,6 +75,7 @@ module Thredded
       {
         asset_root: Rails.application.config.action_controller.asset_host || '',
         post:       self,
+        whitelist:  WHITELIST,
       }
     end
 
