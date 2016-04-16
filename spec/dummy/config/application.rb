@@ -10,6 +10,10 @@ require 'turbolinks'
 require 'rails_email_preview'
 require 'thredded'
 
+if ENV['HEROKU']
+  require 'newrelic_rpm'
+end
+
 module Dummy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
