@@ -10,10 +10,17 @@
     &--actions {
       position: absolute;
       left: 0;
-      bottom: 0.8rem;
+      bottom: (0.8rem - $thredded-small-spacing);
       .thredded-messageboards-index &,
       .thredded--topics-index & {
-        bottom: 4.05rem;
+        bottom: (4.05rem - $thredded-small-spacing);
+      }
+      a {
+        display: block;
+        padding: 0 0 $thredded-small-spacing 0;
+      }
+      @media (max-width: 320px) {
+        font-size: $thredded-font-size-small;
       }
     }
     &--search {
