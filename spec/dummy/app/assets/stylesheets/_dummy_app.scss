@@ -9,15 +9,18 @@ $rep-gray-lighter: $thredded-light-gray;
 
 $dummy-app-bg: $thredded-background-color !default;
 
+$container-padding-x: 64px;
+
 body {
   margin: 0;
   background: $dummy-app-bg;
 }
 
 .thredded--main-container {
-  @include thredded-media-mobile {
-    padding-left: 0;
-    padding-right: 0;
+  @include thredded-media-tablet-and-up {
+    @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
+      padding: 0.75rem 3.4rem;
+    }
   }
 }
 
@@ -28,12 +31,12 @@ body {
 .app-container {
   border: $thredded-base-border;
   box-sizing: border-box;
-  margin: 2em auto;
+  margin: 2rem auto;
   max-width: 884px;
-  padding: 2em 4em;
+  padding: 2rem $container-padding-x;
 
-  @media (max-width: $thredded-grid-container-max-width) {
-    padding: 2em;
+  @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
+    padding: 1.2rem;
     margin: 0;
     border: none;
   }
@@ -53,8 +56,9 @@ body {
   padding-bottom: 1em;
   margin: 0em -2em 1em;
 
-  @include thredded-media-mobile {
-    margin: -1em -1.5em 0.6em;
+  @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
+    margin: 0;
+    padding-bottom: 0.75rem;
   }
 }
 
@@ -97,6 +101,7 @@ body {
     font-size: 0;
 
     a {
+      margin-left: 0.4rem;
       font-size: 1rem;
     }
   }

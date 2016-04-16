@@ -1,14 +1,13 @@
 &--user-navigation {
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
-  font-size: 0.875em;
   margin-bottom: 1rem;
-  text-align: center;
+  text-align: left;
 
   @include thredded-media-tablet-and-up {
+    font-size: $thredded-font-size-small;
     margin-bottom: 0;
     margin-top: $thredded-large-spacing;
-    text-align: left;
   }
 
   a {
@@ -46,7 +45,6 @@
 
   input[type="search"] {
     box-shadow: none;
-    font-size: $thredded-font-size-small;
     transition: all 0.15s ease-out 0s;
     width: 100%;
 
@@ -54,6 +52,7 @@
       background: transparent;
       border-color: transparent;
       float: right;
+      font-size: $thredded-font-size-small;
       min-width: 200px;
       margin-right: -$thredded-base-spacing;
       text-align: right;
@@ -76,18 +75,18 @@
       &::placeholder {
         color: $thredded-secondary-nav-color;
       }
-    }
 
-    &:hover:not(:focus) {
-      cursor: pointer;
-      &::placeholder {
-        color: $thredded-nav-hover-color;
-        transition: color 0.1s linear;
+      &:hover:not(:focus) {
+        cursor: pointer;
+        &::placeholder {
+          color: $thredded-nav-hover-color;
+          transition: color 0.1s linear;
+        }
       }
-    }
 
-    &:focus {
-      border-color: $thredded-base-border-color;
+      &:focus {
+        border-color: $thredded-base-border-color;
+      }
     }
   }
 

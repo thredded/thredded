@@ -1,0 +1,24 @@
+@include thredded-media-mobile {
+  &--navigation {
+    display: table;
+    position: relative;
+    table-layout: fixed;
+    width: 100%;
+  }
+  &--user-navigation {
+    display: table-footer-group;
+    &--actions {
+      position: absolute;
+      left: 0;
+      bottom: 4.04rem;
+      .thredded--posts & {
+        bottom: 0.75rem;
+      }
+    }
+    &--search {
+      .thredded--posts & {
+        display: none;
+      }
+    }
+  }
+}

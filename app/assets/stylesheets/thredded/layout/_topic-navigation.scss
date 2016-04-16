@@ -1,11 +1,10 @@
 &--topic-navigation {
   @extend %thredded--list-unstyled;
   margin-bottom: 0;
-  text-align: center;
+  text-align: right;
 
   @include thredded-media-tablet-and-up {
     float: right;
-
   }
 
   li {

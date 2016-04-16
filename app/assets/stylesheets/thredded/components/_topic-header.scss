@@ -1,6 +1,10 @@
 &--topic-header {
   margin-bottom: $thredded-large-spacing;
   margin-top: $thredded-base-spacing;
+  @include thredded-media-mobile {
+    margin-bottom: $thredded-small-spacing;
+    margin-top: 0;
+  }
 }
 
 &--topic-header--title {

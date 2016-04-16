@@ -7,6 +7,9 @@
     border-top: $thredded-base-border;
     margin-top: $thredded-base-spacing;
     padding-top: $thredded-large-spacing;
+    @include thredded-media-mobile {
+      padding-top: $thredded-base-spacing;
+    }
   }
 
   &--title {

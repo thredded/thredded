@@ -1,6 +1,9 @@
 &--post {
   position: relative;
   margin-bottom: $thredded-large-spacing;
+  @include thredded-media-mobile {
+    margin-bottom: $thredded-base-spacing;
+  }
 }
 
 &--post--avatar {
@@ -45,6 +48,10 @@
 &--post--edit, &--post--delete {
   font-size: $thredded-font-size-small;
   @extend %thredded--link;
+}
+
+&--post--delete {
+  margin-left: 0.4rem;
 }
 
 &--post--content {

@@ -7,7 +7,7 @@
   line-height: $thredded-base-line-height;
   margin: 0 auto;
   max-width: $thredded-grid-container-max-width;
-  padding: 1rem;
+  padding: 0;
 
   @include thredded-media-tablet-and-up {
     padding: 2rem;
