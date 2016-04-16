@@ -53,3 +53,16 @@ Thredded.admin_column = :admin
 # ==> View Configuration
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
+
+# ==> Error Handling
+# By default Thredded just renders a flash alert on errors such as Topic not found, or Login required.
+# Below is an example of overriding the default behavior on LoginRequired:
+#
+# Rails.application.config.to_prepare do
+#   Thredded::ApplicationController.module_eval do
+#     rescue_from Thredded::Errors::LoginRequired do |exception|
+#       @message = exception.message
+#       render template: 'sessions/new', status: :forbidden
+#     end
+#   end
+# end
