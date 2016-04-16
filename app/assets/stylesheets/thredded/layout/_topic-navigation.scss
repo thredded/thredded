@@ -28,7 +28,7 @@
 .thredded--new-private-topic &--topic-navigation--private,
 .thredded--private-topics-index &--topic-navigation--private {
   border-bottom: 1px solid $thredded-action-color;
-  margin-bottom: -2px;
+  margin-bottom: -1px;
 
   a {
     @extend %thredded--nav-link-current;

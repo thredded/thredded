@@ -10,14 +10,17 @@
     &--actions {
       position: absolute;
       left: 0;
-      bottom: 4.04rem;
-      .thredded--posts & {
-        bottom: 0.75rem;
+      bottom: 0.75rem;
+      .thredded-messageboards-index &,
+      .thredded--topics-index & {
+        bottom: 4.04rem;
       }
     }
     &--search {
-      .thredded--posts & {
-        display: none;
+      display: none;
+      .thredded-messageboards-index &,
+      .thredded--topics-index & {
+        display: block;
       }
     }
   }
