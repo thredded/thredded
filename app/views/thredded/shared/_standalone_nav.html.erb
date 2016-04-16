@@ -1,0 +1,11 @@
+<li>
+  <% if signed_in? %>
+    <%= link_to main_app.destroy_session_path(Thredded.user_class.name.underscore), method: :delete do %>
+      <span>Sign Out</span>
+    <% end %>
+  <% else %>
+    <%= link_to main_app.new_session_path(Thredded.user_class.name.underscore) do %>
+      <span>Sign In / Register</span>
+    <% end %>
+  <% end %>
+</li>

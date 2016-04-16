@@ -12,20 +12,12 @@
       <%= render 'thredded/shared/notification_preferences', messageboard: messageboard_or_nil %>
 
       <% if Thredded.standalone_layout? %>
-        <li>
-          <%= link_to main_app.session_path, method: :delete do %>
-            <span>Sign Out</span>
-          <% end %>
-        </li>
+        <%= render 'thredded/shared/standalone_nav' %>
       <% end %>
     </ul>
   <% elsif Thredded.standalone_layout? %>
     <ul class="thredded--user-navigation--actions">
-      <li>
-        <%= link_to main_app.sessions_new_path do %>
-          <span>Sign In / Register</span>
-        <% end %>
-      </li>
+      <%= render 'thredded/shared/standalone_nav' %>
     </ul>
   <% end %>
 </nav>
