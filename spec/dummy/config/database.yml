@@ -3,6 +3,12 @@ db_adapter = ENV.fetch('DB', 'sqlite3')
 db_host    = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
 db_port    = ENV['DB_PORT'] || ENV['THREDDED_DB_1_PORT_5432_TCP_ADDR'] ||
   {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
+require 'etc'
+pool_size =
+  # Web: max workers * max threads
+  ENV.fetch('WEB_CONCURRENCY', 3).to_i * ENV.fetch('MAX_THREADS', 5).to_i +
+  # ActiveJob Async max thread pool size
+  Etc.nprocessors
 %>
 
 defaults: &defaults
@@ -11,6 +17,7 @@ defaults: &defaults
   adapter: <%= db_adapter %>
   encoding: utf8
   min_messages: WARNING
+  pool: <%= pool_size %>
   username: <%= ENV.fetch('DB_USERNAME', 'thredded').inspect %>
   password: <%= ENV.fetch('DB_PASSWORD', 'thredded').inspect %>
 
@@ -21,3 +28,9 @@ development:
 test:
   <<: *defaults
   database: <%= db_adapter == 'sqlite3' ? "':memory:'" : 'thredded_gem_test' %>
+
+production:
+  <<: *defaults
+  encoding: utf8
+  min_messages: WARNING
+  url: <%= ENV['DATABASE_URL'].inspect %>
