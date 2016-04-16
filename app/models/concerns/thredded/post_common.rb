@@ -26,7 +26,13 @@ module Thredded
       transformers: WHITELIST_TRANSFORMERS,
       attributes: {
         'a' => %w(href rel),
-        'iframe' => %w(src width height frameborder allowfullscreen)
+        'iframe' => %w(src width height frameborder allowfullscreen sandbox seamless)
+      },
+      add_attributes: {
+        'iframe' => {
+          'seamless' => 'true',
+          'sandbox' => 'allow-same-origin allow-forms allow-scripts'
+        }
       }
     ).freeze
 
