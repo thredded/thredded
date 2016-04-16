@@ -33,4 +33,4 @@ production:
   <<: *defaults
   encoding: utf8
   min_messages: WARNING
-  url: <%= ENV['DATABASE_URL'].inspect %>
+  url: <%= ENV['DATABASE_URL'].inspect if ENV['DATABASE_URL'] %>
