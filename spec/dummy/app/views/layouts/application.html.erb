@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      <%= content_for?(:thredded_page_title) ? "#{yield(:thredded_page_title)} | Dummy App" : 'Dummy App' %>
+      <%= content_for?(:thredded_page_title) ? safe_join([yield(:thredded_page_title), 'Dummy App'], ' | ') : 'Dummy App' %>
     </title>
     <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
