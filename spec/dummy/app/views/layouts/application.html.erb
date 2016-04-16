@@ -8,6 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
+    <%= favicon_link_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   </head>
   <body>
