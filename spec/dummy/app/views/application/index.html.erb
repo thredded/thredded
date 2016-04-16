@@ -1,10 +1,35 @@
 <div class="app-home thredded--main-container">
-  <a class="demo-lead" href="<%= thredded.messageboards_path %>">Forums Demo ›</a>
+  <a class="demo-lead" href="<%= thredded.messageboards_path %>">
+    Forums Demo ›
+  </a>
+  <hr>
 
   <p>
-    Thredded is a Rails 4+ forum/messageboard engine.<br>
+    <a href="https://github.com/thredded/thredded">Thredded</a> is a Rails 4.2+ forum/messageboard engine.<br>
     Its goal is to be as simple and feature-rich as possible.
   </p>
+
+  <section>
+    <p>Some of the features currently in Thredded:</p>
+
+    <ul>
+      <li>Markdown post formatting, with some BBCode support.</li>
+      <li>(Un)read posts tracking.</li>
+      <li>Email notifications, @-mentions, per-messageboard notification settings.</li>
+      <li>Private group messaging.</li>
+      <li>Full-text search using the database.</li>
+      <li>Pinned and locked topics.</li>
+      <li>List of currently online users, for all forums and per-messageboard.</li>
+      <li>Flexible permissions system.</li>
+      <li>Lightweight default theme configurable via Sass.</li>
+    </ul>
+
+    <p>Planned features:</p>
+
+    <ul>
+      <li>Flexible moderation system with per-messageboard settings.</li>
+    </ul>
+  </section>
 
   <section>
     <h3>Demo URLs of Note</h3>
@@ -23,19 +48,11 @@
     </ul>
   </section>
 
-  <section>
-    <h3>External URLs of Note</h3>
-    <ul>
-      <li><a href="https://www.thredded.com">thredded.com</a> - hosted thredded forums.</li>
-      <li><a href="https://github.com/jayroh/thredded">GitHub project</a> - source code at GitHub.</li>
-      <li><a href="https://waffle.io/jayroh/thredded">Issues at Waffle.io</a> - open issues kanban board.</li>
-    </ul>
-  </section>
+  <p>
+    See the <a href="https://github.com/thredded/thredded">source code on GitHub</a>.
+  </p>
 
-  <section>
-    <h3>Source Directories of Note</h3>
-    <ul>
-      <li><code>./spec/dummy</code> - demo app root.</li>
-    </ul>
-  </section>
+  <footer>
+    <p>This demo app is powered by Rails v<%= Rails::VERSION::STRING %>.</p>
+  </footer>
 </div>

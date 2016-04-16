@@ -53,8 +53,8 @@ body {
 
 .app-container-header {
   border-bottom: $thredded-base-border;
-  padding-bottom: 1em;
-  margin: 0em -2em 1em;
+  padding-bottom: 1rem;
+  margin: 0 -2rem 1rem;
 
   @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
     margin: 0;
@@ -108,22 +108,35 @@ body {
 }
 
 .app-home {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: $thredded-base-line-height;
+  padding-top: 0;
 
   .demo-lead {
     display: block;
-    font-size: 32px;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    @media (min-width: 1px + $thredded-grid-container-max-width + 2 * $container-padding-x) {
+      margin-top: 0;
+    }
+  }
+
+  a {
     font-weight: bold;
   }
 
   section {
-    margin-top: 2rem;
+    margin-top: 1rem;
+  }
 
-    a {
-      font-weight: bold;
-    }
+  hr {
+    @extend %thredded--hr;
+    margin: 1rem 0;
+  }
+
+  footer {
+    border-top: $thredded-base-border;
   }
 }
