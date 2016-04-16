@@ -30,7 +30,7 @@ module Thredded
       },
       add_attributes: {
         'iframe' => {
-          'seamless' => 'true',
+          'seamless' => 'seamless',
           'sandbox' => 'allow-same-origin allow-forms allow-scripts'
         }
       }
