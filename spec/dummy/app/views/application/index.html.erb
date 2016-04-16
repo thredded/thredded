@@ -9,9 +9,11 @@
   <section>
     <h3>Demo URLs of Note</h3>
     <ul>
-      <li><%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the views and
-        styles.
-      </li>
+      <% unless Rails.env.production? -%>
+        <li><%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the views and
+          styles.
+        </li>
+      <% end -%>
       <li><%= link_to 'Email Templates', rails_email_preview.rep_root_url %> - previews of all emails sent by
         Thredded.
       </li>

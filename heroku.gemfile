@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+source 'https://rubygems.org'
+ruby '2.3.0'
+
+gem 'thredded', path: File.dirname(__FILE__)
+
+# Rails 5
+gem 'rails', '~> 5.0.0.beta3'
+gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
+gem 'active_record_union', git: 'https://github.com/glebm/active_record_union', branch: 'rails-5-test-harness'
+
+# Make these gems available in production
+gem 'puma'
+gem 'pg'
+gem 'rails_email_preview', '>= 1.0.3'
+gem 'jquery-turbolinks'
+gem 'turbolinks'
+gem 'factory_girl_rails'
+gem 'faker', '>= 1.6.2'
+
+# Heroku-specific gems
+gem 'rollbar'
+gem 'therubyracer'

@@ -1,8 +1,10 @@
 db/schema*.rb
 Gemfile.lock
 *.gemfile.lock
+!heroku.gemfile.lock
 .bundle/
-bin/
+bin/*
+!bin/rails
 log/*.log
 pkg/
 spec/dummy/db/*.sqlite3

@@ -14,8 +14,11 @@ rackup DefaultRackup
 port ENV.fetch('PORT', 3000)
 environment ENV.fetch('RACK_ENV', 'development')
 
+before_fork do
+  ::ActiveRecord::Base.connection_pool.disconnect!
+  ::I18n.backend.send(:init_translations)
+end
+
 on_worker_boot do
-  # Worker specific setup for Rails 4.1+
-  # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot
   ActiveRecord::Base.establish_connection
 end

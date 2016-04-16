@@ -24,15 +24,6 @@ end
 APP_RAKEFILE = File.expand_path('../spec/dummy/Rakefile', __FILE__)
 load 'rails/tasks/engine.rake'
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
-
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
-
-task(:default).clear
-task default: [:spec, :rubocop]
-
 # Common methods for the test_all_dbs, test_all_gemfiles, and test_all Rake tasks.
 module TestTasks
   module_function
@@ -121,4 +112,24 @@ namespace :dev do
       config: 'config.ru'
     )
   end
+end
+
+if ENV['HEROKU']
+  require 'rollbar/rake_tasks'
+  namespace :assets do
+    desc 'Precompile assets within dummy app'
+    task precompile: 'app:assets:precompile'
+
+    desc 'Remove old compiled assets from dummy app'
+    task clean: 'app:assets:clean'
+  end
+else
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+
+  task(:default).clear
+  task default: [:spec, :rubocop]
 end

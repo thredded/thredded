@@ -10,7 +10,15 @@ Dummy::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  if ENV['HEROKU']
+    config.action_mailer.perform_deliveries = false
+    config.active_job.queue_adapter         = :async
+    config.public_file_server.enabled       = true
+    config.public_file_server.headers       = { 'Cache-Control' => 'public, max-age=31536000' }
+    Rails.logger                            = Logger.new(STDOUT)
+  else
+    config.serve_static_files = false
+  end
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -51,6 +59,10 @@ Dummy::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.default_url_options = {
+    host: 'https://thredded-demo.herokuapp.com'
+  }
 
   # Enable threaded mode
   # config.threadsafe!
