@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.description = 'A messageboard engine for Rails 4.1+ apps'
 
   s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec|script)/|^\.}) } -
-    %w(Dockerfile docker-compose.yml Rakefile Gemfile shared.gemfile)
+    %w(Dockerfile docker-compose.yml Rakefile Gemfile Gemfile.lock shared.gemfile)
 
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
@@ -59,13 +59,6 @@ Gem::Specification.new do |s|
 
   # dummy app dependencies
   s.add_development_dependency 'mysql2'
-  s.add_development_dependency 'pg'
   s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'puma'
-  s.add_development_dependency 'rails_email_preview', '>= 1.0.2'
   s.add_development_dependency 'i18n-tasks'
-
-  # dummy app frontend
-  s.add_development_dependency 'jquery-turbolinks'
-  s.add_development_dependency 'turbolinks'
 end

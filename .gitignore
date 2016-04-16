@@ -1,8 +1,6 @@
 db/schema*.rb
-Gemfile.lock
 *.gemfile.lock
 .bundle/
-bin/
 log/*.log
 pkg/
 spec/dummy/db/*.sqlite3
