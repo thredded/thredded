@@ -11,6 +11,7 @@ Dummy::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   if ENV['HEROKU']
+    config.middleware.use Rack::CanonicalHost, ENV['CANONICAL_HOST'] if ENV['CANONICAL_HOST']
     config.action_mailer.perform_deliveries = false
     config.active_job.queue_adapter         = :async
     config.public_file_server.enabled       = true
@@ -61,7 +62,7 @@ Dummy::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = {
-    host: 'https://thredded-demo.herokuapp.com'
+    host: 'http://thredded.org'
   }
 
   # Enable threaded mode

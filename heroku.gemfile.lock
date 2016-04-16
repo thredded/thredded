@@ -83,6 +83,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     arel (7.0.0)
     autoprefixer-rails (6.3.6)
       execjs
@@ -161,6 +162,9 @@ GEM
       activesupport (>= 3.0.0)
     rack (2.0.0.alpha)
       json
+    rack-canonical-host (0.2.1)
+      addressable (> 0, < 3)
+      rack (>= 1.0.0, < 3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0.beta3)
@@ -254,6 +258,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   puma
+  rack-canonical-host
   rails (~> 5.0.0.beta3)
   rails_email_preview (>= 1.0.3)
   rollbar

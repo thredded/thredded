@@ -11,6 +11,7 @@ require 'rails_email_preview'
 require 'thredded'
 
 if ENV['HEROKU']
+  require 'rack/canonical_host'
   require 'newrelic_rpm'
 end
 
