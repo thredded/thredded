@@ -12,7 +12,8 @@
       left: 0;
       bottom: (0.8rem - $thredded-small-spacing);
       .thredded--messageboards-index &,
-      .thredded--topics-index & {
+      .thredded--topics-index &,
+      .thredded--topic-search-results & {
         bottom: (4.05rem - $thredded-small-spacing);
       }
       a {
@@ -26,7 +27,8 @@
     &--search {
       display: none;
       .thredded--messageboards-index &,
-      .thredded--topics-index & {
+      .thredded--topics-index &,
+      .thredded--topic-search-results & {
         display: block;
       }
     }
