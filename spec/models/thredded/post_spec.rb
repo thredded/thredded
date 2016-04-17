@@ -72,6 +72,24 @@ module Thredded
     end
   end
 
+  describe Post, '#destroy' do
+    it 'updates the topic updated_at field to that of the last post' do
+      user_1 = create(:user)
+      user_2 = create(:user)
+      topic = create(:topic, with_posts: 1)
+      post_1 = create(:post, postable: topic, user: user_1, content: 'posting more')
+      future_time = 3.hours.from_now
+      travel_to future_time do
+        post_2 = create(:post, postable: topic, user: user_2, content: 'posting more')
+        expect(topic.updated_at.to_s).to eq post_2.created_at.to_s
+        expect(topic.last_user).to eq user_2
+        post_2.destroy
+      end
+      expect(topic.updated_at.to_s).to eq post_1.created_at.to_s
+      expect(topic.last_user).to eq user_1
+    end
+  end
+
   describe Post, '#filtered_content' do
     let(:view_context) { ViewContextStub }
     before(:each) { @post = build(:post) }
