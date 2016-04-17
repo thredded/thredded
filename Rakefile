@@ -133,3 +133,23 @@ else
   task(:default).clear
   task default: [:spec, :rubocop]
 end
+
+namespace :db do
+  desc "Wipe out all tables' data"
+  task truncate: :environment do
+    connection = ActiveRecord::Base.connection
+    tables = connection.tables - %w(schema_migrations)
+
+    tables.each do |table|
+      if connection.adapter_name =~ /sqlite/i
+        connection.execute("DELETE FROM #{table}")
+        connection.execute("DELETE FROM sqlite_sequence where name='#{table}'")
+      else
+        connection.execute("TRUNCATE #{table} CASCADE")
+      end
+    end
+  end
+
+  desc 'Re-seed database with new data'
+  task reseed: [:truncate, :seed]
+end
