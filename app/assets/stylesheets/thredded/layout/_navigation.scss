@@ -11,7 +11,7 @@
       position: absolute;
       left: 0;
       bottom: (0.8rem - $thredded-small-spacing);
-      .thredded-messageboards-index &,
+      .thredded--messageboards-index &,
       .thredded--topics-index & {
         bottom: (4.05rem - $thredded-small-spacing);
       }
@@ -25,7 +25,7 @@
     }
     &--search {
       display: none;
-      .thredded-messageboards-index &,
+      .thredded--messageboards-index &,
       .thredded--topics-index & {
         display: block;
       }
