@@ -14,6 +14,12 @@ module Thredded
         opt.has_many :thredded_posts, class_name: 'Thredded::Post'
         opt.has_many :thredded_topics, class_name: 'Thredded::Topic'
         opt.has_many :thredded_private_posts, class_name: 'Thredded::PrivatePost'
+        opt.has_many :thredded_private_topics, class_name: 'Thredded::PrivateTopic'
+      end
+
+      with_options dependent: :nullify, foreign_key: 'last_user_id', inverse_of: :last_user do |opt|
+        opt.has_many :thredded_last_user_topics, class_name: 'Thredded::Topic'
+        opt.has_many :thredded_last_user_private_topics, class_name: 'Thredded::PrivateTopic'
       end
 
       with_options dependent: :destroy, foreign_key: 'user_id', inverse_of: :user do |opt|
