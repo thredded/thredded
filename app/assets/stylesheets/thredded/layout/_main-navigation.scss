@@ -14,6 +14,11 @@
     display: inline-block;
     font-weight: bold;
 
+    a {
+      display: inline-block;
+      padding: $thredded-small-spacing 0;
+    }
+
     &:after {
       background: image-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
       content: "";

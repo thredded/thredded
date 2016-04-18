@@ -24,7 +24,10 @@
 &--user-navigation--item {
   display: inline-block;
   margin-right: 1rem;
-  padding: $thredded-small-spacing 0;
+
+  a {
+    padding: $thredded-small-spacing 0;
+  }
 
   &:last-child {
     margin-right: 0;
