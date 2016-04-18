@@ -19,7 +19,7 @@ Dummy::Application.configure do
     Rails.logger                            = Logger.new(STDOUT)
     config.force_ssl                        = true
   else
-    config.serve_static_files = false
+    config.public_file_server.enabled       = false
   end
 
   # Compress JavaScripts and CSS

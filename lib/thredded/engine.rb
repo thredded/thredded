@@ -28,7 +28,7 @@ module Thredded
       Thredded::Engine.config.assets.precompile += %w(
         thredded.js
         thredded.css
-        thredded/breadcrumb-chevron.svg
+        thredded/*.svg
       )
     end
 

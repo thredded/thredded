@@ -34,3 +34,4 @@ production:
   encoding: utf8
   min_messages: WARNING
   url: <%= ENV['DATABASE_URL'].inspect if ENV['DATABASE_URL'] %>
+  database: <%= (db_adapter == 'sqlite3' ? 'db/production.sqlite3' : 'thredded_gem_production') unless ENV['DATABASE_URL'] %>

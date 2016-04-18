@@ -114,15 +114,16 @@ namespace :dev do
   end
 end
 
+namespace :assets do
+  desc 'Precompile assets within dummy app'
+  task precompile: 'app:assets:precompile'
+
+  desc 'Remove old compiled assets from dummy app'
+  task clean: 'app:assets:clean'
+end
+
 if ENV['HEROKU']
   require 'rollbar/rake_tasks'
-  namespace :assets do
-    desc 'Precompile assets within dummy app'
-    task precompile: 'app:assets:precompile'
-
-    desc 'Remove old compiled assets from dummy app'
-    task clean: 'app:assets:clean'
-  end
 else
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
