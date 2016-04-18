@@ -28,6 +28,10 @@ module Thredded
       [PostNotification.joins(:non_private_post), UserTopicRead.joins(:post)].each do |child_t|
         child_t.merge(Post.where(messageboard_id: messageboard.id)).delete_all
       end
+
+      Thredded::MessageboardUser
+        .where(thredded_messageboard_id: messageboard.id)
+        .delete_all
     end
 
     def destroy_all_posts
