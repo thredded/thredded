@@ -17,6 +17,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'factory_girl_rails'
 gem 'faker', '>= 1.6.2'
+gem 'pundit'
 
 # Heroku-specific gems
 gem 'newrelic_rpm'
