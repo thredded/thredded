@@ -1,6 +1,7 @@
 &--user-navigation {
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
+  border-bottom: $thredded-base-border;
   margin-bottom: 1rem;
   text-align: left;
 
@@ -14,83 +15,44 @@
     @extend %thredded--nav-link;
     color: $thredded-secondary-nav-color;
   }
+
+  > ul {
+    @extend %thredded--list-unstyled;
+  }
 }
 
-&--user-navigation--actions {
-  @extend %thredded--list-unstyled;
+&--user-navigation--item {
+  display: inline-block;
+  margin-right: 1rem;
   padding: $thredded-small-spacing 0;
 
-  @include thredded-media-tablet-and-up {
-    float: left;
+  &:last-child {
+    margin-right: 0;
   }
 
-  li {
-    display: inline-block;
-    margin-right: $thredded-base-spacing;
-
-    &:last-child {
-      margin-right: 0;
-    }
+  @include thredded-media-tablet-and-up {
+    padding: $thredded-small-spacing 0;
   }
 }
 
-&--user-navigation--search {
-  @include thredded-media-mobile {
-    margin-bottom: 0.5rem;
+.thredded--preferences &--user-navigation--settings,
+.thredded--new-private-topic &--user-navigation--private-topics,
+.thredded--private-topics-index &--user-navigation--private-topics,
+.thredded--private-topic-show &--user-navigation--private-topics {
+  border-bottom: 1px solid $thredded-action-color;
+  margin-bottom: -1px;
+
+  a {
+    @extend %thredded--nav-link-current;
   }
+}
 
-  label {
-    display: none;
-  }
-
-  input[type="search"] {
-    box-shadow: none;
-    transition: all 0.15s ease-out 0s;
-    width: 100%;
-
-    @include thredded-media-tablet-and-up {
-      background: transparent;
-      border-color: transparent;
-      float: right;
-      font-size: $thredded-font-size-small;
-      min-width: 200px;
-      margin-right: -$thredded-base-spacing;
-      text-align: right;
-      width: auto;
-
-      &:focus {
-        background: $thredded-background-color;
-        box-shadow: none;
-        min-width: 290px;
-        text-align: left;
-        transition: all 0.15s ease-out 0s;
-        margin-right: 0;
-      }
-
-      &:hover {
-        border-color: transparent;
-        box-shadow: none;
-      }
-
-      &::placeholder {
-        color: $thredded-secondary-nav-color;
-      }
-
-      &:hover:not(:focus) {
-        cursor: pointer;
-        &::placeholder {
-          color: $thredded-nav-hover-color;
-          transition: color 0.1s linear;
-        }
-      }
-
-      &:focus {
-        border-color: $thredded-base-border-color;
-      }
-    }
-  }
-
-  [type="submit"] {
-    display: none;
-  }
+&--user-navigation--private-topics--unread {
+  background: $thredded-badge-active-background;
+  border-radius: 10px;
+  color: $thredded-badge-active-color;
+  font-size: 0.75rem; // 12px
+  line-height: 1;
+  margin-left: 0.4rem;
+  padding: 2px 6px;
 }

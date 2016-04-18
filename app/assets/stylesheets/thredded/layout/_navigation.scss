@@ -1,35 +1,71 @@
+&--navigation {
+  margin-bottom: $thredded-small-spacing;
+  position: relative;
+  .thredded--icon {
+    display: none;
+  }
+}
+
 @include thredded-media-mobile {
   &--navigation {
     display: table;
     position: relative;
-    table-layout: fixed;
     width: 100%;
+  }
+  &--main-navigation {
+    position: relative;
+    border: none;
+  }
+  &--navigation-breadcrumbs {
+    font-size: $thredded-font-size-small;
+    padding: $thredded-small-spacing 5rem $thredded-small-spacing 0;
+  }
+  &--navigation--search {
+    display: none;
+    .thredded--messageboards-index &,
+    .thredded--topics-index &,
+    .thredded--topic-search-results & {
+      display: block;
+    }
   }
   &--user-navigation {
     display: table-footer-group;
-    &--actions {
+    &-standalone {
+      display: block;
+      margin-bottom: 0;
+    }
+    %icon-nav-item {
+      margin-right: 0;
+      padding: 0;
       position: absolute;
-      left: 0;
-      bottom: (0.8rem - $thredded-small-spacing);
-      .thredded--messageboards-index &,
-      .thredded--topics-index &,
-      .thredded--topic-search-results & {
-        bottom: (4.05rem - $thredded-small-spacing);
-      }
+      top: (0.8rem - $thredded-small-spacing);
+      z-index: 2;
       a {
         display: block;
-        padding: 0 0 $thredded-small-spacing 0;
+        padding: ($thredded-small-spacing / 2) 0 ($thredded-small-spacing / 2) 0;
+        font-size: 0;
       }
-      @media (max-width: 320px) {
-        font-size: $thredded-font-size-small;
+      .thredded--icon {
+        display: block;
+        width: 2rem;
+        height: 2rem;
       }
     }
-    &--search {
-      display: none;
-      .thredded--messageboards-index &,
-      .thredded--topics-index &,
-      .thredded--topic-search-results & {
-        display: block;
+    &--settings {
+      @extend %icon-nav-item;
+      right: 2.6rem;
+    }
+    &--private-topics {
+      @extend %icon-nav-item;
+      right: 0;
+      top: 1px;
+      a {
+        position: relative;
+      }
+      &--unread {
+        bottom: 0.3rem;
+        position: absolute;
+        right: -0.2rem;
       }
     }
   }

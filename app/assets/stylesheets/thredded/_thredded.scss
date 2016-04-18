@@ -6,12 +6,13 @@
 
   @import "layout/main-container";
   @import "layout/main-navigation";
-  @import "layout/topic-navigation";
+  @import "layout/search-navigation";
   @import "layout/user-navigation";
   @import "layout/navigation";
 
   @import "components/base";
   @import "components/alerts";
+  @import "components/icons";
   @import "components/currently-online";
   @import "components/empty";
   @import "components/flash-message";

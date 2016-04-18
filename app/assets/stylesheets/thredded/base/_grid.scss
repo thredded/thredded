@@ -5,7 +5,7 @@
 }
 
 @mixin thredded-media-tablet-and-up {
-  @media screen and (min-width: map-get($thredded-grid-breakpoint-max-widths, mobile) + 1px) {
+  @media screen and (min-width: map-get($thredded-grid-breakpoint-max-widths, mobile) + 0.00001rem) {
     @content;
   }
 }

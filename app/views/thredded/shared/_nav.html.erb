@@ -1,0 +1,20 @@
+<nav class="thredded--navigation" role="navigation">
+  <ul class="thredded--user-navigation<%= ' thredded--user-navigation-standalone' if Thredded.standalone_layout? %>">
+    <% if signed_in? && Thredded.standalone_layout? %>
+      <li class="thredded--user-navigation--profile thredded--user-navigation--item">
+        <%= link_to thredded_current_user, user_path(thredded_current_user) %>
+      </li>
+    <% end %>
+
+    <%= render 'thredded/shared/nav/notification_preferences', messageboard: messageboard_or_nil %>
+    <%= render 'thredded/shared/nav/private_topics' %>
+
+    <% if Thredded.standalone_layout? %>
+      <%= render 'thredded/shared/nav/standalone' %>
+    <% end %>
+  </ul>
+  <div class="thredded--main-navigation">
+    <%= yield :thredded_breadcrumbs %>
+    <%= render 'thredded/search/form', messageboard: messageboard_or_nil %>
+  </div>
+</nav>

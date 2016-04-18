@@ -1,0 +1,12 @@
+<li class="thredded--user-navigation--standalone thredded--user-navigation--item">
+  <% resource_name = Thredded.user_class.name.underscore %>
+  <% if signed_in? %>
+    <%= link_to main_app.send(:"destroy_#{resource_name}_session_path"), method: :delete do %>
+      <span>Sign Out</span>
+    <% end %>
+  <% else %>
+    <%= link_to main_app.send(:"new_#{resource_name}_session_path") do %>
+      <span>Sign In / Register</span>
+    <% end %>
+  <% end %>
+</li>
