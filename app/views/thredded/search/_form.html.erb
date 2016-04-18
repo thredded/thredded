@@ -1,4 +1,4 @@
-<%= form_tag search_path(messageboard), class: 'thredded--form', method: 'get' do %>
+<%= form_tag search_path(messageboard), class: 'thredded--form thredded--navigation--search', method: 'get' do %>
   <%= label_tag :q, t('thredded.search.form.label') %>
   <%= text_field_tag :q, @query,
                      type:        'search',

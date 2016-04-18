@@ -1,20 +1,14 @@
 &--main-navigation {
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
-  border-bottom: $thredded-base-border;
   display: block;
-  margin: $thredded-small-spacing 0;
+  @include thredded-media-tablet-and-up {
+    margin-top: $thredded-small-spacing;
+  }
 }
 
 &--navigation-breadcrumbs {
   @extend %thredded--list-unstyled;
-  margin-bottom: $thredded-small-spacing;
-
-  @include thredded-media-tablet-and-up {
-    float: left;
-    margin-bottom: 0;
-    padding-bottom: $thredded-small-spacing;
-  }
 
   li {
     display: inline-block;
@@ -25,7 +19,7 @@
       content: "";
       display: inline-block;
       height: 10px;
-      margin: 0 $thredded-small-spacing;
+      margin: 0 ($thredded-small-spacing - 0.3rem) 0 $thredded-small-spacing;
       width: 6px;
     }
 

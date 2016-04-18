@@ -30,7 +30,7 @@ module PageObject
     def create_private_topic
       user = create(:user, name: 'carl')
       visit new_private_topic_path
-      fill_in 'Title', with: private_title
+      fill_in I18n.t('thredded.private_topics.form.title_label'), with: private_title
       find(:css, '#private_topic_user_ids').set(user.id)
       fill_in I18n.t('thredded.private_topics.form.content_label'), with: 'not for others'
 

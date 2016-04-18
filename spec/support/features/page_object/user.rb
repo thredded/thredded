@@ -13,7 +13,7 @@ module PageObject
     end
 
     def log_in
-      visit new_session_path
+      visit new_user_session_path
       fill_in 'name', with: user.to_s
       uncheck 'Admin' unless user.admin?
       click_button 'Sign in'

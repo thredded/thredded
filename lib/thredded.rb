@@ -12,6 +12,7 @@ require 'html/pipeline/youtube/youtube_filter'
 require 'kaminari'
 require 'rb-gravatar'
 require 'active_job'
+require 'inline_svg'
 
 # Asset compilation
 require 'autoprefixer-rails'
