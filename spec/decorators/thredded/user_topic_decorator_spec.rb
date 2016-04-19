@@ -6,18 +6,18 @@ module Thredded
     it 'responds to topic decorator methods' do
       topic = create(:topic, with_posts: 2)
       user = create(:user)
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
 
-      expect(decorator).to respond_to(:original)
+      expect(decorator).to respond_to(:to_model)
     end
   end
 
   describe UserTopicDecorator, '.decorate_all' do
     it 'decorates all topics' do
-      topics = [create(:topic), create(:topic)]
+      topics = create_list(:topic, 2)
       user = create(:user)
 
-      decorator = UserTopicDecorator.decorate_all(user, topics)
+      decorator = UserTopicDecorator.decorate_all(user, Topic.where(id: topics))
       expect(decorator.size).to eq(2)
     end
   end
@@ -27,12 +27,12 @@ module Thredded
       topic = create(:topic, with_posts: 2)
       user = create(:user)
       create(
-        :user_topic_read,
-        topic: topic,
+        :user_topic_read_state,
+        postable: topic,
         user: user,
-        posts_count: 2
+        read_at: topic.updated_at
       )
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
 
       expect(decorator.read?).to eq true
     end
@@ -41,12 +41,12 @@ module Thredded
       topic = create(:topic, with_posts: 4)
       user = create(:user)
       create(
-        :user_topic_read,
-        topic: topic,
+        :user_topic_read_state,
+        postable: topic,
         user: user,
-        posts_count: 2
+        read_at: topic.posts.first.updated_at - 1.day
       )
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
 
       expect(decorator.read?).to eq false
     end
@@ -54,7 +54,7 @@ module Thredded
     it 'is false if we have a null user' do
       topic = create(:topic, with_posts: 2)
       user = nil
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
 
       expect(decorator.read?).to eq false
     end
@@ -65,13 +65,13 @@ module Thredded
       topic = create(:topic, with_posts: 2)
       user = create(:user)
       create(
-        :user_topic_read,
-        topic: topic,
+        :user_topic_read_state,
+        postable: topic,
         user: user,
-        posts_count: 2,
+        read_at: topic.posts.last.updated_at,
         page: 4
       )
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
 
       expect(decorator.farthest_page).to eq 4
     end
@@ -79,35 +79,9 @@ module Thredded
     it 'defaults to page 1 with null users' do
       topic = create(:topic, with_posts: 2)
       user = nil
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
 
       expect(decorator.farthest_page).to eq 1
-    end
-  end
-
-  describe UserTopicDecorator, '#farthest_post' do
-    it 'returns the last post a user has read up to' do
-      topic = create(:topic, with_posts: 2)
-      user = create(:user)
-      create(
-        :user_topic_read,
-        topic: topic,
-        user: user,
-        posts_count: 2,
-        page: 4,
-        farthest_post: topic.posts.last
-      )
-      decorator = UserTopicDecorator.new(user, topic)
-
-      expect(decorator.farthest_post).to eq topic.posts.last
-    end
-
-    it 'defaults to page 1 with null users' do
-      topic = create(:topic, with_posts: 2)
-      user = nil
-      decorator = UserTopicDecorator.new(user, topic)
-
-      expect(decorator.farthest_post).not_to be_persisted
     end
   end
 
@@ -116,13 +90,13 @@ module Thredded
       topic = create(:topic, :locked, :sticky, with_posts: 2)
       user = create(:user)
       create(
-        :user_topic_read,
-        topic: topic,
+        :user_topic_read_state,
+        postable: topic,
         user: user,
-        posts_count: 2,
+        read_at: topic.posts.last.updated_at,
         page: 4
       )
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
       expect(decorator.css_class).to eq 'thredded--topic--read thredded--topic--locked thredded--topic--sticky'
     end
 
@@ -130,13 +104,13 @@ module Thredded
       topic = create(:topic, :locked, :sticky, with_posts: 2)
       user = create(:user)
       create(
-        :user_topic_read,
-        topic: topic,
+        :user_topic_read_state,
+        postable: topic,
         user: user,
-        posts_count: 1,
+        read_at: topic.posts.first.updated_at - 1.day,
         page: 4
       )
-      decorator = UserTopicDecorator.new(user, topic)
+      decorator = UserTopicDecorator.new(topic, user)
       expect(decorator.css_class).to eq 'thredded--topic--unread thredded--topic--locked thredded--topic--sticky'
     end
   end

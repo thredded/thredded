@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 module Thredded
   class PrivateTopicDecorator < SimpleDelegator
-    def initialize(private_topic)
-      super Thredded::BaseTopicDecorator.new(private_topic)
-    end
-
     def self.model_name
       ActiveModel::Name.new(self, nil, 'PrivateTopic')
     end
@@ -14,9 +10,7 @@ module Thredded
     end
 
     def css_class
-      classes = []
-      classes << 'thredded--private-topic'
-      classes.join(' ')
+      'thredded--private-topic'
     end
   end
 end

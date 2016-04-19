@@ -86,10 +86,8 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :private_topic_id, limit: 4
       t.integer :user_id, limit: 4
       t.timestamps null: false
-      t.boolean :read, default: false
     end
     add_index :thredded_private_users, [:private_topic_id], name: :index_thredded_private_users_on_private_topic_id
-    add_index :thredded_private_users, [:read], name: :index_thredded_private_users_on_read
     add_index :thredded_private_users, [:user_id], name: :index_thredded_private_users_on_user_id
 
     create_table :thredded_topic_categories do |t|
@@ -157,15 +155,15 @@ class CreateThredded < ActiveRecord::Migration
               unique: true,
               name: :thredded_user_messageboard_preferences_user_id_messageboard_id
 
-    create_table :thredded_user_topic_reads do |t|
-      t.integer :user_id, null: false
-      t.integer :topic_id, null: false
-      t.integer :post_id, null: false
-      t.integer :posts_count, default: 0, null: false
-      t.integer :page, default: 1, null: false
-      t.timestamps null: false
+    %i(topic private_topic).each do |topics_table|
+      table_name = :"thredded_user_#{topics_table}_read_states"
+      create_table table_name do |t|
+        t.integer :user_id, null: false
+        t.integer :postable_id, null: false
+        t.integer :page, default: 1, null: false
+        t.timestamp :read_at, null: false
+      end
+      add_index table_name, [:user_id, :postable_id], name: :"#{table_name}_user_postable", unique: true
     end
-    add_index :thredded_user_topic_reads, [:topic_id], name: :index_thredded_user_topic_reads_on_topic_id
-    add_index :thredded_user_topic_reads, [:user_id, :topic_id], name: :index_thredded_user_topic_reads_on_user_id_and_topic_id, unique: true
   end
 end

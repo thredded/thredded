@@ -27,7 +27,10 @@ feature 'User tracking what they have and have not already read' do
     member_signs_in
 
     topic.view_read_topic
-    topic.someone_updates_topic
+
+    travel_to 1.minute.from_now do
+      topic.someone_updates_topic
+    end
     topic.visit_index
 
     expect(topic).not_to be_read

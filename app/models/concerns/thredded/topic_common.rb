@@ -6,7 +6,7 @@ module Thredded
       paginates_per 50 if respond_to?(:paginates_per)
 
       belongs_to :last_user,
-                 class_name: Thredded.user_class,
+                 class_name:  Thredded.user_class,
                  foreign_key: 'last_user_id'
 
       scope :order_recently_updated_first, -> { order(updated_at: :desc, id: :desc) }
@@ -37,6 +37,17 @@ module Thredded
     end
 
     module ClassMethods
+      # @param user [Thredded.user_class]
+      # @return [ActiveRecord::Relation]
+      def unread(user)
+        topics      = arel_table
+        reads_class = reflect_on_association(:user_read_states).klass
+        reads       = reads_class.arel_table
+        joins(topics.join(reads, Arel::Nodes::OuterJoin)
+                .on(topics[:id].eq(reads[:postable_id]).and(reads[:user_id].eq(user.id))).join_sources)
+          .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:updated_at]))))
+      end
+
       def decorate
         all.map do |topic|
           TopicDecorator.new(topic)

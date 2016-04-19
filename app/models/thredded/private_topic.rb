@@ -25,6 +25,11 @@ module Thredded
             foreign_key: :postable_id
     has_many :private_users, inverse_of: :private_topic
     has_many :users, through: :private_users
+    has_many :user_read_states,
+             class_name: 'Thredded::UserPrivateTopicReadState',
+             foreign_key: :postable_id,
+             inverse_of: :postable,
+             dependent: :destroy
 
     validates_each :users do |model, _attr, users|
       # Must include the creator + at least one other user

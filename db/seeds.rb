@@ -19,18 +19,21 @@ module Thredded
       [Thredded::PrivatePost, :commit, :after, :notify_at_users],
     ].freeze
 
-    def self.run(users: 200, topics: 55, posts: (0..60))
+    def self.run(users: 200, topics: 55, posts: (1..60))
       STDERR.puts 'Seeding the database...'
       # Disable callbacks to avoid creating notifications and performing unnecessary updates
       SKIP_CALLBACKS.each { |(klass, *args)| klass.skip_callback(*args) }
       s = new
-      s.create_first_user
-      s.create_users(count: users)
-      s.create_messageboard
-      s.create_topics(count: topics)
-      s.create_posts(count: posts)
-      s.create_private_posts(count: posts)
-      s.create_additional_messageboards
+      Messageboard.transaction do
+        s.create_first_user
+        s.create_users(count: users)
+        s.create_messageboard
+        s.create_topics(count: topics)
+        s.create_posts(count: posts)
+        s.create_private_posts(count: posts)
+        s.create_additional_messageboards
+        s.log 'Running after_commit callbacks'
+      end
     ensure
       # Re-enable callbacks
       SKIP_CALLBACKS.each { |(klass, *args)| klass.set_callback(*args) }
@@ -43,7 +46,7 @@ module Thredded
     def create_first_user
       @user ||= begin
         ::User.first ||
-          ::User.create(name: 'joe', email: 'joe@example.com')
+          ::User.create(name: 'Joe', email: 'joe@example.com')
       end
     end
 
@@ -89,7 +92,7 @@ module Thredded
         users:     [user])
     end
 
-    def create_posts(count: (0..30))
+    def create_posts(count: (1..30))
       log "Creating #{count} additional posts in each topic..."
       @posts = topics.flat_map do |topic|
         (count.min + rand(count.max + 1)).times do
@@ -98,7 +101,7 @@ module Thredded
       end
     end
 
-    def create_private_posts(count: (0..30))
+    def create_private_posts(count: (1..30))
       log "Creating #{count} additional posts in each private topic..."
       @private_posts = private_topics.flat_map do |topic|
         (count.min + rand(count.max + 1)).times do
