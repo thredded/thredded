@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 module Thredded
-  describe TopicEmailDecorator do
+  describe TopicEmailView do
     let(:messageboard) { build_stubbed(:messageboard, name: 'hello') }
     let(:topic) { build_stubbed(:topic, messageboard: messageboard) }
-    let(:decorated_topic) { TopicEmailDecorator.new(topic) }
+    let(:decorated_topic) { TopicEmailView.new(topic) }
 
     describe '.smtp_api_tag' do
       it 'returns a string that looks like JSON (for sendgrid)' do

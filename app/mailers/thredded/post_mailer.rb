@@ -3,7 +3,7 @@ module Thredded
   class PostMailer < Thredded::BaseMailer
     def at_notification(post_id, emails)
       @post                = find_record Post, post_id
-      email_details        = TopicEmailDecorator.new(@post.postable)
+      email_details        = TopicEmailView.new(@post.postable)
       headers['X-SMTPAPI'] = email_details.smtp_api_tag('at_notification')
 
       mail from:     email_details.no_reply,

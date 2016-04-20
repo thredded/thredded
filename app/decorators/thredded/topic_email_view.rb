@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  class TopicEmailDecorator
+  class TopicEmailView
     # @param [Thredded::TopicCommon] topic
     def initialize(topic)
       @topic = topic
