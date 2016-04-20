@@ -31,7 +31,11 @@ module Thredded
                 Thredded::Errors::PrivateTopicCreateDenied,
                 Thredded::Errors::MessageboardReadDenied do |exception|
       @error   = exception
-      @message = exception.message
+      @message = if @error.is_a?(Pundit::NotAuthorizedError)
+                   t('thredded.errors.not_authorized')
+                 else
+                   exception.message
+                 end
       render template: 'thredded/error_pages/forbidden', status: :forbidden
     end
 
