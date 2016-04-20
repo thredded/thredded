@@ -20,6 +20,10 @@ module Thredded
       @post.postable.first_post != @post && update?
     end
 
+    def cache_key
+      [create?, update?, destroy?].map { |p| p ? '+' : '-' } * ''
+    end
+
     private
 
     def own_post?

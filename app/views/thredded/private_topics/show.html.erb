@@ -5,7 +5,7 @@
 <%= thredded_page do %>
   <%= content_tag :section, id: dom_id(private_topic), class: 'thredded--main-section thredded--topic thredded--private-topic' do %>
     <%= render 'thredded/private_topics/header', topic: private_topic %>
-    <%= render @posts %>
+    <%= render partial: 'thredded/private_posts/private_post', collection: @posts, cached: true %>
     <%= render 'thredded/private_posts/form',
                topic: private_topic,
                post:  @post %>

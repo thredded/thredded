@@ -1,1 +1,3 @@
-<%= render 'thredded/posts_common/post', post: post %>
+<% cache([post, post.user, policy(post).cache_key]) do %>
+  <%= render 'thredded/posts_common/post', post: post %>
+<% end %>
