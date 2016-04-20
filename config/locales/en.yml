@@ -3,9 +3,9 @@ en:
   thredded:
     errors:
       login_required: Please sign in first.
+      not_authorized: You are not authorized to access this page.
       private_topic_create_denied: You are not authorized to create private topics.
       private_topic_not_found: This private topic does not exist.
-      not_authorized: You are not authorized to access this page.
     messageboard:
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
