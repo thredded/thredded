@@ -3,12 +3,11 @@ require 'spec_helper'
 
 module Thredded
   context 'when a parent user is nil' do
-    describe Post, '#user_email and #user_anonymous?' do
+    describe Post, '#user_email' do
       it 'is nil' do
         post = build_stubbed(:post, user: nil)
 
         expect(post.user_email).to eq nil
-        expect(post.user_anonymous?).to be_truthy
       end
     end
   end

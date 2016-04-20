@@ -59,10 +59,6 @@ module Thredded
       Thredded.avatar_url.call(user)
     end
 
-    def user_anonymous?
-      !user || user.thredded_anonymous?
-    end
-
     # @param view_context [Object] the context of the rendering view.
     def filtered_content(view_context)
       pipeline = HTML::Pipeline.new(

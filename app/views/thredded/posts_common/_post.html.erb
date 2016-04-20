@@ -1,8 +1,6 @@
-<% post = Thredded::PostDecorator.new(post) %>
-
 <%= content_tag :article, id: dom_id(post), class: 'thredded--post' do %>
   <header>
-    <%= image_tag post.avatar_url, class: 'thredded--post--avatar' unless post.user_anonymous? %>
+    <%= image_tag post.avatar_url, class: 'thredded--post--avatar' if post.user %>
     <h2 class="thredded--post--user"><%= user_link post.user %></h2>
     <p class="thredded--post--created-at"><%= time_ago post.created_at %></p>
   </header>
@@ -13,13 +11,13 @@
     <% end %>
   </div>
 
-  <% post_policy = policy(post.original) %>
+  <% post_policy = policy(post) %>
   <% if post_policy.update? %>
-    <%= link_to t('thredded.posts.edit'), edit_post_path(post.original), class: 'thredded--post--edit' %>
+    <%= link_to t('thredded.posts.edit'), edit_post_path(post), class: 'thredded--post--edit' %>
   <% end %>
 
   <% if post_policy.destroy? %>
-    <%= link_to t('thredded.posts.delete'), delete_post_path(post.original),
+    <%= link_to t('thredded.posts.delete'), delete_post_path(post),
                 method: :delete,
                 class: 'thredded--post--delete',
                 data: { confirm: I18n.t('thredded.posts.delete_confirm') }
