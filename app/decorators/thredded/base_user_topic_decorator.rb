@@ -24,7 +24,11 @@ module Thredded
               .group_by(&:postable_id)
           topics.map do |topic|
             read_state = read_state_by_topic_id[topic.id]
-            new(topic, read_state && read_state[0])
+            if read_state
+              read_state = read_state[0]
+              read_state.postable = topic
+            end
+            new(topic, read_state)
           end
         end
       end
