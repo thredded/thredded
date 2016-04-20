@@ -9,13 +9,13 @@ module Thredded
                                   else
                                     thredded_current_user
                                   end
-      @messageboards            = Messageboard.where(closed: false).decorate
+      @messageboards            = Messageboard.where(closed: false)
       @topics                   = messageboard.topics.on_page(1).limit(3)
       @decorated_topics         = UserTopicDecorator.decorate_all(@user, @topics)
       @decorated_private_topics = Thredded::UserPrivateTopicDecorator.decorate_all(@user, @user.thredded_private_topics)
       @topic                    = @topics.find { |t| t.posts.present? } || @topics.first_or_initialize(
         title: 'Hello', slug: 'hello', user: @user)
-      @user_topic               = UserTopicDecorator.new(@user, @topic)
+      @user_topic               = UserTopicDecorator.new(@topic, @user)
       @posts                    = @topic.posts.first(3)
       @post                     = @topic.posts.first_or_initialize(
         id: 1337, postable: @topic, content: 'Hello world', user: @user)

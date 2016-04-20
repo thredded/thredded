@@ -22,9 +22,9 @@
                             required:    true %>
       </li>
 
-      <% if messageboard.categories.any? %>
+      <% if form.object.categories.any? %>
         <li class="category">
-          <%= form.select :category_ids, form.object.decorate.category_options, {},
+          <%= form.select :category_ids, form.object.category_options, {},
                           multiple:          true,
                           'data-placeholder' => t('thredded.topics.form.categories_placeholder') %>
         </li>

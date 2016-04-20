@@ -48,10 +48,14 @@ module Thredded
 
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
-    has_many :user_topic_reads, dependent: :destroy
+    has_many :user_read_states,
+             class_name: 'Thredded::UserTopicReadState',
+             foreign_key: :postable_id,
+             inverse_of: :postable,
+             dependent: :destroy
 
-    def self.find_by_slug_with_user_topic_reads!(slug)
-      includes(:user_topic_reads).friendly.find(slug)
+    def self.find_by_slug!(slug)
+      friendly.find(slug)
     rescue ActiveRecord::RecordNotFound
       raise Thredded::Errors::TopicNotFound
     end

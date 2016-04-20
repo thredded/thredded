@@ -62,14 +62,14 @@ module Thredded
 
     def unread_private_topics_count
       @unread_private_topics_count ||=
-        Thredded::PrivateTopic
-          .joins(:private_users)
-          .where(
-            thredded_private_users: {
-              user_id: thredded_current_user.id,
-              read:    false
-            })
-          .count
+        if signed_in?
+          Thredded::PrivateTopic
+            .for_user(thredded_current_user)
+            .unread(thredded_current_user)
+            .count
+        else
+          0
+        end
     end
 
     def authorize_reading(obj)

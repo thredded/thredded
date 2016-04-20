@@ -10,7 +10,6 @@ module Thredded
       post = parent_topic.posts.build(post_params)
       authorize_creating post
       post.save!
-      reset_read_status if for_a_private_topic?
 
       redirect_to post_path(post)
     end
@@ -38,10 +37,6 @@ module Thredded
 
     def topic
       post.postable
-    end
-
-    def reset_read_status
-      Thredded::UserResetsPrivateTopicToUnread.new(parent_topic, thredded_current_user).run
     end
 
     def post_params

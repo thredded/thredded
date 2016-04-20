@@ -5,7 +5,6 @@
     <%= image_tag post.avatar_url, class: 'thredded--post--avatar' unless post.user_anonymous? %>
     <h2 class="thredded--post--user"><%= user_link post.user %></h2>
     <p class="thredded--post--created-at"><%= time_ago post.created_at %></p>
-
   </header>
 
   <div class="thredded--post--content">

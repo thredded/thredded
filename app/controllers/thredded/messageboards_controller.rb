@@ -2,7 +2,7 @@
 module Thredded
   class MessageboardsController < Thredded::ApplicationController
     def index
-      @messageboards = thredded_current_user.thredded_can_read_messageboards.decorate
+      @messageboards = thredded_current_user.thredded_can_read_messageboards
     end
 
     def new

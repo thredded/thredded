@@ -15,7 +15,18 @@ module Thredded
       end
 
       def decorate_all(user, topics)
-        topics.map { |topic| new(user, topic) }
+        if user.thredded_anonymous?
+          topics.map { |topic| new(topic, user) }
+        else
+          read_state_by_topic_id =
+            topics.reflect_on_association(:user_read_states).klass
+              .where(user_id: user.id, postable_id: topics.map(&:id))
+              .group_by(&:postable_id)
+          topics.map do |topic|
+            read_state = read_state_by_topic_id[topic.id]
+            new(topic, read_state && read_state[0])
+          end
+        end
       end
 
       def model_name
@@ -23,14 +34,23 @@ module Thredded
       end
     end
 
-    def initialize(user, topic)
-      @user  = user || Thredded::NullUser.new
+    def initialize(topic, read_state_or_user)
+      if read_state_or_user.respond_to?(:thredded_anonymous?)
+        unless read_state_or_user.thredded_anonymous?
+          @read_state =
+            topic.association(:user_read_states).klass
+              .where(user_id: read_state_or_user.id, postable_id: topic.id).first
+        end
+      else
+        @read_state = read_state_or_user
+      end
+      @read_state ||= Thredded::NullUserTopicReadState.new
       @topic = self.class.decorator_class.new(topic)
       super(@topic)
     end
 
     def to_model
-      topic
+      @topic
     end
 
     def persisted?
@@ -38,27 +58,19 @@ module Thredded
     end
 
     def css_class
-      [read_status_class, topic.css_class].map(&:presence).compact.join(' ')
-    end
-
-    def read_status_class
-      if read?
-        'thredded--topic--read'
-      else
-        'thredded--topic--unread'
-      end
+      [(read? ? 'thredded--topic--read' : 'thredded--topic--unread'), @topic.css_class].join(' ')
     end
 
     def read?
-      fail 'Subclass responsibility'
+      @read_state.read?
+    end
+
+    def farthest_page
+      @read_state.page
     end
 
     def to_ary
       [self]
     end
-
-    private
-
-    attr_reader :topic, :user
   end
 end

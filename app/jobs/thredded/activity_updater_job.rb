@@ -4,10 +4,10 @@ module Thredded
     queue_as :default
 
     def perform(user_id, messageboard_id)
-      now = Time.zone.now
+      now = Time.current
 
-      user_detail = Thredded::UserDetail.for_user_id(user_id)
-      user_detail.update_column(:last_seen_at, now)
+      user_detail = Thredded::UserDetail.where(user_id: user_id).first_or_initialize
+      user_detail.update!(last_seen_at: now)
 
       Thredded::MessageboardUser
         .where(

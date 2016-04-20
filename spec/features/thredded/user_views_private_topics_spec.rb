@@ -35,7 +35,9 @@ feature 'User viewing private topics' do
     expect(private_topics.private_topic.size).to eq(1)
     expect(private_topics.unread_private_topics.size).to eq(0)
 
-    private_topics.update_all_private_topics
+    travel_to 1.minute.from_now do
+      private_topics.someone_updates_topic
+    end
     private_topics.visit_index
 
     expect(private_topics.private_topic.size).to eq(1)
@@ -67,7 +69,8 @@ feature 'User viewing private topics' do
     private_topic = create(
       :private_topic,
       user: me,
-      users: [me, them])
+      users: [me, them],
+      posts: build_list(:private_post, 1))
     PageObject::PrivateTopics.new(private_topic.title)
   end
 

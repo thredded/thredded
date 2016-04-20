@@ -35,16 +35,6 @@ module Thredded
 
     default_scope { where(closed: false).order(topics_count: :desc) }
 
-    def self.decorate
-      all.map do |messageboard|
-        MessageboardDecorator.new(messageboard)
-      end
-    end
-
-    def decorate
-      MessageboardDecorator.new(self)
-    end
-
     def latest_user
       latest_topic.last_user
     end

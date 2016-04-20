@@ -30,7 +30,7 @@ FactoryGirl.define do
     closed false
   end
 
-  factory :post, aliases: [:farthest_post], class: Thredded::Post do
+  factory :post, class: Thredded::Post do
     user
     association :postable, factory: :topic
     messageboard
@@ -139,10 +139,9 @@ FactoryGirl.define do
     user
   end
 
-  factory :user_topic_read, class: Thredded::UserTopicRead do
+  factory :user_topic_read_state, class: Thredded::UserTopicReadState do
     user
-    topic
-    farthest_post
+    association :postable, factory: :topic
     page 1
   end
 end

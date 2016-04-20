@@ -10,7 +10,7 @@ module PageObject
     end
 
     def normal_topics
-      all('article.thredded--topics--topic.thredded--topic--read:not(.thredded--topic--locked):not(.thredded--topic--sticky)')
+      all('article.thredded--topics--topic:not(.thredded--topic--locked):not(.thredded--topic--sticky)')
     end
 
     def locked_topics

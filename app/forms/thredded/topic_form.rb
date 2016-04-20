@@ -27,7 +27,7 @@ module Thredded
     end
 
     def category_options
-      topic.messageboard.decorate.category_options
+      categories.map { |cat| [cat.name, cat.id] }
     end
 
     def save

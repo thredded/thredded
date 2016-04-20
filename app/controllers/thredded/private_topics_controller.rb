@@ -20,12 +20,16 @@ module Thredded
 
     def show
       authorize_reading private_topic
-      UserReadsPrivateTopic.new(private_topic, thredded_current_user).run
 
       @posts = private_topic
         .posts
         .includes(:user)
         .order_oldest_first
+        .page(current_page)
+
+      if signed_in?
+        UserPrivateTopicReadState.touch!(thredded_current_user.id, private_topic.id, @posts.last, current_page)
+      end
 
       @post = private_topic.posts.build
     end
@@ -38,13 +42,7 @@ module Thredded
     def create
       @private_topic = PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
-        NotifyPrivateTopicUsersJob
-          .perform_later(@private_topic.private_topic.id)
-
-        UserResetsPrivateTopicToUnread
-          .new(@private_topic.private_topic, thredded_current_user)
-          .run
-
+        NotifyPrivateTopicUsersJob.perform_later(@private_topic.private_topic.id)
         redirect_to @private_topic.private_topic
       else
         render :new
@@ -66,6 +64,10 @@ module Thredded
     end
 
     private
+
+    def current_page
+      (params[:page] || 1).to_i
+    end
 
     def private_topic
       @private_topic ||= Thredded::PrivateTopic.find_by_slug(params[:id])

@@ -3,7 +3,7 @@ module Thredded
   class TopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!,
                   only: [:edit, :new, :update, :create, :destroy]
-    before_action :update_user_activity
+    after_action :update_user_activity
     helper_method :current_page, :topic, :user_topic
 
     def index
@@ -12,8 +12,7 @@ module Thredded
       @topics = messageboard.topics
         .order_sticky_first.order_recently_updated_first
         .includes(:categories, :last_user, :user)
-        .on_page(current_page)
-        .load
+        .page(current_page)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
       initialize_new_topic.tap do |new_topic|
@@ -28,9 +27,9 @@ module Thredded
         .order_oldest_first
         .page(current_page)
 
-      @new_post = messageboard.posts.build(postable: topic)
+      UserTopicReadState.touch!(thredded_current_user.id, topic.id, @posts.last, current_page) if signed_in?
 
-      update_read_status
+      @new_post = messageboard.posts.build(postable: topic)
     end
 
     def search
@@ -55,8 +54,7 @@ module Thredded
       @topics = @category.topics
         .unstuck
         .order_recently_updated_first
-        .on_page(current_page)
-        .load
+        .page(current_page)
       @decorated_topics = Thredded::UserTopicDecorator
         .decorate_all(thredded_current_user, @topics)
 
@@ -101,7 +99,7 @@ module Thredded
     end
 
     def topic
-      @topic ||= messageboard.topics.find_by_slug_with_user_topic_reads!(params[:id])
+      @topic ||= messageboard.topics.find_by_slug!(params[:id])
     end
 
     def topic_params
@@ -123,26 +121,11 @@ module Thredded
     end
 
     def current_page
-      params[:page] || 1
+      (params[:page] || 1).to_i
     end
 
     def user_topic
-      @user_topic ||= UserTopicDecorator.new(thredded_current_user, topic)
-    end
-
-    def update_read_status
-      return if thredded_current_user.thredded_anonymous?
-
-      read_history = UserTopicRead.where(
-        user_id: thredded_current_user,
-        topic: topic,
-      ).first_or_initialize
-
-      read_history.update!(
-        farthest_post: @posts.last,
-        posts_count: topic.posts_count,
-        page: current_page,
-      )
+      @user_topic ||= UserTopicDecorator.new(topic, thredded_current_user)
     end
   end
 end

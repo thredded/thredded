@@ -8,7 +8,7 @@ module PageObject
     end
 
     def visit_index
-      visit private_topics_path(messageboard)
+      visit private_topics_path
     end
 
     def view_private_topic
@@ -37,16 +37,16 @@ module PageObject
       click_on I18n.t('thredded.private_topics.form.create_btn')
     end
 
-    def update_all_private_topics
-      Thredded::PrivateUser.update_all(read: false)
+    def someone_updates_topic
+      create(:private_post, postable: Thredded::PrivateTopic.last)
     end
 
     def visit_private_topic_list
-      visit private_topics_path(messageboard)
+      visit private_topics_path
     end
 
     def on_private_list?
-      visit private_topics_path(messageboard)
+      visit private_topics_path
 
       has_css? 'article h1 a', text: private_title
     end
