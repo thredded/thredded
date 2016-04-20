@@ -18,8 +18,12 @@ Dummy::Application.configure do
     config.public_file_server.headers       = { 'Cache-Control' => 'public, max-age=31536000' }
     Rails.logger                            = Logger.new(STDOUT)
     config.force_ssl                        = true
+    if ENV['MEMCACHEDCLOUD_SERVERS']
+      config.cache_store = :dalli_store, ENV['MEMCACHEDCLOUD_SERVERS'].split(','), {
+        username: ENV['MEMCACHEDCLOUD_USERNAME'], password: ENV['MEMCACHEDCLOUD_PASSWORD'] }
+    end
   else
-    config.public_file_server.enabled       = false
+    config.public_file_server.enabled = false
   end
 
   # Compress JavaScripts and CSS

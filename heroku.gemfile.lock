@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails
-  revision: bca187219843fd49aba6415880d07fe8cb19f5f5
+  revision: 597fa0b42f90bbef6a8c7628d4e08fb132fba887
   specs:
     actioncable (5.0.0.beta3)
       actionpack (= 5.0.0.beta3)
@@ -128,6 +128,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
     crass (1.0.2)
+    dalli (2.7.6)
     db_text_search (0.2.0)
       activerecord (>= 4.1.15, < 6.0)
     erubis (2.7.0)
@@ -154,7 +155,7 @@ GEM
       html-pipeline (~> 2.0)
     htmlentities (4.3.4)
     i18n (0.7.0)
-    inline_svg (0.6.2)
+    inline_svg (0.6.3)
       activesupport (>= 4.0.4)
       loofah (>= 2.0)
       nokogiri (~> 1.6)
@@ -261,6 +262,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_record_union!
+  dalli
   factory_girl_rails
   faker (>= 1.6.2)
   jquery-turbolinks

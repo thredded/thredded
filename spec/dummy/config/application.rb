@@ -13,6 +13,7 @@ require 'thredded'
 if ENV['HEROKU']
   require 'rack/canonical_host'
   require 'newrelic_rpm'
+  require 'dalli'
 end
 
 module Dummy
