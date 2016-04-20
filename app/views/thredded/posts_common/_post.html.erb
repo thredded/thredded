@@ -1,3 +1,4 @@
+<%# @param post [Thredded::PostView] %>
 <%= content_tag :article, id: dom_id(post), class: 'thredded--post' do %>
   <header>
     <%= image_tag post.avatar_url, class: 'thredded--post--avatar' if post.user %>
@@ -11,16 +12,15 @@
     <% end %>
   </div>
 
-  <% post_policy = policy(post) %>
-  <% if post_policy.update? %>
-    <%= link_to t('thredded.posts.edit'), edit_post_path(post), class: 'thredded--post--edit' %>
+  <% if post.can_update? %>
+    <%= link_to t('thredded.posts.edit'), post.edit_path, class: 'thredded--post--edit' %>
   <% end %>
 
-  <% if post_policy.destroy? %>
-    <%= link_to t('thredded.posts.delete'), delete_post_path(post),
+  <% if post.can_destroy? %>
+    <%= link_to t('thredded.posts.delete'), post.destroy_path,
                 method: :delete,
-                class: 'thredded--post--delete',
-                data: { confirm: I18n.t('thredded.posts.delete_confirm') }
+                class:  'thredded--post--delete',
+                data:   { confirm: I18n.t('thredded.posts.delete_confirm') }
     %>
   <% end %>
 <% end %>

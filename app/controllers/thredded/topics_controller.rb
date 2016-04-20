@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_dependency 'thredded/posts_page_view'
 module Thredded
   class TopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!,
@@ -22,12 +23,13 @@ module Thredded
 
     def show
       authorize_reading topic
-      @posts = topic.posts
+      page_scope = topic.posts
         .includes(:user, :messageboard, :postable)
         .order_oldest_first
         .page(current_page)
+      @posts = Thredded::PostsPageView.new(thredded_current_user, page_scope)
 
-      UserTopicReadState.touch!(thredded_current_user.id, topic.id, @posts.last, current_page) if signed_in?
+      UserTopicReadState.touch!(thredded_current_user.id, topic.id, page_scope.last, current_page) if signed_in?
 
       @new_post = messageboard.posts.build(postable: topic)
     end

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 module Thredded
   module UrlsHelper
+    class << self
+      include Thredded::Engine.routes.url_helpers
+      include Thredded::UrlsHelper
+    end
+
     # @param user [Thredded.user_class, Thredded::NullUser]
     # @return [String] path to the user as specified by {Thredded.user_path}
     def user_path(user)
@@ -56,7 +61,7 @@ module Thredded
       if post.private_topic_post?
         edit_private_topic_private_post_path(post.postable, post)
       else
-        edit_messageboard_topic_post_path(messageboard, post.postable, post)
+        edit_messageboard_topic_post_path(post.messageboard, post.postable, post)
       end
     end
 
@@ -66,7 +71,7 @@ module Thredded
       if post.private_topic_post?
         private_topic_private_post_path(post.postable, post)
       else
-        messageboard_topic_post_path(messageboard, post.postable, post)
+        messageboard_topic_post_path(post.messageboard, post.postable, post)
       end
     end
 

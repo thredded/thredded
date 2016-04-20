@@ -3,7 +3,7 @@ module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
 
-    %w(app/decorators app/forms app/commands app/jobs lib).each do |path|
+    %w(app/view_models app/decorators app/forms app/commands app/jobs lib).each do |path|
       config.autoload_paths << File.expand_path("../../#{path}", File.dirname(__FILE__))
     end
 

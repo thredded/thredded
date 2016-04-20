@@ -16,7 +16,7 @@ module Thredded
       @topic                    = @topics.find { |t| t.posts.present? } || @topics.first_or_initialize(
         title: 'Hello', slug: 'hello', user: @user)
       @user_topic               = UserTopicDecorator.new(@topic, @user)
-      @posts                    = @topic.posts.first(3)
+      @posts                    = @topic.posts.first(3).map { |post| Thredded::PostView.new(post, policy(post)) }
       @post                     = @topic.posts.first_or_initialize(
         id: 1337, postable: @topic, content: 'Hello world', user: @user)
       @new_post                 = @messageboard.posts.build(postable: @topic)
@@ -24,6 +24,7 @@ module Thredded
       @new_private_topic        = PrivateTopicForm.new(user: @user)
       @private_topic            = PrivateTopic.first_or_initialize(
         id: 1337, title: 'Hello', user: @user, last_user: @user, users: [@user])
+      @private_posts            = @private_topic.posts.first(3).map { |p| Thredded::PostView.new(p, policy(p)) }
       @private_post             = @private_topic.posts.build(
         id: 1337, postable: @private_topic, content: 'A private hello world', user: @user)
       @preferences              = UserPreferencesForm.new(user: @user, messageboard: @messageboard)
