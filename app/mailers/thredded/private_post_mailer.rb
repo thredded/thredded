@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_dependency 'thredded/topic_email_view'
 module Thredded
   class PrivatePostMailer < Thredded::BaseMailer
     def at_notification(post_id, emails)

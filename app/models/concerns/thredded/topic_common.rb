@@ -48,9 +48,22 @@ module Thredded
           .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:updated_at]))))
       end
 
-      def decorate
-        all.map do |topic|
-          TopicDecorator.new(topic)
+      # @param user [Thredded.user_class]
+      # @return [Array<[TopicCommon, UserTopicReadStateCommon]>]
+      def with_read_states(user)
+        null_read_state = Thredded::NullUserTopicReadState.new
+        return current_scope.zip([null_read_state]) if user.thredded_anonymous?
+        read_state_by_topic_id =
+          reflect_on_association(:user_read_states).klass
+            .where(user_id: user.id, postable_id: current_scope.map(&:id))
+            .group_by(&:postable_id)
+        current_scope.map do |topic|
+          read_state = read_state_by_topic_id[topic.id]
+          if read_state
+            read_state = read_state[0]
+            read_state.postable = topic
+          end
+          [topic, read_state || null_read_state]
         end
       end
     end

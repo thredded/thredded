@@ -60,10 +60,6 @@ module Thredded
       raise Thredded::Errors::TopicNotFound
     end
 
-    def decorate
-      TopicDecorator.new(self)
-    end
-
     def public?
       true
     end

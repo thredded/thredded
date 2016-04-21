@@ -104,12 +104,12 @@
   transition: background 0.1s linear, color 0.1s linear;
 }
 
-&--topic--unread > &--topics--posts-count {
+&--topic-unread > &--topics--posts-count {
   background: $thredded-badge-active-background;
   color: $thredded-badge-active-color;
 }
 
-&--topic--read > &--topics--posts-count {
+&--topic-read > &--topics--posts-count {
   background: $thredded-badge-inactive-background;
   color: $thredded-badge-inactive-color;
 }

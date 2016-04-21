@@ -5,8 +5,8 @@
           time_ago: time_ago(topic.created_at),
           user:     user_link(topic.user) %>
   </cite>
-  <% if policy(topic).update? %>
-    <%= link_to t('thredded.topics.edit'), edit_messageboard_topic_path(topic.messageboard.slug, topic.slug),
+  <% if topic.can_update? %>
+    <%= link_to t('thredded.topics.edit'), topic.edit_path,
                 class: 'thredded--topic-header--edit-topic' %>
   <% end %>
 </header>

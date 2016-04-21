@@ -10,15 +10,15 @@ module PageObject
     end
 
     def normal_topics
-      all('article.thredded--topics--topic:not(.thredded--topic--locked):not(.thredded--topic--sticky)')
+      all('article.thredded--topics--topic:not(.thredded--topic-locked):not(.thredded--topic-sticky)')
     end
 
     def locked_topics
-      all('.thredded--topics article.thredded--topic--locked')
+      all('.thredded--topics article.thredded--topic-locked')
     end
 
     def stuck_topics
-      all('.thredded--topics article.thredded--topic--sticky')
+      all('.thredded--topics article.thredded--topic-sticky')
     end
 
     def create_topic
@@ -95,15 +95,15 @@ module PageObject
     end
 
     def locked?
-      has_css? '.thredded--topic--locked'
+      has_css? '.thredded--topic-locked'
     end
 
     def stuck?
-      has_css? '.thredded--topic--sticky'
+      has_css? '.thredded--topic-sticky'
     end
 
-    def categorized?
-      has_css? '.thredded--topic--category'
+    def categorized?(category_name)
+      has_css? ".thredded--topic-category-#{category_name}"
     end
 
     def with_title(text)
@@ -131,7 +131,7 @@ module PageObject
     end
 
     def read?
-      has_css? '.thredded--topics article.thredded--topic--read h1 a', text: topic_title
+      has_css? '.thredded--topics article.thredded--topic-read h1 a', text: topic_title
     end
 
     def view_topic

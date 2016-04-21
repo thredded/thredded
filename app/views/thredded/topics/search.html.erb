@@ -3,12 +3,12 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <% if @decorated_topics.present? %>
+  <% if @topics.present? %>
     <p class="thredded--alert thredded--alert-success">
       <%= t 'thredded.topics.search.results_message', query: "'#{@query}'" %>
     </p>
     <section class="thredded--main-section thredded--topics">
-      <%= render @decorated_topics %>
+      <%= render @topics %>
     </section>
     <footer>
       <%= paginate @topics %>

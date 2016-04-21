@@ -1,8 +1,10 @@
-<%= content_tag :article, id: dom_id(topic), class: "thredded--topics--topic #{topic.css_class}" do %>
+<%= content_tag :article,
+                id:    dom_id(topic),
+                class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
-    <%= link_to topic.title, topic_path(topic) %>
+    <%= link_to topic.title, topic.path %>
   </h1>
 
   <% if topic.categories.any? %>

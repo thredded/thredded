@@ -50,18 +50,6 @@ module Thredded
       raise Thredded::Errors::PrivateTopicNotFound
     end
 
-    def decorate
-      TopicDecorator.new(self)
-    end
-
-    def user_topic_reads
-      []
-    end
-
-    def categories
-      []
-    end
-
     def public?
       false
     end

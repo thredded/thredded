@@ -26,5 +26,15 @@ module Thredded
     def paginate(collection, args = {})
       super(collection, args.reverse_merge(views_prefix: 'thredded'))
     end
+
+    # @param topic [BaseTopicView]
+    # @return [Array<String>]
+    def topic_css_classes(topic)
+      [
+        *topic.states.map { |s| "thredded--topic-#{s}" },
+        *(topic.categories.map { |c| "thredded--topic-category-#{c.name}" } if topic.respond_to?(:categories)),
+        *('thredded--private-topic' if topic.is_a?(Thredded::PrivateTopicView))
+      ]
+    end
   end
 end

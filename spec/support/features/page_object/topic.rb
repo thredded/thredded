@@ -53,7 +53,7 @@ module PageObject
     end
 
     def locked?
-      has_css?('.thredded--topic.thredded--topic--locked')
+      has_css?('.thredded--topic.thredded--topic-locked')
     end
 
     def has_redirected_after_delete?

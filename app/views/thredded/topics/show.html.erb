@@ -1,9 +1,12 @@
+<% topic = @posts.topic %>
 <% content_for :thredded_page_title, topic.title %>
 <% content_for :thredded_page_id, 'thredded--topic-show' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, id: dom_id(topic), class: "thredded--main-section thredded--topic #{user_topic.css_class}" do %>
+  <%= content_tag :section,
+                  id: dom_id(topic),
+                  class: ['thredded--main-section', 'thredded--topic', *topic_css_classes(topic)] do %>
     <%= render 'thredded/topics/header', topic: topic %>
     <%= render partial: 'thredded/posts/post', collection: @posts, cached: true %>
     <% if policy(@new_post).create? %>
@@ -16,9 +19,9 @@
       </div>
     <% end %>
 
-    <% if policy(topic).destroy? %>
+    <% if topic.can_destroy? %>
       <div class="thredded--topic-delete--wrapper">
-        <%= form_tag messageboard_topic_path(messageboard, topic), method: :delete, class: 'thredded--topic-delete-form' do %>
+        <%= form_tag topic.destroy_path, method: :delete, class: 'thredded--topic-delete-form' do %>
           <%= submit_tag 'Delete Topic', class: 'thredded--form--submit' %>
         <% end %>
       </div>

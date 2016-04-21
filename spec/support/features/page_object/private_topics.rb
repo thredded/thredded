@@ -20,11 +20,11 @@ module PageObject
     end
 
     def read_private_topics
-      all('.thredded--topic--read.thredded--private-topic')
+      all('.thredded--topic-read.thredded--private-topic')
     end
 
     def unread_private_topics
-      all('.thredded--topic--unread.thredded--private-topic')
+      all('.thredded--topic-unread.thredded--private-topic')
     end
 
     def create_private_topic

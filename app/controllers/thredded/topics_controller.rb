@@ -1,23 +1,24 @@
 # frozen_string_literal: true
 require_dependency 'thredded/posts_page_view'
+require_dependency 'thredded/topics_page_view'
 module Thredded
   class TopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!,
                   only: [:edit, :new, :update, :create, :destroy]
     after_action :update_user_activity
-    helper_method :current_page, :topic, :user_topic
+    helper_method :current_page
 
     def index
       authorize_reading messageboard
 
-      @topics = messageboard.topics
-        .order_sticky_first.order_recently_updated_first
-        .includes(:categories, :last_user, :user)
-        .page(current_page)
-      @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(thredded_current_user, @topics)
-      initialize_new_topic.tap do |new_topic|
-        @new_topic = new_topic if policy(new_topic.topic).create?
+      @topics = Thredded::TopicsPageView.new(
+        thredded_current_user,
+        messageboard.topics
+          .order_sticky_first.order_recently_updated_first
+          .includes(:categories, :last_user, :user)
+          .page(current_page))
+      TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
+        @new_topic = form if policy(form.topic).create?
       end
     end
 
@@ -27,7 +28,7 @@ module Thredded
         .includes(:user, :messageboard, :postable)
         .order_oldest_first
         .page(current_page)
-      @posts = Thredded::PostsPageView.new(thredded_current_user, page_scope)
+      @posts = Thredded::PostsPageView.new(thredded_current_user, topic, page_scope)
 
       UserTopicReadState.touch!(thredded_current_user.id, topic.id, page_scope.last, current_page) if signed_in?
 
@@ -36,13 +37,13 @@ module Thredded
 
     def search
       @query = params[:q].to_s
-      @topics = (messageboard_or_nil ? messageboard.topics : Topic)
-        .search_query(@query)
-        .order_recently_updated_first
-        .includes(:categories, :last_user, :user)
-        .page(current_page)
-      @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(thredded_current_user, @topics)
+      @topics = Thredded::TopicsPageView.new(
+        thredded_current_user,
+        (messageboard_or_nil ? messageboard.topics : Topic)
+          .search_query(@query)
+          .order_recently_updated_first
+          .includes(:categories, :last_user, :user)
+          .page(current_page))
     end
 
     def new
@@ -53,13 +54,12 @@ module Thredded
     def category
       authorize_reading messageboard
       @category = messageboard.categories.friendly.find(params[:category_id])
-      @topics = @category.topics
-        .unstuck
-        .order_recently_updated_first
-        .page(current_page)
-      @decorated_topics = Thredded::UserTopicDecorator
-        .decorate_all(thredded_current_user, @topics)
-
+      @topics = Thredded::TopicsPageView.new(
+        thredded_current_user,
+        @category.topics
+          .unstuck
+          .order_recently_updated_first
+          .page(current_page))
       render :index
     end
 
@@ -96,10 +96,6 @@ module Thredded
 
     private
 
-    def initialize_new_topic
-      TopicForm.new(messageboard: messageboard, user: thredded_current_user)
-    end
-
     def topic
       @topic ||= messageboard.topics.find_by_slug!(params[:id])
     end
@@ -124,10 +120,6 @@ module Thredded
 
     def current_page
       (params[:page] || 1).to_i
-    end
-
-    def user_topic
-      @user_topic ||= UserTopicDecorator.new(topic, thredded_current_user)
     end
   end
 end

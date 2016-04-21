@@ -57,7 +57,7 @@ feature 'User creates new topic' do
 
       expect(topic).to be_locked
       expect(topic).to be_stuck
-      expect(topic).to be_categorized
+      expect(topic).to be_categorized('beer')
       expect(topic).to have_the_title_and_content
     end
   end

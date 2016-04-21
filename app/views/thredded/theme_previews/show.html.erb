@@ -23,7 +23,7 @@
                topic:        @new_topic,
                css_class:    'thredded--is-compact',
                placeholder:  'Start a New Topic' %>
-    <%= render @decorated_topics %>
+    <%= render @topics %>
   <% end %>
   <footer>
     <%= paginate @topics %>
@@ -31,8 +31,8 @@
   <br>
 
 
-  <%= render 'section_title', label: 'topics#show', href: messageboard_topic_path(@messageboard, @topic) %>
-  <%= content_tag :section, id: dom_id(@topic), class: "thredded--thredded--main-section #{@user_topic.css_class}" do %>
+  <%= render 'section_title', label: 'topics#show', href: @topic.path %>
+  <%= content_tag :section, id: dom_id(@topic), class: ['thredded--thredded--main-section', topic_css_classes(@topic)] do %>
     <%= render 'thredded/topics/header', topic: @topic %>
     <%= render @posts %>
     <%= render 'thredded/posts/form',
@@ -73,7 +73,7 @@
                private_topic: @new_private_topic,
                css_class:     'thredded--is-compact',
                placeholder:   t('thredded.private_topics.form.title_placeholder_start') %>
-    <%= render @decorated_private_topics %>
+    <%= render @private_topics %>
   <% end %>
 
   <%= render 'section_title', label: 'private_topics#new', href: new_private_topic_path %>

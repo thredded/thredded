@@ -3,8 +3,8 @@
 
   const TOPIC_SELECTOR = 'article';
   const TOPIC_LINK_SELECTOR = 'h1 a';
-  const TOPIC_UNREAD_CLASS = 'thredded--topic--unread';
-  const TOPIC_READ_CLASS = 'thredded--topic--read';
+  const TOPIC_UNREAD_CLASS = 'thredded--topic-unread';
+  const TOPIC_READ_CLASS = 'thredded--topic-read';
 
   class ThreddedTopics {
     init($nodes) {

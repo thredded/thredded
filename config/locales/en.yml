@@ -11,6 +11,7 @@ en:
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
     nav:
       all_messageboards: All Messageboards
+      edit_post: Edit Post
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Edit
       private_topics: Private Messages
@@ -19,7 +20,7 @@ en:
       delete: Delete Post
       delete_confirm: Are you sure you want to delete this post?
       deleted_notice: Your post has been deleted.
-      edit: Edit Post
+      edit: :thredded.nav.edit_post
       form:
         content_label: Content
         create_btn: Submit Reply

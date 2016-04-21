@@ -1,8 +1,10 @@
-<%= content_tag :article, id: dom_id(private_topic), class: "thredded--topics--topic #{private_topic.css_class}" do %>
+<%= content_tag :article,
+                id: dom_id(private_topic),
+                class: ['thredded--topics--topic', *topic_css_classes(private_topic)] do %>
   <div class="thredded--topics--posts-count"><%= private_topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
-    <%= link_to private_topic.title, topic_path(private_topic) %>
+    <%= link_to private_topic.title, private_topic.path %>
   </h1>
 
   <cite class="thredded--topics--updated-by">
@@ -14,9 +16,5 @@
     <%= time_ago private_topic.created_at %>
     <%= user_link private_topic.user %>
   </cite>
-
-  <ul class="thredded--topics--categories">
-    <%= render private_topic.categories %>
-  </ul>
 <% end %>
 

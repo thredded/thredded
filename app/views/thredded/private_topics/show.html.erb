@@ -1,9 +1,12 @@
+<% private_topic = @posts.topic %>
 <% content_for :thredded_page_title, private_topic.title %>
 <% content_for :thredded_page_id, 'thredded--private-topic-show' %>
 <% content_for :thredded_breadcrumbs, render('thredded/private_topics/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, id: dom_id(private_topic), class: 'thredded--main-section thredded--topic thredded--private-topic' do %>
+  <%= content_tag :section,
+                  id: dom_id(private_topic),
+                  class: ['thredded--main-section', 'thredded--topic', *topic_css_classes(private_topic)] do %>
     <%= render 'thredded/private_topics/header', topic: private_topic %>
     <%= render partial: 'thredded/private_posts/private_post', collection: @posts, cached: true %>
     <%= render 'thredded/private_posts/form',

@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 require_dependency 'thredded/posts_page_view'
+require_dependency 'thredded/topics_page_view'
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!
-    helper_method :private_topic
 
     def index
-      @private_topics = PrivateTopic
-        .distinct
-        .for_user(thredded_current_user)
-        .order_recently_updated_first
-        .includes(:last_user, :user)
-        .on_page(params[:page])
-        .load
-      @decorated_private_topics = Thredded::UserPrivateTopicDecorator
-        .decorate_all(thredded_current_user, @private_topics)
+      @private_topics = Thredded::TopicsPageView.new(
+        thredded_current_user,
+        PrivateTopic
+          .distinct
+          .for_user(thredded_current_user)
+          .order_recently_updated_first
+          .includes(:last_user, :user)
+          .page(params[:page]))
 
-      @new_private_topic = PrivateTopicForm.new(user: thredded_current_user)
+      PrivateTopicForm.new(user: thredded_current_user).tap do |form|
+        @new_private_topic = form if policy(form.private_topic).create?
+      end
     end
 
     def show
@@ -27,7 +28,7 @@ module Thredded
         .includes(:user)
         .order_oldest_first
         .page(current_page)
-      @posts = Thredded::PostsPageView.new(thredded_current_user, page_scope)
+      @posts = Thredded::PostsPageView.new(thredded_current_user, private_topic, page_scope)
 
       if signed_in?
         UserPrivateTopicReadState.touch!(thredded_current_user.id, private_topic.id, page_scope.last, current_page)

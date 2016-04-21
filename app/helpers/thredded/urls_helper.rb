@@ -15,12 +15,9 @@ module Thredded
     # @param topic [Topic, PrivateTopic, UserTopicDecorator, UserPrivateTopicDecorator]
     # @return [String]
     def topic_url(topic, params = {})
-      # TODO: make this return the URL of last unread post by default
-      # TODO: farthest_page always returns 1, fix.
-      params = params.dup
-      if !params[:page] && topic.respond_to?(:farthest_page)
-        params[:page] = topic.farthest_page
-        params[:page] = nil if params[:page] == 1
+      if params[:page] == 1
+        params = params.dup
+        params.delete(:page)
       end
       if topic.private?
         private_topic_url(
