@@ -61,31 +61,37 @@ module Thredded
 
     # @param view_context [Object] the context of the rendering view.
     def filtered_content(view_context)
-      pipeline = HTML::Pipeline.new(
-        [
-          HTML::Pipeline::VimeoFilter,
-          HTML::Pipeline::YoutubeFilter,
-          HTML::Pipeline::BbcodeFilter,
-          HTML::Pipeline::MarkdownFilter,
-          HTML::Pipeline::SanitizationFilter,
-          HTML::Pipeline::AtMentionFilter,
-          HTML::Pipeline::EmojiFilter,
-          HTML::Pipeline::AutolinkFilter,
-        ], context_options)
-
+      pipeline = HTML::Pipeline.new(content_pipeline_filters, content_pipeline_options)
       result = pipeline.call(content, view_context: view_context)
       result[:output].to_s.html_safe
     end
 
-    private
+    protected
 
-    def context_options
+    # @return [Array<HTML::Pipeline::Filter]>]
+    def content_pipeline_filters
+      [
+        HTML::Pipeline::VimeoFilter,
+        HTML::Pipeline::YoutubeFilter,
+        HTML::Pipeline::BbcodeFilter,
+        HTML::Pipeline::MarkdownFilter,
+        HTML::Pipeline::SanitizationFilter,
+        HTML::Pipeline::AtMentionFilter,
+        HTML::Pipeline::EmojiFilter,
+        HTML::Pipeline::AutolinkFilter,
+      ]
+    end
+
+    # @return [Hash] options for HTML::Pipeline.new
+    def content_pipeline_options
       {
         asset_root: Rails.application.config.action_controller.asset_host || '',
         post:       self,
         whitelist:  WHITELIST,
       }
     end
+
+    private
 
     def update_parent_last_user_and_timestamp
       return if postable.destroyed?
