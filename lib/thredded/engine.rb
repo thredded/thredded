@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_dependency 'thredded/main_app_route_delegator'
 module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
