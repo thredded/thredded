@@ -6,7 +6,6 @@ module Thredded
     before_action :thredded_require_login!,
                   only: [:edit, :new, :update, :create, :destroy]
     after_action :update_user_activity
-    helper_method :current_page
 
     def index
       authorize_reading messageboard
