@@ -5,11 +5,25 @@
   const TOPIC_LINK_SELECTOR = 'h1 a';
   const TOPIC_UNREAD_CLASS = 'thredded--topic-unread';
   const TOPIC_READ_CLASS = 'thredded--topic-read';
+  const POSTS_COUNT_SELECTOR = '.thredded--topics--posts-count';
+  const POSTS_PER_PAGE = 50;
+
+  function pageNumber(url) {
+    const match = url.match(/\/page-(\d)$/);
+    return match ? +match[1] : 1;
+  }
+
+  function totalPages(numPosts) {
+    return Math.ceil(numPosts / POSTS_PER_PAGE);
+  }
 
   class ThreddedTopics {
     init($nodes) {
       $nodes.on('click', TOPIC_LINK_SELECTOR, (evt) => {
-        $(evt.target).closest(TOPIC_SELECTOR).addClass(TOPIC_READ_CLASS).removeClass(TOPIC_UNREAD_CLASS);
+        const $topic = $(evt.target).closest(TOPIC_SELECTOR);
+        if (pageNumber($topic.find('a').prop('href')) == totalPages(+$topic.find(POSTS_COUNT_SELECTOR).text())) {
+          $topic.addClass(TOPIC_READ_CLASS).removeClass(TOPIC_UNREAD_CLASS);
+        }
       });
     }
   }
