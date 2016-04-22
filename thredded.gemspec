@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://www.thredded.com'
   s.summary     = 'A messageboard engine'
   s.license     = 'MIT'
-  s.description = 'A messageboard engine for Rails 4.1+ apps'
+  s.description = 'A messageboard engine for Rails 4.2+ apps'
 
   s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec|script)/|^\.}) } -
     %w(Dockerfile docker-compose.yml Rakefile Gemfile shared.gemfile)
