@@ -1,5 +1,20 @@
 # MASTER
 
+## Fixed
+
+* TBD
+
+## Added
+
+* TBD
+
+## Changed
+
+* TBD
+
+
+# 0.3.0 - 2016-04-22
+
 Thredded now supports Rails 4.2+ only.
 
 Thredded now also fully supports the latest Rails 5 beta, but currently this requires using master versions of certain
@@ -8,6 +23,8 @@ for more information.
 
 ## Fixed
 
+* (Private)Topic slugs re-generate at appropriate time
+  [28c09f4](https://github.com/thredded/thredded/commit/28c09f40804d3a71bbc12c56819a8acab3c94f2d)
 * Editing topics and private message subjects. [#235](https://github.com/thredded/thredded/pull/235)
 * Require login for `PrivateTopicsController`.
   [5739f5](https://github.com/thredded/thredded/commit/5739f50a513377392205a41958b5a2d3ca25dc10)
@@ -22,6 +39,7 @@ for more information.
 
 ## Added
 
+* Dummy App renamed to "Thredded Demo" and demo deployed to Heroku
 * Added vimeo and youtube auto-embed support. [#216](https://github.com/thredded/thredded/pull/216)
 * Ability to delete posts. [#214](https://github.com/thredded/thredded/pull/214)
 * Global search across all messageboards. [#215](https://github.com/thredded/thredded/pull/215)
@@ -35,6 +53,7 @@ for more information.
 
 ## Changed
 
+* Navigation layout/design updated [ec699fd](https://github.com/thredded/thredded/commit/ec699fd)
 * Changed from using Bbcode OR Markdown to *both*, simultaneously.
   [#221](https://github.com/thredded/thredded/pull/221)
 * Removed Timecop in favor of built-in rails `travel_to` helper.
