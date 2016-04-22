@@ -65,7 +65,7 @@ module Thredded
     end
 
     def should_generate_new_friendly_id?
-      title_changed?
+      slug.blank? || title_changed? || super
     end
 
     private
@@ -73,7 +73,7 @@ module Thredded
     def slug_candidates
       [
         :title,
-        [:title, '-topic']
+        [:title, '-topic'],
       ]
     end
   end
