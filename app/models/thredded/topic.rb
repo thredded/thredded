@@ -65,7 +65,7 @@ module Thredded
     end
 
     def should_generate_new_friendly_id?
-      slug.blank? || title_changed? || super
+      title_changed?
     end
 
     private
