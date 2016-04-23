@@ -1,5 +1,5 @@
 <li class="thredded--user-navigation--item thredded--user-navigation--private-topics">
-  <%= link_to private_topics_path do %>
+  <%= link_to private_topics_path, rel: 'nofollow' do %>
     <%= inline_svg 'thredded/private-messages.svg', class: 'thredded--icon' %>
     <%= t('thredded.nav.private_topics') %>
     <% if unread_private_topics_count > 0 -%>
