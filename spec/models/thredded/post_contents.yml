@@ -82,6 +82,18 @@
       <p></p>
       </blockquote><br>
 
+  quotes in markdown:
+    - |
+      > This is a quote
+
+      I quoted
+    - |
+      <blockquote>
+      <p>This is a quote</p>
+      </blockquote>
+
+      <p>I quoted</p>
+
   code snippets in markdown:
     - |
       this is code

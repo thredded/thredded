@@ -11,6 +11,7 @@ module HTML
       def call
         html = BBCoder.new(@text).to_html
         html = remove_url_link_contents(html)
+        html = preserve_mkdn_comments(html)
         html.delete('<br>')
         html.rstrip!
         html
@@ -22,6 +23,10 @@ module HTML
           link.content = link.content.gsub(%r{https?://}, '')
         end
         doc.to_html
+      end
+
+      def preserve_mkdn_comments(html)
+        html.gsub(/^&gt; /, '> ')
       end
     end
   end
