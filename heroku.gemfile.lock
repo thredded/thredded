@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/amatsuda/kaminari
-  revision: 772de7ccea717ad74524163fa6ae9601efc87c2f
+  revision: 0e21d52feca1f79a9aca83613cf053eb5273827e
   specs:
     kaminari (1.0.0.alpha)
       actionpack (>= 3.0.0)
@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails
-  revision: 597fa0b42f90bbef6a8c7628d4e08fb132fba887
+  revision: f5dcc141ec19ae585326f5b424b81c0217a386c0
   specs:
     actioncable (5.0.0.beta3)
       actionpack (= 5.0.0.beta3)
@@ -77,7 +77,7 @@ GIT
 PATH
   remote: .
   specs:
-    thredded (0.2.2)
+    thredded (0.3.0)
       active_record_union (>= 1.1.1)
       autoprefixer-rails
       autosize-rails
@@ -155,7 +155,7 @@ GEM
       html-pipeline (~> 2.0)
     htmlentities (4.3.4)
     i18n (0.7.0)
-    inline_svg (0.6.3)
+    inline_svg (0.6.4)
       activesupport (>= 4.0.4)
       loofah (>= 2.0)
       nokogiri (~> 1.6)
@@ -217,7 +217,7 @@ GEM
     ref (2.0.0)
     request_store (1.3.1)
     rinku (1.7.3)
-    rollbar (2.9.1)
+    rollbar (2.10.0)
       multi_json
     sanitize (4.0.1)
       crass (~> 1.0.2)
