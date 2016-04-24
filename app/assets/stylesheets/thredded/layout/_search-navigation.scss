@@ -15,27 +15,33 @@
 
   input[type="search"] {
     box-shadow: none;
-    transition: all 0.15s ease-out 0s;
     width: 100%;
 
     @include thredded-media-tablet-and-up {
+      $padding-x: 0.75rem;
       background: transparent;
       border-color: transparent;
       font-size: $thredded-font-size-small;
       line-height: 1rem;
       min-width: 12.8125rem;
-      margin-right: -$thredded-base-spacing;
       text-align: right;
       width: auto;
-      padding: 0.90625rem 0.75rem 0.8125rem 0.75rem;
+      padding: 0.90625rem $padding-x 0.8125rem $padding-x;
+      margin-right: -($padding-x);
+      // Webkit adds an extra padding that we need to remove.
+      -webkit-margin-end: -($padding-x + 0.75rem);
+
+      &, &:focus {
+        transition: background, border-color, box-shadow, min-width 0.15s ease-out 0s;
+      }
 
       &:focus {
         background: $thredded-background-color;
         box-shadow: none;
-        min-width: 290px;
-        text-align: left;
-        transition: all 0.15s ease-out 0s;
         margin-right: 0;
+        -webkit-margin-end: 0;
+        min-width: 18rem;
+        text-align: left;
       }
 
       &:hover {
@@ -45,13 +51,16 @@
 
       &::placeholder {
         color: $thredded-secondary-nav-color;
+        transition: $thredded-action-transition;
+        // Firefox applies default opacity of 0.54, while all the other browsers use 1.
+        // See https://bugzilla.mozilla.org/show_bug.cgi?id=556145
+        opacity: 1;
       }
 
       &:hover:not(:focus) {
         cursor: pointer;
         &::placeholder {
           color: $thredded-nav-hover-color;
-          transition: color 0.1s linear;
         }
       }
 
