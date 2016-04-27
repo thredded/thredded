@@ -1,0 +1,20 @@
+<% content_for :thredded_page_title, t('thredded.messageboard_group.create') %>
+<% content_for :thredded_page_id, 'thredded--messageboard-groups-new' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= t('thredded.messageboard_group.create') %></li>
+  </ul>
+<% end %>
+
+<%= thredded_page do %>
+  <%= form_for @messageboard_group, html: { class: 'thredded--form' } do |f| %>
+    <ul class="thredded--form-list">
+      <li>
+        <%= f.label :name %>
+        <%= f.text_field :name, required: true %>
+      </li>
+
+      <li><%= f.submit  t('thredded.messageboard_group.create'), class: 'thredded--form--submit' %></li>
+    </ul>
+  <% end %>
+<% end %>

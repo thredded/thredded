@@ -6,7 +6,7 @@ module Thredded
                 use:            [:slugged, :reserved],
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
-                  %w(messageboards preferences private-topics autocomplete-users theme-preview)
+                  %w(messageboards preferences private-topics autocomplete-users theme-preview admin)
                 )
 
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
@@ -33,7 +33,15 @@ module Thredded
              through:    :recently_active_user_details,
              source:     :user
 
+    belongs_to :group,
+               inverse_of: :messageboards,
+               foreign_key: :thredded_messageboard_group_id,
+               class_name: Thredded::MessageboardGroup
+
     default_scope { where(closed: false).order(topics_count: :desc) }
+
+    scope :top_level_messageboards, -> { where(group: nil) }
+    scope :by_messageboard_group, ->(group) { where(group: group.id) }
 
     def latest_user
       latest_topic.last_user

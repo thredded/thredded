@@ -2,11 +2,15 @@
 module Thredded
   class MessageboardsController < Thredded::ApplicationController
     def index
-      @messageboards = thredded_current_user.thredded_can_read_messageboards
+      @groups = thredded_current_user
+        .thredded_can_read_messageboards
+        .preload(:group).group_by(&:group)
+        .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
     end
 
     def new
       @messageboard = Messageboard.new
+      @messageboard_group = MessageboardGroup.all
       authorize_creating @messageboard
     end
 
@@ -36,7 +40,7 @@ module Thredded
     def messageboard_params
       params
         .require(:messageboard)
-        .permit(:description, :name, :posting_permission, :security)
+        .permit(:description, :name, :posting_permission, :security, :thredded_messageboard_group_id)
     end
 
     def topic_params
