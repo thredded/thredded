@@ -306,23 +306,14 @@ Below is an overview of the default permissions, with links to the implementatio
 </tbody>
 </table>
 
-### Handling "Permission denied"
+### Handling "Permission denied" and "Not found" errors
 
-Thredded defines a number of Exception classes that you can [`rescue_from`][rescue_from] in your `ApplicationController`
-to handle permission denied errors.
+Thredded defines a number of Exception classes for not found / permission denied errors.
+The complete list can be found [here](https://github.com/thredded/thredded/blob/master/app/controllers/thredded/application_controller.rb#L18-L40).
 
-These are:
-
-* `Thredded::Errors::MessageboardNotFound`.
-* `Thredded::Errors::MessageboardReadDenied`.
-* `Thredded::Errors::TopicCreateDenied`.
-* `Thredded::Errors::MessageboardCreateDenied`.
-* `Thredded::Errors::PrivateTopicCreateDenied`.
-* `CanCan::AccessDenied` - all the other errors.
-
-Currently, the default behaviour is to redirect to the forums root page with a flash alert.
-
-[rescue_from]: http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html
+Currently, the default behaviour is to render an error message with an appropriate response code within the Thredded
+layout. You may want to override the handling for `Thredded::Errors::LoginRequired` to render a login form instead.
+For an example of how to do this, see the initializer.
 
 ## Development
 
