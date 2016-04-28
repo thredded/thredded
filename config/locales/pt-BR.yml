@@ -1,0 +1,90 @@
+---
+pt-BR:
+  thredded:
+    errors:
+      login_required: Por favor, autentique-se primeiro.
+      not_authorized: Você não está autorizado a acessar esta página.
+      private_topic_create_denied: Você não está autorizado a criar tópicos privados.
+      private_topic_not_found: Este tópico privado não existe.
+    messageboard:
+      last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
+      topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
+    nav:
+      all_messageboards: Todos os Fóruns de Mensagens
+      edit_post: Editar Post
+      edit_private_topic: :thredded.nav.edit_topic
+      edit_topic: Editar
+      private_topics: Mensagens Privadas
+      settings: Configurações de Notificação
+    posts:
+      delete: Remover Post
+      delete_confirm: Você tem certeza que deseja remover este post?
+      deleted_notice: Seu post foi removido.
+      edit: :thredded.nav.edit_post
+      form:
+        content_label: Conteúdo
+        create_btn: Enviar Resposta
+        update_btn: Atualizar Post
+    preferences:
+      edit:
+        page_title: :thredded.nav.settings
+      form:
+        global_preferences_label: Configurações Globais
+        messageboard_notify_on_mention:
+          hint: >-
+            Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá
+            receber um e-mail com o conteúdo deste post.
+          label: :thredded.preferences.form.notify_on_mention.label
+        messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
+        notify_on_mention:
+          hint: >-
+            Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
+            deste post.
+          label: "@ Notificações"
+        notify_on_message:
+          hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta conversa.
+          label: Notificação de Mensagens Privadas
+        submit_btn: Atualizar Configurações
+        title: Configurações
+      updated_notice: Suas configurações foram atualizadas.
+    private_posts:
+      form:
+        content_label: Mensagem
+        create_btn: Enviar Mensagem
+    private_topics:
+      edit: Editar
+      errors:
+        user_ids_length: Por favor, especifique pelo menos mais um usuário.
+      form:
+        content_label: :thredded.private_posts.form.content_label
+        create_btn: :thredded.private_posts.form.create_btn
+        title_label: :thredded.topics.form.title_label
+        title_placeholder_new: Escreva o assunto desta conversa
+        title_placeholder_start: Iniciar uma nova conversa
+        update_btn: Atualizar
+        users_label: Participantes
+        users_placeholder: Selecione usuários para participar desta conversa
+      no_private_topics:
+        create_btn: Inicie sua primeira conversa privada
+        title: Você não possui mensagens privadas.
+      updated_notice: Título atualizado
+    search:
+      form:
+        btn_submit: :thredded.search.form.label
+        label: Buscar
+        placeholder: Buscar Tópicos e Posts
+    topics:
+      deleted_notice: Tópico removido
+      edit: Editar Tópico
+      form:
+        categories_placeholder: Categorias
+        content_label: :thredded.posts.form.content_label
+        title_label: Título
+        title_placeholder: :thredded.topics.form.title_label
+        update_btn: Atualizar Tópico
+      search:
+        no_results_message: Nenhum resultado encontrado para sua busca - %{query}
+        page_title: Tópicos dos Resultados da Busca
+        results_message: Resultados de Busca para %{query}
+      started_by_html: Iniciado %{time_ago} por %{user}
+      updated_notice: Tópico atualizado
