@@ -43,13 +43,15 @@
       a {
         display: block;
         padding: ($thredded-small-spacing / 2) 0 ($thredded-small-spacing / 2) 0;
-        font-size: 0;
       }
       .thredded--icon {
         display: block;
         width: 2rem;
         height: 2rem;
       }
+    }
+    .thredded--nav-text {
+      display: none;
     }
     &--settings {
       @extend %icon-nav-item;
