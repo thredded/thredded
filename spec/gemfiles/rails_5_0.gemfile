@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
 eval_gemfile './shared.gemfile'
-gem 'rails', '~> 5.0.0.beta3'
+gem 'rails', '~> 5.0.0.beta4'
 gem 'rspec-rails', '~> 3.5.0.beta3'
 gem 'rails-controller-testing'
 gem 'kaminari', git: 'https://github.com/amatsuda/kaminari'
