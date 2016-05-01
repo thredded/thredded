@@ -21,7 +21,7 @@ module Thredded
     end
 
     def show
-      authorize_reading private_topic
+      authorize private_topic, :read?
 
       page_scope = private_topic
         .posts

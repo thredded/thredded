@@ -22,7 +22,7 @@ module Thredded
     end
 
     def show
-      authorize_reading topic
+      authorize topic, :read?
       page_scope = topic.posts
         .includes(:user, :messageboard, :postable)
         .order_oldest_first
