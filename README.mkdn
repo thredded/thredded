@@ -165,6 +165,14 @@ Whenever possible, use the styles and i18n to customize Thredded to your needs.
 Thredded views also provide two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`.
 The views within Thredded pass those up through to your layout if you would like to use them.
 
+#### View Assumption(s)
+
+If you are using the standalone thredded layout (the layout included with this gem -
+`thredded/application`) the navigation makes the assumption that you are using devise as your auth
+library. If you are using something different you may override the partial
+`app/views/thredded/shared/nav/_standalone.html.erb` and use the appropriate log in / sign out path
+helpers.
+
 ### Emails
 
 Thredded sends several notification emails to the users. You can override in the same way as the views.
