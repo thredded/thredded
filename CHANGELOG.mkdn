@@ -2,16 +2,16 @@
 
 ## Fixed
 
-* TBD
+* Mobile Safari navigation UI bug. [#265](https://github.com/thredded/thredded/issues/265)
+* iframe security vulnerability. [04fa108a7](https://github.com/thredded/thredded/commit/04fa108a7da177ee25c7d215f4c43dab2875a0c1)
+* Markdown blockquotes. [#259](https://github.com/thredded/thredded/pull/259)
+* Read state tracking timestamp issue. [2c85076ba](https://github.com/thredded/thredded/commit/2c85076ba1034a3664abc887f89b22e67405564d)
+* Search input styles in various OS/Browser combinations.
+* (Private)Topic read permission denied error. [#269](https://github.com/thredded/thredded/issues/269)
 
 ## Added
 
-* TBD
-
-## Changed
-
-* TBD
-
+* Brazilian Portuguese translation. [#264](https://github.com/thredded/thredded/pull/264).
 
 # 0.3.0 - 2016-04-22
 
