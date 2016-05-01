@@ -29,7 +29,7 @@ Planned features:
 
 [screenshot-messageboards]: https://cloud.githubusercontent.com/assets/216339/14379803/d608d782-fd73-11e5-9d8e-1f282ea66fab.png
 [screenshot-topics]: https://cloud.githubusercontent.com/assets/216339/14379804/d77db060-fd73-11e5-9a4a-9376ca409756.png
-[screenshot-topic]: https://cloud.githubusercontent.com/assets/216339/14379805/d8ecf32a-fd73-11e5-8734-b7faa8b264ee.png 
+[screenshot-topic]: https://cloud.githubusercontent.com/assets/216339/14379805/d8ecf32a-fd73-11e5-8734-b7faa8b264ee.png
 [screenshot-new-private-topic-dark]: https://cloud.githubusercontent.com/assets/216339/14379806/da716a1e-fd73-11e5-90f1-6dbdb708d3d5.png
 
 Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. Thredded has no infrastructure
@@ -48,7 +48,7 @@ while Discourse is a full app.
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.3.0'
+gem 'thredded', '~> 0.3.1'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
@@ -127,7 +127,7 @@ $thredded-brand: #9c27b0;
 @import "thredded";
 ```
 
-The `@import "thredded"` directive above will import thredded styles and the [dependencies][thredded-scss-dependencies] 
+The `@import "thredded"` directive above will import thredded styles and the [dependencies][thredded-scss-dependencies]
 (currently just "select2" from [select2-rails]). If you already include your own styles for any of thredded
 dependencies, you can import just the thredded styles alone like this:
 
