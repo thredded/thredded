@@ -57,6 +57,7 @@
 &--post--content {
   font-size: 1.063rem; // 17px
   line-height: 1.65;
+  word-break: break-all;
   a {
     @extend %thredded--link;
   }
