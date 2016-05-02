@@ -4,6 +4,7 @@
 
 * Main app routes are delegated correctly when using the standalone layout. [8a2ff56](https://github.com/thredded/thredded/commit/8a2ff56f73afe0d6e8e8ecede9666b8d65817fa3)
 * Posts now have `word-break: break-all` applied to prevent overly long string form breaking the layout. [#267](https://github.com/thredded/thredded/issues/267)
+* I18n for [rails-timeago](https://github.com/jgraichen/rails-timeago). [#270](https://github.com/thredded/thredded/issues/270)
 
 # 0.3.1 - 2016-05-01
 
