@@ -35,6 +35,7 @@ module Thredded
 
     def cache_key
       [
+        I18n.locale,
         @post,
         @post.user,
         [can_update?, can_destroy?].map { |p| p ? '+' : '-' } * ''

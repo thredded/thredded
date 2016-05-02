@@ -80,7 +80,7 @@ body {
       @extend %thredded--link;
       cursor: pointer;
       display: inline-block;
-      margin-left: 0.4rem;
+      margin-left: 0.3rem;
       &.app-current {
         color: $thredded-text-color;
         font-weight: bold;
@@ -88,7 +88,7 @@ body {
     }
   }
   @include thredded-media-tablet-and-up {
-    margin-left: 1.5rem;
+    margin-left: 1.1rem;
     margin-top: 0;
   }
 }
