@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    thredded (0.3.0)
+    thredded (0.3.1)
       active_record_union (>= 1.1.1)
       autoprefixer-rails
       autosize-rails
@@ -131,6 +131,7 @@ GEM
     html-pipeline-youtube (0.1.2)
       html-pipeline (~> 2.0)
     htmlentities (4.3.4)
+    http_accept_language (2.0.5)
     i18n (0.7.0)
     inline_svg (0.6.4)
       activesupport (>= 4.0.4)
@@ -193,6 +194,9 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-i18n (4.0.2)
+      i18n (~> 0.6)
+      rails (>= 4.0)
     rails-timeago (2.13.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
@@ -260,6 +264,7 @@ DEPENDENCIES
   dalli
   factory_girl_rails
   faker (>= 1.6.2)
+  http_accept_language
   jquery-turbolinks
   kaminari!
   newrelic_rpm
@@ -267,6 +272,7 @@ DEPENDENCIES
   puma
   rack-canonical-host
   rails (~> 5.0.0.beta4)
+  rails-i18n
   rails_email_preview (>= 1.0.3)
   rollbar
   therubyracer

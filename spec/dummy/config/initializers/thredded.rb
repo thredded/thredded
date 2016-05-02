@@ -13,6 +13,7 @@ Thredded.admin_column = :admin
 
 Rails.application.config.to_prepare do
   Thredded::ApplicationController.module_eval do
+    include SetLocale
     rescue_from Thredded::Errors::LoginRequired do |exception|
       @message = exception.message
       render template: 'sessions/new', status: :forbidden

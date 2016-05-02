@@ -15,6 +15,8 @@ gem 'pg'
 gem 'rails_email_preview', '>= 1.0.3'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
+gem 'rails-i18n'
+gem 'http_accept_language'
 gem 'factory_girl_rails'
 gem 'faker', '>= 1.6.2'
 

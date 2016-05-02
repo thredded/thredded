@@ -69,8 +69,8 @@ body {
   font-weight: bold;
 }
 
-.app-nav-theme {
-  display: block;
+.app-nav-theme, .app-nav-locale {
+  display: inline-block;
   margin-left: 0.5rem;
   margin-top: 0.5rem;
   ul {
@@ -80,16 +80,15 @@ body {
       @extend %thredded--link;
       cursor: pointer;
       display: inline-block;
-      margin-left: 0.5rem;
-      &.app-current-theme {
+      margin-left: 0.4rem;
+      &.app-current {
         color: $thredded-text-color;
         font-weight: bold;
       }
     }
   }
   @include thredded-media-tablet-and-up {
-    display: inline-block;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
     margin-top: 0;
   }
 }

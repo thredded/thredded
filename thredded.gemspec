@@ -59,6 +59,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'test-unit'
 
   # dummy app dependencies
+  s.add_development_dependency 'rails-i18n'
+  s.add_development_dependency 'http_accept_language'
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'sqlite3'

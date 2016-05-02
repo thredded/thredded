@@ -5,6 +5,8 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
+require 'http_accept_language'
+require 'rails-i18n'
 require 'jquery-turbolinks'
 require 'turbolinks'
 require 'rails_email_preview'
@@ -43,7 +45,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
 
-    config.i18n.available_locales = [:en, :es, :'pt-BR']
+    config.i18n.available_locales = [:en, :'pt-BR']
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
