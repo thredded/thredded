@@ -14,7 +14,7 @@ module Thredded
     validates :messageboard_id, presence: true
 
     def self.in(messageboard)
-      where(messageboard_id: messageboard.id).first_or_initialize
+      find_or_initialize_by(messageboard_id: messageboard.id)
     end
   end
 end

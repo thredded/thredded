@@ -29,7 +29,7 @@ module Thredded
                counter_cache: true,
                touch: true,
                inverse_of: :topics
-    validates_presence_of :messageboard_id
+    validates :messageboard_id, presence: true
 
     belongs_to :user_detail,
                primary_key:   :user_id,

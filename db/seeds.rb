@@ -44,10 +44,7 @@ module Thredded
     end
 
     def create_first_user
-      @user ||= begin
-        ::User.first ||
-          ::User.create(name: 'Joe', email: 'joe@example.com')
-      end
+      @user ||= ::User.first || ::User.create(name: 'Joe', email: 'joe@example.com')
     end
 
     def create_users(count: 5)

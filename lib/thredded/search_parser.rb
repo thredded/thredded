@@ -20,16 +20,15 @@ module Thredded
         keyword_scan = @query.scan(regex)
         @query = @query.gsub(regex, '')
 
-        if keyword_scan.present?
-          keyword_scan.each do |term|
-            keyword_term = term.delete(' ').split(':')
+        next unless keyword_scan.present?
+        keyword_scan.each do |term|
+          keyword_term = term.delete(' ').split(':')
 
-            if found_terms_hash[keyword].nil?
-              found_terms_hash[keyword] = []
-            end
-
-            found_terms_hash[keyword] << keyword_term[1]
+          if found_terms_hash[keyword].nil?
+            found_terms_hash[keyword] = []
           end
+
+          found_terms_hash[keyword] << keyword_term[1]
         end
       end
 

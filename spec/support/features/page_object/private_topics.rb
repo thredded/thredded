@@ -51,9 +51,6 @@ module PageObject
       has_css? 'article h1 a', text: private_title
     end
 
-    alias_method :private_topic, :private_topics
-    alias_method :unread_private_topic, :unread_private_topics
-
     private
 
     attr_reader :messageboard, :private_title

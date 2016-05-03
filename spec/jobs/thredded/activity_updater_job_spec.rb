@@ -4,8 +4,8 @@ require 'spec_helper'
 module Thredded
   describe ActivityUpdaterJob do
     it 'updates a users activity' do
-      march_1 = Time.parse('2014-03-01 13:00:00')
-      march_2 = Time.parse('2014-03-02 14:00:00')
+      march_1 = Time.zone.parse('2014-03-01 13:00:00')
+      march_2 = Time.zone.parse('2014-03-02 14:00:00')
 
       travel_to march_1 do
         @user_detail = create(:user_detail)
