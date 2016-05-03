@@ -124,5 +124,16 @@ module Thredded
 
       expect(@post.postable.reload.updated_at.to_s).to eq old_time.to_s
     end
+
+    it 'can have categories' do
+      topic    = build(:topic)
+      category = build(:category)
+
+      topic.categories << category
+      topic.save
+
+      expect(topic.categories.size).to eq 1
+      expect(topic.categories.first).to eq category
+    end
   end
 end
