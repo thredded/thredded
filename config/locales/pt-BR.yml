@@ -7,8 +7,13 @@ pt-BR:
       private_topic_create_denied: Você não está autorizado a criar tópicos privados.
       private_topic_not_found: Este tópico privado não existe.
     messageboard:
+      create: Criar um novo Messageboard
+      form:
+        no_group: No Grupo
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
+    messageboard_group:
+      create: Criar um novo grupo Messageboard
     nav:
       all_messageboards: Todos os Fóruns de Mensagens
       edit_post: Editar Post
@@ -32,8 +37,8 @@ pt-BR:
         global_preferences_label: Configurações Globais
         messageboard_notify_on_mention:
           hint: >-
-            Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá
-            receber um e-mail com o conteúdo deste post.
+            Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá receber
+            um e-mail com o conteúdo deste post.
           label: :thredded.preferences.form.notify_on_mention.label
         messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
         notify_on_mention:
@@ -42,7 +47,8 @@ pt-BR:
             deste post.
           label: "@ Notificações"
         notify_on_message:
-          hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta conversa.
+          hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta
+            conversa.
           label: Notificação de Mensagens Privadas
         submit_btn: Atualizar Configurações
         title: Configurações
