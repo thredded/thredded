@@ -47,7 +47,7 @@ module Thredded
     module ClassMethods
       def from_user(topic, user)
         read_state = if user && !user.thredded_anonymous?
-                       topic.association(:user_read_states).klass.where(user_id: user.id, postable_id: topic.id).first
+                       topic.association(:user_read_states).klass.find_by(user_id: user.id, postable_id: topic.id)
                      end
         new(topic, read_state, Pundit.policy!(user, topic))
       end

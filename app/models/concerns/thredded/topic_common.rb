@@ -12,10 +12,9 @@ module Thredded
       scope :order_recently_updated_first, -> { order(updated_at: :desc, id: :desc) }
       scope :on_page, -> page_num { page(page_num).per(30) }
 
-      validates_presence_of :hash_id
-      validates_presence_of :last_user_id
-      validates_numericality_of :posts_count
-      validates_uniqueness_of :hash_id
+      validates :hash_id, presence: true, uniqueness: true
+      validates :last_user_id, presence: true
+      validates :posts_count, numericality: true
 
       before_validation do
         self.hash_id = SecureRandom.hex(10) if hash_id.nil?

@@ -3,22 +3,8 @@ module Thredded
   class Stats
     include ActionView::Helpers::NumberHelper
 
-    class << self
-      def messageboards_count
-        new.messageboards_count
-      end
-
-      def topics_count
-        new.topics_count
-      end
-
-      def posts_count
-        new.posts_count
-      end
-    end
-
     def messageboards_count
-      messageboards.count
+      number_to_human(messageboards.count, precision: 4)
     end
 
     def topics_count

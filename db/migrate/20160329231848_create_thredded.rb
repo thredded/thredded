@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
 class CreateThredded < ActiveRecord::Migration
   def change
     unless table_exists?(:friendly_id_slugs)
@@ -167,3 +170,6 @@ class CreateThredded < ActiveRecord::Migration
     end
   end
 end
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/ClassLength

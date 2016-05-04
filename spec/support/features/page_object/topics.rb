@@ -76,7 +76,7 @@ module PageObject
       has_content?(topic_title) && has_content?(topic_content)
     end
 
-    alias_method :has_the_title_and_content?, :displayed?
+    alias has_the_title_and_content? displayed?
 
     def has_topic_titled?(title)
       has_css?('article.thredded--topics--topic h1 a', text: title)

@@ -59,7 +59,7 @@ module Thredded
     end
 
     def say(message)
-      puts message unless Rails.env.test?
+      Rails.logger.info message unless Rails.env.test?
     end
   end
 end

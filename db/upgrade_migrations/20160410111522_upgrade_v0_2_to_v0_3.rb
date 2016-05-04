@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/LineLength
 class UpgradeV02ToV03 < ActiveRecord::Migration
   def up
     remove_index :thredded_notification_preferences, name: :index_thredded_notification_preferences_on_messageboard_id
@@ -57,3 +59,5 @@ class UpgradeV02ToV03 < ActiveRecord::Migration
     remove_column :thredded_user_preferences, :notify_on_message
   end
 end
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/MethodLength

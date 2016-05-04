@@ -2,7 +2,7 @@
 module Thredded
   class NotifyPrivateTopicUsers
     def initialize(private_topic)
-      @post = private_topic.posts.first || Post.new
+      @post = private_topic.posts.order_oldest_first.first
       @private_topic = private_topic
     end
 

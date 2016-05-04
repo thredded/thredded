@@ -3,6 +3,9 @@ module Thredded
   class PrivateTopicForm
     include ActiveModel::Model
 
+    delegate :id,
+             to: :private_topic
+
     attr_accessor \
       :title,
       :category_ids,
@@ -29,10 +32,6 @@ module Thredded
 
     def self.model_name
       Thredded::PrivateTopic.model_name
-    end
-
-    def id
-      private_topic.id
     end
 
     def save

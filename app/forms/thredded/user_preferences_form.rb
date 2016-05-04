@@ -45,12 +45,14 @@ module Thredded
     def user_messageboard_preference
       return nil unless @messageboard
       @user_messageboard_preference ||=
-        user_preference.messageboard_preferences.where(messageboard_id: @messageboard.id).first_or_initialize
+        user_preference.messageboard_preferences.find_or_initialize_by(messageboard_id: @messageboard.id)
     end
 
     def validate_children
       promote_errors(user_preference.errors) if user_preference.invalid?
-      promote_errors(user_messageboard_preference.errors, :messageboard) if messageboard && user_messageboard_preference.invalid?
+      if messageboard && user_messageboard_preference.invalid?
+        promote_errors(user_messageboard_preference.errors, :messageboard)
+      end
     end
 
     def promote_errors(child_errors, prefix = nil)
