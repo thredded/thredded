@@ -50,6 +50,18 @@
   margin-bottom: 0;
 }
 
-&--messageboard--create {
+&--messageboards--actions {
   text-align: center;
+  a {
+    display: block;
+    margin-top: $thredded-small-spacing;
+  }
+  @include thredded-media-tablet-and-up {
+    a {
+      display: inline-block;
+    }
+    a + a {
+      margin-left: $thredded-small-spacing;
+    }
+  }
 }

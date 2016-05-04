@@ -47,7 +47,7 @@ module PageObject
     end
 
     def click_new_messageboard
-      find('.thredded--messageboard--create a').click
+      click_link I18n.t('thredded.messageboard.create')
     end
   end
 end

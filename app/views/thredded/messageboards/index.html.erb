@@ -9,17 +9,14 @@
       <% end %>
       <%= render group.messageboards %>
     <% end %>
+
+    <div class="thredded--messageboards--actions">
+      <% if policy(Thredded::Messageboard.new).create? %>
+        <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
+      <% end %>
+      <% if policy(Thredded::MessageboardGroup.new).create? %>
+        <a class="thredded--button" href="<%= new_messageboard_group_path %>"><%= t('thredded.messageboard_group.create') %></a>
+      <% end %>
+    </div>
   </section>
-
-  <% if policy(Thredded::MessageboardGroup.new).create? %>
-    <div class="thredded--messageboard--group--create">
-      <a class="thredded--button" href="<%= new_messageboard_group_path %>"><%= t('thredded.messageboard_group.create') %></a>
-    </div>
-  <% end %>
-
-  <% if policy(Thredded::Messageboard.new).create? %>
-    <div class="thredded--messageboard--create">
-      <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
-    </div>
-  <% end %>
 <% end %>
