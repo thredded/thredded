@@ -24,8 +24,8 @@ RSpec.describe 'thredded/messageboards/index' do
 
     render
 
-    expect(rendered).to have_link('Create a New Messageboard')
-    expect(rendered).to have_link('Create a New Messageboard Group')
+    expect(rendered).to have_link(I18n.t('thredded.messageboard.create'))
+    expect(rendered).to have_link(I18n.t('thredded.messageboard_group.create'))
   end
 
   it 'does not show the Create button when not permitted to create a messageboard' do
@@ -33,7 +33,7 @@ RSpec.describe 'thredded/messageboards/index' do
 
     render
 
-    expect(rendered).not_to have_link('Create a New Messageboard')
-    expect(rendered).not_to have_link('Create a New Messageboard Group')
+    expect(rendered).not_to have_link(I18n.t('thredded.messageboard.create'))
+    expect(rendered).not_to have_link(I18n.t('thredded.messageboard_group.create'))
   end
 end

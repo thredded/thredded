@@ -3,15 +3,12 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 <%= thredded_page do %>
   <section class="thredded--main-section thredded--messageboards">
-
     <% @groups.each do |group| %>
-
       <% if group.name.present? %>
-        <h3> <%= group.name %> </h3>
+        <h3><%= group.name %></h3>
       <% end %>
       <%= render group.messageboards %>
     <% end %>
-
   </section>
 
   <% if policy(Thredded::MessageboardGroup.new).create? %>

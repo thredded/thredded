@@ -8,6 +8,7 @@ class UpgradeV03ToV04 < ActiveRecord::Migration[5.0]
     end
 
     add_column :thredded_messageboards, :thredded_messageboard_group_id, :integer
-    add_index :thredded_messageboards, [:thredded_messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
+    add_index :thredded_messageboards, [:thredded_messageboard_group_id],
+              name: :index_thredded_messageboards_on_messageboard_group_id
   end
 end

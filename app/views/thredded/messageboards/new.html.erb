@@ -2,7 +2,7 @@
 <% content_for :thredded_page_id, 'thredded--messageboards-new' %>
 <% content_for :thredded_breadcrumbs do %>
   <ul class="thredded--navigation-breadcrumbs">
-    <li><%=  t('thredded.messageboard.create') %></li>
+    <li><%= t('thredded.messageboard.create') %></li>
   </ul>
 <% end %>
 
@@ -17,13 +17,11 @@
         <%= f.label :description %>
         <%= f.text_field :description %>
       </li>
-
       <li>
         <%= f.label :thredded_messageboard_group_id %>
-        <%= f.collection_select :thredded_messageboard_group_id, Thredded::MessageboardGroup.all, :id, :name, :include_blank => t('thredded.messageboard.form.no_group') %>
+        <%= f.collection_select :thredded_messageboard_group_id, Thredded::MessageboardGroup.all, :id, :name,
+                                :include_blank => t('thredded.messageboard.form.no_group') %>
       </li>
-
-
       <li><%= f.submit t('thredded.messageboard.create'), class: 'thredded--form--submit' %></li>
     </ul>
   <% end %>
