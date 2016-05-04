@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    thredded (0.3.2)
+    thredded (0.4.0)
       active_record_union (>= 1.1.1)
       autoprefixer-rails
       autosize-rails
