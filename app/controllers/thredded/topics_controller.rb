@@ -14,7 +14,7 @@ module Thredded
         thredded_current_user,
         messageboard.topics
           .order_sticky_first.order_recently_updated_first
-          .includes(:categories, :last_user, :user)
+          .includes(:categories, :last_user, :user, :user_read_states)
           .page(current_page))
       TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
         @new_topic = form if policy(form.topic).create?

@@ -10,6 +10,8 @@ module Thredded
              :user,
              :last_user,
              :to_model,
+             :recent_post,
+             :view_counts,
              to: :@topic
 
     delegate :read?,

@@ -45,6 +45,9 @@ module Thredded
     has_one :first_post, -> { order_oldest_first },
             class_name:  'Thredded::Post',
             foreign_key: :postable_id
+    has_one :recent_post, -> { order_recent_first },
+            class_name:  'Thredded::Post',
+            foreign_key: :postable_id
 
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
@@ -66,6 +69,10 @@ module Thredded
 
     def should_generate_new_friendly_id?
       title_changed?
+    end
+
+    def view_counts
+      user_read_states.count
     end
 
     private
