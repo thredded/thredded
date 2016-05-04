@@ -12,7 +12,7 @@
 
     <div class="thredded--messageboards--actions">
       <% if policy(Thredded::Messageboard.new).create? %>
-        <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
+        <a class="thredded--button" href="<%= new_messageboard_path %>"><%= t('thredded.messageboard.create') %></a>
       <% end %>
       <% if policy(Thredded::MessageboardGroup.new).create? %>
         <a class="thredded--button" href="<%= new_messageboard_group_path %>"><%= t('thredded.messageboard_group.create') %></a>
