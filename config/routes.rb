@@ -21,6 +21,10 @@ Thredded::Engine.routes.draw do
     get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
+  scope path: 'admin' do
+    resources :messageboard_groups, only: [:new, :create]
+  end
+
   resource :preferences, only: [:edit, :update]
   resource :messageboard, path: 'messageboards', only: [:new]
   resources :messageboards, only: [:index, :create], path: '' do

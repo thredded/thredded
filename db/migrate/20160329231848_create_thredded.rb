@@ -168,6 +168,14 @@ class CreateThredded < ActiveRecord::Migration
       end
       add_index table_name, [:user_id, :postable_id], name: :"#{table_name}_user_postable", unique: true
     end
+
+    create_table :thredded_messageboard_groups do |t|
+      t.string :name
+      t.timestamps null: false
+    end
+
+    add_column :thredded_messageboards, :thredded_messageboard_group_id, :integer
+    add_index :thredded_messageboards, [:thredded_messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
   end
 end
 # rubocop:enable Metrics/LineLength

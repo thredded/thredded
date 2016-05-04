@@ -11,7 +11,7 @@ module PageObject
     def submit_form
       fill_in 'messageboard_name', with: 'Chat'
       fill_in 'messageboard_description', with: 'Talk about stuff'
-      click_button 'Create New Messageboard'
+      click_button 'Create a New Messageboard'
     end
 
     def done?

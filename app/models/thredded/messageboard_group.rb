@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+module Thredded
+  class MessageboardGroup < ActiveRecord::Base
+    has_many :messageboards,
+             inverse_of: :group,
+             foreign_key: :thredded_messageboard_group_id,
+             dependent: :nullify
+
+    validates :name, presence: true
+  end
+end

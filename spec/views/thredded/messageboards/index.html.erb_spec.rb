@@ -9,6 +9,7 @@ RSpec.describe 'thredded/messageboards/index' do
 
     # Set up instance variables
     assign(:messageboards, [])
+    assign(:groups, [])
 
     # Stub the helper methods defined in the controller
     allow(view).to(
@@ -19,18 +20,20 @@ RSpec.describe 'thredded/messageboards/index' do
   end
 
   it 'shows the Create button when permitted to create a messageboard' do
-    expect(view.policy).to receive(:create?).and_return(true)
+    expect(view.policy).to receive(:create?).and_return(true).exactly(2).times
 
     render
 
     expect(rendered).to have_link('Create a New Messageboard')
+    expect(rendered).to have_link('Create a New Messageboard Group')
   end
 
   it 'does not show the Create button when not permitted to create a messageboard' do
-    expect(view.policy).to receive(:create?).and_return(false)
+    expect(view.policy).to receive(:create?).and_return(false).exactly(2).times
 
     render
 
     expect(rendered).not_to have_link('Create a New Messageboard')
+    expect(rendered).not_to have_link('Create a New Messageboard Group')
   end
 end

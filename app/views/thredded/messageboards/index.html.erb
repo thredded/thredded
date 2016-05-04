@@ -3,8 +3,22 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 <%= thredded_page do %>
   <section class="thredded--main-section thredded--messageboards">
-    <%= render @messageboards %>
+
+    <% @groups.each do |group| %>
+
+      <% if group.name.present? %>
+        <h3> <%= group.name %> </h3>
+      <% end %>
+      <%= render group.messageboards %>
+    <% end %>
+
   </section>
+
+  <% if policy(Thredded::MessageboardGroup.new).create? %>
+    <div class="thredded--messageboard--group--create">
+      <a class="thredded--button" href="<%= new_messageboard_group_path %>"><%= t('thredded.messageboard_group.create') %></a>
+    </div>
+  <% end %>
 
   <% if policy(Thredded::Messageboard.new).create? %>
     <div class="thredded--messageboard--create">
