@@ -191,6 +191,19 @@ If you use [Rails Email Preview], you can include Thredded emails into the list 
 
 [Rails Email Preview]: https://github.com/glebm/rails_email_preview
 
+## I18n
+
+Thredded is mostly internationalized. It is currently available in English and Brazilian Portuguese. We welcome PRs
+adding support for new languages.
+
+If you use thredded in languages other than English, you probably want to add `rails-i18n` to your Gemfile.
+Additionally, you will need to require the translations for rails-timeago in you JavaScript,
+e.g. for Brazilian Portuguese:
+
+```js
+//= require locales/jquery.timeago.pt-br
+```
+
 ## Permissions
 
 Thredded comes with a flexible permissions system that can be configured per messageboard/user.
