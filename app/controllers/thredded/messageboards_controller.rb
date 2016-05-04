@@ -40,7 +40,7 @@ module Thredded
     def messageboard_params
       params
         .require(:messageboard)
-        .permit(:description, :name, :posting_permission, :security, :thredded_messageboard_group_id)
+        .permit(:description, :name, :posting_permission, :security, :messageboard_group_id)
     end
 
     def topic_params

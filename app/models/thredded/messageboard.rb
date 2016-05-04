@@ -35,8 +35,8 @@ module Thredded
 
     belongs_to :group,
                inverse_of: :messageboards,
-               foreign_key: :thredded_messageboard_group_id,
-               class_name: Thredded::MessageboardGroup
+               foreign_key: :messageboard_group_id,
+               class_name: 'Thredded::MessageboardGroup'
 
     default_scope { where(closed: false).order(topics_count: :desc) }
 

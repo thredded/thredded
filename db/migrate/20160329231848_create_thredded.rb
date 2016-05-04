@@ -174,8 +174,8 @@ class CreateThredded < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_column :thredded_messageboards, :thredded_messageboard_group_id, :integer
-    add_index :thredded_messageboards, [:thredded_messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
+    add_column :thredded_messageboards, :messageboard_group_id, :integer
+    add_index :thredded_messageboards, [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
   end
 end
 # rubocop:enable Metrics/LineLength
