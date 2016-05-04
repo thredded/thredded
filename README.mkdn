@@ -78,6 +78,45 @@ Mount the thredded engine in your routes file:
 mount Thredded::Engine => '/forum'
 ```
 
+You also may want to add an index to the user name column in your users table.
+Thredded uses it to find @-mentions and perform name prefix autocompletion on the private topic form.
+Add the index in a migration like so:
+
+```ruby
+DbTextSearch::CaseInsensitive.add_index(
+    connection, Thredded.user_class.table_name, Thredded.user_name_column, unique: true)
+```
+
+### Migrating from Forem
+
+Using [Forem]? Thredded provides [a migration][forem-to-thredded] to copy all your existing forums from Forem over
+to Thredded.
+
+[forem-to-thredded]: https://github.com/thredded/thredded/wiki/Migrate-from-Forem
+
+## Views and other assets
+
+### Standalone layout
+
+By default, thredded renders in its own layout.
+
+When using the standalone thredded layout, the log in / sign out links will be rendered in the navigation.
+For these links (and only for these links), Thredded makes the assumption that you are using devise as your auth
+library. If you are using something different you need to override the partial at
+`app/views/thredded/shared/nav/_standalone.html.erb` and use the appropriate log in / sign out path URL helpers.
+
+You can override the partial by copying it into the app:
+
+```bash
+mkdir -p app/views/thredded/shared/nav && cp "$(bundle show thredded)/$_/_standalone.html.erb" "$_"
+```
+
+### Application layout
+
+You can also use Thredded with the application layout by by setting `Thredded.layout` in the initializer.
+
+In this case, you will also need to include Thredded styles and JavaScript into the application styles and JavaScript.
+
 Add thredded styles to your `application.scss` (see below for customizing the styles):
 
 ```scss
@@ -90,23 +129,23 @@ Include thredded JavaScripts in your `application.js`:
 //= require thredded
 ```
 
-You also may want to add an index to the user name column in your users table.
-Thredded uses it to find @-mentions and perform name prefix autocompletion on the private topic form.
-Add the index in a migration like so:
+Thredded views also provide two `content_tag`s available to yield - `:thredded_page_title` and `:thredded_page_id`.
+The views within Thredded pass those up through to your layout if you would like to use them.
 
-```ruby
-DbTextSearch::CaseInsensitive.add_index(
-    connection, Thredded.user_class.table_name, Thredded.user_name_column, unique: true)
+### Customizing views
+
+You can also override any views and assets by placing them in the same path in your application as they are in the gem.
+This uses the [standard Rails mechanism](http://guides.rubyonrails.org/engines.html#overriding-views) for overriding
+engine views. For example, to copy the post view for customization:
+
+```bash
+# Copy the post view into the application to customize it:
+mkdir -p app/views/thredded/posts && cp "$(bundle show thredded)/$_/_post.html.erb" "$_"
 ```
 
-[initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
-
-### Migrating from Forem
-
-Using [Forem]? Thredded provides [a migration][forem-to-thredded] to copy all your existing forums from Forem over
-to Thredded.
-
-[forem-to-thredded]: https://github.com/thredded/thredded/wiki/Migrate-from-Forem
+**NB:** Overriding the views like this means that on every update of the thredded gem you have to check that your
+customizations are still compatible with the new version of thredded. This is difficult and error-prone.
+Whenever possible, use the styles and i18n to customize Thredded to your needs.
 
 ## Theming
 
@@ -143,35 +182,6 @@ any duplicate CSS.
 [thredded-scss-dependencies]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_dependencies.scss
 [select2-rails]: https://github.com/argerim/select2-rails
 [thredded-scss-base]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_base.scss
-
-### Views and other assets
-
-By default, thredded renders in its own layout, but you can easily override this by setting `Thredded.layout` in the
-initializer.
-
-You can also override any views and assets by placing them in the same path in your application as they are in the gem.
-This uses the [standard Rails mechanism](http://guides.rubyonrails.org/engines.html#overriding-views) for overriding
-engine views. For example, to copy the post view for customization:
-
-```bash
-# Copy the post view into the application to customize it:
-mkdir -p app/views/thredded/posts && cp "$(bundle show thredded)/$_/_post.html.erb" "$_"
-```
-
-**NB:** Overriding the views like this means that on every update of the thredded gem you have to check that your
-customizations are still compatible with the new version of thredded. This is difficult and error-prone.
-Whenever possible, use the styles and i18n to customize Thredded to your needs.
-
-Thredded views also provide two content_tags available to yield - `:thredded_page_title` and `:thredded_page_id`.
-The views within Thredded pass those up through to your layout if you would like to use them.
-
-#### View Assumption(s)
-
-If you are using the standalone thredded layout (the layout included with this gem -
-`thredded/application`) the navigation makes the assumption that you are using devise as your auth
-library. If you are using something different you may override the partial
-`app/views/thredded/shared/nav/_standalone.html.erb` and use the appropriate log in / sign out path
-helpers.
 
 ### Emails
 
@@ -410,3 +420,4 @@ docker-compose run web bundle exec rake
 
 The docker container uses PostgreSQL.
 
+[initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
