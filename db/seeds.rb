@@ -63,13 +63,16 @@ module Thredded
     end
 
     def create_additional_messageboards
+      meta_group_id = MessageboardGroup.create!(name: 'Meta').id
       additional_messageboards = [
         ['Off-Topic', "Talk about whatever here, it's all good."],
-        ['Meta', 'Need help using the forum? Want to report a bug or make a suggestion? This is the place.']
+        ['Help, Bugs, and Suggestions',
+         'Need help using the forum? Want to report a bug or make a suggestion? This is the place.', meta_group_id],
+        ['Praise', 'Want to tell us how great we are? This is the place.', meta_group_id]
       ]
       log "Creating #{additional_messageboards.length} additional messageboards..."
-      additional_messageboards.each do |(name, description)|
-        messageboard = Messageboard.create!(name: name, description: description)
+      additional_messageboards.each do |(name, description, group_id)|
+        messageboard = Messageboard.create!(name: name, description: description, messageboard_group_id: group_id)
         FactoryGirl.create_list(:topic, 1 + rand(3), messageboard: messageboard, with_posts: 1)
       end
     end
