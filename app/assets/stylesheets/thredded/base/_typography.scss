@@ -39,3 +39,12 @@
   fill: currentColor;
 }
 
+%thredded--quote {
+  margin: 0 0 0.75rem;
+  border-left: solid 5px $thredded-quote-border-color;
+  padding: 1rem;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}

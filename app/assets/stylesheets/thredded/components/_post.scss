@@ -57,7 +57,7 @@
 &--post--content {
   font-size: 1.063rem; // 17px
   line-height: 1.65;
-  word-break: break-all;
+  word-break: break-word;
   a {
     @extend %thredded--link;
   }
@@ -73,5 +73,8 @@
   }
   table {
     @extend %thredded--table;
+  }
+  blockquote {
+    @extend %thredded--quote;
   }
 }
