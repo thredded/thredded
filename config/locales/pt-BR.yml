@@ -7,13 +7,13 @@ pt-BR:
       private_topic_create_denied: Você não está autorizado a criar tópicos privados.
       private_topic_not_found: Este tópico privado não existe.
     messageboard:
-      create: Criar um novo Messageboard
+      create: Criar um novo Fórum de Mensagem
       form:
-        no_group: No Grupo
+        no_group: Sem Grupo
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
     messageboard_group:
-      create: Criar um novo grupo Messageboard
+      create: Criar um novo grupo de mensagens
     nav:
       all_messageboards: Todos os Fóruns de Mensagens
       edit_post: Editar Post
