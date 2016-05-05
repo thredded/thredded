@@ -37,11 +37,10 @@ dependencies other than the database and, if configured in the parent applicatio
 backend dependency such as Redis. Currently only MRI Ruby 2.2+ is supported. We would love to
 support JRuby and Rubinius as well.
 
-If you're looking for variations on a theme - see [Forem] and [Discourse]. Forem is also an engine,
-while Discourse is a full app.
+If you're looking for variations on a theme - see [Discourse]. However, It is a full rails
+application and not an engine like Thredded.
 
 [Discourse]: http://www.discourse.org/
-[Forem]: https://github.com/rubysherpas/forem
 
 ## Installation
 
@@ -89,10 +88,11 @@ DbTextSearch::CaseInsensitive.add_index(
 
 ### Migrating from Forem
 
-Using [Forem]? Thredded provides [a migration][forem-to-thredded] to copy all your existing forums from Forem over
+Are you currently using [Forem]? Thredded provides [a migration][forem-to-thredded] to copy all of your existing data from Forem over
 to Thredded.
 
 [forem-to-thredded]: https://github.com/thredded/thredded/wiki/Migrate-from-Forem
+[Forem]: https://github.com/rubysherpas/forem
 
 ## Views and other assets
 
