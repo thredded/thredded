@@ -22,5 +22,14 @@ module Thredded
         topic_view_class.new(topic, read_state, Pundit.policy!(user, topic))
       end
     end
+
+    def sort_filter_options
+      Thredded::Topic::ORDER_OPTS.map do |opt|
+        [
+          I18n.t(opt, scope: 'thredded.topics.sort_filter.options'),
+          opt,
+        ]
+      end
+    end
   end
 end

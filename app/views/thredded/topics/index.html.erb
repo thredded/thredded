@@ -10,8 +10,18 @@
                css_class:    'thredded--is-compact',
                placeholder:  'Start a New Topic' if @new_topic %>
 
-   <table class="table">
 
+   <div class="thredded--topics-sort-filter form-inline">
+     <div class="form-group">
+       <%= form_tag '', method: 'get' do %>
+         <%= label_tag :sort_by, t('thredded.topics.sort_filter.label') %>
+         <%= select_tag :sort_by, options_for_select(@topics.sort_filter_options, @sort_filter),
+                        class: 'form-control thredded--topics--sort-by' %>
+       <% end %>
+     </div>
+   </div>
+
+   <table class="table">
      <thead>
        <tr>
          <th>

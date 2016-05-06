@@ -8,13 +8,15 @@ module Thredded
     after_action :update_user_activity
 
     def index
+      @sort_filter = params[:sort_by] ? params[:sort_by].to_sym : Thredded::Topic::ORDER_OPTS.first
       authorize_reading messageboard
 
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
         messageboard.topics
-          .order_sticky_first.order_recently_updated_first
-          .includes(:categories, :last_user, :user, :user_read_states)
+          .order_sticky_first
+          .send(@sort_filter)
+          .includes(:categories, :last_user, :user)
           .page(current_page))
       TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
         @new_topic = form if policy(form.topic).create?

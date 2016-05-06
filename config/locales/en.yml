@@ -93,3 +93,10 @@ en:
         results_message: Search Results for %{query}
       started_by_html: Started %{time_ago} by %{user}
       updated_notice: Topic updated
+      sort_filter:
+        label: Show
+        options:
+          most_recent: Most recent first
+          most_views: With most views
+          most_comments: With most comments
+          without_replies: Without replies

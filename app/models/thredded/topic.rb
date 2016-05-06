@@ -4,6 +4,8 @@ module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon
 
+    ORDER_OPTS = %i(most_recent most_views most_comments without_replies)
+
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
 
     scope :stuck, -> { where(sticky: true) }
@@ -13,6 +15,12 @@ module Thredded
     scope :search_query, -> query { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
+
+    # sort scopes
+    scope :most_recent, -> { order(created_at: :desc) }
+    scope :most_views, -> { order(views_count: :desc) }
+    scope :most_comments, -> { order(posts_count: :desc) }
+    scope :without_replies, -> { where('posts_count < 2') }
 
     extend FriendlyId
     friendly_id :slug_candidates,
