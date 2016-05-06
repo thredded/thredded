@@ -36,6 +36,14 @@ module Thredded
         tag :img, match: %r{^https?://.*(png|bmp|jpe?g|gif)$}, singular: false do
           %(<img src="#{singular? ? meta : content}" />)
         end
+
+        tag :spoilers do
+          %(<span class="spoiler">#{content}</span>)
+        end
+
+        tag :spoiler do
+          %(<span class="spoiler">#{content}</span>)
+        end
       end
     end
   end

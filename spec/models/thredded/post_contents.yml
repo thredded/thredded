@@ -65,6 +65,12 @@
       hey
       </blockquote>
 
+  spoilers in bbcode:
+    - |
+      [spoiler]hi[/spoiler] [spoilers]hey[/spoilers]
+    - |
+      <p><span class="spoiler">hi</span> <span class="spoiler">hey</span></p>
+
   nested quotes in bbcode:
     - |
       [quote=joel]

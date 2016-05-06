@@ -17,21 +17,22 @@ module Thredded
       end
     ].freeze
 
-    WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + [
-      'iframe',
-    ].freeze
+    WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(
+      iframe span
+    ).freeze
 
     WHITELIST = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
       elements: WHITELIST_ELEMENTS,
       transformers: WHITELIST_TRANSFORMERS,
       attributes: {
         'a' => %w(href rel),
-        'iframe' => %w(src width height frameborder allowfullscreen sandbox seamless)
+        'iframe' => %w(src width height frameborder allowfullscreen sandbox seamless),
+        'span' => %w(class),
       },
       add_attributes: {
         'iframe' => {
           'seamless' => 'seamless',
-          'sandbox' => 'allow-forms allow-scripts'
+          'sandbox' => 'allow-forms allow-scripts',
         }
       }
     ).freeze
