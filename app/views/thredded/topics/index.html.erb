@@ -9,7 +9,73 @@
                topic:        @new_topic,
                css_class:    'thredded--is-compact',
                placeholder:  'Start a New Topic' if @new_topic %>
-    <%= render @topics %>
+
+
+   <div class="thredded--topics-sort-filter form-inline">
+     <div class="form-group">
+       <%= form_tag '', method: 'get' do %>
+         <%= label_tag :sort_by, t('thredded.topics.sort_filter.label') %>
+         <%= select_tag :sort_by, options_for_select(@topics.sort_filter_options, @sort_filter),
+                        class: 'form-control thredded--topics--sort-by' %>
+       <% end %>
+     </div>
+   </div>
+
+   <table class="table">
+     <thead>
+       <tr>
+         <th>
+           <%= t('thredded.topics.index.column.title') %>
+         </th>
+         <th>
+           <%= t('thredded.topics.index.column.posts') %>
+         </th>
+         <th>
+           <%= t('thredded.topics.index.column.views') %>
+         </th>
+         <th>
+           <%= t('thredded.topics.index.column.author') %>
+         </th>
+         <th>
+           <%= t('thredded.topics.index.column.last_post') %>
+         </th>
+         <th>
+           <%= t('thredded.topics.index.column.created_at') %>
+         </th>
+       </tr>
+     </thead>
+
+     <tbody>
+       <% @topics.to_ary.each do |topic| %>
+         <tr>
+            <td>
+              <%= link_to topic.title, topic.path %>
+            </td>
+            <td>
+              <%= topic.posts_count %>
+            </td>
+            <td>
+              <%= topic.view_counts %>
+            </td>
+            <td>
+              <%= user_link topic.last_user %>
+            </td>
+            <td class="thredded--topics-recent-post">
+              <div class="thredded--topics-recent-post-date">
+                <%= l(topic.recent_post.updated_at) %>
+              </div>
+
+              <div class="thredded--topics-recent-post-author">
+                <%= topic.recent_post.user %>
+              </div>
+            </td>
+            <td>
+              <%= time_ago topic.updated_at %>
+            </td>
+         </tr>
+       <% end %>
+     </tbody>
+   </table>
   <% end %>
 
   <footer>

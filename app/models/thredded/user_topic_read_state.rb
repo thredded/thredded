@@ -7,6 +7,7 @@ module Thredded
                inverse_of: :thredded_topic_read_states
     belongs_to :postable,
                class_name: 'Thredded::Topic',
-               inverse_of: :user_read_states
+               inverse_of: :user_read_states,
+               counter_cache: :views_count
   end
 end

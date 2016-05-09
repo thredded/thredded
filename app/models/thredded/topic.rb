@@ -4,6 +4,8 @@ module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon
 
+    ORDER_OPTS = %i(most_recent most_views most_comments without_replies)
+
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
 
     scope :stuck, -> { where(sticky: true) }
@@ -13,6 +15,12 @@ module Thredded
     scope :search_query, -> query { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
+
+    # sort scopes
+    scope :most_recent, -> { order(created_at: :desc) }
+    scope :most_views, -> { order(views_count: :desc) }
+    scope :most_comments, -> { order(posts_count: :desc) }
+    scope :without_replies, -> { where('posts_count < 2') }
 
     extend FriendlyId
     friendly_id :slug_candidates,
@@ -45,6 +53,9 @@ module Thredded
     has_one :first_post, -> { order_oldest_first },
             class_name:  'Thredded::Post',
             foreign_key: :postable_id
+    has_one :recent_post, -> { order_recent_first },
+            class_name:  'Thredded::Post',
+            foreign_key: :postable_id
 
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
@@ -66,6 +77,10 @@ module Thredded
 
     def should_generate_new_friendly_id?
       title_changed?
+    end
+
+    def view_counts
+      user_read_states.count
     end
 
     private
