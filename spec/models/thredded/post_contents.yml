@@ -69,7 +69,7 @@
     - |
       [spoiler]hi[/spoiler] [spoilers]hey[/spoilers]
     - |
-      <p><span class="spoiler">hi</span> <span class="spoiler">hey</span></p>
+      <p><span class="thredded--post--content--spoiler">hi</span> <span class="thredded--post--content--spoiler">hey</span></p>
 
   nested quotes in bbcode:
     - |
