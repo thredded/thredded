@@ -49,13 +49,15 @@ module Thredded
         title: title,
         users: private_users,
         user: non_null_user,
-        last_user: non_null_user)
+        last_user: non_null_user
+      )
     end
 
     def post
       @post ||= private_topic.posts.build(
         content: content,
-        user: non_null_user)
+        user: non_null_user
+      )
     end
 
     private

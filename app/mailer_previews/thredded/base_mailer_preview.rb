@@ -30,7 +30,8 @@ MARKDOWN
           sticky:       [false, true].sample,
           updated_at:   Time.zone.now,
           user:         mock_user,
-        ))
+        )
+      )
     end
 
     def mock_post(attr = {})
@@ -44,7 +45,8 @@ MARKDOWN
           postable:     topic,
           updated_at:   Time.zone.now,
           user:         topic.last_user,
-        ))
+        )
+      )
     end
 
     def mock_private_topic(attr = {})
@@ -58,7 +60,8 @@ MARKDOWN
           posts_count: 1 + rand(42),
           updated_at:  Time.zone.now,
           user:        mock_user,
-        ))
+        )
+      )
     end
 
     def mock_private_post(attr = {})
@@ -71,7 +74,8 @@ MARKDOWN
           postable:   private_topic,
           updated_at: Time.zone.now,
           user:       private_topic.last_user,
-        ))
+        )
+      )
     end
 
     def mock_messageboard(attr = {})
@@ -86,7 +90,8 @@ MARKDOWN
           posts_count:  rand(1337),
           topics_count: rand(42),
           updated_at:   Time.zone.now,
-        ))
+        )
+      )
     end
 
     def mock_user(attr = {})
@@ -95,7 +100,8 @@ MARKDOWN
         attr.reverse_merge(
           Thredded.user_name_column => name,
           email:                    "#{name.downcase}@test.com",
-        ))
+        )
+      )
     end
   end
 end

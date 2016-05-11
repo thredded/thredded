@@ -13,7 +13,8 @@ RSpec.describe 'thredded/messageboards/index' do
 
     # Stub the helper methods defined in the controller
     allow(view).to(
-      receive_messages(signed_in?: true, messageboard_or_nil: nil, active_users: [], unread_private_topics_count: 1))
+      receive_messages(signed_in?: true, messageboard_or_nil: nil, active_users: [], unread_private_topics_count: 1)
+    )
 
     # Stub the policy, so we can test the view given different permissions
     allow(view).to receive(:policy).and_return(double(Thredded::MessageboardPolicy))

@@ -5,7 +5,8 @@ module Thredded
     def at_notification
       PrivatePostMailer.at_notification(
         mock_private_post(content: mock_content(mention_users: %w(glebm joel))),
-        %w(glebm@test.com joel@test.com))
+        %w(glebm@test.com joel@test.com)
+      )
     end
   end
 end

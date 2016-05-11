@@ -20,7 +20,8 @@ Dummy::Application.configure do
     config.force_ssl                        = true
     if ENV['MEMCACHEDCLOUD_SERVERS']
       config.cache_store = :dalli_store, ENV['MEMCACHEDCLOUD_SERVERS'].split(','), {
-        username: ENV['MEMCACHEDCLOUD_USERNAME'], password: ENV['MEMCACHEDCLOUD_PASSWORD'] }
+        username: ENV['MEMCACHEDCLOUD_USERNAME'], password: ENV['MEMCACHEDCLOUD_PASSWORD']
+      }
     end
   else
     config.public_file_server.enabled = false

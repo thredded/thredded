@@ -48,7 +48,8 @@ module Thredded
       private_topic = create(
         :private_topic,
         user: @john,
-        users: [@john, @joel, @sam])
+        users: [@john, @joel, @sam]
+      )
       post = create(:private_post, postable: private_topic)
       create(:post_notification, email: @joel.email, post: post)
 

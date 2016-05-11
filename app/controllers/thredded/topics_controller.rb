@@ -15,7 +15,8 @@ module Thredded
         messageboard.topics
           .order_sticky_first.order_recently_updated_first
           .includes(:categories, :last_user, :user)
-          .page(current_page))
+          .page(current_page)
+      )
       TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
         @new_topic = form if policy(form.topic).create?
       end
@@ -42,7 +43,8 @@ module Thredded
           .search_query(@query)
           .order_recently_updated_first
           .includes(:categories, :last_user, :user)
-          .page(current_page))
+          .page(current_page)
+      )
     end
 
     def new
@@ -58,7 +60,8 @@ module Thredded
         @category.topics
           .unstuck
           .order_recently_updated_first
-          .page(current_page))
+          .page(current_page)
+      )
       render :index
     end
 

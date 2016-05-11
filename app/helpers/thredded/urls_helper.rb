@@ -22,12 +22,14 @@ module Thredded
       if topic.private?
         private_topic_url(
           topic.slug,
-          params)
+          params
+        )
       else
         messageboard_topic_url(
           topic.messageboard.slug,
           topic.slug,
-          params)
+          params
+        )
       end
     end
 

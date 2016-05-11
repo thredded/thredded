@@ -23,8 +23,9 @@ module Thredded
       @private_topic     = PrivateTopicView.from_user(private_topic, @user)
       @private_posts     = PostsPageView.new(@user, private_topic, private_topic.posts.page(1).limit(3))
       @private_post      = private_topic.posts.build(
-        id: 1337, postable: private_topic, content: 'A private hello world', user: @user)
-      @preferences       = UserPreferencesForm.new(user: @user, messageboard: @messageboard)
+        id: 1337, postable: private_topic, content: 'A private hello world', user: @user
+      )
+      @preferences = UserPreferencesForm.new(user: @user, messageboard: @messageboard)
     end
   end
 end

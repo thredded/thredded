@@ -13,7 +13,8 @@ module Thredded
           .for_user(thredded_current_user)
           .order_recently_updated_first
           .includes(:last_user, :user)
-          .page(params[:page]))
+          .page(params[:page])
+      )
 
       PrivateTopicForm.new(user: thredded_current_user).tap do |form|
         @new_private_topic = form if policy(form.private_topic).create?

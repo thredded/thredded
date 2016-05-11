@@ -9,7 +9,8 @@ module Thredded
             mock_private_post(content: mock_content(mention_users: ['glebm']), postable: private_topic)
           ]
         end,
-        %w(glebm@test.com joel@test.com))
+        %w(glebm@test.com joel@test.com)
+      )
     end
   end
 end

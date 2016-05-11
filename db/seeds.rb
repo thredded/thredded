@@ -83,13 +83,15 @@ module Thredded
         :topic, count,
         messageboard: messageboard,
         user:         users.sample,
-        last_user:    users.sample)
+        last_user:    users.sample
+      )
 
       @private_topics = FactoryGirl.create_list(
         :private_topic, count,
         user:      users.sample,
         last_user: users.sample,
-        users:     [user])
+        users:     [user]
+      )
     end
 
     def create_posts(count: (1..30))
