@@ -78,7 +78,7 @@
     @extend %thredded--blockquote;
   }
 
-  .thredded--post--content--spoiler {
+  &--spoiler {
     color: $thredded-spoiler-hidden-color;
     background-color: $thredded-spoiler-hidden-color;
     cursor: pointer;
