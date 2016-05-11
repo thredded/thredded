@@ -1,4 +1,6 @@
 <li>
   <%= form.label :content, content_label %>
+  <%= render 'thredded/posts/before_content_field', form: form %>
   <%= form.text_area :content, { rows: 5, required: true }  %>
+  <%= render 'thredded/posts/after_content_field', form: form %>
 </li>
