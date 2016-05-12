@@ -18,12 +18,26 @@ pt-BR:
       updated_notice: Fórum de mensagem foi atualizado
     messageboard_group:
       create: Criar um novo grupo de mensagens
+    moderation:
+      approve_btn: Aprovar
+      block_btn: Quadra
+      pending_empty:
+        content: Todas as mensagens têm sido moderadas.
+        title: Bom trabalho!
+      post_approved_html: Pós aprovado por %{moderator} %{time_ago}.
+      post_blocked_html: Pós bloqueado por %{moderator} %{time_ago}.
+      post_deleted_notice: Este post foi apagado.
+      posts_content_changed_since_moderation_html: >-
+        O <a href="%{post_url}">de pós</a> alteração de conteúdo, uma vez que foi moderado. Abaixo está o conteúdo
+        no momento em que foi moderado.
     nav:
       all_messageboards: Todos os Fóruns de Mensagens
       edit_messageboard: Editar Fórum de Mensagem
       edit_post: Editar Post
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Editar
+      moderation: Moderação
+      moderation_history: História
       private_topics: Mensagens Privadas
       settings: Configurações de Notificação
     null_user_name: Usuário deletado
@@ -36,6 +50,7 @@ pt-BR:
         content_label: Conteúdo
         create_btn: Enviar Resposta
         update_btn: Atualizar Post
+      pending_moderation_notice: O envio da mensagem será publicada quando foi revisado por um moderador.
     preferences:
       edit:
         page_title: :thredded.nav.settings
@@ -93,6 +108,7 @@ pt-BR:
         content_label: :thredded.posts.form.content_label
         title_label: Título
         title_placeholder: :thredded.topics.form.title_label
+        title_placeholder_start: Iniciar um novo tópico
         update_btn: Atualizar Tópico
       search:
         no_results_message: Nenhum resultado encontrado para sua busca - %{query}

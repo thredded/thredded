@@ -126,4 +126,90 @@ module Thredded
       expect(topic.last_user).to eq user_1
     end
   end
+
+  describe Post, 'ContentModerationState' do
+    context 'inherits the moderation state from user when created' do
+      it 'when the user is pending_moderation (default)' do
+        expect(create(:post)).to be_pending_moderation
+      end
+
+      it 'when the user is approved' do
+        expect(create(:post, user: create(:user, :approved))).to be_approved
+      end
+
+      it 'when the user is blocked' do
+        expect(create(:post, user: create(:user, :blocked))).to be_blocked
+      end
+    end
+    context 'visibility' do
+      let!(:approved_post) { create(:post, moderation_state: :approved) }
+      let!(:blocked_post) { create(:post, moderation_state: :blocked) }
+      let!(:pending_post) { create(:post, moderation_state: :pending_moderation) }
+      let!(:user) { create(:user) }
+      let!(:approved_post_own) { create(:post, moderation_state: :approved, user: user) }
+      let!(:blocked_post_own) { create(:post, moderation_state: :blocked, user: user) }
+      let!(:pending_post_own) { create(:post, moderation_state: :pending_moderation, user: user) }
+
+      context 'when Thredded.content_visible_while_pending_moderation' do
+        around do |ex|
+          was = Thredded.content_visible_while_pending_moderation
+          begin
+            Thredded.content_visible_while_pending_moderation = true
+            ex.call
+          ensure
+            Thredded.content_visible_while_pending_moderation = was
+          end
+        end
+
+        it '#moderation_state_visible_to_all? is true only for approved and pending posts' do
+          expect(approved_post).to be_moderation_state_visible_to_all
+          expect(blocked_post).not_to be_moderation_state_visible_to_all
+          expect(pending_post).to be_moderation_state_visible_to_all
+        end
+
+        it '.moderation_state_visible_to_user(anonymous_user) shows approved and pending posts' do
+          expect(Post.moderation_state_visible_to_user(Thredded::NullUser.new).to_a)
+            .to match_array([approved_post_own, approved_post,
+                             pending_post_own, pending_post])
+        end
+
+        it '.moderation_state_visible_to_user(user) shows own posts and approved and pending posts by other users' do
+          expect(Post.moderation_state_visible_to_user(user).to_a)
+            .to match_array([approved_post_own, approved_post,
+                             blocked_post_own,
+                             pending_post_own, pending_post])
+        end
+      end
+
+      context 'when not Thredded.content_visible_while_pending_moderation' do
+        around do |ex|
+          was = Thredded.content_visible_while_pending_moderation
+          begin
+            Thredded.content_visible_while_pending_moderation = false
+            ex.call
+          ensure
+            Thredded.content_visible_while_pending_moderation = was
+          end
+        end
+
+        it '#moderation_state_visible_to_all? is true only for approved posts' do
+          expect(approved_post).to be_moderation_state_visible_to_all
+          expect(blocked_post).not_to be_moderation_state_visible_to_all
+          expect(pending_post).not_to be_moderation_state_visible_to_all
+        end
+
+        it '.moderation_state_visible_to_user(anonymous_user) shows only approved posts' do
+          expect(Post.moderation_state_visible_to_user(Thredded::NullUser.new).to_a)
+            .to match_array([approved_post_own, approved_post])
+        end
+
+        it '.moderation_state_visible_to_user(users) shows all own posts and approved posts by other users' do
+          expect(Post.moderation_state_visible_to_user(user).to_a)
+            .to match_array([approved_post_own, approved_post,
+                             blocked_post_own,
+                             pending_post_own])
+        end
+      end
+    end
+  end
 end

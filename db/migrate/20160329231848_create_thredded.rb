@@ -37,7 +37,9 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :topics_count, default: 0
       t.integer :posts_count, default: 0
       t.boolean :closed, default: false, null: false
+      t.references :messageboard_group
       t.timestamps null: false
+      t.index [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
     end
     add_index :thredded_messageboards, [:closed], name: :index_thredded_messageboards_on_closed
     add_index :thredded_messageboards, [:slug], name: :index_thredded_messageboards_on_slug
@@ -57,7 +59,11 @@ class CreateThredded < ActiveRecord::Migration
       t.string :source, limit: 255, default: 'web'
       t.integer :postable_id, limit: 4
       t.integer :messageboard_id, null: false
+      t.integer :moderation_state, null: false
       t.timestamps null: false
+      t.index [:moderation_state, :updated_at],
+              order: { updated_at: :asc },
+              name:  :index_thredded_posts_for_display
     end
     add_index :thredded_posts, [:messageboard_id], name: :index_thredded_posts_on_messageboard_id
     add_index :thredded_posts, [:postable_id], name: :index_thredded_posts_on_postable_id
@@ -111,7 +117,11 @@ class CreateThredded < ActiveRecord::Migration
       t.boolean :locked, default: false, null: false
       t.string :hash_id, limit: 191, null: false
       t.string :type, limit: 191
+      t.integer :moderation_state, null: false
       t.timestamps null: false
+      t.index %i(moderation_state sticky updated_at),
+              order: { sticky: :desc, updated_at: :desc },
+              name:  :index_thredded_topics_for_display
     end
     add_index :thredded_topics, [:hash_id], name: :index_thredded_topics_on_hash_id
     add_index :thredded_topics, [:messageboard_id, :slug], name: :index_thredded_topics_on_messageboard_id_and_slug, unique: true
@@ -124,11 +134,16 @@ class CreateThredded < ActiveRecord::Migration
       t.datetime :latest_activity_at
       t.integer :posts_count, default: 0
       t.integer :topics_count, default: 0
-      t.timestamps null: false
       t.datetime :last_seen_at
+      t.integer :moderation_state, null: false, default: 0 # pending_moderation
+      t.timestamp :moderation_state_changed_at
+      t.timestamps null: false
+      t.index %i(moderation_state moderation_state_changed_at),
+              order: { moderation_state_changed_at: :desc },
+              name: :index_thredded_user_details_for_moderations
+      t.index %i(latest_activity_at), name: :index_thredded_user_details_on_latest_activity_at
+      t.index %i(user_id), name: :index_thredded_user_details_on_user_id
     end
-    add_index :thredded_user_details, [:latest_activity_at], name: :index_thredded_user_details_on_latest_activity_at
-    add_index :thredded_user_details, [:user_id], name: :index_thredded_user_details_on_user_id
 
     create_table :thredded_messageboard_users do |t|
       t.references :thredded_user_detail, foreign_key: true, null: false
@@ -174,9 +189,6 @@ class CreateThredded < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_column :thredded_messageboards, :messageboard_group_id, :integer
-    add_index :thredded_messageboards, [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
-
     create_table :thredded_user_topic_follows do |t|
       t.integer :user_id, null: false
       t.integer :topic_id, null: false
@@ -184,6 +196,21 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :reason, limit: 1
     end
     add_index :thredded_user_topic_follows, [:user_id, :topic_id], name: :thredded_user_topic_follows_user_topic, unique: true
+
+    create_table :thredded_post_moderation_records do |t|
+      t.references :post
+      t.references :messageboard
+      t.text :post_content, limit: 65_535
+      t.references :post_user
+      t.text :post_user_name
+      t.references :moderator
+      t.integer :moderation_state, null: false
+      t.integer :previous_moderation_state, null: false
+      t.timestamp :created_at, null: false
+      t.index [:messageboard_id, :created_at],
+              order: { created_at: :desc },
+              name:  :index_thredded_moderation_records_for_display
+    end
   end
 end
 # rubocop:enable Metrics/LineLength

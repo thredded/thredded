@@ -4,15 +4,18 @@ require_dependency 'thredded/topics_page_view'
 module Thredded
   class TopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!,
-                  only: [:edit, :new, :update, :create, :destroy]
+                  only: %i(edit new update create destroy follow unfollow)
     after_action :update_user_activity
+
+    after_action :verify_authorized, except: %i(search)
+    after_action :verify_policy_scoped, except: %i(show new create edit update destroy follow unfollow)
 
     def index
       authorize_reading messageboard
 
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
-        messageboard.topics
+        policy_scope(messageboard.topics)
           .order_sticky_first.order_recently_updated_first
           .includes(:categories, :last_user, :user)
           .page(current_page)
@@ -24,11 +27,11 @@ module Thredded
 
     def show
       authorize topic, :read?
-      page_scope = topic.posts
-        .includes(:user, :messageboard, :postable)
+      page_scope = policy_scope(topic.posts)
         .order_oldest_first
+        .includes(:user, :messageboard, :postable)
         .page(current_page)
-      @posts = Thredded::PostsPageView.new(thredded_current_user, topic, page_scope)
+      @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
 
       UserTopicReadState.touch!(thredded_current_user.id, topic.id, page_scope.last, current_page) if signed_in?
 
@@ -36,12 +39,15 @@ module Thredded
     end
 
     def search
+      authorize_reading messageboard if messageboard_or_nil
       @query = params[:q].to_s
-      topics_scope = if messageboard_or_nil
-                       messageboard.topics
-                     else
-                       Topic.where(messageboard_id: thredded_current_user.thredded_can_read_messageboards.pluck(:id))
-                     end
+      topics_scope = policy_scope(
+        if messageboard_or_nil
+          messageboard.topics
+        else
+          Topic.where(messageboard_id: policy_scope(Messageboard.all).pluck(:id))
+        end
+      )
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
         topics_scope
@@ -62,7 +68,7 @@ module Thredded
       @category = messageboard.categories.friendly.find(params[:category_id])
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
-        @category.topics
+        policy_scope(@category.topics)
           .unstuck
           .order_recently_updated_first
           .page(current_page)
@@ -102,12 +108,14 @@ module Thredded
     end
 
     def follow
+      authorize topic, :read?
       UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
       redirect_to messageboard_topic_url(messageboard, topic),
                   notice: t('thredded.topics.followed_notice')
     end
 
     def unfollow
+      authorize topic, :read?
       follow = thredded_current_user.following?(topic)
       follow.destroy if follow
       redirect_to messageboard_topic_url(messageboard, topic),

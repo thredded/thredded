@@ -3,6 +3,7 @@ require_dependency 'thredded/topics_search'
 module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon
+    include ContentModerationState
 
     scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
 
@@ -96,6 +97,10 @@ module Thredded
 
     def public?
       true
+    end
+
+    def user_detail
+      super || build_user_detail
     end
 
     def should_generate_new_friendly_id?

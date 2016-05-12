@@ -38,3 +38,19 @@
     }
   }
 }
+
+%thredded--buttons-list {
+  text-align: center;
+  a, .button_to {
+    display: block;
+    margin-top: $thredded-small-spacing;
+  }
+  @include thredded-media-tablet-and-up {
+    a, .button_to {
+      display: inline-block;
+    }
+    a + a, .button_to + .button_to {
+      margin-left: $thredded-small-spacing;
+    }
+  }
+}

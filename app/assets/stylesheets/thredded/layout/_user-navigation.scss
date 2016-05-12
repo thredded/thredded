@@ -41,7 +41,9 @@
 .thredded--preferences &--user-navigation--settings,
 .thredded--new-private-topic &--user-navigation--private-topics,
 .thredded--private-topics-index &--user-navigation--private-topics,
-.thredded--private-topic-show &--user-navigation--private-topics {
+.thredded--private-topic-show &--user-navigation--private-topics,
+.thredded--pending-moderation &--user-navigation--moderation,
+.thredded--moderation-history &--user-navigation--moderation {
   border-bottom: 1px solid $thredded-action-color;
   margin-bottom: -1px;
 
@@ -50,7 +52,8 @@
   }
 }
 
-&--user-navigation--private-topics--unread {
+&--user-navigation--private-topics--unread,
+&--user-navigation--moderation--pending-count {
   background: $thredded-badge-active-background;
   border-radius: 10px;
   color: $thredded-badge-active-color;

@@ -16,7 +16,7 @@ Some of the features currently in Thredded:
 
 Planned features:
 
-* Flexible moderation system with per-messageboard settings. #45
+* Flexible notifications system. [#284](https://github.com/thredded/thredded/issues/284)
 
 <a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
 
@@ -376,6 +376,35 @@ The complete list can be found [here](https://github.com/thredded/thredded/blob/
 Currently, the default behaviour is to render an error message with an appropriate response code within the Thredded
 layout. You may want to override the handling for `Thredded::Errors::LoginRequired` to render a login form instead.
 For an example of how to do this, see the initializer.
+
+## Moderation
+
+Thredded comes with two options for the moderation system:
+
+1. Reactive moderation, where posts from first-time users are published immediately but enter the moderation queue
+   (default).
+2. Pre-emptive moderation, where posts from first-time users are not published until they have been approved.
+
+This is controlled by the `Thredded.content_visible_while_pending_moderation` setting.
+
+Users, topics, and posts can be in one of three moderation states: `pending_moderation`, `approved`, and `blocked`.
+By default, new users are `pending_moderation`, and new posts and topics inherit their default moderation_state from
+the user's.
+
+When you approve a new user's post, all of their later posts will be approved automatically.
+
+Additionally, users always see their own posts regardless of the moderation state. For blocked users, this means
+they might not realize they have been blocked right away.
+
+Blocked users cannot send private messages.
+
+### Disabling moderation
+
+To disable moderation, e.g. if you run internal forums that do not need moderation, run the following migration:
+
+```ruby
+change_column_default :thredded_user_details, :moderation_state, 1 # approved
+```
 
 ## Development
 

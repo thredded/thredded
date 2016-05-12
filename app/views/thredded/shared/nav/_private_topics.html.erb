@@ -2,8 +2,7 @@
   <%= link_to private_topics_path, rel: 'nofollow' do %>
     <%= inline_svg 'thredded/private-messages.svg',
                    class: 'thredded--icon',
-                   title: safe_join([t('thredded.nav.private_topics'),
-                                     (unread_private_topics_count if unread_private_topics_count > 0)].compact, ' ') %>
+                   title: t('thredded.nav.private_topics') %>
     <span class="thredded--nav-text"><%= t('thredded.nav.private_topics') %></span>
     <% if unread_private_topics_count > 0 -%>
       <span class="thredded--user-navigation--private-topics--unread"><%= unread_private_topics_count %></span>

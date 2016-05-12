@@ -1,4 +1,4 @@
-<div id="thredded--container" class="thredded--main-container <%= yield(:thredded_page_id) %>" data-thredded-page-id="<%= yield(:thredded_page_id) %>">
+<div id="thredded--container" class="thredded--main-container <%= yield(:thredded_page_id) %><%= ' thredded--is-moderator' if moderatable_messageboards_ids.present? %>" data-thredded-page-id="<%= yield(:thredded_page_id) %>">
   <%= render 'thredded/shared/header' %>
   <%= render 'thredded/shared/flash_messages' %>
   <%= yield :thredded_page_content %>

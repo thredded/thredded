@@ -1,0 +1,12 @@
+<div class="thredded--post-moderation-actions">
+  <% unless post.approved? %>
+    <%= button_to t('thredded.moderation.approve_btn'), moderate_post_path,
+                  class:  'thredded--button',
+                  params: { id: post.to_model.id, moderation_state: 'approved' } %>
+  <% end %>
+  <% unless post.blocked? %>
+    <%= button_to t('thredded.moderation.block_btn'), moderate_post_path,
+                  class:  'thredded--button',
+                  params: { id: post.to_model.id, moderation_state: 'blocked' } %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<% if moderatable_messageboards_ids.present? %>
+  <li class="thredded--user-navigation--item thredded--user-navigation--moderation">
+    <%= link_to pending_moderation_path, rel: 'nofollow' do %>
+      <%= inline_svg 'thredded/moderation.svg',
+                     class: 'thredded--icon',
+                     title: t('thredded.nav.moderation') %>
+      <span class="thredded--nav-text"><%= t 'thredded.nav.moderation' %></span>
+      <% if posts_pending_moderation_count > 0 %>
+        <span class="thredded--user-navigation--moderation--pending-count"><%= posts_pending_moderation_count %></span>
+      <% end %>
+    <% end %>
+  </li>
+<% end %>

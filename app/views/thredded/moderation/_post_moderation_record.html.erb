@@ -1,0 +1,43 @@
+<%
+  post = post_moderation_record.post
+  moderation_state_notice_args = {
+      moderator: user_link(post_moderation_record.moderator),
+      time_ago:  time_ago(post_moderation_record.created_at)
+  }
+%>
+<article class="thredded--post-moderation-record thredded--post-moderation-record-<%= post_moderation_record.moderation_state %>">
+  <header class="thredded--post-moderation-record--header">
+    <p class="thredded--post-moderation-record--moderation-state-notice">
+      <% if post_moderation_record.approved? %>
+        <%= t('thredded.moderation.post_approved_html', moderation_state_notice_args) %>
+      <% elsif post_moderation_record.blocked? %>
+        <%= t('thredded.moderation.post_blocked_html', moderation_state_notice_args) %>
+      <% end %>
+    </p>
+    <% if post && post.content != post_moderation_record.post_content %>
+      <p class="thredded--post-moderation-record--content-changed-notice">
+        <%= t('thredded.moderation.posts_content_changed_since_moderation_html', post_url: post_permalink_path(post)) %>
+      </p>
+    <% end %>
+    <%= t 'thredded.moderation.post_deleted_notice' unless post %>
+  </header>
+  <article class="thredded--post">
+    <header>
+      <% if post_moderation_record.post_user %>
+        <%= image_tag Thredded.avatar_url.call(post_moderation_record.post_user), class: 'thredded--post--avatar' %>
+        <h2 class="thredded--post--user"><%= user_link post_moderation_record.post_user %></h2>
+      <% else %>
+        <h2 class="thredded--post--user">
+          <%= post_moderation_record.post_user_name %>, <em><%= t 'thredded.null_user_name' %></em>
+        </h2>
+      <% end %>
+      <% if post %>
+        <p class="thredded--post--created-at"><%= time_ago post.created_at %></p>
+      <% end %>
+    </header>
+    <div class="thredded--post--content">
+      <%= Thredded::ContentFormatter.new(self).format_content(post_moderation_record.post_content) %>
+    </div>
+  </article>
+  <%= render 'post_moderation_actions', post: post if post %>
+</article>

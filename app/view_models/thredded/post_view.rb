@@ -8,6 +8,9 @@ module Thredded
              :created_at,
              :user,
              :to_model,
+             :pending_moderation?,
+             :approved?,
+             :blocked?,
              to: :@post
 
     # @param post [Thredded::PostCommon]
@@ -38,7 +41,11 @@ module Thredded
         I18n.locale,
         @post,
         @post.user,
-        [can_update?, can_destroy?].map { |p| p ? '+' : '-' } * ''
+        [
+          !@post.private_topic_post? && @post.pending_moderation? && !Thredded.content_visible_while_pending_moderation,
+          can_update?,
+          can_destroy?
+        ].map { |p| p ? '+' : '-' } * ''
       ]
     end
   end

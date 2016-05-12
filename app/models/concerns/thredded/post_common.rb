@@ -17,10 +17,6 @@ module Thredded
       after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
     end
 
-    def page(per_page: self.class.default_per_page)
-      1 + postable.posts.where('id < ?', id).count / per_page
-    end
-
     def avatar_url
       Thredded.avatar_url.call(user)
     end

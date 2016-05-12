@@ -1,6 +1,23 @@
 # frozen_string_literal: true
+require_dependency 'thredded/messageboard_policy'
 module Thredded
   class TopicPolicy
+    # The scope of readable topics.
+    # MessageboardPolicy must be applied separately.
+    class Scope
+      # @param user [Thredded.user_class]
+      # @param scope [ActiveRecord::Relation<Thredded::Topic>]
+      def initialize(user, scope)
+        @user = user
+        @scope = scope
+      end
+
+      # @return [ActiveRecord::Relation<Thredded::Topic>]
+      def resolve
+        @scope.moderation_state_visible_to_user(@user)
+      end
+    end
+
     # @param user [Thredded.user_class]
     # @param topic [Thredded::Topic]
     def initialize(user, topic)
@@ -14,7 +31,7 @@ module Thredded
     end
 
     def read?
-      @messageboard_user_permission.read?
+      @messageboard_user_permission.read? && @topic.moderation_state_visible_to_user?(@user)
     end
 
     def update?

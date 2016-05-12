@@ -3,9 +3,11 @@ module Thredded
   class MessageboardsController < Thredded::ApplicationController
     before_action :thredded_require_login!, only: [:new, :create, :edit, :update]
 
+    after_action :verify_authorized, except: %i(index)
+    after_action :verify_policy_scoped, except: %i(new create edit update)
+
     def index
-      @groups = thredded_current_user
-        .thredded_can_read_messageboards
+      @groups = policy_scope(Messageboard.all)
         .preload(:group).group_by(&:group)
         .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
     end

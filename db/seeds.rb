@@ -44,12 +44,12 @@ module Thredded
     end
 
     def create_first_user
-      @user ||= ::User.first || ::User.create(name: 'Joe', email: 'joe@example.com')
+      @user ||= ::User.first || FactoryGirl.create(:user, :approved, :admin, name: 'Joe', email: 'joe@example.com')
     end
 
-    def create_users(count: 5)
+    def create_users(count:)
       log "Creating #{count} users..."
-      @users = [user] + FactoryGirl.create_list(:user, count)
+      @users = [user] + FactoryGirl.create_list(:user, count, *(%i(approved) if rand > 0.1))
     end
 
     def create_messageboard
