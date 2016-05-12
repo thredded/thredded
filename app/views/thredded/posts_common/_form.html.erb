@@ -1,7 +1,7 @@
 <%= form_for (post.private_topic_post? ? [topic, post] : [messageboard, topic, post]), as: :post,
              html: { class: 'thredded--form thredded--post-form', 'data-thredded-post-form' => true } do |form| %>
   <ul class="thredded--form-list">
-    <%= render 'thredded/posts/content_field', form: form, content_label: content_label %>
+    <%= render 'thredded/posts_common/form/content_field', form: form, content_label: content_label %>
 
     <li>
       <%= form.submit button_text, class: 'thredded--form--submit' %>
