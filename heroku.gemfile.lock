@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/amatsuda/kaminari
-  revision: 0e21d52feca1f79a9aca83613cf053eb5273827e
+  revision: 9c44b6461f00471886caff921feea36f29dbb06d
   specs:
     kaminari (1.0.0.alpha)
       actionpack (>= 3.0.0)
@@ -123,7 +123,7 @@ GEM
     github-markdown (0.6.9)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    html-pipeline (2.4.0)
+    html-pipeline (2.4.1)
       activesupport (>= 2, < 5)
       nokogiri (>= 1.4)
     html-pipeline-vimeo (0.1.1)
@@ -200,8 +200,8 @@ GEM
     rails-timeago (2.13.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
-    rails_email_preview (1.0.3)
-      rails (>= 3.2)
+    rails_email_preview (2.0.1)
+      rails (>= 4.2)
       request_store
       sass-rails
       turbolinks
@@ -216,7 +216,7 @@ GEM
     ref (2.0.0)
     request_store (1.3.1)
     rinku (1.7.3)
-    rollbar (2.11.1)
+    rollbar (2.11.3)
       multi_json
     sanitize (4.0.1)
       crass (~> 1.0.2)
@@ -247,7 +247,7 @@ GEM
       ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.3)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
