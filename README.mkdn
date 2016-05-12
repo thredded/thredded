@@ -147,6 +147,18 @@ mkdir -p app/views/thredded/posts && cp "$(bundle show thredded)/$_/_post.html.e
 customizations are still compatible with the new version of thredded. This is difficult and error-prone.
 Whenever possible, use the styles and i18n to customize Thredded to your needs.
 
+#### Empty view partials included for customization
+
+There are 2 empty view partials included in the gem that exist for the purpose of being overridden
+in the parent app *if desired*. They are:
+
+* `app/views/thredded/posts_common/form/_before_content.html.erb`
+* `app/views/thredded/posts_common/form/_after_content.html.erb`
+
+And are rendered directly before, and directly after the textarea where users type their post
+contents. These exist in the case where a messageboard would like to add things like, wysiwyg/wymean
+editors, buttons, help links, help copy, further customization for the textarea, etc.
+
 ## Theming
 
 The engine comes by default with a light and effective implementation of the
