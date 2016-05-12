@@ -5,6 +5,7 @@
 * Messageboard groups [#261](https://github.com/thredded/thredded/issues/261).
 * Spoiler(s) tag for post contents [5c8102a](https://github.com/thredded/thredded/commit/5c8102) `[spoiler]vader is luke's father[spoiler]`
 * Styled blockquote tags
+* Empty partials before and after post textareas (for customization and extensibility)
 
 ## Fixed
 
