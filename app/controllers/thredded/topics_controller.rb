@@ -106,7 +106,6 @@ module Thredded
       params
         .require(:topic)
         .permit(:title, :locked, :sticky, category_ids: [])
-        .merge(user: thredded_current_user)
     end
 
     def new_topic_params
