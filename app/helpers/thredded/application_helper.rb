@@ -20,7 +20,7 @@ module Thredded
     # @param datetime [DateTime]
     # @return [String] html_safe datetime presentation
     def time_ago(datetime)
-      timeago_tag datetime, lang: I18n.locale.to_s.downcase, date_only: false, nojs: true
+      timeago_tag datetime, lang: I18n.locale.to_s.downcase, format: :short, nojs: true
     end
 
     def paginate(collection, args = {})
