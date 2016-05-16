@@ -55,5 +55,21 @@ module Thredded
         end
       end
     end
+    describe 'GET new' do
+      it 'works with no extra parameters' do
+        get :new, messageboard_id: @messageboard.id
+        expect(response).to be_successful
+        expect(response).to render_template('new')
+        expect(assigns(:new_topic).title).to be_blank
+        expect(assigns(:new_topic).content).to be_blank
+      end
+      it 'assigns extra parameters' do
+        get :new, messageboard_id: @messageboard.id, topic: { title: 'given title', content: 'preset content' }
+        expect(response).to be_successful
+        expect(response).to render_template('new')
+        expect(assigns(:new_topic).title).to eq 'given title'
+        expect(assigns(:new_topic).content).to eq 'preset content'
+      end
+    end
   end
 end

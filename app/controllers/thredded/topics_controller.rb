@@ -53,7 +53,7 @@ module Thredded
     end
 
     def new
-      @new_topic = TopicForm.new(messageboard: messageboard, user: thredded_current_user)
+      @new_topic = TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
     end
 
@@ -115,7 +115,7 @@ module Thredded
 
     def new_topic_params
       params
-        .require(:topic)
+        .fetch(:topic, {})
         .permit(:title, :locked, :sticky, :content, category_ids: [])
         .merge(
           messageboard: messageboard,
