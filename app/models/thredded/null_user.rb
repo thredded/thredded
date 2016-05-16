@@ -11,6 +11,10 @@ module Thredded
       Thredded::PrivateTopic.none
     end
 
+    def id
+      nil
+    end
+
     def name
       I18n.t('thredded.null_user_name')
     end
