@@ -32,7 +32,7 @@ FactoryGirl.define do
 
   factory :post, class: Thredded::Post do
     user
-    association :postable, factory: :topic
+    postable { association :topic, user: user }
     messageboard
 
     content { Faker::Hacker.say_something_smart }
@@ -41,7 +41,7 @@ FactoryGirl.define do
 
   factory :private_post, class: Thredded::PrivatePost do
     user
-    association :postable, factory: :private_topic
+    postable { association :private_topic, user: user }
 
     content { Faker::Hacker.say_something_smart }
     ip '127.0.0.1'

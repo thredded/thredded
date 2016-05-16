@@ -3,9 +3,7 @@ require 'spec_helper'
 
 module Thredded
   describe TopicsController do
-    before(:each) do
-      @routes = Thredded::Engine.routes
-    end
+    routes { Thredded::Engine.routes }
 
     before do
       user          = create(:user)

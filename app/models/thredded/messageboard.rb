@@ -6,7 +6,16 @@ module Thredded
                 use:            [:slugged, :reserved],
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
-                  %w(messageboards preferences private-topics autocomplete-users theme-preview admin)
+                  %w(
+                    admin
+                    autocomplete-users
+                    messageboards
+                    posts
+                    preferences
+                    private-posts
+                    private-topics
+                    theme-preview
+                  )
                 )
 
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
