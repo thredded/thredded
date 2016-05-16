@@ -12,7 +12,7 @@ module Thredded
     end
 
     def name
-      'Anonymous User'
+      I18n.t('thredded.null_user_name')
     end
 
     def to_s

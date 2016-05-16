@@ -21,6 +21,7 @@ pt-BR:
       edit_topic: Editar
       private_topics: Mensagens Privadas
       settings: Configurações de Notificação
+    null_user_name: Usuário deletado
     posts:
       delete: Remover Post
       delete_confirm: Você tem certeza que deseja remover este post?

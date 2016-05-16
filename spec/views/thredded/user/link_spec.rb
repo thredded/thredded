@@ -24,7 +24,7 @@ RSpec.describe 'partial: thredded/users/link' do
   it 'with nil user' do
     render_partial nil
     expect(rendered).to eq <<-HTML.strip_heredoc
-      <em>Deleted user</em>
+      <em>#{I18n.t('thredded.null_user_name')}</em>
     HTML
   end
 end
