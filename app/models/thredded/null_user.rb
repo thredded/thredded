@@ -11,14 +11,6 @@ module Thredded
       Thredded::PrivateTopic.none
     end
 
-    def id
-      0
-    end
-
-    def member_of?(_)
-      false
-    end
-
     def name
       'Anonymous User'
     end

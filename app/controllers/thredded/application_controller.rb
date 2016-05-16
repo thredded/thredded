@@ -95,7 +95,7 @@ module Thredded
     end
 
     def update_user_activity
-      return if messageboard.nil?
+      return if messageboard.nil? || !signed_in?
 
       Thredded::ActivityUpdaterJob.perform_later(
         thredded_current_user.id,
