@@ -37,9 +37,14 @@ module Thredded
 
     def search
       @query = params[:q].to_s
+      topics_scope = if messageboard_or_nil
+                       messageboard.topics
+                     else
+                       Topic.where(messageboard_id: thredded_current_user.thredded_can_read_messageboards.pluck(:id))
+                     end
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
-        (messageboard_or_nil ? messageboard.topics : Topic)
+        topics_scope
           .search_query(@query)
           .order_recently_updated_first
           .includes(:categories, :last_user, :user)
