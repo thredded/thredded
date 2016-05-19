@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_dependency 'thredded/topic_policy'
 module Thredded
   class PostPolicy
     # @param user [Thredded.user_class]
@@ -10,6 +11,10 @@ module Thredded
 
     def create?
       @user.thredded_admin? || !@post.postable.locked? && messageboard_policy.post?
+    end
+
+    def read?
+      TopicPolicy.new(@user, @post.postable).read?
     end
 
     def update?

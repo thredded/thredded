@@ -43,7 +43,7 @@ module Thredded
     # @return [String] URL of the topic page with the post anchor.
     def post_url(post, params = {})
       params = params.dup
-      params[:anchor] ||= dom_id(post)
+      params[:anchor] ||= ActionView::RecordIdentifier.dom_id(post)
       params[:page] ||= post.page
       topic_url(post.postable, params)
     end

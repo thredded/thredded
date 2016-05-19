@@ -2,7 +2,8 @@
 Thredded::Engine.routes.draw do
   resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
 
-  page_constraint = { page: /[1-9]\d*/ }
+  positive_int = /[1-9]\d*/
+  page_constraint = { page: positive_int }
 
   scope path: 'private-topics' do
     resource :private_topic, only: [:new], path: ''
@@ -12,6 +13,11 @@ Thredded::Engine.routes.draw do
       end
       resources :private_posts, path: '', except: [:index, :show], controller: 'posts'
     end
+  end
+
+  scope only: [:show], constraints: { id: positive_int } do
+    resources :private_post_permalinks, path: 'private-posts'
+    resources :post_permalinks, path: 'posts'
   end
 
   resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
