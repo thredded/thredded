@@ -11,6 +11,7 @@
 
 * Word-wrap is no longer a hard one (wraps in the middle of a word), and now wraps in a more
   acceptable spot - after words, at hyphens, etc.
+* Mailers now use permalinks to posts that always redirect to the correct page number. [#301](https://github.com/thredded/thredded/pull/301)
 
 # 0.3.2 - 2016-05-04
 
