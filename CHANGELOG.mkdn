@@ -4,6 +4,7 @@
 
 ## Fixed
 
+* Results from messageboards that cannot be read by the user no longer appear in the search results. [77293c](https://github.com/thredded/thredded/commit/77293c88980ec97f178d9a47405fdf915cd36ccc)
 * Word-wrap is no longer a hard one (wraps in the middle of a word), and now wraps in a more
   acceptable spot - after words, at hyphens, etc.
 * Mailers now use permalinks to posts that always redirect to the correct page number. [#301](https://github.com/thredded/thredded/pull/301)
@@ -12,8 +13,12 @@
 
 * Messageboard groups ([#261](https://github.com/thredded/thredded/issues/261)) and editing ([#303](https://github.com/thredded/thredded/pull/303)).
 * Spoiler(s) tag for post contents [5c8102a](https://github.com/thredded/thredded/commit/5c8102) `[spoiler]vader is luke's father[spoiler]`
-* Styled blockquote tags
+* Styled blockquote tags.
 * Empty partials before and after post textareas (for customization and extensibility) [#293](https://github.com/thredded/thredded/pull/293)
+* New topic form page now allows pre-filling the fields from URL parameters. [#297](https://github.com/thredded/thredded/issues/297)
+* Date format fix for dates older than 1 week. [9d71ba](https://github.com/thredded/thredded/commit/9d71ba2f1ddeac761e084e872a4b0a84ab62e35c)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.3.2...v0.4.0.
 
 # 0.3.2 - 2016-05-04
 
