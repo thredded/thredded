@@ -6,16 +6,21 @@ pt-BR:
       not_authorized: Você não está autorizado a acessar esta página.
       private_topic_create_denied: Você não está autorizado a criar tópicos privados.
       private_topic_not_found: Este tópico privado não existe.
+    form:
+      update: Atualizar
     messageboard:
       create: Criar um novo Fórum de Mensagem
       form:
         no_group: Sem Grupo
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
+      update: :thredded.form.update
+      updated_notice: Fórum de mensagem foi atualizado
     messageboard_group:
       create: Criar um novo grupo de mensagens
     nav:
       all_messageboards: Todos os Fóruns de Mensagens
+      edit_messageboard: Editar Fórum de Mensagem
       edit_post: Editar Post
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Editar

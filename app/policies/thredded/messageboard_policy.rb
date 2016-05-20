@@ -16,6 +16,10 @@ module Thredded
       @user.thredded_admin? || @user.thredded_can_read_messageboards.include?(@messageboard)
     end
 
+    def update?
+      @user.thredded_admin?
+    end
+
     def post?
       @user.thredded_admin? || @user.thredded_can_write_messageboards.include?(@messageboard)
     end

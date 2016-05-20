@@ -1,0 +1,11 @@
+<% content_for :thredded_page_title, t('thredded.nav.edit_messageboard') %>
+<% content_for :thredded_page_id, 'thredded--messageboard-edit' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= t('thredded.nav.edit_messageboard') %></li>
+  </ul>
+<% end %>
+
+<%= thredded_page do %>
+  <%= render 'form', messageboard: @messageboard %>
+<% end %>
