@@ -1,4 +1,12 @@
-# MASTER
+# 0.4.0 - 2016-05-21
+
+**NB:** If updating to this version from 0.3.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/559fc205b9ee405abfe3968b981254f01f928027/db/upgrade_migrations/20160429222452_upgrade_v0_3_to_v0_4.rb).
+
+## Fixed
+
+* Word-wrap is no longer a hard one (wraps in the middle of a word), and now wraps in a more
+  acceptable spot - after words, at hyphens, etc.
+* Mailers now use permalinks to posts that always redirect to the correct page number. [#301](https://github.com/thredded/thredded/pull/301)
 
 ## Added
 
@@ -6,12 +14,6 @@
 * Spoiler(s) tag for post contents [5c8102a](https://github.com/thredded/thredded/commit/5c8102) `[spoiler]vader is luke's father[spoiler]`
 * Styled blockquote tags
 * Empty partials before and after post textareas (for customization and extensibility) [#293](https://github.com/thredded/thredded/pull/293)
-
-## Fixed
-
-* Word-wrap is no longer a hard one (wraps in the middle of a word), and now wraps in a more
-  acceptable spot - after words, at hyphens, etc.
-* Mailers now use permalinks to posts that always redirect to the correct page number. [#301](https://github.com/thredded/thredded/pull/301)
 
 # 0.3.2 - 2016-05-04
 
