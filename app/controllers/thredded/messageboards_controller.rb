@@ -41,7 +41,7 @@ module Thredded
       if @messageboard.update(messageboard_params)
         redirect_to messageboard_topics_path(@messageboard), notice: I18n.t('thredded.messageboard.updated_notice')
       else
-        render :new
+        render :edit
       end
     end
 
