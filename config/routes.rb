@@ -33,6 +33,7 @@ Thredded::Engine.routes.draw do
 
   resource :preferences, only: [:edit, :update]
   resource :messageboard, path: 'messageboards', only: [:new]
+  resources :messageboards, only: [:edit, :update]
   resources :messageboards, only: [:index, :create], path: '' do
     resource :preferences, only: [:edit, :update]
     resource :topic, path: 'topics', only: [:new]

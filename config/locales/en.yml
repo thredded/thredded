@@ -1,6 +1,8 @@
 ---
 en:
   thredded:
+    form:
+      update: Update
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
@@ -8,14 +10,17 @@ en:
       private_topic_not_found: This private topic does not exist.
     messageboard:
       create: Create a New Messageboard
+      update: :thredded.form.update
       form:
         no_group: No Group
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
+      updated_notice: Messageboard has been updated
     messageboard_group:
       create: Create a New Messageboard Group
     nav:
       all_messageboards: All Messageboards
+      edit_messageboard: Edit Messageboard
       edit_post: Edit Post
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Edit

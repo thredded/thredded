@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module Thredded
   class MessageboardsController < Thredded::ApplicationController
+    before_action :thredded_require_login!, only: [:new, :create, :edit, :update]
+
     def index
       @groups = thredded_current_user
         .thredded_can_read_messageboards
@@ -17,30 +19,38 @@ module Thredded
     def create
       @messageboard = Messageboard.new(messageboard_params)
       authorize_creating @messageboard
-
-      if signed_in? && @messageboard.save
+      if @messageboard.save
         Topic.transaction do
           @topic = Topic.create!(topic_params)
           @post = Post.create!(post_params)
         end
-
         redirect_to root_path
       else
-        show_sign_in_error unless signed_in?
-        render action: :new
+        render :new
+      end
+    end
+
+    def edit
+      @messageboard = Messageboard.friendly.find(params[:id])
+      authorize @messageboard, :update?
+    end
+
+    def update
+      @messageboard = Messageboard.friendly.find(params[:id])
+      authorize @messageboard, :update?
+      if @messageboard.update(messageboard_params)
+        redirect_to messageboard_topics_path(@messageboard), notice: I18n.t('thredded.messageboard.updated_notice')
+      else
+        render :new
       end
     end
 
     private
 
-    def show_sign_in_error
-      flash.now[:error] = 'You are not signed in. Sign in or create an account before creating your messageboard.'
-    end
-
     def messageboard_params
       params
         .require(:messageboard)
-        .permit(:description, :name, :posting_permission, :security, :messageboard_group_id)
+        .permit(:name, :description, :messageboard_group_id)
     end
 
     def topic_params
