@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cd spec/dummy
+
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rake $*
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rake db:drop
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rake db:create
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rails thredded:install:migrations
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rake db:migrate
+BUNDLE_GEMFILE="${BUNDLE_GEMFILE:-../../Gemfile}" bundle exec rake db:seed
