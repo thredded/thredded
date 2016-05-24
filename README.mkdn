@@ -86,6 +86,25 @@ DbTextSearch::CaseInsensitive.add_index(
     connection, Thredded.user_class.table_name, Thredded.user_name_column, unique: true)
 ```
 
+### Upgrading an existing install
+
+1) To upgrade the initializer:
+
+```console
+rails g thredded:install
+```
+
+But then compare this with the previous version to decide what to keep.
+
+2) To upgrade the database (in this example from v0.4 to the v0.5):
+
+```console
+cp `bundle show thredded`/db/upgrade_migrations/20160501151908_upgrade_v0_4_to_v0_5.rb db/migrate
+rake db:migrate
+```
+
+Note that for guaranteed best results you will want to run this with the gem checked out with v0.5.0
+
 ### Migrating from Forem
 
 Are you currently using [Forem]? Thredded provides [a migration][forem-to-thredded] to copy all of your existing data from Forem over
