@@ -53,6 +53,10 @@ module Thredded
              foreign_key: :postable_id,
              inverse_of: :postable,
              dependent: :destroy
+    has_many :user_follows,
+             class_name: 'Thredded::UserTopicFollow',
+             inverse_of: :topic,
+             dependent: :destroy
 
     def self.find_by_slug!(slug)
       friendly.find(slug)

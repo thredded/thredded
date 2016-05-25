@@ -144,4 +144,9 @@ FactoryGirl.define do
     association :postable, factory: :topic
     page 1
   end
+
+  factory :user_topic_follow, class: Thredded::UserTopicFollow do
+    user
+    topic
+  end
 end

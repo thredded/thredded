@@ -20,6 +20,8 @@ module Thredded
 
     validates :messageboard_id, presence: true
 
+    after_commit :auto_follow, on: [:create, :update]
+
     def private_topic_post?
       false
     end
@@ -29,6 +31,11 @@ module Thredded
       DbTextSearch::CaseInsensitive
         .new(Thredded.user_class.thredded_messageboards_readers([messageboard]), Thredded.user_name_column)
         .in(user_names)
+    end
+
+    def auto_follow
+      UserTopicFollow.create_with(reason: UserTopicFollow::REASON_POSTED).
+          find_or_create_by(user_id: user.id, topic_id:postable_id)
     end
   end
 end

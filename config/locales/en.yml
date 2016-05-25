@@ -43,15 +43,15 @@ en:
         global_preferences_label: Global Settings
         messageboard_notify_on_mention:
           hint: >-
-            When someone mentions you by your username (eg: @sam) in this messageboard you will receive an email
-            with the contents of that post.
+            When someone mentions you by your username (eg: @sam) in this messageboard you will follow
+            the topic. You will receive emails with the contents of that post and any replies.
           label: :thredded.preferences.form.notify_on_mention.label
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
         notify_on_mention:
           hint: >-
-            When someone mentions you by your username (eg: @sam) you will receive an email with the contents of
-            that post.
-          label: "@ Notifications"
+            When someone mentions you by your username (eg: @sam) you will follow the topic.
+            You will receive emails with the contents of that post and any replies.
+          label: "Follow topics you are mentioned in"
         notify_on_message:
           hint: When you are added to a private conversation you will receive an email with its content.
           label: Private Message Notifications

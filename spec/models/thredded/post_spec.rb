@@ -69,6 +69,30 @@ module Thredded
 
       expect(post.user_email).to eq post.user.email
     end
+
+    it 'creates a follow for creator' do
+      shaun = create(:user)
+      topic = create(:topic)
+
+      expect {
+        create(:post, user: shaun, postable: topic)
+      }.to change {
+        shaun.thredded_topic_follows(true).count
+      }.from(0).to(1)
+      expect(Thredded::UserTopicFollow.last.reason).to eq(Thredded::UserTopicFollow::REASON_POSTED)
+    end
+
+    it "doesn't create a follow if creator already has a follow" do
+      shaun = create(:user)
+      topic = create(:topic)
+      topic_follow = create(:user_topic_follow, user_id: shaun.id, topic_id: topic.id)
+
+      expect {
+        create(:post, user: shaun, postable: topic)
+      }.to_not change {
+        shaun.thredded_topic_follows(true).count
+      }.from(1)
+    end
   end
 
   describe Post, '#destroy' do
