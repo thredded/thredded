@@ -2,11 +2,7 @@
 require 'spec_helper'
 
 describe Thredded, '.user_path' do
-  around do |example|
-    original = Thredded.method(:user_path)
-    example.run
-    Thredded.user_path = original
-  end
+  after { Thredded.user_path = nil }
 
   it 'returns "/" if lambda is not set' do
     Thredded.user_path = nil
