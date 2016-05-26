@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ThreddedUserTopicFollows < ActiveRecord::Migration
   def change
     create_table :thredded_user_topic_follows do |t|
