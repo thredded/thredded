@@ -14,7 +14,7 @@ module Thredded
 
   describe Post, '#create' do
     it 'notifies anyone @ mentioned in the post' do
-      mail = double('Thredded::PostMailer.at_notification(...)', deliver_later: true)
+      mail = double('Thredded::PostMailer.at_notification(...)', deliver_now: true)
 
       expect(Thredded::PostMailer).to receive(:at_notification).with(1, ['joel@example.com']).and_return(mail)
 
@@ -27,7 +27,7 @@ module Thredded
         notify_on_mention: true
       )
 
-      expect(mail).to receive(:deliver_later)
+      expect(mail).to receive(:deliver_now)
 
       create(:post, id: 1, content: 'hi @joel', messageboard: messageboard)
     end
@@ -95,6 +95,17 @@ module Thredded
 
       expect { create(:post, content: 'hi @joel', messageboard: messageboard) }
         .to change { joel.thredded_topic_follows.reload.count }.from(0).to(1)
+    end
+
+    it 'notifies followers of new post' do
+      joel = create(:user, name: 'joel', email: 'joel@example.com')
+      topic = create(:topic)
+      create(:user_topic_follow, user_id: joel.id, topic_id: topic.id)
+      shaun = create(:user)
+      expect { @post = create(:post, user: shaun, postable: topic) }
+        .to change { ActionMailer::Base.deliveries.count }.by(1)
+      notified_emails = @post.post_notifications.map(&:email)
+      expect(notified_emails).to eq(['joel@example.com'])
     end
   end
 

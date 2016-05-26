@@ -57,6 +57,10 @@ module Thredded
              class_name: 'Thredded::UserTopicFollow',
              inverse_of: :topic,
              dependent: :destroy
+    has_many :following_users,
+             class_name: Thredded.user_class,
+             source: :user,
+             through: :user_follows
 
     def self.find_by_slug!(slug)
       friendly.find(slug)

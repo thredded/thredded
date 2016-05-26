@@ -3,11 +3,11 @@ module Thredded
   class AutoFollowAndNotifyJob < ::ActiveJob::Base
     queue_as :default
 
-    def perform(post_type, post_id)
-      post = post_type.to_s.constantize.find(post_id)
+    def perform(post_id)
+      post = Post.find(post_id)
 
       AutofollowMentionedUsers.new(post).run
-      NotifyMentionedUsers.new(post).run
+      NotifyFollowingUsers.new(post).run
     end
   end
 end

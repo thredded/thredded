@@ -37,7 +37,7 @@ module Thredded
       # need to do this in-process so that it appears to them immediately
       UserTopicFollow.create_unique(user.id, postable_id, UserTopicFollow::REASON_POSTED)
       # everything else can happen later
-      AutoFollowAndNotifyJob.perform_later(self.class.name, id)
+      AutoFollowAndNotifyJob.perform_later(id)
     end
   end
 end
