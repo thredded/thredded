@@ -75,7 +75,7 @@ module Thredded
       topic = create(:topic)
 
       expect { create(:post, user: shaun, postable: topic) }
-        .to change { shaun.thredded_topic_follows(true).count }.from(0).to(1)
+        .to change { shaun.thredded_topic_follows.reload.count }.from(0).to(1)
       expect(Thredded::UserTopicFollow.last.reason).to eq(Thredded::UserTopicFollow::REASON_POSTED)
     end
 
@@ -85,7 +85,7 @@ module Thredded
       create(:user_topic_follow, user_id: shaun.id, topic_id: topic.id)
 
       expect { create(:post, user: shaun, postable: topic) }
-        .to_not change { shaun.thredded_topic_follows(true).count }.from(1)
+        .to_not change { shaun.thredded_topic_follows.reload.count }.from(1)
     end
 
     it 'creates a follow for a mentioned user' do

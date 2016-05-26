@@ -44,13 +44,13 @@ module Thredded
 
     it 'adds follows for the users mentioned' do
       expect { AutofollowMentionedUsers.new(@post).run }
-        .to change { @post.postable.user_follows(true).count }.from(0).to(1)
+        .to change { @post.postable.user_follows.reload.count }.from(0).to(1)
     end
 
     it 'does add follows for users already following' do
       create(:user_topic_follow, user: @john, topic: @post.postable)
       expect { AutofollowMentionedUsers.new(@post).run }
-        .not_to change { @post.postable.user_follows(true).count }.from(1)
+        .not_to change { @post.postable.user_follows.reload.count }.from(1)
     end
 
     def build_post_by(user)
