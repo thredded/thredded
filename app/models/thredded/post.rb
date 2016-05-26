@@ -21,6 +21,7 @@ module Thredded
     validates :messageboard_id, presence: true
 
     after_commit :auto_follow, on: [:create, :update]
+    after_commit :notify_at_users, on: [:create, :update]
 
     def private_topic_post?
       false
@@ -36,6 +37,10 @@ module Thredded
     def auto_follow
       UserTopicFollow.create_with(reason: UserTopicFollow::REASON_POSTED).
           find_or_create_by(user_id: user.id, topic_id:postable_id)
+    end
+
+    def notify_at_users
+      AtNotifierJob.perform_later(self.class.name, id)
     end
   end
 end
