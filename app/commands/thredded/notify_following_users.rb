@@ -7,7 +7,7 @@ module Thredded
 
     def run
       return unless targetted_users.present?
-      PostMailer.at_notification(@post.id, targetted_users.map(&:email)).deliver_now
+      PostMailer.post_notification(@post.id, targetted_users.map(&:email)).deliver_now
       MembersMarkedNotified.new(@post, targetted_users).run
     end
 

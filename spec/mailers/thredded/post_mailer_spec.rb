@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe PostMailer, 'at_notification' do
+  describe PostMailer, 'post_notification' do
     it 'sets the correct headers' do
       expect(email.from).to eq(['no-reply@example.com'])
       expect(email.to).to eq(['no-reply@example.com'])
@@ -12,7 +12,6 @@ module Thredded
     end
 
     it 'renders the body' do
-      expect(email.body.encoded).to include('joel mentioned you in')
       expect(email.body.encoded).to include('hey @john @sam blarghy blurp')
     end
 
@@ -38,7 +37,7 @@ module Thredded
         allow(Post).to receive_messages(find: post)
         emails = %w(john@email.com sam@email.com)
 
-        PostMailer.at_notification(post.id, emails)
+        PostMailer.post_notification(post.id, emails)
       end
     end
   end

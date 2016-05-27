@@ -3,7 +3,7 @@ require 'spec_helper'
 
 module Thredded
   describe 'Mailer previews' do
-    [PostMailerPreview, PrivateTopicMailerPreview, PrivatePostMailerPreview].each do |preview_class|
+    [PostMailerPreview, PrivateTopicMailerPreview].each do |preview_class|
       describe preview_class do
         preview_class.public_instance_methods(false).each do |method_name|
           describe "##{method_name}" do

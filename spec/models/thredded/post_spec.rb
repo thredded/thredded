@@ -14,9 +14,9 @@ module Thredded
 
   describe Post, '#create' do
     it 'notifies anyone @ mentioned in the post' do
-      mail = double('Thredded::PostMailer.at_notification(...)', deliver_now: true)
+      mail = double('Thredded::PostMailer.post_notification(...)', deliver_now: true)
 
-      expect(Thredded::PostMailer).to receive(:at_notification).with(1, ['joel@example.com']).and_return(mail)
+      expect(Thredded::PostMailer).to receive(:post_notification).with(1, ['joel@example.com']).and_return(mail)
 
       messageboard = create(:messageboard)
       joel = create(:user, name: 'joel', email: 'joel@example.com')
