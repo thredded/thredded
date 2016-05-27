@@ -46,7 +46,6 @@ module Thredded
     def create
       @private_topic = PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
-        NotifyPrivateTopicUsersJob.perform_later(@private_topic.private_topic.id)
         redirect_to @private_topic.private_topic
       else
         render :new

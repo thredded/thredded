@@ -15,7 +15,7 @@ module Thredded
                primary_key: :user_id,
                foreign_key: :user_id
 
-    after_commit :notify_at_users, on: [:create, :update]
+    after_commit :notify_users, on: [:create]
 
     def private_topic_post?
       true
@@ -28,8 +28,8 @@ module Thredded
         .in(user_names)
     end
 
-    def notify_at_users
-      AtNotifierJob.perform_later(self.class.name, id)
+    def notify_users
+      Thredded::NotifyPrivateTopicUsersJob.perform_later(id)
     end
   end
 end
