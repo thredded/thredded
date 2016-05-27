@@ -44,6 +44,8 @@ Thredded::Engine.routes.draw do
       end
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
+        post 'follow'
+        post 'unfollow'
       end
       resources :posts, except: [:index, :show], path: ''
     end

@@ -101,6 +101,19 @@ module Thredded
                   notice: t('thredded.topics.deleted_notice')
     end
 
+    def follow
+      UserTopicFollow.create_unique(thredded_current_user.id, topic.id)
+      redirect_to messageboard_topic_url(messageboard, topic),
+                  notice: t('thredded.topics.followed_notice')
+    end
+
+    def unfollow
+      follow = thredded_current_user.following?(topic)
+      follow.destroy if follow
+      redirect_to messageboard_topic_url(messageboard, topic),
+                  notice: t('thredded.topics.unfollowed_notice')
+    end
+
     private
 
     def topic

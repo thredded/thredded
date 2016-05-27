@@ -45,5 +45,9 @@ module Thredded
     def thredded_anonymous?
       false
     end
+
+    def following?(topic)
+      UserTopicFollow.find_by(topic_id: topic.id, user: self)
+    end
   end
 end

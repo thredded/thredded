@@ -100,3 +100,10 @@ pt-BR:
         results_message: Resultados de Busca para %{query}
       started_by_html: Iniciado %{time_ago} por %{user}
       updated_notice: Tópico atualizado
+      followed_notice: You are now following this topic
+      unfollowed_notice: You are no longer following this topic
+      following:
+        manual: You are following this topic.
+        posted: You are following this topic because you posted to it.
+        mentioned: You are following this topic because you were mentioned on it.
+      following_will_receive_emails: You will receive email updates.

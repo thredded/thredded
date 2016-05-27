@@ -99,3 +99,10 @@ en:
         results_message: Search Results for %{query}
       started_by_html: Started %{time_ago} by %{user}
       updated_notice: Topic updated
+      followed_notice: You are now following this topic
+      unfollowed_notice: You are no longer following this topic
+      following:
+        manual: You are following this topic.
+        posted: You are following this topic because you posted to it.
+        mentioned: You are following this topic because you were mentioned on it.
+      following_will_receive_emails: You will receive email updates.
