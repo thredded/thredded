@@ -30,5 +30,4 @@ feature 'Logged in user' do
   end
 
   scenario 'can see follow status in list of topics'
-
 end
