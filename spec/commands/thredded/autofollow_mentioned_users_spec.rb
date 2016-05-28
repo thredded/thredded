@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe AutofollowMentionedUsers, '#autofollows' do
+  describe AutofollowMentionedUsers, '#autofollowers' do
     before do
       @sam = create(:user, name: 'sam')
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
@@ -17,19 +17,19 @@ module Thredded
       create(:user_preference, user: @john, notify_on_mention: false)
       create(:user_messageboard_preference, user: @john, notify_on_mention: true, messageboard: @messageboard)
 
-      expect(AutofollowMentionedUsers.new(@post).autofollows).to be_empty
+      expect(AutofollowMentionedUsers.new(@post).autofollowers).to be_empty
     end
 
     it 'returns 2 users mentioned, not including post author' do
       command = AutofollowMentionedUsers.new(@post)
-      autofollowable_mentioned_users = command.autofollows
+      autofollowable_mentioned_users = command.autofollowers
       expect(autofollowable_mentioned_users).to match_array([@joel, @john])
     end
 
     it 'does not return users that set their preference to "no @ notifications"' do
       create(:user_messageboard_preference, notify_on_mention: false, user: @joel, messageboard: @post.messageboard)
       command = AutofollowMentionedUsers.new(@post)
-      users = command.autofollows
+      users = command.autofollowers
 
       expect(users).not_to include(@joel)
     end

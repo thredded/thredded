@@ -9,7 +9,7 @@ module Thredded
       let(:poster) { create(:user, name: "poster") }
       let!(:follower) { create(:user_topic_follow, user: create(:user, name: "follower"), topic: topic).user }
       let(:topic) { create(:topic) }
-      subject { NotifyFollowingUsers.new(post).targetted_users }
+      subject { NotifyFollowingUsers.new(post).targeted_users }
 
       it "includes followers" do
         expect(subject).to include(follower)
@@ -25,8 +25,8 @@ module Thredded
       let(:post) { create(:post) }
 
       let(:command) { NotifyFollowingUsers.new(post) }
-      let(:targetted_users) { [build_stubbed(:user)] }
-      before { allow(command).to receive(:targetted_users).and_return(targetted_users) }
+      let(:targeted_users) { [build_stubbed(:user)] }
+      before { allow(command).to receive(:targeted_users).and_return(targeted_users) }
 
       it "sends an email to targetted users" do
         expect { command.run }.to change { ActionMailer::Base.deliveries.count }.by(1)
