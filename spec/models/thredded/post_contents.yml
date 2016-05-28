@@ -31,13 +31,13 @@
     - |
       https://vimeo.com/162326419
     - |
-      <iframe src="//player.vimeo.com/video/162326419?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0" seamless="seamless" sandbox="allow-forms allow-scripts"></iframe>
+      <iframe src="//player.vimeo.com/video/162326419?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
 
   youtube videos:
     - |
       https://www.youtube.com/watch?v=MrQmQp2P3g4
     - |
-      <div><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen seamless="seamless" sandbox="allow-forms allow-scripts"></iframe></div>
+      <div><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms"></iframe></div>
 
 
   image tags with bbcode and markdown:
