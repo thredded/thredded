@@ -15,7 +15,9 @@ module Thredded
     end
 
     context 'when read' do
-      let!(:read_state) { create(:user_private_topic_read_state, user: user, postable: private_topic, read_at: 1.day.ago) }
+      let!(:read_state) do
+        create(:user_private_topic_read_state, user: user, postable: private_topic, read_at: 1.day.ago)
+      end
       it 'returns read states' do
         first = PrivateTopic.all.with_read_states(user).first
         expect(first[0]).to eq(private_topic)

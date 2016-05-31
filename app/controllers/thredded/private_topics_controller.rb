@@ -6,7 +6,7 @@ module Thredded
     before_action :thredded_require_login!
 
     def index
-      @private_topics = Thredded::TopicsPageView.new(
+      @private_topics = Thredded::PrivateTopicsPageView.new(
         thredded_current_user,
         PrivateTopic
           .distinct

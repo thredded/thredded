@@ -104,6 +104,37 @@ module Thredded
     end
   end
 
+  describe Topic, '.with_read_and_follow_states' do
+    let(:user) { create(:user) }
+    let!(:topic) { create(:topic) }
+
+    context 'when unread, unfollowed' do
+      it 'returns nulls ' do
+        first = Topic.all.with_read_and_follow_states(user).first
+        expect(first[0]).to eq(topic)
+        expect(first[1]).to be_an_instance_of(Thredded::NullUserTopicReadState)
+        expect(first[2]).to be_falsey
+      end
+    end
+
+    context 'when read' do
+      let!(:read_state) { create(:user_topic_read_state, user: user, postable: topic, read_at: 1.day.ago) }
+      it 'returns read states' do
+        first = Topic.all.with_read_and_follow_states(user).first
+        expect(first[0]).to eq(topic)
+        expect(first[1]).to eq(read_state)
+      end
+    end
+    context 'when followed' do
+      let!(:follow) { create(:user_topic_follow, user: user, topic: topic) }
+      it 'returns read states' do
+        first = Topic.all.with_read_and_follow_states(user).first
+        expect(first[0]).to eq(topic)
+        expect(first[2]).to be_truthy
+      end
+    end
+  end
+
   describe Topic, '#last_user' do
     it 'provides anon user object when user not avail' do
       topic = build_stubbed(:topic, last_user_id: 1000)
