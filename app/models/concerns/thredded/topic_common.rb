@@ -47,31 +47,44 @@ module Thredded
           .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:updated_at]))))
       end
 
-      def read_states_by_topics_lookup(user)
-        read_states_by_topic_id =
-          reflect_on_association(:user_read_states).klass
-            .where(user_id: user.id, postable_id: current_scope.map(&:id))
-            .group_by(&:postable_id)
+      private
 
-        def read_states_by_topic_id.get(topic, null_value = nil)
-          read_state = self[topic.id]
-          return null_value unless read_state
-          read_state = read_state[0]
-          read_state.postable = topic
-          read_state
-        end
-        read_states_by_topic_id
+      # @param user [Thredded.user_class]
+      # @return [ByPostableLookup]
+      def read_states_by_topics_lookup(user, null_value)
+        read_states = reflect_on_association(:user_read_states).klass
+          .where(user_id: user.id, postable_id: current_scope.map(&:id))
+        Thredded::TopicCommon::Lookup.new(read_states, null_value)
       end
+
+      public
 
       # @param user [Thredded.user_class]
       # @return [Array<[TopicCommon, UserTopicReadStateCommon]>]
       def with_read_states(user)
         null_read_state = Thredded::NullUserTopicReadState.new
         return current_scope.zip([null_read_state]) if user.thredded_anonymous?
-        read_states_by_topics = read_states_by_topics_lookup(user)
+        read_states_by_topics = read_states_by_topics_lookup(user, null_read_state)
         current_scope.map do |topic|
-          [topic, read_states_by_topics.get(topic, null_read_state)]
+          [topic, read_states_by_topics.get(topic)]
         end
+      end
+    end
+
+    class Lookup
+      # @param postable_related [ActiveRecord::Relation<UserTopicReadStateCommon, UserTopicFollow]
+      # @param null_value [NullUserTopicReadState, nil]
+      def initialize(postable_related, null_value = nil)
+        @related_by_postable_id = postable_related.map { |rs| [rs.postable_id, rs] }.to_h
+        @null_value = null_value
+      end
+
+      # @param postable [TopicCommon]
+      # @return [UserTopicReadStateCommon, UserTopicFollow]
+      def get(postable)
+        related = @related_by_postable_id[postable.id]
+        return @null_value unless related
+        related.tap { related.postable = postable }
       end
     end
   end

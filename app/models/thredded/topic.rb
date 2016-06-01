@@ -68,31 +68,29 @@ module Thredded
       raise Thredded::Errors::TopicNotFound
     end
 
-    def self.follows_by_topics_lookup(user)
-      follows_by_topic_id =
-        UserTopicFollow
-          .where(user_id: user.id, topic_id: current_scope.map(&:id))
-          .group_by(&:topic_id)
+    class << self
+      private
 
-      def follows_by_topic_id.get(topic, null_value = nil)
-        follow = self[topic.id]
-        return null_value unless follow
-        follow = follow[0]
-        follow.topic = topic
-        follow
+      # @param user [Thredded.user_class]
+      # @return [ByPostableLookup]
+      def follows_by_topics_lookup(user)
+        Thredded::TopicCommon::Lookup.new(
+          UserTopicFollow.where(user_id: user.id, topic_id: current_scope.map(&:id))
+        )
       end
-      follows_by_topic_id
-    end
 
-    # @param user [Thredded.user_class]
-    # @return [Array<[TopicCommon, UserTopicReadStateCommon, UserTopicFollow]>]
-    def self.with_read_and_follow_states(user)
-      null_read_state = Thredded::NullUserTopicReadState.new
-      return current_scope.zip([null_read_state, nil]) if user.thredded_anonymous?
-      read_states_by_topics = read_states_by_topics_lookup(user)
-      follows_by_topics = follows_by_topics_lookup(user)
-      current_scope.map do |topic|
-        [topic, read_states_by_topics.get(topic, null_read_state), follows_by_topics.get(topic)]
+      public
+
+      # @param user [Thredded.user_class]
+      # @return [Array<[TopicCommon, UserTopicReadStateCommon, UserTopicFollow]>]
+      def with_read_and_follow_states(user)
+        null_read_state = Thredded::NullUserTopicReadState.new
+        return current_scope.zip([null_read_state, nil]) if user.thredded_anonymous?
+        read_states_by_topics = read_states_by_topics_lookup(user, null_read_state)
+        follows_by_topics = follows_by_topics_lookup(user)
+        current_scope.map do |topic|
+          [topic, read_states_by_topics.get(topic), follows_by_topics.get(topic)]
+        end
       end
     end
 
