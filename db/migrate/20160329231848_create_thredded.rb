@@ -176,6 +176,14 @@ class CreateThredded < ActiveRecord::Migration
 
     add_column :thredded_messageboards, :messageboard_group_id, :integer
     add_index :thredded_messageboards, [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
+
+    create_table :thredded_user_topic_follows do |t|
+      t.integer :user_id, null: false
+      t.integer :topic_id, null: false
+      t.datetime :created_at, null: false
+      t.string :reason, default: 'manual'
+    end
+    add_index :thredded_user_topic_follows, [:user_id, :topic_id], name: :thredded_user_topic_follows_user_topic, unique: true
   end
 end
 # rubocop:enable Metrics/LineLength
