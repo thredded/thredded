@@ -13,6 +13,7 @@
     <% if follow = current_user.following?(topic)%>
       <div class="thredded--topic-follow-info thredded--following">
         <p>
+          <% # i18n-tasks-use t('thredded.topics.following.manual') t('thredded.topics.following.posted') t('thredded.topics.following.mentioned') %>
           <%= t("thredded.topics.following.#{follow.reason}") %></p>
         <%= t('thredded.topics.following_will_receive_emails') %>
         <%= button_to 'Stop following', topic.unfollow_path %>
