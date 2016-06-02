@@ -35,7 +35,8 @@ module Thredded
     :layout,
     :user_class,
     :user_name_column,
-    :user_path
+    :user_path,
+    :whitelist_elements
 
   # @return [Symbol] The name of the method used by Thredded controllers and views to fetch the currently signed-in user
   mattr_accessor :current_user_method
@@ -53,6 +54,7 @@ module Thredded
   self.layout = 'thredded/application'
   self.moderator_column = :admin
   self.user_name_column = :name
+  self.whitelist_elements = %w( iframe span )
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class

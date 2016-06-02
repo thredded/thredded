@@ -17,9 +17,7 @@ module Thredded
       end
     ].freeze
 
-    WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(
-      iframe span
-    ).freeze
+    WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + Thredded.whitelist_elements.freeze
 
     WHITELIST = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
       elements: WHITELIST_ELEMENTS,

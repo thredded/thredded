@@ -54,6 +54,10 @@ Thredded.admin_column = :admin
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
 
+# ==> Whitelist Configuration
+# By default the standard html-pipeline element whitelist will apply, plus the elements noted below
+Thredded.whitelist_elements = %w( iframe span )
+
 # ==> Error Handling
 # By default Thredded just renders a flash alert on errors such as Topic not found, or Login required.
 # Below is an example of overriding the default behavior on LoginRequired:
