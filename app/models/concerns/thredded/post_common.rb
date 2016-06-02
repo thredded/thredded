@@ -9,6 +9,7 @@ module Thredded
 
         a_tags = node.css('a')
         a_tags.each do |a_tag|
+          a_tag['href'] ||= '#'
           if a_tag['href'].starts_with? 'http'
             a_tag['target'] = '_blank'
             a_tag['rel'] = 'nofollow noopener'
