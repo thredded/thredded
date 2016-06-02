@@ -54,8 +54,21 @@ Thredded.admin_column = :admin
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
 
-# ==> Whitelist Configuration
-# By default the standard html-pipeline element whitelist will apply, plus the elements noted below
+# ==> Content Pipeline Filters Configuration
+# By default the content pipeline filters below will apply.
+Thredded.self.content_pipeline_filters = [
+  HTML::Pipeline::VimeoFilter,
+  HTML::Pipeline::YoutubeFilter,
+  HTML::Pipeline::BbcodeFilter,
+  HTML::Pipeline::MarkdownFilter,
+  HTML::Pipeline::SanitizationFilter,
+  HTML::Pipeline::AtMentionFilter,
+  HTML::Pipeline::EmojiFilter,
+  HTML::Pipeline::AutolinkFilter,
+]
+
+# ==> Sanitization Filter Whitelist Configuration
+# By default the standard html-pipeline sanitization filter element whitelist will apply, plus the elements below
 Thredded.whitelist_elements = %w( iframe span )
 
 # ==> Error Handling

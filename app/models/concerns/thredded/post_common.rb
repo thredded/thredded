@@ -60,26 +60,12 @@ module Thredded
 
     # @param view_context [Object] the context of the rendering view.
     def filtered_content(view_context)
-      pipeline = HTML::Pipeline.new(content_pipeline_filters, content_pipeline_options)
+      pipeline = HTML::Pipeline.new(Thredded.content_pipeline_filters, content_pipeline_options)
       result = pipeline.call(content, view_context: view_context)
       result[:output].to_s.html_safe
     end
 
     protected
-
-    # @return [Array<HTML::Pipeline::Filter]>]
-    def content_pipeline_filters
-      [
-        HTML::Pipeline::VimeoFilter,
-        HTML::Pipeline::YoutubeFilter,
-        HTML::Pipeline::BbcodeFilter,
-        HTML::Pipeline::MarkdownFilter,
-        HTML::Pipeline::SanitizationFilter,
-        HTML::Pipeline::AtMentionFilter,
-        HTML::Pipeline::EmojiFilter,
-        HTML::Pipeline::AutolinkFilter,
-      ]
-    end
 
     # @return [Hash] options for HTML::Pipeline.new
     def content_pipeline_options

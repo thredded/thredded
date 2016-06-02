@@ -28,6 +28,7 @@ module Thredded
   mattr_accessor \
     :active_user_threshold,
     :avatar_url,
+    :content_pipeline_filters,
     :email_from,
     :email_incoming_host,
     :email_outgoing_prefix,
@@ -50,6 +51,16 @@ module Thredded
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
+  self.content_pipeline_filters = [
+    HTML::Pipeline::VimeoFilter,
+    HTML::Pipeline::YoutubeFilter,
+    HTML::Pipeline::BbcodeFilter,
+    HTML::Pipeline::MarkdownFilter,
+    HTML::Pipeline::SanitizationFilter,
+    HTML::Pipeline::AtMentionFilter,
+    HTML::Pipeline::EmojiFilter,
+    HTML::Pipeline::AutolinkFilter,
+  ]
   self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
   self.layout = 'thredded/application'
   self.moderator_column = :admin
