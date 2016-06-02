@@ -75,7 +75,7 @@ module Thredded
       # @return [ByPostableLookup]
       def follows_by_topics_lookup(user)
         Thredded::TopicCommon::Lookup.new(
-          UserTopicFollow.where(user_id: user.id, topic_id: current_scope.map(&:id))
+          Thredded::UserTopicFollow.where(user_id: user.id, topic_id: current_scope.map(&:id))
         )
       end
 
