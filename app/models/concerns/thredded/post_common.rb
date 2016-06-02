@@ -18,7 +18,7 @@ module Thredded
     ].freeze
 
     WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(
-      iframe span
+      iframe span figure figcaption
     ).freeze
 
     WHITELIST = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
