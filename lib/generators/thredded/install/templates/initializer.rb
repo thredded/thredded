@@ -56,7 +56,7 @@ Thredded.layout = 'thredded/application'
 
 # ==> Content Pipeline Filters Configuration
 # By default the content pipeline filters below will apply.
-Thredded.self.content_pipeline_filters = [
+Thredded.content_pipeline_filters = [
   HTML::Pipeline::VimeoFilter,
   HTML::Pipeline::YoutubeFilter,
   HTML::Pipeline::BbcodeFilter,
