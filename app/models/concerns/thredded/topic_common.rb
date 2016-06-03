@@ -51,10 +51,10 @@ module Thredded
 
       # @param user [Thredded.user_class]
       # @return [ByPostableLookup]
-      def read_states_by_topics_lookup(user, null_value)
+      def read_states_by_postable_hash(user)
         read_states = reflect_on_association(:user_read_states).klass
           .where(user_id: user.id, postable_id: current_scope.map(&:id))
-        Thredded::TopicCommon::Lookup.new(read_states, null_value)
+        Thredded::TopicCommon::CachingHash.from_relation(read_states)
       end
 
       public
@@ -64,27 +64,21 @@ module Thredded
       def with_read_states(user)
         null_read_state = Thredded::NullUserTopicReadState.new
         return current_scope.zip([null_read_state]) if user.thredded_anonymous?
-        read_states_by_topics = read_states_by_topics_lookup(user, null_read_state)
-        current_scope.map do |topic|
-          [topic, read_states_by_topics.get(topic)]
+        read_states_by_postable = read_states_by_postable_hash(user)
+        current_scope.map do |postable|
+          [postable, read_states_by_postable[postable] || null_read_state]
         end
       end
     end
 
-    class Lookup
-      # @param postable_related [ActiveRecord::Relation<UserTopicReadStateCommon, UserTopicFollow]
-      # @param null_value [NullUserTopicReadState, nil]
-      def initialize(postable_related, null_value = nil)
-        @related_by_postable_id = postable_related.map { |rs| [rs.postable_id, rs] }.to_h
-        @null_value = null_value
+    class CachingHash < Hash
+      def self.from_relation(postable_relation)
+        self[postable_relation.map { |related| [related.postable_id, related] }]
       end
 
-      # @param postable [TopicCommon]
-      # @return [UserTopicReadStateCommon, UserTopicFollow]
-      def get(postable)
-        related = @related_by_postable_id[postable.id]
-        return @null_value unless related
-        related.tap { related.postable = postable }
+      # lookup related item by postable and set the inverse lookup
+      def [](postable)
+        super(postable.id).tap { |related| related.postable = postable if related }
       end
     end
   end
