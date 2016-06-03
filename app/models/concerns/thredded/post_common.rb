@@ -7,7 +7,7 @@ module Thredded
       lambda do |env|
         node = env[:node]
 
-        a_tags = node.css('a')
+        a_tags = node.css('a[href]')
         a_tags.each do |a_tag|
           a_tag['href'] ||= '#'
           if a_tag['href'].starts_with? 'http'
