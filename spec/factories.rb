@@ -2,6 +2,7 @@
 require 'faker'
 I18n.reload!
 include ActionDispatch::TestProcess
+include ActionView::Helpers::TagHelper
 
 FactoryGirl.define do
   sequence(:topic_hash) { |n| "hash#{n}" }
@@ -35,7 +36,7 @@ FactoryGirl.define do
     postable { association :topic, user: user }
     messageboard
 
-    content { Faker::Hacker.say_something_smart }
+    content { post_content_with_tags }
     ip '127.0.0.1'
   end
 
@@ -144,4 +145,10 @@ FactoryGirl.define do
     association :postable, factory: :topic
     page 1
   end
+end
+
+def post_content_with_tags
+  HTML::Pipeline::SanitizationFilter::WHITELIST[:elements].sample(rand(1..3)).map do |tag|
+    "#{content_tag(tag, Faker::Hacker.say_something_smart)}<a #{Faker::Hacker.say_something_smart}>"
+  end.join
 end
