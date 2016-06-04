@@ -3,41 +3,6 @@ module Thredded
   module PostCommon
     extend ActiveSupport::Concern
 
-    WHITELIST_TRANSFORMERS = HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
-      lambda do |env|
-        node = env[:node]
-
-        a_tags = node.css('a')
-        a_tags.each do |a_tag|
-          a_tag['href'] ||= '#'
-          if a_tag['href'].starts_with? 'http'
-            a_tag['target'] = '_blank'
-            a_tag['rel'] = 'nofollow noopener'
-          end
-        end
-      end
-    ].freeze
-
-    WHITELIST_ELEMENTS = HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(
-      iframe span figure figcaption
-    ).freeze
-
-    WHITELIST = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-      elements: WHITELIST_ELEMENTS,
-      transformers: WHITELIST_TRANSFORMERS,
-      attributes: {
-        'a' => %w(href rel),
-        'iframe' => %w(src width height frameborder allowfullscreen sandbox seamless),
-        'span' => %w(class),
-      },
-      add_attributes: {
-        'iframe' => {
-          'seamless' => 'seamless',
-          'sandbox' => 'allow-same-origin allow-scripts allow-forms',
-        }
-      }
-    ).freeze
-
     included do
       paginates_per 50
 
@@ -62,35 +27,12 @@ module Thredded
     end
 
     # @param view_context [Object] the context of the rendering view.
+    # @return [String] formatted and sanitized html-safe post content.
     def filtered_content(view_context)
-      pipeline = HTML::Pipeline.new(content_pipeline_filters, content_pipeline_options)
-      result = pipeline.call(content, view_context: view_context)
-      result[:output].to_s.html_safe
-    end
-
-    protected
-
-    # @return [Array<HTML::Pipeline::Filter]>]
-    def content_pipeline_filters
-      [
-        HTML::Pipeline::VimeoFilter,
-        HTML::Pipeline::YoutubeFilter,
-        HTML::Pipeline::BbcodeFilter,
-        HTML::Pipeline::MarkdownFilter,
-        HTML::Pipeline::SanitizationFilter,
-        HTML::Pipeline::AtMentionFilter,
-        HTML::Pipeline::EmojiFilter,
-        HTML::Pipeline::AutolinkFilter,
-      ]
-    end
-
-    # @return [Hash] options for HTML::Pipeline.new
-    def content_pipeline_options
-      {
-        asset_root: Rails.application.config.action_controller.asset_host || '',
-        post:       self,
-        whitelist:  WHITELIST,
-      }
+      Thredded::ContentFormatter.new(
+        view_context,
+        users_provider: -> (names) { readers_from_user_names(names) }
+      ).format_content(content)
     end
 
     private
