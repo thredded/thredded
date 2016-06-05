@@ -102,7 +102,7 @@ module Thredded
     end
 
     def follow
-      UserTopicFollow.create_unique(thredded_current_user.id, topic.id)
+      UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
       redirect_to messageboard_topic_url(messageboard, topic),
                   notice: t('thredded.topics.followed_notice')
     end

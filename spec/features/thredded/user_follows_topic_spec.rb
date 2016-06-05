@@ -10,7 +10,7 @@ feature 'Logged in user' do
   end
   let(:a_followed_topic) do
     topic = create(:topic, with_posts: 1, messageboard: messageboard)
-    Thredded::UserTopicFollow.create_unique(user.user.id, topic.id)
+    Thredded::UserTopicFollow.create_unless_exists(user.user.id, topic.id)
     PageObject::Topic.new(topic)
   end
 
@@ -36,7 +36,7 @@ feature 'Logged in user' do
     end
     let!(:a_followed_topic) do
       topic = create(:topic, with_posts: 1, messageboard: messageboard)
-      Thredded::UserTopicFollow.create_unique(user.user.id, topic.id)
+      Thredded::UserTopicFollow.create_unless_exists(user.user.id, topic.id)
       topic
     end
     let(:topics_page) { PageObject::Topics.new(messageboard) }
