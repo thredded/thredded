@@ -7,6 +7,7 @@ feature 'User creates new topic' do
 
     topic.create_topic
     expect(topic).to be_listed
+    expect(topic).to be_read
 
     topic.visit_latest_topic
     expect(topic).to be_displayed

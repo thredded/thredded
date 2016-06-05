@@ -36,6 +36,7 @@ module Thredded
       ActiveRecord::Base.transaction do
         topic.save!
         post.save!
+        UserTopicReadState.read_on_first_post!(user, topic) if topic.previous_changes.include?(:id)
       end
       true
     end

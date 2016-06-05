@@ -26,6 +26,10 @@ module Thredded
         return unless !state.read_at? || state.read_at < post.updated_at
         state.update!(read_at: post.updated_at, page: post_page)
       end
+
+      def read_on_first_post!(user, topic)
+        create!(user: user, postable: topic, read_at: Time.zone.now, page: 1)
+      end
     end
   end
 end
