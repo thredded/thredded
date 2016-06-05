@@ -74,7 +74,6 @@ module Thredded
       @new_topic = TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-
         redirect_to messageboard_topics_path(messageboard)
       else
         render :new
