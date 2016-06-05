@@ -74,6 +74,8 @@ module Thredded
       @new_topic = TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
+        UserTopicReadState.create!(user: thredded_current_user, postable: @new_topic.topic, read_at: Time.zone.now, page: 1) if signed_in?
+
         redirect_to messageboard_topics_path(messageboard)
       else
         render :new
