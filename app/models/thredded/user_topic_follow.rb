@@ -4,6 +4,7 @@ module Thredded
     REASON_MANUAL = 'manual'
     REASON_POSTED = 'posted'
     REASON_MENTIONED = 'mentioned'
+    enum reason: [:manual, :posted, :mentioned]
 
     belongs_to :user, inverse_of: :thredded_topic_follows
     belongs_to :topic, inverse_of: :user_follows
