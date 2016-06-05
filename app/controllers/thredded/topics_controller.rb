@@ -74,7 +74,6 @@ module Thredded
       @new_topic = TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        UserTopicReadState.read_on_first_post!(thredded_current_user, @new_topic.topic) if signed_in?
 
         redirect_to messageboard_topics_path(messageboard)
       else
