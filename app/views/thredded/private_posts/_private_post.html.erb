@@ -1,3 +1,7 @@
 <% cache(private_post, expires_in: 1.week) do %>
-  <%= render 'thredded/posts_common/post', post: private_post %>
+  <%= content_tag :article, id: dom_id(private_post), class: 'thredded--post' do %>
+    <%= render 'thredded/posts_common/header', post: private_post %>
+    <%= render 'thredded/posts_common/content', post: private_post %>
+    <%= render 'thredded/posts_common/actions', post: private_post %>
+  <% end %>
 <% end %>

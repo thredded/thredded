@@ -47,6 +47,8 @@ module Thredded
                foreign_key: :messageboard_group_id,
                class_name: 'Thredded::MessageboardGroup'
 
+    has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
+
     default_scope { where(closed: false).order(topics_count: :desc) }
 
     scope :top_level_messageboards, -> { where(group: nil) }

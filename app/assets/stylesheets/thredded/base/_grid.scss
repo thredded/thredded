@@ -4,8 +4,20 @@
   }
 }
 
+@mixin thredded-media-tablet-and-down {
+  @media screen and (max-width: map-get($thredded-grid-breakpoint-max-widths, tablet)) {
+    @content;
+  }
+}
+
 @mixin thredded-media-tablet-and-up {
   @media screen and (min-width: map-get($thredded-grid-breakpoint-max-widths, mobile) + 0.00001rem) {
+    @content;
+  }
+}
+
+@mixin thredded-media-desktop-and-up {
+  @media screen and (min-width: map-get($thredded-grid-breakpoint-max-widths, tablet) + 0.00001rem) {
     @content;
   }
 }

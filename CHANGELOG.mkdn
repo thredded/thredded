@@ -1,3 +1,9 @@
+# Master
+
+## Added
+
+* [Moderation system](https://github.com/thredded/thredded#moderation).
+
 # 0.4.0 - 2016-05-21
 
 **NB:** If updating to this version from 0.3.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/559fc205b9ee405abfe3968b981254f01f928027/db/upgrade_migrations/20160429222452_upgrade_v0_3_to_v0_4.rb).

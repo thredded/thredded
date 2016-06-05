@@ -36,5 +36,27 @@ module Thredded
         *('thredded--private-topic' if topic.is_a?(Thredded::PrivateTopicView))
       ]
     end
+
+    def unread_private_topics_count
+      @unread_private_topics_count ||=
+        if signed_in?
+          Thredded::PrivateTopic
+            .for_user(thredded_current_user)
+            .unread(thredded_current_user)
+            .count
+        else
+          0
+        end
+    end
+
+    def moderatable_messageboards_ids
+      @moderatable_messageboards_ids ||=
+        thredded_current_user.thredded_can_moderate_messageboards.pluck(:id)
+    end
+
+    def posts_pending_moderation_count
+      @posts_pending_moderation_count ||=
+        Thredded::Post.where(messageboard_id: moderatable_messageboards_ids).pending_moderation.count
+    end
   end
 end

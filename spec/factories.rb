@@ -133,6 +133,18 @@ FactoryGirl.define do
         create(:user_detail, user: user)
       end
     end
+
+    trait :approved do
+      after(:create) do |user, _|
+        create(:user_detail, user: user, moderation_state: :approved)
+      end
+    end
+
+    trait :blocked do
+      after(:create) do |user, _|
+        create(:user_detail, user: user, moderation_state: :blocked)
+      end
+    end
   end
 
   factory :user_detail, class: Thredded::UserDetail do

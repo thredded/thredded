@@ -10,7 +10,7 @@ module Thredded
     end
 
     def create?
-      @user.thredded_admin? || @post.postable.users.include?(@user)
+      @user.thredded_admin? || @post.postable.users.include?(@user) && !@user.thredded_user_detail.blocked?
     end
 
     def read?

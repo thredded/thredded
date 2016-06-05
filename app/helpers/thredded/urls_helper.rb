@@ -40,18 +40,20 @@ module Thredded
     end
 
     # @param post [Post, PrivatePost]
+    # @param user [Thredded.user_class] the current user
     # @return [String] URL of the topic page with the post anchor.
-    def post_url(post, params = {})
+    def post_url(post, user:, **params)
       params = params.dup
       params[:anchor] ||= ActionView::RecordIdentifier.dom_id(post)
-      params[:page] ||= post.page
+      params[:page] ||= post.private_topic_post? ? post.page : post.page(user: user)
       topic_url(post.postable, params)
     end
 
     # @param post [Post, PrivatePost]
+    # @param user [Thredded.user_class] the current user
     # @return [String] path to the topic page with the post anchor.
-    def post_path(post, params = {})
-      post_url(post, params.merge(only_path: true))
+    def post_path(post, user:, **params)
+      post_url(post, params.merge(user: user, only_path: true))
     end
 
     # @param post [Post, PrivatePost]
@@ -65,7 +67,7 @@ module Thredded
     end
 
     # @param post [Post, PrivatePost]
-    # @return [String] path to the DELETE PATCH PUT POST endpoint.
+    # @return [String] path to the DELETE endpoint.
     def delete_post_path(post)
       if post.private_topic_post?
         private_topic_private_post_path(post.postable, post)

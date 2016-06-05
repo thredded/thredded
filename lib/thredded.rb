@@ -46,6 +46,9 @@ module Thredded
   # @return [Symbol] The name of the admin flag column on the users table for the default permissions model
   mattr_accessor :admin_column
 
+  # @return [Boolean] Whether posts that are pending moderation are visible to regular users.
+  mattr_accessor :content_visible_while_pending_moderation
+
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
@@ -53,6 +56,7 @@ module Thredded
   self.layout = 'thredded/application'
   self.moderator_column = :admin
   self.user_name_column = :name
+  self.content_visible_while_pending_moderation = true
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class

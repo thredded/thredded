@@ -36,10 +36,19 @@ module Thredded
                through:    :thredded_private_users,
                class_name: 'Thredded::PrivateTopic',
                source:     :private_topic
+
+      with_options dependent: :nullify, class_name: 'Thredded::PostModerationRecord' do |opt|
+        opt.has_many :thredded_post_moderation_records, foreign_key: 'post_user_id', inverse_of: :post_user
+        opt.has_many :thredded_post_moderated_records, foreign_key: 'moderator_id', inverse_of: :moderator
+      end
     end
 
     def thredded_user_preference
       super || build_thredded_user_preference
+    end
+
+    def thredded_user_detail
+      super || build_thredded_user_detail
     end
 
     def thredded_anonymous?

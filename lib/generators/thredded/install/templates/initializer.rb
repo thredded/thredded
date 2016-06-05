@@ -34,6 +34,9 @@ Thredded.moderator_column = :admin
 # The name of the admin flag column on the users table.
 Thredded.admin_column = :admin
 
+# Whether posts and topics pending moderation are visible to regular users.
+Thredded.content_visible_while_pending_moderation = true
+
 # This model can be customized further by overriding a handful of methods on the User model.
 # For more information, see app/models/thredded/user_extender.rb.
 

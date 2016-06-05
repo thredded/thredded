@@ -2,7 +2,7 @@
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
   display: block;
-  @include thredded-media-tablet-and-up {
+  @include thredded-media-desktop-and-up {
     margin-top: $thredded-small-spacing;
   }
 }

@@ -6,12 +6,14 @@ module Thredded
     helper_method :topic
     before_action :update_user_activity
 
+    after_action :verify_authorized
+
     def create
       post = parent_topic.posts.build(post_params)
       authorize_creating post
       post.save!
 
-      redirect_to post_path(post)
+      redirect_to post_path(post, user: thredded_current_user)
     end
 
     def edit
@@ -22,7 +24,7 @@ module Thredded
       authorize post, :update?
       post.update_attributes(post_params.except(:user, :ip))
 
-      redirect_to post_path(post)
+      redirect_to post_path(post, user: thredded_current_user)
     end
 
     def destroy

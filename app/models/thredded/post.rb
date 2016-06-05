@@ -2,6 +2,7 @@
 module Thredded
   class Post < ActiveRecord::Base
     include PostCommon
+    include ContentModerationState
 
     belongs_to :user,
                class_name: Thredded.user_class,
@@ -17,13 +18,27 @@ module Thredded
                primary_key:   :user_id,
                foreign_key:   :user_id,
                counter_cache: true
+    has_many :moderation_records,
+             class_name: 'Thredded::PostModerationRecord',
+             dependent: :nullify
 
     validates :messageboard_id, presence: true
 
     after_commit :auto_follow_and_notify, on: [:create, :update]
 
+    # @param [Integer] per_page
+    # @param [Thredded.user_class] user
+    def page(per_page: self.class.default_per_page, user:)
+      readable_posts = PostPolicy::Scope.new(user, postable.posts).resolve
+      1 + readable_posts.where(postable.posts.arel_table[:id].lt(id)).count / per_page
+    end
+
     def private_topic_post?
       false
+    end
+
+    def user_detail
+      super || build_user_detail
     end
 
     # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.

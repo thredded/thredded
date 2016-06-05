@@ -9,7 +9,7 @@ module Thredded
     end
 
     def create?
-      !@user.thredded_anonymous?
+      !@user.thredded_anonymous? && !@user.thredded_user_detail.blocked?
     end
 
     def read?

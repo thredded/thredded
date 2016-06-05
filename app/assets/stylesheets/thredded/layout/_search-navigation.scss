@@ -5,7 +5,7 @@
   top: 0;
   right: 0;
 
-  @include thredded-media-mobile {
+  @include thredded-media-tablet-and-down {
     position: initial;
   }
 
@@ -17,7 +17,7 @@
     box-shadow: none;
     width: 100%;
 
-    @include thredded-media-tablet-and-up {
+    @include thredded-media-desktop-and-up {
       $padding-x: 0.75rem;
       background: transparent;
       border-color: transparent;

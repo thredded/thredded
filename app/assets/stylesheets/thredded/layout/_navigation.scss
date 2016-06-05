@@ -6,7 +6,8 @@
   }
 }
 
-@include thredded-media-mobile {
+@include thredded-media-tablet-and-down {
+  $icon-nav-item-width: 2.625rem;
   &--navigation {
     display: table;
     position: relative;
@@ -18,7 +19,10 @@
   }
   &--navigation-breadcrumbs {
     font-size: $thredded-font-size-small;
-    padding-right: 5rem;
+    padding-right: $icon-nav-item-width * 2;
+    .thredded--is-moderator & {
+      padding-right: $icon-nav-item-width * 3;
+    }
   }
   &--navigation--search {
     display: none;
@@ -50,12 +54,17 @@
         height: 2rem;
       }
     }
+    %icon-counter {
+      bottom: 0.3rem;
+      position: absolute;
+      right: -0.2rem;
+    }
     .thredded--nav-text {
       display: none;
     }
     &--settings {
       @extend %icon-nav-item;
-      right: 2.6rem;
+      right: $icon-nav-item-width;
     }
     &--private-topics {
       @extend %icon-nav-item;
@@ -65,9 +74,14 @@
         position: relative;
       }
       &--unread {
-        bottom: 0.3rem;
-        position: absolute;
-        right: -0.2rem;
+        @extend %icon-counter;
+      }
+    }
+    &--moderation {
+      @extend %icon-nav-item;
+      right: $icon-nav-item-width * 2;
+      &--pending-count {
+        @extend %icon-counter
       }
     }
   }

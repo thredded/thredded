@@ -29,7 +29,7 @@ module Thredded
         .includes(:user)
         .order_oldest_first
         .page(current_page)
-      @posts = Thredded::PostsPageView.new(thredded_current_user, private_topic, page_scope)
+      @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
 
       if signed_in?
         UserPrivateTopicReadState.touch!(thredded_current_user.id, private_topic.id, page_scope.last, current_page)

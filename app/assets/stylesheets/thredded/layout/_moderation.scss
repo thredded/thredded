@@ -1,0 +1,45 @@
+&--post-moderation-actions {
+  @extend %thredded--buttons-list;
+}
+
+&--moderation--history-link {
+  float: right;
+  margin: 0.4rem 0.6rem $thredded-small-spacing 0;
+  position: relative;
+  z-index: 1;
+}
+
+&--moderated-notice {
+  margin-bottom: $thredded-base-spacing;
+  padding: $thredded-small-spacing $thredded-base-spacing;
+  background: $thredded-light-gray;
+}
+
+&--post-moderation-record {
+  .thredded--post {
+    margin-bottom: 0;
+    margin-left: 4rem;
+  }
+  &--moderation-state-notice {
+    margin-bottom: 1rem;
+    a {
+      @extend %thredded--link;
+    }
+    .thredded--post-moderation-record-approved & {
+      color: $thredded-alert-success-color;
+    }
+    .thredded--post-moderation-record-blocked & {
+      color: $thredded-alert-danger-color;
+    }
+  }
+  &--content-changed-notice {
+    font-style: italic;
+    a {
+      @extend %thredded--link;
+    }
+  }
+}
+
+&--post-moderation-record + &--post-moderation-record {
+  margin-top: $thredded-large-spacing;
+}

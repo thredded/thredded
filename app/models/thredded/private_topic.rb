@@ -14,6 +14,10 @@ module Thredded
     belongs_to :user,
                class_name: Thredded.user_class,
                inverse_of: :thredded_private_topics
+    belongs_to :user_detail,
+               primary_key:   :user_id,
+               foreign_key:   :user_id,
+               inverse_of:    :private_topics
 
     has_many :posts,
              class_name:  'Thredded::PrivatePost',
@@ -52,6 +56,10 @@ module Thredded
 
     def public?
       false
+    end
+
+    def user_detail
+      super || build_user_detail
     end
 
     def should_generate_new_friendly_id?

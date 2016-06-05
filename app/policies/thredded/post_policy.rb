@@ -2,6 +2,22 @@
 require_dependency 'thredded/topic_policy'
 module Thredded
   class PostPolicy
+    # The scope of readable posts.
+    # MessageboardPolicy must be applied separately.
+    class Scope
+      # @param user [Thredded.user_class]
+      # @param scope [ActiveRecord::Relation<Thredded::Post>]
+      def initialize(user, scope)
+        @user = user
+        @scope = scope
+      end
+
+      # @return [ActiveRecord::Relation<Thredded::Post>]
+      def resolve
+        @scope.moderation_state_visible_to_user(@user)
+      end
+    end
+
     # @param user [Thredded.user_class]
     # @param post [Thredded::Post]
     def initialize(user, post)
@@ -14,7 +30,7 @@ module Thredded
     end
 
     def read?
-      TopicPolicy.new(@user, @post.postable).read?
+      TopicPolicy.new(@user, @post.postable).read? && @post.moderation_state_visible_to_user?(@user)
     end
 
     def update?

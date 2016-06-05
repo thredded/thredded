@@ -12,7 +12,6 @@ module Thredded
       :messageboard,
       :messageboard_or_nil,
       :preferences,
-      :unread_private_topics_count,
       :signed_in?
 
     rescue_from Thredded::Errors::MessageboardNotFound,
@@ -64,34 +63,16 @@ module Thredded
       Thredded.layout
     end
 
-    def unread_private_topics_count
-      @unread_private_topics_count ||=
-        if signed_in?
-          Thredded::PrivateTopic
-            .for_user(thredded_current_user)
-            .unread(thredded_current_user)
-            .count
-        else
-          0
-        end
-    end
-
     def authorize_reading(obj)
-      return if policy(obj).read?
-
-      class_name = obj.class.to_s
-      error      = class_name.gsub(/Thredded::/, 'Thredded::Errors::') + 'ReadDenied'
-
-      fail error.constantize
+      authorize obj, :read?
+    rescue Pundit::NotAuthorizedError
+      raise "#{obj.class.to_s.sub(/Thredded::/, 'Thredded::Errors::')}ReadDenied".constantize
     end
 
     def authorize_creating(obj)
-      return if policy(obj).create?
-
-      class_name = obj.class.to_s
-      error      = class_name.gsub(/Thredded::/, 'Thredded::Errors::') + 'CreateDenied'
-
-      fail error.constantize
+      authorize obj, :create?
+    rescue Pundit::NotAuthorizedError
+      raise "#{obj.class.to_s.sub(/Thredded::/, 'Thredded::Errors::')}CreateDenied".constantize
     end
 
     def update_user_activity
