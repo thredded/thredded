@@ -54,6 +54,18 @@ Thredded.admin_column = :admin
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
 
+# ==> Post Content Formatting
+# Customize the way Thredded handles post formatting.
+
+# Change the default html-pipeline filters used by thredded.
+# E.g. to remove BBCode support:
+# Thredded::ContentFormatter.pipeline_filters -= [HTML::Pipeline::BbcodeFilter]
+
+# Change the HTML sanitization settings used by Thredded.
+# See the Sanitize docs for more information on the underlying library: https://github.com/rgrove/sanitize/#readme
+# E.g. to allow a custom element <custom-element>:
+# Thredded::ContentFormatter.whitelist[:elements] += %w(custom-element)
+
 # ==> Error Handling
 # By default Thredded just renders a flash alert on errors such as Topic not found, or Login required.
 # Below is an example of overriding the default behavior on LoginRequired:
