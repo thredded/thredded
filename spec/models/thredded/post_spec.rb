@@ -14,9 +14,9 @@ module Thredded
 
   describe Post, '#create' do
     it 'notifies anyone @ mentioned in the post' do
-      mail = double('Thredded::PostMailer.at_notification(...)', deliver_later: true)
+      mail = double('Thredded::PostMailer.post_notification(...)', deliver_now: true)
 
-      expect(Thredded::PostMailer).to receive(:at_notification).with(1, ['joel@example.com']).and_return(mail)
+      expect(Thredded::PostMailer).to receive(:post_notification).with(1, ['joel@example.com']).and_return(mail)
 
       messageboard = create(:messageboard)
       joel = create(:user, name: 'joel', email: 'joel@example.com')
@@ -27,7 +27,7 @@ module Thredded
         notify_on_mention: true
       )
 
-      expect(mail).to receive(:deliver_later)
+      expect(mail).to receive(:deliver_now)
 
       create(:post, id: 1, content: 'hi @joel', messageboard: messageboard)
     end
@@ -68,6 +68,44 @@ module Thredded
       post = create(:post, user: shaun, postable: topic)
 
       expect(post.user_email).to eq post.user.email
+    end
+
+    it 'creates a follow for creator' do
+      shaun = create(:user)
+      topic = create(:topic)
+
+      expect { create(:post, user: shaun, postable: topic) }
+        .to change { shaun.thredded_topic_follows.reload.count }.from(0).to(1)
+      expect(Thredded::UserTopicFollow.last).to be_posted
+    end
+
+    it "doesn't create a follow if creator already has a follow" do
+      shaun = create(:user)
+      topic = create(:topic)
+      create(:user_topic_follow, user_id: shaun.id, topic_id: topic.id)
+
+      expect { create(:post, user: shaun, postable: topic) }
+        .to_not change { shaun.thredded_topic_follows.reload.count }.from(1)
+    end
+
+    it 'creates a follow for a mentioned user' do
+      messageboard = create(:messageboard)
+      joel = create(:user, name: 'joel', email: 'joel@example.com')
+      create(:user_messageboard_preference, user: joel, messageboard: messageboard, notify_on_mention: true)
+
+      expect { create(:post, content: 'hi @joel', messageboard: messageboard) }
+        .to change { joel.thredded_topic_follows.reload.count }.from(0).to(1)
+    end
+
+    it 'notifies followers of new post' do
+      joel = create(:user, name: 'joel', email: 'joel@example.com')
+      topic = create(:topic)
+      create(:user_topic_follow, user_id: joel.id, topic_id: topic.id)
+      shaun = create(:user)
+      expect { @post = create(:post, user: shaun, postable: topic) }
+        .to change { ActionMailer::Base.deliveries.count }.by(1)
+      notified_emails = @post.post_notifications.map(&:email)
+      expect(notified_emails).to eq(['joel@example.com'])
     end
   end
 

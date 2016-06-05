@@ -27,6 +27,7 @@ module Thredded
         opt.has_many :thredded_private_users, class_name: 'Thredded::PrivateUser'
         opt.has_many :thredded_topic_read_states, class_name: 'Thredded::UserTopicReadState'
         opt.has_many :thredded_private_topic_read_states, class_name: 'Thredded::UserPrivateTopicReadState'
+        opt.has_many :thredded_topic_follows, class_name: 'Thredded::UserTopicFollow'
         opt.has_one :thredded_user_detail, class_name: 'Thredded::UserDetail'
         opt.has_one :thredded_user_preference, class_name: 'Thredded::UserPreference'
       end
@@ -43,6 +44,10 @@ module Thredded
 
     def thredded_anonymous?
       false
+    end
+
+    def following?(topic)
+      UserTopicFollow.find_by(topic_id: topic.id, user: self)
     end
   end
 end

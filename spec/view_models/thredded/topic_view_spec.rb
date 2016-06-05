@@ -100,5 +100,19 @@ module Thredded
       topic_view = TopicView.from_user(topic, user)
       expect(topic_view.states[0]).to eq :unread
     end
+    it 'includes a following state' do
+      topic = create(:topic, :locked, :sticky, with_posts: 2)
+      user = create(:user)
+      create(:user_topic_follow, topic: topic, user: user)
+      topic_view = TopicView.from_user(topic, user)
+      expect(topic_view.states).to include(:following)
+    end
+
+    it 'includes an notfollowing state' do
+      topic = create(:topic, :locked, :sticky, with_posts: 2)
+      user = create(:user)
+      topic_view = TopicView.from_user(topic, user)
+      expect(topic_view.states).to include :notfollowing
+    end
   end
 end

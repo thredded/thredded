@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe Thredded, '.user_path' do
+  after { Thredded.user_path = nil }
+
   it 'returns "/" if lambda is not set' do
     Thredded.user_path = nil
     expect(Thredded.user_path(_view_context = nil, _user = nil)).to eq '/'

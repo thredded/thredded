@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require_dependency 'thredded/topic_view'
+require_dependency 'thredded/private_topic_view'
 module Thredded
   # A view model for a page of BaseTopicViews.
-  class TopicsPageView
+  class PrivateTopicsPageView
     delegate :to_ary,
              :blank?,
              :empty?,
@@ -16,8 +16,8 @@ module Thredded
     # @param topics_page_scope [ActiveRecord::Relation<Thredded::Topic>]
     def initialize(user, topics_page_scope)
       @topics_page_scope = topics_page_scope
-      @topic_views = @topics_page_scope.with_read_and_follow_states(user).map do |(topic, read_state, follow)|
-        TopicView.new(topic, read_state, follow, Pundit.policy!(user, topic))
+      @topic_views = @topics_page_scope.with_read_states(user).map do |(topic, read_state)|
+        PrivateTopicView.new(topic, read_state, Pundit.policy!(user, topic))
       end
     end
   end

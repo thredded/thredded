@@ -11,7 +11,7 @@ module Thredded
                            end
       @messageboards     = Messageboard.where(closed: false)
       @topics            = TopicsPageView.new(@user, @messageboard.topics.page(1).limit(3))
-      @private_topics    = TopicsPageView.new(@user, @user.thredded_private_topics.page(1).limit(3))
+      @private_topics    = PrivateTopicsPageView.new(@user, @user.thredded_private_topics.page(1).limit(3))
       topic              = Topic.new(messageboard: @messageboard, title: 'Hello', slug: 'hello', user: @user)
       @topic             = TopicView.from_user(topic, @user)
       @posts             = PostsPageView.new(@user, topic, topic.posts.page(1).limit(3))

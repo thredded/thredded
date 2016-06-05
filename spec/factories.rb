@@ -144,4 +144,14 @@ FactoryGirl.define do
     association :postable, factory: :topic
     page 1
   end
+  factory :user_private_topic_read_state, class: Thredded::UserPrivateTopicReadState do
+    user
+    association :postable, factory: :private_topic
+    page 1
+  end
+
+  factory :user_topic_follow, class: Thredded::UserTopicFollow do
+    user
+    topic
+  end
 end

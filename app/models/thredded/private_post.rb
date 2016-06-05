@@ -15,6 +15,8 @@ module Thredded
                primary_key: :user_id,
                foreign_key: :user_id
 
+    after_commit :notify_users, on: [:create]
+
     def private_topic_post?
       true
     end
@@ -24,6 +26,10 @@ module Thredded
       DbTextSearch::CaseInsensitive
         .new(postable.users, Thredded.user_name_column)
         .in(user_names)
+    end
+
+    def notify_users
+      Thredded::NotifyPrivateTopicUsersJob.perform_later(id)
     end
   end
 end

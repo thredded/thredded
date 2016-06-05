@@ -20,6 +20,8 @@ module Thredded
 
     validates :messageboard_id, presence: true
 
+    after_commit :auto_follow_and_notify, on: [:create, :update]
+
     def private_topic_post?
       false
     end
@@ -29,6 +31,13 @@ module Thredded
       DbTextSearch::CaseInsensitive
         .new(Thredded.user_class.thredded_messageboards_readers([messageboard]), Thredded.user_name_column)
         .in(user_names)
+    end
+
+    def auto_follow_and_notify
+      # need to do this in-process so that it appears to them immediately
+      UserTopicFollow.create_unique(user.id, postable_id, :posted)
+      # everything else can happen later
+      AutoFollowAndNotifyJob.perform_later(id)
     end
   end
 end

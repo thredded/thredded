@@ -10,6 +10,6 @@ Dummy::Application.configure do
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :test
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
   config.active_support.deprecation = :stderr
 end

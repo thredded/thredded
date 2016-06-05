@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 module Thredded
   class NotifyPrivateTopicUsers
-    def initialize(private_topic)
-      @post = private_topic.posts.order_oldest_first.first
-      @private_topic = private_topic
+    def initialize(private_post)
+      @post = private_post
+      @private_topic = private_post.postable
     end
 
     def run
@@ -18,7 +18,7 @@ module Thredded
     end
 
     def private_topic_recipients
-      members = private_topic.users - [private_topic.user]
+      members = private_topic.users - [post.user]
       members = exclude_those_opting_out_of_message_notifications(members)
       members = exclude_previously_notified(members)
       members

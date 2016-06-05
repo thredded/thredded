@@ -2,78 +2,60 @@
 require 'spec_helper'
 
 module Thredded
-  describe NotifyPrivateTopicUsers, '#run' do
+  describe NotifyPrivateTopicUsers do
     before do
       @john = create(:user)
-      @joel = create(:user)
-      @sam  = create(:user)
+      @joel = create(:user, email: 'joel@example.com')
+      @sam  = create(:user, email: 'sam@example.com')
+    end
+    let(:private_topic) { create(:private_topic, user: @john, users: [@john, @joel, @sam]) }
+
+    describe '#private_topic_recipients' do
+      it 'returns everyone but the sender' do
+        post = build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john)
+        recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
+        expect(recipients).not_to include @john
+      end
+
+      it 'excludes anyone whose preferences say not to notify' do
+        post = build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john)
+        create(
+          :user_preference,
+          user: @joel,
+          notify_on_message: false
+        )
+        create(
+          :user_preference,
+          user: @sam,
+          notify_on_message: true
+        )
+
+        recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
+        expect(recipients).to include(@sam)
+        expect(recipients).not_to include(@joel)
+      end
+
+      it 'excludes anyone who has already been notified' do
+        post = build_stubbed(:private_post, postable: private_topic, user: @john)
+        create(:post_notification, email: @joel.email, post: post)
+
+        recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
+        expect(recipients).not_to include(@joel)
+        expect(recipients).to include(@sam)
+      end
     end
 
-    it 'returns everyone but the sender' do
-      post = create(:private_post, post_notifications: [])
-      private_topic = create(
-        :private_topic,
-        user: @john,
-        users: [@john, @joel, @sam],
-        posts: [post],
-      )
-      recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
-      expect(recipients).not_to include @john
-    end
+    describe '#run' do
+      it 'marks the right users as modified' do
+        private_post = create(:private_post, content: 'hi', postable: private_topic, user: @john)
 
-    it 'excludes anyone whose preferences say not to notify' do
-      post = create(:private_post, post_notifications: [])
-      private_topic = create(
-        :private_topic,
-        user: @john,
-        users: [@john, @joel, @sam],
-        posts: [post]
-      )
-      create(
-        :user_preference,
-        user: @joel,
-        notify_on_message: false
-      )
-      create(
-        :user_preference,
-        user: @sam,
-        notify_on_message: true
-      )
+        NotifyPrivateTopicUsers.new(private_post).run
 
-      recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
-      expect(recipients).to eq [@sam]
-    end
-
-    it 'excludes anyone who has already been notified' do
-      private_topic = create(
-        :private_topic,
-        user: @john,
-        users: [@john, @joel, @sam]
-      )
-      post = create(:private_post, postable: private_topic)
-      create(:post_notification, email: @joel.email, post: post)
-
-      recipients = NotifyPrivateTopicUsers.new(private_topic).private_topic_recipients
-      expect(recipients).to eq [@sam]
-    end
-
-    it 'marks the right users as modified' do
-      joel = create(:user, email: 'joel@example.com')
-      sam = create(:user, email: 'sam@example.com')
-      john = create(:user)
-      private_topic = create(
-        :private_topic,
-        user: john,
-        users: [john, joel, sam]
-      )
-      create(:private_post, content: 'hi', postable: private_topic)
-
-      NotifyPrivateTopicUsers.new(private_topic).run
-
-      emails = private_topic.posts.first.post_notifications.map(&:email)
-      expect(emails).to include('joel@example.com')
-      expect(emails).to include('sam@example.com')
-      expect(emails.size).to eq(2)
+        emails = private_topic.posts.first.post_notifications.map(&:email)
+        expect(emails).to include('joel@example.com')
+        expect(emails).to include('sam@example.com')
+        expect(emails.size).to eq(2)
+      end
     end
   end
 end

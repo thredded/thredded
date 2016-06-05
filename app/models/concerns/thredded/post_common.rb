@@ -15,7 +15,6 @@ module Thredded
       scope :order_oldest_first, -> { order(id: :asc) }
 
       after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
-      after_commit :notify_at_users, on: [:create, :update]
     end
 
     def page(per_page: self.class.default_per_page)
@@ -45,10 +44,6 @@ module Thredded
                     self
                   end
       postable.update!(last_user_id: last_post.user_id, updated_at: last_post.created_at)
-    end
-
-    def notify_at_users
-      AtNotifierJob.perform_later(self.class.name, id)
     end
   end
 end

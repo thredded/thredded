@@ -2,10 +2,10 @@
 require_dependency 'thredded/topic_email_view'
 module Thredded
   class PostMailer < Thredded::BaseMailer
-    def at_notification(post_id, emails)
+    def post_notification(post_id, emails)
       @post                = find_record Post, post_id
       email_details        = TopicEmailView.new(@post.postable)
-      headers['X-SMTPAPI'] = email_details.smtp_api_tag('at_notification')
+      headers['X-SMTPAPI'] = email_details.smtp_api_tag('post_notification')
 
       mail from:     email_details.no_reply,
            to:       email_details.no_reply,

@@ -15,8 +15,8 @@ module Thredded
     attr_reader :user, :users, :messageboard, :topics, :private_topics, :posts
 
     SKIP_CALLBACKS = [
-      [Thredded::Post, :commit, :after, :notify_at_users],
-      [Thredded::PrivatePost, :commit, :after, :notify_at_users],
+      [Thredded::Post, :commit, :after, :auto_follow_and_notify],
+      [Thredded::PrivatePost, :commit, :after, :notify_users],
     ].freeze
 
     def self.run(users: 200, topics: 55, posts: (1..60))

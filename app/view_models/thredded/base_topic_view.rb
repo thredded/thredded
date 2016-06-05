@@ -39,18 +39,5 @@ module Thredded
     def path
       Thredded::UrlsHelper.topic_path(@topic, page: @read_state.page)
     end
-
-    def self.inherited(subclass)
-      subclass.extend ClassMethods
-    end
-
-    module ClassMethods
-      def from_user(topic, user)
-        read_state = if user && !user.thredded_anonymous?
-                       topic.association(:user_read_states).klass.find_by(user_id: user.id, postable_id: topic.id)
-                     end
-        new(topic, read_state, Pundit.policy!(user, topic))
-      end
-    end
   end
 end

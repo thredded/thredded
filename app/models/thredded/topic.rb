@@ -53,11 +53,45 @@ module Thredded
              foreign_key: :postable_id,
              inverse_of: :postable,
              dependent: :destroy
+    has_many :user_follows,
+             class_name: 'Thredded::UserTopicFollow',
+             inverse_of: :topic,
+             dependent: :destroy
+    has_many :following_users,
+             class_name: Thredded.user_class,
+             source: :user,
+             through: :user_follows
 
     def self.find_by_slug!(slug)
       friendly.find(slug)
     rescue ActiveRecord::RecordNotFound
       raise Thredded::Errors::TopicNotFound
+    end
+
+    class << self
+      private
+
+      # @param user [Thredded.user_class]
+      # @return [ByPostableLookup]
+      def follows_by_topic_hash(user)
+        Thredded::TopicCommon::CachingHash.from_relation(
+          Thredded::UserTopicFollow.where(user_id: user.id, topic_id: current_scope.map(&:id))
+        )
+      end
+
+      public
+
+      # @param user [Thredded.user_class]
+      # @return [Array<[TopicCommon, UserTopicReadStateCommon, UserTopicFollow]>]
+      def with_read_and_follow_states(user)
+        null_read_state = Thredded::NullUserTopicReadState.new
+        return current_scope.zip([null_read_state, nil]) if user.thredded_anonymous?
+        read_states_by_topic = read_states_by_postable_hash(user)
+        follows_by_topic = follows_by_topic_hash(user)
+        current_scope.map do |topic|
+          [topic, read_states_by_topic[topic] || null_read_state, follows_by_topic[topic]]
+        end
+      end
     end
 
     def public?

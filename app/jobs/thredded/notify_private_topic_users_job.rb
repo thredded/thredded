@@ -3,10 +3,9 @@ module Thredded
   class NotifyPrivateTopicUsersJob < ::ActiveJob::Base
     queue_as :default
 
-    def perform(private_topic_id)
-      private_topic = Thredded::PrivateTopic.find(private_topic_id)
-
-      NotifyPrivateTopicUsers.new(private_topic).run
+    def perform(private_post_id)
+      private_post = Thredded::PrivatePost.find(private_post_id)
+      NotifyPrivateTopicUsers.new(private_post).run
     end
   end
 end

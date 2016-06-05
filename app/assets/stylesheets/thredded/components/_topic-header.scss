@@ -28,3 +28,30 @@
   font-size: $thredded-font-size-small;
   margin-left: 0.4rem;
 }
+&--topic-follow-info {
+  float: right;
+  color: $thredded-secondary-text-color;
+  &.thredded--following {
+    font-size: 0.65rem;
+  }
+  &.thredded--notfollowing {
+    font-size: $thredded-font-size-small;
+  }
+  font-style: normal;
+  max-width: 60%;
+  text-align: right;
+  p {
+    margin: 0;
+  }
+  form {
+    display: inline-block;
+    input[type=submit] {
+      background:none;
+      border:none;
+      padding:0;
+      font: inherit;
+      cursor: pointer;
+      @extend %thredded--link;
+    }
+  }
+}
