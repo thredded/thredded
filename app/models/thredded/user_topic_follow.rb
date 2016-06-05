@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 module Thredded
   class UserTopicFollow < ActiveRecord::Base
-    REASON_MANUAL = 'manual'
-    REASON_POSTED = 'posted'
-    REASON_MENTIONED = 'mentioned'
     enum reason: [:manual, :posted, :mentioned]
 
     belongs_to :user, inverse_of: :thredded_topic_follows
@@ -16,7 +13,7 @@ module Thredded
     alias_attribute :postable_id, :topic_id
     alias_attribute :postable, :topic
 
-    def self.create_unique(user_id, topic_id, reason = REASON_MANUAL)
+    def self.create_unique(user_id, topic_id, reason = :manual)
       create_with(reason: reason).find_or_create_by(user_id: user_id, topic_id: topic_id)
     end
   end

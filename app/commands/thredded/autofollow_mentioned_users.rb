@@ -7,7 +7,7 @@ module Thredded
 
     def run
       autofollowers.each do |user|
-        Thredded::UserTopicFollow.create_unique(user.id, post.postable_id, Thredded::UserTopicFollow::REASON_MENTIONED)
+        Thredded::UserTopicFollow.create_unique(user.id, post.postable_id, :mentioned)
       end
     end
 

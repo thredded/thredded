@@ -76,7 +76,7 @@ module Thredded
 
       expect { create(:post, user: shaun, postable: topic) }
         .to change { shaun.thredded_topic_follows.reload.count }.from(0).to(1)
-      expect(Thredded::UserTopicFollow.last.reason).to eq(Thredded::UserTopicFollow::REASON_POSTED)
+      expect(Thredded::UserTopicFollow.last).to be_posted
     end
 
     it "doesn't create a follow if creator already has a follow" do
