@@ -1,20 +1,20 @@
 ---
 en:
   thredded:
-    form:
-      update: Update
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
       private_topic_create_denied: You are not authorized to create private topics.
       private_topic_not_found: This private topic does not exist.
+    form:
+      update: Update
     messageboard:
       create: Create a New Messageboard
-      update: :thredded.form.update
       form:
         no_group: No Group
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
+      update: :thredded.form.update
       updated_notice: Messageboard has been updated
     messageboard_group:
       create: Create a New Messageboard Group
@@ -22,25 +22,26 @@ en:
       approve_btn: Approve
       block_btn: Block
       pending_empty:
-        title: Good job!
         content: All posts have been moderated.
+        title: Good job!
       post_approved_html: Post approved by %{moderator} %{time_ago}.
       post_blocked_html: Post blocked by %{moderator} %{time_ago}.
       post_deleted_notice: This post has been deleted.
-      posts_content_changed_since_moderation_html: The <a href="%{post_url}">post's</a> content change since it was moderated. Below is the content at the time it was moderated.
+      posts_content_changed_since_moderation_html: >-
+        The <a href="%{post_url}">post's</a> content change since it was moderated. Below is the content at the
+        time it was moderated.
     nav:
       all_messageboards: All Messageboards
       edit_messageboard: Edit Messageboard
       edit_post: Edit Post
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Edit
-      private_topics: Private Messages
-      settings: Notification Settings
       moderation: Moderation
       moderation_history: History
+      private_topics: Private Messages
+      settings: Notification Settings
     null_user_name: Deleted user
     posts:
-      pending_moderation_notice: Your post will be published when it has been reviewed by a moderator.
       delete: Delete Post
       delete_confirm: Are you sure you want to delete this post?
       deleted_notice: Your post has been deleted.
@@ -49,6 +50,7 @@ en:
         content_label: Content
         create_btn: Submit Reply
         update_btn: Update Post
+      pending_moderation_notice: Your post will be published when it has been reviewed by a moderator.
     preferences:
       edit:
         page_title: :thredded.nav.settings
@@ -56,15 +58,15 @@ en:
         global_preferences_label: Global Settings
         messageboard_notify_on_mention:
           hint: >-
-            When someone mentions you by your username (eg: @sam) in this messageboard you will follow
-            the topic. You will receive emails with the contents of that post and any replies.
+            When someone mentions you by your username (eg: @sam) in this messageboard you will follow the topic.
+            You will receive emails with the contents of that post and any replies.
           label: :thredded.preferences.form.notify_on_mention.label
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
         notify_on_mention:
           hint: >-
-            When someone mentions you by your username (eg: @sam) you will follow the topic.
-            You will receive emails with the contents of that post and any replies.
-          label: "Follow topics you are mentioned in"
+            When someone mentions you by your username (eg: @sam) you will follow the topic. You will receive emails
+            with the contents of that post and any replies.
+          label: Follow topics you are mentioned in
         notify_on_message:
           hint: When you are added to a private conversation you will receive an email with its content.
           label: Private Message Notifications
@@ -98,8 +100,16 @@ en:
         label: Search
         placeholder: Search Topics and Posts
     topics:
+      delete_confirm: Are you sure you want to delete this topic? This CANNOT be undone.
+      delete_topic: Delete Topic
       deleted_notice: Topic deleted
       edit: Edit Topic
+      followed_notice: You are now following this topic
+      following:
+        manual: You are following this topic.
+        mentioned: You are following this topic because you were mentioned on it.
+        posted: You are following this topic because you posted to it.
+      following_will_receive_emails: You will receive email updates.
       form:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label
@@ -112,11 +122,5 @@ en:
         page_title: Topics Search Results
         results_message: Search Results for %{query}
       started_by_html: Started %{time_ago} by %{user}
-      updated_notice: Topic updated
-      followed_notice: You are now following this topic
       unfollowed_notice: You are no longer following this topic
-      following:
-        manual: You are following this topic.
-        posted: You are following this topic because you posted to it.
-        mentioned: You are following this topic because you were mentioned on it.
-      following_will_receive_emails: You will receive email updates.
+      updated_notice: Topic updated

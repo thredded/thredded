@@ -21,9 +21,10 @@
 
     <% if topic.can_destroy? %>
       <div class="thredded--topic-delete--wrapper">
-        <%= form_tag topic.destroy_path, method: :delete, class: 'thredded--topic-delete-form' do %>
-          <%= submit_tag 'Delete Topic', class: 'thredded--form--submit' %>
-        <% end %>
+        <%= button_to t('thredded.topics.delete_topic'), topic.destroy_path, method: :delete,
+                      form_class: 'thredded--topic-delete-form',
+                      class: 'thredded--button',
+                      'data-confirm' => t('thredded.topics.delete_confirm') %>
       </div>
     <% end %>
   <% end %>

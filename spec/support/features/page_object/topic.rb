@@ -29,7 +29,7 @@ module PageObject
     end
 
     def deletable?
-      has_button? 'Delete Topic'
+      has_button? I18n.t('thredded.topics.delete_topic')
     end
 
     def listed?
@@ -49,7 +49,7 @@ module PageObject
     end
 
     def delete
-      click_button 'Delete Topic'
+      click_button I18n.t('thredded.topics.delete_topic')
     end
 
     def locked?
