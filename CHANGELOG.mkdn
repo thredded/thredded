@@ -1,8 +1,28 @@
-# Master
+# 0.5.0
+
+**NB:** If updating to this version from 0.4.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/559fc205b9ee405abfe3968b981254f01f928027/db/upgrade_migrations/20160429222452_upgrade_v0_3_to_v0_4.rb).
 
 ## Added
 
-* [Moderation system](https://github.com/thredded/thredded#moderation).
+This release includes two major features:
+
+* Topic subscriptions and an improved notifications system. [#310](https://github.com/thredded/thredded/pull/310)
+* A basic [moderation system](https://github.com/thredded/thredded#moderation). [#45](https://github.com/thredded/thredded/issues/45)
+
+Additionally, content formatting is now easier to configure. [#321](https://github.com/thredded/thredded/pull/321)
+
+## Changed
+
+* `<figure>` and `<figcaption>` are now allowed in formatted post content.
+
+## Fixed
+
+* YouTube embeds. [#314](https://github.com/thredded/thredded/issues/314)
+* Creating a topic now marks it as read. [#322](https://github.com/thredded/thredded/issues/322)
+* Dates older than a year now display the year. [#309](https://github.com/thredded/thredded/issues/309)
+* `<a>` tags without `href` in posts no longer cause an exception. [#313](https://github.com/thredded/thredded/issues/313)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.4.0...v0.5.0.
 
 # 0.4.0 - 2016-05-21
 

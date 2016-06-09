@@ -6,17 +6,14 @@ Some of the features currently in Thredded:
 
 * Markdown post formatting (by default).
 * (Un)read posts tracking.
-* Email notifications, @-mentions, per-messageboard notification settings.
+* Email notifications, topic subscriptions, @-mentions, per-messageboard notification settings.
 * Private group messaging.
 * Full-text search using the database.
 * Pinned and locked topics.
 * List of currently online users, for all forums and per-messageboard.
 * Flexible permissions system.
+* Basic moderation.
 * Lightweight default theme configurable via Sass.
-
-Planned features:
-
-* Flexible notifications system. [#284](https://github.com/thredded/thredded/issues/284)
 
 <a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
 
@@ -47,7 +44,7 @@ application and not an engine like Thredded.
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.4.0'
+gem 'thredded', '~> 0.5.0'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
