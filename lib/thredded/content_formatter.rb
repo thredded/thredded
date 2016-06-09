@@ -43,14 +43,14 @@ module Thredded
     mattr_accessor :pipeline_filters
 
     self.pipeline_filters = [
+      HTML::Pipeline::AtMentionFilter,
       HTML::Pipeline::VimeoFilter,
       HTML::Pipeline::YoutubeFilter,
       HTML::Pipeline::BbcodeFilter,
       HTML::Pipeline::MarkdownFilter,
-      HTML::Pipeline::SanitizationFilter,
-      HTML::Pipeline::AtMentionFilter,
       HTML::Pipeline::EmojiFilter,
       HTML::Pipeline::AutolinkFilter,
+      HTML::Pipeline::SanitizationFilter,
     ].freeze
 
     # @param view_context [Object] the context of the rendering view.

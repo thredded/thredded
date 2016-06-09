@@ -40,14 +40,15 @@ describe Thredded::ContentFormatter do
     before { Thredded.user_path = ->(user) { "/whois/#{user}" } }
     after { Thredded.user_path = nil }
     it 'links @names of members' do
-      post_content = 'for @sam but not @al or @kek. And @joe.'
-      sam = build_stubbed(:user, name: 'sam')
+      post_content = '@"sam 1" but not @al or @kek. And @joe. But not email@jane.com nor email@joe.com.'
+      sam = build_stubbed(:user, name: 'sam 1')
       joe = build_stubbed(:user, name: 'joe')
       post = build_stubbed(:post, content: post_content)
-      expected_html = '<p>for <a href="/whois/sam">@sam</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.</p>'
+      expected_html = '<p>@"sam 1" but not @al or @kek. And<a href="/whois/joe">@joe</a>. '\
+'But not <a href="mailto:email@jane.com">email@jane.com</a> nor <a href="mailto:email@joe.com">email@joe.com</a>.</p>'
 
       expect(post).to receive(:readers_from_user_names)
-        .with(%w(sam al kek joe))
+        .with(['sam 1', 'al', 'kek', 'joe'])
         .and_return([sam, joe])
 
       expect(format_post_content(post)).to eq expected_html
