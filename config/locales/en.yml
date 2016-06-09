@@ -12,6 +12,8 @@ en:
       create: Create a New Messageboard
       form:
         no_group: No Group
+      index:
+        page_title: Messageboards
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
       update: :thredded.form.update

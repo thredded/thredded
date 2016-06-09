@@ -12,6 +12,8 @@ pt-BR:
       create: Criar um novo Fórum de Mensagem
       form:
         no_group: Sem Grupo
+      index:
+        page_title: Fóruns de Mensagens
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
       update: :thredded.form.update
