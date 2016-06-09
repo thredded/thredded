@@ -13,6 +13,7 @@
   margin-right: $thredded-small-spacing;
   position: relative;
   top: 6px;
+  vertical-align: baseline;
   width: 1.75rem; // 28px
 
   @media (min-width: $thredded-grid-container-max-width + 4rem) {
