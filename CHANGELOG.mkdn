@@ -1,6 +1,6 @@
 # 0.5.0
 
-**NB:** If updating to this version from 0.4.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/559fc205b9ee405abfe3968b981254f01f928027/db/upgrade_migrations/20160429222452_upgrade_v0_3_to_v0_4.rb).
+**NB:** If updating to this version from 0.4.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/5e203c8eec05919d97f4d26fa2a1fc3081e992a7/db/upgrade_migrations/20160501151908_upgrade_v0_4_to_v0_5.rb).
 
 ## Added
 
