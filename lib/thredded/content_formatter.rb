@@ -31,6 +31,11 @@ module Thredded
           'seamless' => 'seamless',
           'sandbox'  => 'allow-same-origin allow-scripts allow-forms',
         }
+      },
+      protocols: {
+        'iframe' => {
+          'src' => ['https', 'http', :relative]
+        }
       }
     )
 
