@@ -52,7 +52,7 @@ module Thredded
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
-  self.email_reply_to = -> postable { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
+  self.email_reply_to = -> (postable) { "#{postable.hash_id}@#{Thredded.email_incoming_host}" }
   self.layout = 'thredded/application'
   self.moderator_column = :admin
   self.user_name_column = :name
@@ -60,9 +60,7 @@ module Thredded
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
-    if @@user_class.is_a?(Class)
-      fail 'Please use a string instead of a class'
-    end
+    fail 'Please use a string instead of a class' if @@user_class.is_a?(Class)
 
     if @@user_class.is_a?(String)
       begin

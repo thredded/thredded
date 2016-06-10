@@ -29,9 +29,6 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
-Style/IfUnlessModifier:
-  Enabled: false
-
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
@@ -39,17 +36,8 @@ Style/PredicateName:
   Exclude:
   - spec/**/*.rb
 
-Style/Proc:
-  Enabled: false
-
 Style/SignalException:
   EnforcedStyle: semantic
-
-Style/StabbyLambdaParentheses:
-  Enabled: false
-
-Style/SingleLineBlockParams:
-  Enabled: false
 
 Style/TrailingCommaInLiteral:
   Enabled: false

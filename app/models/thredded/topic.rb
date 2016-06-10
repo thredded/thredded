@@ -5,13 +5,13 @@ module Thredded
     include TopicCommon
     include ContentModerationState
 
-    scope :for_messageboard, -> messageboard { where(messageboard_id: messageboard.id) }
+    scope :for_messageboard, -> (messageboard) { where(messageboard_id: messageboard.id) }
 
     scope :stuck, -> { where(sticky: true) }
     scope :unstuck, -> { where(sticky: false) }
 
     # Using `search_query` instead of `search` to avoid conflict with Ransack.
-    scope :search_query, -> query { ::Thredded::TopicsSearch.new(query, self).search }
+    scope :search_query, -> (query) { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
 

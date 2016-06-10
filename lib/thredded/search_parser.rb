@@ -22,13 +22,8 @@ module Thredded
 
         next unless keyword_scan.present?
         keyword_scan.each do |term|
-          keyword_term = term.delete(' ').split(':')
-
-          if found_terms_hash[keyword].nil?
-            found_terms_hash[keyword] = []
-          end
-
-          found_terms_hash[keyword] << keyword_term[1]
+          found_terms_hash[keyword] ||= []
+          found_terms_hash[keyword] << term.delete(' ').split(':')[1]
         end
       end
 
