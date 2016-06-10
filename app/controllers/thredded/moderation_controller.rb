@@ -12,6 +12,7 @@ module Thredded
         moderatable_posts
           .pending_moderation
           .order_oldest_first
+          .preload(:user, :postable)
           .page(params[:page] || 1)
       )
       if flash[:last_moderated_record_id]
