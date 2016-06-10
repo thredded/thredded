@@ -107,12 +107,12 @@ pt-BR:
       delete_topic: Remover Tópico
       deleted_notice: Tópico removido
       edit: Editar Tópico
-      followed_notice: You are now following this topic
+      followed_notice: Você agora está acompanhando este tópico
       following:
-        manual: You are following this topic.
-        mentioned: You are following this topic because you were mentioned on it.
-        posted: You are following this topic because you posted to it.
-      following_will_receive_emails: You will receive email updates.
+        manual: Você está acompanhando este tópico.
+        mentioned: Você está acompanhando este tópico porque você foi mencionado nele.
+        posted: Você está acompanhando este tópico porque foi você que o publicou.
+      following_will_receive_emails: Você irá receber e-mail com atualizações.
       form:
         categories_placeholder: Categorias
         content_label: :thredded.posts.form.content_label
@@ -125,5 +125,5 @@ pt-BR:
         page_title: Tópicos dos Resultados da Busca
         results_message: Resultados de Busca para %{query}
       started_by_html: Iniciado %{time_ago} por %{user}
-      unfollowed_notice: You are no longer following this topic
+      unfollowed_notice: Você não está mais acompanhando este tópico
       updated_notice: Tópico atualizado
