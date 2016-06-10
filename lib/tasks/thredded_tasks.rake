@@ -12,7 +12,8 @@ namespace :thredded do
     task :emoji do
       require 'emoji'
 
-      target = "#{Rake.original_dir}/public"
+      target = Rails.application.root.join('public')
+      STDERR.puts "Copying emoji to #{target}"
       `mkdir -p '#{target}' && cp -Rp '#{Emoji.images_path}/emoji' '#{target}'`
     end
   end

@@ -124,6 +124,9 @@ end
 
 if ENV['HEROKU']
   require 'rollbar/rake_tasks'
+  namespace :assets do
+    task precompile: 'app:thredded:install:emoji'
+  end
 else
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
