@@ -1,3 +1,19 @@
+# 0.5.1
+
+This is a minor bugfix release.
+
+## Fixed
+
+* Security: only allow http, https, and relative iframe src protocols.
+* Security: sanitization filter is applied last (no actual issues were discovered, but this is how it should be).
+* Fixes multiple issues with @-mentions parsing and highlighting. [e6357ff](https://github.com/thredded/thredded/commit/e6357ffb45bf9118a9f5c7df0d436bdffe0a84c6)
+* Minor CSS fixes.
+* Messageboards index page title is now i18n'd.
+* The "Delete Topic" now shows a confirmation dialog.
+* Editing posts by deleted users no longer throws an exception.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.5.0...v0.5.1.
+
 # 0.5.0
 
 **NB:** If updating to this version from 0.4.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/5e203c8eec05919d97f4d26fa2a1fc3081e992a7/db/upgrade_migrations/20160501151908_upgrade_v0_4_to_v0_5.rb).
