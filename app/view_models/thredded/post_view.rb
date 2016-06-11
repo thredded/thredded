@@ -36,6 +36,10 @@ module Thredded
       Thredded::UrlsHelper.delete_post_path(@post)
     end
 
+    def permalink_path
+      Thredded::UrlsHelper.post_permalink_path(@post.id)
+    end
+
     def cache_key
       [
         I18n.locale,

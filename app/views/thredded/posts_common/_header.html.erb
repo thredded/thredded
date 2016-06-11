@@ -1,3 +1,4 @@
+<%# @param post [Thredded::PostView] %>
 <header>
   <%= image_tag post.avatar_url, class: 'thredded--post--avatar' if post.user %>
   <h2 class="thredded--post--user"><%= user_link post.user %></h2>

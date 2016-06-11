@@ -37,7 +37,7 @@ module Thredded
         post:                      post,
         post_content:              post.content,
         post_user:                 post.user,
-        post_user_name:            post.user.send(Thredded.user_name_column),
+        post_user_name:            post.user.try(:send, Thredded.user_name_column),
         messageboard_id:           post.messageboard_id,
       )
     end

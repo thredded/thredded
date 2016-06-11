@@ -6,6 +6,7 @@ module Thredded
   # A view model for a page of PostViews.
   class PostsPageView
     delegate :to_ary,
+             :present?,
              to: :@post_views
     delegate :total_pages,
              :current_page,

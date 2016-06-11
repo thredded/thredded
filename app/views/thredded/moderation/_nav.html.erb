@@ -1,0 +1,16 @@
+<% content_for :thredded_main_navigation do %>
+  <nav class="thredded--moderation-navigation">
+    <ul class="thredded--moderation-navigation--items">
+      <li class="thredded--moderation-navigation--item thredded--moderation-navigation--pending">
+        <%= link_to t('thredded.nav.moderation_pending'), pending_moderation_path %>
+      </li>
+      <li class="thredded--moderation-navigation--item thredded--moderation-navigation--history">
+        <%= link_to t('thredded.nav.moderation_history'), moderation_history_path %>
+      </li>
+      <li class="thredded--moderation-navigation--item thredded--moderation-navigation--users">
+        <%= link_to t('thredded.nav.moderation_users'), users_moderation_path %>
+      </li>
+    </ul>
+    <%= render 'users_search_form' %>
+  </nav>
+<% end %>

@@ -1,0 +1,7 @@
+<%# @param post [Thredded::PostView] %>
+<%= content_tag :article, id: dom_id(post), class: 'thredded--post thredded--post-moderation' do %>
+  <%= render 'thredded/posts_common/header_with_topic', post: post %>
+  <%= render 'thredded/posts_common/content', post: post %>
+  <%= render 'thredded/posts_common/actions', post: post %>
+  <%= render 'post_moderation_actions', post: post %>
+<% end %>

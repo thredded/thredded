@@ -1,0 +1,18 @@
+<%# @param post [Thredded::PostView] %>
+<%# @param post_user_link [String] optional %>
+<% topic = post.to_model.postable %>
+<% post_user_link ||= user_link(post.user) %>
+<header>
+  <%= image_tag post.avatar_url, class: 'thredded--post--avatar' if post.user %>
+  <h2 class="thredded--post--user-and-topic">
+    <%=
+      topic_link = link_to(topic.title, post.permalink_path)
+      if topic.first_post == post.to_model
+        t 'thredded.users.user_started_topic_html', user_link: post_user_link, topic_link: topic_link
+      else
+        t 'thredded.users.user_posted_in_topic_html', user_link: post_user_link, topic_link: topic_link
+      end
+    %>
+  </h2>
+  <p class="thredded--post--created-at"><%= time_ago post.created_at %></p>
+</header>

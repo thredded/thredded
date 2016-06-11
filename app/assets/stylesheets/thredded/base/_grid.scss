@@ -22,6 +22,12 @@
   }
 }
 
+@mixin thredded-media-avatar-breakout {
+  @media (min-width: $thredded-grid-container-max-width + 4rem) {
+    @content;
+  }
+}
+
 @mixin thredded--clearfix {
   &::after {
     clear: both;

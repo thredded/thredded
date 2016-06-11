@@ -11,11 +11,11 @@
 
     <p class="thredded--messageboard--description"><%= messageboard.description %></p>
 
-    <% if messageboard.latest_topic %>
+    <% if messageboard.last_topic %>
       <p class="thredded--messageboard--byline">
         <%= t 'thredded.messageboard.last_updated_by_html',
-              time_ago: time_ago(messageboard.latest_topic.updated_at),
-              user:     messageboard.latest_user %>
+              time_ago: time_ago(messageboard.last_topic.updated_at),
+              user:     messageboard.last_user %>
       </p>
     <% end %>
   <% end %>

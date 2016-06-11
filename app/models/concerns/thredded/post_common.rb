@@ -14,6 +14,7 @@ module Thredded
       validates :content, presence: true
 
       scope :order_oldest_first, -> { order(id: :asc) }
+      scope :order_newest_first, -> { order(id: :desc) }
 
       after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
     end

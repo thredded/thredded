@@ -23,15 +23,21 @@ en:
     moderation:
       approve_btn: Approve
       block_btn: Block
-      pending_empty:
-        content: All posts have been moderated.
-        title: Good job!
+      pending:
+        empty:
+          content: All posts have been moderated.
+          title: Good job!
       post_approved_html: Post approved by %{moderator} %{time_ago}.
       post_blocked_html: Post blocked by %{moderator} %{time_ago}.
       post_deleted_notice: This post has been deleted.
       posts_content_changed_since_moderation_html: >-
         The <a href="%{post_url}">post's</a> content change since it was moderated. Below is the content at the
         time it was moderated.
+      search_users:
+        form_label: Search users
+        form_placeholder: :thredded.moderation.search_users.form_label
+        results_message: Users with names starting with %{query}
+        no_results_message: No users with name starting with %{query}
     nav:
       all_messageboards: All Messageboards
       edit_messageboard: Edit Messageboard
@@ -40,6 +46,8 @@ en:
       edit_topic: Edit
       moderation: Moderation
       moderation_history: History
+      moderation_pending: Pending
+      moderation_users: Users
       private_topics: Private Messages
       settings: Notification Settings
     null_user_name: Deleted user
@@ -126,3 +134,18 @@ en:
       started_by_html: Started %{time_ago} by %{user}
       unfollowed_notice: You are no longer following this topic
       updated_notice: Topic updated
+    users:
+      last_active_html: "Last active %{time_ago}"
+      posted_in_topic_html: "Posted in %{topic_link}"
+      recent_activity: Recent activity
+      started_topic_html: "Started %{topic_link}"
+      user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
+      user_since_html: "User since %{time_ago}"
+      user_started_topic_html: "%{user_link} started %{topic_link}"
+      started_topics_count:
+        one: "Started one topic"
+        other: "Started %{count} topics"
+      posts_count:
+        one: "Posted once"
+        other: "Posted %{count} times"
+

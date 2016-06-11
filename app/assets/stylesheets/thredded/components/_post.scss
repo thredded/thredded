@@ -10,13 +10,13 @@
   border-radius: 50%;
   display: inline-block;
   height: 1.75rem; // 28px
-  margin-right: $thredded-small-spacing;
+  margin-right: $thredded-inline-spacing;
   position: relative;
   top: 6px;
   vertical-align: baseline;
   width: 1.75rem; // 28px
 
-  @media (min-width: $thredded-grid-container-max-width + 4rem) {
+  @include thredded-media-avatar-breakout {
     height: 2.25rem; // 36px
     left: -3rem;
     position: absolute;
@@ -25,16 +25,29 @@
   }
 }
 
-&--post--user {
+&--post--topic {
   @extend %thredded--heading;
-  display: inline-block;
+  font-size: $thredded-base-font-size * 1.25; // 24px
+  line-height: 1.2;
+  margin-bottom: $thredded-small-spacing / 2;
+}
+
+&--post--user,
+&--post--topic,
+&--post--user-and-topic {
+  @extend %thredded--heading;
+  display: inline;
   font-size: 1.125rem; // 18px
   line-height: 1.2;
-  margin-right: $thredded-small-spacing;
-  margin-bottom: 1.25rem; // 20px
+  margin-right: $thredded-inline-spacing;
 
   a {
     @extend %thredded--link;
+  }
+}
+
+&--post--user {
+  a {
     color: $thredded-text-color;
   }
 }

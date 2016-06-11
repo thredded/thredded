@@ -15,3 +15,7 @@
 &--blockquote {
   @extend %thredded--blockquote;
 }
+
+&--table {
+  @extend %thredded--table;
+}

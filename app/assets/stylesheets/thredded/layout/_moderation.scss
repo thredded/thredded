@@ -1,12 +1,22 @@
-&--post-moderation-actions {
-  @extend %thredded--buttons-list;
+&--moderation-navigation {
+  position: relative;
+  &--items {
+    @extend %thredded--nav-tabs;
+  }
+  &--item {
+    @extend %thredded--nav-tabs--item;
+  }
 }
 
-&--moderation--history-link {
-  float: right;
-  margin: 0.4rem 0.6rem $thredded-small-spacing 0;
-  position: relative;
-  z-index: 1;
+.thredded--pending-moderation &--moderation-navigation--pending,
+.thredded--moderation-history &--moderation-navigation--history,
+.thredded--moderation-users &--moderation-navigation--users,
+.thredded--moderation-user &--moderation-navigation--users{
+  @extend %thredded--nav-tabs--item-current;
+}
+
+&--post-moderation-actions {
+  @extend %thredded--buttons-list;
 }
 
 &--moderated-notice {
@@ -15,10 +25,19 @@
   background: $thredded-light-gray;
 }
 
+&--post-moderation, &--post-moderation-record {
+  .thredded--post--user a {
+    color: $thredded-action-color;
+  }
+}
+
 &--post-moderation-record {
   .thredded--post {
     margin-bottom: 0;
-    margin-left: 4rem;
+    margin-left: 1rem;
+    @include thredded-media-avatar-breakout {
+      margin-left: 4rem;
+    }
   }
   &--moderation-state-notice {
     margin-bottom: 1rem;
@@ -42,4 +61,41 @@
 
 &--post-moderation-record + &--post-moderation-record {
   margin-top: $thredded-large-spacing;
+}
+
+&--moderation--users-table {
+  width: 100%;
+  a {
+    display: block;
+  }
+}
+
+&--moderation--avatar {
+  border-radius: 50%;
+  display: inline-block;
+  height: 1.75em; // 28px
+  width: 1.75em; // 28px
+  margin-right: $thredded-inline-spacing;
+  vertical-align: baseline;
+  position: relative;
+  top: 0.5em;
+}
+
+&--moderation--user--title {
+  margin: 0;
+}
+
+&--moderation--user--info {
+  margin-left: 2rem;
+}
+
+&--user--moderation-actions {
+  text-align: left;
+  margin-left: 4rem;
+  .button_to {
+    display: inline-block;
+  }
+  .button_to + .button_to {
+    margin-left: $thredded-small-spacing;
+  }
 }

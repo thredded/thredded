@@ -21,7 +21,7 @@ class CreateThredded < ActiveRecord::Migration
     end
 
     create_table :thredded_categories do |t|
-      t.integer :messageboard_id, null: false
+      t.references :messageboard, null: false
       t.string :name, limit: 191, null: false
       t.string :description, limit: 255
       t.timestamps null: false
@@ -38,6 +38,7 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :topics_count, default: 0
       t.integer :posts_count, default: 0
       t.boolean :closed, default: false, null: false
+      t.references :last_topic
       t.references :messageboard_group
       t.timestamps null: false
       t.index [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
@@ -47,7 +48,7 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_post_notifications do |t|
       t.string :email, limit: 191, null: false
-      t.integer :post_id, null: false
+      t.references :post, null: false
       t.timestamps null: false
       t.string :post_type, limit: 191
       t.index [:post_id, :post_type], name: :index_thredded_post_notifications_on_post
@@ -58,8 +59,8 @@ class CreateThredded < ActiveRecord::Migration
       t.text :content, limit: 65_535
       t.string :ip, limit: 255
       t.string :source, limit: 255, default: 'web'
-      t.integer :postable_id, limit: 4
-      t.integer :messageboard_id, null: false
+      t.references :postable, null: false
+      t.references :messageboard, null: false
       t.integer :moderation_state, null: false
       t.timestamps null: false
       t.index [:moderation_state, :updated_at],
@@ -73,16 +74,16 @@ class CreateThredded < ActiveRecord::Migration
     DbTextSearch::FullText.add_index connection, :thredded_posts, :content, name: :thredded_posts_content_fts
 
     create_table :thredded_private_posts do |t|
-      t.integer :user_id, limit: 4
+      t.references :user
       t.text :content, limit: 65_535
+      t.references :postable, null: false
       t.string :ip, limit: 255
-      t.integer :postable_id, null: false
       t.timestamps null: false
     end
 
     create_table :thredded_private_topics do |t|
-      t.integer :user_id, null: false
-      t.integer :last_user_id, null: false
+      t.references :user
+      t.references :last_user
       t.string :title, limit: 255, null: false
       t.string :slug, limit: 191, null: false
       t.integer :posts_count, default: 0
@@ -93,26 +94,26 @@ class CreateThredded < ActiveRecord::Migration
     end
 
     create_table :thredded_private_users do |t|
-      t.integer :private_topic_id, limit: 4
-      t.integer :user_id, limit: 4
+      t.references :private_topic, limit: 4
+      t.references :user, limit: 4
       t.timestamps null: false
       t.index [:private_topic_id], name: :index_thredded_private_users_on_private_topic_id
       t.index [:user_id], name: :index_thredded_private_users_on_user_id
     end
 
     create_table :thredded_topic_categories do |t|
-      t.integer :topic_id, null: false
-      t.integer :category_id, null: false
+      t.references :topic, null: false
+      t.references :category, null: false
       t.index [:category_id], name: :index_thredded_topic_categories_on_category_id
       t.index [:topic_id], name: :index_thredded_topic_categories_on_topic_id
     end
 
     create_table :thredded_topics do |t|
-      t.integer :user_id, null: false
-      t.integer :last_user_id, null: false
+      t.references :user
+      t.references :last_user
       t.string :title, limit: 255, null: false
       t.string :slug, limit: 191, null: false
-      t.integer :messageboard_id, null: false
+      t.references :messageboard, null: false
       t.integer :posts_count, default: 0, null: false
       t.boolean :sticky, default: false, null: false
       t.boolean :locked, default: false, null: false
@@ -131,7 +132,7 @@ class CreateThredded < ActiveRecord::Migration
     DbTextSearch::FullText.add_index connection, :thredded_topics, :title, name: :thredded_topics_title_fts
 
     create_table :thredded_user_details do |t|
-      t.integer :user_id, null: false
+      t.references :user, null: false
       t.datetime :latest_activity_at
       t.integer :posts_count, default: 0
       t.integer :topics_count, default: 0
@@ -157,7 +158,7 @@ class CreateThredded < ActiveRecord::Migration
     end
 
     create_table :thredded_user_preferences do |t|
-      t.integer :user_id, null: false
+      t.references :user, null: false
       t.boolean :notify_on_mention, default: true, null: false
       t.boolean :notify_on_message, default: true, null: false
       t.timestamps null: false
@@ -165,8 +166,8 @@ class CreateThredded < ActiveRecord::Migration
     end
 
     create_table :thredded_user_messageboard_preferences do |t|
-      t.integer :user_id, null: false
-      t.integer :messageboard_id, null: false
+      t.references :user, null: false
+      t.references :messageboard, null: false
       t.boolean :notify_on_mention, default: true, null: false
       t.timestamps null: false
       t.index [:user_id, :messageboard_id],
@@ -177,7 +178,7 @@ class CreateThredded < ActiveRecord::Migration
     %i(topic private_topic).each do |topics_table|
       table_name = :"thredded_user_#{topics_table}_read_states"
       create_table table_name do |t|
-        t.integer :user_id, null: false
+        t.references :user, null: false
         t.integer :postable_id, null: false
         t.integer :page, default: 1, null: false
         t.timestamp :read_at, null: false
@@ -191,7 +192,7 @@ class CreateThredded < ActiveRecord::Migration
     end
 
     create_table :thredded_user_topic_follows do |t|
-      t.integer :user_id, null: false
+      t.references :user, null: false
       t.integer :topic_id, null: false
       t.datetime :created_at, null: false
       t.integer :reason, limit: 1
