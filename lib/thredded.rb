@@ -75,15 +75,27 @@ module Thredded
   # @param user [Thredded.user_class]
   # @return [String] path to the user evaluated in the specified context.
   def self.user_path(view_context, user)
-    if @@user_path.respond_to? :call
-      view_context.instance_exec(user, &@@user_path)
-    else
-      '/'
-    end
+    view_context.instance_exec(user, &@@user_path)
   end
 
   # Whether the layout is a thredded layout as opposed to the application layout.
   def self.standalone_layout?
     layout.is_a?(String) && layout.start_with?('thredded/')
+  end
+
+  # Returns a view for the given posts' scope, applying read permission filters to the scope.
+  # Can be used in main_app, e.g. for showing the recent user posts on the profile page.
+  #
+  # @param scope [ActiveRecord::Relation<Thredded::Post>] the posts scope for which to return the view.
+  # @param current_user [Thredded.user_class, nil] the user viewing the posts.
+  # @return [PostsPageView]
+  def self.posts_page_view(scope:, current_user:)
+    current_user ||= Thredded::NullUser.new
+    PostsPageView.new(
+      current_user,
+      Pundit.policy_scope!(current_user, scope)
+        .where(messageboard_id: Pundit.policy_scope!(current_user, Thredded::Messageboard.all).pluck(:id))
+        .includes(:postable)
+    )
   end
 end
