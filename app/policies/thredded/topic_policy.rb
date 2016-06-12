@@ -21,17 +21,17 @@ module Thredded
     # @param user [Thredded.user_class]
     # @param topic [Thredded::Topic]
     def initialize(user, topic)
-      @user = user
-      @topic = topic
-      @messageboard_user_permission = MessageboardPolicy.new(user, topic.messageboard)
+      @user                = user
+      @topic               = topic
+      @messageboard_policy = MessageboardPolicy.new(user, topic.messageboard)
     end
 
     def create?
-      @messageboard_user_permission.post?
+      @messageboard_policy.post?
     end
 
     def read?
-      @messageboard_user_permission.read? && @topic.moderation_state_visible_to_user?(@user)
+      @messageboard_policy.read? && @topic.moderation_state_visible_to_user?(@user)
     end
 
     def update?
@@ -43,7 +43,7 @@ module Thredded
     end
 
     def moderate?
-      @messageboard_user_permission.moderate?
+      @messageboard_policy.moderate?
     end
   end
 end

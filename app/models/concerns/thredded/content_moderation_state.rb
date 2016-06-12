@@ -14,19 +14,24 @@ module Thredded
         # @type [Arel::Table]
         table = arel_table
         # @type [Arel::Nodes::Node]
-        visible_to_all =
+        visible =
           if Thredded.content_visible_while_pending_moderation
+            # All non-blocked content
             table[:moderation_state].not_eq(moderation_states[:blocked])
           else
+            # Only approved content
             table[:moderation_state].eq(moderation_states[:approved])
           end
-        where(
-          if user && !user.thredded_anonymous?
-            visible_to_all.or(table[:user_id].eq(user.id))
-          else
-            visible_to_all
+        if user && !user.thredded_anonymous?
+          # Own content
+          visible = visible.or(table[:user_id].eq(user.id))
+          # Content that one can moderate
+          moderatable_messageboard_ids = user.thredded_can_moderate_messageboards.map(&:id)
+          if moderatable_messageboard_ids.present?
+            visible = visible.or(table[:messageboard_id].in(moderatable_messageboard_ids))
           end
-        )
+        end
+        where(visible)
       end)
     end
 
@@ -41,7 +46,9 @@ module Thredded
 
     # Whether this is visible to the given user based on the moderation state.
     def moderation_state_visible_to_user?(user)
-      moderation_state_visible_to_all? || (!user.thredded_anonymous? && user_id == user.id)
+      moderation_state_visible_to_all? ||
+        (!user.thredded_anonymous? &&
+          (user_id == user.id || user.thredded_can_moderate_messageboards.map(&:id).include?(messageboard_id)))
     end
 
     private

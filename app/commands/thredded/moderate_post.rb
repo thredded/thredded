@@ -15,7 +15,7 @@ module Thredded
           previous_moderation_state: post.moderation_state,
           moderation_state: moderation_state,
         )
-        if post.user_detail.pending_moderation?
+        if post.user_id && post.user_detail.pending_moderation?
           post.user_detail.update!(moderation_state: moderation_state)
         end
         if post.postable.first_post == post

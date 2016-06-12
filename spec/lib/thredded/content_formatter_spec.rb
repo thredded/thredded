@@ -37,9 +37,16 @@ describe Thredded::ContentFormatter do
   end
 
   context '@-mentions' do
-    before { Thredded.user_path = ->(user) { "/whois/#{user}" } }
-    after { Thredded.user_path = nil }
+    around do |ex|
+      begin
+        user_path_was = Thredded.class_variable_get(:@@user_path)
+        ex.call
+      ensure
+        Thredded.user_path = user_path_was
+      end
+    end
     it 'links @names of members' do
+      Thredded.user_path = ->(user) { "/whois/#{user}" }
       post_content = '@"sam 1" but not @al or @kek. And @joe. But not email@jane.com nor email@joe.com.'
       sam = build_stubbed(:user, name: 'sam 1')
       joe = build_stubbed(:user, name: 'joe')

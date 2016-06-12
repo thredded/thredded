@@ -13,7 +13,6 @@ module Thredded
       scope :on_page, -> (page_num) { page(page_num).per(30) }
 
       validates :hash_id, presence: true, uniqueness: true
-      validates :last_user_id, presence: true
       validates :posts_count, numericality: true
 
       before_validation do

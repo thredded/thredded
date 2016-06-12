@@ -1,0 +1,8 @@
+<% # @param moderation_record [Thredded::PostModerationRecord, nil] %>
+<% if moderation_record %>
+  <%= t 'thredded.content_moderation_states.content_blocked_notice_with_record_html',
+        moderator: user_link(moderation_record.moderator),
+        time_ago: time_ago(moderation_record.created_at) %>
+<% else %>
+  <%= t 'thredded.content_moderation_states.content_blocked_notice' %>
+<% end %>

@@ -22,4 +22,10 @@
     <%= time_ago topic.created_at %>
     <%= user_link topic.user %>
   </cite>
+
+  <% if topic.blocked? && topic.can_moderate? %>
+    <span class="thredded--topics--moderation-state thredded--alert thredded--alert-danger">
+      <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: topic.last_moderation_record %>
+    </span>
+  <% end %>
 <% end %>

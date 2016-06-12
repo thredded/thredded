@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 Thredded.user_class = 'User'
 Thredded.user_name_column = :name
-Thredded.user_path = ->(user) { main_app.user_path(user.to_param) }
+Thredded.user_path = ->(user) { main_app.user_path(user.id) }
 Thredded.current_user_method = :"current_#{Thredded.user_class.name.underscore}"
 Thredded.email_incoming_host = 'incoming.example.com'
 Thredded.email_from = 'no-reply@example.com'

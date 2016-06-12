@@ -2,7 +2,7 @@
 module Thredded
   # A view model for Topic.
   class TopicView < BaseTopicView
-    delegate :categories, :id,
+    delegate :categories, :id, :blocked?, :last_moderation_record,
              to: :@topic
 
     # @param topic [TopicCommon]
@@ -28,6 +28,10 @@ module Thredded
         (:sticky if @topic.sticky?),
         (@follow ? :following : :notfollowing)
       ].compact
+    end
+
+    def can_moderate?
+      @policy.moderate?
     end
 
     def edit_path

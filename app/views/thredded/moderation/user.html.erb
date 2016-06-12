@@ -1,0 +1,42 @@
+<%
+  user = @user
+  user_detail = user.thredded_user_detail
+%>
+<% content_for :thredded_page_title, t('thredded.nav.moderation') %>
+<% content_for :thredded_page_id, 'thredded--moderation-user' %>
+<%= render 'nav' %>
+<%= thredded_page do %>
+  <h1 class="thredded--moderation--user--title">
+    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user %>
+  </h1>
+  <ul class="thredded--moderation--user--info">
+    <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>
+    <% if user_detail.last_seen_at %>
+      <li><%= t 'thredded.users.last_active_html', time_ago: time_ago(user_detail.last_seen_at) %></li>
+    <% end %>
+    <% if user_detail.topics_count > 0 %>
+      <li><%= t 'thredded.users.started_topics_count', count: user_detail.topics_count %></li>
+    <% end %>
+    <% if user_detail.posts_count > 0 %>
+      <li><%= t 'thredded.users.posts_count', count: user_detail.posts_count %></li>
+    <% end %>
+    <li><%= render 'user_moderation_state', user: @user %></li>
+  </ul>
+  <div class="thredded--user--moderation-actions">
+    <% unless user_detail.approved? %>
+      <%= button_to t('thredded.moderation.approve_btn'), moderate_user_path,
+                    class:  'thredded--button',
+                    params: { id: user.to_model.id, moderation_state: 'approved' } %>
+    <% end %>
+    <% unless user_detail.blocked? %>
+      <%= button_to t('thredded.moderation.block_btn'), moderate_user_path,
+                    class:  'thredded--button',
+                    params: { id: user.to_model.id, moderation_state: 'blocked' } %>
+    <% end %>
+  </div>
+  <% if @posts.present? %>
+    <h2><%= t 'thredded.users.recent_activity' %></h2>
+    <%= render partial: 'user_post', collection: @posts, as: :post %>
+    <%= paginate @posts %>
+  <% end %>
+<% end %>

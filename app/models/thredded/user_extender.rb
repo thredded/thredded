@@ -41,6 +41,13 @@ module Thredded
         opt.has_many :thredded_post_moderation_records, foreign_key: 'post_user_id', inverse_of: :post_user
         opt.has_many :thredded_post_moderated_records, foreign_key: 'moderator_id', inverse_of: :moderator
       end
+
+      scope :left_join_thredded_user_details, (lambda do
+        users = arel_table
+        user_details = Thredded::UserDetail.arel_table
+        joins(users.join(user_details, Arel::Nodes::OuterJoin)
+                .on(users[:id].eq(user_details[:user_id])).join_sources)
+      end)
     end
 
     def thredded_user_preference

@@ -8,7 +8,7 @@ module Thredded
 
     def index
       @groups = policy_scope(Messageboard.all)
-        .preload(:group).group_by(&:group)
+        .preload(:group, last_topic: [:last_user]).group_by(&:group)
         .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
     end
 

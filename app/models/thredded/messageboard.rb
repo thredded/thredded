@@ -26,9 +26,7 @@ module Thredded
     has_many :posts, dependent: :destroy
     has_many :topics, dependent: :destroy, inverse_of: :messageboard
 
-    # TODO: change this to a belongs_to association to be able to preload efficiently
-    has_one :latest_topic, -> { order_recently_updated_first },
-            class_name: 'Thredded::Topic'
+    belongs_to :last_topic, class_name: 'Thredded::Topic'
 
     has_many :user_details, through: :posts
     has_many :messageboard_users,
@@ -56,8 +54,8 @@ module Thredded
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
 
-    def latest_user
-      latest_topic.last_user
+    def last_user
+      last_topic.try(:last_user)
     end
 
     def slug_candidates

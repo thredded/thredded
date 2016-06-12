@@ -18,12 +18,14 @@ module Thredded
     end
 
     # @param datetime [DateTime]
+    # @param default [String] a string to return if time is nil.
     # @return [String] html_safe datetime presentation
-    def time_ago(datetime)
+    def time_ago(datetime, default: '-')
       timeago_tag datetime,
                   lang: I18n.locale.to_s.downcase,
                   format: -> (t, _opts) { t.year == Time.current.year ? :short : :long },
-                  nojs: true
+                  nojs: true,
+                  default: default
     end
 
     def paginate(collection, args = {})

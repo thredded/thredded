@@ -63,6 +63,8 @@ module Thredded
              source: :user,
              through: :user_follows
 
+    after_commit :update_messageboard_last_topic, on: [:create, :destroy]
+
     def self.find_by_slug!(slug)
       friendly.find(slug)
     rescue ActiveRecord::RecordNotFound
@@ -107,6 +109,11 @@ module Thredded
       title_changed?
     end
 
+    # @return [Thredded::PostModerationRecord, nil]
+    def last_moderation_record
+      first_post.try(:last_moderation_record)
+    end
+
     private
 
     def slug_candidates
@@ -114,6 +121,16 @@ module Thredded
         :title,
         [:title, '-topic'],
       ]
+    end
+
+    def update_messageboard_last_topic
+      return if messageboard.destroyed?
+      last_topic = if destroyed?
+                     messageboard.topics.order_recently_updated_first.select(:id).first
+                   else
+                     self
+                   end
+      messageboard.update!(last_topic_id: last_topic.try(:id))
     end
   end
 end

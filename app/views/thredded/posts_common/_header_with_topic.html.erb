@@ -1,0 +1,15 @@
+<%# @param post [Thredded::PostView] %>
+<% topic = post.to_model.postable %>
+<header>
+  <h2 class="thredded--post--topic">
+    <%=
+      topic_link = link_to(topic.title, post.permalink_path)
+      if topic.first_post == post.to_model
+        t 'thredded.users.started_topic_html', topic_link: topic_link
+      else
+        t 'thredded.users.posted_in_topic_html', topic_link: topic_link
+      end
+    %>
+  </h2>
+  <p class="thredded--post--created-at"><%= time_ago post.created_at %></p>
+</header>

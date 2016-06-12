@@ -30,9 +30,14 @@ Thredded::Engine.routes.draw do
   scope path: 'admin' do
     resources :messageboard_groups, only: [:new, :create]
     scope controller: :moderation, path: 'moderation' do
-      get '(/page-:page)', action: :pending, as: :pending_moderation, constraints: page_constraint
+      scope constraints: page_constraint do
+        get '(/page-:page)', action: :pending, as: :pending_moderation
+        get '/history(/page-:page)', action: :history, as: :moderation_history
+        get '/users(/page-:page)', action: :users, as: :users_moderation
+        get '/users/:id(/page-:page)', action: :user, as: :user_moderation
+      end
       post '', action: :moderate_post, as: :moderate_post
-      get '/history(/page-:page)', action: :history, as: :moderation_history, constraints: page_constraint
+      post '/user/:id', action: :moderate_user, as: :moderate_user
     end
   end
 
