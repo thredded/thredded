@@ -23,11 +23,11 @@
         <%= t('thredded.moderation.posts_content_changed_since_moderation_html', post_url: post_permalink_path(post)) %>
       </p>
     <% end %>
-    <%= t 'thredded.moderation.post_deleted_notice' unless post %>
+    <%= content_tag :em, t('thredded.moderation.post_deleted_notice') unless post %>
   </header>
   <article class="thredded--post">
     <% post_user_link = capture do %>
-      <% if post.user %>
+      <% if post && post.user %>
         <%= link_to post.user, user_moderation_path(post.user.id) %>
       <% else %>
         <%= safe_join [record.post_user_name, content_tag(:em, t('thredded.null_user_name'))].compact, ', ' %>
