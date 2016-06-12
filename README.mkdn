@@ -158,7 +158,7 @@ To use it:
 2. Render the partial like this:
 
 ```erb
-<%= render 'thredded/users/_posts',
+<%= render 'thredded/users/posts',
            posts: Thredded.posts_page_view(
                scope: user.thredded_posts.order_newest_first.limit(5),
                current_user: current_user) %>
