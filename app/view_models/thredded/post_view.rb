@@ -11,6 +11,7 @@ module Thredded
              :pending_moderation?,
              :approved?,
              :blocked?,
+             :last_moderation_record,
              to: :@post
 
     # @param post [Thredded::PostCommon]
@@ -28,6 +29,10 @@ module Thredded
       @can_destroy ||= @policy.destroy?
     end
 
+    def can_moderate?
+      @can_moderate ||= @policy.moderate?
+    end
+
     def edit_path
       Thredded::UrlsHelper.edit_post_path(@post)
     end
@@ -40,17 +45,26 @@ module Thredded
       Thredded::UrlsHelper.post_permalink_path(@post.id)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def cache_key
+      moderation_state = unless @post.private_topic_post?
+                           if @post.pending_moderation? && !Thredded.content_visible_while_pending_moderation
+                             'p'
+                           elsif @post.blocked?
+                             '-'
+                           end
+                         end
       [
         I18n.locale,
         @post,
         @post.user,
+        moderation_state || '+',
         [
-          !@post.private_topic_post? && @post.pending_moderation? && !Thredded.content_visible_while_pending_moderation,
           can_update?,
           can_destroy?
         ].map { |p| p ? '+' : '-' } * ''
       ]
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

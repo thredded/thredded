@@ -41,6 +41,8 @@ module Thredded
       @post.postable.first_post != @post && update?
     end
 
+    delegate :moderate?, to: :messageboard_policy
+
     private
 
     def messageboard_policy

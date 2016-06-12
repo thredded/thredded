@@ -5,6 +5,10 @@
     <%= render 'thredded/posts_common/actions', post: post %>
     <% if post.pending_moderation? && !Thredded.content_visible_while_pending_moderation %>
       <p class="thredded--alert thredded--alert-warning"><%= t 'thredded.posts.pending_moderation_notice' %></p>
+    <% elsif post.blocked? && post.can_moderate? %>
+      <p class="thredded--alert thredded--alert-danger">
+        <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: post.last_moderation_record %>
+      </p>
     <% end %>
   <% end %>
 <% end %>

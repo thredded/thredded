@@ -8,6 +8,8 @@ module Thredded
     end
     validates :previous_moderation_state, presence: true
 
+    scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
+
     belongs_to :messageboard, inverse_of: :post_moderation_records
     validates :messageboard_id, presence: true
     belongs_to :post, inverse_of: :moderation_records

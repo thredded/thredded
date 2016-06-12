@@ -21,6 +21,8 @@ module Thredded
     has_many :moderation_records,
              class_name: 'Thredded::PostModerationRecord',
              dependent: :nullify
+    has_one :last_moderation_record, -> { order_newest_first },
+            class_name: 'Thredded::PostModerationRecord'
 
     validates :messageboard_id, presence: true
 

@@ -1,6 +1,9 @@
 ---
 pt-BR:
   thredded:
+    content_moderation_states:
+      content_blocked_notice: Bloqueado por um moderador
+      content_blocked_notice_with_record_html: Bloqueados por %{moderator} %{time_ago}
     errors:
       login_required: Por favor, autentique-se primeiro.
       not_authorized: Você não está autorizado a acessar esta página.

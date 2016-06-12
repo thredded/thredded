@@ -109,6 +109,11 @@ module Thredded
       title_changed?
     end
 
+    # @return [Thredded::PostModerationRecord, nil]
+    def last_moderation_record
+      first_post.try(:last_moderation_record)
+    end
+
     private
 
     def slug_candidates

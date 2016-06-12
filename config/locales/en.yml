@@ -8,6 +8,9 @@ en:
       private_topic_not_found: This private topic does not exist.
     form:
       update: Update
+    content_moderation_states:
+      content_blocked_notice: Blocked by a moderator
+      content_blocked_notice_with_record_html: Blocked by %{moderator} %{time_ago}
     messageboard:
       create: Create a New Messageboard
       form:

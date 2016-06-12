@@ -88,6 +88,12 @@
   }
 }
 
+&--topics--moderation-state {
+  padding: 0.3em 0.5em;
+  font-size: $thredded-font-size-small;
+  font-style: normal;
+}
+
 &--topics--posts-count {
   border-radius: 50%;
   display: inline-block;
