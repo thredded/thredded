@@ -1,5 +1,26 @@
+<%
+  user = @user
+  user_detail = user.thredded_user_detail
+%>
 <div class="thredded--main-container">
-  <p>
-    <b><%= @slug %></b>'s profile page stub.
-  </p>
+  <h1>
+    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user %>
+  </h1>
+  <ul>
+    <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>
+    <% if user_detail.last_seen_at %>
+      <li><%= t 'thredded.users.last_active_html', time_ago: time_ago(user_detail.last_seen_at) %></li>
+    <% end %>
+    <% if user_detail.topics_count > 0 %>
+      <li><%= t 'thredded.users.started_topics_count', count: user_detail.topics_count %></li>
+    <% end %>
+    <% if user_detail.posts_count > 0 %>
+      <li><%= t 'thredded.users.posts_count', count: user_detail.posts_count %></li>
+    <% end %>
+  </ul>
+  <h2><%= t 'thredded.users.recent_activity' %></h2>
+  <%= render 'thredded/users/posts',
+             posts: Thredded.posts_page_view(
+                 scope: user.thredded_posts.order_newest_first.limit(5),
+                 current_user: current_user) %>
 </div>

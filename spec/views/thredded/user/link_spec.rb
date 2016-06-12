@@ -7,9 +7,9 @@ RSpec.describe 'partial: thredded/users/link' do
   end
 
   it 'renders a link to the user' do
-    render_partial build_stubbed(:user, name: 'joel')
+    render_partial build_stubbed(:user, id: 5, name: 'joel')
     expect(rendered).to eq(<<-HTML.strip_heredoc)
-      <a href="/u/joel">joel</a>
+      <a href="/u/5">joel</a>
     HTML
   end
 

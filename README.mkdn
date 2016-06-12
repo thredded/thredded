@@ -148,6 +148,22 @@ Include thredded JavaScripts in your `application.js`:
 Thredded views also provide two `content_tag`s available to yield - `:thredded_page_title` and `:thredded_page_id`.
 The views within Thredded pass those up through to your layout if you would like to use them.
 
+### User profile page
+
+Thredded does not provide a user's profile page, but it provides a helper for rendering the user's recent posts
+in your app's user profile page.
+
+To use it:
+1. Include `Thredded::ApplicationHelper` in the app's helpers module.
+2. Render the partial like this:
+
+```erb
+<%= render 'thredded/users/_posts',
+           posts: Thredded.posts_page_view(
+               scope: user.thredded_posts.order_newest_first.limit(5),
+               current_user: current_user) %>
+```
+
 ### Customizing views
 
 You can also override any views and assets by placing them in the same path in your application as they are in the gem.
