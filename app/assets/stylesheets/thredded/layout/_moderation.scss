@@ -11,7 +11,8 @@
 .thredded--pending-moderation &--moderation-navigation--pending,
 .thredded--moderation-history &--moderation-navigation--history,
 .thredded--moderation-users &--moderation-navigation--users,
-.thredded--moderation-user &--moderation-navigation--users{
+.thredded--moderation-user &--moderation-navigation--users,
+.thredded--moderation-activity &--moderation-navigation--activity {
   @extend %thredded--nav-tabs--item-current;
 }
 

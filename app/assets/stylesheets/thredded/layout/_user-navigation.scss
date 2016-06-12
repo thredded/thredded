@@ -13,7 +13,8 @@
 .thredded--pending-moderation &--user-navigation--moderation,
 .thredded--moderation-history &--user-navigation--moderation,
 .thredded--moderation-users &--user-navigation--moderation,
-.thredded--moderation-user &--user-navigation--moderation {
+.thredded--moderation-user &--user-navigation--moderation,
+.thredded--moderation-activity &--user-navigation--moderation {
   @extend %thredded--nav-tabs--item-current;
 }
 

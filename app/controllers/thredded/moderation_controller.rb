@@ -26,6 +26,19 @@ module Thredded
         .page(current_page)
     end
 
+    def activity
+      @posts = PostsPageView.new(
+        thredded_current_user,
+        moderatable_posts
+          .order_newest_first
+          .preload(:user, :postable)
+          .page(current_page)
+      )
+      if flash[:last_moderated_record_id]
+        @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id].to_i)
+      end
+    end
+
     def moderate_post
       return head(:bad_request) unless Thredded::Post.moderation_states.include?(params[:moderation_state])
       flash[:last_moderated_record_id] = ModeratePost.run!(

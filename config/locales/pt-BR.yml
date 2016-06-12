@@ -48,6 +48,7 @@ pt-BR:
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Editar
       moderation: Moderação
+      moderation_activity: Atividade
       moderation_history: História
       moderation_pending: Pendente
       moderation_users: Usuários
@@ -108,6 +109,7 @@ pt-BR:
         create_btn: Inicie sua primeira conversa privada
         title: Você não possui mensagens privadas.
       updated_notice: Título atualizado
+    recent_activity: Atividade recente
     search:
       form:
         btn_submit: :thredded.search.form.label
@@ -144,7 +146,7 @@ pt-BR:
       posts_count:
         one: Postado uma vez
         other: vezes %{count} Publicado
-      recent_activity: Atividade recente
+      recent_activity: :thredded.recent_activity
       started_topic_html: Começou %{topic_link}
       started_topics_count:
         one: Começou um tópico

@@ -1,6 +1,7 @@
 ---
 en:
   thredded:
+    recent_activity: Recent activity
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
@@ -51,6 +52,7 @@ en:
       moderation_history: History
       moderation_pending: Pending
       moderation_users: Users
+      moderation_activity: Activity
       private_topics: Private Messages
       settings: Notification Settings
     null_user_name: Deleted user
@@ -140,7 +142,7 @@ en:
     users:
       last_active_html: "Last active %{time_ago}"
       posted_in_topic_html: "Posted in %{topic_link}"
-      recent_activity: Recent activity
+      recent_activity: :thredded.recent_activity
       started_topic_html: "Started %{topic_link}"
       user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
       user_since_html: "User since %{time_ago}"

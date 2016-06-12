@@ -3,5 +3,10 @@
   <%= render 'thredded/posts_common/header_with_topic', post: post %>
   <%= render 'thredded/posts_common/content', post: post %>
   <%= render 'thredded/posts_common/actions', post: post %>
+  <% if post.blocked? %>
+    <p class="thredded--alert thredded--alert-danger">
+      <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: post.last_moderation_record %>
+    </p>
+  <% end %>
   <%= render 'post_moderation_actions', post: post %>
 <% end %>

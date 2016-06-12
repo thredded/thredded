@@ -35,6 +35,7 @@ Thredded::Engine.routes.draw do
         get '/history(/page-:page)', action: :history, as: :moderation_history
         get '/users(/page-:page)', action: :users, as: :users_moderation
         get '/users/:id(/page-:page)', action: :user, as: :user_moderation
+        get '/activity(/page-:page)', action: :activity, as: :moderation_activity
       end
       post '', action: :moderate_post, as: :moderate_post
       post '/user/:id', action: :moderate_user, as: :moderate_user
