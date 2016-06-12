@@ -1,3 +1,24 @@
+# 0.6.0 - 2016-06-12
+
+**NB:** If updating to this version from 0.5.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/66f64068b9501ff4e8686c95894b6795aae6082f/db/upgrade_migrations/20160611094616_upgrade_v0_5_to_v0_6.rb).
+
+## Added
+
+* Adds a Users tab to moderation, where individual users can be moderated.
+* Improves the display of posts in the moderation, showing the topic and
+  whether the post started the topic.
+* Thredded now provides a way to render a user's recent posts in the main_app.
+
+## Changed
+
+* Moderators are now shown all content, including blocked content. A notice is shown on blocked content.
+
+## Fixed
+
+* Fixed a bug that prevented user deletion in main_app if they had posted on the forums.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.5.1...v0.6.0.
+
 # 0.5.1
 
 This is a minor bugfix release.
