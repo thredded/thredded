@@ -56,7 +56,6 @@ module Thredded
       @query = params[:q].to_s
       if @query.present?
         @users = DbTextSearch::CaseInsensitive.new(@users, Thredded.user_name_column).prefix(@query)
-        @users = @users.distinct
       end
       @users = @users.page(current_page)
     end

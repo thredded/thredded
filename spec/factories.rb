@@ -124,25 +124,25 @@ FactoryGirl.define do
     trait :admin do
       admin true
       after(:create) do |user, _|
-        create(:user_detail, user: user)
+        user.thredded_user_detail.save!
       end
     end
 
     trait :with_user_details do
       after(:create) do |user, _|
-        create(:user_detail, user: user)
+        user.thredded_user_detail.save!
       end
     end
 
     trait :approved do
       after(:create) do |user, _|
-        create(:user_detail, user: user, moderation_state: :approved)
+        user.thredded_user_detail.update!(moderation_state: :approved)
       end
     end
 
     trait :blocked do
       after(:create) do |user, _|
-        create(:user_detail, user: user, moderation_state: :blocked)
+        user.thredded_user_detail.update!(moderation_state: :blocked)
       end
     end
   end
