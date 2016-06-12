@@ -47,6 +47,14 @@ Add the gem to your Gemfile:
 gem 'thredded', '~> 0.5.1'
 ```
 
+Add `user.rb` file into modle for initialize.
+
+```console
+touch app/models/user.rb
+```
+
+
+
 Add the Thredded [initializer] to your parent app by running the install generator.
 
 ```console
@@ -61,6 +69,12 @@ rake thredded:install:emoji
 
 Thredded needs to know the base application User model name and certain columns on it. Configure
 these in the initializer installed with the command above.
+
+Create database before migration.
+
+```console
+rake db:create
+```
 
 Then, copy the migrations over to your parent application and migrate:
 
