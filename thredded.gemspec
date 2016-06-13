@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
   s.add_dependency 'gemoji'
   s.add_dependency 'github-markdown'
-  s.add_dependency 'rinku'
   s.add_dependency 'sanitize'
 
   # frontend

@@ -1,16 +1,23 @@
 # frozen_string_literal: true
+require_dependency 'html/pipeline/at_mention_filter'
 module Thredded
   class AtNotificationExtractor
-    # Matches the names in @joe, @"Joe 1", but not email@host.com.
-    # The matched name is captured and may contain the surrounding quotes.
-    MATCH_NAME_RE = /(?:^|[\s>])@([\w]+|"[\w ]+")(?=\W|$)/
-
-    def initialize(content)
-      @content = content
+    def initialize(post)
+      @post = post
     end
 
+    # @return [Array<Thredded.user_class>]
     def run
-      @content.scan(MATCH_NAME_RE).map(&:first).map { |m| m.start_with?('"') ? m[1..-2] : m }.uniq
+      view_context = Thredded::ApplicationController.new.view_context
+      # Do not highlight @-mentions at first, because:
+      # * When parsing, @-mentions within <a> tags will not be considered.
+      # * We can't always generate the user URL here because request.host is not available.
+      html = @post.filtered_content(view_context, users_provider: nil)
+      HTML::Pipeline::AtMentionFilter.new(
+        html,
+        view_context: view_context,
+        users_provider: -> (user_names) { @post.readers_from_user_names(user_names).to_a }
+      ).mentioned_users
     end
   end
 end

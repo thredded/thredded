@@ -47,15 +47,16 @@ describe Thredded::ContentFormatter do
     end
     it 'links @names of members' do
       Thredded.user_path = ->(user) { "/whois/#{user}" }
-      post_content = '@"sam 1" but not @al or @kek. And @joe. But not email@jane.com nor email@joe.com.'
+      post_content = '@"sam 1" and @joe. But not @unknown, email@jane.com, email@joe.com, <code>@joe</code>.'
       sam = build_stubbed(:user, name: 'sam 1')
       joe = build_stubbed(:user, name: 'joe')
       post = build_stubbed(:post, content: post_content)
-      expected_html = '<p><a href="/whois/sam%201">@sam 1</a> but not @al or @kek. And <a href="/whois/joe">@joe</a>.'\
-' But not <a href="mailto:email@jane.com">email@jane.com</a> nor <a href="mailto:email@joe.com">email@joe.com</a>.</p>'
+      expected_html = '<p><a href="/whois/sam%201">@"sam 1"</a> and <a href="/whois/joe">@joe</a>. But not @unknown, '\
+'<a href="mailto:email@jane.com">email@jane.com</a>, <a href="mailto:email@joe.com">email@joe.com</a>,'\
+' <code>@joe</code>.</p>'
 
       expect(post).to receive(:readers_from_user_names)
-        .with(['sam 1', 'al', 'kek', 'joe'])
+        .with(['sam 1', 'joe', 'unknown'])
         .and_return([sam, joe])
 
       expect(format_post_content(post)).to eq expected_html

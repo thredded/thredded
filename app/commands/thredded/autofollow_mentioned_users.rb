@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_dependency 'thredded/at_notification_extractor'
 module Thredded
   class AutofollowMentionedUsers
     def initialize(post)
@@ -12,10 +13,9 @@ module Thredded
     end
 
     def autofollowers
-      user_names = Thredded::AtNotificationExtractor.new(post.content).run
-      autofollowers = post.readers_from_user_names(user_names).to_a
-      autofollowers.delete post.user
-      exclude_those_opting_out_of_at_notifications(autofollowers)
+      autofollowers = Thredded::AtNotificationExtractor.new(post).run
+      autofollowers.delete(post.user)
+      exclude_those_opting_out_of_at_notifications autofollowers
     end
 
     private
