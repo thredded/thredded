@@ -11,8 +11,8 @@ module Thredded
         members.each do |member|
           member_path = Thredded.user_path(view_context, member)
           name = member.to_s
-          content.gsub!(/(^|[\s>])(@#{name.include?(' ') ? %("#{name}") : name})\b/i,
-                        %(\1<a href="#{ERB::Util.html_escape member_path}">@#{ERB::Util.html_escape name}</a>))
+          content.gsub!(/(^|[\s>])(@#{Regexp.escape(name.include?(' ') ? %("#{name}") : name)})([^a-z\d]|$)/i,
+                        %(\\1<a href="#{ERB::Util.html_escape member_path}">@#{ERB::Util.html_escape name}</a>\\3))
         end
       end
 

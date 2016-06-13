@@ -154,6 +154,7 @@ Thredded does not provide a user's profile page, but it provides a helper for re
 in your app's user profile page.
 
 To use it:
+
 1. Include `Thredded::ApplicationHelper` in the app's helpers module.
 2. Render the partial like this:
 
