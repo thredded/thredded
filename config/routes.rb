@@ -5,6 +5,8 @@ Thredded::Engine.routes.draw do
   positive_int = /[1-9]\d*/
   page_constraint = { page: positive_int }
 
+  resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
+
   constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
     get '/' => 'topics#search', as: :messageboards_search
     get '/private-topics(/:topic_id)' => 'private_topics#search', as: :private_topics_search
@@ -25,8 +27,6 @@ Thredded::Engine.routes.draw do
     resources :private_post_permalinks, path: 'private-posts'
     resources :post_permalinks, path: 'posts'
   end
-
-  resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
 
   scope path: 'admin' do
     resources :messageboard_groups, only: [:new, :create]
