@@ -40,5 +40,4 @@ feature 'User searching private topics' do
   def them
     create(:user, name: 'them')
   end
-
 end
