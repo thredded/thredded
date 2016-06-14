@@ -3,6 +3,7 @@ Gemfile.lock
 *.gemfile.lock
 !heroku.gemfile.lock
 .bundle/
+.ruby-version
 bin/*
 !bin/rails
 log/*.log

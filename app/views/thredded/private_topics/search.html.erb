@@ -1,0 +1,21 @@
+<% content_for :thredded_page_title, t('thredded.topics.search.page_title') %>
+<% content_for :thredded_page_id, 'thredded--topic-search-results' %>
+<% content_for :thredded_breadcrumbs, render('thredded/private_topics/breadcrumbs') %>
+
+<%= thredded_page do %>
+  <% if @private_topics.present? %>
+    <p class="thredded--alert thredded--alert-success">
+      <%= t 'thredded.topics.search.results_message', query: "'#{@query}'" %>
+    </p>
+    <section class="thredded--main-section thredded--topics">
+      <%= render @private_topics %>
+    </section>
+    <footer>
+      <%= paginate @private_topics %>
+    </footer>
+  <% else %>
+    <p class="thredded--alert thredded--alert-danger">
+      <%= t 'thredded.topics.search.no_results_message', query: "'#{@query}'" %>
+    </p>
+  <% end %>
+<% end %>

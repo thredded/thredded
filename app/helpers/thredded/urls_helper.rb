@@ -97,7 +97,9 @@ module Thredded
     # @param messageboard [Thredded::Messageboard, nil]
     # @return [String] the path to the global or messageboard search.
     def search_path(messageboard = nil)
-      if messageboard.try(:persisted?)
+      if controller_name == 'private_topics'
+        private_topics_search_path
+      elsif messageboard.try(:persisted?)
         messageboard_search_path(messageboard)
       else
         messageboards_search_path

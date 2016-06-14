@@ -51,6 +51,15 @@ module PageObject
       has_css? 'article h1 a', text: private_title
     end
 
+    def search_for(title)
+      fill_in 'q', with: title
+      find('.thredded--navigation--search [type="submit"]').click
+    end
+
+    def has_topic_titled?(title)
+      has_css?('article.thredded--topics--topic h1 a', text: title)
+    end
+
     private
 
     attr_reader :messageboard, :private_title

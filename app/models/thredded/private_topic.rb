@@ -5,6 +5,8 @@ module Thredded
 
     scope :for_user, -> (user) { joins(:private_users).merge(PrivateUser.where(user_id: user.id)) }
 
+    scope :search_query, -> (query) { ::Thredded::PrivateTopicsSearch.new(query, self).search }
+
     extend FriendlyId
     friendly_id :slug_candidates,
                 use:            [:history, :reserved],

@@ -21,6 +21,25 @@ module Thredded
       end
     end
 
+    def search
+      @query = params[:q].to_s
+
+      @private_topics = Thredded::PrivateTopicsPageView.new(
+        thredded_current_user,
+        PrivateTopic
+          .search_query(@query)
+          .distinct
+          .for_user(thredded_current_user)
+          .order_recently_updated_first
+          .includes(:last_user, :user)
+          .page(params[:page])
+      )
+
+      PrivateTopicForm.new(user: thredded_current_user).tap do |form|
+        @new_private_topic = form if policy(form.private_topic).create?
+      end
+    end
+
     def show
       authorize private_topic, :read?
 
