@@ -47,7 +47,8 @@ Add the gem to your Gemfile:
 gem 'thredded', '~> 0.5.1'
 ```
 
-Add `user.rb` file into modle for initialize.
+Add `user.rb` file into modle for initialize. Please be sure you have current_user method in your user.rb.
+Thredded is going to find your current_user function to check your user status. Or you can use gem such as devise to deal with it.
 
 ```console
 touch app/models/user.rb
