@@ -49,7 +49,10 @@ module Thredded
 
     def create_users(count:)
       log "Creating #{count} users..."
-      @users = [user] + FactoryGirl.create_list(:user, count, *(%i(approved) if rand > 0.1))
+      approved_users_count = (count * 0.97).round
+      @users = [user] +
+               FactoryGirl.create_list(:user, approved_users_count, :approved) +
+               FactoryGirl.create_list(:user, count - approved_users_count)
     end
 
     def create_messageboard
