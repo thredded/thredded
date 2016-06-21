@@ -1,3 +1,11 @@
+# Master
+
+## Fixed
+
+* Moderating posts, topics, and users no longer changes their `updated_at` attribute.
+* Posts and topics that are not yet visible to all users no longer appear as last posts / topics in the respective
+  topic / messageboard.
+
 # v0.6.1
 
 This is a minor bugfix release.
