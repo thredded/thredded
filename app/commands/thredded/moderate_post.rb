@@ -16,19 +16,31 @@ module Thredded
           moderation_state: moderation_state,
         )
         if post.user_id && post.user_detail.pending_moderation?
-          post.user_detail.update!(moderation_state: moderation_state)
+          update_without_timestamping!(post.user_detail, moderation_state: moderation_state)
         end
         if post.postable.first_post == post
-          post.postable.update!(moderation_state: moderation_state)
+          update_without_timestamping!(post.postable, moderation_state: moderation_state)
           if moderation_state == :blocked
             # When blocking the first post of a topic, also block all the other posts in the topic by this user.
             post.postable.posts.where(user_id: post.user.id).where.not(id: post.id).each do |a_post|
-              a_post.update!(moderation_state: moderation_state)
+              update_without_timestamping!(a_post, moderation_state: moderation_state)
             end
           end
         end
-        post.update!(moderation_state: moderation_state)
+        update_without_timestamping!(post, moderation_state: moderation_state)
         post_moderation_record
+      end
+    end
+
+    # @param record [ActiveRecord]
+    # @api private
+    def update_without_timestamping!(record, *attr)
+      record_timestamps_was = record.record_timestamps
+      begin
+        record.record_timestamps = false
+        record.update!(*attr)
+      ensure
+        record.record_timestamps = record_timestamps_was
       end
     end
   end

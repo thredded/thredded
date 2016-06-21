@@ -32,5 +32,11 @@ module Thredded
       topic.reload
       expect(topic).to be_blocked
     end
+
+    it 'moderating does not change updated_at timestamp' do
+      topic = create(:topic, with_posts: 1)
+      expect { Thredded::ModeratePost.run!(post: topic.first_post, moderation_state: :blocked, moderator: moderator) }
+        .to_not change { topic.first_post.reload.updated_at }
+    end
   end
 end
