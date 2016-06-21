@@ -26,6 +26,7 @@ module Thredded
 
     validates :messageboard_id, presence: true
 
+    after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
     after_commit :auto_follow_and_notify, on: [:create, :update]
 
     # @param [Integer] per_page
@@ -50,12 +51,28 @@ module Thredded
         .in(user_names)
     end
 
+    private
+
     def auto_follow_and_notify
       return unless user
       # need to do this in-process so that it appears to them immediately
       UserTopicFollow.create_unless_exists(user.id, postable_id, :posted)
       # everything else can happen later
       AutoFollowAndNotifyJob.perform_later(id)
+    end
+
+    def update_parent_last_user_and_timestamp
+      return if postable.destroyed?
+      last_post = if destroyed? || !moderation_state_visible_to_all?
+                    postable.posts.order_oldest_first.moderation_state_visible_to_all.select(:user_id, :created_at).last
+                  else
+                    self
+                  end
+      if last_post
+        postable.update!(last_user_id: last_post.user_id, updated_at: last_post.created_at)
+      else
+        postable.update!(last_user_id: nil, updated_at: postable.created_at)
+      end
     end
   end
 end

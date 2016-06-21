@@ -15,6 +15,7 @@ module Thredded
                primary_key: :user_id,
                foreign_key: :user_id
 
+    after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
     after_commit :notify_users, on: [:create]
 
     # @param [Integer] per_page
@@ -37,8 +38,20 @@ module Thredded
         .in(user_names)
     end
 
+    private
+
     def notify_users
       Thredded::NotifyPrivateTopicUsersJob.perform_later(id)
+    end
+
+    def update_parent_last_user_and_timestamp
+      return if postable.destroyed?
+      last_post = if destroyed?
+                    postable.posts.order_oldest_first.select(:user_id, :created_at).last
+                  else
+                    self
+                  end
+      postable.update!(last_user_id: last_post.user_id, updated_at: last_post.created_at)
     end
   end
 end
