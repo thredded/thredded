@@ -10,18 +10,12 @@ module Thredded
     included do
       before_validation :set_default_moderation_state, on: :create
 
+      scope :moderation_state_visible_to_all, -> { where(visible_to_all_arel_node) }
+
       scope :moderation_state_visible_to_user, (lambda do |user|
+        visible = visible_to_all_arel_node
         # @type [Arel::Table]
         table = arel_table
-        # @type [Arel::Nodes::Node]
-        visible =
-          if Thredded.content_visible_while_pending_moderation
-            # All non-blocked content
-            table[:moderation_state].not_eq(moderation_states[:blocked])
-          else
-            # Only approved content
-            table[:moderation_state].eq(moderation_states[:approved])
-          end
         if user && !user.thredded_anonymous?
           # Own content
           visible = visible.or(table[:user_id].eq(user.id))
@@ -33,6 +27,18 @@ module Thredded
         end
         where(visible)
       end)
+
+      # @return [Arel::Nodes::Node]
+      # @api private
+      def self.visible_to_all_arel_node
+        if Thredded.content_visible_while_pending_moderation
+          # All non-blocked content
+          arel_table[:moderation_state].not_eq(moderation_states[:blocked])
+        else
+          # Only approved content
+          arel_table[:moderation_state].eq(moderation_states[:approved])
+        end
+      end
     end
 
     # Whether this is visible to anyone based on the moderation state.

@@ -125,8 +125,8 @@ module Thredded
 
     def update_messageboard_last_topic
       return if messageboard.destroyed?
-      last_topic = if destroyed?
-                     messageboard.topics.order_recently_updated_first.select(:id).first
+      last_topic = if destroyed? || !moderation_state_visible_to_all?
+                     messageboard.topics.order_recently_updated_first.moderation_state_visible_to_all.select(:id).first
                    else
                      self
                    end
