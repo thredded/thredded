@@ -130,7 +130,7 @@ module Thredded
                    else
                      self
                    end
-      messageboard.update!(last_topic_id: last_topic.try(:id))
+      messageboard.update_columns(last_topic_id: last_topic.try(:id))
     end
   end
 end

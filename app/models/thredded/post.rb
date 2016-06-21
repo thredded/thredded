@@ -69,9 +69,9 @@ module Thredded
                     self
                   end
       if last_post
-        postable.update!(last_user_id: last_post.user_id, updated_at: last_post.created_at)
+        postable.update_columns(last_user_id: last_post.user_id, updated_at: last_post.updated_at)
       else
-        postable.update!(last_user_id: nil, updated_at: postable.created_at)
+        postable.update_columns(last_user_id: nil, updated_at: postable.created_at)
       end
     end
   end
