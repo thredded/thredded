@@ -21,6 +21,9 @@ module Thredded
 
       # Delegate all main_app routes to allow calling them directly.
       ::Thredded::ApplicationController.helper ::Thredded::MainAppRouteDelegator
+
+      Thredded::ApplicationController.helper Rails.application.helpers
+
     end
 
     initializer 'thredded.setup_assets' do
