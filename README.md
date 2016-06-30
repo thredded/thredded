@@ -100,7 +100,7 @@ cp `bundle show thredded`/db/upgrade_migrations/20160501151908_upgrade_v0_4_to_v
 rake db:migrate
 ```
 
-Note that for guaranteed best results you will want to run this with the gem checked out with v0.5.0
+Note that for guaranteed best results you will want to run this with the gem checked out with v0.5.0.
 
 ### Migrating from Forem
 
