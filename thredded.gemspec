@@ -17,10 +17,12 @@ Gem::Specification.new do |s|
   s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec|script)/|^\.}) } -
             %w(Dockerfile docker-compose.yml Rakefile Gemfile shared.gemfile)
 
+  s.required_ruby_version = '~> 2.1'
+
   # backend
   s.add_dependency 'bbcoder', '~> 1.0'
   s.add_dependency 'pundit', '>= 1.1.0'
-  s.add_dependency 'active_record_union', '>= 1.1.1'
+  s.add_dependency 'active_record_union', '>= 1.2.0'
   s.add_dependency 'db_text_search', '~> 0.2.0'
   s.add_dependency 'friendly_id'
   s.add_dependency 'html-pipeline'
@@ -69,5 +71,7 @@ Gem::Specification.new do |s|
 
   # dummy app frontend
   s.add_development_dependency 'jquery-turbolinks'
-  s.add_development_dependency 'turbolinks'
+  # TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
+  # https://github.com/kossnocorp/jquery.turbolinks/pull/58
+  s.add_development_dependency 'turbolinks', '~> 2.5'
 end

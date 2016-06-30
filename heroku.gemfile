@@ -5,15 +5,17 @@ ruby '2.3.1'
 gem 'thredded', path: File.dirname(__FILE__)
 
 # Rails 5
-gem 'rails', '~> 5.0.0.racecar1'
-gem 'active_record_union', git: 'https://github.com/glebm/active_record_union', branch: 'rails-5-test-harness'
+gem 'rails', '~> 5.0.0.rc2'
+gem 'active_record_union', '>= 1.2.0'
 
 # Make these gems available in production
 gem 'puma'
 gem 'pg'
 gem 'rails_email_preview', '>= 1.0.3'
 gem 'jquery-turbolinks'
-gem 'turbolinks'
+# TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
+# https://github.com/kossnocorp/jquery.turbolinks/pull/58
+gem 'turbolinks', '~> 2.5'
 gem 'rails-i18n'
 gem 'http_accept_language'
 gem 'factory_girl_rails'
