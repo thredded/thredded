@@ -31,7 +31,6 @@ require 'active_support/testing/time_helpers'
 
 if Rails::VERSION::MAJOR >= 5
   require 'rails-controller-testing'
-  # TODO: remove this configure block once rspec-rails 3.5.0 stable is released.
   RSpec.configure do |config|
     [:controller, :view, :request].each do |type|
       config.include ::Rails::Controller::Testing::TestProcess, type: type

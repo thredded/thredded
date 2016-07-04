@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
 eval_gemfile './shared.gemfile'
-gem 'rails', '~> 5.0.0.rc2'
-gem 'rspec-rails', '~> 3.5.0.beta4'
+gem 'rails', '~> 5.0.0'
 gem 'rails-controller-testing'
+
+# Rails 5 compatibility PR: https://github.com/jch/html-pipeline/pull/257
+# TODO: remove once merged
+gem 'html-pipeline', git: 'https://github.com/jch/html-pipeline', branch: 'bump-rails-dependency'
