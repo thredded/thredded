@@ -6,7 +6,6 @@ gem 'thredded', path: File.dirname(__FILE__)
 
 # Rails 5
 gem 'rails', '~> 5.0.0'
-gem 'active_record_union', '>= 1.2.0'
 
 # Make these gems available in production
 gem 'puma'
