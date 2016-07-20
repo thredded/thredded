@@ -160,6 +160,7 @@ FactoryGirl.define do
     user
     association :postable, factory: :private_topic
     page 1
+    read_at { Time.now.utc }
   end
 
   factory :user_topic_follow, class: Thredded::UserTopicFollow do

@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe PrivateTopicsController do
+  describe PrivateTopicsController, type: :controller do
     routes { Thredded::Engine.routes }
 
     let(:user) { create(:user) }
