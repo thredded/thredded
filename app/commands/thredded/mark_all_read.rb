@@ -10,6 +10,7 @@ module Thredded
       @topic_type.unread(@user).each do |topic|
         last_post = topic.posts.last
         total_pages = topic.posts.page(1).total_pages
+
         UserPrivateTopicReadState.touch!(
           @user.id,
           topic.id,

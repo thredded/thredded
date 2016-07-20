@@ -68,6 +68,7 @@ module Thredded
 
     def mark_all_read
       MarkAllRead.run(Thredded::PrivateTopic, thredded_current_user) if signed_in?
+
       redirect_to request.referer
     end
 
