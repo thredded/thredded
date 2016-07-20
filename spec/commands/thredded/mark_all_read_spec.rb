@@ -3,9 +3,7 @@ require 'spec_helper'
 
 module Thredded
   describe MarkAllRead, '#run' do
-    let(:topic_type) { Thredded::PrivateTopic }
-
-    subject { MarkAllRead.run(topic_type, user_to_mark) }
+    subject { MarkAllRead.run(user_to_mark) }
 
     context 'there are unread topics' do
       let(:private_topic) { create(:private_topic) }

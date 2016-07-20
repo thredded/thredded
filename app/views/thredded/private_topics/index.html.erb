@@ -17,6 +17,11 @@
     <% end -%>
   <% end %>
 
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= link_to t('thredded.nav.mark_all_read'), mark_all_read_path, { method: :put } -%></li>
+  </ul>
+
+
   <footer>
     <%= paginate @private_topics %>
   </footer>
