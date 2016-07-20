@@ -2,3 +2,8 @@
   <li><%= link_to t('thredded.nav.all_messageboards'), messageboards_path -%></li>
   <li><%= link_to t('thredded.nav.private_topics'), private_topics_path -%></li>
 </ul>
+
+<ul class="thredded--navigation-breadcrumbs">
+  <li><%= link_to t('thredded.nav.mark_all_read'), mark_all_read_private_topics_path, { method: :put } -%></li>
+</ul>
+

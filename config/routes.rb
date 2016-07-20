@@ -12,7 +12,7 @@ Thredded::Engine.routes.draw do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
       end
       collection do
-        post :mark_all_read
+        put :mark_all_read
       end
       resources :private_posts, path: '', except: [:index, :show], controller: 'posts'
     end

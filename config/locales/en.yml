@@ -48,6 +48,7 @@ en:
       edit_post: Edit Post
       edit_private_topic: :thredded.nav.edit_topic
       edit_topic: Edit
+      mark_all_read: Mark All As Read
       moderation: Moderation
       moderation_history: History
       moderation_pending: Pending
