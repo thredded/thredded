@@ -31,7 +31,7 @@ FactoryGirl.define do
   end
 
   factory :messageboard_group, class: Thredded::MessageboardGroup do
-    sequence(:name) { |n| Faker::Lorem.word + n }
+    sequence(:name) { |n| "#{Faker::Lorem.word} #{n}" }
   end
 
   factory :post, class: Thredded::Post do
