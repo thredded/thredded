@@ -25,6 +25,7 @@ en:
     messageboard_group:
       create: Create a New Messageboard Group
       created_notice: Messageboard group has been created
+      saved: Messageboard Group %{name} created
     moderation:
       approve_btn: Approve
       block_btn: Block

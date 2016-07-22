@@ -30,6 +30,10 @@ FactoryGirl.define do
     closed false
   end
 
+  factory :messageboard_group, class: Thredded::MessageboardGroup do
+    sequence(:name) { |n| Faker::Lorem.word + n }
+  end
+
   factory :post, class: Thredded::Post do
     user
     postable { association :topic, user: user }
