@@ -24,4 +24,12 @@
       </div>
     <% end %>
   <% end %>
+  <div class="thredded--topic-following-users">
+    <p>
+      Following users
+      <% @topic.following_users.each do |user| %>
+        <%= user.name %>
+      <% end %>
+    </p>
+  </div>
 </header>
