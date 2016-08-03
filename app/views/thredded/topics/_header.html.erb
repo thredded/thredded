@@ -25,11 +25,13 @@
     <% end %>
   <% end %>
   <div class="thredded--topic-following-users">
-    <p>
-      Following users
+    <% if @topic.following_users.present? %>
+      Following:
       <% @topic.following_users.each do |user| %>
-        <%= user.name %>
+        <%= user %>
       <% end %>
-    </p>
+    <% else %>
+      No one is following this topic
+    <% end %>
   </div>
 </header>
