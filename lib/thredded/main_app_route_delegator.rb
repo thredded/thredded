@@ -12,7 +12,7 @@ module Thredded
       end
     end
 
-    def respond_to?(method, *args)
+    def respond_to_missing?(method, *args)
       super || main_app_route_method?(method)
     end
 
