@@ -10,6 +10,7 @@ rescue NameError
 end
 # rubocop:enable HandleExceptions
 
+# rubocop:disable Metrics/ClassLength
 module Thredded
   class SeedDatabase
     attr_reader :user, :users, :messageboard, :topics, :private_topics, :posts
@@ -33,6 +34,7 @@ module Thredded
         s.create_private_posts(count: posts)
         s.create_additional_messageboards
         s.follow_some_topics
+        s.read_some_topics
         s.log 'Running after_commit callbacks'
       end
     ensure
@@ -138,7 +140,30 @@ module Thredded
         Thredded::UserTopicFollow.create_unless_exists(user.id, topic.id)
       end
     end
+
+    def read_some_topics(count: (5..10), count_users: (1..5))
+      log 'Reading some topics...'
+      @topics.each do |topic|
+        read_topic(topic, topic.last_user_id) if topic.last_user_id
+      end
+      read_some_topics_by_user(create_first_user, count: count)
+      @users.sample(count_users.min + rand(count_users.max - count_users.min + 2)).each do |user|
+        read_some_topics_by_user(user, count: count)
+      end
+    end
+
+    def read_some_topics_by_user(user, count: (1..10))
+      @topics.sample(count.min + rand(count.max - count.min + 2)).each do |topic|
+        read_topic(topic, user.id)
+      end
+    end
+
+    def read_topic(topic, user_id)
+      Thredded::UserTopicReadState.find_or_initialize_by(user_id: user_id, postable_id: topic.id)
+        .update!(read_at: topic.updated_at, page: 1)
+    end
   end
 end
+# rubocop:enable Metrics/ClassLength
 
 Thredded::SeedDatabase.run
