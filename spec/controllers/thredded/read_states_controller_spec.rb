@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe MarkAllReadsController, type: :controller do
+  describe ReadStatesController, type: :controller do
     routes { Thredded::Engine.routes }
 
     let(:user) { create(:user) }

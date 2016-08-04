@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  class MarkAllReadsController < Thredded::ApplicationController
+  class ReadStatesController < Thredded::ApplicationController
     before_action :thredded_require_login!
 
     def update

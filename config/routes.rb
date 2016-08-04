@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 Thredded::Engine.routes.draw do
   resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
-  resource :mark_all_read, only: [:update]
 
   positive_int = /[1-9]\d*/
   page_constraint = { page: positive_int }
 
   scope path: 'private-topics' do
+    resource :read_state, only: [:update], as: :mark_all_private_topics_read
     resource :private_topic, only: [:new], path: ''
     resources :private_topics, except: [:new, :show], path: '' do
       member do
