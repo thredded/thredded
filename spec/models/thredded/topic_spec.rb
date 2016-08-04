@@ -135,6 +135,119 @@ module Thredded
     end
   end
 
+  describe Topic, '.followed_by(user)' do
+    let(:user) { create(:user) }
+    let(:topic) { create :topic }
+    let(:follow_state) {}
+
+    before do
+      follow_state
+    end
+
+    subject { Topic.followed_by(user) }
+
+    context 'with following topic' do
+      let(:follow_state) { UserTopicFollow.create!(user_id: user.id, topic_id: topic.id, reason: :manual) }
+      it 'is included' do
+        expect(subject).to include(topic)
+      end
+    end
+
+    context 'with not-following topic' do
+      let(:follow_state) {}
+      it 'is not included' do
+        expect(subject).not_to include(topic)
+      end
+      context 'when followed by someone else' do
+        let(:follow_state) { UserTopicFollow.create!(user_id: create(:user).id, topic_id: topic.id, reason: :manual) }
+        it 'is not included' do
+          expect(subject).not_to include(topic)
+        end
+      end
+    end
+  end
+
+  describe Topic, '.unread_followed_by(user)' do
+    let(:user) { create(:user) }
+    let(:topic) { create :topic }
+    let(:post) { create :post, postable: topic }
+    let(:read_state) {}
+    let(:follow_state) {}
+
+    before do
+      post
+      read_state
+      follow_state
+    end
+
+    subject { Topic.unread_followed_by(user) }
+
+    def create_read_state(read_at, user_id: user.id)
+      UserTopicReadState.create!(user_id: user_id, postable_id: topic.id, read_at: read_at, page: 1)
+    end
+
+    context 'with following topic' do
+      let(:follow_state) { UserTopicFollow.create!(user_id: user.id, topic_id: topic.id, reason: :manual) }
+      context 'with no read state' do
+        it 'is included' do
+          expect(subject).to include(topic)
+        end
+      end
+      context 'with read state not up to date' do
+        let(:read_state) { create_read_state(1.day.ago) }
+        it 'is included' do
+          expect(subject).to include(topic)
+        end
+      end
+      context 'with read state which is up to date' do
+        let(:read_state) { create_read_state(topic.updated_at) }
+        it 'is not included' do
+          expect(subject).not_to include(topic)
+        end
+      end
+      context 'with read state for someone else' do
+        let(:read_state) { create_read_state(topic.updated_at, user_id: create(:user).id) }
+        it 'is included' do
+          expect(subject).to include(topic)
+        end
+      end
+      context 'with mixture of other post' do
+        before do
+          create_list(:post, 3)
+        end
+        it 'has right count' do
+          expect(subject.count).to eq(1)
+        end
+      end
+    end
+
+    context 'with not-following topic' do
+      let(:follow_state) {}
+      context 'with no read state' do
+        it 'is not included' do
+          expect(subject).not_to include(topic)
+        end
+      end
+      context 'with read state not up to date' do
+        let(:read_state) { create_read_state(1.day.ago) }
+        it 'is not included' do
+          expect(subject).not_to include(topic)
+        end
+      end
+      context 'with read state which is up to date' do
+        it 'is not included' do
+          expect(subject).not_to include(topic)
+        end
+      end
+      context 'when followed by someone else' do
+        let(:follow_state) { UserTopicFollow.create!(user_id: create(:user).id, topic_id: topic.id, reason: :manual) }
+        it 'is not included' do
+          expect(subject).not_to include(topic)
+        end
+      end
+    end
+  end
+
   describe Topic, '#last_user' do
     it 'provides anon user object when user not avail' do
       topic = build_stubbed(:topic, last_user_id: 1000)
