@@ -39,6 +39,23 @@
   }
 }
 
+.thredded--button-light {
+  background-color: $thredded-button-light-background;
+  color: $thredded-button-light-color;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $thredded-button-light-hover-background;
+    color: $thredded-button-light-hover-color;
+  }
+}
+
+.thredded--button-wide {
+  width: 100%;
+  text-align: center;
+}
+
 %thredded--buttons-list {
   text-align: center;
   a, .button_to {

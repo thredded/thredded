@@ -63,8 +63,15 @@ $thredded-form-color: $thredded-text-color !default;
 // Buttons
 $thredded-button-background: $thredded-action-color !default;
 $thredded-button-color: #fff !default;
-$thredded-button-hover-color: $thredded-button-color !default;
 $thredded-button-hover-background: darken($thredded-button-background, 15%) !default;
+$thredded-button-hover-color: $thredded-button-color !default;
+
+$thredded-button-light-background: lighten($thredded-button-background, 35%) !default;
+$thredded-button-light-color: darken($thredded-button-background, 15%) !default;
+$thredded-button-light-hover-background: darken($thredded-button-light-background, 15%) !default;
+$thredded-button-light-hover-color: darken($thredded-button-light-color, 15%) !default;
+
+
 $thredded-button-border-radius: 3px !default;
 $thredded-button-font-family: $thredded-base-font-family !default;
 $thredded-button-font-size: $thredded-font-size-small !default;

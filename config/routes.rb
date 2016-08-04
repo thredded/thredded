@@ -6,6 +6,7 @@ Thredded::Engine.routes.draw do
   page_constraint = { page: positive_int }
 
   scope path: 'private-topics' do
+    resource :read_state, only: [:update], as: :mark_all_private_topics_read
     resource :private_topic, only: [:new], path: ''
     resources :private_topics, except: [:new, :show], path: '' do
       member do
