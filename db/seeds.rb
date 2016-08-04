@@ -32,6 +32,7 @@ module Thredded
         s.create_posts(count: posts)
         s.create_private_posts(count: posts)
         s.create_additional_messageboards
+        s.follow_some_topics
         s.log 'Running after_commit callbacks'
       end
     ensure
@@ -100,9 +101,15 @@ module Thredded
     def create_posts(count: (1..30))
       log "Creating #{count} additional posts in each topic..."
       @posts = topics.flat_map do |topic|
+        posts = []
+        written = (1 + rand(5)).days.ago
         (count.min + rand(count.max + 1)).times do
-          FactoryGirl.create(:post, postable: topic, messageboard: messageboard, user: users.sample)
+          written += (1 + rand(60)).minutes
+          posts << FactoryGirl.create(:post, postable: topic, messageboard: messageboard, user: users.sample,
+                                             created_at: written, updated_at: written)
         end
+        topic.update!(last_user_id: posts.last.user.id, updated_at: written)
+        posts
       end
     end
 
@@ -112,6 +119,23 @@ module Thredded
         (count.min + rand(count.max + 1)).times do
           FactoryGirl.create(:private_post, postable: topic, user: users.sample)
         end
+      end
+    end
+
+    def follow_some_topics(count: (5..10), count_users: (1..5))
+      log 'Following some topics...'
+      @posts.each do |post|
+        Thredded::UserTopicFollow.create_unless_exists(post.user_id, post.postable_id, :posted) if post.user_id
+      end
+      follow_some_topics_by_user(create_first_user, count: count)
+      @users.sample(count_users.min + rand(count_users.max - count_users.min + 2)).each do |user|
+        follow_some_topics_by_user(user, count: count)
+      end
+    end
+
+    def follow_some_topics_by_user(user, count: (1..10))
+      @topics.sample(count.min + rand(count.max - count.min + 2)).each do |topic|
+        Thredded::UserTopicFollow.create_unless_exists(user.id, topic.id)
       end
     end
   end
