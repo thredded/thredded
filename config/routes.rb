@@ -42,7 +42,7 @@ Thredded::Engine.routes.draw do
     end
   end
 
-  resource :preferences, only: [:edit, :update]
+  resource :preferences, only: [:edit, :update], as: :global_preferences
   resource :messageboard, path: 'messageboards', only: [:new]
   resources :messageboards, only: [:edit, :update]
   resources :messageboards, only: [:index, :create], path: '' do

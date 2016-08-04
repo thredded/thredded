@@ -83,7 +83,7 @@ module Thredded
       if messageboard.try(:persisted?)
         edit_messageboard_preferences_url(messageboard, params)
       else
-        super(params)
+        edit_global_preferences_url(params)
       end
     end
 
