@@ -23,7 +23,7 @@ en:
       update: :thredded.form.update
       updated_notice: Messageboard has been updated
     messageboard_group:
-      create: Create a New Messageboard Group
+      create: Messageboard group has been created
     moderation:
       approve_btn: Approve
       block_btn: Block
@@ -153,4 +153,3 @@ en:
       posts_count:
         one: "Posted once"
         other: "Posted %{count} times"
-
