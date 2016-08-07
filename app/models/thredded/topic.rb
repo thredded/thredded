@@ -16,21 +16,10 @@ module Thredded
     scope :order_sticky_first, -> { order(sticky: :desc) }
 
     scope :followed_by, lambda { |user|
-      joins('INNER JOIN thredded_user_topic_follows ON thredded_user_topic_follows.topic_id = thredded_topics.id')
-        .where('thredded_user_topic_follows.user_id = ?', user.id)
+      joins(:user_follows)
+        .where(thredded_user_topic_follows: { user_id: user.id })
     }
-    scope :unread_by, lambda{ |user|
-      joins(<<-SQL)
-        LEFT OUTER JOIN thredded_user_topic_read_states
-          ON thredded_user_topic_read_states.postable_id = thredded_topics.id
-             AND thredded_user_topic_read_states.user_id = #{user.id}
-      SQL
-        .where(<<-SQL)
-          thredded_user_topic_read_states.read_at is NULL OR
-          thredded_user_topic_read_states.read_at < thredded_topics.updated_at
-        SQL
-    }
-    scope :unread_followed_by, ->(user) { followed_by(user).unread_by(user) }
+    scope :unread_followed_by, ->(user) { followed_by(user).unread(user) }
 
     extend FriendlyId
     friendly_id :slug_candidates,
