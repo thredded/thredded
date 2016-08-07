@@ -77,8 +77,11 @@ FactoryGirl.define do
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
+        ago = evaluator.with_posts.minutes.ago
         evaluator.with_posts.times do
-          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard)
+          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
+                        updated_at: ago)
+          ago += 1.minute
         end
 
         topic.posts_count = evaluator.with_posts
