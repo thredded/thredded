@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Thredded::DatabaseSeeder do
+  before { allow_any_instance_of(Thredded::DatabaseSeeder).to receive(:log) }
   describe 'run (seed)' do
     subject do
       # we don't actually run run, because it causes weird knock-on effects to other tests
