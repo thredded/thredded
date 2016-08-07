@@ -113,7 +113,9 @@ module Thredded
     it 'updates the topic updated_at field to that of the last post' do
       user_1 = create(:user)
       user_2 = create(:user)
-      topic = create(:topic, with_posts: 1)
+      topic = travel_to 1.hour.ago do
+        create(:topic, with_posts: 1)
+      end
       post_1 = create(:post, postable: topic, user: user_1, content: 'posting more')
       future_time = 3.hours.from_now
       travel_to future_time do
