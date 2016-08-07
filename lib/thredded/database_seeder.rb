@@ -22,20 +22,24 @@ module Thredded
       SKIP_CALLBACKS.each { |(klass, *args)| klass.skip_callback(*args) }
       s = new
       Messageboard.transaction do
-        s.users(count: users)
-        s.first_messageboard
-        s.topics(count: topics)
-        s.private_topics(count: topics)
-        s.posts(count: posts)
-        s.private_posts(count: posts)
-        s.create_additional_messageboards
-        s.follow_some_topics
-        s.read_some_topics
+        s.seed(users: users, topics: topics, posts: posts)
         s.log 'Running after_commit callbacks'
       end
     ensure
       # Re-enable callbacks
       SKIP_CALLBACKS.each { |(klass, *args)| klass.set_callback(*args) }
+    end
+
+    def seed(users: 200, topics: 55, posts: (1..60))
+      users(count: users)
+      first_messageboard
+      topics(count: topics)
+      private_topics(count: topics)
+      posts(count: posts)
+      private_posts(count: posts)
+      create_additional_messageboards
+      follow_some_topics
+      read_some_topics
     end
 
     def log(message)

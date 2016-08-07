@@ -2,14 +2,18 @@
 require 'spec_helper'
 
 describe Thredded::DatabaseSeeder do
-  describe 'run' do
+  describe 'run (seed)' do
+    subject do
+      # we don't actually run run, because it causes weird knock-on effects to other tests
+      # something to do with the callbacks I think
+      Thredded::DatabaseSeeder.new.seed(users: 2, topics: 1, posts: (1..1))
+    end
     it 'works' do
-      Thredded::DatabaseSeeder.run(users: 2, topics: 1, posts: (1..1))
+      subject
     end
     it 'creates' do
-      expect do
-        Thredded::DatabaseSeeder.run(users: 2, topics: 1, posts: (1..1))
-      end.to change { User.count }.and change { Thredded::Topic.count }.and change { Thredded::Messageboard.count }
+      expect { subject }
+        .to change { User.count }.and change { Thredded::Topic.count }.and change { Thredded::Messageboard.count }
     end
   end
 
