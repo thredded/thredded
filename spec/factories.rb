@@ -2,7 +2,6 @@
 require 'faker'
 I18n.reload!
 include ActionDispatch::TestProcess
-include ActiveSupport::Testing::TimeHelpers
 
 FactoryGirl.define do
   sequence(:topic_hash) { |n| "hash#{n}" }
@@ -82,9 +81,8 @@ FactoryGirl.define do
         ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
         evaluator.with_posts.times do
           ago += evaluator.post_interval
-          travel_to ago do
-            create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard)
-          end
+          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
+                        updated_at: ago)
         end
 
         topic.posts_count = evaluator.with_posts
