@@ -2,6 +2,7 @@
 require 'faker'
 I18n.reload!
 include ActionDispatch::TestProcess
+include ActiveSupport::Testing::TimeHelpers
 
 FactoryGirl.define do
   sequence(:topic_hash) { |n| "hash#{n}" }
@@ -65,6 +66,7 @@ FactoryGirl.define do
   factory :topic, class: Thredded::Topic do
     transient do
       with_posts 0
+      post_interval 1.hour
       with_categories 0
     end
 
@@ -77,11 +79,12 @@ FactoryGirl.define do
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
-        ago = evaluator.with_posts.minutes.ago
+        ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
         evaluator.with_posts.times do
-          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
-                        updated_at: ago)
-          ago += 1.minute
+          ago += evaluator.post_interval
+          travel_to ago do
+            create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard)
+          end
         end
 
         topic.posts_count = evaluator.with_posts
