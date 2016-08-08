@@ -13,7 +13,7 @@ feature 'User searching topics' do
   end
 
   after :all do
-    @topics.messageboard.destroy
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   search_and_expect_found = lambda do
