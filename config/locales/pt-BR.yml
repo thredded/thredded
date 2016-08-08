@@ -23,6 +23,7 @@ pt-BR:
       updated_notice: Fórum de mensagem foi atualizado
     messageboard_group:
       create: Criar um novo grupo de mensagens
+      created_notice: Grupo de mensagens foi criado
     moderation:
       approve_btn: Aprovar
       block_btn: Quadra
@@ -33,9 +34,8 @@ pt-BR:
       post_approved_html: Pós aprovado por %{moderator} %{time_ago}.
       post_blocked_html: Pós bloqueado por %{moderator} %{time_ago}.
       post_deleted_notice: Este post foi apagado.
-      posts_content_changed_since_moderation_html: >-
-        O <a href="%{post_url}">de pós</a> alteração de conteúdo, uma vez que foi moderado. Abaixo está o conteúdo
-        no momento em que foi moderado.
+      posts_content_changed_since_moderation_html: O <a href="%{post_url}">de pós</a> alteração de conteúdo, uma
+        vez que foi moderado. Abaixo está o conteúdo no momento em que foi moderado.
       search_users:
         form_label: Buscar usuários
         form_placeholder: :thredded.moderation.search_users.form_label
@@ -72,15 +72,13 @@ pt-BR:
       form:
         global_preferences_label: Configurações Globais
         messageboard_notify_on_mention:
-          hint: >-
-            Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá receber
-            um e-mail com o conteúdo deste post.
+          hint: 'Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você
+            irá receber um e-mail com o conteúdo deste post.'
           label: :thredded.preferences.form.notify_on_mention.label
         messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
         notify_on_mention:
-          hint: >-
-            Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
-            deste post.
+          hint: 'Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com
+            o conteúdo deste post.'
           label: "@ Notificações"
         notify_on_message:
           hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta
@@ -142,7 +140,7 @@ pt-BR:
       unfollowed_notice: Você não está mais acompanhando este tópico
       updated_notice: Tópico atualizado
     users:
-      last_active_html: Última %{time_ago} ativa
+      last_active_html: "Última %{time_ago} ativa"
       posted_in_topic_html: Postou em %{topic_link}
       posts_count:
         one: Postado uma vez

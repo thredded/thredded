@@ -12,7 +12,7 @@ module Thredded
       authorize @messageboard_group, :create?
 
       if @messageboard_group.save
-        redirect_to root_path
+        redirect_to root_path, notice: I18n.t('thredded.messageboard_group.created_notice')
       else
         render action: :new
       end
