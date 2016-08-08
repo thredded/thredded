@@ -1,7 +1,7 @@
 <%= form_for(
         preferences,
         method: :patch,
-        url:    (preferences.messageboard ? messageboard_preferences_path(preferences.messageboard) : preferences_path),
+        url:    (preferences.messageboard ? messageboard_preferences_path(preferences.messageboard) : global_preferences_path),
         html:   {
             class:                                'thredded--form thredded--notification-preferences-form',
             'data-thredded-user-preferences-form' => true
