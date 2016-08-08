@@ -14,10 +14,11 @@ module Thredded
 
     # @param user [Thredded.user_class] the user who is viewing the posts page
     # @param topics_page_scope [ActiveRecord::Relation<Thredded::Topic>]
-    def initialize(user, topics_page_scope)
+    # @param topic_view_class [Class] view_model for topic instances
+    def initialize(user, topics_page_scope, topic_view_class: TopicView)
       @topics_page_scope = topics_page_scope
       @topic_views = @topics_page_scope.with_read_and_follow_states(user).map do |(topic, read_state, follow)|
-        TopicView.new(topic, read_state, follow, Pundit.policy!(user, topic))
+        topic_view_class.new(topic, read_state, follow, Pundit.policy!(user, topic))
       end
     end
   end
