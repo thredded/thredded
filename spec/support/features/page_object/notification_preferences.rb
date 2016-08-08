@@ -12,7 +12,11 @@ module PageObject
 
     def visit_notification_edit
       signs_in_as user
-      visit edit_messageboard_preferences_path(messageboard)
+      if @messageboard
+        visit edit_messageboard_preferences_path(messageboard)
+      else
+        visit edit_global_preferences_path(messageboard)
+      end
     end
 
     def disable_at_notifications
