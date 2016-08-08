@@ -23,7 +23,8 @@ en:
       update: :thredded.form.update
       updated_notice: Messageboard has been updated
     messageboard_group:
-      create: Messageboard group has been created
+      create: Create a New Messageboard Group
+      created_notice: Messageboard group has been created
     moderation:
       approve_btn: Approve
       block_btn: Block
