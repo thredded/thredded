@@ -20,7 +20,7 @@ module Thredded
 
     # @param [Integer] per_page
     def page(per_page: self.class.default_per_page)
-      1 + postable.posts.where(postable.posts.arel_table[:created_at].lt(created_at)).count / per_page
+      calculate_page(postable.posts, per_page)
     end
 
     def private_topic_post?

@@ -21,6 +21,10 @@ module Thredded
       Thredded.avatar_url.call(user)
     end
 
+    def calculate_page(postable_posts, per_page)
+      1 + postable_posts.where(postable_posts.arel_table[:created_at].lt(created_at)).count / per_page
+    end
+
     # @param view_context [Object] the context of the rendering view.
     # @return [String] formatted and sanitized html-safe post content.
     def filtered_content(view_context, users_provider: -> (names) { readers_from_user_names(names) })
