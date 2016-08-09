@@ -33,7 +33,7 @@ module Thredded
     # @param [Thredded.user_class] user
     def page(per_page: self.class.default_per_page, user:)
       readable_posts = PostPolicy::Scope.new(user, postable.posts).resolve
-      1 + readable_posts.where(postable.posts.arel_table[:id].lt(id)).count / per_page
+      1 + readable_posts.where(postable.posts.arel_table[:created_at].lt(created_at)).count / per_page
     end
 
     def private_topic_post?
