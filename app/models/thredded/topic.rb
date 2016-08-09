@@ -52,6 +52,9 @@ module Thredded
     has_one :first_post, -> { order_oldest_first },
             class_name:  'Thredded::Post',
             foreign_key: :postable_id
+    has_one :last_post, -> { order_newest_first },
+            class_name:  'Thredded::Post',
+            foreign_key: :postable_id
 
     has_many :topic_categories, dependent: :destroy
     has_many :categories, through: :topic_categories
