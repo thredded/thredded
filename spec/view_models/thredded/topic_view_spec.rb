@@ -56,7 +56,7 @@ module Thredded
         :user_topic_read_state,
         postable: topic,
         user: user,
-        read_at: topic.posts.first.updated_at - 1.day
+        read_at: topic.first_post.updated_at - 1.day
       )
       topic_view = TopicView.from_user(topic, user)
 
@@ -80,7 +80,7 @@ module Thredded
         :user_topic_read_state,
         postable: topic,
         user: user,
-        read_at: topic.posts.last.updated_at,
+        read_at: topic.last_post.updated_at,
         page: 4
       )
       topic_view = TopicView.from_user(topic, user)
@@ -94,7 +94,7 @@ module Thredded
         :user_topic_read_state,
         postable: topic,
         user: user,
-        read_at: topic.posts.first.updated_at - 1.day,
+        read_at: topic.first_post.updated_at - 1.day,
         page: 4
       )
       topic_view = TopicView.from_user(topic, user)
