@@ -21,8 +21,6 @@ env:
 
 sudo: false
 
-before_script: "RAILS_ENV=test bundle exec rake db:create db:migrate"
-
 # Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
 script: "bundle exec rspec && bundle exec rubocop"
 
