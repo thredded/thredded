@@ -68,7 +68,7 @@ module Thredded
         .order_newest_first
         .includes(:postable)
         .page(current_page)
-      @posts = PostsPageView.new(current_user, posts_scope)
+      @posts = PostsPageView.new(thredded_current_user, posts_scope)
     end
 
     def moderate_user
