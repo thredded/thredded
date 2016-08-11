@@ -44,7 +44,7 @@ module Thredded
                inverse_of:    :topics,
                counter_cache: :topics_count
 
-    has_many :posts, -> { order_oldest_first },
+    has_many :posts,
              class_name:  'Thredded::Post',
              foreign_key: :postable_id,
              inverse_of:  :postable,

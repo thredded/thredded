@@ -19,7 +19,7 @@ module Thredded
                foreign_key:   :user_id,
                inverse_of:    :private_topics
 
-    has_many :posts, -> { order_oldest_first },
+    has_many :posts,
              class_name:  'Thredded::PrivatePost',
              foreign_key: :postable_id,
              inverse_of:  :postable,
