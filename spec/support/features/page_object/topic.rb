@@ -9,7 +9,7 @@ module PageObject
     end
 
     def first_post
-      @last_post ||= PageObject::Post.new(@topic.posts.first)
+      @first_post ||= PageObject::Post.new(@topic.posts.first)
     end
 
     def last_post
