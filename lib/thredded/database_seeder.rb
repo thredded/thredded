@@ -137,37 +137,38 @@ module Thredded
 
       delegate :log, to: :seeder
 
+      def find_or_create(*args)
+        return @stored if @stored
+        @stored = (find || create(*args))
+      end
+
+      protected
+
       def model_class
         self.class::MODEL_CLASS
       end
 
-      delegate :exists?, to: :model_class
-
+      # @abstract
       def create(*_args)
-        fail 'override in your class!'
+        fail 'Unimplemented'
       end
 
+      # @abstract
       def find
-        model_class.all.to_a
-      end
-
-      def find_or_create(*args)
-        return @stored if @stored
-        @stored = if exists?
-                    find
-                  else
-                    create(*args)
-                  end
+        fail 'Unimplemented'
       end
     end
 
     class FirstSeedData < BaseSeedData
-      def exists?
-        @stored ||= model_class.first
-      end
-
       def find
-        @stored ||= model_class.first
+        model_class.first
+      end
+    end
+
+    class CollectionSeedData < BaseSeedData
+      def find
+        return nil unless model_class.exists?
+        model_class.all.to_a
       end
     end
 
@@ -180,7 +181,7 @@ module Thredded
       end
     end
 
-    class Users < BaseSeedData
+    class Users < CollectionSeedData
       MODEL_CLASS = User
 
       def create(count: 1)
@@ -206,7 +207,7 @@ module Thredded
       end
     end
 
-    class Topics < BaseSeedData
+    class Topics < CollectionSeedData
       MODEL_CLASS = Topic
 
       def create(count: 1, messageboard: seeder.first_messageboard)
@@ -220,7 +221,7 @@ module Thredded
       end
     end
 
-    class PrivateTopics < BaseSeedData
+    class PrivateTopics < CollectionSeedData
       MODEL_CLASS = PrivateTopic
 
       def create(count: 1)
@@ -233,18 +234,17 @@ module Thredded
       end
     end
 
-    class Posts < BaseSeedData
+    class Posts < CollectionSeedData
       MODEL_CLASS = Post
 
       def create(count: (1..1))
         log "Creating #{count} additional posts in each topic..."
         seeder.topics.flat_map do |topic|
-          posts = []
           written = (1 + rand(5)).days.ago
-          (count.min + rand(count.max + 1)).times do
+          posts = Array.new((count.min + rand(count.max + 1))) do
             written += (1 + rand(60)).minutes
-            posts << FactoryGirl.create(:post, postable: topic, messageboard: seeder.first_messageboard,
-                                               user: seeder.users.sample, created_at: written, updated_at: written)
+            FactoryGirl.create(:post, postable: topic, messageboard: seeder.first_messageboard,
+                                      user: seeder.users.sample, created_at: written, updated_at: written)
           end
           topic.update!(last_user_id: posts.last.user.id, updated_at: written)
           posts
@@ -252,7 +252,7 @@ module Thredded
       end
     end
 
-    class PrivatePosts < BaseSeedData
+    class PrivatePosts < CollectionSeedData
       MODEL_CLASS = PrivatePost
 
       def create(count: (1..1))
