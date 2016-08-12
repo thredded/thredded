@@ -13,8 +13,8 @@ module Thredded
 
       validates :content, presence: true
 
-      scope :order_oldest_first, -> { order(created_at: :asc) }
-      scope :order_newest_first, -> { order(created_at: :desc) }
+      scope :order_oldest_first, -> { order(created_at: :asc, id: :asc) }
+      scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
     end
 
     def avatar_url
