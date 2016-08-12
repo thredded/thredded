@@ -20,7 +20,8 @@ else
 end
 
 def silence_active_record
-  was, ActiveRecord::Base.logger.level = ActiveRecord::Base.logger.level, :warn
+  was = ActiveRecord::Base.logger.level
+  ActiveRecord::Base.logger.level = :warn
   yield
 ensure
   ActiveRecord::Base.logger.level = was
