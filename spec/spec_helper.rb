@@ -47,8 +47,12 @@ counter = -1
 FileUtils.mkdir('log') unless File.directory?('log')
 
 # On Travis, everything is logged to STDOUT. Otherwise log to a file.
-unless ENV['TRAVIS']
-  ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+Logger.new(File.open("log/test.#{db}.log", 'w')).tap do |db_file_logger|
+  if ENV['TRAVIS']
+    ActiveRecord::SchemaMigration.logger = db_file_logger
+  else
+    ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = db_file_logger
+  end
 end
 
 RSpec.configure do |config|
