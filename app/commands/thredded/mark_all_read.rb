@@ -6,7 +6,7 @@ module Thredded
       return if unread_topics.empty?
 
       unread_topics.each do |topic|
-        last_post = topic.posts.last
+        last_post = topic.posts.order_oldest_first.last
         total_pages = topic.posts.page(1).total_pages
 
         UserPrivateTopicReadState.touch!(

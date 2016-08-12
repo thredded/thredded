@@ -13,12 +13,16 @@ module Thredded
 
       validates :content, presence: true
 
-      scope :order_oldest_first, -> { order(id: :asc) }
-      scope :order_newest_first, -> { order(id: :desc) }
+      scope :order_oldest_first, -> { order(created_at: :asc, id: :asc) }
+      scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
     end
 
     def avatar_url
       Thredded.avatar_url.call(user)
+    end
+
+    def calculate_page(postable_posts, per_page)
+      1 + postable_posts.where(postable_posts.arel_table[:created_at].lt(created_at)).count / per_page
     end
 
     # @param view_context [Object] the context of the rendering view.

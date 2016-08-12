@@ -113,7 +113,9 @@ module Thredded
     it 'updates the topic updated_at field to that of the last post' do
       user_1 = create(:user)
       user_2 = create(:user)
-      topic = create(:topic, with_posts: 1)
+      topic = travel_to 1.hour.ago do
+        create(:topic, with_posts: 1)
+      end
       post_1 = create(:post, postable: topic, user: user_1, content: 'posting more')
       future_time = 3.hours.from_now
       travel_to future_time do
@@ -210,6 +212,48 @@ module Thredded
                              pending_post_own])
         end
       end
+    end
+  end
+
+  describe Post, '#page' do
+    let(:topic) { create :topic }
+    subject { post.page(per_page: 1, user: NullUser.new) }
+    let(:post) { create(:post, postable: topic, id: 100) }
+    it 'for sole post' do
+      expect(subject).to eq(1)
+    end
+    it 'for two posts' do
+      travel_to 1.hour.ago do
+        create(:post, postable: topic, id: 99)
+      end
+      expect(subject).to eq(2)
+    end
+    it 'respects policy' do
+      policy = double(PostPolicy::Scope)
+      expect(PostPolicy::Scope).to receive(:new).and_return(policy)
+      expect(policy).to receive(:resolve).and_return(Post.none)
+      travel_to 1.hour.ago do
+        create(:post, postable: topic, id: 99)
+      end
+      expect(subject).to eq(1)
+    end
+    describe 'with different per_page' do
+      subject { post.page(per_page: 2, user: NullUser.new) }
+      it 'respects per' do
+        travel_to 1.hour.ago do
+          create(:post, postable: topic, id: 99)
+        end
+        expect(subject).to eq(1)
+      end
+    end
+    it 'with  previous posts with disordered ids' do
+      travel_to 2.hours.ago do
+        create(:post, postable: topic, id: 101)
+      end
+      travel_to 1.hour.ago do
+        create(:post, postable: topic, id: 99)
+      end
+      expect(subject).to eq(3)
     end
   end
 end
