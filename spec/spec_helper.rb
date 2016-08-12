@@ -11,17 +11,17 @@ db = ENV.fetch('DB', 'sqlite3')
 
 # Outside of travis, Rails log is logged to a file. On Travis, database queries are logged to STDERR.
 if ENV['TRAVIS']
-  Rails.logger = Logger.new(STDOUT)
-  Rails.logger.level = :warn
-  ActiveRecord::Base.logger = Logger.new(STDOUT)
-  ActiveRecord::Base.logger.level = :debug
+  Rails.logger = Logger.new(STDERR)
+  Rails.logger.level = Logger::WARN
+  ActiveRecord::Base.logger = Logger.new(STDERR)
+  ActiveRecord::Base.logger.level = Logger::DEBUG
 else
   ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
 end
 
 def silence_active_record
   was = ActiveRecord::Base.logger.level
-  ActiveRecord::Base.logger.level = :warn
+  ActiveRecord::Base.logger.level = Logger::WARN
   yield
 ensure
   ActiveRecord::Base.logger.level = was
@@ -66,7 +66,6 @@ Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 counter = -1
 
 FileUtils.mkdir('log') unless File.directory?('log')
-
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
