@@ -45,7 +45,11 @@ Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 counter = -1
 
 FileUtils.mkdir('log') unless File.directory?('log')
-ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+
+# On Travis, everything is logged to STDOUT. Otherwise log to a file.
+unless ENV['TRAVIS']
+  ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+end
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
