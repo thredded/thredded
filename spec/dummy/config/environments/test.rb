@@ -12,9 +12,4 @@ Dummy::Application.configure do
   config.action_mailer.delivery_method = :test
   config.action_mailer.perform_deliveries = true
   config.active_support.deprecation = :stderr
-
-  if ENV['TRAVIS']
-    config.logger = Logger.new(STDOUT)
-    config.log_level = :debug
-  end
 end
