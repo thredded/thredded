@@ -17,6 +17,11 @@ module PageObject
       click_create
     end
 
+    def submit_form_with_duplicate_group_name
+      create_messageboard_group
+      submit_form
+    end
+
     def click_create
       click_button I18n.t('thredded.messageboard_group.create')
     end
@@ -25,7 +30,7 @@ module PageObject
       has_content? I18n.t('thredded.messageboard_group.saved', name: group_name)
     end
 
-    def duplicate?
+    def has_duplicate_messageboard_group_error?
       has_content? 'Name has already been taken'
     end
 

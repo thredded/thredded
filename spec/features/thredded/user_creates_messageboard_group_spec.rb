@@ -18,11 +18,10 @@ feature 'Creating a messageboard group' do
     user.log_in
 
     group = set_up_a_messageboard_group
-    group.create_messageboard_group
     group.visit_new_messageboard_group_form
-    group.submit_form
+    group.submit_form_with_duplicate_group_name
 
-    expect(group).to be_duplicate
+    expect(group).to have_duplicate_messageboard_group_error
   end
 
   def set_up_a_messageboard_group
