@@ -5,8 +5,8 @@ class UpgradeV06ToV07 < ActiveRecord::Migration
       Thredded::MessageboardGroup.where(
         name: Thredded::MessageboardGroup.group(:name).having('count(id) > 1').select(:name)
       ).group_by(&:name).each_value do |messageboard_groups|
-        messageboard_groups.each_with_index do |messageboard_group, i|
-          messageboard_group.update!(name: "#{messageboard_group.name}-#{i + 2}")
+        messageboard_groups.from(1).each_with_index do |messageboard_group, i|
+          messageboard_group.update!(name: "#{messageboard_group.name}-#{i + 1}")
         end
       end
     end
