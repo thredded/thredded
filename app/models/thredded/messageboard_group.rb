@@ -6,7 +6,6 @@ module Thredded
              foreign_key: :messageboard_group_id,
              dependent: :nullify
 
-    validates :name, presence: true
-    validates :name, uniqueness: true
+    validates :name, presence: true, uniqueness: true
   end
 end
