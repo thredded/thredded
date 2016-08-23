@@ -61,6 +61,14 @@ if Rails::VERSION::MAJOR >= 5
   end
 end
 
+def with_thredded_setting(setting, value)
+  was = Thredded.send(setting)
+  Thredded.send(:"#{setting}=", value)
+  yield
+ensure
+  Thredded.send(:"#{setting}=", was)
+end
+
 Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 
 counter = -1
