@@ -261,6 +261,27 @@ module Thredded
 
       expect(topic.last_user).to eq(user)
     end
+
+    context 'when not Thredded.content_visible_while_pending_moderation' do
+      around { |ex| with_thredded_setting(:content_visible_while_pending_moderation, false, &ex) }
+      it 'for an approved topic, the last user is the user of the last approved post; the last post user otherwise' do
+        user = create(:user)
+        topic = create(:topic, user: user, with_posts: 1)
+        post = topic.last_post
+        expect(user.thredded_user_detail).to be_pending_moderation
+        expect(topic.last_user).to eq user
+        Thredded::ModeratePost.run!(post: topic.last_post, moderation_state: :approved, moderator: user)
+        expect(user.reload.thredded_user_detail).to be_approved
+        expect(topic.reload.last_user).to eq user
+        expect(topic.updated_at).to eq post.created_at
+        another_user = create(:user)
+        another_user_post = travel_to(1.hour.from_now) { create(:post, postable: topic, user: another_user) }
+        expect(topic.reload.updated_at).to eq post.created_at
+        Thredded::ModeratePost.run!(post: another_user_post, moderation_state: :approved, moderator: user)
+        expect(topic.reload.last_user).to eq another_user
+        expect(topic.updated_at).to eq another_user_post.created_at
+      end
+    end
   end
 
   describe Topic do

@@ -26,7 +26,13 @@ module Thredded
 
     validates :messageboard_id, presence: true
 
-    after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
+    after_commit :update_parent_last_user_and_time_from_this_post,
+                 on: :create,
+                 unless: -> (p) { p.postable.destroyed? }
+    after_commit :update_parent_last_user_and_time_from_last_post,
+                 on: [:update, :destroy],
+                 unless: -> (p) { p.postable.destroyed? }
+
     after_commit :auto_follow_and_notify, on: [:create, :update]
 
     # @param [Integer] per_page
@@ -61,18 +67,15 @@ module Thredded
       AutoFollowAndNotifyJob.perform_later(id)
     end
 
-    def update_parent_last_user_and_timestamp
+    def update_parent_last_user_and_time_from_this_post
       return if postable.destroyed?
-      last_post = if destroyed? || !moderation_state_visible_to_all?
-                    postable.posts.order_oldest_first.moderation_state_visible_to_all.select(:user_id, :updated_at).last
-                  else
-                    self
-                  end
-      if last_post
-        postable.update_columns(last_user_id: last_post.user_id, updated_at: last_post.updated_at)
-      else
-        postable.update_columns(last_user_id: nil, updated_at: postable.created_at)
+      if moderation_state_visible_to_all? || !postable.moderation_state_visible_to_all?
+        postable.update_columns(last_user_id: user_id, updated_at: updated_at)
       end
+    end
+
+    def update_parent_last_user_and_time_from_last_post
+      postable.update_last_user_and_time_from_last_post!
     end
   end
 end

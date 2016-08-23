@@ -153,15 +153,7 @@ module Thredded
       let!(:pending_post_own) { create(:post, moderation_state: :pending_moderation, user: user) }
 
       context 'when Thredded.content_visible_while_pending_moderation' do
-        around do |ex|
-          was = Thredded.content_visible_while_pending_moderation
-          begin
-            Thredded.content_visible_while_pending_moderation = true
-            ex.call
-          ensure
-            Thredded.content_visible_while_pending_moderation = was
-          end
-        end
+        around { |ex| with_thredded_setting(:content_visible_while_pending_moderation, true, &ex) }
 
         it '#moderation_state_visible_to_all? is true only for approved and pending posts' do
           expect(approved_post).to be_moderation_state_visible_to_all
