@@ -47,7 +47,6 @@ module Thredded
         locked: locked,
         sticky: sticky,
         user: non_null_user,
-        last_user: non_null_user,
         categories: topic_categories,
       )
     end

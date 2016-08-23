@@ -73,6 +73,7 @@ module Thredded
              through: :user_follows
 
     after_commit :update_messageboard_last_topic, on: [:create, :destroy]
+    after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
     def self.find_by_slug!(slug)
       friendly.find(slug)
@@ -121,6 +122,20 @@ module Thredded
     # @return [Thredded::PostModerationRecord, nil]
     def last_moderation_record
       first_post.try(:last_moderation_record)
+    end
+
+    def update_last_user_and_time_from_last_post!
+      return if destroyed?
+      scope = posts.order_newest_first
+      scope = scope.moderation_state_visible_to_all if moderation_state_visible_to_all?
+      last_post = scope.select(:user_id, :created_at).first
+      if last_post
+        update_columns(last_user_id: last_post.user_id, updated_at: last_post.created_at)
+      else
+        # Either a visible topic is left with no visible posts, or an invisible topic is left with no posts at all.
+        # This shouldn't happen in stock Thredded.
+        update_columns(last_user_id: nil, updated_at: created_at)
+      end
     end
 
     private
