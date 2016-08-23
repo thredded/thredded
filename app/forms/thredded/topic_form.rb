@@ -3,7 +3,7 @@ module Thredded
   class TopicForm
     include ActiveModel::Model
 
-    attr_accessor :title, :category_ids, :locked, :sticky, :content, :topic
+    attr_accessor :title, :category_ids, :locked, :sticky, :content, :topic, :email_all_messageboard_members
     attr_reader :user, :messageboard
 
     validate :validate_children
@@ -16,6 +16,7 @@ module Thredded
       @content = params[:content]
       @user = params[:user] || fail('user is required')
       @messageboard = params[:messageboard]
+      @email_all_messageboard_members = (params[:email_all_messageboard_members] == "1")
     end
 
     def self.model_name
@@ -39,7 +40,11 @@ module Thredded
         UserTopicReadState.read_on_first_post!(user, topic) if topic.previous_changes.include?(:id)
       end
 
-      email_admins_of_new_topic
+      if email_all_messageboard_members && user.thredded_admin?
+        email_all_messageboard_members_of_new_topic
+      else
+        email_admins_of_new_topic
+      end
       true
     end
 
@@ -66,6 +71,10 @@ module Thredded
 
     def email_admins_of_new_topic
       TopicMailer.topic_created(topic.id).deliver_now
+    end
+
+    def email_all_messageboard_members_of_new_topic
+      TopicMailer.topic_created_broadcast(topic.id).deliver_now
     end
 
     # @return [Thredded.user_class, nil] return a user or nil if the user is a NullUser

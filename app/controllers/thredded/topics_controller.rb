@@ -137,7 +137,7 @@ module Thredded
     def new_topic_params
       params
         .fetch(:topic, {})
-        .permit(:title, :locked, :sticky, :content, category_ids: [])
+        .permit(:title, :locked, :sticky, :content, :email_all_messageboard_members, category_ids: [])
         .merge(
           messageboard: messageboard,
           user: thredded_current_user,
