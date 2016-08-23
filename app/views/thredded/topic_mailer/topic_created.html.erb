@@ -1,0 +1,11 @@
+<blockquote><%= @topic.title %></blockquote>
+<hr />
+
+<p>
+  A new topic has been created in the <%= @topic.messageboard.name %> discussion board.
+
+</p>
+
+<p>
+  <%= link_to 'View the topic here', topic_url(@topic) %>.
+</p>

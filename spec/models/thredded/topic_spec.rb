@@ -249,10 +249,11 @@ module Thredded
   end
 
   describe Topic, '#last_user' do
-    it 'provides anon user object when user not avail' do
-      topic = build_stubbed(:topic, last_user_id: 1000)
+    it 'returns the topic creator when last user not present' do
+      user = build_stubbed(:user)
+      topic = build_stubbed(:topic, user: user, last_user: nil)
 
-      expect(topic.last_user).to be_instance_of NullUser
+      expect(topic.last_user).to eq(user)
     end
 
     it 'returns the last user to post to this thread' do

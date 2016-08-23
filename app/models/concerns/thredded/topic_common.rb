@@ -27,7 +27,7 @@ module Thredded
     end
 
     def last_user
-      super || NullUser.new
+      super || user || NullUser.new
     end
 
     def private?
