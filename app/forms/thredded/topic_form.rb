@@ -38,6 +38,8 @@ module Thredded
         post.save!
         UserTopicReadState.read_on_first_post!(user, topic) if topic.previous_changes.include?(:id)
       end
+
+      email_admins_of_new_topic
       true
     end
 
@@ -61,6 +63,10 @@ module Thredded
     end
 
     private
+
+    def email_admins_of_new_topic
+      TopicMailer.topic_created(topic.id).deliver_now
+    end
 
     # @return [Thredded.user_class, nil] return a user or nil if the user is a NullUser
     # This is necessary because assigning a NullUser to an ActiveRecord association results in an exception.
