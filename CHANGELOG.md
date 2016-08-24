@@ -1,3 +1,18 @@
+# v0.6.3
+
+This is a minor bugfix release.
+
+## Fixed
+
+* Last topic post and last messageboard topic is kept in sync correctly with regards to moderation state changes.
+[#384](https://github.com/thredded/thredded/issues/384) [#387](https://github.com/thredded/thredded/issues/387)
+* Posts and private posts are now ordered by created at and not by ID, to avoid ordering issues in cases such as
+imported content. [#360](https://github.com/thredded/thredded/issues/360)
+* The global preferences URL now works when the Thredde URL helpers are included into another engine.
+[#355](https://github.com/thredded/thredded/pull/355)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.6.2...v0.6.3.
+
 # v0.6.2
 
 This is a minor bugfix release.
