@@ -1,6 +1,6 @@
 # v0.6.3
 
-This is a minor bugfix release.
+This release contains minor bugfixes and adds a Mark All as Read feature to the private messages.
 
 ## Fixed
 
@@ -10,6 +10,10 @@ This is a minor bugfix release.
 imported content. [#360](https://github.com/thredded/thredded/issues/360)
 * The global preferences URL now works when the Thredde URL helpers are included into another engine.
 [#355](https://github.com/thredded/thredded/pull/355)
+
+## Added
+
+* A way to mark all unread private messages as read. [#260](https://github.com/thredded/thredded/pull/260)
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v0.6.2...v0.6.3.
 
