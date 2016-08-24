@@ -2,6 +2,10 @@
 
 This release contains minor bugfixes and adds a Mark All as Read feature to the private messages.
 
+## Added
+
+* A way to mark all unread private messages as read. [#260](https://github.com/thredded/thredded/pull/260)
+
 ## Fixed
 
 * Last topic post and last messageboard topic is kept in sync correctly with regards to moderation state changes.
@@ -10,10 +14,6 @@ This release contains minor bugfixes and adds a Mark All as Read feature to the 
 imported content. [#360](https://github.com/thredded/thredded/issues/360)
 * The global preferences URL now works when the Thredde URL helpers are included into another engine.
 [#355](https://github.com/thredded/thredded/pull/355)
-
-## Added
-
-* A way to mark all unread private messages as read. [#260](https://github.com/thredded/thredded/pull/260)
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v0.6.2...v0.6.3.
 
