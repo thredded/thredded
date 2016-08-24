@@ -20,6 +20,8 @@ module Thredded
       end
 
       delegate :name, :name=, :email, :email=, to: :user, prefix: true
+
+      before_validation :ensure_user_detail, on: :create
     end
 
     def user
@@ -32,6 +34,12 @@ module Thredded
 
     def private?
       !public?
+    end
+
+    private
+
+    def ensure_user_detail
+      build_user_detail if user && !user_detail
     end
 
     module ClassMethods

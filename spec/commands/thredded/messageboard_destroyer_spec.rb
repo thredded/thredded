@@ -6,8 +6,8 @@ module Thredded
     it 'destroys messageboard and all associated data' do
       messageboard = create(:messageboard, slug: 'goodbye')
       category = create(:category, messageboard: messageboard)
-      post = create(:post, messageboard: messageboard)
-      topic = create(:topic, messageboard: messageboard)
+      topic = create(:topic, messageboard: messageboard, with_posts: 1)
+      post = topic.posts.first
       preference = create(:user_messageboard_preference, messageboard: messageboard)
 
       Thredded::MessageboardDestroyer.new('goodbye').run

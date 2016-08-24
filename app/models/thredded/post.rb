@@ -26,12 +26,8 @@ module Thredded
 
     validates :messageboard_id, presence: true
 
-    after_commit :update_parent_last_user_and_time_from_this_post,
-                 on: :create,
-                 unless: -> (p) { p.postable.destroyed? }
-    after_commit :update_parent_last_user_and_time_from_last_post,
-                 on: [:update, :destroy],
-                 unless: -> (p) { p.postable.destroyed? }
+    after_commit :update_parent_last_user_and_time_from_last_post, on: [:create, :destroy]
+    after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
 
     after_commit :auto_follow_and_notify, on: [:create, :update]
 
@@ -44,10 +40,6 @@ module Thredded
 
     def private_topic_post?
       false
-    end
-
-    def user_detail
-      super || build_user_detail
     end
 
     # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.
@@ -67,15 +59,13 @@ module Thredded
       AutoFollowAndNotifyJob.perform_later(id)
     end
 
-    def update_parent_last_user_and_time_from_this_post
-      return if postable.destroyed?
-      if moderation_state_visible_to_all? || !postable.moderation_state_visible_to_all?
-        postable.update_columns(last_user_id: user_id, updated_at: updated_at)
-      end
-    end
-
     def update_parent_last_user_and_time_from_last_post
       postable.update_last_user_and_time_from_last_post!
+      messageboard.update_last_topic!
+    end
+
+    def update_parent_last_user_and_time_from_last_post_if_moderation_state_changed
+      update_parent_last_user_and_time_from_last_post if previous_changes.include?('moderation_state')
     end
   end
 end

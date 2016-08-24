@@ -57,5 +57,31 @@ module Thredded
         end
       end
     end
+
+    describe '#last_topic' do
+      context 'when Thredded.content_visible_while_pending_moderation' do
+        around { |ex| with_thredded_setting(:content_visible_while_pending_moderation, false, &ex) }
+
+        it 'returns the last updated topic' do
+          messageboard = create(:messageboard)
+          expect(messageboard.last_topic).to be_nil
+          topic_a = create(:topic, title: 'A', with_posts: 1, messageboard: messageboard, moderation_state: :approved)
+          expect(messageboard.last_topic).to eq topic_a
+          new_post_in_a = travel_to 1.hour.from_now do
+            create(:post, postable: topic_a, moderation_state: :pending_moderation)
+          end
+          topic_b = create(:topic, title: 'B', with_posts: 1, messageboard: messageboard, moderation_state: :approved)
+          expect(messageboard.reload.last_topic).to eq topic_b
+          Thredded::ModeratePost.run!(post: new_post_in_a, moderation_state: :approved, moderator: topic_a.user)
+          expect(messageboard.reload.last_topic).to eq topic_a
+          topic_c = travel_to 2.hours.from_now do
+            create(:topic, title: 'C', with_posts: 1, messageboard: messageboard, moderation_state: :pending_moderation)
+          end
+          expect(messageboard.reload.last_topic).to eq topic_a
+          Thredded::ModeratePost.run!(post: topic_c.posts.last, moderation_state: :approved, moderator: topic_a.user)
+          expect(messageboard.reload.last_topic).to eq topic_c
+        end
+      end
+    end
   end
 end

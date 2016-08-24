@@ -27,10 +27,6 @@ module Thredded
       true
     end
 
-    def user_detail
-      super || build_user_detail
-    end
-
     # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.
     def readers_from_user_names(user_names)
       DbTextSearch::CaseInsensitive

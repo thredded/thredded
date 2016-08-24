@@ -20,19 +20,21 @@ module Thredded
         joel = build_stubbed(:user, name: 'joel')
         build_stubbed(:user, email: 'john@email.com')
         build_stubbed(:user, email: 'sam@email.com')
+        messageboard = build_stubbed(:messageboard, slug: 'a-messageboard')
         topic = build_stubbed(
           :topic,
           hash_id: 'abcd',
           title: 'A title',
           user: joel,
           slug: 'a-title',
-          messageboard: build_stubbed(:messageboard, slug: 'a-messageboard')
+          messageboard: messageboard
         )
         post = build_stubbed(
           :post,
           postable: topic,
           user: joel,
           content: 'hey @john @sam blarghy blurp',
+          messageboard: messageboard
         )
         allow(Post).to receive_messages(find: post)
         emails = %w(john@email.com sam@email.com)

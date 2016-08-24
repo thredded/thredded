@@ -15,6 +15,8 @@ module Thredded
 
       scope :order_oldest_first, -> { order(created_at: :asc, id: :asc) }
       scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
+
+      before_validation :ensure_user_detail, on: :create
     end
 
     def avatar_url
@@ -29,6 +31,12 @@ module Thredded
     # @return [String] formatted and sanitized html-safe post content.
     def filtered_content(view_context, users_provider: -> (names) { readers_from_user_names(names) })
       Thredded::ContentFormatter.new(view_context, users_provider: users_provider).format_content(content)
+    end
+
+    private
+
+    def ensure_user_detail
+      build_user_detail if user && !user_detail
     end
   end
 end

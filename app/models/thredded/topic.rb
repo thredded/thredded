@@ -72,7 +72,7 @@ module Thredded
              source: :user,
              through: :user_follows
 
-    after_commit :update_messageboard_last_topic, on: [:create, :destroy]
+    after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
     def self.find_by_slug!(slug)
@@ -111,10 +111,6 @@ module Thredded
       true
     end
 
-    def user_detail
-      super || build_user_detail
-    end
-
     def should_generate_new_friendly_id?
       title_changed?
     end
@@ -148,13 +144,7 @@ module Thredded
     end
 
     def update_messageboard_last_topic
-      return if messageboard.destroyed?
-      last_topic = if destroyed? || !moderation_state_visible_to_all?
-                     messageboard.topics.order_recently_updated_first.moderation_state_visible_to_all.select(:id).first
-                   else
-                     self
-                   end
-      messageboard.update_columns(last_topic_id: last_topic.try(:id))
+      messageboard.update_last_topic!
     end
   end
 end

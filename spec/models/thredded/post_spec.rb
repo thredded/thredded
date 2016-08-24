@@ -176,15 +176,7 @@ module Thredded
       end
 
       context 'when not Thredded.content_visible_while_pending_moderation' do
-        around do |ex|
-          was = Thredded.content_visible_while_pending_moderation
-          begin
-            Thredded.content_visible_while_pending_moderation = false
-            ex.call
-          ensure
-            Thredded.content_visible_while_pending_moderation = was
-          end
-        end
+        around { |ex| with_thredded_setting(:content_visible_while_pending_moderation, false, &ex) }
 
         it '#moderation_state_visible_to_all? is true only for approved posts' do
           expect(approved_post).to be_moderation_state_visible_to_all

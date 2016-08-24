@@ -58,10 +58,6 @@ module Thredded
       false
     end
 
-    def user_detail
-      super || build_user_detail
-    end
-
     def should_generate_new_friendly_id?
       title_changed?
     end

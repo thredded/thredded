@@ -33,10 +33,13 @@ FactoryGirl.define do
   factory :post, class: Thredded::Post do
     user
     postable { association :topic, user: user }
-    messageboard
 
     content { Faker::Hacker.say_something_smart }
     ip '127.0.0.1'
+
+    after :build do |post|
+      post.messageboard = post.postable.messageboard
+    end
   end
 
   factory :private_post, class: Thredded::PrivatePost do
@@ -82,7 +85,7 @@ FactoryGirl.define do
         evaluator.with_posts.times do
           ago += evaluator.post_interval
           create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
-                        updated_at: ago)
+                        updated_at: ago, moderation_state: topic.moderation_state)
         end
 
         topic.posts_count = evaluator.with_posts

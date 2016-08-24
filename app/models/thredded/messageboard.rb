@@ -64,5 +64,11 @@ module Thredded
         [:name, '-board']
       ]
     end
+
+    def update_last_topic!
+      return if destroyed?
+      update_column(
+        :last_topic_id, topics.order_recently_updated_first.moderation_state_visible_to_all.select(:id).first.try(:id))
+    end
   end
 end
