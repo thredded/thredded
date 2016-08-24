@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Thredded::VERSION
   s.authors     = ['Joel Oliveira', 'Gleb Mazovetskiy']
   s.email       = ['joel@thredded.com', 'glex.spb@gmail.com']
-  s.homepage    = 'https://www.thredded.com'
+  s.homepage    = 'https://thredded.org'
   s.summary     = 'The best Rails forums engine ever.'
   s.license     = 'MIT'
   s.description = 'The best Rails 4.2+ forums engine ever. Its goal is to be as simple and feature rich as possible.
