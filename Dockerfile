@@ -8,6 +8,7 @@ WORKDIR /tmp
 RUN mkdir -p /tmp/lib/thredded
 ADD ./lib/thredded/version.rb /tmp/lib/thredded/
 ADD thredded.gemspec /tmp/
+ADD shared.gemfile /tmp/
 ADD Gemfile /tmp/
 RUN bundle install
 
