@@ -1,5 +1,5 @@
 db:
-  image: postgres:9.4.4
+  image: onjin/alpine-postgres:9.5
   ports:
     - "5433:5432"
   environment:

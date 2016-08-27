@@ -15,8 +15,7 @@ Gem::Specification.new do |s|
   s.description = 'The best Rails 4.2+ forums engine ever. Its goal is to be as simple and feature rich as possible.
 Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at https://thredded.org/.'
 
-  s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec|script)/|^\.}) } -
-            %w(Dockerfile docker-compose.yml Rakefile Gemfile shared.gemfile)
+  s.files = Dir['{app,bin,config,db,lib}/**/*'] + %w(MIT-LICENSE README.md)
 
   s.required_ruby_version = '~> 2.1'
 

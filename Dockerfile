@@ -1,18 +1,21 @@
-FROM ruby:2.2.2
+FROM alpine:3.4
 
-RUN apt-get update -qq && \
-  apt-get install -y build-essential libpq-dev \
-  libxml2-dev libxslt1-dev nodejs
+RUN apk add --no-cache \
+    # Runtime deps
+    ruby ruby-bundler ruby-bigdecimal ruby-io-console tzdata nodejs bash \
+    # Bundle install deps
+    build-base ruby-dev libc-dev linux-headers gmp-dev openssl-dev libxml2-dev libxslt-dev \
+    mariadb-dev postgresql-dev sqlite-dev
 
-WORKDIR /tmp
-RUN mkdir -p /tmp/lib/thredded
-ADD ./lib/thredded/version.rb /tmp/lib/thredded/
-ADD thredded.gemspec /tmp/
-ADD shared.gemfile /tmp/
-ADD Gemfile /tmp/
-RUN bundle install
+ENV BUNDLE_SILENCE_ROOT_WARNING=1
 
 ENV APP_HOME /thredded
-RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
-ADD . $APP_HOME
+RUN mkdir -p $APP_HOME
+
+# Copy Gemfile and run bundle install first to allow for caching
+ADD ./lib/thredded/version.rb $APP_HOME/lib/thredded/
+ADD thredded.gemspec shared.gemfile Gemfile $APP_HOME/
+RUN bundle install
+
+ADD Rakefile config.ru app/ bin/ config/ db/ lib/ script/ spec/ $APP_HOME/

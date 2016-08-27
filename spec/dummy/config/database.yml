@@ -1,7 +1,7 @@
 <%
 db_adapter = ENV.fetch('DB', 'sqlite3')
 db_host    = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
-db_port    = ENV['DB_PORT'] || ENV['THREDDED_DB_1_PORT_5432_TCP_ADDR'] ||
+db_port    = ENV['THREDDED_DB_1_PORT_5432_TCP_PORT'] || ENV['DB_PORT'] ||
   {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
 require 'etc'
 pool_size =

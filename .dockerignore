@@ -1,0 +1,4 @@
+spec/dummy/tmp
+spec/dummy/log
+spec/dummy/db/schema.rb
+spec/dummy/db/*.sqlite3
