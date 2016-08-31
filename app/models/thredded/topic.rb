@@ -67,7 +67,7 @@ module Thredded
              class_name: 'Thredded::UserTopicFollow',
              inverse_of: :topic,
              dependent: :destroy
-    has_many :following_users,
+    has_many :followers,
              class_name: Thredded.user_class,
              source: :user,
              through: :user_follows

@@ -1,8 +1,8 @@
 <% if Thredded.show_following_users_in_topic %>
-  <div class="thredded--topic-following-users">
-    <% if topic.following_users.present? %>
+  <div class="thredded--topic-followers">
+    <% if topic.followers.present? %>
       Following:
-      <% topic.following_users.each do |user| %>
+      <% topic.followers.each do |user| %>
         <%= "@#{user}" %>
       <% end %>
     <% else %>
