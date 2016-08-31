@@ -127,6 +127,8 @@ en:
         mentioned: You are following this topic because you were mentioned on it.
         posted: You are following this topic because you posted to it.
       following_will_receive_emails: You will receive email updates.
+      followed_by: "Followed by:"
+      followed_by_noone: No one is following this topic
       form:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label

@@ -1,12 +1,12 @@
 <% if Thredded.show_following_users_in_topic %>
   <div class="thredded--topic-followers">
     <% if topic.followers.present? %>
-      Following:
+      <%= t('thredded.topics.followed_by')%>
       <% topic.followers.each do |user| %>
         <%= "@#{user}" %>
       <% end %>
     <% else %>
-      No one is following this topic
+      <%= t('thredded.topics.followed_by_noone')%>
     <% end %>
   </div>
 <% end %>
