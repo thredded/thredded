@@ -17,6 +17,16 @@ module Thredded
       render partial: 'thredded/users/link', locals: { user: user }
     end
 
+    # @param user [Thredded.user_class]
+    # @return [String] wrapped @mention string
+    def user_mention(user)
+      if user.to_s.include?(' ')
+        %(@"#{user}")
+      else
+        "@#{user}"
+      end
+    end
+
     # @param datetime [DateTime]
     # @param default [String] a string to return if time is nil.
     # @return [String] html_safe datetime presentation

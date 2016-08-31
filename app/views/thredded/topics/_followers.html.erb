@@ -3,7 +3,7 @@
     <% if topic.followers.present? %>
       <%= t('thredded.topics.followed_by')%>
       <% topic.followers.each do |user| %>
-        <%= "@#{user}" %>
+        <%= user_mention(user) %>
       <% end %>
     <% else %>
       <%= t('thredded.topics.followed_by_noone')%>
