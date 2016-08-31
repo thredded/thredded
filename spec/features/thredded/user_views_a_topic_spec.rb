@@ -7,12 +7,12 @@ feature 'User views a topic' do
 
   context 'when Thredded.display_following_users' do
     around do |ex|
-      was = Thredded.show_following_users_in_topic
+      was = Thredded.show_topic_followers
       begin
-        Thredded.show_following_users_in_topic = true
+        Thredded.show_topic_followers = true
         ex.call
       ensure
-        Thredded.show_following_users_in_topic = was
+        Thredded.show_topic_followers = was
       end
     end
 
@@ -48,12 +48,12 @@ feature 'User views a topic' do
 
   context 'when not Thredded.display_following_users' do
     around do |ex|
-      was = Thredded.show_following_users_in_topic
+      was = Thredded.show_topic_followers
       begin
-        Thredded.show_following_users_in_topic = false
+        Thredded.show_topic_followers = false
         ex.call
       ensure
-        Thredded.show_following_users_in_topic = was
+        Thredded.show_topic_followers = was
       end
     end
 

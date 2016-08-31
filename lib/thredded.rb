@@ -50,7 +50,7 @@ module Thredded
   mattr_accessor :content_visible_while_pending_moderation
 
   # @return [Boolean] Whether users that are following a topic are listed on topic page.
-  mattr_accessor :show_following_users_in_topic
+  mattr_accessor :show_topic_followers
 
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
@@ -60,7 +60,7 @@ module Thredded
   self.moderator_column = :admin
   self.user_name_column = :name
   self.content_visible_while_pending_moderation = true
-  self.show_following_users_in_topic = false
+  self.show_topic_followers = false
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
