@@ -5,7 +5,7 @@ feature 'User views a topic' do
   let(:user) { create(:user) }
   let(:messageboard) { create(:messageboard) }
 
-  context 'when Thredded.display_following_users' do
+  context 'when Thredded.show_topic_followers' do
     around do |ex|
       was = Thredded.show_topic_followers
       begin
@@ -46,7 +46,7 @@ feature 'User views a topic' do
     end
   end
 
-  context 'when not Thredded.display_following_users' do
+  context 'when not Thredded.show_topic_followers' do
     around do |ex|
       was = Thredded.show_topic_followers
       begin
