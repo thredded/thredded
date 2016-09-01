@@ -23,7 +23,7 @@ pt-BR:
       updated_notice: Fórum de mensagem foi atualizado
     messageboard_group:
       create: Criar um novo grupo de mensagens
-      created_notice: Grupo de mensagens foi criado
+      saved: Groupo de mensagens %{name} salvou
     moderation:
       approve_btn: Aprovar
       block_btn: Quadra
