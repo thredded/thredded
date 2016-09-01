@@ -20,10 +20,11 @@ module Thredded
     # @param user [Thredded.user_class]
     # @return [String] wrapped @mention string
     def user_mention(user)
-      if user.to_s.include?(' ')
-        %(@"#{user}")
+      username = user.send(Thredded.user_name_column)
+      if username.include?(' ')
+        %(@"#{username}")
       else
-        "@#{user}"
+        "@#{username}"
       end
     end
 
