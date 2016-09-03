@@ -30,7 +30,7 @@
       <header class="app-container-header">
         <span class="app-nav-auth">
           <% if signed_in? %>
-            You are <%= link_to current_user, current_user %> |
+            You are <%= link_to the_current_user, the_current_user %> |
             <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
           <% else %>
             You are an anonymous visitor |
