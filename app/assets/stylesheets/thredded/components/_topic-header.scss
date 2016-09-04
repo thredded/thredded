@@ -60,3 +60,64 @@
   font-size: $thredded-font-size-small;
   color: $thredded-secondary-text-color;
 }
+
+
+@mixin following {
+  &::after {
+    display: inline-block;
+    font-size: 1em;
+    width: 1.4rem;
+    height: 1.4rem;
+    position: absolute;
+    top: 0;
+    right: -1.6rem;
+    background-image: image-url("thredded/follow.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    content: '';
+    background-size: 1.4rem 1.4rem;
+    opacity: 0.3;
+  }
+}
+@mixin not-following {
+  &::after {
+    display: inline-block;
+    font-size: 1em;
+    width: 1.4rem;
+    height: 1.4rem;
+    position: absolute;
+    top: 0;
+    right: -1.6rem;
+    background-image: image-url("thredded/unfollow.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    content: '';
+    background-size: 1.4rem 1.4rem;
+    opacity: 0.05;
+  }
+}
+&--topic-following {
+  &.thredded--topic-unread, &.thredded--topic-read {
+
+    h1.thredded--topics--title{
+      @include following;
+    }
+  }
+}
+
+&--topic-following {
+  .thredded--topic-follow-info.thredded--following {
+    position: relative;
+    @include following;
+  }
+}
+&--topic-notfollowing {
+  .thredded--topic-follow-info.thredded--notfollowing {
+    position: relative;
+    @include not-following;
+  }
+  .thredded--topic-follow-info.thredded--notfollowing:hover::after {
+    background-image: image-url("thredded/follow-blue.svg");
+    opacity: 0.25;
+  }
+}
