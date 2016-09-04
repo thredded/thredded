@@ -103,12 +103,6 @@
       @include following;
     }
   }
-  &.thredded--topic-unread {
-    h1.thredded--topics--title::after {
-      background-image: image-url("thredded/follow-blue.svg");
-      opacity: 0.7;
-    }
-  }
 }
 &--topic-following {
   .thredded--topic-follow-info.thredded--following {
