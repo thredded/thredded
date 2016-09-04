@@ -14,7 +14,7 @@ module Thredded
         topics:        [@topic],
         sticky_topics: [],
         cannot?:       false,
-        current_user:  user,
+        the_current_user:  user,
         messageboard:  @messageboard
       )
     end
