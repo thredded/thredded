@@ -99,25 +99,34 @@
 &--topic-following {
   &.thredded--topic-unread, &.thredded--topic-read {
 
-    h1.thredded--topics--title{
+    h1.thredded--topics--title {
       @include following;
     }
   }
+  &.thredded--topic-unread {
+    h1.thredded--topics--title::after {
+      background-image: image-url("thredded/follow-blue.svg");
+      opacity: 0.7;
+    }
+  }
 }
-
 &--topic-following {
   .thredded--topic-follow-info.thredded--following {
     position: relative;
     @include following;
+    &::after {
+      background-image: image-url("thredded/follow-blue.svg");
+    }
   }
 }
-&--topic-notfollowing {
-  .thredded--topic-follow-info.thredded--notfollowing {
-    position: relative;
-    @include not-following;
+
+&--topic-read {
+  h1.thredded--topics--title a {
+    font-weight: lighter;
   }
-  .thredded--topic-follow-info.thredded--notfollowing:hover::after {
-    background-image: image-url("thredded/follow-blue.svg");
-    opacity: 0.25;
+}
+&--topic-unread {
+  h1.thredded--topics--title a {
+    font-weight: bold;
   }
 }
