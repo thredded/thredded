@@ -76,7 +76,7 @@
 @mixin thredded-not-following-icon-mixin {
   @include thredded-following-icon-mixin;
   svg {
-    opacity: 0.2;
+    opacity: 0.1;
   }
 }
 &--topic-following {
