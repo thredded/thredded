@@ -56,6 +56,9 @@
   color: $thredded-secondary-text-color;
 }
 
+&--svg-definitions {
+  display:none;
+}
 
 @mixin thredded-following-icon-mixin {
   svg {

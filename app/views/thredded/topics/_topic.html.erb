@@ -4,15 +4,16 @@
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <div class="thredded--topic-follow-icon">
-    <% if thredded_current_user.following?(topic) %>
-      <%= inline_svg 'thredded/follow.svg' %>
-    <% else %>
-      <%= inline_svg 'thredded/unfollow.svg' %>
-    <% end %>
+    <svg viewBox="0 0 116 121">
+      <% if thredded_current_user.following?(topic) %>
+        <use xlink:href="#thredded-follow-icon"/>
+      <% else %>
+        <use xlink:href="#thredded-unfollow-icon"/>
+      <% end %>
+    </svg>
   </div>
 
-
-    <h1 class="thredded--topics--title">
+  <h1 class="thredded--topics--title">
     <%= link_to topic.title, topic.path %>
   </h1>
 
