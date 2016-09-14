@@ -62,7 +62,7 @@
 }
 
 
-@mixin following {
+@mixin thredded-following-icon {
   &::after {
     display: inline-block;
     font-size: 1em;
@@ -79,7 +79,7 @@
     opacity: 0.3;
   }
 }
-@mixin not-following {
+@mixin thredded-not-following-icon {
   &::after {
     display: inline-block;
     font-size: 1em;
@@ -100,14 +100,14 @@
   &.thredded--topic-unread, &.thredded--topic-read {
 
     h1.thredded--topics--title {
-      @include following;
+      @include thredded-following-icon;
     }
   }
 }
 &--topic-following {
   .thredded--topic-follow-info.thredded--following {
     position: relative;
-    @include following;
+    @include thredded-following-icon;
     &::after {
       background-image: image-url("thredded/follow-blue.svg");
     }
