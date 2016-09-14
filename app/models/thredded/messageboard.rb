@@ -31,7 +31,8 @@ module Thredded
     has_many :user_details, through: :posts
     has_many :messageboard_users,
              inverse_of:  :messageboard,
-             foreign_key: :thredded_messageboard_id
+             foreign_key: :thredded_messageboard_id,
+             dependent: :destroy
     has_many :recently_active_user_details,
              -> { merge(Thredded::MessageboardUser.recently_active) },
              class_name: 'Thredded::UserDetail',

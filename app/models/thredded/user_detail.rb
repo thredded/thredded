@@ -10,6 +10,8 @@ module Thredded
     has_many :private_topics, class_name: 'Thredded::PrivateTopic', foreign_key: :user_id, primary_key: :user_id
     has_many :posts, class_name: 'Thredded::Post', foreign_key: :user_id, primary_key: :user_id
     has_many :private_posts, class_name: 'Thredded::PrivatePost', foreign_key: :user_id, primary_key: :user_id
+    has_many :messageboard_users, class_name: 'Thredded::MessageboardUser', foreign_key: :thredded_user_detail_id,
+                                  inverse_of: :user_detail, dependent: :destroy
 
     scope :recently_active, -> { where(arel_table[:last_seen_at].gt(Thredded.active_user_threshold.ago)) }
 
