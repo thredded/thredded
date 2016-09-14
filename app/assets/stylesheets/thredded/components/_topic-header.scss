@@ -59,6 +59,7 @@
 
 @mixin thredded-following-icon-mixin {
   svg {
+    fill: currentColor;
     display: inline-block;
     font-size: 1em;
     width: 1.4rem;
@@ -66,14 +67,13 @@
     position: absolute;
     top: 0;
     right: -1.6rem;
-    background-size: 1.4rem 1.4rem;
-    opacity: 0.3;
+    opacity: 0.4;
   }
 }
 @mixin thredded-not-following-icon-mixin {
   @include thredded-following-icon-mixin;
   svg {
-    opacity: 0.05;
+    opacity: 0.2;
   }
 }
 &--topic-following {
