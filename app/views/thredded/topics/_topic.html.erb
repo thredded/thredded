@@ -3,7 +3,16 @@
                 class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
-  <h1 class="thredded--topics--title">
+  <div class="thredded--topic-follow-icon">
+    <% if thredded_current_user.following?(topic) %>
+      <%= inline_svg 'thredded/follow.svg' %>
+    <% else %>
+      <%= inline_svg 'thredded/unfollow.svg' %>
+    <% end %>
+  </div>
+
+
+    <h1 class="thredded--topics--title">
     <%= link_to topic.title, topic.path %>
   </h1>
 

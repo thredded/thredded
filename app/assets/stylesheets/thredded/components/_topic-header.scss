@@ -31,12 +31,7 @@
 &--topic-follow-info {
   float: right;
   color: $thredded-secondary-text-color;
-  &.thredded--following {
-    font-size: 0.65rem;
-  }
-  &.thredded--notfollowing {
-    font-size: $thredded-font-size-small;
-  }
+  font-size: $thredded-font-size-small;
   font-style: normal;
   max-width: 60%;
   text-align: right;
@@ -62,8 +57,8 @@
 }
 
 
-@mixin thredded-following-icon {
-  &::after {
+@mixin thredded-following-icon-mixin {
+  svg {
     display: inline-block;
     font-size: 1em;
     width: 1.4rem;
@@ -71,28 +66,13 @@
     position: absolute;
     top: 0;
     right: -1.6rem;
-    background-image: image-url("thredded/follow.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    content: '';
     background-size: 1.4rem 1.4rem;
     opacity: 0.3;
   }
 }
-@mixin thredded-not-following-icon {
-  &::after {
-    display: inline-block;
-    font-size: 1em;
-    width: 1.4rem;
-    height: 1.4rem;
-    position: absolute;
-    top: 0;
-    right: -1.6rem;
-    background-image: image-url("thredded/unfollow.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    content: '';
-    background-size: 1.4rem 1.4rem;
+@mixin thredded-not-following-icon-mixin {
+  @include thredded-following-icon-mixin;
+  svg {
     opacity: 0.05;
   }
 }
@@ -100,17 +80,24 @@
   &.thredded--topic-unread, &.thredded--topic-read {
 
     h1.thredded--topics--title {
-      @include thredded-following-icon;
+      @include thredded-following-icon-mixin;
     }
   }
 }
+&--topic-notfollowing {
+  .thredded--topic-follow-icon {
+    @include thredded-not-following-icon-mixin;
+  }
+}
 &--topic-following {
-  .thredded--topic-follow-info.thredded--following {
+  .thredded--topic-follow-icon {
+    @include thredded-following-icon-mixin;
+  }
+}
+&--topic-following {
+  .thredded--topic-follow-info {
     position: relative;
-    @include thredded-following-icon;
-    &::after {
-      background-image: image-url("thredded/follow-blue.svg");
-    }
+    @include thredded-following-icon-mixin;
   }
 }
 
