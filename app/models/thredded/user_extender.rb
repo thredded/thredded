@@ -65,5 +65,11 @@ module Thredded
     def following?(topic)
       UserTopicFollow.find_by(topic_id: topic.id, user: self)
     end
+
+    def thredded_display_name
+      send(Thredded.user_display_name_method) || fail(<<-ERROR)
+        User.#{Thredded.user_display_name_method} must not be empty: please set make sure non nil or configure Thredded.user_display_name_method")
+      ERROR
+    end
   end
 end

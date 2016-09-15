@@ -2,7 +2,7 @@
 <%               # as this is only sent on first post, doesn't need to define order %>
 ---
 
-This email was sent to you because <%= @topic.user %>
+This email was sent to you because <%= @topic.user.thredded_display_name %>
 included you in the private topic "<%= @topic.title %>".
 Go here to view the conversation:
   <%= url_for @topic %>

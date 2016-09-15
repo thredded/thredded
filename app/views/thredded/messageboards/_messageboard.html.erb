@@ -15,7 +15,7 @@
       <p class="thredded--messageboard--byline">
         <%= t 'thredded.messageboard.last_updated_by_html',
               time_ago: time_ago(messageboard.last_topic.updated_at),
-              user:     messageboard.last_user %>
+              user:     messageboard.last_user.thredded_display_name %>
       </p>
     <% end %>
   <% end %>

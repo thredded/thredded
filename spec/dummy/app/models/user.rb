@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def to_s
-    name
+    fail 'Deliberately failing so we can test'
   end
 
   def to_param

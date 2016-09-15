@@ -44,7 +44,7 @@ module HTML
         names = mentioned_names(text_node_html)
         return unless names.present?
         @users_provider.call(names).each do |user|
-          name = user.to_s
+          name = user.thredded_display_name
           maybe_quoted_name = name.include?(' ') ? %("#{name}") : name
           url = Thredded.user_path(@view_context, user)
           text_node_html.gsub!(

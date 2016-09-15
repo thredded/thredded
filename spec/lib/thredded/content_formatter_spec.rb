@@ -46,7 +46,7 @@ describe Thredded::ContentFormatter do
       end
     end
     it 'links @names of members' do
-      Thredded.user_path = ->(user) { "/whois/#{user}" }
+      Thredded.user_path = ->(user) { "/whois/#{user.name}" }
       post_content = '@"sam 1" and @joe. But not @unknown, email@jane.com, email@joe.com, <code>@joe</code>.'
       sam = build_stubbed(:user, name: 'sam 1')
       joe = build_stubbed(:user, name: 'joe')

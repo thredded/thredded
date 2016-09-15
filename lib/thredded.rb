@@ -34,6 +34,7 @@ module Thredded
     :email_reply_to,
     :layout,
     :user_class,
+    :user_display_name_method,
     :user_name_column,
     :user_path
 
@@ -52,6 +53,9 @@ module Thredded
   # @return [Boolean] Whether users that are following a topic are listed on topic page.
   mattr_accessor :show_topic_followers
 
+  # @return [Symbol] The name of the method used by Thredded to display users
+  mattr_accessor :user_display_name_method
+
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
@@ -61,6 +65,10 @@ module Thredded
   self.user_name_column = :name
   self.content_visible_while_pending_moderation = true
   self.show_topic_followers = false
+
+  def self.user_display_name_method
+    @@user_display_name_method || user_name_column
+  end
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class

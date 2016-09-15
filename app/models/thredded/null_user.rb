@@ -42,5 +42,9 @@ module Thredded
     def following?(_topic)
       false
     end
+
+    def thredded_display_name
+      to_s
+    end
   end
 end

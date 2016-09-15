@@ -13,13 +13,13 @@ describe Thredded, '.user_path' do
 
   it 'returns one path' do
     me = build_stubbed(:user, name: 'joel')
-    Thredded.user_path = ->(user) { "/my/name/is/#{user}" }
+    Thredded.user_path = ->(user) { "/my/name/is/#{user.name}" }
     expect(Thredded.user_path(_view_context = nil, _user = me)).to eq '/my/name/is/joel'
   end
 
   it 'returns another path' do
     you = build_stubbed(:user, name: 'carl')
-    Thredded.user_path = ->(user) { "/wow/so/#{user}" }
+    Thredded.user_path = ->(user) { "/wow/so/#{user.name}" }
     expect(Thredded.user_path(_view_context = nil, _user = you)).to eq '/wow/so/carl'
   end
 

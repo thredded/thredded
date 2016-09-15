@@ -14,7 +14,7 @@ module PageObject
 
     def log_in
       visit new_user_session_path
-      fill_in 'name', with: user.to_s
+      fill_in 'name', with: user.name
       uncheck 'Admin' unless user.admin?
       click_button 'Sign in'
     end
@@ -24,11 +24,11 @@ module PageObject
     end
 
     def displaying_the_profile?
-      has_content?(@user.to_s)
+      has_content?(@user.thredded_display_name)
     end
 
     def has_redirected_with_error?
-      has_content?("No user exists named #{@user}")
+      has_content?("No user exists named #{@user.name}")
     end
   end
 end
