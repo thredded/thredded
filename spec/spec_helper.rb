@@ -9,13 +9,13 @@ require File.expand_path('../dummy/config/environment', __FILE__)
 
 db = ENV.fetch('DB', 'sqlite3')
 
-# Outside of travis, Rails log is logged to a file. On Travis, database queries are logged to STDERR.
-if ENV['TRAVIS']
+# If desired can log SQL to STDERR -- this tends to overload travis' log limits though.
+if ENV['LOG_SQL_TO_STDERR']
   Rails.logger = Logger.new(STDERR)
   Rails.logger.level = Logger::WARN
   ActiveRecord::Base.logger = Logger.new(STDERR)
   ActiveRecord::Base.logger.level = Logger::DEBUG
-else
+elsif !ENV['TRAVIS']
   ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
 end
 
