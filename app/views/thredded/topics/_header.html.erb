@@ -11,15 +11,16 @@
   <% end %>
   <% if thredded_current_user %>
     <% if follow = thredded_current_user.following?(topic)%>
-      <div class="thredded--topic-follow-info thredded--following">
-        <p>
+      <div class="thredded--topic-follow-info">
+        <%= inline_svg 'thredded/follow.svg'%>
+        <div>
           <% # i18n-tasks-use t('thredded.topics.following.manual') t('thredded.topics.following.posted') t('thredded.topics.following.mentioned') %>
-          <%= t("thredded.topics.following.#{follow.reason}") %></p>
-        <%= t('thredded.topics.following_will_receive_emails') %>
-        <%= button_to 'Stop following', topic.unfollow_path %>
+          <%= t("thredded.topics.following.#{follow.reason}") %>
+          <%= button_to 'Stop following', topic.unfollow_path %>
+        </div>
       </div>
     <% else %>
-      <div class="thredded--topic-follow-info thredded--notfollowing">
+      <div class="thredded--topic-follow-info">
         <%= button_to 'Follow this topic', topic.follow_path %>
       </div>
     <% end %>

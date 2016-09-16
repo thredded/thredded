@@ -31,12 +31,7 @@
 &--topic-follow-info {
   float: right;
   color: $thredded-secondary-text-color;
-  &.thredded--following {
-    font-size: 0.65rem;
-  }
-  &.thredded--notfollowing {
-    font-size: $thredded-font-size-small;
-  }
+  font-size: $thredded-font-size-small;
   font-style: normal;
   max-width: 60%;
   text-align: right;
@@ -59,4 +54,63 @@
 &--topic-followers{
   font-size: $thredded-font-size-small;
   color: $thredded-secondary-text-color;
+}
+
+&--svg-definitions {
+  display:none;
+}
+
+@mixin thredded-following-icon-mixin {
+  svg {
+    fill: currentColor;
+    display: inline-block;
+    font-size: 1em;
+    width: 1.4rem;
+    height: 1.4rem;
+    position: absolute;
+    top: 0;
+    right: -1.6rem;
+    opacity: 0.4;
+  }
+}
+@mixin thredded-not-following-icon-mixin {
+  @include thredded-following-icon-mixin;
+  svg {
+    opacity: 0.1;
+  }
+}
+&--topic-following {
+  &.thredded--topic-unread, &.thredded--topic-read {
+
+    h1.thredded--topics--title {
+      @include thredded-following-icon-mixin;
+    }
+  }
+}
+&--topic-notfollowing {
+  .thredded--topic-follow-icon {
+    @include thredded-not-following-icon-mixin;
+  }
+}
+&--topic-following {
+  .thredded--topic-follow-icon {
+    @include thredded-following-icon-mixin;
+  }
+}
+&--topic-following {
+  .thredded--topic-follow-info {
+    position: relative;
+    @include thredded-following-icon-mixin;
+  }
+}
+
+&--topic-read {
+  h1.thredded--topics--title a {
+    font-weight: lighter;
+  }
+}
+&--topic-unread {
+  h1.thredded--topics--title a {
+    font-weight: bold;
+  }
 }
