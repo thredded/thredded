@@ -5,8 +5,8 @@ module Thredded
   describe TopicsController do
     routes { Thredded::Engine.routes }
 
+    let(:user) { create(:user) }
     before do
-      user          = create(:user)
       @messageboard = create(:messageboard)
       @topic        = create(:topic, messageboard: @messageboard, title: 'hi')
       @post         = create(:post, postable: @topic, content: 'hi')
@@ -67,6 +67,33 @@ module Thredded
         expect(response).to render_template('new')
         expect(assigns(:new_topic).title).to eq 'given title'
         expect(assigns(:new_topic).content).to eq 'preset content'
+      end
+    end
+
+    describe 'POST follow' do
+      subject { post :follow, messageboard_id: @messageboard.id, id: @topic.id }
+      it 'follows' do
+        expect { subject }.to change { @topic.reload.followers.reload.count }.by(1)
+      end
+      context 'json format'
+      subject { post :follow, messageboard_id: @messageboard.id, id: @topic.id, format: :json }
+      it 'it returns changed status' do
+        subject
+        expect(JSON.parse(response.body)).to include('follow' => true)
+      end
+    end
+
+    describe 'POST unfollow' do
+      before { UserTopicFollow.create_unless_exists(user.id, @topic.id) }
+      subject { post :unfollow, messageboard_id: @messageboard.id, id: @topic.id }
+      it 'unfollows' do
+        expect { subject }.to change { @topic.reload.followers.reload.count }.by(-1)
+      end
+      context 'json format'
+      subject { post :unfollow, messageboard_id: @messageboard.id, id: @topic.id, format: :json }
+      it 'it returns changed status' do
+        subject
+        expect(JSON.parse(response.body)).to include('follow' => false)
       end
     end
   end
