@@ -1,6 +1,7 @@
 <%= content_tag :article,
                 id:    dom_id(topic),
-                class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
+                class: ['thredded--topics--topic', topic_css_classes(topic)],
+                data: {topic: topic.id, messageboard: topic.messageboard_id} do %>
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <div class="thredded--topic-follow-icon">
