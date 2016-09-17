@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.configure do |c|
   c.around(:example) do |example|
     # if you specify some variables in thredded_reset we'll reset them after running

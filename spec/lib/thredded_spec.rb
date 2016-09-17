@@ -40,5 +40,4 @@ describe Thredded, '.user_display_name_method', thredded_reset: [:@@user_display
     Thredded.user_display_name_method = :to_s
     expect(Thredded.user_display_name_method).to eq(:to_s)
   end
-
 end
