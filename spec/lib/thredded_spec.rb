@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-describe Thredded, '.user_path' do
-  around do |ex|
-    begin
-      user_path_was = Thredded.class_variable_get(:@@user_path)
-      ex.call
-    ensure
-      Thredded.user_path = user_path_was
-    end
-  end
-
+describe Thredded, '.user_path', thredded_reset: [:@@user_path] do
   it 'returns one path' do
     me = build_stubbed(:user, name: 'joel')
     Thredded.user_path = ->(user) { "/my/name/is/#{user.name}" }
