@@ -84,4 +84,25 @@ module Thredded
       end
     end
   end
+
+  describe '#update_last_topic!' do
+    let(:messageboard) { create(:messageboard) }
+    let(:new_topic) { create(:topic, messageboard: messageboard) }
+    let(:the_last_topic) { create(:topic, messageboard: messageboard) }
+    let(:an_hour_ago) { 1.hour.ago }
+    before do
+      travel_to(an_hour_ago) { messageboard.reload.update!(last_topic: the_last_topic) }
+      expect(messageboard.updated_at).to be_within(10.seconds).of(an_hour_ago)
+    end
+    it 'when last topic changes, updated_at changes' do
+      expect do
+        create(:post, postable: new_topic)
+      end.to change { messageboard.reload.updated_at }.to be_within(10.seconds).of(Time.zone.now)
+    end
+    it "when last topic doesn't change, updated_at doesn't change" do
+      expect do
+        create(:post, postable: the_last_topic)
+      end.not_to change { messageboard.reload.updated_at }
+    end
+  end
 end

@@ -68,9 +68,8 @@ module Thredded
 
     def update_last_topic!
       return if destroyed?
-      update_column(
-        :last_topic_id, topics.order_recently_updated_first.moderation_state_visible_to_all.select(:id).first.try(:id)
-      )
+      self.last_topic = topics.order_recently_updated_first.moderation_state_visible_to_all.select(:id).first
+      save! if last_topic_id_changed?
     end
   end
 end
