@@ -67,7 +67,7 @@ module Thredded
     end
 
     def thredded_display_name
-      send(Thredded.user_display_name_method) || fail(<<-ERROR)
+      send(Thredded.user_display_name_method).presence || fail(<<-ERROR)
         User.#{Thredded.user_display_name_method} must not be empty: please set make sure non nil or configure Thredded.user_display_name_method")
       ERROR
     end

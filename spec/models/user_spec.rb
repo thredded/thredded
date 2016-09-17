@@ -20,6 +20,11 @@ describe User, '.thredded_display_name' do
     expect { user.thredded_display_name }.to raise_error(/nil.*configure/)
   end
 
+  it 'raises exception if empty string' do
+    user = build(:user, name: '')
+    expect { user.thredded_display_name }.to raise_error(/nil.*configure/)
+  end
+
   context 'when display method specified' do
     it 'calls method' do
       user = build(:user, name: 'Eric', email: 'eric@gmail.com')
