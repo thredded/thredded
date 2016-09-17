@@ -28,3 +28,17 @@ describe Thredded, '.user_path' do
     expect(Thredded.user_path(_view_context = 'abc', _user = nil)).to eq 'cba'
   end
 end
+
+describe Thredded, '.user_display_name_method', thredded_reset: [:@@user_display_name_method, :@@user_name_column] do
+  it 'when nil it returns the same value as name method' do
+    Thredded.user_name_column = :name
+    Thredded.user_display_name_method = nil
+    expect(Thredded.user_display_name_method).to eq(:name)
+  end
+
+  it 'returns value it was set' do
+    Thredded.user_display_name_method = :to_s
+    expect(Thredded.user_display_name_method).to eq(:to_s)
+  end
+
+end

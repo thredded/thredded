@@ -11,6 +11,10 @@ Thredded.user_class = 'User'
 # This is the column used to search for users' names if/when someone is @ mentioned.
 Thredded.user_name_column = :name
 
+# User display name method, by default thredded uses the user_name_column defined above
+# You may want to use :to_s or some more elaborate method
+# Thredded.user_display_name_method = :to_s
+
 # The path (or URL) you will use to link to your users' profiles.
 # When linking to a user, Thredded will use this lambda to spit out
 # the path or url to your user. This lambda is evaluated in the view context.
