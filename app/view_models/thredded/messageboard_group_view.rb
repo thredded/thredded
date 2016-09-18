@@ -5,10 +5,10 @@ module Thredded
     delegate :name, to: :@group, allow_nil: true
     attr_reader :group, :messageboards
 
-    # @param messageboards [ActiveRecord::Relation] A messageboards scope
+    # @param messageboard_scope [ActiveRecord::Relation]
     # @return [Array<MessageboardGroupView>]
-    def self.grouped(messageboards)
-      messageboards.preload(last_topic: [:last_user]).includes(:group)
+    def self.grouped(messageboard_scope)
+      messageboard_scope.preload(last_topic: [:last_user]).includes(:group)
         .order('thredded_messageboard_groups.name asc, thredded_messageboards.updated_at desc')
         .group_by(&:group)
         .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
