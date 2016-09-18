@@ -7,9 +7,7 @@ module Thredded
     after_action :verify_policy_scoped, except: %i(new create edit update)
 
     def index
-      @groups = policy_scope(Messageboard.all)
-        .preload(:group, last_topic: [:last_user]).group_by(&:group)
-        .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
+      @groups = MessageboardGroupView.grouped(policy_scope(Messageboard.all))
     end
 
     def new
