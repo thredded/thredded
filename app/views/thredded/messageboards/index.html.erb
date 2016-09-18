@@ -7,7 +7,7 @@
       <% if group.name.present? %>
         <h3><%= group.name %></h3>
       <% end %>
-      <%= render group.messageboards.sort_by{|m| - m.updated_at.to_f } %>
+      <%= render group.messageboards %>
     <% end %>
 
     <div class="thredded--messageboards--actions">

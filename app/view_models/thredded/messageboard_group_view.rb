@@ -8,7 +8,7 @@ module Thredded
     # @param messageboards [Thredded::TopicCommon]
     def initialize(group, messageboards)
       @group = group
-      @messageboards = messageboards
+      @messageboards = messageboards.sort_by{|m| - m.updated_at.to_f }
     end
   end
 end
