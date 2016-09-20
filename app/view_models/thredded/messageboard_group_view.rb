@@ -8,8 +8,8 @@ module Thredded
     # @param messageboard_scope [ActiveRecord::Relation]
     # @return [Array<MessageboardGroupView>]
     def self.grouped(messageboard_scope)
-      messageboard_scope.preload(last_topic: [:last_user]).includes(:group)
-        .order('thredded_messageboard_groups.name asc, thredded_messageboards.updated_at desc')
+      messageboard_scope.preload(last_topic: [:last_user]).includes(:group, :last_topic)
+        .order('thredded_messageboard_groups.name asc, thredded_topics.updated_at desc')
         .group_by(&:group)
         .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
     end
