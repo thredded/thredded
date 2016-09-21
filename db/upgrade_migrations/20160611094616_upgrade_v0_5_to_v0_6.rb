@@ -4,7 +4,7 @@ class UpgradeV05ToV06 < ActiveRecord::Migration
     add_column :thredded_messageboards, :last_topic_id, :integer
     Thredded::Messageboard.reset_column_information
     Thredded::Messageboard.all.each do |messageboard|
-      messageboard.update!(last_topic_id: messageboard.topics.order_recently_updated_first.first.try(:id))
+      messageboard.update!(last_topic_id: messageboard.topics.order(updated_at: :desc, id: :desc).first.try(:id))
     end
     change_column_null :thredded_posts, :postable_id, false
     # Allow null on user_id and last_user_id because users can get deleted.

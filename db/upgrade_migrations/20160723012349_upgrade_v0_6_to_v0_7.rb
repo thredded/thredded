@@ -15,9 +15,17 @@ class UpgradeV06ToV07 < ActiveRecord::Migration
               :name,
               unique: true,
               name: :index_thredded_messageboard_group_on_name
+
+    add_column :thredded_topics, :last_post_at, :datetime
+    add_column :thredded_private_topics, :last_post_at, :datetime
+    # update existing values to pretty accurate match
+    Thredded::Topic.update_all('last_post_at = updated_at')
+    Thredded::PrivateTopic.update_all('last_post_at = updated_at')
   end
 
   def down
     remove_index :thredded_messageboard_groups, name: :index_thredded_messageboard_group_on_name
+    remove_column :thredded_topics, :last_post_at
+    remove_column :thredded_private_topics, :last_post_at
   end
 end

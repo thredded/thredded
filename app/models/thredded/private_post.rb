@@ -47,7 +47,11 @@ module Thredded
                   else
                     self
                   end
-      postable.update_columns(last_user_id: last_post.user_id, updated_at: last_post.updated_at)
+      postable.update_columns(
+        last_user_id: last_post.user_id,
+        last_post_at: last_post.updated_at,
+        updated_at: Time.zone.now
+      )
     end
   end
 end

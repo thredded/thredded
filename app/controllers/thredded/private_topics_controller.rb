@@ -11,7 +11,7 @@ module Thredded
         PrivateTopic
           .distinct
           .for_user(thredded_current_user)
-          .order_recently_updated_first
+          .order_recently_posted_first
           .includes(:last_user, :user)
           .page(params[:page])
       )

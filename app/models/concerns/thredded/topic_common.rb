@@ -9,7 +9,7 @@ module Thredded
                  class_name:  Thredded.user_class,
                  foreign_key: 'last_user_id'
 
-      scope :order_recently_updated_first, -> { order(updated_at: :desc, id: :desc) }
+      scope :order_recently_posted_first, -> { order(last_post_at: :desc, id: :desc) }
       scope :on_page, -> (page_num) { page(page_num) }
 
       validates :hash_id, presence: true, uniqueness: true
@@ -51,7 +51,7 @@ module Thredded
         reads       = reads_class.arel_table
         joins(topics.join(reads, Arel::Nodes::OuterJoin)
                 .on(topics[:id].eq(reads[:postable_id]).and(reads[:user_id].eq(user.id))).join_sources)
-          .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:updated_at]))))
+          .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:last_post_at]))))
       end
 
       private

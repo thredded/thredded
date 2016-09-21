@@ -68,7 +68,7 @@ module Thredded
 
     def update_last_topic!
       return if destroyed?
-      self.last_topic = topics.order_recently_updated_first.moderation_state_visible_to_all.select(:id).first
+      self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.select(:id).first
       save! if last_topic_id_changed?
     end
   end

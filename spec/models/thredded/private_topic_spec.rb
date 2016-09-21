@@ -25,4 +25,53 @@ module Thredded
       end
     end
   end
+
+  describe 'changes to private posts...' do
+    let(:private_topic) { create(:private_topic) }
+
+    context 'when a new post is added' do
+      it 'changes updated_at' do
+        expect { travel_to(1.day.from_now) { create(:private_post, postable: private_topic) } }
+          .to change { private_topic.reload.updated_at }
+      end
+
+      it 'changes last_read_at' do
+        expect { travel_to(1.day.from_now) { create(:private_post, postable: private_topic) } }
+          .to change { private_topic.reload.last_post_at }
+      end
+    end
+
+    context 'when a post is deleted' do
+      let(:first_post) { create(:private_post, postable: private_topic) }
+      let(:second_post) { create(:private_post, postable: private_topic) }
+      before do
+        travel_to(1.month.ago) { first_post }
+        travel_to(1.hour.ago) { second_post }
+      end
+
+      it 'changes updated_at to just now' do
+        expect { second_post.destroy }
+          .to change { private_topic.reload.updated_at }.to be_within(10).of(Time.zone.now)
+      end
+
+      it 'changes last_read_at to first post' do
+        expect { second_post.destroy }
+          .to change { private_topic.reload.last_post_at }.to eq(first_post.created_at)
+      end
+    end
+
+    context 'when an old post is edited' do
+      before { travel_to(1.month.ago) { @post = create(:private_post, postable: private_topic) } }
+
+      it 'does not change updated_at' do
+        expect { @post.update_attributes(content: 'hi there') }
+          .not_to change { @post.postable.reload.updated_at }
+      end
+
+      it 'does not change updated_at' do
+        expect { @post.update_attributes(content: 'hi there') }
+          .not_to change { @post.postable.reload.last_post_at }
+      end
+    end
+  end
 end
