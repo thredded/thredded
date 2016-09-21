@@ -322,7 +322,7 @@ module Thredded
       let(:second_post) { create(:post, postable: topic) }
       before do
         travel_to(1.month.ago) { first_post }
-        second_post
+        travel_to(1.minute.ago) { second_post }
       end
 
       it 'changes updated_at to just now' do
