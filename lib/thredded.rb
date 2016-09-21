@@ -33,6 +33,7 @@ module Thredded
     :email_outgoing_prefix,
     :email_reply_to,
     :layout,
+    :messageboards_order,
     :user_class,
     :user_display_name_method,
     :user_name_column,
@@ -65,6 +66,7 @@ module Thredded
   self.user_name_column = :name
   self.content_visible_while_pending_moderation = true
   self.show_topic_followers = false
+  self.messageboards_order = :created_at_asc
 
   def self.user_display_name_method
     @@user_display_name_method || user_name_column

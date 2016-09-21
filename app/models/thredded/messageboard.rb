@@ -54,6 +54,18 @@ module Thredded
 
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
+    scope :ordered, ->() {
+      case Thredded.messageboards_order
+      when :created_at_asc
+        includes(:group)
+        .order('thredded_messageboard_groups.created_at asc, thredded_messageboards.created_at asc')
+      when :last_post_at_desc
+        includes(:group, :last_topic)
+        .order('thredded_messageboard_groups.name asc, thredded_topics.updated_at desc')
+      else
+        raise "Unexpected value for Thredded.messageboards_order: #{Thredded.messageboards_order}"
+      end
+    }
 
     def last_user
       last_topic.try(:last_user)
