@@ -18,7 +18,8 @@ module Thredded
     private
 
     def messageboards
-      @messageboards ||= Messageboard.all
+      @ordered = Messageboard.ordered
+      @messageboards ||= @ordered
     end
   end
 end

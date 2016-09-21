@@ -21,11 +21,23 @@ class UpgradeV06ToV07 < ActiveRecord::Migration
     # update existing values to pretty accurate match
     Thredded::Topic.update_all('last_post_at = updated_at')
     Thredded::PrivateTopic.update_all('last_post_at = updated_at')
+
+    add_column :thredded_messageboards, :position, :integer
+    Thredded::Messageboard.reset_column_information
+    Thredded::Messageboard.all.each { |m| m.update_column(:position, m.created_at.to_i) }
+    change_column :thredded_messageboards, :position, :integer, null: false
+
+    add_column :thredded_messageboard_groups, :position, :integer
+    Thredded::MessageboardGroup.reset_column_information
+    Thredded::MessageboardGroup.all.each { |mg| mg.update_column(:position, mg.created_at.to_i) }
+    change_column :thredded_messageboard_groups, :position, :integer, null: false
   end
 
   def down
     remove_index :thredded_messageboard_groups, name: :index_thredded_messageboard_group_on_name
     remove_column :thredded_topics, :last_post_at
     remove_column :thredded_private_topics, :last_post_at
+    remove_column :thredded_messageboards, :position
+    remove_column :thredded_messageboard_groups, :position
   end
 end

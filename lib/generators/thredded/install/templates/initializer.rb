@@ -50,10 +50,11 @@ Thredded.show_topic_followers = false
 # ==> Ordering configuration
 
 # How to calculate the position of messageboards in a list:
-# :created_at_asc      creation order  (default)
-# :last_post_at_desc   by most recent post date
-# :position            by a specified position (you need to set this manually) [ UNDER DEVELOPMENT ]
-Thredded.messageboards_order = :created_at_asc
+# :position            (default) set the position manually (new messageboards go to the bottom, by creation timestamp)
+# :last_post_at_desc   most recent post first
+# :topics_count_desc   most topics first
+# NB: if you change this you should run `Messageboard.recalculate_positions!`
+Thredded.messageboards_order = :position
 
 # ==> Email Configuration
 # Email "From:" field will use the following

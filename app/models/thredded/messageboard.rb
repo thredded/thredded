@@ -20,6 +20,13 @@ module Thredded
 
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
     validates :topics_count, numericality: true
+    validates :position, presence: true, on: :update
+    before_save :ensure_position, on: :create
+
+    def ensure_position
+      recalculate_position
+      self.position ||= (created_at || Time.zone.now).to_i
+    end
 
     has_many :categories, dependent: :destroy
     has_many :user_messageboard_preferences, dependent: :destroy
@@ -50,22 +57,12 @@ module Thredded
 
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
 
-    default_scope { where(closed: false).order(topics_count: :desc) }
+    default_scope { where(closed: false) }
 
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
-    scope :ordered, ->() {
-      case Thredded.messageboards_order
-      when :created_at_asc
-        includes(:group)
-        .order('thredded_messageboard_groups.created_at asc, thredded_messageboards.created_at asc')
-      when :last_post_at_desc
-        includes(:group, :last_topic)
-        .order('thredded_messageboard_groups.name asc, thredded_topics.updated_at desc')
-      else
-        raise "Unexpected value for Thredded.messageboards_order: #{Thredded.messageboards_order}"
-      end
-    }
+    scope :ordered, ->() { order(position: :asc, id: :desc) }
+    scope :ordered_by_group, ->() { includes(:group).order('thredded_messageboard_groups.position asc').ordered }
 
     def last_user
       last_topic.try(:last_user)
@@ -80,8 +77,41 @@ module Thredded
 
     def update_last_topic!
       return if destroyed?
-      self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.select(:id).first
-      save! if last_topic_id_changed?
+      self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.first
+      recalculate_position
+      save! if last_topic_id_changed? || position_changed?
+    end
+
+    def recalculate_position
+      case Thredded.messageboards_order
+      when :last_post_at_desc
+        self.position = if last_topic
+                          -last_topic.last_post_at.to_i
+                        elsif created_at
+                          -created_at.to_i
+                        end
+      when :topics_count_desc
+        self.position = -topics_count
+      when :position
+        # nothing
+      else
+        fail "Unexpected value for Thredded.messageboards_order: #{Thredded.messageboards_order}"
+      end
+    end
+
+    def recalculate_position!
+      recalculate_position
+      save! if position_changed?
+    end
+
+    def self.recalculate_positions!
+      return if Thredded.messageboards_order == :position
+      scope = if Thredded.messageboards_order == :last_post_at_desc
+                all.includes(:last_topic)
+              else
+                all
+              end
+      scope.each(&:recalculate_position!)
     end
   end
 end

@@ -66,7 +66,7 @@ module Thredded
   self.user_name_column = :name
   self.content_visible_while_pending_moderation = true
   self.show_topic_followers = false
-  self.messageboards_order = :created_at_asc
+  self.messageboards_order = :position
 
   def self.user_display_name_method
     @@user_display_name_method || user_name_column
