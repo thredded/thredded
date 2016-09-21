@@ -5,7 +5,7 @@ module Thredded
   class BaseTopicView
     delegate :title,
              :posts_count,
-             :updated_at,
+             :last_post_at,
              :created_at,
              :user,
              :last_user,

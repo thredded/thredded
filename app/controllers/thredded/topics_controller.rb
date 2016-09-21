@@ -16,7 +16,7 @@ module Thredded
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
         policy_scope(messageboard.topics)
-          .order_sticky_first.order_recently_updated_first
+          .order_sticky_first.order_recently_posted_first
           .includes(:categories, :last_user, :user)
           .page(current_page)
       )
@@ -52,7 +52,7 @@ module Thredded
         thredded_current_user,
         topics_scope
           .search_query(@query)
-          .order_recently_updated_first
+          .order_recently_posted_first
           .includes(:categories, :last_user, :user)
           .page(current_page)
       )
@@ -70,7 +70,7 @@ module Thredded
         thredded_current_user,
         policy_scope(@category.topics)
           .unstuck
-          .order_recently_updated_first
+          .order_recently_posted_first
           .page(current_page)
       )
       render :index

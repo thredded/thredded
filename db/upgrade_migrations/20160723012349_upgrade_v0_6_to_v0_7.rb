@@ -15,9 +15,12 @@ class UpgradeV06ToV07 < ActiveRecord::Migration
               :name,
               unique: true,
               name: :index_thredded_messageboard_group_on_name
+
+    add_column :thredded_topics, :last_post_at, :datetime
   end
 
   def down
     remove_index :thredded_messageboard_groups, name: :index_thredded_messageboard_group_on_name
+    remove_column :thredded_topics, :last_post_at
   end
 end

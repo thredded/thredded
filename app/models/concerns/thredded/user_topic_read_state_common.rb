@@ -9,7 +9,7 @@ module Thredded
 
     # @return [Boolean]
     def read?
-      postable.updated_at.to_i <= read_at.to_i
+      postable.last_post_at.to_i <= read_at.to_i
     end
 
     module ClassMethods

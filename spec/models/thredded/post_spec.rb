@@ -110,7 +110,7 @@ module Thredded
   end
 
   describe Post, '#destroy' do
-    it 'updates the topic updated_at field to that of the last post' do
+    it 'updates the topic last_post_at field to that of the last post' do
       user_1 = create(:user)
       user_2 = create(:user)
       topic = travel_to 1.hour.ago do
@@ -124,7 +124,7 @@ module Thredded
         expect(topic.last_user).to eq user_2
         post_2.destroy
       end
-      expect(topic.updated_at.to_s).to eq post_1.created_at.to_s
+      expect(topic.last_post_at.to_s).to eq post_1.created_at.to_s
       expect(topic.last_user).to eq user_1
     end
   end

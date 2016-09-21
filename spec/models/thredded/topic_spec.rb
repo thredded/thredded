@@ -169,10 +169,11 @@ module Thredded
 
   describe Topic, '.unread_followed_by(user)' do
     let(:user) { create(:user) }
-    let(:topic) { create :topic }
+    let(:topic) { create :topic, last_post_at: a_minute_ago }
     let(:post) { create :post, postable: topic }
     let(:read_state) {}
     let(:follow_state) {}
+    let(:a_minute_ago) { 1.minute.ago }
 
     before do
       post
@@ -200,13 +201,13 @@ module Thredded
         end
       end
       context 'with read state which is up to date' do
-        let(:read_state) { create_read_state(topic.updated_at) }
+        let(:read_state) { create_read_state(topic.last_post_at) }
         it 'is not included' do
           expect(subject).not_to include(topic)
         end
       end
       context 'with read state for someone else' do
-        let(:read_state) { create_read_state(topic.updated_at, user_id: create(:user).id) }
+        let(:read_state) { create_read_state(topic.last_post_at, user_id: create(:user).id) }
         it 'is included' do
           expect(subject).to include(topic)
         end
@@ -273,13 +274,13 @@ module Thredded
         Thredded::ModeratePost.run!(post: topic.last_post, moderation_state: :approved, moderator: user)
         expect(user.reload.thredded_user_detail).to be_approved
         expect(topic.reload.last_user).to eq user
-        expect(topic.updated_at).to eq post.created_at
+        expect(topic.last_post_at).to eq post.created_at
         another_user = create(:user)
         another_user_post = travel_to(1.hour.from_now) { create(:post, postable: topic, user: another_user) }
-        expect(topic.reload.updated_at).to eq post.created_at
+        expect(topic.reload.last_post_at).to eq post.created_at
         Thredded::ModeratePost.run!(post: another_user_post, moderation_state: :approved, moderator: user)
         expect(topic.reload.last_user).to eq another_user
-        expect(topic.updated_at).to eq another_user_post.created_at
+        expect(topic.last_post_at).to eq another_user_post.created_at
       end
     end
   end
@@ -303,19 +304,51 @@ module Thredded
       expect(topic.valid?).to eq true
     end
 
-    it 'changes updated_at when a new post is added' do
-      old = @topic.updated_at
-      travel_to(1.day.from_now) { create(:post, postable: @topic) }
+    context 'when a new post is added' do
+      it 'changes updated_at' do
+        expect { travel_to(1.day.from_now) { create(:post, postable: @topic) } }
+          .to change { @topic.reload.updated_at }
+      end
 
-      expect(@topic.reload.updated_at).not_to eq old
+      it 'changes last_read_at' do
+        expect { travel_to(1.day.from_now) { create(:post, postable: @topic) } }
+          .to change { @topic.reload.last_post_at }
+      end
     end
 
-    it 'does not change updated_at when an old post is edited' do
-      travel_to(1.month.ago) { @post = create(:post) }
-      old_time = @post.postable.updated_at
-      @post.update_attributes(content: 'hi there')
+    context 'when a post is deleted' do
+      let(:topic) { create(:topic) }
+      let(:first_post) { create(:post, postable: topic) }
+      let(:second_post) { create(:post, postable: topic) }
+      before do
+        travel_to(1.month.ago) { first_post }
+        second_post
+      end
 
-      expect(@post.postable.reload.updated_at.to_s).to eq old_time.to_s
+      it 'changes updated_at to just now' do
+        expect { second_post.destroy }
+          .to change { topic.reload.updated_at }.to be_within(10).of(Time.zone.now)
+      end
+
+      it 'changes last_read_at to first post' do
+        expect { second_post.destroy }
+          .to change { topic.reload.last_post_at }.to eq(first_post.created_at)
+      end
+    end
+
+    context 'when an old post is edited' do
+      let(:topic) { create(:topic) }
+      before { travel_to(1.month.ago) { @post = create(:post, postable: topic) } }
+
+      it 'does not change updated_at' do
+        expect { @post.update_attributes(content: 'hi there') }
+          .not_to change { @post.postable.reload.updated_at }
+      end
+
+      it 'does not change updated_at' do
+        expect { @post.update_attributes(content: 'hi there') }
+          .not_to change { @post.postable.reload.last_post_at }
+      end
     end
 
     it 'can have categories' do
