@@ -3,6 +3,19 @@ module Thredded
   module ApplicationHelper
     include ::Thredded::UrlsHelper
 
+    def thredded_container_data
+      {
+        'thredded-page-id' => content_for(:thredded_page_id),
+        'thredded-root-url' => thredded.root_path
+      }
+    end
+
+    def thredded_container_classes
+      ['thredded--main-container', content_for(:thredded_page_id)].tap do |classes|
+        classes << 'thredded--is-moderator' if moderatable_messageboards_ids
+      end
+    end
+
     # Render the page container with the supplied block as content.
     def thredded_page(&block)
       # enable the host app to easily check whether a thredded view is being rendered:
