@@ -96,58 +96,9 @@ module Thredded
         create(:post, postable: the_last_topic)
       end.not_to change { messageboard.reload.updated_at }
     end
-
-    describe 'adjusting position' do
-      let!(:ten_minutes_ago) { 10.minutes.ago }
-      subject do
-        travel_to(ten_minutes_ago) { create(:post, postable: new_topic) }
-      end
-      context 'when messageboards_order :position' do
-        before { Thredded.messageboards_order = :position }
-        it "doesn't change position" do
-          expect { subject }.not_to change { messageboard.reload.position }
-        end
-      end
-      context 'when messageboards_order :last_post_at_desc' do
-        before { Thredded.messageboards_order = :last_post_at_desc }
-        it 'changes position' do
-          expect { subject }.to change { messageboard.reload.position }
-        end
-      end
-    end
   end
 
-  describe '#recalculate_position', thredded_reset: [:@@messageboards_order] do
-    let(:messageboard) { create(:messageboard, created_at: two_weeks_ago).tap { |m| m.update_column(:position, 0) } }
-    let!(:two_weeks_ago) { 2.weeks.ago }
-    subject { messageboard.recalculate_position }
-    context 'when messageboards_order :position' do
-      before { Thredded.messageboards_order = :position }
-      it "doesn't change position" do
-        expect { subject }.not_to change { messageboard.position }
-      end
-    end
-    context 'when messageboards_order :last_post_at_desc' do
-      before { Thredded.messageboards_order = :last_post_at_desc }
-      context 'with no topics' do
-        it 'changes position' do
-          expect { subject }.to change { messageboard.position }.to(-messageboard.created_at.to_i)
-        end
-      end
-      context 'with a topic' do
-        let!(:topic) { build_stubbed(:topic) }
-        let!(:three_minutes_ago) { 3.minutes.ago }
-        it 'changes position' do
-          expect(messageboard).to receive(:last_topic).at_least(:once).and_return(topic)
-          expect(topic).to receive(:last_post_at).at_least(:once).and_return(three_minutes_ago)
-          expect { subject }.to change { messageboard.position }.to(-three_minutes_ago.to_i)
-        end
-      end
-    end
-  end
-
-  describe '.recalculate_positions', thredded_reset: [:@@messageboards_order] do
-    subject { Messageboard.recalculate_positions! }
+  describe '.ordered', thredded_reset: [:@@messageboards_order] do
     let(:messageboard1) { create(:messageboard, position: 1) }
     let(:messageboard2) { create(:messageboard, position: 2) }
     let(:messageboard3) { create(:messageboard, position: 3) }
@@ -156,14 +107,12 @@ module Thredded
         Thredded.messageboards_order = :position
         expect(messageboard1.position).to eq(1)
       end
-      it "doesn't change position" do
-        expect { subject }
-          .not_to change { [messageboard1, messageboard2, messageboard3].map { |m| m.reload.position } }
+      it 'orders according to position' do
         expect(Messageboard.ordered).to eq([messageboard1, messageboard2, messageboard3])
       end
     end
     context 'when messageboards_order :last_post_at_desc' do
-      let(:messageboard1) { create(:messageboard, name: 'one', created_at: 2.years.ago) }
+      let(:messageboard1) { create(:messageboard, name: 'one', created_at: 1.month.ago) }
       let(:messageboard2) { create(:messageboard, name: 'two', created_at: 1.year.ago) }
       let(:messageboard3) { create(:messageboard, name: 'three', created_at: one_week_ago) }
       let(:one_week_ago) { 1.week.ago }
@@ -173,16 +122,14 @@ module Thredded
       let(:topic1) { create(:topic, last_post_at: one_hour_ago, messageboard: messageboard1) }
       before do
         Thredded.messageboards_order = :last_post_at_desc
-        messageboard2 && messageboard3 && messageboard1
+        messageboard3 && messageboard2 && messageboard1
         topic2.update_column(:last_post_at, one_day_ago)
         topic1.update_column(:last_post_at, one_hour_ago)
         messageboard2.update_column(:last_topic_id, topic2.id)
         messageboard1.update_column(:last_topic_id, topic1.id)
       end
 
-      it 'does change position' do
-        expect { subject }
-          .to change { [messageboard1, messageboard2, messageboard3].map { |m| m.reload.position } }
+      it 'orders accroding to last_post_desc' do
         expect(Messageboard.ordered.map(&:name))
           .to eq([messageboard1, messageboard2, messageboard3].map(&:name))
       end
@@ -200,60 +147,21 @@ module Thredded
         expect(messageboard1.position).to eq(0)
       end
 
-      it 'does change position' do
-        expect { subject }
-          .to change { [messageboard1, messageboard2, messageboard3].map { |m| m.reload.position } }
-        expect(messageboard1.position).to eq(-messageboard1.topics_count)
+      it 'orders according to topics_count_desc' do
         expect(Messageboard.ordered).to eq([messageboard1, messageboard2, messageboard3])
       end
     end
   end
 
-  describe '#position (default)', thredded_reset: [:@@messageboards_order] do
-    context 'when messageboards_order :position' do
-      before do
-        Thredded.messageboards_order = :position
-      end
-
-      it 'has a default position of the created at' do
-        messageboard = create(:messageboard)
-        expect(messageboard.position).to be_within(10).of(messageboard.created_at.to_i)
-      end
-
-      it "can define a value for position which won't change" do
-        messageboard = create(:messageboard, position: 12)
-        expect(messageboard.position).to eq(12)
-      end
+  describe '#position (default)' do
+    it 'has a default position of the created at' do
+      messageboard = create(:messageboard)
+      expect(messageboard.position).to be_within(10).of(messageboard.created_at.to_i)
     end
 
-    context 'when messageboards_order :last_post_at_desc' do
-      before do
-        Thredded.messageboards_order = :last_post_at_desc
-      end
-
-      it 'has a default position of the created at' do
-        messageboard = create(:messageboard)
-        expect(messageboard.position).to be_within(10).of(messageboard.created_at.to_i)
-      end
-
-      it "can't define a value for position" do
-        messageboard = create(:messageboard, position: 12)
-        expect(messageboard.position).to be_within(10).of(messageboard.created_at.to_i)
-      end
-    end
-
-    context 'when messageboards_order :topics_count_desc' do
-      before { Thredded.messageboards_order = :topics_count_desc }
-
-      it 'has a default position of the created at' do
-        messageboard = create(:messageboard, topics_count: 5)
-        expect(messageboard.position).to eq(-5)
-      end
-
-      it "can't define a value for position" do
-        messageboard = create(:messageboard, topics_count: 5, position: 12)
-        expect(messageboard.position).to eq(-5)
-      end
+    it "can define a value for position which won't change" do
+      messageboard = create(:messageboard, position: 12)
+      expect(messageboard.position).to eq(12)
     end
   end
 end

@@ -24,7 +24,6 @@ module Thredded
     before_save :ensure_position, on: :create
 
     def ensure_position
-      recalculate_position
       self.position ||= (created_at || Time.zone.now).to_i
     end
 
@@ -58,12 +57,34 @@ module Thredded
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
 
     default_scope { where(closed: false) }
-
+    # rubocop:disable Style/Lambda
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
-    scope :ordered, ->() { order(position: :asc, id: :desc) }
-    scope :ordered_by_group, ->() { includes(:group).order('thredded_messageboard_groups.position asc').ordered }
-
+    scope :ordered, ->(order = Thredded.messageboards_order) {
+      case order
+      when :position
+        ordered_by_position
+      when :created_at_asc
+        ordered_by_created_at_asc
+      when :last_post_at_desc
+        ordered_by_last_post_at_desc
+      when :topics_count_desc
+        ordered_by_topics_count_desc
+      end.order(id: :asc)
+    }
+    scope :ordered_by_position, ->() { order(position: :asc) }
+    scope :ordered_by_created_at_asc, ->() { order(position: :asc) }
+    scope :ordered_by_last_post_at_desc, ->() {
+      joins('LEFT JOIN thredded_topics AS last_topics ON thredded_messageboards.last_topic_id = last_topics.id')
+        .order('COALESCE(last_topics.last_post_at, thredded_messageboards.created_at) DESC')
+    }
+    scope :ordered_by_topics_count_desc, ->() {
+      order(topics_count: :desc)
+    }
+    scope :ordered_by_group, ->(order = Thredded.messageboards_order) {
+      includes(:group).order('thredded_messageboard_groups.position asc').ordered(order)
+    }
+    # rubocop:enable Style/Lambda
     def last_user
       last_topic.try(:last_user)
     end
@@ -78,36 +99,7 @@ module Thredded
     def update_last_topic!
       return if destroyed?
       self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.first
-      recalculate_position
-      save! if last_topic_id_changed? || position_changed?
-    end
-
-    def recalculate_position
-      case Thredded.messageboards_order
-      when :last_post_at_desc
-        self.position = if last_topic
-                          -last_topic.last_post_at.to_i
-                        elsif created_at
-                          -created_at.to_i
-                        end
-      when :topics_count_desc
-        self.position = -topics_count
-      end
-    end
-
-    def recalculate_position!
-      recalculate_position
-      save! if position_changed?
-    end
-
-    def self.recalculate_positions!
-      return if Thredded.messageboards_order == :position
-      scope = if Thredded.messageboards_order == :last_post_at_desc
-                all.includes(:last_topic)
-              else
-                all
-              end
-      scope.each(&:recalculate_position!)
+      save! if last_topic_id_changed?
     end
   end
 end
