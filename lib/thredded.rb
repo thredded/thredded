@@ -72,6 +72,15 @@ module Thredded
     @@user_display_name_method || user_name_column
   end
 
+  def self.messageboards_order=(value)
+    case value
+    when :position, :topics_count_desc, :last_post_at_desc
+      @@messageboards_order = value # rubocop:disable Style/ClassVars
+    else
+      fail "Unexpected value for Thredded.messageboards_order: #{value}"
+    end
+  end
+
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
     fail 'Please use a string instead of a class' if @@user_class.is_a?(Class)

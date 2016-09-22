@@ -92,10 +92,6 @@ module Thredded
                         end
       when :topics_count_desc
         self.position = -topics_count
-      when :position
-        # nothing
-      else
-        fail "Unexpected value for Thredded.messageboards_order: #{Thredded.messageboards_order}"
       end
     end
 
