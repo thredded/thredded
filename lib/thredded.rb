@@ -72,12 +72,13 @@ module Thredded
     @@user_display_name_method || user_name_column
   end
 
+  # @param value [:position, :topics_count_desc, :last_post_at_desc]
   def self.messageboards_order=(value)
     case value
     when :position, :topics_count_desc, :last_post_at_desc
       @@messageboards_order = value # rubocop:disable Style/ClassVars
     else
-      fail "Unexpected value for Thredded.messageboards_order: #{value}"
+      fail ArgumentError, "Unexpected value for Thredded.messageboards_order: #{value}"
     end
   end
 

@@ -63,26 +63,23 @@ module Thredded
     scope :ordered, ->(order = Thredded.messageboards_order) {
       case order
       when :position
-        ordered_by_position
+        self
       when :created_at_asc
         ordered_by_created_at_asc
       when :last_post_at_desc
         ordered_by_last_post_at_desc
       when :topics_count_desc
         ordered_by_topics_count_desc
-      end.order(id: :asc)
+      end.ordered_by_position.order(id: :asc)
     }
     scope :ordered_by_position, ->() { order(position: :asc) }
-    scope :ordered_by_created_at_asc, ->() { order(position: :asc) }
+    scope :ordered_by_created_at_asc, ->() { order(created_at: :asc) }
     scope :ordered_by_last_post_at_desc, ->() {
       joins('LEFT JOIN thredded_topics AS last_topics ON thredded_messageboards.last_topic_id = last_topics.id')
         .order('COALESCE(last_topics.last_post_at, thredded_messageboards.created_at) DESC')
     }
     scope :ordered_by_topics_count_desc, ->() {
       order(topics_count: :desc)
-    }
-    scope :ordered_by_group, ->(order = Thredded.messageboards_order) {
-      includes(:group).order('thredded_messageboard_groups.position asc').ordered(order)
     }
     # rubocop:enable Style/Lambda
     def last_user
