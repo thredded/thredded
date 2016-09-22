@@ -75,11 +75,12 @@ module Thredded
       it 'follows' do
         expect { subject }.to change { @topic.reload.followers.reload.count }.by(1)
       end
-      context 'json format'
-      subject { post :follow, messageboard_id: @messageboard.id, id: @topic.id, format: :json }
-      it 'it returns changed status' do
-        subject
-        expect(JSON.parse(response.body)).to include('follow' => true)
+      context 'json format' do
+        subject { post :follow, messageboard_id: @messageboard.id, id: @topic.id, format: :json }
+        it 'it returns changed status' do
+          subject
+          expect(JSON.parse(response.body)).to include('follow' => true)
+        end
       end
     end
 
