@@ -117,7 +117,7 @@ module Thredded
     end
   end
 
-  describe '#recalculate_position' do
+  describe '#recalculate_position', thredded_reset: [:@@messageboards_order] do
     let(:messageboard) { create(:messageboard, created_at: two_weeks_ago).tap { |m| m.update_column(:position, 0) } }
     let!(:two_weeks_ago) { 2.weeks.ago }
     subject { messageboard.recalculate_position }
