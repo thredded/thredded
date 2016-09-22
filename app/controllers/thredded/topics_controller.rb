@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require_dependency 'thredded/posts_page_view'
 require_dependency 'thredded/topics_page_view'
+# rubocop:disable Metrics/ClassLength
 module Thredded
   class TopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!,
@@ -110,19 +111,25 @@ module Thredded
     def follow
       authorize topic, :read?
       UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
-      redirect_to messageboard_topic_url(messageboard, topic),
-                  notice: t('thredded.topics.followed_notice')
+      follow_change_response(following: true)
     end
 
     def unfollow
       authorize topic, :read?
       follow = thredded_current_user.following?(topic)
       follow.destroy if follow
-      redirect_to messageboard_topic_url(messageboard, topic),
-                  notice: t('thredded.topics.unfollowed_notice')
+      follow_change_response(following: false)
     end
 
     private
+
+    def follow_change_response(following:)
+      notice = following ? t('thredded.topics.unfollowed_notice') : t('thredded.topics.followed_notice')
+      respond_to do |format|
+        format.html { redirect_to messageboard_topic_url(messageboard, topic), notice: notice }
+        format.json { render(json: { follow: following }) }
+      end
+    end
 
     def topic
       @topic ||= messageboard.topics.find_by_slug!(params[:id])
@@ -150,3 +157,4 @@ module Thredded
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
