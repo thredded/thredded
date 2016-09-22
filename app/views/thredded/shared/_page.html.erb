@@ -1,6 +1,7 @@
 <div id="thredded--container" class="thredded--main-container <%= yield(:thredded_page_id) %><%= ' thredded--is-moderator' if moderatable_messageboards_ids.present? %>" data-thredded-page-id="<%= yield(:thredded_page_id) %>">
   <%= render 'thredded/shared/header' %>
   <%= render 'thredded/shared/flash_messages' %>
+  <div id="thredded--definitions" data-thredded-root="<%= thredded.root_path%>"></div>
   <%= yield :thredded_page_content %>
   <%= render 'thredded/shared/currently_online' %>
 </div>
