@@ -53,7 +53,6 @@ Thredded.show_topic_followers = false
 # :position            (default) set the position manually (new messageboards go to the bottom, by creation timestamp)
 # :last_post_at_desc   most recent post first
 # :topics_count_desc   most topics first
-# NB: if you change this you should run `Messageboard.recalculate_positions!`
 Thredded.messageboards_order = :position
 
 # ==> Email Configuration
