@@ -21,15 +21,6 @@ module Thredded
       expect(all_boards).not_to include(closed)
     end
 
-    it 'orders by number of topics, descending' do
-      create(:messageboard, topics_count: 500)
-      lots       = create(:messageboard, topics_count: 1000)
-      all_boards = Messageboard.all
-
-      expect(all_boards.first).to eq lots
-      expect(all_boards.last).to eq @messageboard
-    end
-
     describe '#recently_active_users' do
       it 'returns users active for a messageboard' do
         messageboard   = create(:messageboard)
@@ -85,12 +76,13 @@ module Thredded
     end
   end
 
-  describe '#update_last_topic!' do
+  describe '#update_last_topic!', thredded_reset: [:@@messageboards_order] do
     let(:messageboard) { create(:messageboard) }
     let(:new_topic) { create(:topic, messageboard: messageboard) }
     let(:the_last_topic) { create(:topic, messageboard: messageboard) }
-    let(:an_hour_ago) { 1.hour.ago }
+    let!(:an_hour_ago) { 1.hour.ago }
     before do
+      Thredded.messageboards_order = :position
       travel_to(an_hour_ago) { messageboard.reload.update!(last_topic: the_last_topic) }
       expect(messageboard.updated_at).to be_within(10.seconds).of(an_hour_ago)
     end
@@ -103,6 +95,73 @@ module Thredded
       expect do
         create(:post, postable: the_last_topic)
       end.not_to change { messageboard.reload.updated_at }
+    end
+  end
+
+  describe '.ordered', thredded_reset: [:@@messageboards_order] do
+    let(:messageboard1) { create(:messageboard, position: 1) }
+    let(:messageboard2) { create(:messageboard, position: 2) }
+    let(:messageboard3) { create(:messageboard, position: 3) }
+    context 'when messageboards_order :position' do
+      before do
+        Thredded.messageboards_order = :position
+        expect(messageboard1.position).to eq(1)
+      end
+      it 'orders according to position' do
+        expect(Messageboard.ordered).to eq([messageboard1, messageboard2, messageboard3])
+      end
+    end
+    context 'when messageboards_order :last_post_at_desc' do
+      let(:messageboard1) { create(:messageboard, name: 'one', created_at: 1.month.ago) }
+      let(:messageboard2) { create(:messageboard, name: 'two', created_at: 1.year.ago) }
+      let(:messageboard3) { create(:messageboard, name: 'three', created_at: one_week_ago) }
+      let(:one_week_ago) { 1.week.ago }
+      let(:one_day_ago) { 1.day.ago }
+      let(:one_hour_ago) { 1.hour.ago }
+      let(:topic2) { create(:topic, last_post_at: one_day_ago, messageboard: messageboard2) }
+      let(:topic1) { create(:topic, last_post_at: one_hour_ago, messageboard: messageboard1) }
+      before do
+        Thredded.messageboards_order = :last_post_at_desc
+        messageboard3 && messageboard2 && messageboard1
+        topic2.update_column(:last_post_at, one_day_ago)
+        topic1.update_column(:last_post_at, one_hour_ago)
+        messageboard2.update_column(:last_topic_id, topic2.id)
+        messageboard1.update_column(:last_topic_id, topic1.id)
+      end
+
+      it 'orders accroding to last_post_desc' do
+        expect(Messageboard.ordered.map(&:name))
+          .to eq([messageboard1, messageboard2, messageboard3].map(&:name))
+      end
+    end
+
+    context 'when messageboards_order :topics_count_desc' do
+      before { Thredded.messageboards_order = :topics_count_desc }
+      let(:messageboard1) { create(:messageboard, topics_count: 100).tap { |m| m.update_column(:position, 0) } }
+      let(:messageboard2) { create(:messageboard, topics_count: 10).tap { |m| m.update_column(:position, 0) } }
+      let(:messageboard3) { create(:messageboard, topics_count: 1).tap { |m| m.update_column(:position, 0) } }
+
+      before do
+        Thredded.messageboards_order = :topics_count_desc
+        messageboard2 && messageboard3 && messageboard1
+        expect(messageboard1.position).to eq(0)
+      end
+
+      it 'orders according to topics_count_desc' do
+        expect(Messageboard.ordered).to eq([messageboard1, messageboard2, messageboard3])
+      end
+    end
+  end
+
+  describe '#position (default)' do
+    it 'has a default position of the created at' do
+      messageboard = create(:messageboard)
+      expect(messageboard.position).to be_within(10).of(messageboard.created_at.to_i)
+    end
+
+    it "can define a value for position which won't change" do
+      messageboard = create(:messageboard, position: 12)
+      expect(messageboard.position).to eq(12)
     end
   end
 end

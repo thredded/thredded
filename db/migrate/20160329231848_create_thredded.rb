@@ -37,6 +37,7 @@ class CreateThredded < ActiveRecord::Migration
       t.text :description
       t.integer :topics_count, default: 0
       t.integer :posts_count, default: 0
+      t.integer :position, null: false
       t.boolean :closed, default: false, null: false
       t.references :last_topic
       t.references :messageboard_group
@@ -190,6 +191,7 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_messageboard_groups do |t|
       t.string :name
+      t.integer :position, null: false
       t.timestamps null: false
     end
 

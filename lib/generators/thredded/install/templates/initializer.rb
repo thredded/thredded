@@ -47,6 +47,14 @@ Thredded.show_topic_followers = false
 # This model can be customized further by overriding a handful of methods on the User model.
 # For more information, see app/models/thredded/user_extender.rb.
 
+# ==> Ordering configuration
+
+# How to calculate the position of messageboards in a list:
+# :position            (default) set the position manually (new messageboards go to the bottom, by creation timestamp)
+# :last_post_at_desc   most recent post first
+# :topics_count_desc   most topics first
+Thredded.messageboards_order = :position
+
 # ==> Email Configuration
 # Email "From:" field will use the following
 # Thredded.email_from = 'no-reply@example.com'

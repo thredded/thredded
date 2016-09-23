@@ -33,6 +33,7 @@ module Thredded
     :email_outgoing_prefix,
     :email_reply_to,
     :layout,
+    :messageboards_order,
     :user_class,
     :user_display_name_method,
     :user_name_column,
@@ -65,9 +66,20 @@ module Thredded
   self.user_name_column = :name
   self.content_visible_while_pending_moderation = true
   self.show_topic_followers = false
+  self.messageboards_order = :position
 
   def self.user_display_name_method
     @@user_display_name_method || user_name_column
+  end
+
+  # @param value [:position, :topics_count_desc, :last_post_at_desc]
+  def self.messageboards_order=(value)
+    case value
+    when :position, :topics_count_desc, :last_post_at_desc
+      @@messageboards_order = value # rubocop:disable Style/ClassVars
+    else
+      fail ArgumentError, "Unexpected value for Thredded.messageboards_order: #{value}"
+    end
   end
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.

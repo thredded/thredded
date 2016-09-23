@@ -32,3 +32,24 @@ describe Thredded, '.user_display_name_method', thredded_reset: [:@@user_display
     expect(Thredded.user_display_name_method).to eq(:to_s)
   end
 end
+
+describe Thredded, '.messageboards_order', thredded_reset: [:@@messageboards_order] do
+  specify 'default' do
+    expect(Thredded.messageboards_order).to eq(:position)
+  end
+  describe 'valid values' do
+    [:position, :topics_count_desc, :last_post_at_desc].each do |valid_value|
+      it ":#{valid_value}" do
+        Thredded.messageboards_order = valid_value
+        expect(Thredded.messageboards_order).to eq(valid_value)
+      end
+    end
+  end
+
+  it 'raises error if assigned to invalid value' do
+    [nil, :created_at_asc].each do |invalid_value|
+      expect { Thredded.messageboards_order = invalid_value }
+        .to raise_error(/unexpected value for /i)
+    end
+  end
+end
