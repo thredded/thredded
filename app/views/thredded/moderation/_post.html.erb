@@ -3,7 +3,7 @@
   <%= render 'thredded/posts_common/header_with_user_and_topic',
              post:           post,
              post_user_link: if post.user
-                               link_to(post.user, user_moderation_path(post.user.id))
+                               link_to(post.user.thredded_display_name, user_moderation_path(post.user.id))
                              else
                                content_tag :em, t('thredded.null_user_name')
                              end
