@@ -52,5 +52,12 @@ describe Thredded::DatabaseSeeder do
       post = create(:post)
       expect { expect(subject.find_or_create).to eq([post]) }.not_to change { Thredded::Post.count }
     end
+    it 'can make dates' do
+      expect(subject.range_of_dates_in_order).to have_attributes(length: 1)
+      now = 1.hour.ago
+      dates = subject.range_of_dates_in_order(up_to: now, count: 200)
+      expect(dates.last).to eq(now)
+      dates.each { |date| expect(date).to be <= now }
+    end
   end
 end
