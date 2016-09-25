@@ -1,7 +1,9 @@
 ---
 en:
   thredded:
-    recent_activity: Recent activity
+    content_moderation_states:
+      content_blocked_notice: Blocked
+      content_blocked_notice_with_record_html: Blocked by %{moderator} %{time_ago}
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
@@ -9,9 +11,6 @@ en:
       private_topic_not_found: This private topic does not exist.
     form:
       update: Update
-    content_moderation_states:
-      content_blocked_notice: Blocked
-      content_blocked_notice_with_record_html: Blocked by %{moderator} %{time_ago}
     messageboard:
       create: Create a New Messageboard
       form:
@@ -41,8 +40,8 @@ en:
       search_users:
         form_label: Search users
         form_placeholder: :thredded.moderation.search_users.form_label
-        results_message: Users with names starting with %{query}
         no_results_message: No users with name starting with %{query}
+        results_message: Users with names starting with %{query}
     nav:
       all_messageboards: All Messageboards
       edit_messageboard: Edit Messageboard
@@ -51,10 +50,10 @@ en:
       edit_topic: Edit
       mark_all_read: Mark All As Read
       moderation: Moderation
+      moderation_activity: Activity
       moderation_history: History
       moderation_pending: Pending
       moderation_users: Users
-      moderation_activity: Activity
       private_topics: Private Messages
       settings: Notification Settings
     null_user_name: Deleted user
@@ -111,6 +110,7 @@ en:
         create_btn: Start your first private conversation
         title: You have no private messages.
       updated_notice: Title updated
+    recent_activity: Recent activity
     search:
       form:
         btn_submit: :thredded.search.form.label
@@ -121,13 +121,13 @@ en:
       delete_topic: Delete Topic
       deleted_notice: Topic deleted
       edit: Edit Topic
+      followed_by: 'Followed by:'
+      followed_by_noone: No one is following this topic
       followed_notice: You are now following this topic
       following:
         manual: You are following this topic.
         mentioned: You are following this topic because you were mentioned on it.
         posted: You are following this topic because you posted to it.
-      followed_by: "Followed by:"
-      followed_by_noone: No one is following this topic
       form:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label
@@ -143,16 +143,16 @@ en:
       unfollowed_notice: You are no longer following this topic
       updated_notice: Topic updated
     users:
-      last_active_html: "Last active %{time_ago}"
-      posted_in_topic_html: "Posted in %{topic_link}"
-      recent_activity: :thredded.recent_activity
-      started_topic_html: "Started %{topic_link}"
-      user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
-      user_since_html: "User since %{time_ago}"
-      user_started_topic_html: "%{user_link} started %{topic_link}"
-      started_topics_count:
-        one: "Started one topic"
-        other: "Started %{count} topics"
+      last_active_html: Last active %{time_ago}
+      posted_in_topic_html: Posted in %{topic_link}
       posts_count:
-        one: "Posted once"
-        other: "Posted %{count} times"
+        one: Posted once
+        other: Posted %{count} times
+      recent_activity: :thredded.recent_activity
+      started_topic_html: Started %{topic_link}
+      started_topics_count:
+        one: Started one topic
+        other: Started %{count} topics
+      user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
+      user_since_html: User since %{time_ago}
+      user_started_topic_html: "%{user_link} started %{topic_link}"
