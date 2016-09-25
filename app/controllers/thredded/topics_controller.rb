@@ -124,7 +124,7 @@ module Thredded
     private
 
     def follow_change_response(following:)
-      notice = following ? t('thredded.topics.unfollowed_notice') : t('thredded.topics.followed_notice')
+      notice = following ? t('thredded.topics.followed_notice') : t('thredded.topics.unfollowed_notice')
       respond_to do |format|
         format.html { redirect_to messageboard_topic_url(messageboard, topic), notice: notice }
         format.json { render(json: { follow: following }) }
