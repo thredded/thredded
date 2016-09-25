@@ -54,7 +54,7 @@ module Thredded
     def auto_follow_and_notify
       return unless user
       # need to do this in-process so that it appears to them immediately
-      UserTopicFollow.create_unless_exists(user.id, postable_id, :posted)
+      UserTopicFollow.create_unless_exists!(user.id, postable_id, :posted)
       # everything else can happen later
       AutoFollowAndNotifyJob.perform_later(id)
     end

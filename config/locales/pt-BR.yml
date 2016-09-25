@@ -136,6 +136,7 @@ pt-BR:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Iniciar um novo tópico
         update_btn: Atualizar Tópico
+      not_following: Você não está seguindo este tema.
       search:
         no_results_message: Nenhum resultado encontrado para sua busca - %{query}
         page_title: Tópicos dos Resultados da Busca

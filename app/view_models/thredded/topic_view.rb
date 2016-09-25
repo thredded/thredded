@@ -31,6 +31,15 @@ module Thredded
       ].compact
     end
 
+    # @return [Boolean] whether the topic is followed by the current user.
+    def followed?
+      @follow
+    end
+
+    def follow_reason
+      @follow.try(:reason)
+    end
+
     def can_moderate?
       @policy.moderate?
     end

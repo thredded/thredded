@@ -92,7 +92,7 @@ module Thredded
     def follow_some_topics(count: (5..10), count_users: (1..5))
       log 'Following some topics...'
       posts.each do |post|
-        Thredded::UserTopicFollow.create_unless_exists(post.user_id, post.postable_id, :posted) if post.user_id
+        Thredded::UserTopicFollow.create_unless_exists!(post.user_id, post.postable_id, :posted) if post.user_id
       end
       follow_some_topics_by_user(first_user, count: count)
       users.sample(count_users.min + rand(count_users.max - count_users.min + 2)).each do |user|
@@ -102,7 +102,7 @@ module Thredded
 
     def follow_some_topics_by_user(user, count: (1..10))
       topics.sample(count.min + rand(count.max - count.min + 2)).each do |topic|
-        Thredded::UserTopicFollow.create_unless_exists(user.id, topic.id)
+        Thredded::UserTopicFollow.create_unless_exists!(user.id, topic.id)
       end
     end
 

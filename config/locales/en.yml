@@ -135,6 +135,7 @@ en:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Start a New Topic
         update_btn: Update Topic
+      not_following: You are not following this topic.
       search:
         no_results_message: There are no results for your search - %{query}
         page_title: Topics Search Results

@@ -110,14 +110,13 @@ module Thredded
 
     def follow
       authorize topic, :read?
-      UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
+      UserTopicFollow.create_unless_exists!(thredded_current_user.id, topic.id)
       follow_change_response(following: true)
     end
 
     def unfollow
       authorize topic, :read?
-      follow = thredded_current_user.following?(topic)
-      follow.destroy if follow
+      UserTopicFollow.find_by(topic_id: topic.id, user_id: thredded_current_user.id).try(:destroy!)
       follow_change_response(following: false)
     end
 

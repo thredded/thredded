@@ -19,7 +19,7 @@ feature 'User views a topic' do
     context 'for a followed topic' do
       let(:a_followed_topic) do
         topic = create(:topic, with_posts: 1, messageboard: messageboard)
-        Thredded::UserTopicFollow.create_unless_exists(user.id, topic.id)
+        Thredded::UserTopicFollow.create_unless_exists!(user.id, topic.id)
         PageObject::Topic.new(topic)
       end
 
@@ -60,7 +60,7 @@ feature 'User views a topic' do
     context 'for a followed topic' do
       let(:a_followed_topic) do
         topic = create(:topic, with_posts: 1, messageboard: messageboard)
-        Thredded::UserTopicFollow.create_unless_exists(user.id, topic.id)
+        Thredded::UserTopicFollow.create_unless_exists!(user.id, topic.id)
         PageObject::Topic.new(topic)
       end
 

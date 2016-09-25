@@ -39,10 +39,6 @@ module Thredded
       Thredded::UserPreference.new
     end
 
-    def following?(_topic)
-      false
-    end
-
     def thredded_display_name
       to_s
     end

@@ -13,8 +13,8 @@ module Thredded
     alias_attribute :postable_id, :topic_id
     alias_attribute :postable, :topic
 
-    def self.create_unless_exists(user_id, topic_id, reason = :manual)
-      create_with(reason: reason).find_or_create_by(user_id: user_id, topic_id: topic_id)
+    def self.create_unless_exists!(user_id, topic_id, reason = :manual)
+      create_with(reason: reason).find_or_create_by!(user_id: user_id, topic_id: topic_id)
     end
   end
 end

@@ -8,7 +8,7 @@ module Thredded
 
     def run
       autofollowers.each do |user|
-        Thredded::UserTopicFollow.create_unless_exists(user.id, post.postable_id, :mentioned)
+        Thredded::UserTopicFollow.create_unless_exists!(user.id, post.postable_id, :mentioned)
       end
     end
 
