@@ -240,13 +240,15 @@ module Thredded
       def create(count: (1..1))
         log "Creating #{count} additional posts in each topic..."
         seeder.topics.flat_map do |topic|
-          written = (1 + rand(5)).days.ago
+          posted_at = (1 + rand(5)).days.ago
+          max_posted_at = Time.zone.now
           posts = Array.new((count.min + rand(count.max + 1))) do
-            written += (1 + rand(60)).minutes
+            posted_at += (1 + rand(60)).minutes
+            posted_at = max_posted_at if posted_at > max_posted_at
             FactoryGirl.create(:post, postable: topic, messageboard: seeder.first_messageboard,
-                                      user: seeder.users.sample, created_at: written, updated_at: written)
+                                      user: seeder.users.sample, created_at: posted_at, updated_at: posted_at)
           end
-          topic.update!(last_user_id: posts.last.user.id, updated_at: written)
+          topic.update!(last_user_id: posts.last.user.id, updated_at: posted_at)
           posts
         end
       end
