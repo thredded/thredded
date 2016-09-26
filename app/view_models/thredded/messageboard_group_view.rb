@@ -9,7 +9,8 @@ module Thredded
     # @return [Array<MessageboardGroupView>]
     def self.grouped(messageboard_scope)
       messageboard_scope.preload(last_topic: [:last_user])
-        .eager_load(:group).merge(MessageboardGroup.ordered).ordered
+        .eager_load(:group)
+        .order('coalesce(thredded_messageboard_groups.position, 0) asc, thredded_messageboard_groups.id asc').ordered
         .group_by(&:group)
         .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
     end

@@ -48,6 +48,16 @@ module Thredded
               .to eq(expected_groups.map(&:name))
             expect(MessageboardGroupView.grouped(Messageboard.all).map(&:group)).to eq(expected_groups)
           end
+
+          context 'with messageboard with no group' do
+            let(:messageboard_with_no_group) { create(:messageboard, group: nil, name: 'with no group') }
+            before { messageboard_with_no_group }
+            it 'has messageboards with no group first' do
+              expected_groups = [nil, group1, group2, group3]
+              expect(MessageboardGroupView.grouped(Messageboard.all).map(&:group).map { |mg| mg.try(:name) })
+                .to eq(expected_groups.map { |mg| mg.try(:name) })
+            end
+          end
         end
       end
     end
