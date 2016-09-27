@@ -239,12 +239,13 @@ module Thredded
 
       def create(count: (1..1))
         log "Creating #{count} additional posts in each topic..."
-        times = (count.min + rand(count.max + 1))
         seeder.topics.flat_map do |topic|
-          last_post_at = (1 + rand(30)).hours.ago
-          posts = range_of_dates_in_order(up_to: last_post_at, count: times).map do |written_at|
+          last_post_at = random_duration(0..72.hours).ago
+          posts_count = (count.min + rand(count.max + 1))
+          posts = range_of_dates_in_order(up_to: last_post_at, count: posts_count).map.with_index do |written_at, i|
+            author = i.zero? ? topic.user : seeder.users.sample
             FactoryGirl.create(:post, postable: topic, messageboard: seeder.first_messageboard,
-                                      user: seeder.users.sample, created_at: written_at, updated_at: written_at)
+                                      user: author, created_at: written_at, updated_at: written_at)
           end
           topic.update!(last_user_id: posts.last.user.id, updated_at: last_post_at, last_post_at: last_post_at)
           posts
@@ -253,7 +254,11 @@ module Thredded
 
       def range_of_dates_in_order(up_to: Time.zone.now, count: 1)
         written = up_to
-        Array.new((count - 1)) { written -= (10 + rand(60)).minutes }.reverse + [up_to]
+        Array.new(count - 1) { written -= random_duration(10.minutes..6.hours) }.reverse + [up_to]
+      end
+
+      def random_duration(range)
+        (range.min.to_i + rand(range.max.to_i)).seconds
       end
     end
 
