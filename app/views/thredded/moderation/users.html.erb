@@ -20,7 +20,7 @@
       <% @users.each do |user| %>
         <tr>
           <td>
-            <%= link_to user, user_moderation_path(user.id), class: 'thredded--link' %>
+            <%= link_to user.thredded_display_name, user_moderation_path(user.id), class: 'thredded--link' %>
           </td>
           <td>
             <%= render 'user_moderation_state', user: user %>

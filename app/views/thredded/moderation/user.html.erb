@@ -7,7 +7,7 @@
 <%= render 'nav' %>
 <%= thredded_page do %>
   <h1 class="thredded--moderation--user--title">
-    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user %>
+    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user.thredded_display_name %>
   </h1>
   <ul class="thredded--moderation--user--info">
     <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>

@@ -28,7 +28,7 @@
   <article class="thredded--post">
     <% post_user_link = capture do %>
       <% if record.post_user %>
-        <%= link_to record.post_user, user_moderation_path(record.post_user.id) %>
+        <%= link_to record.post_user.thredded_display_name, user_moderation_path(record.post_user.id) %>
       <% else %>
         <%= safe_join [record.post_user_name, content_tag(:em, t('thredded.null_user_name'))].compact, ', ' %>
       <% end %>
