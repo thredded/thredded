@@ -1,4 +1,4 @@
-&--form-list {
+.thredded--form-list {
   @extend %thredded--list-unstyled;
 
   &.on-top {
@@ -15,7 +15,7 @@
   }
 }
 
-&--form-list--admin-options {
+.thredded--form-list--admin-options {
   label {
     cursor: pointer;
     display: inline-block;
@@ -24,7 +24,7 @@
   }
 }
 
-&--form-list--hint {
+.thredded--form-list--hint {
   @extend %thredded--paragraph;
   color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;

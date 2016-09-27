@@ -1,4 +1,4 @@
-&--topic-header {
+.thredded--topic-header {
   margin-bottom: $thredded-large-spacing;
   margin-top: $thredded-base-spacing;
   @include thredded-media-mobile {
@@ -7,14 +7,14 @@
   }
 }
 
-&--topic-header--title {
+.thredded--topic-header--title {
   @extend %thredded--heading;
   font-size: 1.5rem; // 24px
   line-height: 1.2;
   margin-bottom: $thredded-small-spacing / 2;
 }
 
-&--topic-header--started-by {
+.thredded--topic-header--started-by {
   font-size: $thredded-font-size-small;
   color: $thredded-secondary-text-color;
   font-style: normal;
@@ -23,12 +23,13 @@
   }
 }
 
-&--topic-header--edit-topic {
+.thredded--topic-header--edit-topic {
   @extend %thredded--link;
   font-size: $thredded-font-size-small;
   margin-left: 0.4rem;
 }
-&--topic-follow-info {
+
+.thredded--topic-header--follow-info {
   float: right;
   color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;
@@ -51,66 +52,20 @@
   }
 }
 
-&--topic-followers{
+.thredded--topic-following {
+  .thredded--topic-header--follow-info {
+    position: relative;
+  }
+  .thredded--topic-header--follow-icon {
+    @extend %thredded--following-icon;
+  }
+}
+
+.thredded--topic-followers {
   font-size: $thredded-font-size-small;
   color: $thredded-secondary-text-color;
 }
 
-&--svg-definitions {
-  display:none;
-}
-
-@mixin thredded-following-icon-mixin {
-  svg {
-    fill: currentColor;
-    display: inline-block;
-    font-size: 1em;
-    width: 1.4rem;
-    height: 1.4rem;
-    position: absolute;
-    top: 0;
-    right: -1.6rem;
-    opacity: 0.4;
-  }
-}
-@mixin thredded-not-following-icon-mixin {
-  @include thredded-following-icon-mixin;
-  svg {
-    opacity: 0.1;
-  }
-}
-&--topic-following {
-  &.thredded--topic-unread, &.thredded--topic-read {
-
-    h1.thredded--topics--title {
-      @include thredded-following-icon-mixin;
-    }
-  }
-}
-&--topic-notfollowing {
-  .thredded--topic-follow-icon {
-    @include thredded-not-following-icon-mixin;
-  }
-}
-&--topic-following {
-  .thredded--topic-follow-icon {
-    @include thredded-following-icon-mixin;
-  }
-}
-&--topic-following {
-  .thredded--topic-follow-info {
-    position: relative;
-    @include thredded-following-icon-mixin;
-  }
-}
-
-&--topic-read {
-  h1.thredded--topics--title a {
-    font-weight: lighter;
-  }
-}
-&--topic-unread {
-  h1.thredded--topics--title a {
-    font-weight: bold;
-  }
+.thredded--svg-definitions {
+  display: none;
 }

@@ -1,32 +1,31 @@
 @import "base";
 
-.thredded {
-  @import "utilities/is-compact";
-  @import "utilities/is-expanded";
+@import "utilities/is-compact";
+@import "utilities/is-expanded";
 
-  @import "layout/main-container";
-  @import "layout/main-navigation";
-  @import "layout/search-navigation";
-  @import "layout/user-navigation";
-  @import "layout/navigation";
-  @import "layout/moderation";
-  @import "layout/user";
+@import "layout/main-container";
+@import "layout/main-navigation";
+@import "layout/search-navigation";
+@import "layout/user-navigation";
+@import "layout/navigation";
+@import "layout/moderation";
+@import "layout/user";
 
-  @import "components/base";
-  @import "components/alerts";
-  @import "components/icons";
-  @import "components/currently-online";
-  @import "components/empty";
-  @import "components/flash-message";
-  @import "components/form-list";
-  @import "components/main-section";
-  @import "components/messageboard";
-  @import "components/pagination";
-  @import "components/post";
-  @import "components/post-form";
-  @import "components/preferences";
-  @import "components/select2";
-  @import "components/topic-delete";
-  @import "components/topic-header";
-  @import "components/topics";
-}
+@import "components/base";
+@import "components/alerts";
+@import "components/icons";
+@import "components/currently-online";
+@import "components/empty";
+@import "components/flash-message";
+@import "components/following";
+@import "components/form-list";
+@import "components/main-section";
+@import "components/messageboard";
+@import "components/pagination";
+@import "components/post";
+@import "components/post-form";
+@import "components/preferences";
+@import "components/select2";
+@import "components/topic-delete";
+@import "components/topic-header";
+@import "components/topics";

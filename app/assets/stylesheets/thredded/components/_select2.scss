@@ -1,4 +1,4 @@
-&--select2-container {
+.thredded--select2-container {
   width: 100%;
 
   > .select2-choices {
@@ -46,7 +46,7 @@
   }
 }
 
-&--select2-drop {
+.thredded--select2-drop {
   background: inherit;
   border-color: $thredded-form-border-focus-color;
   border-top: $thredded-base-border;
@@ -83,7 +83,7 @@
 }
 
 
-&--select2-user-result {
+.thredded--select2-user-result {
   &__avatar {
     width: 2rem;
     min-height: 2rem;
@@ -97,7 +97,7 @@
   }
 }
 
-&--select2-user-selection {
+.thredded--select2-user-selection {
   &__avatar {
     width: 1rem;
     min-height: 1rem;

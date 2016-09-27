@@ -1,4 +1,4 @@
-&--topics--topic {
+.thredded--topics--topic {
   margin-bottom: $thredded-base-spacing;
   position: relative;
 
@@ -7,7 +7,7 @@
   }
 }
 
-&--topics--title {
+.thredded--topics--title {
   @extend %thredded--heading;
   display: inline;
   font-size: 1.125rem; // 18px
@@ -24,7 +24,7 @@
   }
 }
 
-&--topics--categories {
+.thredded--topics--categories {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -45,8 +45,8 @@
   }
 }
 
-&--topics--started-by,
-&--topics--updated-by {
+.thredded--topics--started-by,
+.thredded--topics--updated-by {
   color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;
   font-style: normal;
@@ -68,7 +68,7 @@
   }
 }
 
-&--topics--updated-by {
+.thredded--topics--updated-by {
   margin-right: $thredded-small-spacing;
 
   abbr {
@@ -78,7 +78,7 @@
   }
 }
 
-&--topics--started-by {
+.thredded--topics--started-by {
   display: none;
 
   abbr {
@@ -88,13 +88,13 @@
   }
 }
 
-&--topics--moderation-state {
+.thredded--topics--moderation-state {
   padding: 0.3em 0.5em;
   font-size: $thredded-font-size-small;
   font-style: normal;
 }
 
-&--topics--posts-count {
+.thredded--topics--posts-count {
   border-radius: 50%;
   display: inline-block;
   font-weight: 900;
@@ -110,12 +110,34 @@
   transition: background 0.1s linear, color 0.1s linear;
 }
 
-&--topic-unread > &--topics--posts-count {
-  background: $thredded-badge-active-background;
-  color: $thredded-badge-active-color;
+.thredded--topic-read {
+  > .thredded--topics--title a {
+    font-weight: lighter;
+  }
+  > .thredded--topics--posts-count {
+    background: $thredded-badge-inactive-background;
+    color: $thredded-badge-inactive-color;
+  }
 }
 
-&--topic-read > &--topics--posts-count {
-  background: $thredded-badge-inactive-background;
-  color: $thredded-badge-inactive-color;
+.thredded--topic-unread {
+  > .thredded--topics--title a {
+    font-weight: bold;
+  }
+  > .thredded--topics--posts-count {
+    background: $thredded-badge-active-background;
+    color: $thredded-badge-active-color;
+  }
+}
+
+.thredded--topic-following {
+  .thredded--topics--follow-icon {
+    @extend %thredded--following-icon;
+  }
+}
+
+.thredded--topic-notfollowing {
+  .thredded--topics--follow-icon {
+    @extend %thredded--not-following-icon;
+  }
 }

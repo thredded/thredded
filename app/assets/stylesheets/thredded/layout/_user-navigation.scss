@@ -1,24 +1,24 @@
-&--user-navigation {
+.thredded--user-navigation {
   @extend %thredded--nav-tabs;
 }
 
-&--user-navigation--item {
+.thredded--user-navigation--item {
   @extend %thredded--nav-tabs--item;
 }
 
-.thredded--preferences &--user-navigation--settings,
-.thredded--new-private-topic &--user-navigation--private-topics,
-.thredded--private-topics-index &--user-navigation--private-topics,
-.thredded--private-topic-show &--user-navigation--private-topics,
-.thredded--pending-moderation &--user-navigation--moderation,
-.thredded--moderation-history &--user-navigation--moderation,
-.thredded--moderation-users &--user-navigation--moderation,
-.thredded--moderation-user &--user-navigation--moderation,
-.thredded--moderation-activity &--user-navigation--moderation {
+.thredded--preferences .thredded--user-navigation--settings,
+.thredded--new-private-topic .thredded--user-navigation--private-topics,
+.thredded--private-topics-index .thredded--user-navigation--private-topics,
+.thredded--private-topic-show .thredded--user-navigation--private-topics,
+.thredded--pending-moderation .thredded--user-navigation--moderation,
+.thredded--moderation-history .thredded--user-navigation--moderation,
+.thredded--moderation-users .thredded--user-navigation--moderation,
+.thredded--moderation-user .thredded--user-navigation--moderation,
+.thredded--moderation-activity .thredded--user-navigation--moderation {
   @extend %thredded--nav-tabs--item-current;
 }
 
-&--user-navigation--private-topics--unread,
-&--user-navigation--moderation--pending-count {
+.thredded--user-navigation--private-topics--unread,
+.thredded--user-navigation--moderation--pending-count {
   @extend %thredded--nav-tabs--item--badge;
 }
