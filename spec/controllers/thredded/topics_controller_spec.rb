@@ -85,7 +85,7 @@ module Thredded
     end
 
     describe 'POST unfollow' do
-      before { UserTopicFollow.create_unless_exists!(user.id, @topic.id) }
+      before { UserTopicFollow.create_unless_exists(user.id, @topic.id) }
       subject { post :unfollow, messageboard_id: @messageboard.id, id: @topic.id }
       it 'unfollows' do
         expect { subject }.to change { @topic.reload.followers.reload.count }.by(-1)
