@@ -4,7 +4,7 @@
 %>
 <div class="thredded--main-container">
   <h1>
-    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user %>
+    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user.thredded_display_name %>
   </h1>
   <ul>
     <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>
