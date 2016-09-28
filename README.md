@@ -150,20 +150,20 @@ The views within Thredded pass those up through to your layout if you would like
 
 ### User profile page
 
-Thredded does not provide a user's profile page, but it provides a helper for rendering the user's recent posts
-in your app's user profile page.
-
-To use it:
-
-1. Include `Thredded::ApplicationHelper` in the app's helpers module.
-2. Render the partial like this:
+Thredded does not provide a user's profile page, but it provides a partial for rendering the user's recent posts
+in your app's user profile page. Here is how you can render it in your app:
 
 ```erb
-<%= render 'thredded/users/posts',
-           posts: Thredded.posts_page_view(
-               scope: user.thredded_posts.order_newest_first.limit(5),
-               current_user: current_user) %>
+<%= Thredded::ApplicationController.render partial: 'thredded/users/posts', locals: {
+      posts: Thredded.posts_page_view(scope: user.thredded_posts.order_newest_first.limit(5),
+                                      current_user: current_user) } %>
 ```
+
+The `user` above is the user whose posts are rendered, and `current_user` is the user viewing the posts or `nil`.
+The policy scopes that limit the posts to the ones `current_user` can see are applied automatically.
+
+The code above uses the `ApplicationController.render` method introduced in Rails 5. If you're using Rails 4,
+you will need to add the [`backport_new_renderer`](https://github.com/brainopia/backport_new_renderer) gem to use it.
 
 ### Customizing views
 
