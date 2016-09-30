@@ -1,4 +1,4 @@
-&--post {
+.thredded--post {
   position: relative;
   margin-bottom: $thredded-large-spacing;
   @include thredded-media-mobile {
@@ -6,7 +6,7 @@
   }
 }
 
-&--post--avatar {
+.thredded--post--avatar {
   border-radius: 50%;
   display: inline-block;
   height: 1.75rem; // 28px
@@ -25,16 +25,16 @@
   }
 }
 
-&--post--topic {
+.thredded--post--topic {
   @extend %thredded--heading;
   font-size: $thredded-base-font-size * 1.25; // 24px
   line-height: 1.2;
   margin-bottom: $thredded-small-spacing / 2;
 }
 
-&--post--user,
-&--post--topic,
-&--post--user-and-topic {
+.thredded--post--user,
+.thredded--post--topic,
+.thredded--post--user-and-topic {
   @extend %thredded--heading;
   display: inline;
   font-size: 1.125rem; // 18px
@@ -46,29 +46,30 @@
   }
 }
 
-&--post--user {
+.thredded--post--user {
   a {
     color: $thredded-text-color;
   }
 }
 
-&--post--created-at {
+.thredded--post--created-at {
   @extend %thredded--paragraph;
   font-size: $thredded-font-size-small;
   color: $thredded-secondary-text-color;
   display: inline-block;
 }
 
-&--post--edit, &--post--delete {
+.thredded--post--edit,
+.thredded--post--delete {
   font-size: $thredded-font-size-small;
   @extend %thredded--link;
 }
 
-&--post--delete {
+.thredded--post--delete {
   margin-left: 0.4rem;
 }
 
-&--post--content {
+.thredded--post--content {
   font-size: 1.063rem; // 17px
   line-height: 1.65;
   word-break: break-word;

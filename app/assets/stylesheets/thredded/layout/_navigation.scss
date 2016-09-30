@@ -1,4 +1,4 @@
-&--navigation {
+.thredded--navigation {
   margin-bottom: $thredded-small-spacing;
   position: relative;
   .thredded--icon {
@@ -8,23 +8,23 @@
 
 @include thredded-media-tablet-and-down {
   $icon-nav-item-width: 2.625rem;
-  &--navigation {
+  .thredded--navigation {
     display: table;
     position: relative;
     width: 100%;
   }
-  &--main-navigation {
+  .thredded--main-navigation {
     position: relative;
     border: none;
   }
-  &--navigation-breadcrumbs {
+  .thredded--navigation-breadcrumbs {
     font-size: $thredded-font-size-small;
     padding-right: $icon-nav-item-width * 2;
     .thredded--is-moderator & {
       padding-right: $icon-nav-item-width * 3;
     }
   }
-  &--navigation--search-topics {
+  .thredded--navigation--search-topics {
     display: none;
     .thredded--messageboards-index &,
     .thredded--topics-index &,
@@ -32,7 +32,7 @@
       display: block;
     }
   }
-  &--user-navigation {
+  .thredded--user-navigation {
     display: table-footer-group;
     &-standalone {
       display: block;

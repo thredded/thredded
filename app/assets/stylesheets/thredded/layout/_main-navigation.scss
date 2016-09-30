@@ -1,4 +1,4 @@
-&--main-navigation {
+.thredded--main-navigation {
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
   display: block;
@@ -7,7 +7,7 @@
   }
 }
 
-&--navigation-breadcrumbs {
+.thredded--navigation-breadcrumbs {
   @extend %thredded--list-unstyled;
 
   li {
