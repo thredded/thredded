@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/main_app_route_delegator'
 module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
@@ -18,9 +17,6 @@ module Thredded
       if Thredded.user_class
         Thredded.user_class.send(:include, Thredded::UserExtender)
       end
-
-      # Delegate all main_app routes to allow calling them directly.
-      ::Thredded::ApplicationController.helper ::Thredded::MainAppRouteDelegator
     end
 
     initializer 'thredded.setup_assets' do
