@@ -72,6 +72,8 @@ module Thredded
              source: :user,
              through: :user_follows
 
+    delegate :name, to: :messageboard, prefix: true
+
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 

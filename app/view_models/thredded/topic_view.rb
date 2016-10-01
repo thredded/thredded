@@ -3,7 +3,7 @@ module Thredded
   # A view model for Topic.
   class TopicView < BaseTopicView
     delegate :categories, :id, :blocked?, :last_moderation_record, :followers,
-             :last_post, :messageboard_id, :messageboard,
+             :last_post, :messageboard_id, :messageboard_name,
              to: :@topic
 
     # @param topic [TopicCommon]
@@ -49,6 +49,10 @@ module Thredded
 
     def unfollow_path
       Thredded::UrlsHelper.unfollow_messageboard_topic_path(@topic.messageboard, @topic)
+    end
+
+    def messageboard_path
+      Thredded::UrlsHelper.messageboard_topics_path(@topic.messageboard)
     end
   end
 end
