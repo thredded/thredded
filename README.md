@@ -129,7 +129,16 @@ mkdir -p app/views/thredded/shared/nav && cp "$(bundle show thredded)/$_/_standa
 
 ### Application layout
 
-You can also use Thredded with the application layout by by setting `Thredded.layout` in the initializer.
+You can also use Thredded with your application (or other) layout by by setting `Thredded.layout` in the initializer.
+
+In this case, you will need to reference your paths/routes carefully and pull in thredded assets (styles and javascript):
+
+#### Referencing your paths so that thredded views can find them
+
+In your layout you will probably have links to other paths in your app (e.g. navigation links).
+For any url helpers (like `users_path` or `projects_path` or whatever) will need to have `main_app.` prefixed to  them so that they can be found from thredded (`main_app.users_path` will work from either thredded or your app).
+
+#### Pulling in thredded assets (styles and javascript)
 
 In this case, you will also need to include Thredded styles and JavaScript into the application styles and JavaScript.
 
