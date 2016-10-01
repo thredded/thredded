@@ -114,14 +114,14 @@ to Thredded.
 
 ### Standalone layout
 
-By default, thredded renders in its own layout.
+By default, thredded renders in its own (standalone) layout.
 
 When using the standalone thredded layout, the log in / sign out links will be rendered in the navigation.
 For these links (and only for these links), Thredded makes the assumption that you are using devise as your auth
 library. If you are using something different you need to override the partial at
 `app/views/thredded/shared/nav/_standalone.html.erb` and use the appropriate log in / sign out path URL helpers.
 
-You can override the partial by copying it into the app:
+You can override the partial by copying it into your app:
 
 ```bash
 mkdir -p app/views/thredded/shared/nav && cp "$(bundle show thredded)/$_/_standalone.html.erb" "$_"
