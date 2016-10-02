@@ -16,10 +16,16 @@ module Thredded
     # @param topics_page_scope [ActiveRecord::Relation<Thredded::Topic>]
     # @param topic_view_class [Class] view_model for topic instances
     def initialize(user, topics_page_scope, topic_view_class: TopicView)
-      @topics_page_scope = topics_page_scope
+      @topics_page_scope = refine_scope(topics_page_scope)
       @topic_views = @topics_page_scope.with_read_and_follow_states(user).map do |(topic, read_state, follow)|
         topic_view_class.new(topic, read_state, follow, Pundit.policy!(user, topic))
       end
+    end
+
+    protected
+
+    def refine_scope(topics_page_scope)
+      topics_page_scope.order_sticky_first.order_recently_posted_first.includes(:categories, :last_user, :user)
     end
   end
 end
