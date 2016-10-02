@@ -25,7 +25,12 @@ module Thredded
     protected
 
     def refine_scope(topics_page_scope)
-      topics_page_scope.order_sticky_first.order_recently_posted_first.includes(:categories, :last_user, :user)
+      scope = topics_page_scope.order_sticky_first.order_recently_posted_first.includes(:categories, :last_user, :user)
+      if Thredded.show_topic_followers
+        scope.includes(:followers)
+      else
+        scope
+      end
     end
   end
 end
