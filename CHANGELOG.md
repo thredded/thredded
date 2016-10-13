@@ -1,8 +1,8 @@
-# Master (future v0.7.0)
+# v0.7.0
 
 This release contains new functionality and backwards-incompatible changes.
 
-**NB:** If updating to this version from 0.6.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/4058995b0b21a5d3358ebef1cfbd9309e48d269b/db/upgrade_migrations/20160723012349_upgrade_v0_6_to_v0_7.rb) after upgrading the gem.
+**NB:** If updating to this version from 0.6.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/1aba2433d7df1bd00478dd156d8f2526d36aad55/db/upgrade_migrations/20160723012349_upgrade_v0_6_to_v0_7.rb) after upgrading the gem.
 
 ## Added
 
@@ -41,7 +41,7 @@ This release contains new functionality and backwards-incompatible changes.
   Previously, Thredded used `User#to_s`. This new method uses `Thredded.user_name_column` by default,
   simplifying the setup. [#398](https://github.com/thredded/thredded/issues/398)
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v0.6.3...master.
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.6.3...v0.7.0.
 
 # v0.6.3
 

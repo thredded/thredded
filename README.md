@@ -44,7 +44,7 @@ application and not an engine like Thredded.
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.6.3'
+gem 'thredded', '~> 0.7.0'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
