@@ -26,7 +26,7 @@ This release contains new functionality and backwards-incompatible changes.
   [#404](https://github.com/thredded/thredded/pull/404)
 * The read topics in the topics list are now also distinguished from the unread ones by their font weight.
   [#394](https://github.com/thredded/thredded/pull/394)
-* Following / not following indicators are now displayed on the topics list. The "following" (🔔) icon is displayed on
+* Following / not following indicators are now displayed on the topics list. The "following" icon ![Follow icon](https://raw.githubusercontent.com/wiki/thredded/thredded/img/follow.png) is displayed on
   the topic page if the topic is being followed by the user.
   [#394](https://github.com/thredded/thredded/pull/394)
 
