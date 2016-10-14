@@ -12,6 +12,7 @@ gem 'puma'
 gem 'pg'
 gem 'rails_email_preview', '>= 1.0.3'
 gem 'jquery-turbolinks'
+gem 'pundit'
 # TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
 # https://github.com/kossnocorp/jquery.turbolinks/pull/58
 gem 'turbolinks', '~> 2.5'
