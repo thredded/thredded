@@ -8,11 +8,13 @@ module Thredded
 
     validate :validate_children
 
-    delegate :notify_on_mention, :notify_on_mention=,
+    delegate :auto_follow_topics, :auto_follow_topics=,
              :notify_on_message, :notify_on_message=,
+             :followed_topic_emails, :followed_topic_emails=,
              to: :user_preference
 
-    delegate :notify_on_mention, :notify_on_mention=,
+    delegate :auto_follow_topics, :auto_follow_topics=,
+             :followed_topic_emails, :followed_topic_emails=,
              to: :user_messageboard_preference,
              prefix: :messageboard
 

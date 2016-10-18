@@ -22,10 +22,12 @@ module Thredded
       @preferences = UserPreferencesForm.new(
         user:         thredded_current_user,
         messageboard: messageboard_or_nil,
-        params:       params.fetch(:user_preferences_form, {}).permit(
-          :notify_on_mention,
+        params: params.fetch(:user_preferences_form, {}).permit(
+          :followed_topic_emails,
+          :auto_follow_topics,
           :notify_on_message,
-          :messageboard_notify_on_mention,
+          :messageboard_followed_topic_emails,
+          :messageboard_auto_follow_topics
         )
       )
     end

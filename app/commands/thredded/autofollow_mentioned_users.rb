@@ -24,8 +24,8 @@ module Thredded
 
     def exclude_those_opting_out_of_at_notifications(members)
       members.select do |member|
-        member.thredded_user_preference.notify_on_mention? &&
-          member.thredded_user_messageboard_preferences.in(post.messageboard).notify_on_mention?
+        member.thredded_user_preference.auto_follow_topics? &&
+          member.thredded_user_messageboard_preferences.in(post.messageboard).auto_follow_topics?
       end
     end
   end

@@ -19,17 +19,21 @@ module PageObject
       end
     end
 
-    def disable_at_notifications
-      uncheck 'user_preferences_form[notify_on_mention]'
-      click_button I18n.t('thredded.preferences.form.submit_btn')
-    end
-
     def updated?
       has_content? I18n.t('thredded.preferences.updated_notice')
     end
 
     def has_at_mention_notifications?
-      has_checked_field? 'user_preferences_form[notify_on_mention]'
+      has_checked_field? 'user_preferences_form[auto_follow_topics]'
+    end
+
+    def disable_at_notifications
+      uncheck 'user_preferences_form[auto_follow_topics]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
+    end
+
+    def has_private_topic_notifications?
+      has_checked_field? 'user_preferences_form[notify_on_message]'
     end
 
     def disable_private_topic_notifications
@@ -37,8 +41,31 @@ module PageObject
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
-    def has_private_topic_notifications?
-      has_checked_field? 'user_preferences_form[notify_on_message]'
+    def has_followed_topic_emails?
+      has_checked_field? 'user_preferences_form[followed_topic_emails]'
+    end
+
+    def disable_followed_topic_emails
+      uncheck 'user_preferences_form[followed_topic_emails]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
+    end
+
+    def has_messageboard_at_mention_notifications?
+      has_checked_field? 'user_preferences_form[messageboard_auto_follow_topics]'
+    end
+
+    def disable_messageboard_at_mention_notifications
+      uncheck 'user_preferences_form[messageboard_auto_follow_topics]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
+    end
+
+    def has_messageboard_followed_topic_emails?
+      has_checked_field? 'user_preferences_form[messageboard_followed_topic_emails]'
+    end
+
+    def disable_messageboard_followed_topic_emails
+      uncheck 'user_preferences_form[messageboard_followed_topic_emails]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
     end
   end
 end
