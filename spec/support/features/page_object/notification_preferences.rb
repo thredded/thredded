@@ -40,5 +40,32 @@ module PageObject
     def has_private_topic_notifications?
       has_checked_field? 'user_preferences_form[notify_on_message]'
     end
+
+    def has_followed_topic_notifications?
+      has_checked_field? 'user_preferences_form[notify_on_followed_activity]'
+    end
+
+    def disable_followed_topic_notifications
+      uncheck 'user_preferences_form[notify_on_followed_activity]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
+    end
+
+    def has_messageboard_followed_topic_notifications?
+      has_checked_field? 'user_preferences_form[messageboard_notify_on_followed_activity]'
+    end
+
+    def disable_messageboard_followed_topic_notifications
+      uncheck 'user_preferences_form[messageboard_notify_on_followed_activity]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
+    end
+
+    def has_messageboard_at_mention_notifications?
+      has_checked_field? 'user_preferences_form[messageboard_notify_on_mention]'
+    end
+
+    def disable_messageboard_at_mention_notifications
+      uncheck 'user_preferences_form[messageboard_notify_on_mention]'
+      click_button I18n.t('thredded.preferences.form.submit_btn')
+    end
   end
 end

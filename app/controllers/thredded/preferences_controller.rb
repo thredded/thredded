@@ -25,7 +25,9 @@ module Thredded
         params:       params.fetch(:user_preferences_form, {}).permit(
           :notify_on_mention,
           :notify_on_message,
+          :notify_on_followed_activity,
           :messageboard_notify_on_mention,
+          :messageboard_notify_on_followed_activity
         )
       )
     end

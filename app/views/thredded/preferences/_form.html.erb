@@ -27,6 +27,15 @@
         </p>
       <% end %>
     </li>
+    <li>
+      <%= f.label :notify_on_followed_activity do %>
+        <%= f.check_box :notify_on_followed_activity %>
+        <%= t 'thredded.preferences.form.notify_on_followed_activity.label' %>
+        <p class="thredded--form-list--hint">
+          <%= t 'thredded.preferences.form.notify_on_followed_activity.hint' %>
+        </p>
+      <% end %>
+    </li>
   </ul>
   <% if preferences.messageboard %>
     <h3>
@@ -39,6 +48,15 @@
           <%= t 'thredded.preferences.form.messageboard_notify_on_mention.label' %>
           <p class="thredded--form-list--hint">
             <%= t 'thredded.preferences.form.messageboard_notify_on_mention.hint' %>
+          </p>
+        <% end %>
+      </li>
+      <li>
+        <%= f.label :messageboard_notify_on_followed_activity do %>
+          <%= f.check_box :messageboard_notify_on_followed_activity %>
+          <%= t 'thredded.preferences.form.messageboard_notify_on_followed_activity.label' %>
+          <p class="thredded--form-list--hint">
+            <%= t 'thredded.preferences.form.messageboard_notify_on_followed_activity.hint' %>
           </p>
         <% end %>
       </li>
