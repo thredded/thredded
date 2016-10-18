@@ -8,29 +8,6 @@ feature 'User updating preferences globally' do
 
     expect(preferences).to have_at_mention_notifications
   end
-  def default_user_preferences
-    user = create(:user)
-    default_user_preferences =
-      PageObject::NotificationPreferences.new(user, nil)
-    default_user_preferences.visit_notification_edit
-    default_user_preferences
-  end
-end
-
-feature 'User updating preferences for messageboard' do
-  scenario 'Allows @ notifications by default' do
-    preferences = default_user_preferences
-
-    expect(preferences).to have_at_mention_notifications
-  end
-
-  scenario 'Does not allow @ notifications' do
-    preferences = default_user_preferences
-    preferences.disable_at_notifications
-
-    expect(preferences).to be_updated
-    expect(preferences).not_to have_at_mention_notifications
-  end
 
   scenario 'Allows private topic notifications by default' do
     preferences = default_user_preferences
@@ -57,6 +34,30 @@ feature 'User updating preferences for messageboard' do
 
     expect(preferences).to be_updated
     expect(preferences).not_to have_followed_topic_notifications
+  end
+
+  def default_user_preferences
+    user = create(:user)
+    default_user_preferences =
+      PageObject::NotificationPreferences.new(user, nil)
+    default_user_preferences.visit_notification_edit
+    default_user_preferences
+  end
+end
+
+feature 'User updating preferences for messageboard' do
+  scenario 'Allows @ notifications by default' do
+    preferences = default_user_preferences
+
+    expect(preferences).to have_at_mention_notifications
+  end
+
+  scenario 'Does not allow @ notifications' do
+    preferences = default_user_preferences
+    preferences.disable_at_notifications
+
+    expect(preferences).to be_updated
+    expect(preferences).not_to have_at_mention_notifications
   end
 
   def default_user_preferences
