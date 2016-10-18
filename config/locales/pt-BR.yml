@@ -78,6 +78,12 @@ pt-BR:
             um e-mail com o conteúdo deste post.
           label: :thredded.preferences.form.notify_on_mention.label
         messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
+        messageboard_notify_on_followed_activity:
+          hint: >-
+          label: >-
+        notify_on_followed_activity:
+          hint: >-
+          label: >-
         notify_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo

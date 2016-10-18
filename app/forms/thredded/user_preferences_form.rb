@@ -14,6 +14,7 @@ module Thredded
              to: :user_preference
 
     delegate :notify_on_mention, :notify_on_mention=,
+             :notify_on_followed_activity, :notify_on_followed_activity=,
              to: :user_messageboard_preference,
              prefix: :messageboard
 

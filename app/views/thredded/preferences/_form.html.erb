@@ -51,6 +51,15 @@
           </p>
         <% end %>
       </li>
+      <li>
+        <%= f.label :messageboard_notify_on_followed_activity do %>
+          <%= f.check_box :messageboard_notify_on_followed_activity %>
+          <%= t 'thredded.preferences.form.messageboard_notify_on_followed_activity.label' %>
+          <p class="thredded--form-list--hint">
+            <%= t 'thredded.preferences.form.messageboard_notify_on_followed_activity.hint' %>
+          </p>
+        <% end %>
+      </li>
     </ul>
   <% end %>
   <button type="submit" class="thredded--form--submit">

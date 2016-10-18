@@ -49,15 +49,28 @@ feature 'User updating preferences for messageboard' do
   scenario 'Allows @ notifications by default' do
     preferences = default_user_preferences
 
-    expect(preferences).to have_at_mention_notifications
+    expect(preferences).to have_messageboard_at_mention_notifications
   end
 
   scenario 'Does not allow @ notifications' do
     preferences = default_user_preferences
-    preferences.disable_at_notifications
+    preferences.disable_messageboard_at_mention_notifications
 
     expect(preferences).to be_updated
-    expect(preferences).not_to have_at_mention_notifications
+    expect(preferences).not_to have_messageboard_at_mention_notifications
+  end
+
+  scenario 'Allows followed topic notifications by default' do
+    preferences = default_user_preferences
+    expect(preferences).to have_messageboard_followed_topic_notifications
+  end
+
+  scenario 'Does not allow followed topic notifications' do
+    preferences = default_user_preferences
+    preferences.disable_messageboard_followed_topic_notifications
+
+    expect(preferences).to be_updated
+    expect(preferences).not_to have_messageboard_followed_topic_notifications
   end
 
   def default_user_preferences
