@@ -10,6 +10,7 @@ module Thredded
 
     delegate :notify_on_mention, :notify_on_mention=,
              :notify_on_message, :notify_on_message=,
+             :notify_on_followed_activity, :notify_on_followed_activity=,
              to: :user_preference
 
     delegate :notify_on_mention, :notify_on_mention=,

@@ -77,6 +77,10 @@ en:
             When someone mentions you by your username (eg: @sam) in this messageboard you will follow the topic.
             You will receive emails with the contents of that post and any replies.
           label: :thredded.preferences.form.notify_on_mention.label
+        notify_on_followed_activity:
+          hint: >-
+            When there is activity in this messageboard for a topic you follow. You will receive emails with the contents of that post and any replies.
+          label: Followed Topic Notifications
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
         notify_on_mention:
           hint: >-

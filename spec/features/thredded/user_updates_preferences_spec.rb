@@ -46,6 +46,19 @@ feature 'User updating preferences for messageboard' do
     expect(preferences).not_to have_private_topic_notifications
   end
 
+  scenario 'Allows followed topic notifications by default' do
+    preferences = default_user_preferences
+    expect(preferences).to have_followed_topic_notifications
+  end
+
+  scenario 'Does not allow followed topic notifications' do
+    preferences = default_user_preferences
+    preferences.disable_followed_topic_notifications
+
+    expect(preferences).to be_updated
+    expect(preferences).not_to have_followed_topic_notifications
+  end
+
   def default_user_preferences
     user = create(:user)
     messageboard = create(:messageboard)

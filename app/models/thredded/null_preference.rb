@@ -8,5 +8,9 @@ module Thredded
     def notify_on_message
       true
     end
+
+    def notify_on_followed_activity
+      true
+    end
   end
 end
