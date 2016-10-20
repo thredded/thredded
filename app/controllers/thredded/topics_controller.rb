@@ -18,7 +18,6 @@ module Thredded
         thredded_current_user,
         policy_scope(messageboard.topics)
           .order_sticky_first.order_recently_posted_first
-          .includes(:categories, :last_user, :user)
           .page(current_page)
       )
       TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
