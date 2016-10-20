@@ -138,6 +138,9 @@ In this case, you will need to reference your paths/routes carefully and pull in
 In your layout you will probably have links to other paths in your app (e.g. navigation links).
 For any url helpers (like `users_path` or `projects_path` or whatever) will need to have `main_app.` prefixed to  them so that they can be found from thredded (`main_app.users_path` will work from either thredded or your app).
 
+However if you don't want to update your layouts and partials, you can define methods automatically to delegate to the main_app's routes:
+See https://gist.github.com/timdiggins/bf6d09b28828a392198562c93554ad07.
+
 #### Pulling in thredded assets (styles and javascript)
 
 In this case, you will also need to include Thredded styles and JavaScript into the application styles and JavaScript.
