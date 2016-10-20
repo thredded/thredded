@@ -16,7 +16,9 @@ module Thredded
 
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
-        policy_scope(messageboard.topics).page(current_page)
+        policy_scope(messageboard.topics)
+          .order_sticky_first.order_recently_posted_first
+          .page(current_page)
       )
       TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
         @new_topic = form if policy(form.topic).create?
