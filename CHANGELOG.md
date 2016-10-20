@@ -1,3 +1,21 @@
+# Master (future v0.8.0)
+
+This release contains new functionality and backwards-incompatible changes.
+
+See in particular "main app delegator" in Changed below.
+
+## Added
+
+* (nothing yet)
+
+## Changed
+
+* The "main app delegator" has been removed. If you are using an application layout for thredded, you need to either prefix your links with main_app or add some code to your thredded initializer [Readme on application layouts](https://github.com/thredded/thredded/blob/master/README.md#application-layout).
+
+## Fixed
+
+* (nothing yet)
+
 # v0.7.0
 
 This release contains new functionality and backwards-incompatible changes.
