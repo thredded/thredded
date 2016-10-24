@@ -129,10 +129,13 @@ namespace :db do
     tables = connection.tables - %w(schema_migrations)
 
     tables.each do |table|
-      if connection.adapter_name =~ /sqlite/i
+      case connection.adapter_name
+      when /sqlite/i
         connection.execute("DELETE FROM #{table}")
         connection.execute("DELETE FROM sqlite_sequence where name='#{table}'")
-      else
+      when /mysql/i
+        connection.execute("DELETE FROM #{table}")
+      when /postgres/i
         connection.execute("TRUNCATE #{table} CASCADE")
       end
     end
@@ -140,4 +143,14 @@ namespace :db do
 
   desc 'Re-seed database with new data'
   task reseed: [:truncate, :seed]
+
+  desc 'do a mini seed to generate sample data for migration tests'
+  task miniseed: :environment do
+    Thredded::DatabaseSeeder.run(users: 5, topics: 5, posts: 1..5)
+  end
+
+  task miniseed_dump: [:miniseed] do
+    Thredded::DbTools.dump
+    system('cd spec/dummy && rails db:environment:set RAILS_ENV=development')
+  end
 end

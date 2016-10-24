@@ -53,3 +53,22 @@ describe Thredded, '.messageboards_order', thredded_reset: [:@@messageboards_ord
     end
   end
 end
+
+describe Thredded, '.notifiers', thredded_reset: [:@@notifiers] do
+  specify 'default' do
+    notifiers = Thredded.notifiers
+    expect(notifiers.length).to be(1)
+    expect(notifiers).to include(an_instance_of(Thredded::EmailNotifier))
+    expect(notifiers.first).to equal(Thredded.notifiers.first) # ie it returns same object -- not another one
+  end
+
+  specify 'can assign to new notifier instance' do
+    mock = MockNotifier.new.resetted
+    Thredded.notifiers = [mock]
+    expect(Thredded.notifiers).to eq([mock])
+  end
+
+  specify 'problematic notifier fails early' do
+    expect { Thredded.notifiers = ['badly-specified'] }.to raise_error(/notifier/i)
+  end
+end

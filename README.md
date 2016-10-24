@@ -105,14 +105,26 @@ rails g thredded:install
 
 But then compare this with the previous version to decide what to keep.
 
-2) To upgrade the database (in this example from v0.4 to the v0.5):
+2) To upgrade the database:
+
+Latest version (in this example from v0.6 to v0.7):
 
 ```console
-cp `bundle show thredded`/db/upgrade_migrations/20160501151908_upgrade_v0_4_to_v0_5.rb db/migrate
+# Note that for guaranteed best results you will want to run this with the gem checked out with v0.7.0
+cp `bundle show thredded`/db/upgrade_migrations/20160723012349_upgrade_v0_6_to_v0_7.rb db/migrate
 rake db:migrate
 ```
 
-Note that for guaranteed best results you will want to run this with the gem checked out with v0.5.0.
+
+To upgrade the database (in this example from v0.7 to v0.8):
+
+```console
+# Note that for guaranteed best results you will want to run this with the gem checked out with v0.8.0.
+cp `bundle show thredded`/db/upgrade_migrations/20161019150201_upgrade_v0_7_to_v0_8.rb db/migrate
+rake db:migrate
+```
+
+
 
 ### Migrating from Forem
 
@@ -274,13 +286,16 @@ any duplicate CSS.
 [select2-rails]: https://github.com/argerim/select2-rails
 [thredded-scss-base]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_base.scss
 
-### Emails
+### Email and other notifications
 
 Thredded sends several notification emails to the users. You can override in the same way as the views.
 If you use [Rails Email Preview], you can include Thredded emails into the list of previews by adding
 `Thredded::BaseMailerPreview.preview_classes` to the [Rails Email Preview] `preview_classes` config option.
 
 [Rails Email Preview]: https://github.com/glebm/rails_email_preview
+
+You can also turn off the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting the
+ `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
 
 ## I18n
 

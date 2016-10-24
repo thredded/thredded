@@ -4,21 +4,21 @@ require 'spec_helper'
 
 module Thredded
   describe NotifyFollowingUsers do
-    describe '#targetted_users' do
+    describe '#targeted_users' do
       let(:post) { create(:post, user: poster, postable: topic) }
       let(:poster) { create(:user, name: "poster") }
       let!(:follower) { create(:user_topic_follow, user: create(:user, name: "follower"), topic: topic).user }
       let(:topic) { create(:topic, messageboard: messageboard) }
       let!(:messageboard) { create(:messageboard) }
-      subject { NotifyFollowingUsers.new(post).targeted_users }
+      let(:notifier) { EmailNotifier.new }
+      subject { NotifyFollowingUsers.new(post).targeted_users(notifier) }
 
       it "includes followers where preference to receive these notifications" do
-        create(
-          :user_messageboard_preference,
-          followed_topic_emails: true,
-          user: follower,
-          messageboard: messageboard
-        )
+        create(:notifications_for_followed_topics,
+               notifier_key: 'email',
+               user: follower,
+               enabled: true)
+
         expect(subject).to include(follower)
       end
 
@@ -27,14 +27,71 @@ module Thredded
         expect(subject).to_not include(poster)
       end
 
-      it "doesn't include followers where notification turned off" do
-        create(
-          :user_messageboard_preference,
-          followed_topic_emails: false,
-          user: follower,
-          messageboard: messageboard
-        )
-        expect(subject).not_to include(follower)
+      context "when a follower's email notification is turned off" do
+        before do
+          create(:notifications_for_followed_topics,
+                 notifier_key: 'email',
+                 user: follower,
+                 enabled: false)
+        end
+
+        it "doesn't include that user" do
+          expect(subject).not_to include(follower)
+        end
+
+        context "with the MockNotifier" do
+          let(:notifier) { MockNotifier.new.resetted }
+          it "does include that user" do
+            expect(subject).to include(follower)
+          end
+        end
+      end
+
+      context "when a follower's 'mock' notification is turned off (per messageboard)" do
+        before do
+          create(:messageboard_notifications_for_followed_topics,
+                 notifier_key: 'mock',
+                 messageboard: messageboard,
+                 user: follower,
+                 enabled: false)
+        end
+
+        context "with the EmailNotifier" do
+          let(:notifier) { EmailNotifier.new }
+          it "does includes that user" do
+            expect(subject).to include(follower)
+          end
+        end
+
+        context "with the MockNotifier" do
+          let(:notifier) { MockNotifier.new.resetted }
+          it "doesn't include that user" do
+            expect(subject).not_to include(follower)
+          end
+        end
+      end
+
+      context "when a follower's 'mock' notification is turned off (overall)" do
+        before do
+          create(:notifications_for_followed_topics,
+                 notifier_key: 'mock',
+                 user: follower,
+                 enabled: false)
+        end
+
+        context "with the EmailNotifier" do
+          let(:notifier) { EmailNotifier.new }
+          it "does includes that user" do
+            expect(subject).to include(follower)
+          end
+        end
+
+        context "with the MockNotifier" do
+          let(:notifier) { MockNotifier.new.resetted }
+          it "doesn't include that user" do
+            expect(subject).not_to include(follower)
+          end
+        end
       end
     end
 
@@ -45,11 +102,19 @@ module Thredded
       let(:targeted_users) { [build_stubbed(:user)] }
       before { allow(command).to receive(:targeted_users).and_return(targeted_users) }
 
-      it "sends an email to targetted users" do
-        expect { command.run }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      it "sends email" do
+        expect { command.run }.to change { ActionMailer::Base.deliveries.count }
+        # see EmailNotifier spec for more detailed specs
       end
-      it "records notifications" do
-        expect { command.run }.to change { PostNotification.count }.by(1)
+
+      context "with the MockNotifier", thredded_reset: ["@@notifiers"] do
+        before { Thredded.notifiers = [MockNotifier.new.resetted] }
+        it "doesn't send any emails" do
+          expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
+        end
+        it "uses MockNotifier" do
+          expect { command.run }.to change { MockNotifier.users_notified_of_new_post }
+        end
       end
     end
   end
