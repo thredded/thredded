@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class NullPreference
-    def auto_follow_topics
+    def follow_topics_on_mention
       true
     end
 

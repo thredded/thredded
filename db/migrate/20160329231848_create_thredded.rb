@@ -162,7 +162,7 @@ class CreateThredded < ActiveRecord::Migration
 
     create_table :thredded_user_preferences do |t|
       t.references :user, null: false
-      t.boolean :auto_follow_topics, default: true, null: false
+      t.boolean :follow_topics_on_mention, default: true, null: false
       t.boolean :notify_on_message, default: true, null: false
       t.boolean :followed_topic_emails, default: true, null: false
       t.timestamps null: false
@@ -172,7 +172,7 @@ class CreateThredded < ActiveRecord::Migration
     create_table :thredded_user_messageboard_preferences do |t|
       t.references :user, null: false
       t.references :messageboard, null: false
-      t.boolean :auto_follow_topics, default: true, null: false
+      t.boolean :follow_topics_on_mention, default: true, null: false
       t.boolean :followed_topic_emails, default: true, null: false
       t.timestamps null: false
       t.index [:user_id, :messageboard_id],

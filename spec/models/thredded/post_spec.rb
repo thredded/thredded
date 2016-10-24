@@ -24,7 +24,7 @@ module Thredded
         :user_messageboard_preference,
         user: joel,
         messageboard: messageboard,
-        auto_follow_topics: true
+        follow_topics_on_mention: true
       )
 
       expect(mail).to receive(:deliver_now)
@@ -91,7 +91,7 @@ module Thredded
     it 'creates a follow for a mentioned user' do
       messageboard = create(:messageboard)
       joel = create(:user, name: 'joel', email: 'joel@example.com')
-      create(:user_messageboard_preference, user: joel, messageboard: messageboard, auto_follow_topics: true)
+      create(:user_messageboard_preference, user: joel, messageboard: messageboard, follow_topics_on_mention: true)
 
       expect { create(:post, content: 'hi @joel', messageboard: messageboard) }
         .to change { joel.thredded_topic_follows.reload.count }.from(0).to(1)

@@ -72,29 +72,29 @@ pt-BR:
         page_title: :thredded.nav.settings
       form:
         global_preferences_label: Configurações Globais
-        messageboard_auto_follow_topics:
+        messageboard_follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá receber
             um e-mail com o conteúdo deste post.
-          label: :thredded.preferences.form.auto_follow_topics.label
+          label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
         messageboard_followed_topic_emails:
           hint: >-
             Quando há um post em um tópico que você siga nesta messageboard será enviado um e-mail.
-          label: E-mails de Tópico seguido
+          label: Notificações de e-mail para tópicos seguido
         followed_topic_emails:
           hint: >-
             Quando há um post em um tópico que você siga, você receberá um e-mail.
-          label: E-mails de Tópico seguido
-        auto_follow_topics:
+          label: Notificações de e-mail para tópicos seguido
+        follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
             deste post.
-          label: Siga automaticamente Tópicos
+          label: Siga os tópicos que são mencionados na
         notify_on_message:
           hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta
             conversa.
-          label: Notificação de Mensagens Privadas
+          label: E-mail notificações de mensagens privadas
         submit_btn: Atualizar Configurações
         title: Configurações
       updated_notice: Suas configurações foram atualizadas.

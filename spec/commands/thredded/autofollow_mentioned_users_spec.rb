@@ -12,10 +12,10 @@ module Thredded
     end
 
     it 'respects global notification preferences' do
-      create(:user_preference, user: @joel, auto_follow_topics: true)
-      create(:user_messageboard_preference, user: @joel, auto_follow_topics: false, messageboard: @messageboard)
-      create(:user_preference, user: @john, auto_follow_topics: false)
-      create(:user_messageboard_preference, user: @john, auto_follow_topics: true, messageboard: @messageboard)
+      create(:user_preference, user: @joel, follow_topics_on_mention: true)
+      create(:user_messageboard_preference, user: @joel, follow_topics_on_mention: false, messageboard: @messageboard)
+      create(:user_preference, user: @john, follow_topics_on_mention: false)
+      create(:user_messageboard_preference, user: @john, follow_topics_on_mention: true, messageboard: @messageboard)
 
       expect(AutofollowMentionedUsers.new(@post).autofollowers).to be_empty
     end
@@ -29,7 +29,7 @@ module Thredded
     it 'does not return users that set their preference to "no @ notifications"' do
       create(
         :user_messageboard_preference,
-        auto_follow_topics: false,
+        follow_topics_on_mention: false,
         user: @joel,
         messageboard: @post.messageboard
       )

@@ -10,20 +10,11 @@
   <h3><%= t 'thredded.preferences.form.global_preferences_label' %></h3>
   <ul class="thredded--form-list">
     <li>
-      <%= f.label :notify_on_message do %>
-        <%= f.check_box :notify_on_message %>
-        <%= t 'thredded.preferences.form.notify_on_message.label' %>
+      <%= f.label :follow_topics_on_mention do %>
+        <%= f.check_box :follow_topics_on_mention %>
+        <%= t 'thredded.preferences.form.follow_topics_on_mention.label' %>
         <p class="thredded--form-list--hint">
-          <%= t 'thredded.preferences.form.notify_on_message.hint' %>
-        </p>
-      <% end %>
-    </li>
-    <li>
-      <%= f.label :auto_follow_topics do %>
-        <%= f.check_box :auto_follow_topics %>
-        <%= t 'thredded.preferences.form.auto_follow_topics.label' %>
-        <p class="thredded--form-list--hint">
-          <%= t 'thredded.preferences.form.auto_follow_topics.hint' %>
+          <%= t 'thredded.preferences.form.follow_topics_on_mention.hint' %>
         </p>
       <% end %>
     </li>
@@ -36,6 +27,15 @@
         </p>
       <% end %>
     </li>
+    <li>
+      <%= f.label :notify_on_message do %>
+        <%= f.check_box :notify_on_message %>
+        <%= t 'thredded.preferences.form.notify_on_message.label' %>
+        <p class="thredded--form-list--hint">
+          <%= t 'thredded.preferences.form.notify_on_message.hint' %>
+        </p>
+      <% end %>
+    </li>
   </ul>
   <% if preferences.messageboard %>
     <h3>
@@ -43,11 +43,11 @@
     </h3>
     <ul class="thredded--form-list" data-thredded-user-preferences-form-messageboard-fields>
       <li>
-        <%= f.label :messageboard_auto_follow_topics do %>
-          <%= f.check_box :messageboard_auto_follow_topics %>
-          <%= t 'thredded.preferences.form.messageboard_auto_follow_topics.label' %>
+        <%= f.label :messageboard_follow_topics_on_mention do %>
+          <%= f.check_box :messageboard_follow_topics_on_mention %>
+          <%= t 'thredded.preferences.form.messageboard_follow_topics_on_mention.label' %>
           <p class="thredded--form-list--hint">
-            <%= t 'thredded.preferences.form.messageboard_auto_follow_topics.hint' %>
+            <%= t 'thredded.preferences.form.messageboard_follow_topics_on_mention.hint' %>
           </p>
         <% end %>
       </li>

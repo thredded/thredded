@@ -24,10 +24,10 @@ module Thredded
         messageboard: messageboard_or_nil,
         params:       params.fetch(:user_preferences_form, {}).permit(
           :followed_topic_emails,
-          :auto_follow_topics,
+          :follow_topics_on_mention,
           :notify_on_message,
           :messageboard_followed_topic_emails,
-          :messageboard_auto_follow_topics
+          :messageboard_follow_topics_on_mention
         )
       )
     end

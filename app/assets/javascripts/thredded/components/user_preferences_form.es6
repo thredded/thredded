@@ -1,25 +1,25 @@
 (function($) {
   const COMPONENT_SELECTOR = '[data-thredded-user-preferences-form]';
-  const AUTO_FOLLOW_TOPICS_SELECTOR = ':checkbox[name="user_preferences_form[auto_follow_topics]"]';
-  const MESSAGEBOARD_AUTO_FOLLOW_TOPICS_SELECTOR = '[name="user_preferences_form[messageboard_auto_follow_topics]"]';
+  const FOLLOW_TOPICS_ON_MENTION_SELECTOR = ':checkbox[name="user_preferences_form[follow_topics_on_mention]"]';
+  const MESSAGEBOARD_FOLLOW_TOPICS_ON_MENTION_SELECTOR = '[name="user_preferences_form[messageboard_follow_topics_on_mention]"]';
   const FOLLOWED_TOPIC_EMAILS_SELECTOR = ':checkbox[name="user_preferences_form[followed_topic_emails]"]';
   const MESSAGEBOARD_FOLLOWED_TOPIC_EMAILS_SELECTOR = ':checkbox[name="user_preferences_form[messageboard_followed_topic_emails]"]';
 
   class UserPreferencesForm {
     constructor(form) {
       this.$form = $(form);
-      this.$autofollowTopics = this.$form.find(AUTO_FOLLOW_TOPICS_SELECTOR);
-      this.$messageboardAutofollowTopics = this.$form.find(MESSAGEBOARD_AUTO_FOLLOW_TOPICS_SELECTOR);
+      this.$followTopicsOnMention = this.$form.find(FOLLOW_TOPICS_ON_MENTION_SELECTOR);
+      this.$messageboardFollowTopicsOnMention = this.$form.find(MESSAGEBOARD_FOLLOW_TOPICS_ON_MENTION_SELECTOR);
       this.$followedTopicEmails = this.$form.find(FOLLOWED_TOPIC_EMAILS_SELECTOR);
       this.$messageboardFollowedTopicEmails = this.$form.find(MESSAGEBOARD_FOLLOWED_TOPIC_EMAILS_SELECTOR);
 
-      this.messageboardAutofollowTopicsCheckedWas = this.$messageboardAutofollowTopics.prop('checked');
-      this.$messageboardAutofollowTopics.on('change', () => {
+      this.messageboardFollowTopicsOnMentionCheckedWas = this.$messageboardFollowTopicsOnMention.prop('checked');
+      this.$messageboardFollowTopicsOnMention.on('change', () => {
         this.rememberMessageboardAutofollowTopicsChecked();
       });
       this.rememberMessageboardAutofollowTopicsChecked();
 
-      this.$autofollowTopics.on('change', () => {
+      this.$followTopicsOnMention.on('change', () => {
         this.updateMessageboardAutofollowTopics();
       });
       this.updateMessageboardAutofollowTopics();
@@ -37,15 +37,15 @@
     }
 
     rememberMessageboardAutofollowTopicsChecked() {
-      this.messageboardAutofollowTopicsCheckedWas =
-        this.$messageboardAutofollowTopics.filter(':checkbox').prop('checked');
+      this.messageboardFollowTopicsOnMentionCheckedWas =
+        this.$messageboardFollowTopicsOnMention.filter(':checkbox').prop('checked');
     }
 
     updateMessageboardAutofollowTopics() {
-      const enabled = this.$autofollowTopics.prop('checked');
-      this.$messageboardAutofollowTopics
+      const enabled = this.$followTopicsOnMention.prop('checked');
+      this.$messageboardFollowTopicsOnMention
         .prop('disabled', !enabled)
-        .filter(':checkbox').prop('checked', enabled ? this.messageboardAutofollowTopicsCheckedWas : false);
+        .filter(':checkbox').prop('checked', enabled ? this.messageboardFollowTopicsOnMentionCheckedWas : false);
     }
 
     rememberMessageboardFollowedTopicEmailsChecked() {

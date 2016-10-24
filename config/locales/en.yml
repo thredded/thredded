@@ -72,26 +72,26 @@ en:
         page_title: :thredded.nav.settings
       form:
         global_preferences_label: Global Settings
-        messageboard_auto_follow_topics:
+        messageboard_follow_topics_on_mention:
           hint: >-
             When someone mentions you by your username (eg: @sam) in this messageboard you will follow the topic.
-          label: :thredded.preferences.form.auto_follow_topics.label
+          label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_followed_topic_emails:
           hint: >-
             When there is a post in a topic you follow on this messageboard you will be sent an email.
-          label: Followed Topic Emails
+          label: Email notifications for followed topics
         followed_topic_emails:
           hint: >-
             When there is a post in a topic you follow you will receive an email.
-          label: Followed Topic Emails
+          label: Email notifications for followed topics
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
-        auto_follow_topics:
+        follow_topics_on_mention:
           hint: >-
             When someone mentions you by your username (eg: @sam) you will follow the topic.
-          label: Auto-follow Topics
+          label: Follow topics you are mentioned in
         notify_on_message:
           hint: When you are added to a private conversation you will receive an email with its content.
-          label: Private Message Notifications
+          label: Email notifications for private messages
         submit_btn: Update Settings
         title: Settings
       updated_notice: Your settings have been updated.

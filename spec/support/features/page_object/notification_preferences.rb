@@ -24,11 +24,11 @@ module PageObject
     end
 
     def has_at_mention_notifications?
-      has_checked_field? 'user_preferences_form[auto_follow_topics]'
+      has_checked_field? 'user_preferences_form[follow_topics_on_mention]'
     end
 
     def disable_at_notifications
-      uncheck 'user_preferences_form[auto_follow_topics]'
+      uncheck 'user_preferences_form[follow_topics_on_mention]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
@@ -51,11 +51,11 @@ module PageObject
     end
 
     def has_messageboard_at_mention_notifications?
-      has_checked_field? 'user_preferences_form[messageboard_auto_follow_topics]'
+      has_checked_field? 'user_preferences_form[messageboard_follow_topics_on_mention]'
     end
 
     def disable_messageboard_at_mention_notifications
-      uncheck 'user_preferences_form[messageboard_auto_follow_topics]'
+      uncheck 'user_preferences_form[messageboard_follow_topics_on_mention]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
