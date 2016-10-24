@@ -23,9 +23,11 @@ module Thredded
         user:         thredded_current_user,
         messageboard: messageboard_or_nil,
         params:       params.fetch(:user_preferences_form, {}).permit(
-          :notify_on_mention,
+          :followed_topic_emails,
+          :follow_topics_on_mention,
           :notify_on_message,
-          :messageboard_notify_on_mention,
+          :messageboard_followed_topic_emails,
+          :messageboard_follow_topics_on_mention
         )
       )
     end

@@ -1,36 +1,63 @@
 (function($) {
   const COMPONENT_SELECTOR = '[data-thredded-user-preferences-form]';
-  const NOTIFY_ON_MENTION_SELECTOR = ':checkbox[name="user_preferences_form[notify_on_mention]"]';
-  const MESSAGEBOARD_NOTIFY_ON_MENTION_SELECTOR = '[name="user_preferences_form[messageboard_notify_on_mention]"]';
+  const FOLLOW_TOPICS_ON_MENTION_SELECTOR = ':checkbox[name="user_preferences_form[follow_topics_on_mention]"]';
+  const MESSAGEBOARD_FOLLOW_TOPICS_ON_MENTION_SELECTOR = '[name="user_preferences_form[messageboard_follow_topics_on_mention]"]';
+  const FOLLOWED_TOPIC_EMAILS_SELECTOR = ':checkbox[name="user_preferences_form[followed_topic_emails]"]';
+  const MESSAGEBOARD_FOLLOWED_TOPIC_EMAILS_SELECTOR = ':checkbox[name="user_preferences_form[messageboard_followed_topic_emails]"]';
 
   class UserPreferencesForm {
     constructor(form) {
       this.$form = $(form);
-      this.$notifyOnMention = this.$form.find(NOTIFY_ON_MENTION_SELECTOR);
-      this.$messageboardNotifyOnMention = this.$form.find(MESSAGEBOARD_NOTIFY_ON_MENTION_SELECTOR);
+      this.$followTopicsOnMention = this.$form.find(FOLLOW_TOPICS_ON_MENTION_SELECTOR);
+      this.$messageboardFollowTopicsOnMention = this.$form.find(MESSAGEBOARD_FOLLOW_TOPICS_ON_MENTION_SELECTOR);
+      this.$followedTopicEmails = this.$form.find(FOLLOWED_TOPIC_EMAILS_SELECTOR);
+      this.$messageboardFollowedTopicEmails = this.$form.find(MESSAGEBOARD_FOLLOWED_TOPIC_EMAILS_SELECTOR);
 
-      this.messageboardNotifyOnMentionCheckedWas = this.$messageboardNotifyOnMention.prop('checked');
-      this.$messageboardNotifyOnMention.on('change', () => {
-        this.rememberMessageboardNotifyOnMentionChecked();
+      this.messageboardFollowTopicsOnMentionCheckedWas = this.$messageboardFollowTopicsOnMention.prop('checked');
+      this.$messageboardFollowTopicsOnMention.on('change', () => {
+        this.rememberMessageboardAutofollowTopicsChecked();
       });
-      this.rememberMessageboardNotifyOnMentionChecked();
+      this.rememberMessageboardAutofollowTopicsChecked();
 
-      this.$notifyOnMention.on('change', () => {
-        this.updateMessageboardNotifyOnMention();
+      this.$followTopicsOnMention.on('change', () => {
+        this.updateMessageboardAutofollowTopics();
       });
-      this.updateMessageboardNotifyOnMention();
+      this.updateMessageboardAutofollowTopics();
+
+      this.messageboardFollowedTopicEmailsCheckedWas = this.$messageboardFollowedTopicEmails.prop('checked');
+      this.$messageboardFollowedTopicEmails.on('change', () => {
+        this.rememberMessageboardFollowedTopicEmailsChecked();
+      });
+      this.rememberMessageboardFollowedTopicEmailsChecked();
+
+      this.$followedTopicEmails.on('change', () => {
+        this.updateMessageboardFollowedTopicEmails();
+      });
+      this.updateMessageboardFollowedTopicEmails();
     }
 
-    rememberMessageboardNotifyOnMentionChecked() {
-      this.messageboardNotifyOnMentionCheckedWas =
-        this.$messageboardNotifyOnMention.filter(':checkbox').prop('checked');
+    rememberMessageboardAutofollowTopicsChecked() {
+      this.messageboardFollowTopicsOnMentionCheckedWas =
+        this.$messageboardFollowTopicsOnMention.filter(':checkbox').prop('checked');
     }
 
-    updateMessageboardNotifyOnMention() {
-      const enabled = this.$notifyOnMention.prop('checked');
-      this.$messageboardNotifyOnMention
+    updateMessageboardAutofollowTopics() {
+      const enabled = this.$followTopicsOnMention.prop('checked');
+      this.$messageboardFollowTopicsOnMention
         .prop('disabled', !enabled)
-        .filter(':checkbox').prop('checked', enabled ? this.messageboardNotifyOnMentionCheckedWas : false);
+        .filter(':checkbox').prop('checked', enabled ? this.messageboardFollowTopicsOnMentionCheckedWas : false);
+    }
+
+    rememberMessageboardFollowedTopicEmailsChecked() {
+      this.messageboardFollowedTopicEmailsCheckedWas =
+        this.$messageboardFollowedTopicEmails.filter(':checkbox').prop('checked');
+    }
+
+    updateMessageboardFollowedTopicEmails() {
+      const enabled = this.$followedTopicEmails.prop('checked');
+      this.$messageboardFollowedTopicEmails
+        .prop('disabled', !enabled)
+        .filter(':checkbox').prop('checked', enabled ? this.messageboardFollowedTopicEmailsCheckedWas : false);
     }
   }
 
