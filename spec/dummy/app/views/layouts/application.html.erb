@@ -31,10 +31,10 @@
         <span class="app-nav-auth">
           <% if signed_in? %>
             You are <%= link_to the_current_user.name, the_current_user %> |
-            <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+            <%= link_to 'Sign out', main_app.destroy_user_session_path, method: :delete %>
           <% else %>
             You are an anonymous visitor |
-            <%= link_to 'Sign in', new_user_session_path %>
+            <%= link_to 'Sign in', main_app.new_user_session_path %>
           <% end %>
         </span>
         <a class="app-nav-logo" href="/">Thredded: Example App</a>

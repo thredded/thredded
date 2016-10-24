@@ -114,14 +114,14 @@ to Thredded.
 
 ### Standalone layout
 
-By default, thredded renders in its own layout.
+By default, thredded renders in its own (standalone) layout.
 
 When using the standalone thredded layout, the log in / sign out links will be rendered in the navigation.
 For these links (and only for these links), Thredded makes the assumption that you are using devise as your auth
 library. If you are using something different you need to override the partial at
 `app/views/thredded/shared/nav/_standalone.html.erb` and use the appropriate log in / sign out path URL helpers.
 
-You can override the partial by copying it into the app:
+You can override the partial by copying it into your app:
 
 ```bash
 mkdir -p app/views/thredded/shared/nav && cp "$(bundle show thredded)/$_/_standalone.html.erb" "$_"
@@ -129,7 +129,19 @@ mkdir -p app/views/thredded/shared/nav && cp "$(bundle show thredded)/$_/_standa
 
 ### Application layout
 
-You can also use Thredded with the application layout by by setting `Thredded.layout` in the initializer.
+You can also use Thredded with your application (or other) layout by by setting `Thredded.layout` in the initializer.
+
+In this case, you will need to reference your paths/routes carefully and pull in thredded assets (styles and javascript):
+
+#### Referencing your paths so that thredded views can find them
+
+In your layout you will probably have links to other paths in your app (e.g. navigation links).
+For any url helpers (like `users_path` or `projects_path` or whatever) will need to have `main_app.` prefixed to  them so that they can be found from thredded (`main_app.users_path` will work from either thredded or your app).
+
+However if you don't want to update your layouts and partials, you can define methods automatically to delegate to the main_app's routes:
+See https://gist.github.com/timdiggins/bf6d09b28828a392198562c93554ad07.
+
+#### Pulling in thredded assets (styles and javascript)
 
 In this case, you will also need to include Thredded styles and JavaScript into the application styles and JavaScript.
 
