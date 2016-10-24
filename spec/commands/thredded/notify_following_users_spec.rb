@@ -26,16 +26,6 @@ module Thredded
         create(:user_topic_follow, user: poster, topic: topic)
         expect(subject).to_not include(poster)
       end
-
-      it "doesn't include followers where notification turned off" do
-        create(
-          :user_messageboard_preference,
-          followed_topic_emails: false,
-          user: follower,
-          messageboard: messageboard
-        )
-        expect(subject).not_to include(follower)
-      end
     end
 
     describe '#run' do
@@ -50,6 +40,19 @@ module Thredded
       end
       it "records notifications" do
         expect { command.run }.to change { PostNotification.count }.by(1)
+      end
+
+      context "with the test notifier", thredded_reset: ["@@notifiers"] do
+        before { Thredded.notifiers = [TestNotifier] }
+        it "doesn't send any emails" do
+          expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
+        end
+        it "doesn't record email notifications" do
+          expect { command.run }.not_to change { PostNotification.count }
+        end
+        it "uses test notifier" do
+          expect { command.run }.to change { TestNotifier.users_notified_of_new_post }
+        end
       end
     end
   end

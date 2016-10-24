@@ -53,3 +53,14 @@ describe Thredded, '.messageboards_order', thredded_reset: [:@@messageboards_ord
     end
   end
 end
+
+describe Thredded, '.notifiers', thredded_reset: [:@@notifiers] do
+  specify 'default' do
+    expect(Thredded.notifiers).to eq([Thredded::EmailNotifier])
+  end
+
+  specify 'can assign to new notifier class' do
+    Thredded.notifiers = [TestNotifier]
+    expect(Thredded.notifiers).to eq([TestNotifier])
+  end
+end
