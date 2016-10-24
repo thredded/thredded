@@ -6,7 +6,7 @@ class UpgradeV02ToV03 < ActiveRecord::Migration
     remove_index :thredded_notification_preferences, name: :index_thredded_notification_preferences_on_messageboard_id
     remove_index :thredded_notification_preferences, name: :index_thredded_notification_preferences_on_user_id
     rename_table :thredded_notification_preferences, :thredded_user_messageboard_preferences
-    remove_column :thredded_user_messageboard_preferences, :notify_on_message
+    remove_column :thredded_user_messageboard_preferences, :notifications_for_private_topics
     change_column_null :thredded_user_messageboard_preferences, :notify_on_mention, false
     add_column :thredded_user_preferences, :notify_on_mention, :boolean, default: true, null: false
     add_column :thredded_user_preferences, :notify_on_message, :boolean, default: true, null: false

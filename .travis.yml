@@ -20,7 +20,11 @@ env:
   - TRAVIS=1
 
 # Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
-script: "bundle exec rspec --format d && bundle exec rubocop && bundle exec codeclimate-test-reporter"
+script:
+- bundle exec rspec --format d
+- bundle exec rubocop
+- bundle exec codeclimate-test-reporter
+- MIGRATION_SPEC=1 bundle exec rspec spec/migration
 
 notifications:
   slack:

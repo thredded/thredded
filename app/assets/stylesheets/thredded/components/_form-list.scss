@@ -13,6 +13,11 @@
   label {
     transition: all 0.15s ease-out 0s;
   }
+
+  label + label {
+    display: inline-block;
+    font-weight: normal;
+  }
 }
 
 .thredded--form-list--admin-options {

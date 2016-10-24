@@ -1,3 +1,15 @@
+# Master (future v0.9.0)
+
+This release contains new functionality and backwards-incompatible changes.
+
+**NB:** If updating to this version from 0.8.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/master/db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb) after upgrading the gem.
+
+## Added
+
+* You can configure which notifiers are enabled: remove the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting the
+ `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
+
+
 # v0.8.4
 
 This is a minor bugfix release.
