@@ -16,45 +16,37 @@ module Thredded
         recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
         expect(recipients).not_to include @john
       end
-
-      it 'excludes anyone whose preferences say not to notify' do
-        post = build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john)
-        create(
-          :user_preference,
-          user: @joel,
-          notify_on_message: false
-        )
-        create(
-          :user_preference,
-          user: @sam,
-          notify_on_message: true
-        )
-
-        recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
-        expect(recipients).to include(@sam)
-        expect(recipients).not_to include(@joel)
-      end
-
-      it 'excludes anyone who has already been notified' do
-        post = build_stubbed(:private_post, postable: private_topic, user: @john)
-        create(:post_notification, email: @joel.email, post: post)
-
-        recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
-        expect(recipients).not_to include(@joel)
-        expect(recipients).to include(@sam)
-      end
     end
 
     describe '#run' do
+      let(:private_post) { create(:private_post, content: 'hi', postable: private_topic, user: @john) }
+
+      let(:command) { NotifyPrivateTopicUsers.new(private_post) }
+      let(:private_topic_recipients) { [build_stubbed(:user)] }
+      before { allow(command).to receive(:private_topic_recipients).and_return(private_topic_recipients) }
+
       it 'marks the right users as modified' do
-        private_post = create(:private_post, content: 'hi', postable: private_topic, user: @john)
-
-        NotifyPrivateTopicUsers.new(private_post).run
-
         emails = private_topic.posts.first.post_notifications.map(&:email)
         expect(emails).to include('joel@example.com')
         expect(emails).to include('sam@example.com')
         expect(emails.size).to eq(2)
+      end
+
+      it 'sends some emails' do
+        expect { command.run }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+      context 'with the test notifier', thredded_reset: ['@@notifiers'] do
+        before { Thredded.notifiers = [TestNotifier] }
+        it "doesn't send any emails" do
+          expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
+        end
+        it "doesn't record email notifications" do
+          expect { command.run }.not_to change { PostNotification.count }
+        end
+        it 'uses test notifier' do
+          expect { command.run }.to change { TestNotifier.users_notified_of_new_private_post }
+        end
       end
     end
   end

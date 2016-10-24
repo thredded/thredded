@@ -60,6 +60,9 @@ module Thredded
   # @return [Boolean] Whether posts that are pending moderation are visible to regular users.
   mattr_accessor :content_visible_while_pending_moderation
 
+  # @return [Array] The notifiers
+  mattr_accessor :notifiers
+
   # @return [Boolean] Whether users that are following a topic are listed on topic page.
   mattr_accessor :show_topic_followers
 
@@ -84,6 +87,10 @@ module Thredded
       fail '`Thredded.view_hooks` must be configured in a `Rails.application.config.to_prepare` block!'
     end
     instance
+  end
+
+  def self.notifiers
+    @@notifiers || [Thredded::EmailNotifier]
   end
 
   def self.user_display_name_method
