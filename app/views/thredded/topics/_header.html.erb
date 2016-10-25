@@ -15,12 +15,12 @@
         <%= inline_svg 'thredded/follow.svg', class: 'thredded--topic-header--follow-icon' %>
         <div>
           <%= topic_follow_reason_text topic.follow_reason %>
-          <%= button_to 'Stop following', topic.unfollow_path %>
+          <%= button_to t('thredded.topics.unfollow'), topic.unfollow_path %>
         </div>
       </div>
     <% else %>
       <div class="thredded--topic-header--follow-info">
-        <%= button_to 'Follow this topic', topic.follow_path %>
+        <%= button_to t('thredded.topics.follow'), topic.follow_path %>
       </div>
     <% end %>
   <% end %>

@@ -71,26 +71,24 @@ pt-BR:
       edit:
         page_title: :thredded.nav.settings
       form:
+        follow_topics_on_mention:
+          hint: >-
+            Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
+            deste post.
+          label: Siga os tópicos que são mencionados na
+        followed_topic_emails:
+          hint: Quando há um post em um tópico que você siga, você receberá um e-mail.
+          label: Notificações de e-mail para tópicos seguido
         global_preferences_label: Configurações Globais
         messageboard_follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá receber
             um e-mail com o conteúdo deste post.
           label: :thredded.preferences.form.follow_topics_on_mention.label
-        messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
         messageboard_followed_topic_emails:
-          hint: >-
-            Quando há um post em um tópico que você siga nesta messageboard será enviado um e-mail.
+          hint: Quando há um post em um tópico que você siga nesta messageboard será enviado um e-mail.
           label: Notificações de e-mail para tópicos seguido
-        followed_topic_emails:
-          hint: >-
-            Quando há um post em um tópico que você siga, você receberá um e-mail.
-          label: Notificações de e-mail para tópicos seguido
-        follow_topics_on_mention:
-          hint: >-
-            Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
-            deste post.
-          label: Siga os tópicos que são mencionados na
+        messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
         notify_on_message:
           hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta
             conversa.
@@ -130,13 +128,14 @@ pt-BR:
       delete_topic: Remover Tópico
       deleted_notice: Tópico removido
       edit: Editar Tópico
+      follow: Siga este tópico
       followed_by: 'Seguido por:'
       followed_by_noone: Ninguém está seguindo este tópico
-      followed_notice: Você agora está acompanhando este tópico
+      followed_notice: Você agora está seguindo este tópico
       following:
-        manual: Você está acompanhando este tópico.
-        mentioned: Você está acompanhando este tópico porque você foi mencionado nele.
-        posted: Você está acompanhando este tópico porque foi você que o publicou.
+        manual: Você está seguindo este tópico.
+        mentioned: Você está seguindo este tópico porque você foi mencionado nele.
+        posted: Você está seguindo este tópico porque foi você que o publicou.
       form:
         categories_placeholder: Categorias
         content_label: :thredded.posts.form.content_label
@@ -150,7 +149,8 @@ pt-BR:
         page_title: Tópicos dos Resultados da Busca
         results_message: Resultados de Busca para %{query}
       started_by_html: Iniciado %{time_ago} por %{user}
-      unfollowed_notice: Você não está mais acompanhando este tópico
+      unfollow: Pare de seguir
+      unfollowed_notice: Você não está mais seguindo este tópico
       updated_notice: Tópico atualizado
     users:
       last_active_html: Última %{time_ago} ativa

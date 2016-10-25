@@ -130,6 +130,8 @@ en:
       followed_by: 'Followed by:'
       followed_by_noone: No one is following this topic
       followed_notice: You are now following this topic
+      follow: Follow this topic
+      unfollow: Stop following
       following:
         manual: You are following this topic.
         mentioned: You are following this topic because you were mentioned on it.
