@@ -32,7 +32,7 @@ class CreateThredded < ActiveRecord::Migration
     DbTextSearch::CaseInsensitive.add_index connection, :thredded_categories, :name, name: :thredded_categories_name_ci
 
     create_table :thredded_messageboards do |t|
-      t.string :name, limit: 255, null: false
+      t.string :name, limit: 191, null: false
       t.string :slug, limit: 191
       t.text :description
       t.integer :topics_count, default: 0
