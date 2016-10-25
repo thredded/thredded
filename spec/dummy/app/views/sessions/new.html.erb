@@ -2,7 +2,7 @@
   <% if @message %>
     <p class="thredded--alert thredded--alert-warning"><%= @message %></p>
   <% end %>
-  <%= form_tag(user_sessions_path, class: 'thredded--form') do %>
+  <%= form_tag(main_app.user_sessions_path, class: 'thredded--form') do %>
     <ul class="thredded--form-list">
       <li><%= text_field_tag 'name', 'Joe', placeholder: 'Name' %></li>
       <li><label><%= check_box_tag 'admin', '1', true %> Admin</label></li>
