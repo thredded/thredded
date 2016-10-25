@@ -56,8 +56,10 @@ Thredded::Engine.routes.draw do
       end
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
-        post 'follow'
-        post 'unfollow'
+
+        # match (un)follow via get as well so that redirecting back to it after sign in works.
+        match 'follow', via: [:post, :get]
+        match 'unfollow', via: [:post, :get]
       end
       resources :posts, except: [:index, :show], path: ''
     end
