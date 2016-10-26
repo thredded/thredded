@@ -2,11 +2,8 @@
 module Thredded
   class EmailNotifier
     def new_post(post, users)
-      @post = post
-      users_opted_in = exclude_those_opting_out_of_followed_activity_notifications(users)
-      return if users_opted_in.empty?
-      PostMailer.post_notification(post.id, users_opted_in.map(&:email)).deliver_now
-      MembersMarkedNotified.new(post, users_opted_in).run
+      PostMailer.post_notification(post.id, users.map(&:email)).deliver_now
+      MembersMarkedNotified.new(post, users).run
     end
 
     def new_private_post(post, users)
@@ -31,12 +28,6 @@ module Thredded
 
     attr_reader :post, :topic
 
-    def exclude_those_opting_out_of_followed_activity_notifications(users)
-      users.select do |user|
-        user.thredded_user_preference.followed_topic_emails &&
-          user.thredded_user_messageboard_preferences.in(post.messageboard).followed_topic_emails
-      end
-    end
 
     def exclude_those_opting_out_of_message_notifications(users)
       users.select { |user| user.thredded_user_preference.notify_on_message? }

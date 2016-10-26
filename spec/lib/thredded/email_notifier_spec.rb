@@ -5,24 +5,12 @@ describe Thredded::EmailNotifier do
   describe 'new_post' do
     let(:post) { create :post }
     let(:user) { create :user }
-    context 'with the user opting out of email' do
-      before { user.thredded_user_preference.followed_topic_emails = false }
-      it "doesn't notify" do
-        expect {
-          Thredded::EmailNotifier.new.new_post(post, [user])
-        }.not_to change {
-          ActionMailer::Base.deliveries.count
-        }
-      end
-
-      it 'but TestNotifier would' do
-        TestNotifier.resetted
-        expect {
-          TestNotifier.new.new_post(post, [user])
-        }.to change {
-          TestNotifier.users_notified_of_new_post
-        }
-      end
+    subject { Thredded::EmailNotifier.new.new_post(post, [user]) }
+    it "sends an email to targetted users" do
+      expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+    it "records notifications" do
+      expect { subject }.to change { Thredded::PostNotification.count }.by(1)
     end
   end
 
