@@ -44,6 +44,26 @@ module PageObject
       check 'Locked'
     end
 
+    def follow
+      click_button I18n.t('thredded.topics.follow')
+    end
+
+    def unfollow
+      click_button I18n.t('thredded.topics.unfollow')
+    end
+
+    def has_follow_button?
+      has_button? I18n.t('thredded.topics.follow')
+    end
+
+    def has_unfollow_button?
+      has_button? I18n.t('thredded.topics.unfollow')
+    end
+
+    def has_followed_notice?
+      has_text? I18n.t('thredded.topics.followed_notice')
+    end
+
     def submit
       click_button I18n.t('thredded.topics.form.update_btn')
     end
