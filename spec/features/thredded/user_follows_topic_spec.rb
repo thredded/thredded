@@ -18,16 +18,18 @@ feature 'Logged in user' do
 
   scenario 'can follow a topic' do
     an_unfollowed_topic.visit_topic
-    expect(page).to have_button('Follow')
-    click_on 'Follow'
-    expect(page).to_not have_button('Follow')
+    expect(an_unfollowed_topic).to have_follow_button
+    an_unfollowed_topic.follow
+    expect(an_unfollowed_topic).to_not have_follow_button
+    expect(an_unfollowed_topic).to have_unfollow_button
   end
 
   scenario 'can unfollow a topic' do
     a_followed_topic.visit_topic
-    expect(page).to have_button('Stop following')
-    click_on 'Stop following'
-    expect(page).to_not have_button('Stop following')
+    expect(a_followed_topic).to have_unfollow_button
+    a_followed_topic.unfollow
+    expect(an_unfollowed_topic).to have_follow_button
+    expect(an_unfollowed_topic).to_not have_unfollow_button
   end
 
   context 'with topics' do

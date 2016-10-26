@@ -14,21 +14,17 @@ module PageObject
 
     def log_in
       visit new_user_session_path
+      fill_in_sign_in_form_and_submit
+    end
+
+    def fill_in_sign_in_form_and_submit
       fill_in 'name', with: user.name
       uncheck 'Admin' unless user.admin?
       click_button 'Sign in'
     end
 
-    def load_page
-      visit Thredded.user_path(nil, @user)
-    end
-
-    def displaying_the_profile?
-      has_content?(@user.thredded_display_name)
-    end
-
-    def has_redirected_with_error?
-      has_content?("No user exists named #{@user.name}")
+    def signed_in?
+      has_text?(@user.thredded_display_name) && has_text?('Sign out')
     end
   end
 end
