@@ -10,7 +10,8 @@ module Thredded
       let!(:follower) { create(:user_topic_follow, user: create(:user, name: "follower"), topic: topic).user }
       let(:topic) { create(:topic, messageboard: messageboard) }
       let!(:messageboard) { create(:messageboard) }
-      subject { NotifyFollowingUsers.new(post).targeted_users }
+      let(:notifier) { EmailNotifier }
+      subject { NotifyFollowingUsers.new(post).targeted_users(notifier) }
 
       it "includes followers where preference to receive these notifications" do
         create(
@@ -26,6 +27,27 @@ module Thredded
         create(:user_topic_follow, user: poster, topic: topic)
         expect(subject).to_not include(poster)
       end
+
+      context "when a follower's email notification is turned off" do
+        before do
+          create(
+            :user_messageboard_preference,
+            followed_topic_emails: false,
+            user: follower,
+            messageboard: messageboard
+          )
+        end
+        it "doesn't include that user" do
+          expect(subject).not_to include(follower)
+        end
+
+        context "with the test notifier" do
+          let(:notifier) { TestNotifier }
+          it "does include that user" do
+            expect(subject).to include(follower)
+          end
+        end
+      end
     end
 
     describe '#run' do
@@ -35,20 +57,15 @@ module Thredded
       let(:targeted_users) { [build_stubbed(:user)] }
       before { allow(command).to receive(:targeted_users).and_return(targeted_users) }
 
-      it "sends an email to targetted users" do
-        expect { command.run }.to change { ActionMailer::Base.deliveries.count }.by(1)
-      end
-      it "records notifications" do
-        expect { command.run }.to change { PostNotification.count }.by(1)
+      it "sends email" do
+        expect { command.run }.to change { ActionMailer::Base.deliveries.count }
+        # see EmailNotifier spec for more detailed specs
       end
 
       context "with the test notifier", thredded_reset: ["@@notifiers"] do
         before { Thredded.notifiers = [TestNotifier] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
-        end
-        it "doesn't record email notifications" do
-          expect { command.run }.not_to change { PostNotification.count }
         end
         it "uses test notifier" do
           expect { command.run }.to change { TestNotifier.users_notified_of_new_post }
