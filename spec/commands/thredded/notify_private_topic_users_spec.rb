@@ -33,7 +33,7 @@ module Thredded
 
         context 'but with testnotifier' do
           it 'includes them' do
-            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(TestNotifier)
+            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(TestNotifier.resetted)
             expect(recipients).to include(@joel)
           end
         end
@@ -59,7 +59,7 @@ module Thredded
       end
 
       context 'with the test notifier', thredded_reset: ['@@notifiers'] do
-        before { Thredded.notifiers = [TestNotifier] }
+        before { Thredded.notifiers = [TestNotifier.resetted] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end
