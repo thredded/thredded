@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class TestNotifier
+class MockNotifier
   mattr_accessor :users_notified_of_new_post, :users_notified_of_new_private_post
 
   class << self

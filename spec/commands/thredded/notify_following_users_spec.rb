@@ -41,8 +41,8 @@ module Thredded
           expect(subject).not_to include(follower)
         end
 
-        context "with the test notifier" do
-          let(:notifier) { TestNotifier.resetted }
+        context "with the MockNotifier" do
+          let(:notifier) { MockNotifier.resetted }
           it "does include that user" do
             expect(subject).to include(follower)
           end
@@ -62,13 +62,13 @@ module Thredded
         # see EmailNotifier spec for more detailed specs
       end
 
-      context "with the test notifier", thredded_reset: ["@@notifiers"] do
-        before { Thredded.notifiers = [TestNotifier.resetted] }
+      context "with the MockNotifier", thredded_reset: ["@@notifiers"] do
+        before { Thredded.notifiers = [MockNotifier.resetted] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end
-        it "uses test notifier" do
-          expect { command.run }.to change { TestNotifier.users_notified_of_new_post }
+        it "uses MockNotifier" do
+          expect { command.run }.to change { MockNotifier.users_notified_of_new_post }
         end
       end
     end
