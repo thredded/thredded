@@ -9,7 +9,7 @@ feature 'Signing in with existing account' do
     expect(user).to be_signed_in
   end
 
-  scenario 'after clicking a follow link' do
+  scenario 'after clicking a follow link follows the topic and shows the followed notice' do
     topic = PageObject::Topic.new(create(:topic, with_posts: 1))
     topic.visit_topic
     topic.follow
