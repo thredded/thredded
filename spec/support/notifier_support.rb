@@ -9,9 +9,4 @@ class TestNotifier
   def new_private_post(_post, users)
     self.users_notified_of_new_private_post = users
   end
-
-  def self.resetted
-    users_notified_of_new_post = nil
-    users_notified_of_new_private_post = nil
-  end
 end
