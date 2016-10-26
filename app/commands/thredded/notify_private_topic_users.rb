@@ -9,7 +9,7 @@ module Thredded
     def run
       Thredded.notifiers.each do |notifier|
         notifiable_users = targeted_users(notifier)
-        notifier.new.new_private_post(@post, notifiable_users) if notifiable_users.present?
+        notifier.new_private_post(@post, notifiable_users) if notifiable_users.present?
       end
     end
 

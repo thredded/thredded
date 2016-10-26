@@ -2,11 +2,11 @@
 class TestNotifier
   mattr_accessor :users_notified_of_new_post, :users_notified_of_new_private_post
 
-  def new_post(_post, users)
+  def self.new_post(_post, users)
     self.users_notified_of_new_post = users
   end
 
-  def new_private_post(_post, users)
+  def self.new_private_post(_post, users)
     self.users_notified_of_new_private_post = users
   end
 end
