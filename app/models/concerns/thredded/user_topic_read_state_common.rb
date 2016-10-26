@@ -23,8 +23,8 @@ module Thredded
         # Upsert gem: https://github.com/seamusabshere/upsert
         state = find_or_initialize_by(user_id: user_id, postable_id: topic_id)
         fail ArgumentError, "expected post_page >= 1, given #{post_page.inspect}" if post_page < 1
-        return unless !state.read_at? || state.read_at < post.updated_at
-        state.update!(read_at: post.updated_at, page: post_page)
+        return unless !state.read_at? || state.read_at < post.created_at
+        state.update!(read_at: post.created_at, page: post_page)
       end
 
       def read_on_first_post!(user, topic)

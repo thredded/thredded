@@ -43,13 +43,13 @@ module Thredded
     def update_parent_last_user_and_timestamp
       return if postable.destroyed?
       last_post = if destroyed?
-                    postable.posts.order_oldest_first.select(:user_id, :updated_at).last
+                    postable.posts.order_oldest_first.select(:user_id, :created_at).last
                   else
                     self
                   end
       postable.update_columns(
         last_user_id: last_post.user_id,
-        last_post_at: last_post.updated_at,
+        last_post_at: last_post.created_at,
         updated_at: Time.zone.now
       )
     end
