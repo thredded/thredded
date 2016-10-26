@@ -6,15 +6,37 @@ module Thredded
     before do
       @john = create(:user)
       @joel = create(:user, email: 'joel@example.com')
-      @sam  = create(:user, email: 'sam@example.com')
+      @sam = create(:user, email: 'sam@example.com')
     end
     let(:private_topic) { create(:private_topic, user: @john, users: [@john, @joel, @sam]) }
+    let(:notifier) { EmailNotifier }
 
     describe '#private_topic_recipients' do
+      let(:post) { build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john) }
+
       it 'returns everyone but the sender' do
-        post = build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john)
-        recipients = NotifyPrivateTopicUsers.new(post).private_topic_recipients
+        recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
         expect(recipients).not_to include @john
+        expect(recipients).to include(@sam)
+      end
+
+      context 'when preferences say not to notify on email' do
+        it "doesn't include them" do
+          create(
+            :user_preference,
+            user: @joel,
+            notify_on_message: false
+          )
+          recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
+          expect(recipients).not_to include(@joel)
+        end
+
+        context 'but with testnotifier' do
+          it 'includes them' do
+            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(TestNotifier)
+            expect(recipients).to include(@joel)
+          end
+        end
       end
     end
 
@@ -22,8 +44,8 @@ module Thredded
       let(:private_post) { create(:private_post, content: 'hi', postable: private_topic, user: @john) }
 
       let(:command) { NotifyPrivateTopicUsers.new(private_post) }
-      let(:private_topic_recipients) { [build_stubbed(:user)] }
-      before { allow(command).to receive(:private_topic_recipients).and_return(private_topic_recipients) }
+      let(:targeted_users) { [build_stubbed(:user)] }
+      before { allow(command).to receive(:targeted_users).and_return(targeted_users) }
 
       it 'marks the right users as modified' do
         emails = private_topic.posts.first.post_notifications.map(&:email)
@@ -40,9 +62,6 @@ module Thredded
         before { Thredded.notifiers = [TestNotifier] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
-        end
-        it "doesn't record email notifications" do
-          expect { command.run }.not_to change { PostNotification.count }
         end
         it 'uses test notifier' do
           expect { command.run }.to change { TestNotifier.users_notified_of_new_private_post }
