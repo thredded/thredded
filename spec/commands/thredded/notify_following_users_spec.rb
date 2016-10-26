@@ -48,6 +48,59 @@ module Thredded
           end
         end
       end
+
+      # context "when a follower's 'mock' notification is turned off (per messageboard)" do
+      #   before do
+      #     create(
+      #       :user_messageboard_preference,
+      #       followed_topic_notifications: {mock: false},
+      #       user: follower,
+      #       messageboard: messageboard
+      #     )
+      #   end
+      #   context "with the EmailNotifier" do
+      #     let(:notifier) { EmailNotifier.resetted }
+      #     it "does includes that user" do
+      #       pending
+      #       expect(subject).include include(follower)
+      #     end
+      #   end
+      #
+      #   context "with the MockNotifier" do
+      #     let(:notifier) { MockNotifier.resetted }
+      #     it "doesn't include that user" do
+      #       pending
+      #       expect(subject).not_to include(follower)
+      #     end
+      #   end
+      # end
+      #
+      # context "when a follower's 'mock' notification is turned off (overall)" do
+      #   before do
+      #     create(
+      #       :user_preference,
+      #       followed_topic_notifications: {mock: false},
+      #       user: follower,
+      #       messageboard: nil
+      #     )
+      #   end
+      #   context "with the EmailNotifier" do
+      #     let(:notifier) { EmailNotifier.resetted }
+      #     it "does includes that user" do
+      #       pending
+      #       expect(subject).include include(follower)
+      #     end
+      #   end
+      #
+      #   context "with the MockNotifier" do
+      #     let(:notifier) { MockNotifier.resetted }
+      #     it "doesn't include that user" do
+      #       pending
+      #       expect(subject).not_to include(follower)
+      #     end
+      #   end
+      # end
+
     end
 
     describe '#run' do
