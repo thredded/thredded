@@ -5,6 +5,7 @@
     margin-bottom: $thredded-small-spacing;
     margin-top: 0;
   }
+  @include thredded--clearfix;
 }
 
 .thredded--topic-header--title {

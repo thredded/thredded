@@ -5,6 +5,10 @@
   @media (max-width: $thredded-grid-container-max-width) {
     margin-left: 3rem;
   }
+  @include thredded-media-mobile {
+    margin-right: 2rem;
+  }
+
 }
 
 .thredded--topics--title {
