@@ -9,6 +9,9 @@
   top: 0;
   right: -1.6rem;
   opacity: 0.4;
+  @include thredded-media-mobile {
+    right: -2rem;
+  }
 }
 
 %thredded--not-following-icon {
