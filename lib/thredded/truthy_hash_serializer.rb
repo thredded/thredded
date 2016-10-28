@@ -11,6 +11,10 @@ module Thredded
           s.split(',').each { |k| hash[k] = false } if s
         end
       end
+
+      def create(hash = {})
+        Hash.new(true).merge(hash)
+      end
     end
   end
 end

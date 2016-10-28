@@ -9,9 +9,9 @@ module Thredded
       @sam = create(:user, email: 'sam@example.com')
     end
     let(:private_topic) { create(:private_topic, user: @john, users: [@john, @joel, @sam]) }
-    let(:notifier) { EmailNotifier }
+    let(:notifier) { EmailNotifier.new }
 
-    describe '#private_topic_recipients' do
+    describe '#targeted_users' do
       let(:post) { build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john) }
 
       it 'returns everyone but the sender' do
@@ -25,7 +25,7 @@ module Thredded
           create(
             :user_preference,
             user: @joel,
-            notify_on_message: false
+            notifications_for_private_topics: TruthyHashSerializer.create('email' => false)
           )
           recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
           expect(recipients).not_to include(@joel)
@@ -33,7 +33,7 @@ module Thredded
 
         context 'but with MockNotifier' do
           it 'includes them' do
-            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(MockNotifier.resetted)
+            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(MockNotifier.new.resetted)
             expect(recipients).to include(@joel)
           end
         end
@@ -59,7 +59,7 @@ module Thredded
       end
 
       context 'with the MockNotifier', thredded_reset: ['@@notifiers'] do
-        before { Thredded.notifiers = [MockNotifier.resetted] }
+        before { Thredded.notifiers = [MockNotifier.new.resetted] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end

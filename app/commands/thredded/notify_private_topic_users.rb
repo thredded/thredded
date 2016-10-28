@@ -15,8 +15,7 @@ module Thredded
 
     def targeted_users(notifier)
       users = private_topic.users - [post.user]
-      return users unless notifier == EmailNotifier
-      users = exclude_those_opting_out_of_message_notifications(users)
+      users = exclude_those_opting_out_of_message_notifications(users, notifier)
       users
     end
 
@@ -24,8 +23,10 @@ module Thredded
 
     attr_reader :post, :private_topic
 
-    def exclude_those_opting_out_of_message_notifications(users)
-      users.select { |user| user.thredded_user_preference.notify_on_message? }
+    def exclude_those_opting_out_of_message_notifications(users, notifier)
+      users.select do |user|
+        user.thredded_user_preference.notifications_for_private_topics[notifier.key]
+      end
     end
   end
 end

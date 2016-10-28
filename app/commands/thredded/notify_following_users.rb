@@ -23,10 +23,10 @@ module Thredded
     private
 
     def exclude_those_opting_out_of_followed_activity_notifications(users, notifier)
-      return users unless notifier == EmailNotifier
       users.select do |user|
-        user.thredded_user_preference.followed_topic_emails &&
-          user.thredded_user_messageboard_preferences.in(@post.messageboard).followed_topic_emails
+        user.thredded_user_preference.notifications_for_followed_topics[notifier.key] &&
+          user.thredded_user_messageboard_preferences.in(@post.messageboard)
+            .notifications_for_followed_topics[notifier.key]
       end
     end
   end
