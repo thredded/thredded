@@ -2,27 +2,61 @@
 require 'spec_helper'
 
 module Thredded
-  describe UserPreference, 'followed_topic_notifications' do
-    let(:user) { create :user }
-    subject { user.thredded_user_messageboard_preferences.in(messageboard) }
-    it 'defaults to true for any notifier' do
-      pending
-      expect(subject.followed_topic_notifications[EmailNotifier.key]).to be_truthy
-      expect(subject.followed_topic_notifications[MockNotifier.key]).to be_falsey
-      subject.save
-      subject.reload
-      expect(subject.followed_topic_notifications[EmailNotifier.key]).to be_truthy
-      expect(subject.followed_topic_notifications[MockNotifier.key]).to be_falsey
+  describe 'User and UserMessageboard Preferences' do
+    shared_examples_for 'notifications_for_followed_topics' do
+      it 'defaults to true for any notifier' do
+        expect(subject.notifications_for_followed_topics[email_notifier.key]).to be_truthy
+        expect(subject.notifications_for_followed_topics[mock_notifier.key]).to be_truthy
+        subject.save
+        subject.reload
+        expect(subject.notifications_for_followed_topics[email_notifier.key]).to be_truthy
+        expect(subject.notifications_for_followed_topics[mock_notifier.key]).to be_truthy
+      end
+      it 'can be turned off (persistable)' do
+        subject.notifications_for_followed_topics[email_notifier.key] = false
+        expect(subject.notifications_for_followed_topics[email_notifier.key]).to be_falsey
+        expect(subject.notifications_for_followed_topics[mock_notifier.key]).to be_truthy
+        subject.save
+        subject.reload
+        expect(subject.notifications_for_followed_topics[email_notifier.key]).to be_falsey
+        expect(subject.notifications_for_followed_topics[mock_notifier.key]).to be_truthy
+      end
     end
-    it 'can be turned off (persistable)' do
-      pending
-      subject.followed_topic_notifications[EmailNotifier.key] = false
-      expect(subject.followed_topic_notifications[EmailNotifier.key]).to be_falsey
-      expect(subject.followed_topic_notifications[MockNotifier.key]).to be_truthy
-      subject.save
-      subject.reload
-      expect(subject.followed_topic_notifications[EmailNotifier.key]).to be_falsey
-      expect(subject.followed_topic_notifications[MockNotifier.key]).to be_truthy
+    shared_examples_for 'notifications_for_private_topics' do
+      it 'defaults to true for any notifier' do
+        expect(subject.notifications_for_private_topics[email_notifier.key]).to be_truthy
+        expect(subject.notifications_for_private_topics[mock_notifier.key]).to be_truthy
+        subject.save
+        subject.reload
+        expect(subject.notifications_for_private_topics[email_notifier.key]).to be_truthy
+        expect(subject.notifications_for_private_topics[mock_notifier.key]).to be_truthy
+      end
+      it 'can be turned off (persistable)' do
+        subject.notifications_for_private_topics[email_notifier.key] = false
+        expect(subject.notifications_for_private_topics[email_notifier.key]).to be_falsey
+        expect(subject.notifications_for_private_topics[mock_notifier.key]).to be_truthy
+        subject.save
+        subject.reload
+        expect(subject.notifications_for_private_topics[email_notifier.key]).to be_falsey
+        expect(subject.notifications_for_private_topics[mock_notifier.key]).to be_truthy
+      end
+    end
+
+    let(:user) { create :user }
+    let(:email_notifier) { EmailNotifier.new }
+    let(:mock_notifier) { MockNotifier.new }
+
+    describe 'UserPreference' do
+      subject { user.thredded_user_preference }
+      it_behaves_like 'notifications_for_followed_topics'
+      it_behaves_like 'notifications_for_private_topics'
+    end
+
+    describe UserMessageboardPreference do
+      let(:messageboard) { create :messageboard }
+      subject { user.thredded_user_messageboard_preferences.in(messageboard) }
+      it_behaves_like 'notifications_for_followed_topics'
+      it_behaves_like 'notifications_for_private_topics'
     end
   end
 end

@@ -8,5 +8,7 @@ module Thredded
              foreign_key: :user_id,
              inverse_of: :user_preference
     validates :user_id, presence: true
+    serialize :notifications_for_followed_topics, TruthyHashSerializer
+    serialize :notifications_for_private_topics, TruthyHashSerializer
   end
 end

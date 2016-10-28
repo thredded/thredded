@@ -2,6 +2,10 @@
 class MockNotifier
   mattr_accessor :users_notified_of_new_post, :users_notified_of_new_private_post
 
+  def key
+    'mock'
+  end
+
   class << self
     def new_post(_post, users)
       self.users_notified_of_new_post = users
