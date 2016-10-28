@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 module Thredded
   class EmailNotifier
+    def key
+      'email'
+    end
+
     def new_post(post, users)
       PostMailer.post_notification(post.id, users.map(&:email)).deliver_now
       MembersMarkedNotified.new(post, users).run
