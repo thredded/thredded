@@ -4,19 +4,19 @@ require 'spec_helper'
 
 module Thredded
   describe NotifyFollowingUsers do
-    describe '#targetted_users' do
+    describe '#targeted_users' do
       let(:post) { create(:post, user: poster, postable: topic) }
       let(:poster) { create(:user, name: "poster") }
       let!(:follower) { create(:user_topic_follow, user: create(:user, name: "follower"), topic: topic).user }
       let(:topic) { create(:topic, messageboard: messageboard) }
       let!(:messageboard) { create(:messageboard) }
-      let(:notifier) { EmailNotifier }
+      let(:notifier) { EmailNotifier.new }
       subject { NotifyFollowingUsers.new(post).targeted_users(notifier) }
 
       it "includes followers where preference to receive these notifications" do
         create(
           :user_messageboard_preference,
-          followed_topic_emails: true,
+          notifications_for_followed_topics: TruthyHashSerializer.create("email" => true),
           user: follower,
           messageboard: messageboard
         )
@@ -32,74 +32,72 @@ module Thredded
         before do
           create(
             :user_messageboard_preference,
-            followed_topic_emails: false,
+            notifications_for_followed_topics: TruthyHashSerializer.create("email" => false),
             user: follower,
             messageboard: messageboard
           )
         end
+
         it "doesn't include that user" do
           expect(subject).not_to include(follower)
         end
 
         context "with the MockNotifier" do
-          let(:notifier) { MockNotifier.resetted }
+          let(:notifier) { MockNotifier.new.resetted }
           it "does include that user" do
             expect(subject).to include(follower)
           end
         end
       end
 
-      # context "when a follower's 'mock' notification is turned off (per messageboard)" do
-      #   before do
-      #     create(
-      #       :user_messageboard_preference,
-      #       followed_topic_notifications: {mock: false},
-      #       user: follower,
-      #       messageboard: messageboard
-      #     )
-      #   end
-      #   context "with the EmailNotifier" do
-      #     let(:notifier) { EmailNotifier.resetted }
-      #     it "does includes that user" do
-      #       pending
-      #       expect(subject).include include(follower)
-      #     end
-      #   end
-      #
-      #   context "with the MockNotifier" do
-      #     let(:notifier) { MockNotifier.resetted }
-      #     it "doesn't include that user" do
-      #       pending
-      #       expect(subject).not_to include(follower)
-      #     end
-      #   end
-      # end
-      #
-      # context "when a follower's 'mock' notification is turned off (overall)" do
-      #   before do
-      #     create(
-      #       :user_preference,
-      #       followed_topic_notifications: {mock: false},
-      #       user: follower,
-      #       messageboard: nil
-      #     )
-      #   end
-      #   context "with the EmailNotifier" do
-      #     let(:notifier) { EmailNotifier.resetted }
-      #     it "does includes that user" do
-      #       pending
-      #       expect(subject).include include(follower)
-      #     end
-      #   end
-      #
-      #   context "with the MockNotifier" do
-      #     let(:notifier) { MockNotifier.resetted }
-      #     it "doesn't include that user" do
-      #       pending
-      #       expect(subject).not_to include(follower)
-      #     end
-      #   end
-      # end
+      context "when a follower's 'mock' notification is turned off (per messageboard)" do
+        before do
+          create(
+            :user_messageboard_preference,
+            notifications_for_followed_topics: TruthyHashSerializer.create("mock" => false),
+            user: follower,
+            messageboard: messageboard
+          )
+        end
+
+        context "with the EmailNotifier" do
+          let(:notifier) { EmailNotifier.new }
+          it "does includes that user" do
+            expect(subject).to include(follower)
+          end
+        end
+
+        context "with the MockNotifier" do
+          let(:notifier) { MockNotifier.new.resetted }
+          it "doesn't include that user" do
+            expect(subject).not_to include(follower)
+          end
+        end
+      end
+
+      context "when a follower's 'mock' notification is turned off (overall)" do
+        before do
+          create(
+            :user_preference,
+            notifications_for_followed_topics: TruthyHashSerializer.create("mock" => false),
+            user: follower,
+          )
+        end
+
+        context "with the EmailNotifier" do
+          let(:notifier) { EmailNotifier.new }
+          it "does includes that user" do
+            expect(subject).to include(follower)
+          end
+        end
+
+        context "with the MockNotifier" do
+          let(:notifier) { MockNotifier.new.resetted }
+          it "doesn't include that user" do
+            expect(subject).not_to include(follower)
+          end
+        end
+      end
     end
 
     describe '#run' do
@@ -115,7 +113,7 @@ module Thredded
       end
 
       context "with the MockNotifier", thredded_reset: ["@@notifiers"] do
-        before { Thredded.notifiers = [MockNotifier.resetted] }
+        before { Thredded.notifiers = [MockNotifier.new.resetted] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end

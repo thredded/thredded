@@ -6,19 +6,17 @@ class MockNotifier
     'mock'
   end
 
-  class << self
-    def new_post(_post, users)
-      self.users_notified_of_new_post = users
-    end
+  def new_post(_post, users)
+    self.users_notified_of_new_post = users
+  end
 
-    def new_private_post(_post, users)
-      self.users_notified_of_new_private_post = users
-    end
+  def new_private_post(_post, users)
+    self.users_notified_of_new_private_post = users
+  end
 
-    def resetted
-      self.users_notified_of_new_post = []
-      self.users_notified_of_new_private_post = []
-      self
-    end
+  def resetted
+    self.users_notified_of_new_post = []
+    self.users_notified_of_new_private_post = []
+    self
   end
 end
