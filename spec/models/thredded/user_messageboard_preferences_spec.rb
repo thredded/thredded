@@ -5,7 +5,7 @@ module Thredded
   describe UserPreference, 'followed_topic_notifications' do
     let(:user) { create :user }
     let(:messageboard) { create :messageboard }
-    subject { user.thredded_user_preference}
+    subject { user.thredded_user_preference }
     it 'defaults to true for any notifier' do
       pending
       expect(subject.followed_topic_notifications[EmailNotifier.key]).to be_truthy
@@ -27,4 +27,3 @@ module Thredded
     end
   end
 end
-

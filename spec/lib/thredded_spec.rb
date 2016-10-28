@@ -56,10 +56,13 @@ end
 
 describe Thredded, '.notifiers', thredded_reset: [:@@notifiers] do
   specify 'default' do
-    expect(Thredded.notifiers).to eq([Thredded::EmailNotifier])
+    notifiers = Thredded.notifiers
+    expect(notifiers.length).to be(1)
+    expect(notifiers).to include(an_instance_of(Thredded::EmailNotifier))
+    expect(notifiers.first).to equal(Thredded.notifiers.first) # ie it returns same object -- not another one
   end
 
-  specify 'can assign to new notifier class' do
+  specify 'can assign to new notifier instance' do
     Thredded.notifiers = [MockNotifier.resetted]
     expect(Thredded.notifiers).to eq([MockNotifier])
   end

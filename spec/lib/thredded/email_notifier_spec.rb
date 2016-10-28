@@ -5,7 +5,7 @@ describe Thredded::EmailNotifier do
   let(:user) { create :user }
   describe 'new_post' do
     let!(:post) { create :post }
-    subject { Thredded::EmailNotifier.new_post(post, [user]) }
+    subject { Thredded::EmailNotifier.new.new_post(post, [user]) }
 
     it 'sends an email to targetted users' do
       expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -19,7 +19,7 @@ describe Thredded::EmailNotifier do
   describe 'new_private_post' do
     let!(:post) { create :private_post }
 
-    subject { Thredded::EmailNotifier.new_private_post(post, [user]) }
+    subject { Thredded::EmailNotifier.new.new_private_post(post, [user]) }
 
     it 'sends an email to targetted users' do
       expect { subject }.to change { ActionMailer::Base.deliveries.count }.by(1)

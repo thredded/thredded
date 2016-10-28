@@ -100,7 +100,6 @@ module Thredded
       #     end
       #   end
       # end
-
     end
 
     describe '#run' do
