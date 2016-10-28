@@ -51,7 +51,7 @@ module Thredded
   # @return [Boolean] Whether posts that are pending moderation are visible to regular users.
   mattr_accessor :content_visible_while_pending_moderation
 
-  # @return [Array] The notifiers
+  # @return [Array] The notifiers, by default just the EmailNotifier
   mattr_accessor :notifiers
 
   # @return [Boolean] Whether users that are following a topic are listed on topic page.
@@ -72,7 +72,7 @@ module Thredded
   self.messageboards_order = :position
 
   def self.notifiers
-    @@notifiers || [Thredded::EmailNotifier]
+    @@notifiers ||= [Thredded::EmailNotifier.new] # rubocop:disable Style/ClassVars
   end
 
   def self.user_display_name_method
