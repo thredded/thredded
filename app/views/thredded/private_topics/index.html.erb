@@ -17,12 +17,12 @@
         placeholder:   t('thredded.private_topics.form.title_placeholder_start') %>
 
       <%= render @private_topics %>
-    <% end -%>
 
-    <%= link_to t('thredded.nav.mark_all_read'),
-      mark_all_private_topics_read_path,
-      class: 'thredded--button thredded--button-light thredded--button-wide',
-      method: :put -%>
+      <%= link_to t('thredded.nav.mark_all_read'),
+        mark_all_private_topics_read_path,
+        class: 'thredded--button thredded--button-light thredded--button-wide',
+        method: :put -%>
+    <% end -%>
   <% end %>
 
   <footer>
