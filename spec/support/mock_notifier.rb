@@ -6,6 +6,10 @@ class MockNotifier
     'mock'
   end
 
+  def i18n_key
+    'thredded.mock_notifier.by_mock'
+  end
+
   def new_post(_post, users)
     self.users_notified_of_new_post = users
   end
