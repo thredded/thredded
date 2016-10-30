@@ -56,7 +56,6 @@ module Thredded
       let(:messageboard) { create :messageboard }
       subject { user.thredded_user_messageboard_preferences.in(messageboard) }
       it_behaves_like 'notifications_for_followed_topics'
-      it_behaves_like 'notifications_for_private_topics'
     end
   end
 end

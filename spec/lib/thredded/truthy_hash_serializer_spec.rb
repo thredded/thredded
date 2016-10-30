@@ -26,10 +26,9 @@ module Thredded
     end
 
     describe '#load' do
-      it 'loads an nil as an empty hash' do
+      it 'loads an nil as nil (so it works correctly as a serializer with default values)' do
         hash = subject.load(nil)
-        expect(hash).to be_a(Hash)
-        expect(hash['somekey']).to be_truthy
+        expect(hash).to be_nil
       end
 
       it 'loads an blank as an empty hash' do
@@ -59,9 +58,6 @@ module Thredded
         TruthyHashSerializer.dump(TruthyHashSerializer.load(value))
       end
 
-      it 'should roundtrip nil as blank' do
-        expect(roundtrip_from_value(nil)).to be_blank
-      end
       it 'should roundtrip empty string as blank' do
         expect(roundtrip_from_value('')).to be_blank
       end
