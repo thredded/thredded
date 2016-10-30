@@ -72,10 +72,7 @@ module Thredded
 
     def assign_truthy_hash_attrs(params)
       TRUTHY_HASH_ATTRS.each do |attr_name|
-        next unless params[attr_name]
-        params[attr_name].each_pair do |k, v|
-          send(attr_name)[k.to_s] = false if v == '0'
-        end
+        send(attr_name).merge!(params[attr_name]) if params[attr_name]
       end
     end
   end
