@@ -11,7 +11,7 @@
   <ul class="thredded--form-list">
     <li>
       <%= f.label :follow_topics_on_mention do %>
-        <%= f.check_box :follow_topics_on_mention %>
+        <%= f.check_box :follow_topics_on_mention, 'data-thredded-bound-messageboard-pref' => 'user_preferences_form[messageboard_follow_topics_on_mention]' %>
         <%= t 'thredded.preferences.form.follow_topics_on_mention.label' %>
         <p class="thredded--form-list--hint">
           <%= t 'thredded.preferences.form.follow_topics_on_mention.hint' %>
@@ -26,7 +26,9 @@
       <%= f.fields_for :notifications_for_followed_topics do |fn| %>
         <%- Thredded.notifiers.each do |notifier| %>
           <%= fn.label notifier.key do %>
-            <%= fn.check_box notifier.key, checked: f.object.notifications_for_followed_topics[notifier.key] ? "checked" : false %>
+            <%= fn.check_box notifier.key, checked: f.object.notifications_for_followed_topics[notifier.key] ?
+                "checked" : false, 'data-thredded-bound-messageboard-pref' =>
+                "user_preferences_form[messageboard_notifications_for_followed_topics][#{notifier.key}]" %>
             <%= t(notifier.i18n_key) %>
           <% end %>
         <%- end %>
