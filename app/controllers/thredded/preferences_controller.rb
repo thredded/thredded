@@ -19,15 +19,16 @@ module Thredded
     private
 
     def init_preferences
+      notifier_keys = Thredded.notifiers.map(&:key)
       @preferences = UserPreferencesForm.new(
         user:         thredded_current_user,
         messageboard: messageboard_or_nil,
         params:       params.fetch(:user_preferences_form, {}).permit(
-          :followed_topic_emails,
           :follow_topics_on_mention,
-          :notify_on_message,
-          :messageboard_followed_topic_emails,
-          :messageboard_follow_topics_on_mention
+          :messageboard_follow_topics_on_mention,
+          messageboard_notifications_for_followed_topics: notifier_keys,
+          notifications_for_followed_topics: notifier_keys,
+          notifications_for_private_topics: notifier_keys
         )
       )
     end

@@ -19,21 +19,33 @@
       <% end %>
     </li>
     <li>
-      <%= f.label :followed_topic_emails do %>
-        <%= f.check_box :followed_topic_emails %>
-        <%= t 'thredded.preferences.form.followed_topic_emails.label' %>
-        <p class="thredded--form-list--hint">
-          <%= t 'thredded.preferences.form.followed_topic_emails.hint' %>
-        </p>
-      <% end %>
+      <label><%= t 'thredded.preferences.form.notifications_for_followed_topics.label' %></label>
+      <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
+        <!--<%= t 'thredded.preferences.form.notifications_for_followed_topics.hint' %>-->
+      <!--</p>-->
+      <%= f.fields_for :notifications_for_followed_topics do |fn| %>
+        <%- Thredded.notifiers.each do |notifier| %>
+          <%= fn.label notifier.key do %>
+            <%= fn.check_box notifier.key, checked: f.object.notifications_for_followed_topics[notifier.key] ? "checked" : false %>
+            <%= t(notifier.i18n_key) %>
+          <% end %>
+        <%- end %>
+      <%- end %>
     </li>
     <li>
-      <%= f.label :notify_on_message do %>
-        <%= f.check_box :notify_on_message %>
-        <%= t 'thredded.preferences.form.notify_on_message.label' %>
-        <p class="thredded--form-list--hint">
-          <%= t 'thredded.preferences.form.notify_on_message.hint' %>
-        </p>
+      <label><%= t 'thredded.preferences.form.notifications_for_private_topics.label' %></label>
+      <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
+        <!--<%= t 'thredded.preferences.form.notifications_for_private_topics.hint' %>-->
+      <!--</p>-->
+      <%= f.fields_for :notifications_for_private_topics do |fn| %>
+        <%- Thredded.notifiers.each do |notifier| %>
+          <%= fn.label notifier.key do %>
+            <%= fn.check_box notifier.key, checked: f.object.notifications_for_private_topics[notifier.key] ? "checked" : false %>
+            <%= t(notifier.i18n_key)
+              # i18n-tasks-use t("thredded.email_notifier.by_email")
+            %>
+          <% end %>
+        <% end %>
       <% end %>
     </li>
   </ul>
@@ -52,13 +64,18 @@
         <% end %>
       </li>
       <li>
-        <%= f.label :messageboard_followed_topic_emails do %>
-          <%= f.check_box :messageboard_followed_topic_emails %>
-          <%= t 'thredded.preferences.form.messageboard_followed_topic_emails.label' %>
-          <p class="thredded--form-list--hint">
-            <%= t 'thredded.preferences.form.messageboard_followed_topic_emails.hint' %>
-          </p>
-        <% end %>
+        <label><%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.label' %></label>
+        <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
+          <!--<%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.hint' %>-->
+        <!--</p>-->
+        <%= f.fields_for :messageboard_notifications_for_followed_topics  do |fn| %>
+          <%- Thredded.notifiers.each do |notifier| %>
+            <%= fn.label notifier.key do %>
+              <%= fn.check_box notifier.key, checked: f.object.messageboard_notifications_for_followed_topics[notifier.key] ? "checked" : false %>
+              <%= t(notifier.i18n_key) %>
+            <% end %>
+          <% end %>
+        <%- end %>
       </li>
     </ul>
   <% end %>

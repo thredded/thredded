@@ -9,12 +9,12 @@ module Thredded
     validate :validate_children
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
-             :notify_on_message, :notify_on_message=,
-             :followed_topic_emails, :followed_topic_emails=,
+             :notifications_for_private_topics, :notifications_for_private_topics=,
+             :notifications_for_followed_topics, :notifications_for_followed_topics=,
              to: :user_preference
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
-             :followed_topic_emails, :followed_topic_emails=,
+             :notifications_for_followed_topics, :notifications_for_followed_topics=,
              to: :user_messageboard_preference,
              prefix: :messageboard
 
@@ -23,8 +23,15 @@ module Thredded
     def initialize(user:, messageboard: nil, params: {})
       @user = user
       @messageboard = messageboard
-      super(params)
+      super(params.except(*TRUTHY_HASH_ATTRS))
+      assign_truthy_hash_attrs(params)
     end
+
+    TRUTHY_HASH_ATTRS = [
+      :notifications_for_followed_topics,
+      :notifications_for_private_topics,
+      :messageboard_notifications_for_followed_topics
+    ].freeze
 
     # @return [Boolean]
     def save
@@ -60,6 +67,15 @@ module Thredded
     def promote_errors(child_errors, prefix = nil)
       child_errors.each do |attribute, message|
         errors.add([prefix, attribute].compact.join('_'), message)
+      end
+    end
+
+    def assign_truthy_hash_attrs(params)
+      TRUTHY_HASH_ATTRS.each do |attr_name|
+        next unless params[attr_name]
+        params[attr_name].each_pair do |k, v|
+          send(attr_name)[k.to_s] = false if v == '0'
+        end
       end
     end
   end

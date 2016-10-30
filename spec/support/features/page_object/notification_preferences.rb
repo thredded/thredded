@@ -32,21 +32,21 @@ module PageObject
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
-    def has_private_topic_notifications?
-      has_checked_field? 'user_preferences_form[notify_on_message]'
+    def has_notifications_for_private_topics_by_email?
+      has_checked_field? 'user_preferences_form[notifications_for_private_topics][email]'
     end
 
-    def disable_private_topic_notifications
-      uncheck 'user_preferences_form[notify_on_message]'
+    def disable_notifications_for_private_topics_by_email
+      uncheck 'user_preferences_form[notifications_for_private_topics][email]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
-    def has_followed_topic_emails?
-      has_checked_field? 'user_preferences_form[followed_topic_emails]'
+    def has_notifications_for_followed_topics_by_email?
+      has_checked_field? 'user_preferences_form[notifications_for_followed_topics][email]'
     end
 
-    def disable_followed_topic_emails
-      uncheck 'user_preferences_form[followed_topic_emails]'
+    def disable_notifications_for_followed_topics_by_email
+      uncheck 'user_preferences_form[notifications_for_followed_topics][email]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
@@ -59,12 +59,12 @@ module PageObject
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
-    def has_messageboard_followed_topic_emails?
-      has_checked_field? 'user_preferences_form[messageboard_followed_topic_emails]'
+    def has_messageboard_notifications_for_followed_topics_by_email?
+      has_checked_field? 'user_preferences_form[messageboard_notifications_for_followed_topics][email]'
     end
 
-    def disable_messageboard_followed_topic_emails
-      uncheck 'user_preferences_form[messageboard_followed_topic_emails]'
+    def disable_messageboard_notifications_for_followed_topics_by_email
+      uncheck 'user_preferences_form[messageboard_notifications_for_followed_topics][email]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
   end

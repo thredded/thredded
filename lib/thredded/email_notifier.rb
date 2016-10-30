@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 module Thredded
   class EmailNotifier
+    def i18n_key
+      'thredded.email_notifier.by_email'
+    end
+
     def key
       'email'
     end
