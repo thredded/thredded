@@ -7,8 +7,9 @@ module Thredded
       end
 
       def load(s)
+        return nil if s.nil?
         Hash.new(true).tap do |hash|
-          s.split(',').each { |k| hash[k] = false } if s
+          s.split(',').each { |k| hash[k] = false }
         end
       end
 
