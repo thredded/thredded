@@ -5,12 +5,12 @@ module Thredded
       true
     end
 
-    def notify_on_message
-      true
+    def notifications_for_private_topics
+      Thredded::TruthyHashSerializer.create
     end
 
-    def followed_topic_emails
-      true
+    def notifications_for_followed_topics
+      Thredded::TruthyHashSerializer.create
     end
   end
 end

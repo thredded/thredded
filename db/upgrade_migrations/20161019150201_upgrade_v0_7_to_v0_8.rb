@@ -2,7 +2,8 @@
 class UpgradeV07ToV08 < ActiveRecord::Migration
   def up
     add_column :thredded_user_preferences, :notifications_for_followed_topics, :string, default: '', null: false
-    add_column :thredded_user_messageboard_preferences, :notifications_for_followed_topics, :string, default: '', null: false
+    add_column :thredded_user_messageboard_preferences, :notifications_for_followed_topics, :string, default: '',
+                                                                                                     null: false
     add_column :thredded_user_preferences, :notifications_for_private_topics, :string, default: '', null: false
     rename_column :thredded_user_preferences, :notify_on_mention, :follow_topics_on_mention
     rename_column :thredded_user_messageboard_preferences, :notify_on_mention, :follow_topics_on_mention
