@@ -36,10 +36,9 @@ module Thredded
         notifications_for_private_topics: notifier_keys
       ).tap do |params|
         UserPreferencesForm::TRUTHY_HASH_ATTRS.each do |attr|
-          if (hash = params[attr])
-            hash.each do |k,v|
-              hash[k.to_s] = !(v == "0")
-            end
+          next unless (hash = params[attr])
+          hash.each do |k, v|
+            hash[k.to_s] = !(v == '0')
           end
         end
       end
