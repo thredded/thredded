@@ -87,7 +87,11 @@ FileUtils.mkdir('log') unless File.directory?('log')
 
 RSpec.configure do |config|
   if ENV['MIGRATION_SPEC']
-    config.filter_run_excluding migration_spec: false
+    if db == 'sqlite3'
+      config.filter_run_excluding migration_spec: false
+    else
+      config.filter_run_including no_matching_tag: true
+    end
   else
     config.filter_run_excluding migration_spec: true
   end
