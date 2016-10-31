@@ -6,11 +6,11 @@ module Thredded
     end
 
     def notifications_for_private_topics
-      Thredded::TruthyHashSerializer.create
+      Thredded::TruthyHash.create
     end
 
     def notifications_for_followed_topics
-      Thredded::TruthyHashSerializer.create
+      Thredded::TruthyHash.create
     end
   end
 end

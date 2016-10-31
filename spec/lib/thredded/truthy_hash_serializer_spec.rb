@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 module Thredded
-  describe TruthyHashSerializer do
-    subject { TruthyHashSerializer }
+  describe TruthyHash::Serializer do
+    subject { TruthyHash::Serializer }
 
     describe '#dump' do
       it 'dumps an empty into nil' do
@@ -55,7 +55,7 @@ module Thredded
 
     describe 'roundtrip' do
       def roundtrip_from_value(value)
-        TruthyHashSerializer.dump(TruthyHashSerializer.load(value))
+        TruthyHash::Serializer.dump(TruthyHash::Serializer.load(value))
       end
 
       it 'should roundtrip empty string as blank' do

@@ -13,8 +13,7 @@ module Thredded
     validates :user_id, presence: true
     validates :messageboard_id, presence: true
 
-    serialize :notifications_for_followed_topics, TruthyHashSerializer
-    serialize :notifications_for_private_topics, TruthyHashSerializer
+    serialize :notifications_for_followed_topics, TruthyHash::Serializer
 
     def self.in(messageboard)
       find_or_initialize_by(messageboard_id: messageboard.id)

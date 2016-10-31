@@ -16,7 +16,7 @@ module Thredded
       it "includes followers where preference to receive these notifications" do
         create(
           :user_messageboard_preference,
-          notifications_for_followed_topics: TruthyHashSerializer.create("email" => true),
+          notifications_for_followed_topics: TruthyHash.create("email" => true),
           user: follower,
           messageboard: messageboard
         )
@@ -32,7 +32,7 @@ module Thredded
         before do
           create(
             :user_messageboard_preference,
-            notifications_for_followed_topics: TruthyHashSerializer.create("email" => false),
+            notifications_for_followed_topics: TruthyHash.create("email" => false),
             user: follower,
             messageboard: messageboard
           )
@@ -54,7 +54,7 @@ module Thredded
         before do
           create(
             :user_messageboard_preference,
-            notifications_for_followed_topics: TruthyHashSerializer.create("mock" => false),
+            notifications_for_followed_topics: TruthyHash.create("mock" => false),
             user: follower,
             messageboard: messageboard
           )
@@ -79,7 +79,7 @@ module Thredded
         before do
           create(
             :user_preference,
-            notifications_for_followed_topics: TruthyHashSerializer.create("mock" => false),
+            notifications_for_followed_topics: TruthyHash.create("mock" => false),
             user: follower,
           )
         end
