@@ -84,6 +84,9 @@ Thredded.layout = 'thredded/application'
 # E.g. to allow a custom element <custom-element>:
 # Thredded::ContentFormatter.whitelist[:elements] += %w(custom-element)
 
+# ==> User autocompletion (Private messages and @-mentions)
+# Thredded.autocomplete_min_length = 2 lower to 1 if have 1-letter names -- increase if you want
+
 # ==> Error Handling
 # By default Thredded just renders a flash alert on errors such as Topic not found, or Login required.
 # Below is an example of overriding the default behavior on LoginRequired:

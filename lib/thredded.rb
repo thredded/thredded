@@ -26,6 +26,7 @@ require 'thredded/engine'
 
 module Thredded
   mattr_accessor \
+    :autocomplete_min_length,
     :active_user_threshold,
     :avatar_url,
     :email_from,
@@ -67,6 +68,7 @@ module Thredded
   self.content_visible_while_pending_moderation = true
   self.show_topic_followers = false
   self.messageboards_order = :position
+  self.autocomplete_min_length = 2
 
   def self.user_display_name_method
     @@user_display_name_method || user_name_column
