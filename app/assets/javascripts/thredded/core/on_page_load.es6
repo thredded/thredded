@@ -1,4 +1,4 @@
-(function () {
+(($) => {
   const pageLoadCallbacks = [];
   const triggerOnPageLoad = () => {
     console.log('on page load');
