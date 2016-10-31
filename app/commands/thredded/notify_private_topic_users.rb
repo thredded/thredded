@@ -7,42 +7,25 @@ module Thredded
     end
 
     def run
-      members = private_topic_recipients
-
-      return unless members.present?
-      user_emails = members.map(&:email)
-      PrivateTopicMailer
-        .message_notification(private_topic.id, user_emails)
-        .deliver_later
-      mark_notified(members)
+      Thredded.notifiers.each do |notifier|
+        notifiable_users = targeted_users(notifier)
+        notifier.new_private_post(@post, notifiable_users) if notifiable_users.present?
+      end
     end
 
-    def private_topic_recipients
-      members = private_topic.users - [post.user]
-      members = exclude_those_opting_out_of_message_notifications(members)
-      members = exclude_previously_notified(members)
-      members
+    def targeted_users(notifier)
+      users = private_topic.users - [post.user]
+      users = exclude_those_opting_out_of_message_notifications(users, notifier)
+      users
     end
 
     private
 
     attr_reader :post, :private_topic
 
-    def mark_notified(members)
-      members.each do |member|
-        post.post_notifications.create(email: member.email)
-      end
-    end
-
-    def exclude_those_opting_out_of_message_notifications(members)
-      members.select { |member| member.thredded_user_preference.notify_on_message? }
-    end
-
-    def exclude_previously_notified(members)
-      emails_notified = post.post_notifications.map(&:email)
-
-      members.reject do |member|
-        emails_notified.include? member.email
+    def exclude_those_opting_out_of_message_notifications(users, notifier)
+      users.select do |user|
+        user.thredded_user_preference.notifications_for_private_topics[notifier.key]
       end
     end
   end

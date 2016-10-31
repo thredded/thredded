@@ -12,28 +12,28 @@ feature 'User updating preferences globally' do
   scenario 'Allows private topic notifications by default' do
     preferences = default_user_preferences
 
-    expect(preferences).to have_private_topic_notifications
+    expect(preferences).to have_notifications_for_private_topics_by_email
   end
 
   scenario 'Does not allow private topic notifications' do
     preferences = default_user_preferences
-    preferences.disable_private_topic_notifications
+    preferences.disable_notifications_for_private_topics_by_email
 
     expect(preferences).to be_updated
-    expect(preferences).not_to have_private_topic_notifications
+    expect(preferences).not_to have_notifications_for_private_topics_by_email
   end
 
   scenario 'Allows email on post in followed topic by default' do
     preferences = default_user_preferences
-    expect(preferences).to have_followed_topic_emails
+    expect(preferences).to have_notifications_for_followed_topics_by_email
   end
 
   scenario 'Does not allow followed topic notifications' do
     preferences = default_user_preferences
-    preferences.disable_followed_topic_emails
+    preferences.disable_notifications_for_followed_topics_by_email
 
     expect(preferences).to be_updated
-    expect(preferences).not_to have_followed_topic_emails
+    expect(preferences).not_to have_notifications_for_followed_topics_by_email
   end
 
   def default_user_preferences
@@ -62,15 +62,15 @@ feature 'User updating preferences for messageboard' do
 
   scenario 'Allows followed topic notifications by default' do
     preferences = default_user_preferences
-    expect(preferences).to have_messageboard_followed_topic_emails
+    expect(preferences).to have_messageboard_notifications_for_followed_topics_by_email
   end
 
   scenario 'Does not allow followed topic notifications' do
     preferences = default_user_preferences
-    preferences.disable_messageboard_followed_topic_emails
+    preferences.disable_messageboard_notifications_for_followed_topics_by_email
 
     expect(preferences).to be_updated
-    expect(preferences).not_to have_messageboard_followed_topic_emails
+    expect(preferences).not_to have_messageboard_notifications_for_followed_topics_by_email
   end
 
   def default_user_preferences

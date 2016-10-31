@@ -140,4 +140,9 @@ namespace :db do
 
   desc 'Re-seed database with new data'
   task reseed: [:truncate, :seed]
+
+  desc 'do a mini seed to generate sample data for migration tests'
+  task miniseed: [:truncate] do
+    Thredded::DatabaseSeeder.run(users: 5, topics: 5, posts: 1..5)
+  end
 end

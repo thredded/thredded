@@ -13,6 +13,9 @@ Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
 
 Rails.application.config.to_prepare do
+  # require_dependency File.expand_path('../../../../support/mock_notifier', __FILE__)
+  # Thredded.notifiers = [Thredded::EmailNotifier.new, MockNotifier.new]
+
   Thredded::ApplicationController.module_eval do
     include SetLocale
     rescue_from Thredded::Errors::LoginRequired do |exception|
