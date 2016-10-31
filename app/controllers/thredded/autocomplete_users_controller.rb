@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class AutocompleteUsersController < Thredded::ApplicationController
-    MAX_RESULTS      = 20
+    MAX_RESULTS = 20
 
     def index
       authorize_creating PrivateTopicForm.new(user: thredded_current_user).private_topic
