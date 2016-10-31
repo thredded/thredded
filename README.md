@@ -41,6 +41,22 @@ application and not an engine like Thredded.
 
 ## Installation
 
+### Creating a new Rails app with Thredded
+
+Thredded provides an app generator that will generate a Rails app with Thredded, Devise, SimpleForm, RSpec, 
+PostgreSQL, and a basic theme and navigation that is configured to work out of the box.
+
+```sh
+gem install thredded_create_app
+thredded_create_app path/to/myapp
+```
+
+See `thredded_create_app --help` to learn about the various options.
+
+Then, see the rest of this Readme for more information about using and customizing Thredded.
+
+### Adding Thredded to an existing Rails app
+
 Add the gem to your Gemfile:
 
 ```ruby
