@@ -1,4 +1,4 @@
-(function($) {
+(($) => {
   const COMPONENT_SELECTOR = '[data-thredded-topic-form]';
   class ThreddedTopicForm {
     constructor() {
@@ -42,12 +42,22 @@
         });
     }
 
+    destroy($nodes) {
+      $nodes.find(this.textareaSelector).trigger('autosize.destroy');
+    }
   }
 
-  $(function() {
-    var $nodes = $(COMPONENT_SELECTOR);
+  window.Thredded.onPageLoad(() => {
+    const $nodes = $(COMPONENT_SELECTOR);
     if ($nodes.length) {
       new ThreddedTopicForm().init($nodes);
+    }
+  });
+
+  document.addEventListener('turbolinks:before-cache', () => {
+    const $nodes = $(COMPONENT_SELECTOR);
+    if ($nodes.length) {
+      new ThreddedTopicForm().destroy($nodes);
     }
   });
 })(jQuery);

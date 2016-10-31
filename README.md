@@ -459,6 +459,44 @@ Run `rubocop` to ensure a consistent code style across the codebase.
 By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, SQLite,
 and all the supported Rails versions.
 
+### JavaScript
+
+Currently, Thredded JavaScript is written in the subset of ES6 that does not
+require Babel polyfills. We're waiting for the ES6/7 support on Rails to improve
+before updating this to full Babel.
+
+All Thredded JavaScript is compatible with the following Turbolinks options:
+
+* No Turbolinks.
+* Tubrolinks 5.
+* Turbolinks Classic.
+* Turbolinks Classic + jquery-turbolinks.
+
+To achieve this, all the Thredded code must register onload via
+`Thredded.onPageLoad`, e.g.:
+
+```js
+window.Thredded.onPageLoad(() => {
+  // Initialize widgets:
+  $('[data-thredded-select2]').select2();
+});
+```
+
+On Turbolinks 5 onPageLoad will run on the same DOM when the page is restored
+from history (because Turbolinks 5 caches a *clone* of the body node, so
+the events are lost).
+
+This means that all DOM modifications on `window.Thredded.onPageLoad` must be
+idempotent, or they must be reverted on the `turbolinks:before-cache` event,
+e.g.:
+
+```js
+document.addEventListener('turbolinks:before-cache', () => {
+  // Destroy widgets:
+  $('[data-thredded-select2]').select2('destroy');
+});
+```
+
 ### Testing with all the databases and Rails versions locally.
 
 You can also test the gem with all the supported databases and Rails versions locally.

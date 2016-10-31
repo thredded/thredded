@@ -1,4 +1,4 @@
-(function($) {
+(($) => {
   const COMPONENT_SELECTOR = '[data-thredded-topics]';
 
   const TOPIC_SELECTOR = 'article';
@@ -28,8 +28,8 @@
     }
   }
 
-  $(function() {
-    var $nodes = $(COMPONENT_SELECTOR);
+  window.Thredded.onPageLoad(() => {
+    const $nodes = $(COMPONENT_SELECTOR);
     if ($nodes.length) {
       new ThreddedTopics().init($nodes);
     }

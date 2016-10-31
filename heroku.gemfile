@@ -11,10 +11,8 @@ gem 'rails', '~> 5.0.0'
 gem 'puma'
 gem 'pg'
 gem 'rails_email_preview', '>= 1.0.3'
-gem 'jquery-turbolinks'
-# TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
-# https://github.com/kossnocorp/jquery.turbolinks/pull/58
-gem 'turbolinks', '~> 2.5'
+gem 'turbolinks'
+gem 'coffee-rails'
 gem 'rails-i18n'
 gem 'http_accept_language'
 gem 'factory_girl_rails'

@@ -70,8 +70,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'i18n-tasks'
 
   # dummy app frontend
-  s.add_development_dependency 'jquery-turbolinks'
-  # TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
-  # https://github.com/kossnocorp/jquery.turbolinks/pull/58
-  s.add_development_dependency 'turbolinks', '~> 2.5'
+  s.add_development_dependency 'turbolinks'
+  # required by the turbolinks gem
+  s.add_development_dependency 'coffee-rails'
 end
