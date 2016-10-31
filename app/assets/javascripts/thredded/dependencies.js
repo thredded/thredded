@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.autosize
+//= require jquery.textcomplete
 //= require rails-timeago
 //= require select2
 

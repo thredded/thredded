@@ -1,5 +1,7 @@
 <%= form_for (post.private_topic_post? ? [topic, post] : [messageboard, topic, post]), as: :post,
-             html: { class: 'thredded--form thredded--post-form', 'data-thredded-post-form' => true } do |form| %>
+             html: {class: 'thredded--form thredded--post-form',
+                    'data-thredded-post-form' => true,
+                    'data-autocomplete-url' => autocomplete_users_path} do |form| %>
   <ul class="thredded--form-list">
     <%= render 'thredded/posts_common/form/content_field', form: form, content_label: content_label %>
 
