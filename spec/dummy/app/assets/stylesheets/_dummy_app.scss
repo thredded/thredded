@@ -16,6 +16,11 @@ body {
   background: $dummy-app-bg;
 }
 
+.turbolinks-progress-bar {
+  height: 0.25rem;
+  background-color: $thredded-brand;
+}
+
 .thredded--main-container {
   @include thredded-media-tablet-and-up {
     @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {

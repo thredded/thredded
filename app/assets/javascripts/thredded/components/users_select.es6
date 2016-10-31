@@ -26,7 +26,7 @@
     }
   };
 
-  let init = $el => {
+  let initOne = $el => {
     $el.select2({
       ajax: {
         cache: true,
@@ -45,12 +45,28 @@
     });
   };
 
-  $(function() {
-    var $nodes = $(COMPONENT_SELECTOR);
-    if ($nodes.length) {
-      $nodes.each(function() {
-        init($(this));
-      });
-    }
+  let init = () => {
+    $(COMPONENT_SELECTOR).each(function() {
+      initOne($(this));
+    });
+  };
+
+  let destroy = () => {
+    $(COMPONENT_SELECTOR).each(function() {
+      $(this).select2('destroy');
+    });
+    $('.select2-drop, .select2-drop-mask').remove();
+  };
+
+  window.Thredded.onPageLoad(() => {
+    init()
   });
+
+  document.addEventListener('turbolinks:before-cache', () => {
+    // Turbolinks 5 clones the body node for caching, losing all the bound
+    // events. Undo the select2 transformation before storing to cache,
+    // so that it applies cleanly on restore.
+    destroy()
+  });
+
 })(jQuery);

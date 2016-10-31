@@ -1,4 +1,4 @@
-(function($) {
+(($) => {
   const COMPONENT_SELECTOR = '[data-thredded-currently-online]';
 
   class ThreddedCurrentlyOnline {
@@ -16,8 +16,8 @@
     }
   }
 
-  $(function() {
-    var $nodes = $(COMPONENT_SELECTOR);
+  window.Thredded.onPageLoad(() => {
+    const $nodes = $(COMPONENT_SELECTOR);
     if ($nodes.length) {
       new ThreddedCurrentlyOnline().init($nodes);
     }

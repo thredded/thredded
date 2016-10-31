@@ -1,4 +1,4 @@
-(function($) {
+(($) => {
   const COMPONENT_SELECTOR = '[data-thredded-user-preferences-form]';
   const FOLLOW_TOPICS_ON_MENTION_SELECTOR = ':checkbox[name="user_preferences_form[follow_topics_on_mention]"]';
   const MESSAGEBOARD_FOLLOW_TOPICS_ON_MENTION_SELECTOR = '[name="user_preferences_form[messageboard_follow_topics_on_mention]"]';
@@ -61,7 +61,7 @@
     }
   }
 
-  $(function() {
+  window.Thredded.onPageLoad(() => {
     const $forms = $(COMPONENT_SELECTOR);
     if ($forms.length) {
       $forms.each(function() {
