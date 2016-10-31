@@ -6,15 +6,30 @@ See in particular "main app delegator" in Changed below.
 
 ## Added
 
-* (nothing yet)
+* The email notifications on mention setting has been split into two:
+  1. Follow topics on mention.
+  2. Send email notifications on updates to followed topics.
+
+  [#427](https://github.com/thredded/thredded/pull/427)
+* Turbolinks 5 support. [#440](https://github.com/thredded/thredded/pull/440)
 
 ## Changed
 
-* The "main app delegator" has been removed. If you are using an application layout for thredded, you need to either prefix your links with main_app or add some code to your thredded initializer [Readme on application layouts](https://github.com/thredded/thredded/blob/master/README.md#application-layout).
+* The "main app delegator" has been removed. If you are using an application layout for thredded, you need to either
+  prefix your links with main_app or add some code to your thredded initializer
+  [Readme on application layouts](https://github.com/thredded/thredded/blob/master/README.md#application-layout).
 
 ## Fixed
 
-* (nothing yet)
+* Minor responsive style issues on mobile. [#438](https://github.com/thredded/thredded/pull/438)
+* The "Mark all as read" button in private messages is no longer shown when there are no messages at all.
+  [4b6c2f](https://github.com/thredded/thredded/commit/4b6c2f1664d9b39c9d797853e92cd361b2ebd8ec)
+* The (un)follow endpoint now supports GET requests to enable redirect_back to it after sign in.
+  [#435](https://github.com/thredded/thredded/pull/435)
+* Messageboards `name` limit on MySQL was too long for a unique index with the `utf8mb4` encoding.
+  [#432](https://github.com/thredded/thredded/pull/432)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.7.0...master.
 
 # v0.7.0
 
