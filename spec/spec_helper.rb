@@ -4,11 +4,11 @@ if ENV['MIGRATION_SPEC']
   source_sample = File.expand_path('../migration/v0.7-sample.sqlite3', __FILE__)
   ENV['DATABASE_FILE'] = File.expand_path('../../tmp/migration.sqlite3', __FILE__)
   FileUtils.cp(source_sample, ENV['DATABASE_FILE'])
-else
-  if ENV['TRAVIS'] && !(defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx')
-    require 'codeclimate-test-reporter'
-    CodeClimate::TestReporter.start
-  end
+end
+
+if ENV['TRAVIS'] && !(defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx') && !ENV['MIGRATION_SPEC']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
 end
 
 require File.expand_path('../dummy/config/environment', __FILE__)
@@ -34,7 +34,7 @@ ensure
 end
 
 # Re-create the test database and run the migrations
-system({'DB' => db}, 'script/create-db-users') unless ENV['TRAVIS']
+system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
 if ENV['MIGRATION_SPEC']
   # no-op
 else
@@ -103,7 +103,6 @@ RSpec.configure do |config|
     # no-op
   else
     config.before(:suite) do
-
       DatabaseCleaner.strategy = :transaction
       silence_active_record do
         DatabaseCleaner.clean_with(:truncation)
