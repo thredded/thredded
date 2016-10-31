@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] = 'test'
 if ENV['MIGRATION_SPEC']
   source_sample = File.expand_path('../migration/v0.7-sample.sqlite3', __FILE__)
   ENV['DATABASE_FILE'] = File.expand_path('../../tmp/migration.sqlite3', __FILE__)
+  FileUtils.mkdir_p(File.dirname(ENV['DATABASE_FILE']))
   FileUtils.cp(source_sample, ENV['DATABASE_FILE'])
 end
 
