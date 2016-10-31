@@ -52,7 +52,7 @@
             return `${prefix}${name} `
           }
         }
-      }]);
+      }], {dropdownClassName: 'dropdown-menu thredded--textcomplete-dropdown'});
     }
 
     destroy($nodes) {
