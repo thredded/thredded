@@ -6,7 +6,9 @@ class UpgradeV08ToV09 < ActiveRecord::Migration
       null: false
     add_column :thredded_user_preferences, :notifications_for_private_topics, :string, default: '', null: false
 
-    # TODO: upgrade exisiting notify_on_message preferences before removing
+    Thredded::UserPreference.reset_column_information
+    Thredded::UserPreference.where(notify_on_message: false)
+      .update_all(['notifications_for_private_topics =?', 'email'])
 
     remove_column :thredded_user_preferences, :notify_on_message
   end
