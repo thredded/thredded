@@ -10,9 +10,10 @@
     <li>
       <%= form.label :user_ids, t('thredded.private_topics.form.users_label') %>
       <%= form.text_field :user_ids,
-                          placeholder:                 t('thredded.private_topics.form.users_placeholder'),
-                          'data-thredded-users-select' => true,
-                          'data-autocomplete-url'      => autocomplete_users_path %>
+                          placeholder:                   t('thredded.private_topics.form.users_placeholder'),
+                          'data-thredded-users-select'   => true,
+                          'data-autocomplete-url'        => autocomplete_users_path,
+                          'data-autocomplete-min-length' => Thredded.autocomplete_min_length %>
     </li>
 
     <%= render 'thredded/posts_common/form/content_field',

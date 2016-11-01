@@ -38,7 +38,7 @@
       containerCssClass: 'thredded--select2-container',
       dropdownCssClass: 'thredded--select2-drop',
       initSelection: initSelection,
-      minimumInputLength: 2,
+      minimumInputLength: $el.data('autocompleteMinLength'),
       multiple: true,
       formatResult: formatUser,
       formatSelection: formatUserSelection

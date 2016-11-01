@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class AutocompleteUsersController < Thredded::ApplicationController
-    MIN_QUERY_LENGTH = 2
-    MAX_RESULTS      = 20
+    MAX_RESULTS = 20
 
     def index
       authorize_creating PrivateTopicForm.new(user: thredded_current_user).private_topic
@@ -20,7 +19,7 @@ module Thredded
 
     def users_by_prefix
       query = params[:q].to_s.strip
-      if query.length >= MIN_QUERY_LENGTH
+      if query.length >= Thredded.autocomplete_min_length
         DbTextSearch::CaseInsensitive.new(users_scope, Thredded.user_name_column).prefix(query)
           .where.not(id: thredded_current_user.id)
           .limit(MAX_RESULTS)

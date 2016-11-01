@@ -8,6 +8,7 @@
 
     init($nodes) {
       let $textarea = $nodes.find(this.textareaSelector);
+      this.autocompleteMinLength = parseInt($nodes.data('autocompleteMinLength'), 10);
       this.autosize($textarea);
       this.automentionCompletion($textarea, $nodes.data('autocompleteUrl'));
     }
@@ -33,7 +34,10 @@
 
       $textarea.textcomplete([{
         match: /(^@|\s@)"?((?:\w| ){1,})$/,
-        search: function (term, callback, match) {
+        search: (term, callback, match) => {
+          if(term.length < this.autocompleteMinLength){
+            return callback({});
+          }
           let termsUrl = `${autocompleteUrl}?q=${term}`;
           $.ajax({url: termsUrl}).done(function (response) {
             callback($.map(response.results, function ({avatar_url, id, name}) {
