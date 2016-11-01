@@ -7,6 +7,6 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    DbTextSearch::CaseInsensitive.add_index connection, :users, :display_name
+    DbTextSearch::CaseInsensitive.add_index connection, :users, :name
   end
 end
