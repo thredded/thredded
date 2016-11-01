@@ -1,7 +1,6 @@
 (($) => {
   const pageLoadCallbacks = [];
   const triggerOnPageLoad = () => {
-    console.log('on page load');
     pageLoadCallbacks.forEach((callback) => {
       callback();
     });
