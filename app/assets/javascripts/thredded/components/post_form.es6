@@ -9,7 +9,6 @@
     init($nodes) {
       let $textarea = $nodes.find(this.textareaSelector);
       this.autocompleteMinLength = parseInt($nodes.data('autocompleteMinLength'), 10);
-      console.log({autocompleteMinLength: this.autocompleteMinLength});
       this.autosize($textarea);
       this.automentionCompletion($textarea, $nodes.data('autocompleteUrl'));
     }
