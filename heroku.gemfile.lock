@@ -145,7 +145,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-    nokogumbo (1.4.9)
+    nokogumbo (1.4.10)
       nokogiri
     pg (0.19.0)
     puma (3.6.0)
@@ -261,4 +261,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.5
+   1.13.6
