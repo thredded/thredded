@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -ex
+
+gem install heroku --no-document
+BUNDLE_GEMFILE=heroku.gemfile bundle update
+
+if git diff-index --name-only HEAD | grep -q heroku.gemfile.lock; then
+ git commit -m 'BUNDLE_GEMFILE=heroku.gemfile bundle update' -- heroku.gemfile.lock
+fi
+
+heroku maintenance:on
+heroku pg:reset DATABASE --confirm thredded-demo
+git push heroku master
+heroku run rake db:migrate db:seed
+heroku maintenance:off
