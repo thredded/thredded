@@ -7,7 +7,9 @@ module StoreLocationFullpath
   extend ActiveSupport::Concern
 
   included do
-    cattr_accessor :store_location_fullpath
+    class_attribute :store_location_fullpath,
+                    instance_accessor: false,
+                    instance_predicate: false
     self.store_location_fullpath = true
 
     before_action :store_location_fullpath!
