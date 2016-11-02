@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include SetLocale
+  include StoreLocationFullpath
   helper_method :signed_in?, :the_current_user
 
   def index
