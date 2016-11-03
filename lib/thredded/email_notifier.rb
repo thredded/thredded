@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 module Thredded
   class EmailNotifier
-    def i18n_key
-      # i18n-tasks-use t('thredded.email_notifier.by_email')
-      'thredded.email_notifier.by_email'
+    def human_name
+      I18n.t('thredded.email_notifier.by_email')
     end
 
     def key

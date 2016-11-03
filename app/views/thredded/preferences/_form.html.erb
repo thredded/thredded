@@ -26,7 +26,7 @@
           <%= fn.check_box :wants,
               'data-thredded-bound-messageboard-pref' =>
               "user_preferences_form[messageboard_notifications_for_followed_topics_attributes][#{fn.index}][wants]" %>
-          <%= t(Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.i18n_key) #TODO nicer
+          <%= Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.human_name #TODO nicer
           %>
         <%- end %>
       <%- end %>
@@ -37,7 +37,7 @@
         <%= fn.label :wants do %>
           <%= fn.hidden_field :notifier_key%>
           <%= fn.check_box :wants %>
-          <%= t(Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.i18n_key) #TODO nicer
+          <%= Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.human_name #TODO nicer
           %>
         <% end %>
       <% end %>
@@ -64,7 +64,7 @@
             <%= fn.hidden_field :notifier_key %>
             <%= fn.hidden_field :messageboard_id %>
             <%= fn.check_box :wants %>
-            <%= t(Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.i18n_key) #TODO nicer
+            <%= Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.human_name #TODO nicer
             %>
           <% end %>
         <%- end %>

@@ -6,8 +6,8 @@ class MockNotifier
     'mock'
   end
 
-  def i18n_key
-    'thredded.mock_notifier.by_mock'
+  def human_name
+    'By mock'
   end
 
   def new_post(_post, users)
