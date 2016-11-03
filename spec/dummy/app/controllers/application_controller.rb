@@ -5,10 +5,6 @@ class ApplicationController < ActionController::Base
   include StoreLocationFullpath
   helper_method :signed_in?, :the_current_user
 
-  def index
-    @messageboard = Thredded::Messageboard.first
-  end
-
   protected
 
   def signed_in?
