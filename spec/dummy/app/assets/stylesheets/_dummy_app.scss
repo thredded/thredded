@@ -72,8 +72,10 @@
   background-color: $brand-primary;
 }
 
-.form-inputs .input, .form-actions {
-  margin: 1rem 0;
+.app-header {
+  a {
+    @extend %thredded--link;
+  }
 }
 
 .app-nav-theme, .app-nav-locale {
@@ -87,39 +89,47 @@
     padding: 0;
     > li {
       display: inline;
-      cursor: pointer;
-      @extend %thredded--link;
-      &.app-current {
+      > button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: inherit;
+        padding: 0;
+        @extend %thredded--link;
+      }
+      > span {
         color: $thredded-secondary-text-color;
-        cursor: default;
         font-weight: bold;
+      }
+    }
+  }
+  .app-nav-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .app-nav-theme, .app-nav-locale {
+    margin: 0 0 0 0.3125rem;
+    > .app-nav-text, .app-current {
+      display: none;
+    }
+  }
+  .app-nav-theme {
+    .app-nav-text {
+      display: none;
+    }
+    button {
+      vertical-align: middle;
+    }
+    .app-nav-icon {
+      display: block;
+      svg {
+        fill: currentColor;
+        height: 1.5rem;
+        width: 1.5rem;
       }
     }
   }
 }
 
-.app-header {
-  a {
-    @extend %thredded--link;
-  }
-
-  button, input[type="submit"] {
-    @extend %thredded--button;
-  }
-
-  form {
-    @extend %thredded--form;
-  }
-
-  blockquote {
-    @extend %thredded--blockquote;
-  }
-
-  table {
-    @extend %thredded--table;
-  }
-
-  hr {
-    @extend %thredded--hr;
-  }
-}

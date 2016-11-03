@@ -1,10 +1,9 @@
 (($) => {
   window.Thredded.onPageLoad(() => {
-    $('.app-nav-locale li').click((evt) => {
-      if (/\bapp-current\b/.test(evt.target.className)) return;
+    $('.app-nav-locale li button').click(function(evt) {
       let expiresAt = new Date();
       expiresAt.setMonth(expiresAt.getMonth() + 12);
-      document.cookie = 'locale=' + $(evt.target).data('locale') +
+      document.cookie = 'locale=' + $(this.parentNode).data('locale') +
         ';expires=' + expiresAt + ';path=/';
       Turbolinks.clearCache();
       Turbolinks.visit(document.location);

@@ -11,18 +11,35 @@
   </span>
   <a class="app-nav-logo" href="/">Thredded Demo</a>
   <div class="app-nav-theme">
-    Theme:
+    <span class="app-nav-text">Theme:</span>
     <ul>
       <% themes.each do |theme| %>
-          <%= content_tag :li, theme.humanize, class: ('app-current' if theme == current_theme), 'data-theme' => theme -%>
+          <%= content_tag :li, class: ('app-current' if theme == current_theme), 'data-theme' => theme do -%>
+              <% if theme == current_theme -%>
+                <span class="app-nav-text"><%= theme.humanize %></span>
+              <% else -%>
+                <button type="button">
+                  <span class="app-nav-text"><%= theme.humanize %></span>
+                  <span class="app-nav-icon"><%= inline_svg 'brightness.svg' %></span>
+                </button>
+              <% end -%>
+          <% end -%>
       <% end %>
     </ul>
   </div>
   <div class="app-nav-locale">
-    I18n:
+    <span class="app-nav-text">Locale:</span>
     <ul>
       <% I18n.available_locales.each do |locale| %>
-          <%= content_tag :li, locale, class: ('app-current' if locale.to_s == I18n.locale.to_s), 'data-locale' => locale -%>
+          <%= content_tag :li, class: ('app-current' if locale.to_s == I18n.locale.to_s), 'data-locale' => locale do -%>
+              <% if locale.to_s == I18n.locale.to_s -%>
+                <span class="app-nav-text"><%= locale %></span>
+              <% else -%>
+              <button type="button">
+                <span class="app-nav-text"><%= locale %></span>
+              </button>
+              <% end -%>
+          <% end -%>
       <% end %>
     </ul>
   </div>

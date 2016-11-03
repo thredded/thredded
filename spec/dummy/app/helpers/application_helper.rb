@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module ApplicationHelper
-  VALID_THEMES = %w(default dark).freeze
+  VALID_THEMES = %w(day night).freeze
 
   def themes
     VALID_THEMES
