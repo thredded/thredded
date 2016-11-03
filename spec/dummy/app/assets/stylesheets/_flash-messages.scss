@@ -1,0 +1,19 @@
+.flash-message {
+  @extend %thredded--alert;
+}
+
+.flash-message--success {
+  @extend %thredded--alert--success;
+}
+
+.flash-message--error {
+  @extend %thredded--alert--danger;
+}
+
+.flash-message--notice {
+  @extend %thredded--alert--info;
+}
+
+.flash-message--alert {
+  @extend %thredded--alert--warning;
+}

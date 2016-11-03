@@ -1,7 +1,13 @@
+<% content_for :head do %>
+    <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
 <div class="thredded--main-container">
   <% if @message %>
     <p class="thredded--alert thredded--alert-warning"><%= @message %></p>
   <% end %>
+  <p>
+    Sign in as anyone to post. The only requirement in this demo app is a username:
+  </p>
   <%= form_tag(main_app.user_sessions_path, class: 'thredded--form') do %>
     <ul class="thredded--form-list">
       <li><%= text_field_tag 'name', 'Joe', placeholder: 'Name' %></li>

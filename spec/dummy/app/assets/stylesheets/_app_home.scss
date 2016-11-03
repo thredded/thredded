@@ -1,0 +1,138 @@
+.home {
+  $brand-primary: #4a90e2;
+  $text-color: #575d6b;
+  color: $text-color;
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &-masthead {
+    position: relative;
+    background-color: $brand-primary;
+    color: #f2f7fd;
+    padding: 2rem 1rem 1rem;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    &-title {
+      font-size: 4rem;
+      margin: 0;
+    }
+    &-lead {
+      margin: 0 auto 2rem;
+      font-size: 1.25rem;
+      color: #fff;
+      @media (min-width: 768px) {
+        font-size: 1.5rem;
+      }
+      @media (min-width: 992px) {
+        width: 85%;
+        font-size: 2rem;
+      }
+    }
+    &-nav {
+      $color: #f2f7fd;
+      $gutter: 1rem;
+      font-size: 1.2rem;
+      ul {
+        list-style: none;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        display: block;
+        a {
+          appearance: none;
+          box-sizing: border-box;
+          color: $color;
+          display: block;
+          border: 1px solid $color;
+          border-radius: 3px;
+          background-color: transparent;
+          padding: 0.75em 1em;
+          text-decoration: none;
+          user-select: none;
+          vertical-align: middle;
+          white-space: nowrap;
+          width: 100%;
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: $color;
+            color: $text-color;
+            text-decoration: none;
+          }
+        }
+        &.home-current a {
+          background-color: $color;
+          color: $text-color;
+        }
+      }
+      li + li {
+        margin-top: $gutter;
+      }
+      @media (min-width: 576px) {
+        padding-right: $gutter;
+        li {
+          display: inline-block;
+          a {
+            min-width: 7rem;
+            width: auto;
+          }
+        }
+        li + li {
+          margin-top: 0;
+          margin-left: $gutter;
+        }
+      }
+    }
+    @media (min-width: 576px) {
+      padding-top: 5rem;
+      padding-bottom: 2rem;
+    }
+    @media (min-width: 768px) {
+      padding-bottom: 3.5rem;
+    }
+  }
+
+  &-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    @media (min-width: 576px) {
+      width: 540px;
+      max-width: 100%;
+    }
+    @media (min-width: 768px) {
+      width: 720px;
+    }
+    @media (min-width: 992px) {
+      width: 800px;
+    }
+    @media (min-width: 1200px) {
+      width: 800px;
+    }
+  }
+
+  a {
+    color: $brand-primary;
+    text-decoration: none;
+    transition: color 0.08s linear;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: darken($brand-primary, 15%);
+      text-decoration: none;
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  section {
+    margin-top: 1.125rem;
+  }
+}

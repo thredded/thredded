@@ -1,72 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      <%= safe_join([yield(:thredded_page_title).presence, 'Thredded Demo'].compact, ' | ') %>
-    </title>
-    <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-    <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
-    <%= favicon_link_tag %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  </head>
-  <body>
-    <% if ENV['GA_TRACKING_ID'] -%>
+<head>
+  <title>
+    <%= safe_join([yield(:thredded_page_title).presence, 'Thredded Demo'].compact, ' | ') %>
+  </title>
+  <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+  <%= csrf_meta_tags %>
+  <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
+  <%= favicon_link_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <%= yield :head %>
+</head>
+<body class="app<%= ' app-layout' unless content_for?(:no_app_layout) %>">
+<% if ENV['GA_TRACKING_ID'] -%>
     <script data-turbolinks-eval="false">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
       ga('create', '<%= ENV['GA_TRACKING_ID'] %>', 'auto');
     </script>
     <script>
       ga('set', 'location', location.href.split('#')[0]);
-      ga('send', 'pageview', { "title": document.title });
+      ga('send', 'pageview', {"title": document.title});
     </script>
-    <% end -%>
+<% end -%>
+<% unless content_for?(:no_app_layout) %>
     <div class="app-container">
-      <header class="app-container-header">
-        <span class="app-nav-auth">
-          <% if signed_in? %>
-            You are <%= link_to the_current_user.name, the_current_user %> |
-            <%= link_to 'Sign out', main_app.destroy_user_session_path, method: :delete %>
-          <% else %>
-            You are an anonymous visitor |
-            <%= link_to 'Sign in', main_app.new_user_session_path %>
-          <% end %>
-        </span>
-        <a class="app-nav-logo" href="/">Thredded: Example App</a>
-        <span class="app-nav-theme">
-          Theme:
-          <ul>
-            <% themes.each do |theme| %>
-              <%= content_tag :li, theme.humanize, class: ('app-current' if theme == current_theme), 'data-theme' => theme -%>
-            <% end %>
-          </ul>
-        </span>
-        <span class="app-nav-locale">
-          Locale:
-          <ul>
-            <% I18n.available_locales.each do |locale| %>
-              <%= content_tag :li, locale, class: ('app-current' if locale.to_s == I18n.locale.to_s), 'data-locale' => locale -%>
-            <% end %>
-          </ul>
-        </span>
-      </header>
-
-      <% unless content_for?(:thredded)  # thredded already renders the flash messages  %>
-        <% [:info, :error, :notice, :alert, :warning].each do |key| %>
-          <% if flash[key] %>
-            <div class="<%= key %>" id="flash">
-              <%= flash[key] %>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
-
-      <%= yield %>
+      <%= render 'shared/header' %>
+      <%= render 'shared/flash_messages' unless content_for?(:thredded_page_id) %>
+      <div class="app-content-container"><%= yield %></div>
     </div>
-  </body>
+<% else %>
+    <%= yield %>
+<% end %>
+</body>
 </html>

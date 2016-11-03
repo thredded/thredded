@@ -1,97 +1,58 @@
+@import "variables";
+@import "app_home";
 @import "thredded";
-
-$rep-brand-color: $thredded-brand;
-$rep-font-family: $thredded-base-font-family;
-$rep-text-color: $thredded-text-color;
-$rep-text-color-secondary: $thredded-secondary-text-color;
-$rep-gray-lighter: $thredded-light-gray;
-@import "rails_email_preview/application";
-
-$dummy-app-bg: $thredded-background-color !default;
-
-$container-padding-x: 4rem;
-
-body {
-  margin: 0;
-  background: $dummy-app-bg;
-}
-
-.turbolinks-progress-bar {
-  height: 0.25rem;
-  background-color: $thredded-brand;
-}
+@import "rails_email_preview";
+@import "flash-messages";
 
 .thredded--main-container {
+  // The padding and max-width are handled by the app's container.
+  max-width: none;
+  padding: 0;
   @include thredded-media-tablet-and-up {
-    @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
-      padding: 0.75rem 3.4rem;
-    }
+    padding: 0;
   }
+}
+
+.app-layout {
+  margin: 0;
+  background: $app-bg;
+}
+
+.app {
+  @include thredded--clearfix;
+  -webkit-font-smoothing: antialiased;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  margin: 0;
 }
 
 .app-container {
-  border: $thredded-base-border;
-  box-sizing: border-box;
-  margin: 2rem auto;
-  max-width: 884px;
-  padding: 2rem $container-padding-x;
-
-  @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
-    padding: 1.2rem;
-    margin: 0;
-    border: none;
+  color: $text-color;
+  margin: 0 auto;
+  max-width: ($grid-container-max-width + 4rem);
+  padding: 0 1.2rem 0.75rem 1.2rem;
+  @include thredded-media-tablet-and-up {
+    padding: 0 2rem 0.75rem 2rem;
+  }
+  @media (min-width: $grid-container-max-width + 0.01rem) {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
   }
 }
 
-.app-home, .app-container-header {
-  font-family: $thredded-base-font-family;
-  color: $thredded-text-color;
+.app-header {
+  border-bottom: 1px solid $thredded-base-border-color;
   a {
-    @extend %thredded--link;
-  }
-}
-
-
-.app-container-header {
-  border-bottom: $thredded-base-border;
-  padding-bottom: 1rem;
-  margin: 0 -2rem 1rem;
-
-  @media (max-width: $thredded-grid-container-max-width + 2 * $container-padding-x) {
-    margin: 0;
-    padding-bottom: 0.75rem;
+    display: inline-block;
+    padding: 1rem 0;
   }
 }
 
 .app-nav-logo {
-  @extend %thredded--link;
-  color: $thredded-text-color;
+  color: $text-color;
   text-decoration: none;
   font-weight: bold;
-}
-
-.app-nav-theme, .app-nav-locale {
-  display: inline-block;
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
-  ul {
-    @extend %thredded--list-unstyled;
-    display: inline-block;
-    li {
-      @extend %thredded--link;
-      cursor: pointer;
-      display: inline-block;
-      margin-left: 0.3rem;
-      &.app-current {
-        color: $thredded-text-color;
-        font-weight: bold;
-      }
-    }
-  }
-  @include thredded-media-tablet-and-up {
-    margin-left: 1.1rem;
-    margin-top: 0;
-  }
 }
 
 .app-nav-auth {
@@ -107,36 +68,58 @@ body {
   }
 }
 
-.app-home {
-  font-size: 1rem;
-  line-height: $thredded-base-line-height;
-  padding-top: 0;
+.turbolinks-progress-bar {
+  background-color: $brand-primary;
+}
 
-  .demo-lead {
-    display: block;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-top: 1rem;
-    @media (min-width: 0.00001rem + $thredded-grid-container-max-width + 2 * $container-padding-x) {
-      margin-top: 0;
+.form-inputs .input, .form-actions {
+  margin: 1rem 0;
+}
+
+.app-nav-theme, .app-nav-locale {
+  display: inline-block;
+  margin: 0 0 1rem 1.25rem;
+  font-size: 0.9rem;
+  color: $thredded-secondary-text-color;
+  > ul {
+    display: inline;
+    list-style: none;
+    padding: 0;
+    > li {
+      display: inline;
+      cursor: pointer;
+      @extend %thredded--link;
+      &.app-current {
+        color: $thredded-secondary-text-color;
+        cursor: default;
+        font-weight: bold;
+      }
     }
   }
+}
 
+.app-header {
   a {
-    font-weight: bold;
+    @extend %thredded--link;
   }
 
-  section {
-    margin-top: 1rem;
+  button, input[type="submit"] {
+    @extend %thredded--button;
+  }
+
+  form {
+    @extend %thredded--form;
+  }
+
+  blockquote {
+    @extend %thredded--blockquote;
+  }
+
+  table {
+    @extend %thredded--table;
   }
 
   hr {
     @extend %thredded--hr;
-    margin: 1rem 0;
-  }
-
-  footer {
-    border-top: $thredded-base-border;
   }
 }

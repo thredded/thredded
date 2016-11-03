@@ -24,7 +24,7 @@ module PageObject
     end
 
     def signed_in?
-      has_text?(@user.thredded_display_name) && has_text?('Sign out')
+      logged_in?
     end
   end
 end

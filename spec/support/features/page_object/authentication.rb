@@ -2,8 +2,7 @@
 module PageObject
   module Authentication
     def logged_in?
-      visit root_path
-      has_css? 'a', text: 'Sign out'
+      has_text?(@user.thredded_display_name) && has_text?('Sign out')
     end
 
     def signs_out

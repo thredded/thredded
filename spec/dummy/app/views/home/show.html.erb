@@ -1,60 +1,73 @@
-<div class="app-home thredded--main-container">
-  <a class="demo-lead" href="<%= thredded.messageboards_path %>">
-    Forums Demo ›
-  </a>
-  <small>
-    This demo is reset daily.
-    To discuss all things Thredded, head to <a href="https://github.com/thredded/thredded">GitHub</a> instead.
-  </small>
-  <hr>
+<% content_for :no_app_layout, true %>
+<div class="home">
+  <div class="home-masthead">
+    <div class="home-container">
+      <h1 class="home-masthead-title">Thredded</h1>
+      <p class="home-masthead-lead">
+        a feature-rich and simple forums engine for Rails.<br>
+      </p>
+      <nav class="home-masthead-nav">
+        <ul>
+          <li class="home-current"><a href="/">About</a></li>
+          <li><a href="<%= thredded.root_path %>">Demo</a></li>
+          <li><a href="https://github.com/thredded/thredded">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
-  <p>
-    <a href="https://github.com/thredded/thredded">Thredded</a> is a Rails 4.2+ forum/messageboard engine.<br>
-    Its goal is to be as simple and feature-rich as possible.
-  </p>
+  <div class="home-about">
+    <div class="home-container">
+      <section>
+        <p>Some of the features currently in Thredded:</p>
 
-  <section>
-    <p>Some of the features currently in Thredded:</p>
+        <ul>
+          <li>Markdown post formatting with some BBCode support (by default).</li>
+          <li>(Un)read posts tracking.</li>
+          <li>Email notifications, topic subscriptions, @-mentions, per-messageboard notification settings.</li>
+          <li>Private group messaging.</li>
+          <li>Full-text search using the database.</li>
+          <li>Pinned and locked topics.</li>
+          <li>List of currently online users, for all forums and per-messageboard.</li>
+          <li>Flexible permissions system.</li>
+          <li>Basic moderation.</li>
+          <li>Lightweight default theme configurable via Sass.</li>
+        </ul>
 
-    <ul>
-      <li>Markdown post formatting with some BBCode support (by default).</li>
-      <li>(Un)read posts tracking.</li>
-      <li>Email notifications, topic subscriptions, @-mentions, per-messageboard notification settings.</li>
-      <li>Private group messaging.</li>
-      <li>Full-text search using the database.</li>
-      <li>Pinned and locked topics.</li>
-      <li>List of currently online users, for all forums and per-messageboard.</li>
-      <li>Flexible permissions system.</li>
-      <li>Basic moderation.</li>
-      <li>Lightweight default theme configurable via Sass.</li>
-    </ul>
+        <p>Thredded has no infrastructure dependencies other than the database.<br>
+          Currently, Thredded supports SQLite, MySQL v5.6.4+, and PostgreSQL.</p>
+      </section>
 
-    <p>Thredded has no infrastructure dependencies other than the database.<br>
-      Currently, Thredded supports SQLite, MySQL v5.6.4+, and PostgreSQL.</p>
-  </section>
+      <section>
+        <h3>Demo</h3>
+        <ul>
+          <li>
+            <%= link_to 'Forums', thredded.root_path %> - demo forums, data are reset daily.
+          </li>
+          <% unless Rails.env.production? -%>
+              <li>
+                <%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the
+                views and styles.
+              </li>
+          <% end -%>
+          <li>
+            <%= link_to 'Email Templates', rails_email_preview.rep_root_path %> - previews of all emails sent by
+            Thredded.
+          </li>
+          <li>
+            <%= link_to 'Sign in', new_user_session_path %> as anyone to post, create threads, etc.
+            The only requirement in this demo app is a username.
+          </li>
+        </ul>
+      </section>
 
-  <section>
-    <h3>Demo URLs of Note</h3>
-    <ul>
-      <% unless Rails.env.production? -%>
-        <li><%= link_to 'Theme Preview', thredded.theme_preview_path %> - a single page aggregating all of the views and
-          styles.
-        </li>
-      <% end -%>
-      <li><%= link_to 'Email Templates', rails_email_preview.rep_root_url %> - previews of all emails sent by
-        Thredded.
-      </li>
-      <li><%= link_to 'Sign in', new_user_session_path %> as anyone to post, create threads, etc. The only requirement in
-        this demo app is a username.
-      </li>
-    </ul>
-  </section>
+      <p>
+        See the <a href="https://github.com/thredded/thredded">source code on GitHub</a>.
+      </p>
 
-  <p>
-    See the <a href="https://github.com/thredded/thredded">source code on GitHub</a>.
-  </p>
-
-  <footer>
-    <p>This demo app is powered by Rails v<%= Rails::VERSION::STRING %>.</p>
-  </footer>
+      <footer>
+        <p>This demo app is powered by Rails v<%= Rails::VERSION::STRING %>.</p>
+      </footer>
+    </div>
+  </div>
 </div>
