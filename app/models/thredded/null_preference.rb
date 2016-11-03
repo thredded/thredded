@@ -6,11 +6,11 @@ module Thredded
     end
 
     def notifications_for_private_topics
-      Thredded::TruthyHash.create
+      Thredded::PerNotifierPref::NotificationsForPrivateTopics.new
     end
 
     def notifications_for_followed_topics
-      Thredded::TruthyHash.create
+      Thredded::PerNotifierPref::NotificationsForFollowedTopics.new
     end
   end
 end

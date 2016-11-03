@@ -23,15 +23,8 @@ module Thredded
     def initialize(user:, messageboard: nil, params: {})
       @user = user
       @messageboard = messageboard
-      super(params.except(*TRUTHY_HASH_ATTRS))
-      assign_truthy_hash_attrs(params)
+      super(params)
     end
-
-    TRUTHY_HASH_ATTRS = [
-      :notifications_for_followed_topics,
-      :notifications_for_private_topics,
-      :messageboard_notifications_for_followed_topics
-    ].freeze
 
     # @return [Boolean]
     def save
@@ -67,12 +60,6 @@ module Thredded
     def promote_errors(child_errors, prefix = nil)
       child_errors.each do |attribute, message|
         errors.add([prefix, attribute].compact.join('_'), message)
-      end
-    end
-
-    def assign_truthy_hash_attrs(params)
-      TRUTHY_HASH_ATTRS.each do |attr_name|
-        send(attr_name).merge!(params[attr_name]) if params[attr_name]
       end
     end
   end

@@ -27,21 +27,14 @@ module Thredded
     end
 
     def preferences_params
-      notifier_keys = Thredded.notifiers.map(&:key)
+      notifier_keys = Thredded::PerNotifierPref.notifier_keys
       params.fetch(:user_preferences_form, {}).permit(
         :follow_topics_on_mention,
         :messageboard_follow_topics_on_mention,
         messageboard_notifications_for_followed_topics: notifier_keys,
         notifications_for_followed_topics: notifier_keys,
         notifications_for_private_topics: notifier_keys
-      ).tap do |params|
-        UserPreferencesForm::TRUTHY_HASH_ATTRS.each do |attr|
-          next unless (hash = params[attr])
-          hash.each do |k, v|
-            hash[k.to_s] = !(v == '0')
-          end
-        end
-      end
+      )
     end
   end
 end

@@ -25,7 +25,7 @@ module Thredded
           create(
             :user_preference,
             user: @joel,
-            notifications_for_private_topics: TruthyHash.create('email' => false)
+            notifications_for_private_topics: PerNotifierPref::NotificationsForPrivateTopics.new('email' => false)
           )
           recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
           expect(recipients).not_to include(@joel)
