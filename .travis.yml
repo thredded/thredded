@@ -16,13 +16,14 @@ env:
   - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
   - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
   global:
+  - COVERAGE=1
   # CODECLIMATE_REPO_TOKEN
   - secure: "X+Tmtm+12rDF71aqNzeVRRF5CiiKRaxlKJV0ZJLgWwLHOWX693YGMoy+FYTkN0aYTQYfNrlal8H+9VnABaotwwmElSqFWBj0Mv6VIpxPuFJ/PgtQG3TpO23qBZLiW1Nq/Y4RJL8whyx3QTX7rALLBLnEsSIrrq4VcSIU9jV5JAs="
 
 sudo: false
 
 # Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
-script: "bundle exec rspec --format d && bundle exec rubocop"
+script: "bundle exec rspec --format d && bundle exec rubocop && bundle exec codeclimate-test-reporter"
 
 notifications:
   slack:

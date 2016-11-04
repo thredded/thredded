@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 ENV['RAILS_ENV'] = 'test'
-if ENV['TRAVIS'] && !(defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx')
-  require 'codeclimate-test-reporter'
-  CodeClimate::TestReporter.start
+if ENV['COVERAGE'] && !%w(rbx jruby).include?(RUBY_ENGINE)
+  require 'simplecov'
+  SimpleCov.command_name 'RSpec'
 end
 
 require File.expand_path('../dummy/config/environment', __FILE__)
