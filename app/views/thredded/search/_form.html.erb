@@ -1,6 +1,7 @@
 <%= form_tag search_path(messageboard),
              method: 'get',
-             class: 'thredded--form thredded--navigation--search thredded--navigation--search-topics' do %>
+             class: 'thredded--form thredded--navigation--search thredded--navigation--search-topics',
+             'data-thredded-turboform' => true do %>
   <%= label_tag :q, t('thredded.search.form.label') %>
   <%= text_field_tag :q, @query,
                      type:        'search',
