@@ -2,7 +2,7 @@
 module Thredded
   class MessageboardGroupPolicy
     # @param user [Thredded.user_class]
-    # @param messageboard_group [Thredded::MessageboardGroup]
+    # @param group [Thredded::MessageboardGroup]
     def initialize(user, group)
       @user = user
       @group = group

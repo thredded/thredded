@@ -99,3 +99,12 @@ Thredded.layout = 'thredded/application'
 #     end
 #   end
 # end
+
+# ==> View hooks
+#
+# Customize the UI before/after/replacing individual components.
+# See the full list of view hooks here: http://rubydoc.info/gems/thredded/Thredded/AllViewHooks/Config.
+#
+# Thredded.view_hooks.post_form.content_text_area.after do
+#   render 'my/partial', form: form
+# end

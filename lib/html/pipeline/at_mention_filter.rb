@@ -5,7 +5,7 @@ module HTML
       DEFAULT_IGNORED_ANCESTOR_TAGS = %w(pre code tt a style).freeze
 
       # @param context [Hash]
-      # @options context :users_provider [#call(usernames)] given usernames, returns a list of users.
+      # @option context :users_provider [#call(usernames)] given usernames, returns a list of users.
       def initialize(doc, context = nil, result = nil)
         super doc, context, result
         @users_provider = context[:users_provider]
