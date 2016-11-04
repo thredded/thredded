@@ -47,7 +47,7 @@ class ThreddedMentionAutocompletion {
           return `${prefix}${name} `
         }
       }
-    }], {dropdownClassName: 'dropdown-menu thredded--textcomplete-dropdown'});
+    }], {dropdownClassName: 'thredded--textcomplete-dropdown'});
   }
 }
 
