@@ -15,12 +15,16 @@ ul.thredded--textcomplete-dropdown {
   margin: 0;
 
   li.textcomplete-item {
-    color: $thredded-text-color;
     list-style: none;
+    a {
+      color: $thredded-text-color;
+    }
 
     &.active {
       background: $thredded-button-background;
-      color: $thredded-button-color;
+      a {
+        color: $thredded-button-color;
+      }
     }
 
     padding: $thredded-small-spacing;
