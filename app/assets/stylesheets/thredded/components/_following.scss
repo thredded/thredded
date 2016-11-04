@@ -5,13 +5,7 @@
   font-size: 1em;
   width: 1.4rem;
   height: 1.4rem;
-  position: absolute;
-  top: 0;
-  right: -1.6rem;
   opacity: 0.4;
-  @include thredded-media-mobile {
-    right: -2rem;
-  }
 }
 
 %thredded--not-following-icon {

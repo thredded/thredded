@@ -1,11 +1,11 @@
 .thredded--topic-header {
-  margin-bottom: $thredded-large-spacing;
-  margin-top: $thredded-base-spacing;
-  @include thredded-media-mobile {
-    margin-bottom: $thredded-small-spacing;
-    margin-top: 0;
+  margin-bottom: $thredded-small-spacing;
+  margin-top: 0;
+  @include thredded-media-desktop-and-up {
+    margin-bottom: $thredded-large-spacing;
+    margin-top: $thredded-base-spacing;
+    @include thredded--clearfix;
   }
-  @include thredded--clearfix;
 }
 
 .thredded--topic-header--title {
@@ -31,18 +31,33 @@
 }
 
 .thredded--topic-header--follow-info {
-  float: right;
   color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;
   font-style: normal;
-  max-width: 60%;
-  text-align: right;
+  @include thredded-media-desktop-and-up {
+    float: right;
+    text-align: right;
+    max-width: 25rem;
+    position: relative;
+    form {
+      // Do not introduce extra margin
+      position: absolute;
+      right: 0;
+      vertical-align: text-top;
+    }
+    &--reason {
+      display: block;
+    }
+  }
   p {
     margin: 0;
   }
+  &--reason {
+    display: inline-block;
+  }
   form {
     display: inline-block;
-    input[type=submit] {
+    input[type=submit], button {
       background:none;
       border:none;
       padding:0;
@@ -53,13 +68,10 @@
   }
 }
 
-.thredded--topic-following {
-  .thredded--topic-header--follow-info {
-    position: relative;
-  }
-  .thredded--topic-header--follow-icon {
-    @extend %thredded--following-icon;
-  }
+
+.thredded--topic-header--follow-icon {
+  @extend %thredded--following-icon;
+  vertical-align: middle;
 }
 
 .thredded--topic-followers {
