@@ -18,7 +18,7 @@
   }
 
   $(() => {
-    if (!('Turbolinks' in window || !window.Turbolinks.supported)) {
+    if (!('Turbolinks' in window && window.Turbolinks.supported)) {
       triggerOnPageLoad();
       return;
     }
