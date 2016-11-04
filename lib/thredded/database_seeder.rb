@@ -131,8 +131,13 @@ module Thredded
     class BaseSeedData
       attr_reader :seeder
 
-      def initialize(seed_database)
+      def initialize(seed_database = DatabaseSeeder.new)
         @seeder = seed_database
+      end
+
+      # Utility method
+      def self.create(*args)
+        new.create(*args)
       end
 
       delegate :log, to: :seeder
@@ -181,6 +186,7 @@ module Thredded
       end
     end
 
+    # Thredded::DatabaseSeeder::Users.create(count:200)
     class Users < CollectionSeedData
       MODEL_CLASS = User
 

@@ -16,6 +16,7 @@
 
     init($nodes) {
       $nodes.find(this.textareaSelector).autosize();
+      new ThreddedMentionAutocompletion($).init($nodes);
       $nodes.filter(this.compactSelector).
         on('focus', this.titleSelector, e => {
           this.toggleExpanded(e.target, true);
