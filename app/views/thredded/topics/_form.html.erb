@@ -1,9 +1,10 @@
 <%= form_for [messageboard, topic],
-             html: { class: "thredded--form #{local_assigns[:css_class]}",
-                            'data-thredded-topic-form' => true,
-                            'data-autocomplete-url' => autocomplete_users_path,
-                            'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
-                    } do |form| %>
+             html: {
+                 class: "thredded--form #{local_assigns[:css_class]}",
+                 'data-thredded-topic-form' => true,
+                 'data-autocomplete-url' => autocomplete_users_path,
+                 'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
+             } do |form| %>
   <ul class="thredded--form-list on-top">
     <li class="title">
       <%= form.label :title, t('thredded.topics.form.title_label') %>
