@@ -12,11 +12,13 @@
   <% if thredded_current_user %>
     <% if topic.followed? %>
       <div class="thredded--topic-header--follow-info">
-        <%= inline_svg 'thredded/follow.svg', class: 'thredded--topic-header--follow-icon' %>
-        <div>
+        <span class="thredded--topic-header--follow-info--reason">
           <%= topic_follow_reason_text topic.follow_reason %>
-          <%= button_to t('thredded.topics.unfollow'), topic.unfollow_path %>
-        </div>
+        </span>
+        <%= button_to topic.unfollow_path do %>
+          <%= t('thredded.topics.unfollow') %>
+          <%= inline_svg 'thredded/follow.svg', class: 'thredded--topic-header--follow-icon' %>
+        <% end %>
       </div>
     <% else %>
       <div class="thredded--topic-header--follow-info">

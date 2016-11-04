@@ -134,6 +134,15 @@
   }
 }
 
+.thredded--topics--follow-icon {
+  position: absolute;
+  right: -1.6rem;
+  top: 0;
+  @include thredded-media-mobile {
+    right: -2rem;
+  }
+}
+
 .thredded--topic-following {
   .thredded--topics--follow-icon {
     @extend %thredded--following-icon;
