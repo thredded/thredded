@@ -1,35 +1,74 @@
+@mixin thredded-breadcrumbs-chevron() {
+  background: image-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
+  content: "";
+  display: inline-block;
+  height: 10px;
+  margin: 0 ($thredded-small-spacing - 0.3rem) 0 $thredded-small-spacing;
+  width: 6px;
+}
+
 .thredded--main-navigation {
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
   display: block;
-  @include thredded-media-desktop-and-up {
-    margin-top: $thredded-small-spacing;
-  }
 }
 
 .thredded--navigation-breadcrumbs {
   @extend %thredded--list-unstyled;
 
   li {
-    display: inline-block;
+    display: block;
     font-weight: bold;
 
     a {
-      display: inline-block;
-      padding: $thredded-small-spacing 0;
+      display: block;
     }
 
-    &:after {
-      background: image-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
-      content: "";
-      display: inline-block;
-      height: 10px;
-      margin: 0 ($thredded-small-spacing - 0.3rem) 0 $thredded-small-spacing;
-      width: 6px;
+    @include thredded-media-mobile {
+      a {
+        position: relative;
+      }
+
+      &:first-child:last-child a {
+        padding: $thredded-small-spacing 0;
+      }
+
+      &:first-child:not(:last-child) a {
+        padding-top: ($thredded-small-spacing/2);
+      }
+
+      &:last-child:not(:first-child) {
+        a {
+          padding-bottom: ($thredded-small-spacing/2);
+          &::before {
+            @include thredded-breadcrumbs-chevron();
+            position: absolute;
+            top: 0.4em;
+            left: -1.625em;
+          }
+        }
+      }
     }
 
-    &:last-child:after {
-      display: none;
+    @include thredded-media-tablet-and-up {
+      display: inline-block;
+      a {
+        display: inline-block;
+        padding: $thredded-small-spacing 0;
+      }
+      // Chevron
+      &::after {
+        @include thredded-breadcrumbs-chevron();
+      }
+      &:last-child::after {
+        display: none;
+      }
+    }
+
+    @include thredded-media-desktop-and-up {
+      a {
+        padding: $thredded-base-spacing 0;
+      }
     }
   }
 

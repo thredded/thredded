@@ -9,16 +9,19 @@
     position: relative;
     background-color: $brand-primary;
     color: #f2f7fd;
-    padding: 2rem 1rem 1rem;
+    padding: 1.5rem 0.8rem 0.6rem;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
     &-title {
-      font-size: 4rem;
+      font-size: 3rem;
       margin: 0;
+      @media (min-width: 768px) {
+        font-size: 4rem;
+      }
     }
     &-lead {
       margin: 0 auto 2rem;
-      font-size: 1.25rem;
+      font-size: 1rem;
       color: #fff;
       @media (min-width: 768px) {
         font-size: 1.5rem;

@@ -1,7 +1,11 @@
 .thredded--moderation-navigation {
   position: relative;
+  @include thredded-media-desktop-and-up {
+    margin-bottom: $thredded-base-spacing;
+  }
   &--items {
     @extend %thredded--nav-tabs;
+    margin-bottom: $thredded-small-spacing;
   }
   &--item {
     @extend %thredded--nav-tabs--item;

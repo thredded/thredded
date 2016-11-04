@@ -16,6 +16,14 @@
   }
 }
 
+@mixin thredded-media-tablet {
+  @include thredded-media-tablet-and-up {
+    @include thredded-media-tablet-and-down {
+      @content;
+    }
+  }
+}
+
 @mixin thredded-media-desktop-and-up {
   @media screen and (min-width: map-get($thredded-grid-breakpoint-max-widths, tablet) + 0.00001rem) {
     @content;

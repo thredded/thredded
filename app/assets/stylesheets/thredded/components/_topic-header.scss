@@ -3,16 +3,19 @@
   margin-top: 0;
   @include thredded-media-desktop-and-up {
     margin-bottom: $thredded-large-spacing;
-    margin-top: $thredded-base-spacing;
+    margin-top: $thredded-small-spacing;
     @include thredded--clearfix;
   }
 }
 
 .thredded--topic-header--title {
   @extend %thredded--heading;
-  font-size: 1.5rem; // 24px
+  font-size: 1.25rem;
   line-height: 1.2;
   margin-bottom: $thredded-small-spacing / 2;
+  @include thredded-media-tablet-and-up {
+    font-size: 1.5rem;
+  }
 }
 
 .thredded--topic-header--started-by {

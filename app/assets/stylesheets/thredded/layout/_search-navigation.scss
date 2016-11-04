@@ -7,6 +7,7 @@
 
   @include thredded-media-tablet-and-down {
     position: initial;
+    margin-bottom: $thredded-small-spacing;
   }
 
   label {

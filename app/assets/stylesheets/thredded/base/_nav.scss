@@ -27,13 +27,8 @@
   border-bottom: $thredded-base-border;
   font-size: $thredded-font-size-small;
   margin-left: 0;
-  margin-bottom: 1rem;
   text-align: left;
   list-style-type: none;
-
-  @include thredded-media-tablet-and-up {
-    margin-bottom: 0;
-  }
 }
 
 %thredded--nav-tabs--item {
