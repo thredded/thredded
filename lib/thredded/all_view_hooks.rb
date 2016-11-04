@@ -3,7 +3,7 @@ require_dependency 'thredded/view_hooks/config'
 require_dependency 'thredded/view_hooks/renderer'
 
 module Thredded
-  class AllViewHooks
+  module AllViewHooks
     class Config
       # @return [PostForm]
       attr_reader :post_form

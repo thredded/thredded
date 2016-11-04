@@ -14,8 +14,7 @@ module Thredded
           *@config.before,
           *(@config.replace.presence || [original_content]),
           *@config.after,
-        ].map { |proc| @view_context.capture(&proc) },
-                                ''
+        ].map { |proc| @view_context.capture(&proc) }, ''
       end
     end
   end
