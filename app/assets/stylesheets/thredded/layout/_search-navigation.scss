@@ -18,16 +18,17 @@
     width: 100%;
 
     @include thredded-media-desktop-and-up {
+      $line-height: 1rem;
       $padding-x: 0.75rem;
       background: transparent;
       border-color: transparent;
       font-size: $thredded-font-size-small;
-      line-height: 1rem;
+      line-height: $line-height;
       min-width: 13rem;
       text-align: right;
       width: auto;
-      padding: 0.90625rem $padding-x 0.8125rem $padding-x;
-      margin-right: -($padding-x);
+      padding: 0.9375rem 0.75rem 0.875rem 0.75rem;
+      margin: -1px (-$padding-x) 0 0;
       // Webkit adds an extra padding that we need to remove.
       -webkit-margin-end: -($padding-x + 0.75rem);
 
@@ -49,9 +50,19 @@
         box-shadow: none;
       }
 
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        // Remove excessive padding on Safari.
+        max-height: $line-height;
+      }
+
       &::placeholder {
         color: $thredded-secondary-nav-color;
         transition: $thredded-action-transition;
+        height: inherit;
+        line-height: inherit;
         // Firefox applies default opacity of 0.54, while all the other browsers use 1.
         // See https://bugzilla.mozilla.org/show_bug.cgi?id=556145
         opacity: 1;

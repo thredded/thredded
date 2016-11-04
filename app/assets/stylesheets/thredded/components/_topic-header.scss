@@ -44,6 +44,9 @@
       position: absolute;
       right: 0;
       vertical-align: text-top;
+      &.thredded--topic-header--follow-info--unfollow {
+        top: 1.5em;  // required for Safari 10
+      }
     }
     &--reason {
       display: block;
