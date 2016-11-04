@@ -5,8 +5,7 @@
       expiresAt.setMonth(expiresAt.getMonth() + 12);
       document.cookie = 'thredded-theme=' + $(this.parentNode).data('theme') +
         ';expires=' + expiresAt + ';path=/';
-      Turbolinks.clearCache();
-      Turbolinks.visit(document.location);
+      document.location.reload();
     });
   });
 })(jQuery);
