@@ -8,55 +8,12 @@
 
     init($nodes) {
       let $textarea = $nodes.find(this.textareaSelector);
-      this.autocompleteMinLength = parseInt($nodes.data('autocompleteMinLength'), 10);
       this.autosize($textarea);
-      this.automentionCompletion($textarea, $nodes.data('autocompleteUrl'));
+      new ThreddedMentionAutocompletion($).init($nodes);
     }
 
     autosize($textarea) {
       $textarea.autosize()
-    }
-
-    escapeHtml(text) {
-      return $('<div/>').text(text).html();
-    }
-
-    formatUser({avatar_url, name, escapeHtml}) {
-      return "<div class='thredded--select2-user-result'>" +
-        `<img class='thredded--select2-user-result__avatar' src='${escapeHtml(avatar_url)}' >` +
-        `<span class='thredded--select2-user-result__name'>${escapeHtml(name)}</span>` +
-        '</div>';
-    }
-
-    automentionCompletion($textarea, autocompleteUrl) {
-      let formatUser = this.formatUser;
-      let escapeHtml = this.escapeHtml;
-
-      $textarea.textcomplete([{
-        match: /(^@|\s@)"?((?:\w| ){1,})$/,
-        search: (term, callback, match) => {
-          if(term.length < this.autocompleteMinLength){
-            return callback({});
-          }
-          let termsUrl = `${autocompleteUrl}?q=${term}`;
-          $.ajax({url: termsUrl}).done(function (response) {
-            callback($.map(response.results, function ({avatar_url, id, name}) {
-              return {avatar_url, id, name, match};
-            }));
-          });
-        },
-        template: function ({avatar_url, name}) {
-          return formatUser({avatar_url, name, escapeHtml})
-        },
-        replace: function ({name, match}) {
-          let prefix = match[1];
-          if (name.indexOf(" ") > -1) {
-            return `${prefix}"${name}" `
-          } else {
-            return `${prefix}${name} `
-          }
-        }
-      }], {dropdownClassName: 'dropdown-menu thredded--textcomplete-dropdown'});
     }
 
     destroy($nodes) {
