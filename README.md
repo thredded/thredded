@@ -454,10 +454,17 @@ rake dev:server
 To run the tests, just run `rspec`. The test suite will re-create the test database on every run, so there is no need to
 run tasks that maintain the test database.
 
-Run `rubocop` to ensure a consistent code style across the codebase.
-
-By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, SQLite,
+By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, MySQL,
 and all the supported Rails versions.
+
+### Ruby
+
+Thredded Ruby code formatting is ensured by [Rubocop](https://github.com/bbatsov/rubocop). Run `rubocop -a` to ensure a
+consistent code style across the codebase.
+
+Thredded is documented with [YARD](http://yardoc.org/) and you can use the
+[inch gem](https://github.com/rrrene/inch) or the [Inch CI](http://inch-ci.org/github/thredded/thredded) to find code
+that lacks documentation.
 
 ### JavaScript
 
