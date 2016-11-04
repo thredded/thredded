@@ -45,11 +45,12 @@
       right: 0;
       vertical-align: text-top;
       &.thredded--topic-header--follow-info--unfollow {
-        top: 1.5em;  // required for Safari 10
+        top: 1.625em;  // required for Safari and Firefox
       }
     }
     &--reason {
       display: block;
+      vertical-align: text-top;
     }
   }
   p {
