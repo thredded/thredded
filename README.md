@@ -201,7 +201,7 @@ For example, to render a partial after the post content textarea, add the snippe
 the `config/initializers/thredded.rb` initializer:
 
 ```ruby
-Thredded.view_hooks.post_form.content_text_area.after do
+Thredded.view_hooks.post_form.content_text_area.config.after do
   render 'my/partial',
          # This `form` comes from the thredded view context.
          form: form
@@ -211,8 +211,7 @@ end
 You can use the post content textarea hook to add things like wysiwyg/wymean editors, buttons, help links, help copy,
 further customization for the textarea, etc.
 
-The complete list of view hooks can be found
-[here](http://rubydoc.info/gems/thredded/Thredded/AllViewHooks/Config).
+The complete list of view hooks can be found [here](http://rubydoc.info/gems/thredded/Thredded/AllViewHooks).
 
 ## Theming
 

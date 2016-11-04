@@ -59,7 +59,7 @@ module Thredded
   # @return [Symbol] The name of the method used by Thredded to display users
   mattr_accessor :user_display_name_method
 
-  # @return [Thredded::AllViewHooks::Config] View hooks configuration.
+  # @return [Thredded::AllViewHooks] View hooks configuration.
   mattr_accessor :view_hooks
 
   self.active_user_threshold = 5.minutes
@@ -73,7 +73,7 @@ module Thredded
   self.show_topic_followers = false
   self.messageboards_order = :position
   self.autocomplete_min_length = 2
-  self.view_hooks = Thredded::AllViewHooks::Config.new
+  self.view_hooks = Thredded::AllViewHooks.new
 
   def self.user_display_name_method
     @@user_display_name_method || user_name_column

@@ -5,7 +5,8 @@ module Thredded
     include ::Thredded::NavHelper
 
     def view_hooks
-      @view_hooks ||= Thredded::AllViewHooks::Renderer.new(self)
+      Thredded::AllViewHooks.current_view_context ||= self
+      @view_hooks ||= Thredded.view_hooks
     end
 
     def thredded_container_data

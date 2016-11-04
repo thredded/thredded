@@ -1,6 +1,6 @@
 <li>
   <%= form.label :content, content_label %>
-  <%= view_hooks.post_form.content_text_area do %>
+  <%= view_hooks.post_form.content_text_area.render do %>
       <%= render 'thredded/posts_common/form/before_content', form: form %>
       <%= form.text_area :content, {rows: 5, required: true} %>
       <%= render 'thredded/posts_common/form/after_content', form: form %>
