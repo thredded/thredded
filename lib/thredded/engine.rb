@@ -3,7 +3,7 @@ module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
 
-    %w(app/view_models app/forms app/commands app/jobs lib).each do |path|
+    %w(app/view_hooks app/view_models app/forms app/commands app/jobs lib).each do |path|
       config.autoload_paths << File.expand_path("../../#{path}", File.dirname(__FILE__))
     end
 
@@ -14,6 +14,7 @@ module Thredded
     end
 
     config.to_prepare do
+      Thredded::AllViewHooks.reset_instance!
       if Thredded.user_class
         Thredded.user_class.send(:include, Thredded::UserExtender)
       end

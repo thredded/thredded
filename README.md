@@ -192,17 +192,31 @@ mkdir -p app/views/thredded/posts && cp "$(bundle show thredded)/$_/_post.html.e
 customizations are still compatible with the new version of thredded. This is difficult and error-prone.
 Whenever possible, use the styles and i18n to customize Thredded to your needs.
 
-#### Empty view partials included for customization
+#### View hooks
 
-There are 2 empty view partials included in the gem that exist for the purpose of being overridden
-in the parent app *if desired*. They are:
+Thredded provides view hooks to customize the UI before/after/replacing individual components.
 
-* `app/views/thredded/posts_common/form/_before_content.html.erb`
-* `app/views/thredded/posts_common/form/_after_content.html.erb`
+View hooks allow you to render anything in the thredded view context.
+For example, to render a partial after the post content textarea, add the snippet below to 
+the `config/initializers/thredded.rb` initializer:
 
-And are rendered directly before, and directly after the textarea where users type their post
-contents. These exist in the case where a messageboard would like to add things like, wysiwyg/wymean
-editors, buttons, help links, help copy, further customization for the textarea, etc.
+```ruby
+Rails.application.config.to_prepare do
+  Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **args|
+    # This is render in the Thredded view context, so all Thredded helpers and URLs are accessible here directly.
+    render 'my/partial', form: form
+  end
+end
+```
+
+You can use the post content textarea hook to add things like wysiwyg/wymean editors, buttons, help links, help copy,
+further customization for the textarea, etc.
+
+To see the complete list of view hooks and their arguments, run:
+
+```bash
+grep view_hooks -R --include '*.html.erb' "$(bundle show thredded)"
+```
 
 ## Theming
 

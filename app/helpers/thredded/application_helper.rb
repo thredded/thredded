@@ -4,6 +4,10 @@ module Thredded
     include ::Thredded::UrlsHelper
     include ::Thredded::NavHelper
 
+    def view_hooks
+      @view_hooks ||= Thredded.view_hooks
+    end
+
     def thredded_container_data
       {
         'thredded-page-id' => content_for(:thredded_page_id),

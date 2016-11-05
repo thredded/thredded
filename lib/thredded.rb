@@ -70,6 +70,15 @@ module Thredded
   self.messageboards_order = :position
   self.autocomplete_min_length = 2
 
+  # @return [Thredded::AllViewHooks] View hooks configuration.
+  def self.view_hooks
+    instance = Thredded::AllViewHooks.instance
+    unless instance
+      fail '`Thredded.view_hooks` must be configured in a `Rails.application.config.to_prepare` block!'
+    end
+    instance
+  end
+
   def self.user_display_name_method
     @@user_display_name_method || user_name_column
   end
