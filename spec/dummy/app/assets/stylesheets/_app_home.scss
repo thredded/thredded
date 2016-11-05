@@ -9,7 +9,7 @@
     position: relative;
     background-color: $brand-primary;
     color: #f2f7fd;
-    padding: 1.5rem 0.8rem 0.6rem;
+    padding: 1rem 0.8rem 1.5em;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
     &-title {
@@ -33,8 +33,8 @@
     }
     &-nav {
       $color: #f2f7fd;
-      $gutter: 1rem;
-      font-size: 1.2rem;
+      $gutter-x: 1rem;
+      font-size: 1.25rem;
       ul {
         list-style: none;
         text-align: center;
@@ -51,12 +51,11 @@
           border: 1px solid $color;
           border-radius: 3px;
           background-color: transparent;
-          padding: 0.75em 1em;
+          padding: 0.45em 1em;
           text-decoration: none;
           user-select: none;
           vertical-align: middle;
           white-space: nowrap;
-          width: 100%;
           &:hover,
           &:active,
           &:focus {
@@ -71,28 +70,30 @@
         }
       }
       li + li {
-        margin-top: $gutter;
+        margin-top: 0.4375em;
       }
       @media (min-width: 576px) {
-        padding-right: $gutter;
+        padding-right: $gutter-x;
         li {
           display: inline-block;
           a {
+            padding: 0.75em 1em;
             min-width: 7rem;
             width: auto;
           }
         }
         li + li {
           margin-top: 0;
-          margin-left: $gutter;
+          margin-left: $gutter-x;
         }
       }
     }
     @media (min-width: 576px) {
-      padding-top: 5rem;
+      padding-top: 2rem;
       padding-bottom: 2rem;
     }
     @media (min-width: 768px) {
+      padding-top: 3.5rem;
       padding-bottom: 3.5rem;
     }
   }
