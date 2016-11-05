@@ -5,7 +5,6 @@ module Thredded
     include ::Thredded::NavHelper
 
     def view_hooks
-      Thredded::AllViewHooks.current_view_context ||= self
       @view_hooks ||= Thredded.view_hooks
     end
 

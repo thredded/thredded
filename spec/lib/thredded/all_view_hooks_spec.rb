@@ -17,13 +17,10 @@ describe Thredded::AllViewHooks do
       arr.join(sep)
     end
 
-    def capture(&block)
-      instance_exec(&block)
+    def capture
+      yield
     end
   end
-
-  before { Thredded::AllViewHooks.current_view_context = ViewContextStub }
-  after { Thredded::AllViewHooks.current_view_context = nil }
 
   it 'works' do
     view_hooks = Thredded::AllViewHooks.new
@@ -40,14 +37,14 @@ describe Thredded::AllViewHooks do
         hook_config.before { 'before 2' }
         hook_config.replace { x } if i.even?
         hook_config.after { 'after 1' }
-        hook_config.after { "#{x} 2" }
+        hook_config.after { |y:| "#{x} #{y} 2" }
       end
     end
 
     sections.each do |section_name, hook_names|
       hook_names.each_with_index do |hook_name, i|
-        result = view_hooks.send(section_name).send(hook_name).render { original }
-        expect(result).to(eq ["#{hook_name} 1", 'before 2', (i.even? ? 'x' : 'original'), 'after 1', 'x 2'].join(''))
+        result = view_hooks.send(section_name).send(hook_name).render(ViewContextStub, y: 'y') { original }
+        expect(result).to(eq ["#{hook_name} 1", 'before 2', (i.even? ? 'x' : 'original'), 'after 1', 'x y 2'].join(''))
       end
     end
   end

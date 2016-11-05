@@ -103,8 +103,10 @@ Thredded.layout = 'thredded/application'
 # ==> View hooks
 #
 # Customize the UI before/after/replacing individual components.
-# See the full list of view hooks here: http://rubydoc.info/gems/thredded/Thredded/AllViewHooks.
+# See the full list of view hooks by running:
 #
-# Thredded.view_hooks.post_form.content_text_area.config.after do
+#     $ grep view_hooks "$(bundle show thredded)"/**/*.html.erb.
+#
+# Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **args|
 #   render 'my/partial', form: form
 # end

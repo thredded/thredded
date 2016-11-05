@@ -9,12 +9,20 @@ module Thredded
       end
 
       # @return [String]
-      def render(&original_content)
+      def render(**args, &original_content)
         @view_context.safe_join [
           *@config.before,
           *(@config.replace.presence || [original_content]),
           *@config.after,
-        ].map { |proc| @view_context.capture(&proc) }, ''
+        ].map { |proc| render_proc(**args, &proc) }, ''
+      end
+
+      private
+
+      def render_proc(**args, &proc)
+        @view_context.capture do
+          @view_context.instance_exec(**args, &proc)
+        end
       end
     end
   end

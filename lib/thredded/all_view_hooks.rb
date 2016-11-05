@@ -14,14 +14,6 @@ module Thredded
       @moderation_user_page = ModerationUserPage.new
     end
 
-    def self.current_view_context
-      Thread.current[:thredded_view_hooks_current_view_context]
-    end
-
-    def self.current_view_context=(value)
-      Thread.current[:thredded_view_hooks_current_view_context] = value
-    end
-
     class PostForm
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :content_text_area
@@ -56,8 +48,8 @@ module Thredded
       end
 
       # @return [String]
-      def render(view_context: Thredded::AllViewHooks.current_view_context, &block)
-        Thredded::ViewHooks::Renderer.new(view_context, @config).render(&block)
+      def render(view_context, **args, &block)
+        Thredded::ViewHooks::Renderer.new(view_context, @config).render(**args, &block)
       end
     end
   end

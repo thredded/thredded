@@ -38,8 +38,6 @@ module Thredded
       render template: 'thredded/error_pages/forbidden', status: :forbidden
     end
 
-    after_action :clear_view_hooks_view_context!
-
     protected
 
     def thredded_current_user
@@ -118,10 +116,6 @@ module Thredded
 
     def thredded_require_login!
       fail Thredded::Errors::LoginRequired if thredded_current_user.thredded_anonymous?
-    end
-
-    def clear_view_hooks_view_context!
-      Thredded::AllViewHooks.current_view_context = nil
     end
   end
 end
