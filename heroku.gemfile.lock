@@ -69,7 +69,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     autoprefixer-rails (6.5.1.1)
       execjs
@@ -148,6 +149,7 @@ GEM
     nokogumbo (1.4.10)
       nokogiri
     pg (0.19.0)
+    public_suffix (2.0.3)
     puma (3.6.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -232,6 +234,8 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (3.0.3)
+      execjs (>= 0.3.0, < 3)
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -256,6 +260,7 @@ DEPENDENCIES
   therubyracer
   thredded!
   turbolinks
+  uglifier
 
 RUBY VERSION
    ruby 2.3.1p112

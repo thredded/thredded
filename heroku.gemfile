@@ -7,6 +7,9 @@ gem 'thredded', path: File.dirname(__FILE__)
 # Rails 5
 gem 'rails', '~> 5.0.0'
 
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier'
+
 # Make these gems available in production
 gem 'puma'
 gem 'pg'
