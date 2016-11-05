@@ -5,7 +5,8 @@
     <%= safe_join([yield(:thredded_page_title).presence, 'Thredded Demo'].compact, ' | ') %>
   </title>
   <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
-  <%= javascript_include_tag 'application', async: true, defer: !!Rails.application.config.assets.debug %>
+  <%= javascript_include_tag 'application', async: true, 'data-turbolinks-track': 'reload',
+                             defer: !!Rails.application.config.assets.debug %>
   <%= csrf_meta_tags %>
   <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
   <%= favicon_link_tag %>
