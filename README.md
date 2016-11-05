@@ -479,7 +479,10 @@ All Thredded JavaScript is compatible with the following Turbolinks options:
 * Turbolinks Classic.
 * Turbolinks Classic + jquery-turbolinks.
 
-To achieve this, all the Thredded code must register onload via
+Thredded JavaScript is also compatible with being loaded from script elements with
+`[async]` and/or `[defer]` attributes.
+
+To achieve the above, all the Thredded code must register onload via
 `Thredded.onPageLoad`, e.g.:
 
 ```js
@@ -488,6 +491,8 @@ window.Thredded.onPageLoad(() => {
   $('[data-thredded-select2]').select2();
 });
 ```
+
+Additionally, all the thredded views must be wrapped in a `<%= thredded_page do %>` block.
 
 On Turbolinks 5 onPageLoad will run on the same DOM when the page is restored
 from history (because Turbolinks 5 caches a *clone* of the body node, so

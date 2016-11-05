@@ -7,11 +7,18 @@ See in particular "main app delegator" in Changed below.
 ## Added
 
 * The email notifications on mention setting has been split into two:
+
   1. Follow topics on mention.
   2. Send email notifications on updates to followed topics.
 
   [#427](https://github.com/thredded/thredded/pull/427)
-* Turbolinks 5 support. [#440](https://github.com/thredded/thredded/pull/440)
+
+* Autocompletion for @-mentions within post textarea.
+  [#325](https://github.com/thredded/thredded/issues/325)
+* Turbolinks 5 support. Turbolinks Classic with or without jQuery.Turbolinks are also supported.
+  [#440](https://github.com/thredded/thredded/pull/440)
+* Support for loading Thredded JavaScript via a script tag with `[async]` and/or `[defer]` attributes.
+  [on_page_load.es6 @8e7e1d](https://github.com/thredded/thredded/blob/8e7e1d399a35006b03630ff18e484fd66620f9f9/app/assets/javascripts/thredded/core/on_page_load.es6)
 
 ## Changed
 
@@ -21,13 +28,19 @@ See in particular "main app delegator" in Changed below.
 
 ## Fixed
 
-* Minor responsive style issues on mobile. [#438](https://github.com/thredded/thredded/pull/438)
+* Multiple UX issues, including:
+  * Navigation icons and paddinss on mobile.
+  * Following icons in topics and the topic view.
+    [#438](https://github.com/thredded/thredded/pull/438) [#448](https://github.com/thredded/thredded/pull/448)
+  * Clicking on an already active tab in navigation now takes the user back to the messageboard(s).
 * The "Mark all as read" button in private messages is no longer shown when there are no messages at all.
   [4b6c2f](https://github.com/thredded/thredded/commit/4b6c2f1664d9b39c9d797853e92cd361b2ebd8ec)
 * The (un)follow endpoint now supports GET requests to enable redirect_back to it after sign in.
   [#435](https://github.com/thredded/thredded/pull/435)
 * Messageboards `name` limit on MySQL was too long for a unique index with the `utf8mb4` encoding.
   [#432](https://github.com/thredded/thredded/pull/432)
+* Minimum username autocomplete length is now configurable, resolving
+  [#328 - support for 1-character usernames](https://github.com/thredded/thredded/issues/353).
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v0.7.0...master.
 
