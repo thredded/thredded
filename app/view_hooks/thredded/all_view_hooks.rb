@@ -9,6 +9,18 @@ module Thredded
     # @return [ModerationUserPage]
     attr_reader :moderation_user_page
 
+    @instance = nil
+    class << self
+      # @return [Thredded::AllViewHooks]
+      attr_reader :instance
+
+      # Called when the class is reloaded so that server restart is not required
+      # when changing view hooks in development.
+      def reset_instance!
+        @instance = Thredded::AllViewHooks.new
+      end
+    end
+
     def initialize
       @post_form = PostForm.new
       @moderation_user_page = ModerationUserPage.new

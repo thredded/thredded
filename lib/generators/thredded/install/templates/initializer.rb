@@ -103,10 +103,13 @@ Thredded.layout = 'thredded/application'
 # ==> View hooks
 #
 # Customize the UI before/after/replacing individual components.
-# See the full list of view hooks by running:
+# See the full list of view hooks and their arguments by running:
 #
 #     $ grep view_hooks -R --include '*.html.erb' "$(bundle show thredded)"
 #
-# Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **args|
-#   render 'my/partial', form: form
+# Rails.application.config.to_prepare do
+#   Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **args|
+#     # This is called in the Thredded view context, so all Thredded helpers and URLs are accessible here directly.
+#     'hi'
+#   end
 # end

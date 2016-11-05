@@ -23,7 +23,6 @@ require 'select2-rails'
 require 'sprockets/es6'
 
 require 'thredded/engine'
-require 'thredded/all_view_hooks'
 
 module Thredded
   mattr_accessor \
@@ -59,9 +58,6 @@ module Thredded
   # @return [Symbol] The name of the method used by Thredded to display users
   mattr_accessor :user_display_name_method
 
-  # @return [Thredded::AllViewHooks] View hooks configuration.
-  mattr_accessor :view_hooks
-
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
@@ -73,7 +69,15 @@ module Thredded
   self.show_topic_followers = false
   self.messageboards_order = :position
   self.autocomplete_min_length = 2
-  self.view_hooks = Thredded::AllViewHooks.new
+
+  # @return [Thredded::AllViewHooks] View hooks configuration.
+  def self.view_hooks
+    instance = Thredded::AllViewHooks.instance
+    unless instance
+      fail '`Thredded.view_hooks` must be configured in a `Rails.application.config.to_prepare` block!'
+    end
+    instance
+  end
 
   def self.user_display_name_method
     @@user_display_name_method || user_name_column
