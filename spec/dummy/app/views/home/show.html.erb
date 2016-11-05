@@ -1,4 +1,22 @@
 <% content_for :no_app_layout, true %>
+
+<% content_for :head do %>
+    <%
+      # Social sharing URLs.
+      title = 'Thredded'
+      description = 'Forums, feature-rich and simple.'
+      url = 'https://thredded.org'
+      # This image template can be found at https://sandbox.imgix.com/view?url=https://images.unsplash.com/photo-1446051642017-6d07a440087f%3Fshad%3D20%26w%3D1200%26chromasub%3D444%26fm%3Dpjpg%26usm%3D20%26h%3D630%26fit%3Dcrop%26exp%3D-10%26mark64%3DaHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L350ZXh0P2g9NjMwJnR4dGNscj1mZmYmdHh0PVRocmVkZGVkJnc9MTIwMCZ0eHRzaXplPTgwJnR4dGxlYWQ9MCZ0eHRwYWQ9MTI1JnR4dGZvbnQ9YXZlbmlyLWJsYWNrJnR4dGFsaWduPWNlbnRlcg%26markalign%3Dcenter%252Ctop%26txt64%3DT1NTIEZvcnVtcyBhdCDimqEgTGlnaHRzcGVlZCDimqE%26txtalign%3Dcenter%26txtclr%3Dfff%26txtsize%3D48%26txtpad%3D225%26balph%3D50%26bm%3Dscreen%26bs%3Dinherit
+      image_url = 'https://images.unsplash.com/photo-1446051642017-6d07a440087f?bs=inherit&bm=screen&balph=50&txtpad=225&txtsize=48&txtclr=fff&txtalign=center&txt64=T1NTIEZvcnVtcyBhdCDimqEgTGlnaHRzcGVlZCDimqE&markalign=center%2Ctop&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L350ZXh0P2g9NjMwJnR4dGNscj1mZmYmdHh0PVRocmVkZGVkJnc9MTIwMCZ0eHRzaXplPTgwJnR4dGxlYWQ9MCZ0eHRwYWQ9MTI1JnR4dGZvbnQ9YXZlbmlyLWJsYWNrJnR4dGFsaWduPWNlbnRlcg&exp=-10&fit=crop&h=630&usm=20&fm=pjpg&chromasub=444&w=1200&shad=20'
+    %>
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:description" content="<%= description %>">
+    <meta property="og:image" content="<%= image_url %>">
+    <meta property="og:url" content="<%= url %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@thredded" />
+<% end %>
+
 <div class="home">
   <div class="home-masthead">
     <div class="home-container">
@@ -29,7 +47,7 @@
         </p>
 
         <p>
-          Enjoy the <b>minimalistic fully-responsive default theme</b> configurable via Sass.
+          Enjoy the <b>fully-responsive minimalistic theme</b>, configurable via Sass.
         </p>
 
         <p>
@@ -42,10 +60,16 @@
 
         <p>Thredded also has:</p>
         <ul>
-          <li>Private group messaging.</li>
-          <li>List of currently online users, global and per-messageboard.</li>
-          <li>(Un)read posts tracking.</li>
           <li>Pinned and locked topics.</li>
+          <li>Private group messaging.</li>
+          <li>(Un)read posts tracking.</li>
+          <li>List of currently online users, global and per-messageboard.</li>
+          <li>
+            <a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fthredded.org%2Fthredded&tab=mobile">
+              Page Speed
+            </a> score of <span class="home-page-speed-score">99+ / 100</span> in User Experience
+            and <span class="home-page-speed-score">88+ / 100</span> in Speed on Mobile.
+          </li>
         </ul>
 
         <p>
@@ -100,9 +124,10 @@
         </p>
 
         <p>
-          <a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fthredded.org%2Fthredded&tab=mobile">
-            Page Speed</a> score of <span class="home-page-speed-score">99+ / 100</span> User Experience and
-            and <span class="home-page-speed-score">88+ / 100</span> Speed on Mobile.
+          Thredded can be run standalone or as part of an existing Rails app.
+
+          Thredded supports all modern browsers including IE9+, all versions of Turbolinks, and async and deferred
+          script loading.
         </p>
       </footer>
     </div>
