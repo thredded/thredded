@@ -213,7 +213,7 @@ further customization for the textarea, etc.
 To see the complete list of view hooks, run:
 
 ```bash
-grep -F view_hooks "$(bundle show thredded)"/**/*.html.erb
+grep view_hooks -R --include '*.html.erb' "$(bundle show thredded)"
 ```
 
 ## Theming
