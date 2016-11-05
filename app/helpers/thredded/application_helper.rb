@@ -2,6 +2,7 @@
 module Thredded
   module ApplicationHelper
     include ::Thredded::UrlsHelper
+    include ::Thredded::NavHelper
 
     def thredded_container_data
       {

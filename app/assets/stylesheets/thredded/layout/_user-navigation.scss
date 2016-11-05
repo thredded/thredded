@@ -4,18 +4,10 @@
 
 .thredded--user-navigation--item {
   @extend %thredded--nav-tabs--item;
-}
 
-.thredded--preferences .thredded--user-navigation--settings,
-.thredded--new-private-topic .thredded--user-navigation--private-topics,
-.thredded--private-topics-index .thredded--user-navigation--private-topics,
-.thredded--private-topic-show .thredded--user-navigation--private-topics,
-.thredded--pending-moderation .thredded--user-navigation--moderation,
-.thredded--moderation-history .thredded--user-navigation--moderation,
-.thredded--moderation-users .thredded--user-navigation--moderation,
-.thredded--moderation-user .thredded--user-navigation--moderation,
-.thredded--moderation-activity .thredded--user-navigation--moderation {
-  @extend %thredded--nav-tabs--item-current;
+  &.thredded--is-current {
+    @extend %thredded--nav-tabs--item-current;
+  }
 }
 
 .thredded--user-navigation--private-topics--unread,

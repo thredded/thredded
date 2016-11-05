@@ -8,7 +8,6 @@
 @include thredded-media-tablet-and-down {
   $icon-nav-item-width: 2.625rem;
   .thredded--navigation {
-    display: table;
     position: relative;
     width: 100%;
   }
@@ -32,20 +31,25 @@
     }
   }
   .thredded--user-navigation {
-    display: table-footer-group;
+    border-bottom: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
     &-standalone {
       display: block;
       margin-bottom: 0;
     }
     %icon-nav-item {
-      margin-right: 0;
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 0 0 0 ($thredded-small-spacing/2);
       padding: 0;
-      position: absolute;
-      top: (0.8rem - $thredded-small-spacing);
-      z-index: 2;
+      vertical-align: top;
       a {
+        position: relative;
         display: block;
-        padding: ($thredded-small-spacing / 2) 0 ($thredded-small-spacing / 2) 0;
+        padding: 0.4375rem 0 0.375rem 0;
       }
       .thredded--icon {
         display: block;
@@ -54,31 +58,25 @@
       }
     }
     %icon-counter {
-      bottom: 0.3rem;
+      bottom: 0.3125rem;
       position: absolute;
-      right: -0.2rem;
+      right: -0.1875rem;
     }
     .thredded--nav-text {
       display: none;
     }
     &--settings {
       @extend %icon-nav-item;
-      right: $icon-nav-item-width;
     }
     &--private-topics {
       @extend %icon-nav-item;
-      right: 0;
-      top: 1px;
-      a {
-        position: relative;
-      }
+      margin-top: 1px;
       &--unread {
         @extend %icon-counter;
       }
     }
     &--moderation {
       @extend %icon-nav-item;
-      right: $icon-nav-item-width * 2;
       &--pending-count {
         @extend %icon-counter
       }
