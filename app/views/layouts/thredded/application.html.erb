@@ -5,7 +5,7 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <%= stylesheet_link_tag 'thredded' %>
     <%= csrf_meta_tag %>
-    <%= javascript_include_tag 'thredded' %>
+    <%= javascript_include_tag 'application', async: true, defer: !!Rails.application.config.assets.debug %>
     <%== Gravatar.prefetch_dns %>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   </head>
