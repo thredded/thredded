@@ -1,5 +1,4 @@
-//= require jquery
-// Must be required right after jQuery:
+//= require jquery3
 //= require jquery_ujs
 //= require turbolinks
 //= require thredded
