@@ -142,4 +142,14 @@
   &-nowrap {
     white-space: nowrap;
   }
+
+  &-page-speed-score {
+    background: #009a2d;
+    color: #fff;
+    display: inline-block;
+    margin: 0 0.25em;
+    padding: 1px 5px 0;
+    text-align: center;
+    white-space: nowrap;
+  }
 }
