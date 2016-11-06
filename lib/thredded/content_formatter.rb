@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require_dependency 'thredded/html_pipeline/autolink_filter'
+require_dependency 'thredded/html_pipeline/kramdown_filter'
+
 module Thredded
   # Generates HTML from content source.
   class ContentFormatter
@@ -46,8 +49,11 @@ module Thredded
       HTML::Pipeline::VimeoFilter,
       HTML::Pipeline::YoutubeFilter,
       HTML::Pipeline::BbcodeFilter,
-      HTML::Pipeline::MarkdownFilter,
+      Thredded::HtmlPipeline::KramdownFilter,
       HTML::Pipeline::AtMentionFilter,
+      # AutolinkFilter is required because Kramdown does not autolink by default.
+      # https://github.com/gettalong/kramdown/issues/306
+      Thredded::HtmlPipeline::AutolinkFilter,
       HTML::Pipeline::EmojiFilter,
       HTML::Pipeline::SanitizationFilter,
     ].freeze
