@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+require_dependency 'thredded/html_pipeline/at_mention_filter'
 require_dependency 'thredded/html_pipeline/autolink_filter'
+require_dependency 'thredded/html_pipeline/bbcode_filter'
 require_dependency 'thredded/html_pipeline/kramdown_filter'
 
 module Thredded
@@ -48,9 +50,9 @@ module Thredded
     self.pipeline_filters = [
       HTML::Pipeline::VimeoFilter,
       HTML::Pipeline::YoutubeFilter,
-      HTML::Pipeline::BbcodeFilter,
+      Thredded::HtmlPipeline::BbcodeFilter,
       Thredded::HtmlPipeline::KramdownFilter,
-      HTML::Pipeline::AtMentionFilter,
+      Thredded::HtmlPipeline::AtMentionFilter,
       # AutolinkFilter is required because Kramdown does not autolink by default.
       # https://github.com/gettalong/kramdown/issues/306
       Thredded::HtmlPipeline::AutolinkFilter,

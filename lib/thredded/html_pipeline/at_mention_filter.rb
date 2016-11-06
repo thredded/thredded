@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-module HTML
-  class Pipeline
-    class AtMentionFilter < Filter
+module Thredded
+  module HtmlPipeline
+    class AtMentionFilter < ::HTML::Pipeline::Filter
       DEFAULT_IGNORED_ANCESTOR_TAGS = %w(pre code tt a style).freeze
 
       # @param context [Hash]

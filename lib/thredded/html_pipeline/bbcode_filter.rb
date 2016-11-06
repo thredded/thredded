@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'bbcoder'
 
-module HTML
-  class Pipeline
-    class BbcodeFilter < TextFilter
+module Thredded
+  module HtmlPipeline
+    class BbcodeFilter < ::HTML::Pipeline::TextFilter
       def initialize(text, context = {}, result = nil)
         super text, context, result
       end
