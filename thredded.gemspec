@@ -33,12 +33,13 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'inline_svg'
 
   # post rendering
-  s.add_dependency 'kramdown'
   s.add_dependency 'html-pipeline'
   s.add_dependency 'html-pipeline-vimeo'
   s.add_dependency 'html-pipeline-youtube'
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
   # for the AutolinkFilter
+  s.add_dependency 'commonmarker'
+  s.add_dependency 'kramdown'
   s.add_dependency 'rinku'
   s.add_dependency 'gemoji'
   s.add_dependency 'sanitize'

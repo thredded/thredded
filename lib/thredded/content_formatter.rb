@@ -46,8 +46,8 @@ module Thredded
       HTML::Pipeline::VimeoFilter,
       HTML::Pipeline::YoutubeFilter,
       Thredded::HtmlPipeline::BbcodeFilter,
-      Thredded::HtmlPipeline::KramdownFilter,
-      # AutolinkFilter is required because Kramdown does not autolink by default.
+      Thredded::HtmlPipeline::CommonMarkerFilter,
+      # AutolinkFilter is required because CommonMark does not autolink by default.
       # https://github.com/gettalong/kramdown/issues/306
       Thredded::HtmlPipeline::AutolinkFilter,
       Thredded::HtmlPipeline::AtMentionFilter,
