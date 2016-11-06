@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency 'html/pipeline/at_mention_filter'
+require 'thredded/html_pipeline/at_mention_filter'
 module Thredded
   class AtNotificationExtractor
     def initialize(post)
