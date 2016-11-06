@@ -114,3 +114,12 @@
       </code></pre>
 
       <p>right here</p>
+
+  fenced code blocks in markdown:
+  - |
+    ```
+    a << 1 > 2
+    ```
+  - |
+    <pre><code>a &lt;&lt; 1 &gt; 2
+    </code></pre>

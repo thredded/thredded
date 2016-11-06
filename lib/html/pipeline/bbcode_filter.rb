@@ -10,23 +10,17 @@ module HTML
 
       def call
         html = BBCoder.new(@text).to_html
-        html = remove_url_link_contents(html)
-        html = preserve_mkdn_comments(html)
-        html.delete('<br>')
+        remove_url_link_contents! html
         html.rstrip!
         html
       end
 
-      def remove_url_link_contents(html)
-        doc = Nokogiri::HTML::DocumentFragment.parse(html)
-        doc.css('a').each do |link|
-          link.content = link.content.gsub(%r{https?://}, '')
-        end
-        doc.to_html
-      end
-
-      def preserve_mkdn_comments(html)
-        html.gsub(/^&gt; /, '> ')
+      # <a href="http://example.com">http://example.com</a> =>
+      # <a href="http://example.com">example.com</a>
+      def remove_url_link_contents!(html)
+        # The doc is not fully HTML yet (it will still be parsed with markdown),
+        # so we can't use Nokogiri to process it here.
+        html.gsub!(%r{(<a href="[^"]*"[^>]*>)https?://(.*?</a>)}m, '\1\2')
       end
     end
   end
