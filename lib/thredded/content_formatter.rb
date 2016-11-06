@@ -51,7 +51,6 @@ module Thredded
     # input: markup, output: html.
     mattr_accessor :markup_filters
     self.markup_filters = [
-      Thredded::HtmlPipeline::BbcodeFilter,
       Thredded::HtmlPipeline::KramdownFilter,
     ]
 

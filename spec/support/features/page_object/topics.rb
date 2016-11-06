@@ -25,14 +25,6 @@ module PageObject
       topic_with_content('Lorem ipsum dolor samet')
     end
 
-    def create_bbcoded_topic
-      topic_with_content('[b]Lorem[/b] ipsum dolor samet')
-    end
-
-    def rendering_bbcode?
-      has_css? 'strong', text: 'Lorem'
-    end
-
     def create_markdowned_topic
       topic_with_content('Lorem **ipsum** dolor samet')
     end

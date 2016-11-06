@@ -18,7 +18,6 @@ require 'inline_svg'
 # This allows for configuring them by accessing class methods in the initializer.
 require 'thredded/html_pipeline/at_mention_filter'
 require 'thredded/html_pipeline/autolink_filter'
-require 'thredded/html_pipeline/bbcode_filter'
 require 'thredded/html_pipeline/kramdown_filter'
 
 # Asset compilation

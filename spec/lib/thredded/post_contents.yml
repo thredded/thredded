@@ -1,11 +1,5 @@
 ---
 
-  some bbcode:
-    - |
-      this is [b]bold[/b]
-    - |
-      <p>this is <strong>bold</strong></p>
-
   some markdown:
     - |
       # Header
@@ -19,12 +13,10 @@
     - |
       [thredded](http://thredded.com)
       [a topic](/forum/a-topic)
-      [url]http://example.com[/url]
       [link](http://example.com)
     - |
       <p><a href="http://thredded.com" target="_blank" rel="nofollow noopener">thredded</a><br>
       <a href="/forum/a-topic">a topic</a><br>
-      <a href="http://example.com" target="_blank" rel="nofollow noopener">example.com</a><br>
       <a href="http://example.com" target="_blank" rel="nofollow noopener">link</a></p>
 
   vimeo videos:
@@ -38,54 +30,6 @@
       https://www.youtube.com/watch?v=MrQmQp2P3g4
     - |
       <div><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms"></iframe></div>
-
-
-  image tags with bbcode and markdown:
-    - |
-      [img]http://example.com/i.jpg[/img]
-      ![img](http://example.com/i.jpg)
-      ![](http://example.com/i.jpg)
-    - |
-      <p><img src="http://example.com/i.jpg"><br>
-      <img src="http://example.com/i.jpg" alt="img"><br>
-      <img src="http://example.com/i.jpg" alt=""></p>
-
-
-  quotes in bbcode:
-    - |
-      [quote]hi[/quote]
-      [quote=john]hey[/quote]
-    - |
-      <blockquote>
-      hi
-      </blockquote>
-
-      john says
-      <blockquote>
-      hey
-      </blockquote>
-
-  spoilers in bbcode:
-    - |
-      [spoiler]hi[/spoiler] [spoilers]hey[/spoilers]
-    - |
-      <p><span class="thredded--post--content--spoiler">hi</span> <span class="thredded--post--content--spoiler">hey</span></p>
-
-  nested quotes in bbcode:
-    - |
-      [quote=joel]
-      [quote=john]hello[/quote]
-      hi
-      [/quote]
-    - |
-      joel says
-      <blockquote>
-        john says
-      <blockquote>
-      hello
-      </blockquote>
-      hi
-      </blockquote>
 
   quotes in markdown:
     - |
