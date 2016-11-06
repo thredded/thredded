@@ -39,21 +39,54 @@ module Thredded
       }
     )
 
-    # HTML::Pipeline filters.
-    mattr_accessor :pipeline_filters
-
-    self.pipeline_filters = [
+    # Filters that run before processing the markup.
+    # input: markup, output: markup.
+    mattr_accessor :before_markup_filters
+    self.before_markup_filters = [
       HTML::Pipeline::VimeoFilter,
       HTML::Pipeline::YoutubeFilter,
+    ]
+
+    # Markup filters, such as BBCode, Markdown, Autolink, etc.
+    # input: markup, output: html.
+    mattr_accessor :markup_filters
+    self.markup_filters = [
       Thredded::HtmlPipeline::BbcodeFilter,
       Thredded::HtmlPipeline::KramdownFilter,
+    ]
+
+    # Filters that run after processing the markup.
+    # input: html, output: html.
+    mattr_accessor :after_markup_filters
+    self.after_markup_filters = [
       # AutolinkFilter is required because Kramdown does not autolink by default.
       # https://github.com/gettalong/kramdown/issues/306
       Thredded::HtmlPipeline::AutolinkFilter,
-      Thredded::HtmlPipeline::AtMentionFilter,
       HTML::Pipeline::EmojiFilter,
+      Thredded::HtmlPipeline::AtMentionFilter,
       HTML::Pipeline::SanitizationFilter,
-    ].freeze
+    ]
+
+    # Filters that sanitize the resulting HTML.
+    # input: html, output: sanitized html.
+    mattr_accessor :sanitization_filters
+    self.sanitization_filters = [
+      HTML::Pipeline::SanitizationFilter,
+    ]
+
+    # All the HTML::Pipeline filters, read-only.
+    def self.pipeline_filters
+      filters = [
+        *before_markup_filters,
+        *markup_filters,
+        *after_markup_filters,
+        *sanitization_filters,
+      ]
+      # Changing the result in-place has no effect on the ContentFormatter output,
+      # and is most likely the result of a programmer error.
+      # Freeze the array so that in-place changes raise an error.
+      filters.freeze
+    end
 
     # @param view_context [Object] the context of the rendering view.
     # @param pipeline_options [Hash]
