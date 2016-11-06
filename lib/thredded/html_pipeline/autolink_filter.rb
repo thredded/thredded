@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'rinku'
 module Thredded
   module HtmlPipeline
     # HTML Filter for auto_linking urls in HTML.

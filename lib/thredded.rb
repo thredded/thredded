@@ -8,6 +8,7 @@ require 'html/pipeline'
 require 'html/pipeline/sanitization_filter'
 require 'html/pipeline/vimeo/vimeo_filter'
 require 'html/pipeline/youtube/youtube_filter'
+require 'rinku'
 require 'kaminari'
 require 'rb-gravatar'
 require 'active_job'
@@ -16,6 +17,7 @@ require 'inline_svg'
 # Require these explictly to make sure they are not reloaded.
 # This allows for configuring them by accessing class methods in the initializer.
 require 'thredded/html_pipeline/at_mention_filter'
+require 'thredded/html_pipeline/autolink_filter'
 require 'thredded/html_pipeline/bbcode_filter'
 require 'thredded/html_pipeline/kramdown_filter'
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'kramdown'
-require 'thredded/html_pipeline/autolink_filter'
 module Thredded
   module HtmlPipeline
     class KramdownFilter < ::HTML::Pipeline::TextFilter
@@ -28,15 +27,7 @@ module Thredded
       def call
         result = Kramdown::Document.new(@text, self.class.options).to_html
         result.rstrip!
-        auto_link result
-      end
-
-      private
-
-      def auto_link(html)
-        # Autolink is required because Kramdown does not autolink by default.
-        # https://github.com/gettalong/kramdown/issues/306
-        Thredded::HtmlPipeline::AutolinkFilter.call(html, @context)
+        result
       end
     end
   end
