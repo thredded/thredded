@@ -76,8 +76,9 @@ Thredded.layout = 'thredded/application'
 # Customize the way Thredded handles post formatting.
 
 # Change the default html-pipeline filters used by thredded.
-# E.g. to remove BBCode support:
-# Thredded::ContentFormatter.pipeline_filters -= [HTML::Pipeline::BbcodeFilter]
+# E.g. to replace default emoji filter with your own:
+# Thredded::ContentFormatter.markup_filters[
+#   Thredded::ContentFormatter.markup_filters.index(HTML::Pipeline::EmojiFilter)] = MyEmojiFilter
 
 # Change the HTML sanitization settings used by Thredded.
 # See the Sanitize docs for more information on the underlying library: https://github.com/rgrove/sanitize/#readme
