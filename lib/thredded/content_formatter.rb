@@ -74,14 +74,18 @@ module Thredded
       HTML::Pipeline::SanitizationFilter,
     ]
 
-    # All HTML::Pipeline filters.
+    # All the HTML::Pipeline filters, read-only.
     def self.pipeline_filters
-      [
+      filters = [
         *before_markup_filters,
         *markup_filters,
         *after_markup_filters,
         *sanitization_filters,
       ]
+      # Changing the result in-place has no effect on the ContentFormatter output,
+      # and is most likely the result of a programmer error.
+      # Freeze the array so that in-place changes raise an error.
+      filters.freeze
     end
 
     # @param view_context [Object] the context of the rendering view.
