@@ -103,13 +103,13 @@
     - |
       this is code
 
-          def hello; puts 'world'; end
+          def hello; puts 'world' << '!'; end
 
       right here
     - |
       <p>this is code</p>
 
-      <pre><code>def hello; puts 'world'; end
+      <pre><code>def hello; puts 'world' &lt;&lt; '!'; end
       </code></pre>
 
       <p>right here</p>
