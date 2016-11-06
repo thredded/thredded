@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/html_pipeline/at_mention_filter'
-require_dependency 'thredded/html_pipeline/autolink_filter'
-require_dependency 'thredded/html_pipeline/bbcode_filter'
-require_dependency 'thredded/html_pipeline/kramdown_filter'
-
 module Thredded
   # Generates HTML from content source.
   class ContentFormatter
