@@ -20,9 +20,6 @@
     </li>
     <li>
       <label><%= t 'thredded.preferences.form.notifications_for_followed_topics.label' %></label>
-      <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
-        <!--<%= t 'thredded.preferences.form.notifications_for_followed_topics.hint' %>-->
-      <!--</p>-->
       <%= f.fields_for :notifications_for_followed_topics, preferences.notifications_for_followed_topics do |fn| %>
         <%= fn.label :wants do %>
           <%= fn.hidden_field :notifier_key%>
@@ -36,9 +33,6 @@
     </li>
     <li>
       <label><%= t 'thredded.preferences.form.notifications_for_private_topics.label' %></label>
-      <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
-        <!--<%= t 'thredded.preferences.form.notifications_for_private_topics.hint' %>-->
-      <!--</p>-->
       <%= f.fields_for :notifications_for_private_topics, preferences.notifications_for_private_topics do |fn| %>
         <%= fn.label :wants do %>
           <%= fn.hidden_field :notifier_key%>
@@ -65,9 +59,6 @@
       </li>
       <li>
         <label><%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.label' %></label>
-        <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
-          <!--<%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.hint' %>-->
-        <!--</p>-->
         <%= f.fields_for :messageboard_notifications_for_followed_topics, preferences.messageboard_notifications_for_followed_topics  do |fn| %>
           <%= fn.label :wants do %>
             <%= fn.hidden_field :notifier_key %>

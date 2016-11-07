@@ -2,8 +2,10 @@
 module Thredded
   class EmailNotifier
     def i18n_key
+      # i18n-tasks-use t('thredded.email_notifier.by_email')
       'thredded.email_notifier.by_email'
     end
+
 
     def key
       'email'

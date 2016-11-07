@@ -4,6 +4,8 @@ pt-BR:
     content_moderation_states:
       content_blocked_notice: Bloqueado
       content_blocked_notice_with_record_html: Bloqueados por %{moderator} %{time_ago}
+    email_notifier:
+      by_email: de e-mail
     errors:
       login_required: Por favor, autentique-se primeiro.
       not_authorized: Você não está autorizado a acessar esta página.
@@ -76,9 +78,6 @@ pt-BR:
             Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
             deste post.
           label: Siga os tópicos que são mencionados na
-        notifications_for_followed_topics:
-          hint: Quando há um post em um tópico que você siga, você receberá um e-mail.
-          label: Notificações para tópicos seguido
         global_preferences_label: Configurações Globais
         messageboard_follow_topics_on_mention:
           hint: >-
@@ -86,12 +85,11 @@ pt-BR:
             um e-mail com o conteúdo deste post.
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
-          hint: Quando há um post em um tópico que você siga nesta messageboard será enviado um e-mail.
           label: :thredded.preferences.form.notifications_for_followed_topics.label
         messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
+        notifications_for_followed_topics:
+          label: Notificações para tópicos seguido
         notifications_for_private_topics:
-          hint: Quando você for adicionado a uma conversa privada, você receberá um e-mail com o conteúdo desta
-            conversa.
           label: Notificações de mensagens privadas
         submit_btn: Atualizar Configurações
         title: Configurações
@@ -171,5 +169,3 @@ pt-BR:
       user_posted_in_topic_html: "%{user_link} postou em %{topic_link}"
       user_since_html: Utilizador desde %{time_ago}
       user_started_topic_html: "%{user_link} começou %{topic_link}"
-    email_notifier:
-      by_email: de e-mail
