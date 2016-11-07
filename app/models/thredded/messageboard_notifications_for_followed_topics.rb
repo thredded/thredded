@@ -17,5 +17,11 @@ module Thredded
     def self.in(messageboard)
       where(messageboard_id: messageboard.id)
     end
+
+    def self.default(_notifier)
+      # could be moved to `notifier.defaults(:notifications_for_followed_topics)` or
+      # `notifier.defaults(:messageboard_notifications_for_followed_topics)`
+      Thredded::BaseNotifier::NotificationsDefault.new(true)
+    end
   end
 end

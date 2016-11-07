@@ -11,5 +11,10 @@ module Thredded
                inverse_of: :notifications_for_followed_topics
 
     validates :user_id, presence: true
+
+    def self.default(_notifier)
+      # could be moved to  `notifier.defaults(:notifications_for_followed_topics)`
+      Thredded::BaseNotifier::NotificationsDefault.new(true)
+    end
   end
 end

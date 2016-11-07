@@ -6,7 +6,6 @@ module Thredded
       'thredded.email_notifier.by_email'
     end
 
-
     def key
       'email'
     end
