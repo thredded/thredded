@@ -32,7 +32,7 @@
     constructor(form) {
       const $form = $(form);
       $form.find(`input[${BOUND_MESSAGEBOARD_NAME}]`).each((index, element) => {
-        let $elem = $(element);
+        const $elem = $(element);
         new MessageboardPreferenceBinding($form, $elem.attr('name'), $elem.attr(BOUND_MESSAGEBOARD_NAME));
       })
     }
