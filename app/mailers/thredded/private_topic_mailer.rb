@@ -10,7 +10,6 @@ module Thredded
       mail from:     email_details.no_reply,
            to:       email_details.no_reply,
            bcc:      emails,
-           reply_to: email_details.reply_to,
            subject:  email_details.subject
     end
   end

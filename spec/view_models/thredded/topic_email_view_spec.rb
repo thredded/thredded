@@ -27,12 +27,5 @@ module Thredded
           .to eq(Thredded.email_from)
       end
     end
-
-    describe '.reply_to' do
-      it 'returns the reply-to address for the app' do
-        expect(decorated_topic.reply_to)
-          .to eq("#{topic.hash_id}@#{Thredded.email_incoming_host}")
-      end
-    end
   end
 end
