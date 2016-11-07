@@ -24,8 +24,11 @@ module Thredded
     attr_reader :post, :private_topic
 
     def exclude_those_opting_out_of_message_notifications(users, notifier)
+      # TODO: ugly and super non-performant. but we can easily improve
       users.select do |user|
-        user.thredded_user_preference.notifications_for_private_topics[notifier.key]
+        pref = user.thredded_user_preference.notifications_for_private_topics
+          .find { |pref| pref.notifier_key == notifier.key }
+        !pref || pref.wants?
       end
     end
   end

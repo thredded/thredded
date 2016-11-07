@@ -14,12 +14,11 @@ module Thredded
       subject { NotifyFollowingUsers.new(post).targeted_users(notifier) }
 
       it "includes followers where preference to receive these notifications" do
-        create(
-          :user_messageboard_preference,
-          notifications_for_followed_topics: PerNotifierPref::NotificationsForFollowedTopics.new("email" => true),
-          user: follower,
-          messageboard: messageboard
-        )
+        create(:notifications_for_followed_topics,
+               notifier_key: 'email',
+               user: follower,
+               wants: true)
+
         expect(subject).to include(follower)
       end
 
@@ -30,12 +29,10 @@ module Thredded
 
       context "when a follower's email notification is turned off" do
         before do
-          create(
-            :user_messageboard_preference,
-            notifications_for_followed_topics: PerNotifierPref::NotificationsForFollowedTopics.new("email" => false),
-            user: follower,
-            messageboard: messageboard
-          )
+          create(:notifications_for_followed_topics,
+                 notifier_key: 'email',
+                 user: follower,
+                 wants: false)
         end
 
         it "doesn't include that user" do
@@ -52,12 +49,11 @@ module Thredded
 
       context "when a follower's 'mock' notification is turned off (per messageboard)" do
         before do
-          create(
-            :user_messageboard_preference,
-            notifications_for_followed_topics: PerNotifierPref::NotificationsForFollowedTopics.new("mock" => false),
-            user: follower,
-            messageboard: messageboard
-          )
+          create(:messageboard_notifications_for_followed_topics,
+                 notifier_key: 'mock',
+                 messageboard: messageboard,
+                 user: follower,
+                 wants: false)
         end
 
         context "with the EmailNotifier" do
@@ -77,11 +73,10 @@ module Thredded
 
       context "when a follower's 'mock' notification is turned off (overall)" do
         before do
-          create(
-            :user_preference,
-            notifications_for_followed_topics: PerNotifierPref::NotificationsForFollowedTopics.new("mock" => false),
-            user: follower,
-          )
+          create(:notifications_for_followed_topics,
+                 notifier_key: 'mock',
+                 user: follower,
+                 wants: false)
         end
 
         context "with the EmailNotifier" do

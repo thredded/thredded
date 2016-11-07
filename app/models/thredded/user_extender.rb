@@ -24,6 +24,8 @@ module Thredded
 
       with_options dependent: :destroy, foreign_key: 'user_id', inverse_of: :user do |opt|
         opt.has_many :thredded_user_messageboard_preferences, class_name: 'Thredded::UserMessageboardPreference'
+        opt.has_many :thredded_notifications_for_followed_topics, class_name: 'Thredded::NotificationsForFollowedTopics'
+        opt.has_many :thredded_notifications_for_private_topics, class_name: 'Thredded::NotificationsForPrivateTopics'
         opt.has_many :thredded_private_users, class_name: 'Thredded::PrivateUser'
         opt.has_many :thredded_topic_read_states, class_name: 'Thredded::UserTopicReadState'
         opt.has_many :thredded_private_topic_read_states, class_name: 'Thredded::UserPrivateTopicReadState'

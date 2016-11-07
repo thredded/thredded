@@ -23,13 +23,14 @@
       <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
         <!--<%= t 'thredded.preferences.form.notifications_for_followed_topics.hint' %>-->
       <!--</p>-->
-      <%= f.fields_for preferences.notifications_for_followed_topics do |fn| %>
-        <%- Thredded.notifiers.each do |notifier| %>
-          <%= fn.label notifier.key do %>
-            <%= fn.check_box notifier.key, 'data-thredded-bound-messageboard-pref' =>
-                "user_preferences_form[messageboard_notifications_for_followed_topics][#{notifier.key}]" %>
-            <%= t(notifier.i18n_key) %>
-          <% end %>
+      <%= f.fields_for :notifications_for_followed_topics, preferences.notifications_for_followed_topics do |fn| %>
+        <%= fn.label :wants do %>
+          <%= fn.hidden_field :notifier_key%>
+          <%= fn.check_box :wants,
+              'data-thredded-bound-messageboard-pref' =>
+              "user_preferences_form[messageboard_notifications_for_followed_topics_attributes][#{fn.index}][#{fn.object.notifier_key}]" %>
+          <%= t(Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.i18n_key) #TODO nicer
+          %>
         <%- end %>
       <%- end %>
     </li>
@@ -38,14 +39,12 @@
       <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
         <!--<%= t 'thredded.preferences.form.notifications_for_private_topics.hint' %>-->
       <!--</p>-->
-      <%= f.fields_for preferences.notifications_for_private_topics do |fn| %>
-        <%- Thredded.notifiers.each do |notifier| %>
-          <%= fn.label notifier.key do %>
-            <%= fn.check_box notifier.key %>
-            <%= t(notifier.i18n_key)
-              # i18n-tasks-use t("thredded.email_notifier.by_email")
-            %>
-          <% end %>
+      <%= f.fields_for :notifications_for_private_topics, preferences.notifications_for_private_topics do |fn| %>
+        <%= fn.label :wants do %>
+          <%= fn.hidden_field :notifier_key%>
+          <%= fn.check_box :wants %>
+          <%= t(Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.i18n_key) #TODO nicer
+          %>
         <% end %>
       <% end %>
     </li>
@@ -69,12 +68,13 @@
         <!--<p class="thredded&#45;&#45;form-list&#45;&#45;hint">-->
           <!--<%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.hint' %>-->
         <!--</p>-->
-        <%= f.fields_for preferences.messageboard_notifications_for_followed_topics  do |fn| %>
-          <%- Thredded.notifiers.each do |notifier| %>
-            <%= fn.label notifier.key do %>
-              <%= fn.check_box notifier.key.to_sym %>
-              <%= t(notifier.i18n_key) %>
-            <% end %>
+        <%= f.fields_for :messageboard_notifications_for_followed_topics, preferences.messageboard_notifications_for_followed_topics  do |fn| %>
+          <%= fn.label :wants do %>
+            <%= fn.hidden_field :notifier_key %>
+            <%= fn.hidden_field :messageboard_id %>
+            <%= fn.check_box :wants %>
+            <%= t(Thredded.notifiers.detect{|n| n.key == fn.object.notifier_key}.i18n_key) #TODO nicer
+            %>
           <% end %>
         <%- end %>
       </li>

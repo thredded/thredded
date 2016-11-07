@@ -9,12 +9,12 @@ module Thredded
     validate :validate_children
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
-             :notifications_for_private_topics, :notifications_for_private_topics=,
-             :notifications_for_followed_topics, :notifications_for_followed_topics=,
+             :messageboard_notifications_for_followed_topics_attributes=,
+             :notifications_for_followed_topics_attributes=,
+             :notifications_for_private_topics_attributes=,
              to: :user_preference
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
-             :notifications_for_followed_topics, :notifications_for_followed_topics=,
              to: :user_messageboard_preference,
              prefix: :messageboard
 
@@ -34,6 +34,25 @@ module Thredded
         user_messageboard_preference.save! if messageboard
       end
       true
+    end
+
+    def notifications_for_private_topics
+      for_every_notifier(user_preference.notifications_for_private_topics)
+    end
+
+    def notifications_for_followed_topics
+      for_every_notifier(user_preference.notifications_for_followed_topics)
+    end
+
+    def messageboard_notifications_for_followed_topics
+      return nil unless messageboard
+      for_every_notifier(user_preference.messageboard_notifications_for_followed_topics.for_messageboard(messageboard))
+    end
+
+    def for_every_notifier(prefs)
+      Thredded.notifiers.map do |notifier|
+        prefs.find { |n| n.notifier_key == notifier.key } || prefs.build(notifier_key: notifier.key)
+      end
     end
 
     private

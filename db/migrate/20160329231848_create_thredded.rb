@@ -161,8 +161,6 @@ class CreateThredded < ActiveRecord::Migration
     create_table :thredded_user_preferences do |t|
       t.references :user, null: false
       t.boolean :follow_topics_on_mention, default: true, null: false
-      t.string :notifications_for_private_topics, default: '', null: false
-      t.string :notifications_for_followed_topics, default: '', null: false
       t.timestamps null: false
       t.index [:user_id], name: :index_thredded_user_preferences_on_user_id
     end
@@ -171,7 +169,6 @@ class CreateThredded < ActiveRecord::Migration
       t.references :user, null: false
       t.references :messageboard, null: false
       t.boolean :follow_topics_on_mention, default: true, null: false
-      t.string :notifications_for_followed_topics, default: '', null: false
       t.timestamps null: false
       t.index [:user_id, :messageboard_id],
               name: :thredded_user_messageboard_preferences_user_id_messageboard_id,
@@ -216,6 +213,23 @@ class CreateThredded < ActiveRecord::Migration
       t.index [:messageboard_id, :created_at],
               order: { created_at: :desc },
               name:  :index_thredded_moderation_records_for_display
+    end
+
+    create_table :thredded_notifications_for_private_topics do |t|
+      t.integer :user_id, null: false
+      t.string :notifier_key, null: false
+      t.boolean :wants, default: true, null: false
+    end
+    create_table :thredded_notifications_for_followed_topics do |t|
+      t.integer :user_id, null: false
+      t.string :notifier_key, null: false
+      t.boolean :wants, default: true, null: false
+    end
+    create_table :thredded_messageboard_notifications_for_followed_topics do |t|
+      t.integer :user_id, null: false
+      t.integer :messageboard_id, null: false
+      t.string :notifier_key, null: false
+      t.boolean :wants, default: true, null: false
     end
   end
 end

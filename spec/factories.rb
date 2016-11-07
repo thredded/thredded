@@ -68,6 +68,18 @@ FactoryGirl.define do
     messageboard
   end
 
+  factory :messageboard_notifications_for_followed_topics,
+          class: Thredded::MessageboardNotificationsForFollowedTopics do
+    user
+    messageboard
+  end
+  factory :notifications_for_followed_topics, class: Thredded::NotificationsForFollowedTopics do
+    user
+  end
+  factory :notifications_for_private_topics, class: Thredded::NotificationsForPrivateTopics do
+    user
+  end
+
   factory :topic, class: Thredded::Topic do
     transient do
       with_posts 0
