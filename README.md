@@ -157,6 +157,15 @@ Include thredded JavaScripts in your `application.js`:
 //= require thredded
 ```
 
+To use thredded with your application layout, you also need to ensure that your layout and thredded don't load different
+versions of jQuery. By default, Thredded loads jQuery v3 (via `//= require jquery3` from [jquery-rails]),
+but if you want to use jQuery v1 or v2, then you need to create a file at
+`app/assets/javascripts/thredded/dependencies/jquery.js` which contains just `//= require jquery`
+or `// require jquery2`. If you are not loading jQuery in your app, or if you are already using jQuery v3,
+or if you are not using Thredded with your app layout, then you don't need to do do this.
+
+[jquery-rails]: https://github.com/rails/jquery-rails
+
 Thredded views also provide two `content_tag`s available to yield - `:thredded_page_title` and `:thredded_page_id`.
 The views within Thredded pass those up through to your layout if you would like to use them.
 
