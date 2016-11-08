@@ -161,8 +161,7 @@ To use thredded with your application layout, you also need to ensure that your 
 versions of jQuery. By default, Thredded loads jQuery v3 (via `//= require jquery3` from [jquery-rails]),
 but if you want to use jQuery v1 or v2, then you need to create a file at
 `app/assets/javascripts/thredded/dependencies/jquery.js` which contains just `//= require jquery`
-or `// require jquery2`. If you are not loading jQuery in your app, or if you are already using jQuery v3,
-or if you are not using Thredded with your app layout, then you don't need to do do this.
+or `// require jquery2`. If you are not loading jQuery in your app, or if you are already using jQuery v3, then you don't need to do do this (You also don't need to worry about this if you are using the default ["Standalone" layout](#standalone-layout))
 
 [jquery-rails]: https://github.com/rails/jquery-rails
 
