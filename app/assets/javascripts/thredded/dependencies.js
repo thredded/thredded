@@ -1,4 +1,4 @@
-//= require jquery3
+//= require thredded/dependencies/jquery
 //= require jquery_ujs
 //= require jquery.autosize
 //= require jquery.textcomplete
