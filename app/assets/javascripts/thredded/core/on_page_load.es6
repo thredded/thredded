@@ -30,7 +30,7 @@
       triggerOnPageLoad();
     });
   } else {
-    // Turbolinks Classic (with or without jQuery.Turbolinks):
+    // Turbolinks Classic (with or without jQuery.Turbolinks), or no Turbolinks:
     if (!window.Thredded.DOMContentLoadedFired) {
       document.addEventListener('DOMContentLoaded', () => {
         triggerOnPageLoad();
