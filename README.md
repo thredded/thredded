@@ -51,9 +51,11 @@ gem install thredded_create_app
 thredded_create_app path/to/myapp
 ```
 
-See `thredded_create_app --help` to learn about the various options.
+See `thredded_create_app --help` and the [thredded_create_app repo] to learn about the various options.
 
 Then, see the rest of this Readme for more information about using and customizing Thredded.
+
+[thredded_create_app repo]: https://github.com/thredded/thredded_create_app
 
 ### Adding Thredded to an existing Rails app
 
