@@ -13,7 +13,7 @@ PATH
       html-pipeline-youtube
       htmlentities
       inline_svg
-      jquery-rails
+      jquery-rails (>= 4.2.1)
       kaminari
       kramdown
       nokogiri
@@ -141,14 +141,14 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.1)
     multi_json (1.12.1)
-    newrelic_rpm (3.17.0.325)
+    newrelic_rpm (3.17.1.326)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     nokogumbo (1.4.10)
       nokogiri
     pg (0.19.0)
-    public_suffix (2.0.3)
+    public_suffix (2.0.4)
     puma (3.6.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
