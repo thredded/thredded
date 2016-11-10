@@ -32,7 +32,16 @@
 <% unless content_for?(:no_app_layout) %>
     <div class="app-container">
       <%= render 'shared/header' %>
-      <%= render 'shared/flash_messages' unless content_for?(:thredded_page_id) %>
+      <% unless content_for?(:thredded_page_id) %>
+        <%= render 'shared/flash_messages' %>
+        <%# In the demo app we have non-Thredded (demo-only) JS using Thredded.onPageLoad for locale/theme toggles.
+            Add the Thredded.DOMContentLoadedFired activation required by Thredded.onPageLoad: %>
+        <script data-turbolinks-eval="false">
+          document.addEventListener('DOMContentLoaded', function() {
+            (window.Thredded = window.Thredded || {}).DOMContentLoadedFired = true;
+          });
+        </script>
+      <% end %>
       <div class="app-content-container"><%= yield %></div>
     </div>
 <% else %>
