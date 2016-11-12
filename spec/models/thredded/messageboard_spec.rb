@@ -13,14 +13,6 @@ module Thredded
       expect(messageboard.slug).to eq 'super-friends'
     end
 
-    it 'returns only open messageboards' do
-      closed     = create(:messageboard, closed: true)
-      all_boards = Messageboard.all
-
-      expect(all_boards).to include(@messageboard)
-      expect(all_boards).not_to include(closed)
-    end
-
     describe '#recently_active_users' do
       it 'returns users active for a messageboard' do
         messageboard   = create(:messageboard)

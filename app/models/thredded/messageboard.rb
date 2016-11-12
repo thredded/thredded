@@ -56,7 +56,6 @@ module Thredded
 
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
 
-    default_scope { where(closed: false) }
     # rubocop:disable Style/Lambda
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }

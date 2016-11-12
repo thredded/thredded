@@ -27,7 +27,6 @@ FactoryGirl.define do
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     description 'This is a description of the messageboard'
-    closed false
   end
 
   factory :messageboard_group, class: Thredded::MessageboardGroup do

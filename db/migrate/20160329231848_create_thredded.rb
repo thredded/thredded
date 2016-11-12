@@ -38,12 +38,10 @@ class CreateThredded < ActiveRecord::Migration
       t.integer :topics_count, default: 0
       t.integer :posts_count, default: 0
       t.integer :position, null: false
-      t.boolean :closed, default: false, null: false
       t.references :last_topic
       t.references :messageboard_group
       t.timestamps null: false
       t.index [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
-      t.index [:closed], name: :index_thredded_messageboards_on_closed
       t.index [:slug], name: :index_thredded_messageboards_on_slug
     end
 
