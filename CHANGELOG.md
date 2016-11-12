@@ -18,18 +18,30 @@ See in particular "main app delegator" in Changed below.
 * Turbolinks 5 support. Turbolinks Classic with or without jQuery.Turbolinks are also supported.
   [#440](https://github.com/thredded/thredded/pull/440)
 * Support for loading Thredded JavaScript via a script tag with `[async]` and/or `[defer]` attributes.
-  [on_page_load.es6 @8e7e1d](https://github.com/thredded/thredded/blob/8e7e1d399a35006b03630ff18e484fd66620f9f9/app/assets/javascripts/thredded/core/on_page_load.es6)
+  [on_page_load.es6 @96090d](https://github.com/thredded/thredded/blob/96090d73fb3003e190a2ca886b31ec22db6c7c10/app/assets/javascripts/thredded/core/on_page_load.es6)
+* View hooks have been added to enable your app and plugins to easily extend Thredded views (experimental).
+  [#455](https://github.com/thredded/thredded/pull/455)
 
 ## Changed
 
+* Thredded now loads jQuery v3 by default. If you load jQuery v1 or v2 in your app, you will need to tell Thredded to
+  load the same version. [#469](https://github.com/thredded/thredded/pull/469) 
+* BBCode support is no longer enabled by default and is now available via
+  the [thredded-bbcode](https://github.com/thredded/thredded-bbcode) gem.
+  [#460](https://github.com/thredded/thredded/issues/460)
 * The "main app delegator" has been removed. If you are using an application layout for thredded, you need to either
   prefix your links with main_app or add some code to your thredded initializer
   [Readme on application layouts](https://github.com/thredded/thredded/blob/master/README.md#application-layout).
+  [#420](https://github.com/thredded/thredded/pull/420)
+* Content formatting filters have been split into groups based on what they process to make customizing them simpler.
+  [#462](https://github.com/thredded/thredded/pull/462)
+* The default markdown parser has been changed from the unmaintained and unsupported github-markdown gem to Kramdown.
+  [#458](https://github.com/thredded/thredded/pull/458)
 
 ## Fixed
 
 * Multiple UX issues, including:
-  * Navigation icons and paddinss on mobile.
+  * Navigation icons and paddings on mobile.
   * Following icons in topics and the topic view.
     [#438](https://github.com/thredded/thredded/pull/438) [#448](https://github.com/thredded/thredded/pull/448)
   * Clicking on an already active tab in navigation now takes the user back to the messageboard(s).
