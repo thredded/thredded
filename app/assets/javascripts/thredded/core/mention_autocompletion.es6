@@ -24,7 +24,7 @@ class ThreddedMentionAutocompletion {
   automentionCompletion($textarea, autocompleteUrl) {
     let mentionAC = this;
     $textarea.textcomplete([{
-      match: /(^@|\s@)"?((?:\w| ){1,})$/,
+      match: ThreddedMentionAutocompletion.MATCH_RE,
       search (term, callback, match) {
         if(term.length < this.autocompleteMinLength){
           return callback({});
@@ -51,3 +51,4 @@ class ThreddedMentionAutocompletion {
   }
 }
 
+ThreddedMentionAutocompletion.MATCH_RE = /(^@|\s@)"?((?:\w| )+)$/;
