@@ -4,7 +4,7 @@ This release contains new functionality and backwards-incompatible changes.
 
 See in particular "main app delegator" in Changed below.
 
-**NB:** If updating to this version from 0.6.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/b73154b0b9e1ab0efd0ac1e9883bad902af1f1ec/db/upgrade_migrations/20161019150201_upgrade_v0_7_to_v0_8.rb) after upgrading the gem.
+**NB:** If updating to this version from 0.7.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/b73154b0b9e1ab0efd0ac1e9883bad902af1f1ec/db/upgrade_migrations/20161019150201_upgrade_v0_7_to_v0_8.rb) after upgrading the gem.
 
 ## Added
 
