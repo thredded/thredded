@@ -19,11 +19,7 @@ module Thredded
     def create
       @messageboard = Messageboard.new(messageboard_params)
       authorize_creating @messageboard
-      if @messageboard.save
-        Topic.transaction do
-          @topic = Topic.create!(topic_params)
-          @post = Post.create!(post_params)
-        end
+      if Thredded::CreateMessageboard.new(@messageboard, thredded_current_user).run
         redirect_to root_path
       else
         render :new
@@ -51,25 +47,6 @@ module Thredded
       params
         .require(:messageboard)
         .permit(:name, :description, :messageboard_group_id)
-    end
-
-    def topic_params
-      {
-        messageboard: @messageboard,
-        user: thredded_current_user,
-        last_user: thredded_current_user,
-        title: "Welcome to your messageboard's very first thread",
-      }
-    end
-
-    def post_params
-      {
-        messageboard: @messageboard,
-        postable: @topic,
-        content: "There's not a whole lot here for now.",
-        ip: request.ip,
-        user: thredded_current_user,
-      }
     end
   end
 end
