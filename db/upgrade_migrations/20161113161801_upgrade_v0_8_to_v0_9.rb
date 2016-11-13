@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/MethodLength
 class UpgradeV08ToV09 < ActiveRecord::Migration
   def up
     create_table :thredded_notifications_for_private_topics do |t|
@@ -46,3 +47,4 @@ class UpgradeV08ToV09 < ActiveRecord::Migration
     drop_table :thredded_notifications_for_private_topics
   end
 end
+# rubocop:enable Metrics/MethodLength
