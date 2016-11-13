@@ -1,11 +1,11 @@
-# v0.8.1
+# v0.8.2
 
 This is a hot-fix release, as v0.8.0 was broken.
 
 ## Fixed
 
-* The `couldn't find file 'jquery.textcomplete'` error on Rails 5.
-[457293](https://github.com/thredded/thredded/commit/4572930d8bdc4999b57f6b2928e9e0464f7e6b99)
+* `vendor/assets/javascripts/jquery.textcomplete` was not packaged with the gem.
+[57ed37](https://github.com/thredded/thredded/commit/57ed3790a99ea164e128ee99e3048f33b9e9eb18)
 
 # v0.8.0
 

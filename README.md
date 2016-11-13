@@ -62,7 +62,7 @@ Then, see the rest of this Readme for more information about using and customizi
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.8.1'
+gem 'thredded', '~> 0.8.2'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
