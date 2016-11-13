@@ -3,17 +3,6 @@ RSpec.configure do |c|
   # always reset notifiers -- it's easier this way
   c.around(:example) do |example|
     example.run
-    notifiers = Thredded.class_variable_get(:@@notifiers)
-    if notifiers
-      if Thredded::PerNotifierPref.class_variable_defined?(:@@notifier_keys)
-        notifier_keys = Thredded::PerNotifierPref.class_variable_get(:@@notifier_keys) || []
-        notifier_keys.each do |key|
-          Thredded::PerNotifierPref.send(:remove_method, key)
-          Thredded::PerNotifierPref.send(:remove_method, "#{key}=")
-        end
-        Thredded::PerNotifierPref.class_variable_set(:@@notifier_keys, nil)
-      end
-    end
     Thredded.class_variable_set(:@@notifiers, nil)
   end
 
