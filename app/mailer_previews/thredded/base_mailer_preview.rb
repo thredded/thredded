@@ -84,7 +84,6 @@ MARKDOWN
           name:         'A test messageboard',
           slug:         'a-test-messageboard',
           description:  'Test messageboard description',
-          closed:       false,
           created_at:   1.month.ago,
           id:           1 + rand(1334),
           posts_count:  rand(1337),

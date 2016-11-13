@@ -9,7 +9,7 @@ module Thredded
                            else
                              thredded_current_user
                            end
-      @messageboards     = Messageboard.where(closed: false)
+      @messageboards     = Messageboard.all
       @topics            = TopicsPageView.new(@user, @messageboard.topics.page(1).limit(3))
       @private_topics    = PrivateTopicsPageView.new(@user, @user.thredded_private_topics.page(1).limit(3))
       topic              = Topic.new(messageboard: @messageboard, title: 'Hello', slug: 'hello', user: @user)
