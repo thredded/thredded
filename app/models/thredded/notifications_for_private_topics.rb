@@ -11,6 +11,8 @@ module Thredded
 
     validates :user_id, presence: true
 
+    include NotifierPreference
+
     def self.default(_notifier)
       # could be moved to  `notifier.defaults(:notifications_for_private_topics)`
       Thredded::BaseNotifier::NotificationsDefault.new(true)
