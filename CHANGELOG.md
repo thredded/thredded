@@ -1,8 +1,10 @@
-# Master (future v0.8.0)
+# v0.8.0
 
 This release contains new functionality and backwards-incompatible changes.
 
 See in particular "main app delegator" in Changed below.
+
+**NB:** If updating to this version from 0.6.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/b73154b0b9e1ab0efd0ac1e9883bad902af1f1ec/db/upgrade_migrations/20161019150201_upgrade_v0_7_to_v0_8.rb) after upgrading the gem.
 
 ## Added
 
@@ -18,7 +20,7 @@ See in particular "main app delegator" in Changed below.
 * Turbolinks 5 support. Turbolinks Classic with or without jQuery.Turbolinks are also supported.
   [#440](https://github.com/thredded/thredded/pull/440)
 * Support for loading Thredded JavaScript via a script tag with `[async]` and/or `[defer]` attributes.
-  [on_page_load.es6 @96090d](https://github.com/thredded/thredded/blob/96090d73fb3003e190a2ca886b31ec22db6c7c10/app/assets/javascripts/thredded/core/on_page_load.es6)
+  [on_page_load.es6 @96090d](https://github.com/thredded/thredded/blob/b73154b0b9e1ab0efd0ac1e9883bad902af1f1ec/app/assets/javascripts/thredded/core/on_page_load.es6)
 * View hooks have been added to enable your app and plugins to easily extend Thredded views (experimental).
   [#455](https://github.com/thredded/thredded/pull/455)
 
@@ -57,7 +59,7 @@ See in particular "main app delegator" in Changed below.
 * Minimum username autocomplete length is now configurable, resolving
   [#328 - support for 1-character usernames](https://github.com/thredded/thredded/issues/353).
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v0.7.0...master.
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.7.0...v0.8.0.
 
 # v0.7.0
 
