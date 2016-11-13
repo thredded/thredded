@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.8.0)
+    thredded (0.8.1)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       autosize-rails
