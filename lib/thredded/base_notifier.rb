@@ -14,14 +14,14 @@ module Thredded
     end
 
     class NotificationsDefault
-      def initialize(wants)
-        @wants = wants
+      def initialize(enabled)
+        @enabled = enabled
       end
 
-      attr_reader :wants
+      attr_reader :enabled
 
-      def wants?
-        wants
+      def enabled?
+        enabled
       end
     end
   end

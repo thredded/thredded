@@ -218,18 +218,18 @@ class CreateThredded < ActiveRecord::Migration
     create_table :thredded_notifications_for_private_topics do |t|
       t.integer :user_id, null: false
       t.string :notifier_key, null: false
-      t.boolean :wants, default: true, null: false
+      t.boolean :enabled, default: true, null: false
     end
     create_table :thredded_notifications_for_followed_topics do |t|
       t.integer :user_id, null: false
       t.string :notifier_key, null: false
-      t.boolean :wants, default: true, null: false
+      t.boolean :enabled, default: true, null: false
     end
     create_table :thredded_messageboard_notifications_for_followed_topics do |t|
       t.integer :user_id, null: false
       t.integer :messageboard_id, null: false
       t.string :notifier_key, null: false
-      t.boolean :wants, default: true, null: false
+      t.boolean :enabled, default: true, null: false
     end
   end
 end

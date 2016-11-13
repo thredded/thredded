@@ -33,21 +33,21 @@ module PageObject
     end
 
     def has_notifications_for_private_topics_by_email?
-      has_checked_field? 'user_preferences_form[notifications_for_private_topics_attributes][0][wants]'
+      has_checked_field? 'user_preferences_form[notifications_for_private_topics_attributes][0][enabled]'
       # [0] because email is always first notifier in our tests
     end
 
     def disable_notifications_for_private_topics_by_email
-      uncheck 'user_preferences_form[notifications_for_private_topics_attributes][0][wants]'
+      uncheck 'user_preferences_form[notifications_for_private_topics_attributes][0][enabled]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
     def has_notifications_for_followed_topics_by_email?
-      has_checked_field? 'user_preferences_form[notifications_for_followed_topics_attributes][0][wants]'
+      has_checked_field? 'user_preferences_form[notifications_for_followed_topics_attributes][0][enabled]'
     end
 
     def disable_notifications_for_followed_topics_by_email
-      uncheck 'user_preferences_form[notifications_for_followed_topics_attributes][0][wants]'
+      uncheck 'user_preferences_form[notifications_for_followed_topics_attributes][0][enabled]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
 
@@ -61,11 +61,11 @@ module PageObject
     end
 
     def has_messageboard_notifications_for_followed_topics_by_email?
-      has_checked_field? 'user_preferences_form[messageboard_notifications_for_followed_topics_attributes][0][wants]'
+      has_checked_field? 'user_preferences_form[messageboard_notifications_for_followed_topics_attributes][0][enabled]'
     end
 
     def disable_messageboard_notifications_for_followed_topics_by_email
-      uncheck 'user_preferences_form[messageboard_notifications_for_followed_topics_attributes][0][wants]'
+      uncheck 'user_preferences_form[messageboard_notifications_for_followed_topics_attributes][0][enabled]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
   end

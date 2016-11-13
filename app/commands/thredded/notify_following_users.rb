@@ -27,11 +27,11 @@ module Thredded
       users.select do |user|
         (user.thredded_user_preference.notifications_for_followed_topics
           .find { |pref| pref.notifier_key == notifier.key } || NotificationsForFollowedTopics.default(notifier))
-          .wants? &&
+          .enabled? &&
           (user.thredded_user_preference
             .messageboard_notifications_for_followed_topics.for_messageboard(@post.messageboard)
             .find { |pref| pref.notifier_key == notifier.key } ||
-            MessageboardNotificationsForFollowedTopics.default(notifier)).wants?
+            MessageboardNotificationsForFollowedTopics.default(notifier)).enabled?
       end
     end
   end

@@ -28,7 +28,7 @@ module Thredded
       users.select do |user|
         (user.thredded_user_preference.notifications_for_private_topics
           .find { |pref| pref.notifier_key == notifier.key } || NotificationsForPrivateTopics.default(notifier))
-          .wants?
+          .enabled?
       end
     end
   end

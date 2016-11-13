@@ -26,7 +26,7 @@ module Thredded
             :user_preference,
             user: @joel,
           )
-          create(:notifications_for_private_topics, notifier_key: 'email', user: @joel, wants: false)
+          create(:notifications_for_private_topics, notifier_key: 'email', user: @joel, enabled: false)
           recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
           expect(recipients).not_to include(@joel)
         end

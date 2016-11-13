@@ -30,9 +30,9 @@ module Thredded
       params.fetch(:user_preferences_form, {}).permit(
         :follow_topics_on_mention,
         :messageboard_follow_topics_on_mention,
-        messageboard_notifications_for_followed_topics_attributes: [:wants, :notifier_key, :messageboard_id],
-        notifications_for_followed_topics_attributes: [:wants, :notifier_key],
-        notifications_for_private_topics_attributes: [:wants, :notifier_key]
+        messageboard_notifications_for_followed_topics_attributes: [:enabled, :notifier_key, :messageboard_id],
+        notifications_for_followed_topics_attributes: [:enabled, :notifier_key],
+        notifications_for_private_topics_attributes: [:enabled, :notifier_key]
       )
     end
   end

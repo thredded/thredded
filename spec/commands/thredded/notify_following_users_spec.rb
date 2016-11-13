@@ -17,7 +17,7 @@ module Thredded
         create(:notifications_for_followed_topics,
                notifier_key: 'email',
                user: follower,
-               wants: true)
+               enabled: true)
 
         expect(subject).to include(follower)
       end
@@ -32,7 +32,7 @@ module Thredded
           create(:notifications_for_followed_topics,
                  notifier_key: 'email',
                  user: follower,
-                 wants: false)
+                 enabled: false)
         end
 
         it "doesn't include that user" do
@@ -53,7 +53,7 @@ module Thredded
                  notifier_key: 'mock',
                  messageboard: messageboard,
                  user: follower,
-                 wants: false)
+                 enabled: false)
         end
 
         context "with the EmailNotifier" do
@@ -76,7 +76,7 @@ module Thredded
           create(:notifications_for_followed_topics,
                  notifier_key: 'mock',
                  user: follower,
-                 wants: false)
+                 enabled: false)
         end
 
         context "with the EmailNotifier" do
