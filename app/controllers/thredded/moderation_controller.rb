@@ -2,7 +2,7 @@
 require_dependency 'thredded/moderate_post'
 require_dependency 'thredded/posts_page_view'
 module Thredded
-  class ModerationController < ApplicationController
+  class ModerationController < Thredded::ApplicationController
     before_action :thredded_require_login!
     before_action :load_moderatable_messageboards
 

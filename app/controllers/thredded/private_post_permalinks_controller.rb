@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  class PrivatePostPermalinksController < ApplicationController
+  class PrivatePostPermalinksController < Thredded::ApplicationController
     before_action :thredded_require_login!
     def show
       private_post = PrivatePost.find(params[:id])
