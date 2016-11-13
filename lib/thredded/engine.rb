@@ -26,6 +26,7 @@ module Thredded
         thredded.css
         thredded/*.svg
       )
+      Thredded::Engine.config.assets.paths << root.join('vendor', 'assets', 'javascripts').to_s
     end
   end
 end
