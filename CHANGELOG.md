@@ -37,6 +37,9 @@ See in particular "main app delegator" in Changed below.
   [#462](https://github.com/thredded/thredded/pull/462)
 * The default markdown parser has been changed from the unmaintained and unsupported github-markdown gem to Kramdown.
   [#458](https://github.com/thredded/thredded/pull/458)
+* Removed the `messageboards.closed` that was used for soft (aka logical) deletion. If you use soft deletion,
+  consider using the [paranoia](https://github.com/rubysherpas/paranoia) gem instead.
+  [#471](https://github.com/thredded/thredded/pull/471)
 
 ## Fixed
 
