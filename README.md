@@ -472,6 +472,16 @@ To disable moderation, e.g. if you run internal forums that do not need moderati
 change_column_default :thredded_user_details, :moderation_state, 1 # approved
 ```
 
+## Plugins
+
+The following official plugins are available for Thredded:
+
+* [BBCode](https://github.com/thredded/thredded-bbcode) formatting for posts, e.g. `[b]for bold[/b]`.
+* [Code Syntax Highlighting](https://github.com/thredded/thredded-markdown_coderay) using Coderay.
+
+Thredded is built for extensibility, and writing plugins for it is easy. If you plan on extending Thredded functionality
+in a way others may benefit from, please consider making it a plugin.
+
 ## Development
 
 To be more clear - this is the for when you are working on *this* gem.
