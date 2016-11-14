@@ -14,8 +14,8 @@ module Thredded
     end
 
     def targeted_users(notifier)
-      users = private_topic.users - [post.user]
-      users = exclude_those_opting_out_of_message_notifications(users, notifier)
+      users = private_topic.users.includes(:thredded_notifications_for_private_topics) - [post.user]
+      users = only_those_with_this_notifier_enabled(users, notifier)
       users
     end
 
@@ -23,12 +23,10 @@ module Thredded
 
     attr_reader :post, :private_topic
 
-    def exclude_those_opting_out_of_message_notifications(users, notifier)
-      # TODO: ugly and super non-performant. but we can easily improve
+    def only_those_with_this_notifier_enabled(users, notifier)
       users.select do |user|
-        (user.thredded_user_preference.notifications_for_private_topics
-          .find { |pref| pref.notifier_key == notifier.key } || NotificationsForPrivateTopics.default(notifier))
-          .enabled?
+        NotificationsForPrivateTopics
+          .detect_or_default(user.thredded_notifications_for_private_topics, notifier).enabled?
       end
     end
   end

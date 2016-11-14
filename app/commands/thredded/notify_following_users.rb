@@ -13,26 +13,25 @@ module Thredded
     end
 
     def targeted_users(notifier)
-      exclude_those_opting_out_of_followed_activity_notifications(possible_targeted_users, notifier)
+      possible_targeted_users.select do |user|
+        NotificationsForFollowedTopics
+          .detect_or_default(user.thredded_notifications_for_followed_topics, notifier).enabled? &&
+          MessageboardNotificationsForFollowedTopics
+            .detect_or_default(messageboard_notifier_prefs_by_user_id[user.id], notifier).enabled?
+      end
     end
 
     def possible_targeted_users
-      @post.postable.followers.reject { |u| u == @post.user }
+      @possible_targeted_users ||=
+        @post.postable.followers.includes(:thredded_notifications_for_followed_topics).reject { |u| u == @post.user }
     end
 
     private
 
-    def exclude_those_opting_out_of_followed_activity_notifications(users, notifier)
-      # TODO: ugly and super non-performant. but we can improve
-      users.select do |user|
-        (user.thredded_user_preference.notifications_for_followed_topics
-          .find { |pref| pref.notifier_key == notifier.key } || NotificationsForFollowedTopics.default(notifier))
-          .enabled? &&
-          (user.thredded_user_preference
-            .messageboard_notifications_for_followed_topics.for_messageboard(@post.messageboard)
-            .find { |pref| pref.notifier_key == notifier.key } ||
-            MessageboardNotificationsForFollowedTopics.default(notifier)).enabled?
-      end
+    def messageboard_notifier_prefs_by_user_id
+      @messageboard_notifier_prefs_by_user_id ||= MessageboardNotificationsForFollowedTopics
+        .where(user_id: possible_targeted_users.map(&:id))
+        .for_messageboard(@post.messageboard).group_by(&:user_id)
     end
   end
 end
