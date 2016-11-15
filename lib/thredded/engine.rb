@@ -3,9 +3,11 @@ module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
 
-    %w(app/view_hooks app/view_models app/forms app/commands app/jobs lib).each do |path|
-      config.autoload_paths << File.expand_path("../../#{path}", File.dirname(__FILE__))
-    end
+    # All of the paths Thredded needs are already in the default Rails paths.
+    # However, the lib paths is not autoloaded by default. Make it *autoload* to make developing Thredded easier.
+    # Do not *eager_load* because not all the code in lib should be loaded in production.
+    # The code in lib that should be loaded in production is required explicitly via `require_dependency`.
+    config.paths['lib'].autoload!
 
     config.generators do |g|
       g.test_framework :rspec, fixture: true

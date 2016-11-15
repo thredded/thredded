@@ -29,6 +29,7 @@ require 'select2-rails'
 require 'sprockets/es6'
 
 require 'thredded/engine'
+require_dependency 'thredded/errors'
 
 module Thredded
   mattr_accessor \
