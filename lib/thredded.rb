@@ -29,7 +29,10 @@ require 'select2-rails'
 require 'sprockets/es6'
 
 require 'thredded/engine'
-require_dependency 'thredded/errors'
+require 'thredded/errors'
+
+# Require Thredded::ContentFormatter explicitly so that it doesn't need to be required if used in the initializer.
+require 'thredded/content_formatter'
 
 module Thredded
   mattr_accessor \

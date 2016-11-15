@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require_dependency 'thredded/view_hooks/config'
-require_dependency 'thredded/view_hooks/renderer'
+require 'thredded/view_hooks/config'
+require 'thredded/view_hooks/renderer'
 
 module Thredded
   class AllViewHooks

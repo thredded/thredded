@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/content_formatter'
 module Thredded
   module PostCommon
     extend ActiveSupport::Concern

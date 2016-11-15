@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'spec_helper'
+require 'thredded/database_seeder'
 
 describe Thredded::DatabaseSeeder do
   before { allow_any_instance_of(Thredded::DatabaseSeeder).to receive(:log) }

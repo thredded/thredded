@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency 'thredded/search_parser'
+require 'thredded/search_parser'
 module Thredded
   class TopicsSearch
     def initialize(query, scope)
