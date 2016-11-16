@@ -12,6 +12,7 @@
     padding: 1rem 0.8rem 1.5em;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    $lead-width-lg: 85%;
     &-title {
       font-size: 3rem;
       margin: 0;
@@ -27,8 +28,24 @@
         font-size: 1.5rem;
       }
       @media (min-width: 992px) {
-        width: 85%;
+        width: $lead-width-lg;
         font-size: 2rem;
+      }
+    }
+    &-mobile-screenshot {
+      display: none;
+      @media (min-width: 992px) {
+        display: block;
+        position: absolute;
+        top: 21.625rem;
+        right: calc(50% - 491px);
+      }
+      @media (min-width: 1150px) {
+        right: calc(50% - 565px);
+      }
+      > img {
+        height: 438px;
+        width: 215.25px;
       }
     }
     &-nav {
