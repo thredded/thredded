@@ -1,5 +1,10 @@
 <header class="thredded--topic-header">
   <h1 class="thredded--topic-header--title"><%= topic.title %></h1>
+  <div class="thredded--topic-header--participants">
+    <% topic.users.each do |user| %>
+      <span class="thredded--topic-header--participant"><%= user_link user %></span>
+    <% end %>
+  </div>
   <cite class="thredded--topic-header--started-by">
     <%= t 'thredded.topics.started_by_html',
           time_ago: time_ago(topic.created_at),
