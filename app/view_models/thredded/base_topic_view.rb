@@ -7,7 +7,6 @@ module Thredded
              :last_post_at,
              :created_at,
              :user,
-             :users,
              :last_user,
              :to_model,
              to: :@topic

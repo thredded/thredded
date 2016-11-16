@@ -2,6 +2,8 @@
 module Thredded
   # A view model for PrivateTopic.
   class PrivateTopicView < Thredded::BaseTopicView
+    delegate :users, to: :@topic
+
     def edit_path
       Thredded::UrlsHelper.edit_private_topic_path(@topic)
     end
