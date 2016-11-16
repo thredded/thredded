@@ -93,6 +93,11 @@ module Thredded
     @@notifiers ||= [Thredded::EmailNotifier.new] # rubocop:disable Style/ClassVars
   end
 
+  def self.notifiers=(notifiers)
+    notifiers.each { |notifier| BaseNotifier.validate_notifier(notifier) }
+    @@notifiers = notifiers # rubocop:disable Style/ClassVars
+  end
+
   def self.user_display_name_method
     @@user_display_name_method || user_name_column
   end

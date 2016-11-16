@@ -109,7 +109,6 @@ Thredded.layout = 'thredded/application'
 #   end
 # end
 
-
 # ==> Notifiers
 #
 # Change how users can choose to be notified, by adding notifiers here, or removing the initializer altogether

@@ -4,7 +4,7 @@ module Thredded
   class BaseNotifier
     def self.validate_notifier(notifier)
       unless notifier.respond_to?(:key) && /^[a-z_]+$/.match(notifier.key)
-        fail "#{notifier.class.name} must respond to #key and must be a snake_case string"
+        fail "Notifier problem: #{notifier.class.name} must respond to #key with a snake_case string"
       end
       [:human_name, :new_post, :new_private_post].each do |m|
         unless notifier.respond_to?(m)

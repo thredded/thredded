@@ -67,4 +67,8 @@ describe Thredded, '.notifiers', thredded_reset: [:@@notifiers] do
     Thredded.notifiers = [mock]
     expect(Thredded.notifiers).to eq([mock])
   end
+
+  specify 'problematic notifier fails early' do
+    expect { Thredded.notifiers = ['badly-specified'] }.to raise_error(/notifier/i)
+  end
 end
