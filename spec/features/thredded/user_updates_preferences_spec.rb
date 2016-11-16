@@ -43,6 +43,14 @@ feature 'User updating preferences globally' do
     default_user_preferences.visit_notification_edit
     default_user_preferences
   end
+
+  context 'with no notifiers', thredded_reset: ['@@notifiers'] do
+    scenario 'shows no notifier preferences' do
+      Thredded.notifiers = []
+      preferences = default_user_preferences
+      expect(preferences).not_to have_any_notification_heading_texts
+    end
+  end
 end
 
 feature 'User updating preferences for messageboard' do
@@ -71,6 +79,14 @@ feature 'User updating preferences for messageboard' do
 
     expect(preferences).to be_updated
     expect(preferences).not_to have_messageboard_notifications_for_followed_topics_by_email
+  end
+
+  context 'with no notifiers', thredded_reset: ['@@notifiers'] do
+    scenario 'shows no notifier preferences' do
+      Thredded.notifiers = []
+      preferences = default_user_preferences
+      expect(preferences).to_not have_any_notification_heading_texts
+    end
   end
 
   def default_user_preferences

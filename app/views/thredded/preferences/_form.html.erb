@@ -18,6 +18,7 @@
         </p>
       <% end %>
     </li>
+    <% if Thredded.notifiers.present? %>
     <li>
       <label><%= t 'thredded.preferences.form.notifications_for_followed_topics.label' %></label>
       <%= f.fields_for :notifications_for_followed_topics, preferences.notifications_for_followed_topics do |fn| %>
@@ -40,6 +41,7 @@
         <% end %>
       <% end %>
     </li>
+    <% end %>
   </ul>
   <% if preferences.messageboard %>
     <h3>
@@ -55,6 +57,7 @@
           </p>
         <% end %>
       </li>
+      <% if Thredded.notifiers.present? %>
       <li>
         <label><%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.label' %></label>
         <%= f.fields_for :messageboard_notifications_for_followed_topics, preferences.messageboard_notifications_for_followed_topics  do |fn| %>
@@ -66,6 +69,7 @@
           <% end %>
         <%- end %>
       </li>
+        <% end %>
     </ul>
   <% end %>
   <button type="submit" class="thredded--form--submit">

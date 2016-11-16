@@ -68,5 +68,15 @@ module PageObject
       uncheck 'user_preferences_form[messageboard_notifications_for_followed_topics_attributes][0][enabled]'
       click_button I18n.t('thredded.preferences.form.submit_btn')
     end
+
+    def has_any_notification_heading_texts?
+      [
+        I18n.t('thredded.preferences.form.notifications_for_followed_topics.label'),
+        I18n.t('thredded.preferences.form.notifications_for_private_topics.label'),
+        I18n.t('thredded.preferences.form.messageboard_notifications_for_followed_topics.label')
+      ].any? do |text|
+        has_content?(text)
+      end
+    end
   end
 end
