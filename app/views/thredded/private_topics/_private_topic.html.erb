@@ -9,8 +9,9 @@
 
   <cite class="thredded--topics--updated-by">
     <%= time_ago private_topic.last_post_at %>
+    <%= user_link private_topic.last_user %>
     <% private_topic.users.each do |user| %>
-      <% unless user == thredded_current_user %>
+      <% unless private_topic.last_user == user %>
         <%= user_link user %>
       <% end %>
     <% end %>
