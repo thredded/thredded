@@ -23,6 +23,7 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', '<%= ENV['GA_TRACKING_ID'] %>', 'auto');
+      ga('require', 'linkid', {levels: 10});
     </script>
     <script>
       ga('set', 'location', location.href.split('#')[0]);
@@ -30,7 +31,7 @@
     </script>
 <% end -%>
 <% unless content_for?(:no_app_layout) %>
-    <div class="app-container">
+    <div class="app-container" id="app">
       <%= render 'shared/header' %>
       <% unless content_for?(:thredded_page_id) %>
         <%= render 'shared/flash_messages' %>
@@ -42,7 +43,7 @@
           });
         </script>
       <% end %>
-      <div class="app-content-container"><%= yield %></div>
+      <div class="app-content-container" id="app-content"><%= yield %></div>
     </div>
 <% else %>
     <%= yield %>
