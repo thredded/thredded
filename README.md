@@ -19,15 +19,9 @@ Some of the features currently in Thredded:
 
 <img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development
 
-
-| ![screenshot-messageboards] | ![screenshot-topics] |
-|----------------------------|----------------------------|
-| ![screenshot-topic]  | ![screenshot-new-private-topic-dark] |
-
-[screenshot-messageboards]: https://cloud.githubusercontent.com/assets/216339/14379803/d608d782-fd73-11e5-9d8e-1f282ea66fab.png
-[screenshot-topics]: https://cloud.githubusercontent.com/assets/216339/14379804/d77db060-fd73-11e5-9a4a-9376ca409756.png
-[screenshot-topic]: https://cloud.githubusercontent.com/assets/216339/14379805/d8ecf32a-fd73-11e5-8734-b7faa8b264ee.png
-[screenshot-new-private-topic-dark]: https://cloud.githubusercontent.com/assets/216339/14379806/da716a1e-fd73-11e5-90f1-6dbdb708d3d5.png
+| ![Messageboards (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338810/1fbc4240-abd1-11e6-9cba-4ae2e654c4d4.png) |  ![Topics (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338809/1fbb7dc4-abd1-11e6-9bc3-207b94018931.png) |
+|:---:|:---:|
+| ![Topic on iPhone 6 (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338433/0920debc-abcf-11e6-811c-8f29d10dfed7.png) | ![Messageboard Preferences on iPhone 6 (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338432/090e9c5c-abcf-11e6-8e7e-e287d31f6a54.png) |
 
 Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. Thredded has no infrastructure
 dependencies other than the database and, if configured in the parent application, the ActiveJob
