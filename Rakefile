@@ -151,6 +151,6 @@ namespace :db do
 
   task miniseed_dump: [:miniseed] do
     Thredded::DbTools.dump
-    system("cd spec/dummy && rails db:environment:set RAILS_ENV=development")
+    system('cd spec/dummy && rails db:environment:set RAILS_ENV=development')
   end
 end

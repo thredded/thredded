@@ -33,33 +33,32 @@ describe '0.9 migration', migration_spec: true do
     subject
 
     expect(Thredded::UserPreference.find(one_f_id)
-      .notifications_for_private_topics.map{|n| [n.notifier_key, n.enabled?]})
+      .notifications_for_private_topics.map { |n| [n.notifier_key, n.enabled?] })
       .to eq([['email', false]])
     expect(Thredded::UserPreference.find(two_t_id)
-      .notifications_for_private_topics.map{|n| [n.notifier_key, n.enabled?]})
+      .notifications_for_private_topics.map { |n| [n.notifier_key, n.enabled?] })
       .to eq([['email', true]])
 
     expect(Thredded::UserPreference.find(one_f_id)
-      .notifications_for_followed_topics.map{|n| [n.notifier_key, n.enabled?]})
+      .notifications_for_followed_topics.map { |n| [n.notifier_key, n.enabled?] })
       .to eq([['email', false]])
     expect(Thredded::UserPreference.find(two_t_id)
-      .notifications_for_followed_topics.map{|n| [n.notifier_key, n.enabled?]})
+      .notifications_for_followed_topics.map { |n| [n.notifier_key, n.enabled?] })
       .to eq([['email', true]])
 
     ump = Thredded::UserMessageboardPreference.find(mone_f_id)
     expect(Thredded::MessageboardNotificationsForFollowedTopics
       .where(messageboard_id: ump.messageboard_id, user_id: ump.user_id)
-      .map{|n| [n.notifier_key, n.enabled?]})
+      .map { |n| [n.notifier_key, n.enabled?] })
       .to eq([['email', false]])
     ump = Thredded::UserMessageboardPreference.find(mtwo_t_id)
     expect(Thredded::MessageboardNotificationsForFollowedTopics
       .where(messageboard_id: ump.messageboard_id, user_id: ump.user_id)
-      .map{|n| [n.notifier_key, n.enabled?]})
+      .map { |n| [n.notifier_key, n.enabled?] })
       .to eq([['email', true]])
-
   end
 
-  it "smoke test" do
-      subject
+  it 'smoke test' do
+    subject
   end
 end

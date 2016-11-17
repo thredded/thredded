@@ -9,7 +9,6 @@ end
 
 require File.expand_path('../dummy/config/environment', __FILE__)
 
-
 # If desired can log SQL to STDERR -- this tends to overload travis' log limits though.
 if ENV['LOG_SQL_TO_STDERR']
   Rails.logger = Logger.new(STDERR)
