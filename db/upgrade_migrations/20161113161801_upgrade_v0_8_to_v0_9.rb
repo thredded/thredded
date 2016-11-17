@@ -26,21 +26,21 @@ class UpgradeV08ToV09 < ActiveRecord::Migration
     end
 
     Thredded::UserPreference.includes(:user).each do |pref|
-      pref.user.create_notifications_for_private_topics(notifier_key: 'email', enabled: pref.notify_on_message)
-      pref.user.create_notifications_for_followed_topics(notifier_key: 'email', enabled: pref.followed_topic_emails)
+      pref.notifications_for_private_topics.create(notifier_key: 'email', enabled: pref.notify_on_message)
+      pref.notifications_for_followed_topics.create(notifier_key: 'email', enabled: pref.followed_topic_emails)
     end
-    Thredded::MessageboardUserPreference.includes(:user).each do |pref|
+    Thredded::UserMessageboardPreference.includes(:user).each do |pref|
       Thredded::MessageboardNotificationsForFollowedTopics.create(
         user_id: pref.user_id,
         messageboard_id: pref.messageboard_id,
         notifier_key: 'email',
-        enabled: pref.notify_on_message
+        enabled: pref.followed_topic_emails
       )
     end
 
     remove_column :thredded_user_preferences, :notify_on_message
     remove_column :thredded_user_preferences, :followed_topic_emails
-    remove_column :thredded_messageboard_user_preferences, :followed_topic_emails
+    remove_column :thredded_user_messageboard_preferences, :followed_topic_emails
   end
 
   def down
