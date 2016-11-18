@@ -11,7 +11,7 @@ describe '0.9 migration', migration_spec: true do
     begin
       verbose_was = ActiveRecord::Migration.verbose
       ActiveRecord::Migration.verbose = false
-      silence_active_record do
+      Thredded::DbTools.silence_active_record do
         ActiveRecord::Migrator.migrate('db/upgrade_migrations') do |m|
           m.filename.include?('upgrade_v0_8_to_v0_9')
         end

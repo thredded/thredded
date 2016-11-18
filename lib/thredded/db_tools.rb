@@ -25,7 +25,7 @@ module Thredded
         case adapter
         when /postgres/i
           cmd = [
-            'pg_restore --verbose'" --host #{host}",
+            "pg_restore --verbose --host #{host}",
             "--username #{username}",
             ' --clean --no-owner --no-acl ',
             " --dbname #{database} #{from}",
@@ -36,12 +36,22 @@ module Thredded
           connection = ActiveRecord::Base.connection
           statements = File.read(from).split(/;$/)
           statements.pop
-          ActiveRecord::Base.transaction do
-            statements.each do |statement|
-              connection.execute(statement) unless statement =~ /(BEGIN TRANSACTION|COMMIT)/
+          silence_active_record do
+            ActiveRecord::Base.transaction do
+              statements.each do |statement|
+                connection.execute(statement) unless statement =~ /(BEGIN TRANSACTION|COMMIT)/
+              end
             end
           end
         end
+      end
+
+      def silence_active_record
+        was = ActiveRecord::Base.logger.level
+        ActiveRecord::Base.logger.level = Logger::WARN
+        yield
+      ensure
+        ActiveRecord::Base.logger.level = was
       end
 
       def config

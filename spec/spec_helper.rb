@@ -19,14 +19,6 @@ elsif !ENV['TRAVIS']
   ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
 end
 
-def silence_active_record
-  was = ActiveRecord::Base.logger.level
-  ActiveRecord::Base.logger.level = Logger::WARN
-  yield
-ensure
-  ActiveRecord::Base.logger.level = was
-end
-
 # Re-create the test database and run the migrations
 system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
 ActiveRecord::Tasks::DatabaseTasks.drop_current
@@ -37,7 +29,7 @@ else
   begin
     verbose_was = ActiveRecord::Migration.verbose
     ActiveRecord::Migration.verbose = false
-    silence_active_record do
+    Thredded::DbTools.silence_active_record do
       ActiveRecord::Migrator.migrate(['db/migrate/', File.join(Rails.root, 'db/migrate/')])
     end
   ensure
@@ -91,20 +83,26 @@ RSpec.configure do |config|
 
   if ENV['MIGRATION_SPEC']
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.strategy = :transaction unless Thredded::DbTools.adapter =~ /mysql/i
     end
 
     config.before(:each) do
-      DatabaseCleaner.start
+      DatabaseCleaner.start unless Thredded::DbTools.adapter =~ /mysql/i
     end
 
     config.after(:each) do
-      DatabaseCleaner.clean
+      if Thredded::DbTools.adapter =~ /mysql/i
+        ActiveRecord::Tasks::DatabaseTasks.drop_current
+        ActiveRecord::Tasks::DatabaseTasks.create_current
+        Thredded::DbTools.restore
+      else
+        DatabaseCleaner.clean
+      end
     end
   else
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
-      silence_active_record do
+      Thredded::DbTools.silence_active_record do
         DatabaseCleaner.clean_with(:truncation)
       end
       if Rails::VERSION::MAJOR < 5
