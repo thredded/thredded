@@ -23,6 +23,7 @@ end
 system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
 ActiveRecord::Tasks::DatabaseTasks.drop_current
 ActiveRecord::Tasks::DatabaseTasks.create_current
+require File.expand_path('../../lib/thredded/db_tools', __FILE__)
 if ENV['MIGRATION_SPEC']
   Thredded::DbTools.restore
 else
