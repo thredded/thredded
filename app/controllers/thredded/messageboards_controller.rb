@@ -27,12 +27,12 @@ module Thredded
     end
 
     def edit
-      @messageboard = Messageboard.friendly.find(params[:id])
+      @messageboard = Messageboard.friendly_find!(params[:id])
       authorize @messageboard, :update?
     end
 
     def update
-      @messageboard = Messageboard.friendly.find(params[:id])
+      @messageboard = Messageboard.friendly_find!(params[:id])
       authorize @messageboard, :update?
       if @messageboard.update(messageboard_params)
         redirect_to messageboard_topics_path(@messageboard), notice: I18n.t('thredded.messageboard.updated_notice')

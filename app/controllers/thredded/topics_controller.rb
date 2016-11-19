@@ -129,8 +129,13 @@ module Thredded
       end
     end
 
+    # Returns the `@topic` instance variable.
+    # If `@topic` is not set, it first sets it to the topic with the slug or ID given by `params[:id]`.
+    #
+    # @return [Thredded::Topic]
+    # @raise [Thredded::Errors::TopicNotFound] if the topic with the given slug does not exist.
     def topic
-      @topic ||= messageboard.topics.find_by_slug!(params[:id])
+      @topic ||= messageboard.topics.friendly_find!(params[:id])
     end
 
     def topic_params

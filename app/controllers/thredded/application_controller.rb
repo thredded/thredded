@@ -76,7 +76,7 @@ module Thredded
     end
 
     def update_user_activity
-      return if messageboard.nil? || !signed_in?
+      return if !messageboard_or_nil || !signed_in?
 
       Thredded::ActivityUpdaterJob.perform_later(
         thredded_current_user.id,
@@ -88,10 +88,17 @@ module Thredded
       thredded_current_user
     end
 
+    # Returns the `@messageboard` instance variable.
+    # If `@messageboard` is not set, it first sets it to the topic with the slug or ID given by
+    # `params[:messageboard_id]`.
+    #
+    # @return [Thredded::Messageboard]
+    # @raise [Thredded::Errors::MessageboardNotFound] if the topic with the given slug does not exist.
     def messageboard
-      @messageboard ||= params[:messageboard_id].presence && Messageboard.friendly.find(params[:messageboard_id])
-    rescue ActiveRecord::RecordNotFound
-      raise Thredded::Errors::MessageboardNotFound
+      @messageboard ||= begin
+        fail Thredded::Errors::MessageboardNotFound unless params[:messageboard_id].presence
+        Messageboard.friendly_find!(params[:messageboard_id])
+      end
     end
 
     def messageboard_or_nil
