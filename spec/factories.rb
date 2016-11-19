@@ -72,12 +72,15 @@ FactoryGirl.define do
           class: Thredded::MessageboardNotificationsForFollowedTopics do
     user
     messageboard
+    notifier_key 'email'
   end
   factory :notifications_for_followed_topics, class: Thredded::NotificationsForFollowedTopics do
     user
+    notifier_key 'email'
   end
   factory :notifications_for_private_topics, class: Thredded::NotificationsForPrivateTopics do
     user
+    notifier_key 'email'
   end
 
   factory :topic, class: Thredded::Topic do

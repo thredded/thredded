@@ -3,7 +3,8 @@ module Thredded
   class UserPreference < ActiveRecord::Base
     belongs_to :user, class_name: Thredded.user_class, inverse_of: :thredded_user_preference
 
-    with_options(inverse_of: :user_preference, primary_key: :user_id, foreign_key: :user_id) do |opt|
+    with_options(inverse_of: :user_preference, primary_key: :user_id, foreign_key: :user_id,
+                 dependent: :destroy) do |opt|
       opt.has_many :messageboard_preferences,
                    class_name: 'Thredded::UserMessageboardPreference'
       opt.has_many :messageboard_notifications_for_followed_topics,

@@ -44,3 +44,21 @@ describe User, '.thredded_display_name' do
     expect(Thredded::NullUser.new.thredded_display_name).to be_a(String)
   end
 end
+
+describe User, 'on deletion' do
+  let!(:user) { create(:user) }
+  let!(:user_preference) { create(:user_preference, user: user) }
+  let!(:user_messageboard_preference) { create(:user_messageboard_preference, user: user) }
+  let!(:notifications_for_followed_topics) { create(:notifications_for_followed_topics, user: user) }
+  let!(:notifications_for_private_topics) { create(:notifications_for_private_topics, user: user) }
+  let!(:messageboard_notifications_for_followed_topics) { create(:messageboard_notifications_for_followed_topics, user: user) }
+
+  it 'cascades' do
+    User.find(user.id).destroy
+    expect { user_preference.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { user_messageboard_preference.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { notifications_for_followed_topics.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { notifications_for_private_topics.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { messageboard_notifications_for_followed_topics.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+end
