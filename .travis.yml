@@ -17,8 +17,7 @@ env:
   - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
   global:
   - COVERAGE=1
-
-sudo: false
+  - TRAVIS=1
 
 # Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
 script: "bundle exec rspec --format d && bundle exec rubocop && bundle exec codeclimate-test-reporter"
@@ -27,12 +26,7 @@ notifications:
   slack:
     secure: bnoj7Q/2yA3gtJ2IR/YtXrWCGvN7ukHKnhg1oNYJsOYNk0oEMMgjmGnIRrcdxO4peyOid6aKlcMmP7zrOzPEJsN3qAA4UUCRGq0TgZ2RDMX1sRZ8NN/xCyt84WU9aEtTF0V1hUyG/OaQ7G65XN/XuwJGzw6VDSZE54FSdR/5/eQ=
 
-# TODO: remove this once travis gets on with times and upgrades MySQL to 5.6.4+
 dist: trusty
 sudo: required
-addons:
-  apt:
-    packages:
-    - mysql-server-5.6
-    - mysql-client-core-5.6
-    - mysql-client-5.6
+before_install:
+- bash .travis.setup.sh
