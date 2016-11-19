@@ -147,6 +147,8 @@ en:
         page_title: Topics Search Results
         results_message: Search Results for %{query}
       started_by_html: Started %{time_ago} by %{user}
+      sticky:
+        label: Sticky
       unfollow: Stop following
       unfollowed_notice: You are no longer following this topic
       updated_notice: Topic updated
