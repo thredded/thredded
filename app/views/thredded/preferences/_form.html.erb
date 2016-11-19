@@ -19,28 +19,28 @@
       <% end %>
     </li>
     <% if Thredded.notifiers.present? %>
-    <li>
-      <label><%= t 'thredded.preferences.form.notifications_for_followed_topics.label' %></label>
-      <%= f.fields_for :notifications_for_followed_topics, preferences.notifications_for_followed_topics do |fn| %>
-        <%= fn.label :enabled do %>
-          <%= fn.hidden_field :notifier_key%>
-          <%= fn.check_box :enabled,
-              'data-thredded-bound-messageboard-pref' =>
-              "user_preferences_form[messageboard_notifications_for_followed_topics_attributes][#{fn.index}][enabled]" %>
-          <%= fn.object.notifier_human_name %>
+      <li>
+        <label><%= t 'thredded.preferences.form.notifications_for_followed_topics.label' %></label>
+        <%= f.fields_for :notifications_for_followed_topics, preferences.notifications_for_followed_topics do |fn| %>
+          <%= fn.label :enabled do %>
+            <%= fn.hidden_field :notifier_key %>
+            <%= fn.check_box :enabled,
+                             'data-thredded-bound-messageboard-pref' =>
+                                 "user_preferences_form[messageboard_notifications_for_followed_topics_attributes][#{fn.index}][enabled]" %>
+            <%= fn.object.notifier_human_name %>
+          <%- end %>
         <%- end %>
-      <%- end %>
-    </li>
-    <li>
-      <label><%= t 'thredded.preferences.form.notifications_for_private_topics.label' %></label>
-      <%= f.fields_for :notifications_for_private_topics, preferences.notifications_for_private_topics do |fn| %>
-        <%= fn.label :enabled do %>
-          <%= fn.hidden_field :notifier_key%>
-          <%= fn.check_box :enabled %>
-          <%= fn.object.notifier_human_name %>
+      </li>
+      <li>
+        <label><%= t 'thredded.preferences.form.notifications_for_private_topics.label' %></label>
+        <%= f.fields_for :notifications_for_private_topics, preferences.notifications_for_private_topics do |fn| %>
+          <%= fn.label :enabled do %>
+            <%= fn.hidden_field :notifier_key %>
+            <%= fn.check_box :enabled %>
+            <%= fn.object.notifier_human_name %>
+          <% end %>
         <% end %>
-      <% end %>
-    </li>
+      </li>
     <% end %>
   </ul>
   <% if preferences.messageboard %>
@@ -58,18 +58,19 @@
         <% end %>
       </li>
       <% if Thredded.notifiers.present? %>
-      <li>
-        <label><%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.label' %></label>
-        <%= f.fields_for :messageboard_notifications_for_followed_topics, preferences.messageboard_notifications_for_followed_topics  do |fn| %>
-          <%= fn.label :enabled do %>
-            <%= fn.hidden_field :notifier_key %>
-            <%= fn.hidden_field :messageboard_id %>
-            <%= fn.check_box :enabled %>
-            <%= fn.object.notifier_human_name %>
-          <% end %>
-        <%- end %>
-      </li>
-        <% end %>
+        <li>
+          <label><%= t 'thredded.preferences.form.messageboard_notifications_for_followed_topics.label' %></label>
+          <%= f.fields_for :messageboard_notifications_for_followed_topics,
+                           preferences.messageboard_notifications_for_followed_topics do |fn| %>
+            <%= fn.label :enabled do %>
+              <%= fn.hidden_field :notifier_key %>
+              <%= fn.hidden_field :messageboard_id %>
+              <%= fn.check_box :enabled %>
+              <%= fn.object.notifier_human_name %>
+            <% end %>
+          <%- end %>
+        </li>
+      <% end %>
     </ul>
   <% end %>
   <button type="submit" class="thredded--form--submit">
