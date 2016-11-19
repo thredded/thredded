@@ -4,7 +4,7 @@ $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 require 'thredded/version'
 
 # Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
+Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.name        = 'thredded'
   s.version     = Thredded::VERSION
   s.authors     = ['Joel Oliveira', 'Gleb Mazovetskiy']
@@ -59,7 +59,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails', '>= 3.5.0'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'rubocop', '= 0.42.0'
+  s.add_development_dependency 'rubocop', '= 0.45.0'
 
   # dummy app dependencies
   s.add_development_dependency 'rails-i18n'

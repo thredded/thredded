@@ -31,12 +31,12 @@ module Thredded
       it 'finds the messageboard according to the slug' do
         messageboard = create(:messageboard, name: 'A messageboard')
 
-        expect(Messageboard.find_by_slug('a-messageboard')).to eq messageboard
+        expect(Messageboard.find_by(slug: 'a-messageboard')).to eq messageboard
       end
 
       context 'when a messageboard is not found' do
         it 'returns nil' do
-          expect(Messageboard.find_by_slug('rubbish')).to eq nil
+          expect(Messageboard.find_by(slug: 'rubbish')).to eq nil
         end
       end
     end

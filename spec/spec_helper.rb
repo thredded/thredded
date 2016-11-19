@@ -56,6 +56,19 @@ if Rails::VERSION::MAJOR >= 5
       config.include ::Rails::Controller::Testing::Integration, type: type
     end
   end
+else
+  module Rails5StyleRequestMethods
+    %i(get post patch delete).each do |m|
+      define_method m do |path, params: {}, **args|
+        super(path, args.merge(params))
+      end
+    end
+  end
+  RSpec.configure do |config|
+    [:controller, :request].each do |type|
+      config.prepend Rails5StyleRequestMethods, type: type
+    end
+  end
 end
 
 def with_thredded_setting(setting, value)

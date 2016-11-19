@@ -9,7 +9,11 @@ module Thredded
     before { allow(controller).to receive_messages(thredded_current_user: user) }
 
     describe 'create' do
-      subject { post :create, private_topic: { content: 'blah', user_ids: [create(:user).id], title: 'titleasdfa' } }
+      subject do
+        post :create, params: {
+          private_topic: { content: 'blah', user_ids: [create(:user).id], title: 'titleasdfa' }
+        }
+      end
       it 'creates one' do
         expect { subject }.to change { PrivateTopic.count }
       end

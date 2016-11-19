@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-Thredded::Engine.routes.draw do
+Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
 
   positive_int = /[1-9]\d*/

@@ -51,7 +51,9 @@ describe User, 'on deletion' do
   let!(:user_messageboard_preference) { create(:user_messageboard_preference, user: user) }
   let!(:notifications_for_followed_topics) { create(:notifications_for_followed_topics, user: user) }
   let!(:notifications_for_private_topics) { create(:notifications_for_private_topics, user: user) }
-  let!(:messageboard_notifications_for_followed_topics) { create(:messageboard_notifications_for_followed_topics, user: user) }
+  let!(:messageboard_notifications_for_followed_topics) do
+    create(:messageboard_notifications_for_followed_topics, user: user)
+  end
 
   it 'cascades' do
     User.find(user.id).destroy
