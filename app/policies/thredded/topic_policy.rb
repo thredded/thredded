@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/messageboard_policy'
 module Thredded
   class TopicPolicy
     # The scope of readable topics.
@@ -23,7 +22,7 @@ module Thredded
     def initialize(user, topic)
       @user                = user
       @topic               = topic
-      @messageboard_policy = MessageboardPolicy.new(user, topic.messageboard)
+      @messageboard_policy = Thredded::MessageboardPolicy.new(user, topic.messageboard)
     end
 
     def create?

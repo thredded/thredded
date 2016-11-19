@@ -1,13 +1,11 @@
 # frozen_string_literal: true
-require_dependency 'thredded/moderate_post'
-require_dependency 'thredded/posts_page_view'
 module Thredded
   class ModerationController < Thredded::ApplicationController
     before_action :thredded_require_login!
     before_action :load_moderatable_messageboards
 
     def pending
-      @posts = PostsPageView.new(
+      @posts = Thredded::PostsPageView.new(
         thredded_current_user,
         moderatable_posts
           .pending_moderation
@@ -25,7 +23,7 @@ module Thredded
     end
 
     def activity
-      @posts = PostsPageView.new(
+      @posts = Thredded::PostsPageView.new(
         thredded_current_user,
         moderatable_posts
           .order_newest_first
@@ -37,7 +35,7 @@ module Thredded
 
     def moderate_post
       return head(:bad_request) unless Thredded::Post.moderation_states.include?(params[:moderation_state])
-      flash[:last_moderated_record_id] = ModeratePost.run!(
+      flash[:last_moderated_record_id] = Thredded::ModeratePost.run!(
         post: moderatable_posts.find(params[:id]),
         moderation_state: params[:moderation_state],
         moderator: thredded_current_user,
@@ -64,7 +62,7 @@ module Thredded
         .order_newest_first
         .includes(:postable)
         .page(current_page)
-      @posts = PostsPageView.new(thredded_current_user, posts_scope)
+      @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope)
     end
 
     def moderate_user

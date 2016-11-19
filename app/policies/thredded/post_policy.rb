@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/topic_policy'
 module Thredded
   class PostPolicy
     # The scope of readable posts.
@@ -30,7 +29,7 @@ module Thredded
     end
 
     def read?
-      TopicPolicy.new(@user, @post.postable).read? && @post.moderation_state_visible_to_user?(@user)
+      Thredded::TopicPolicy.new(@user, @post.postable).read? && @post.moderation_state_visible_to_user?(@user)
     end
 
     def update?
@@ -46,7 +45,7 @@ module Thredded
     private
 
     def messageboard_policy
-      @messageboard_policy ||= MessageboardPolicy.new(@user, @post.messageboard)
+      @messageboard_policy ||= Thredded::MessageboardPolicy.new(@user, @post.messageboard)
     end
 
     def own_post?
