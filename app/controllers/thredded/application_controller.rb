@@ -89,11 +89,11 @@ module Thredded
     end
 
     # Returns the `@messageboard` instance variable.
-    # If `@messageboard` is not set, it first sets it to the topic with the slug or ID given by
+    # If `@messageboard` is not set, it first sets it to the messageboard with the slug or ID given by
     # `params[:messageboard_id]`.
     #
     # @return [Thredded::Messageboard]
-    # @raise [Thredded::Errors::MessageboardNotFound] if the topic with the given slug does not exist.
+    # @raise [Thredded::Errors::MessageboardNotFound] if the messageboard with the given slug does not exist.
     def messageboard
       @messageboard ||= begin
         fail Thredded::Errors::MessageboardNotFound unless params[:messageboard_id].presence
