@@ -71,24 +71,21 @@ en:
       edit:
         page_title: :thredded.nav.settings
       form:
+        follow_topics_on_mention:
+          hint: 'When someone mentions you by your username (eg: @sam) you will follow the topic.'
+          label: Follow topics you are mentioned in
+        followed_topic_emails:
+          hint: When there is a post in a topic you follow you will receive an email.
+          label: Email notifications for followed topics
         global_preferences_label: Global Settings
         messageboard_follow_topics_on_mention:
-          hint: >-
-            When someone mentions you by your username (eg: @sam) in this messageboard you will follow the topic.
+          hint: 'When someone mentions you by your username (eg: @sam) in this messageboard you will follow the
+            topic.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_followed_topic_emails:
-          hint: >-
-            When there is a post in a topic you follow on this messageboard you will be sent an email.
-          label: Email notifications for followed topics
-        followed_topic_emails:
-          hint: >-
-            When there is a post in a topic you follow you will receive an email.
+          hint: When there is a post in a topic you follow on this messageboard you will be sent an email.
           label: Email notifications for followed topics
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
-        follow_topics_on_mention:
-          hint: >-
-            When someone mentions you by your username (eg: @sam) you will follow the topic.
-          label: Follow topics you are mentioned in
         notify_on_message:
           hint: When you are added to a private conversation you will receive an email with its content.
           label: Email notifications for private messages
@@ -127,11 +124,10 @@ en:
       delete_topic: Delete Topic
       deleted_notice: Topic deleted
       edit: Edit Topic
+      follow: Follow this topic
       followed_by: 'Followed by:'
       followed_by_noone: No one is following this topic
       followed_notice: You are now following this topic
-      follow: Follow this topic
-      unfollow: Stop following
       following:
         manual: You are following this topic.
         mentioned: You are following this topic because you were mentioned on it.
@@ -139,16 +135,22 @@ en:
       form:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label
+        create_btn: Create New Topic
         title_label: Title
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Start a New Topic
         update_btn: Update Topic
+      locked:
+        label: Locked
       not_following: You are not following this topic.
       search:
         no_results_message: There are no results for your search - %{query}
         page_title: Topics Search Results
         results_message: Search Results for %{query}
       started_by_html: Started %{time_ago} by %{user}
+      sticky:
+        label: Sticky
+      unfollow: Stop following
       unfollowed_notice: You are no longer following this topic
       updated_notice: Topic updated
     users:

@@ -139,16 +139,21 @@ pt-BR:
       form:
         categories_placeholder: Categorias
         content_label: :thredded.posts.form.content_label
+        create_btn: Criar Novo Tópico
         title_label: Título
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Iniciar um novo tópico
         update_btn: Atualizar Tópico
+      locked:
+        label: Trancado
       not_following: Você não está seguindo este tema.
       search:
         no_results_message: Nenhum resultado encontrado para sua busca - %{query}
         page_title: Tópicos dos Resultados da Busca
         results_message: Resultados de Busca para %{query}
       started_by_html: Iniciado %{time_ago} por %{user}
+      sticky:
+        label: Pegajoso
       unfollow: Pare de seguir
       unfollowed_notice: Você não está mais seguindo este tópico
       updated_notice: Tópico atualizado
