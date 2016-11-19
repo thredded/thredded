@@ -1,3 +1,14 @@
+# v0.8.3
+
+This is a minor bugfix release.
+
+## Fixed
+
+* Compatibility with rails_admin.
+  [#280](https://github.com/thredded/thredded/issues/280)
+* Missing localization form the "Create New Topic" button and "Locked" and "Sticky" options.
+  [#395](https://github.com/thredded/thredded/issues/395)
+
 # v0.8.2
 
 This is a hot-fix release, as v0.8.0 was broken.
