@@ -4,6 +4,8 @@ en:
     content_moderation_states:
       content_blocked_notice: Blocked
       content_blocked_notice_with_record_html: Blocked by %{moderator} %{time_ago}
+    email_notifier:
+      by_email: by email
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
@@ -74,21 +76,18 @@ en:
         follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) you will follow the topic.'
           label: Follow topics you are mentioned in
-        followed_topic_emails:
-          hint: When there is a post in a topic you follow you will receive an email.
-          label: Email notifications for followed topics
         global_preferences_label: Global Settings
         messageboard_follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) in this messageboard you will follow the
             topic.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
-        messageboard_followed_topic_emails:
-          hint: When there is a post in a topic you follow on this messageboard you will be sent an email.
-          label: Email notifications for followed topics
+        messageboard_notifications_for_followed_topics:
+          label: :thredded.preferences.form.notifications_for_followed_topics.label
         messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
-        notify_on_message:
-          hint: When you are added to a private conversation you will receive an email with its content.
-          label: Email notifications for private messages
+        notifications_for_followed_topics:
+          label: Notifications for followed topics
+        notifications_for_private_topics:
+          label: Notifications for private messages
         submit_btn: Update Settings
         title: Settings
       updated_notice: Your settings have been updated.
