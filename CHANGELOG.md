@@ -1,4 +1,4 @@
-# v0.8.3
+# v0.8.4
 
 This is a minor bugfix release.
 
@@ -8,6 +8,8 @@ This is a minor bugfix release.
   [#280](https://github.com/thredded/thredded/issues/280)
 * Missing localization form the "Create New Topic" button and "Locked" and "Sticky" options.
   [#395](https://github.com/thredded/thredded/issues/395)
+* Missing `require 'thredded/version'`.
+  [#480](https://github.com/thredded/thredded/issues/480)
 
 # v0.8.2
 

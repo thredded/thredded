@@ -28,6 +28,7 @@ require 'rails-timeago'
 require 'select2-rails'
 require 'sprockets/es6'
 
+require 'thredded/version'
 require 'thredded/engine'
 require 'thredded/errors'
 
