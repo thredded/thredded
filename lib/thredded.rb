@@ -32,6 +32,9 @@ require 'thredded/version'
 require 'thredded/engine'
 require 'thredded/errors'
 
+require 'thredded/view_hooks/config'
+require 'thredded/view_hooks/renderer'
+
 # Require Thredded::ContentFormatter explicitly so that it doesn't need to be required if used in the initializer.
 require 'thredded/content_formatter'
 
