@@ -82,10 +82,10 @@ module Thredded
     }
     # rubocop:enable Style/Lambda
 
-    # Finds the topic by its slug or ID, or raises Thredded::Errors::MessageboardNotFound.
+    # Finds the messageboard by its slug or ID, or raises Thredded::Errors::MessageboardNotFound.
     # @param slug_or_id [String]
     # @return [Thredded::Messageboard]
-    # @raise [Thredded::Errors::MessageboardNotFound] if the topic with the given slug does not exist.
+    # @raise [Thredded::Errors::MessageboardNotFound] if the messageboard with the given slug does not exist.
     def self.friendly_find!(slug_or_id)
       friendly.find(slug_or_id)
     rescue ActiveRecord::RecordNotFound
