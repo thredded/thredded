@@ -9,7 +9,7 @@ describe Thredded::ContentFormatter do
   def format_post_content(post)
     Thredded::ContentFormatter.new(
       ViewContextStub,
-      users_provider: -> (names) { post.readers_from_user_names(names) }
+      users_provider: ->(names) { post.readers_from_user_names(names) }
     ).format_content(post.content)
   end
 

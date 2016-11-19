@@ -10,7 +10,7 @@ module Thredded
                  foreign_key: 'last_user_id'
 
       scope :order_recently_posted_first, -> { order(last_post_at: :desc, id: :desc) }
-      scope :on_page, -> (page_num) { page(page_num) }
+      scope :on_page, ->(page_num) { page(page_num) }
 
       validates :hash_id, presence: true, uniqueness: true
       validates :posts_count, numericality: true

@@ -5,13 +5,13 @@ module Thredded
     include TopicCommon
     include ContentModerationState
 
-    scope :for_messageboard, -> (messageboard) { where(messageboard_id: messageboard.id) }
+    scope :for_messageboard, ->(messageboard) { where(messageboard_id: messageboard.id) }
 
     scope :stuck, -> { where(sticky: true) }
     scope :unstuck, -> { where(sticky: false) }
 
     # Using `search_query` instead of `search` to avoid conflict with Ransack.
-    scope :search_query, -> (query) { ::Thredded::TopicsSearch.new(query, self).search }
+    scope :search_query, ->(query) { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
 
@@ -77,6 +77,7 @@ module Thredded
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
+    # TODO(glebm): Rename this to friendly_find! in v0.9.0 to avoid confusion with the dynamic Rails finders.
     def self.find_by_slug!(slug)
       friendly.find(slug)
     rescue ActiveRecord::RecordNotFound

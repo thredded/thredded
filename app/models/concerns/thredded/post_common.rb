@@ -28,7 +28,7 @@ module Thredded
 
     # @param view_context [Object] the context of the rendering view.
     # @return [String] formatted and sanitized html-safe post content.
-    def filtered_content(view_context, users_provider: -> (names) { readers_from_user_names(names) })
+    def filtered_content(view_context, users_provider: ->(names) { readers_from_user_names(names) })
       Thredded::ContentFormatter.new(view_context, users_provider: users_provider).format_content(content)
     end
 

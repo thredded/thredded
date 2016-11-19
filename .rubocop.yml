@@ -4,6 +4,11 @@ AllCops:
   - 'spec/dummy/db/**/*'
   - 'vendor/**/*'
 
+Style/SafeNavigation:
+  # Disable because we still support Ruby ~>2.1.
+  # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -45,11 +50,20 @@ Style/TrailingCommaInLiteral:
 Style/TrailingCommaInArguments:
   Enabled: false
 
+Style/VariableNumber:
+  EnforcedStyle: snake_case
+
 Rails:
   Enabled: true
 
 Rails/Date:
   EnforcedStyle: strict
+
+Rails/DynamicFindBy:
+  Whitelist:
+  # TODO(glebm): Remove these in v0.9.0.
+  - find_by_slug
+  - find_by_slug!
 
 Rails/FindBy:
   Enabled: true

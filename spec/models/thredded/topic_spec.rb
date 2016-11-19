@@ -298,9 +298,9 @@ module Thredded
     end
 
     it 'handles category ids' do
-      cat1 = create(:category, messageboard: @messageboard)
-      cat2 = create(:category, :beer, messageboard: @messageboard)
-      topic = create(:topic, category_ids: ['', cat1.id, cat2.id])
+      cat_1 = create(:category, messageboard: @messageboard)
+      cat_2 = create(:category, :beer, messageboard: @messageboard)
+      topic = create(:topic, category_ids: ['', cat_1.id, cat_2.id])
       expect(topic.valid?).to eq true
     end
 

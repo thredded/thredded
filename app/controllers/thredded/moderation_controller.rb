@@ -15,9 +15,7 @@ module Thredded
           .preload(:user, :postable)
           .page(current_page)
       )
-      if flash[:last_moderated_record_id]
-        @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id].to_i)
-      end
+      maybe_set_last_moderated_record_flash
     end
 
     def history
@@ -34,9 +32,7 @@ module Thredded
           .preload(:user, :postable)
           .page(current_page)
       )
-      if flash[:last_moderated_record_id]
-        @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id].to_i)
-      end
+      maybe_set_last_moderated_record_flash
     end
 
     def moderate_post
@@ -80,6 +76,11 @@ module Thredded
 
     private
 
+    def maybe_set_last_moderated_record_flash
+      return unless flash[:last_moderated_record_id]
+      @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id].to_i)
+    end
+
     def moderatable_posts
       Thredded::Post.where(messageboard_id: @moderatable_messageboards)
     end
@@ -91,7 +92,7 @@ module Thredded
 
     def load_moderatable_messageboards
       @moderatable_messageboards = thredded_current_user.thredded_can_moderate_messageboards.to_a
-      if @moderatable_messageboards.empty?
+      if @moderatable_messageboards.empty? # rubocop:disable Style/GuardClause
         fail Pundit::NotAuthorizedError, 'You are not authorized to perform this action.'
       end
     end

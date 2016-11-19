@@ -115,14 +115,12 @@ module Thredded
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
-    fail 'Please use a string instead of a class' if @@user_class.is_a?(Class)
-
-    if @@user_class.is_a?(String)
-      begin
-        Object.const_get(@@user_class)
-      rescue NameError
-        @@user_class.constantize
-      end
+    fail 'Please use a String instead of a Class' if @@user_class.is_a?(Class)
+    fail 'user_class must be a String' unless @@user_class.is_a?(String)
+    begin
+      Object.const_get(@@user_class)
+    rescue NameError
+      @@user_class.constantize
     end
   end
 

@@ -52,7 +52,7 @@ module Thredded
     def time_ago(datetime, default: '-')
       timeago_tag datetime,
                   lang: I18n.locale.to_s.downcase,
-                  format: -> (t, _opts) { t.year == Time.current.year ? :short : :long },
+                  format: ->(t, _opts) { t.year == Time.current.year ? :short : :long },
                   nojs: true,
                   default: default
     end

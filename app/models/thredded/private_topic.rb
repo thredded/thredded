@@ -3,7 +3,7 @@ module Thredded
   class PrivateTopic < ActiveRecord::Base
     include TopicCommon
 
-    scope :for_user, -> (user) { joins(:private_users).merge(PrivateUser.where(user_id: user.id)) }
+    scope :for_user, ->(user) { joins(:private_users).merge(PrivateUser.where(user_id: user.id)) }
 
     extend FriendlyId
     friendly_id :slug_candidates,

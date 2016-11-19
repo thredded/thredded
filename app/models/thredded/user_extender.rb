@@ -9,7 +9,7 @@ module Thredded
     include ::Thredded::UserPermissions::Moderate::IfModeratorColumnTrue
     include ::Thredded::UserPermissions::Admin::IfAdminColumnTrue
 
-    included do
+    included do # rubocop:disable Metrics/BlockLength
       with_options dependent: :nullify, foreign_key: 'user_id', inverse_of: :user do |opt|
         opt.has_many :thredded_posts, class_name: 'Thredded::Post'
         opt.has_many :thredded_topics, class_name: 'Thredded::Topic'
