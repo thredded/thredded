@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'thredded/topics_search'
 module Thredded
   class Topic < ActiveRecord::Base
     include TopicCommon

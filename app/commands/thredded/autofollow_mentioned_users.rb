@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/at_notification_extractor'
 module Thredded
   class AutofollowMentionedUsers
     def initialize(post)
