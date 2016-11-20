@@ -77,9 +77,12 @@ module Thredded
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
-    # TODO(glebm): Rename this to friendly_find! in v0.9.0 to avoid confusion with the dynamic Rails finders.
-    def self.find_by_slug!(slug)
-      friendly.find(slug)
+    # Finds the topic by its slug or ID, or raises Thredded::Errors::TopicNotFound.
+    # @param slug_or_id [String]
+    # @return [Thredded::Topic]
+    # @raise [Thredded::Errors::TopicNotFound] if the topic with the given slug does not exist.
+    def self.friendly_find!(slug_or_id)
+      friendly.find(slug_or_id)
     rescue ActiveRecord::RecordNotFound
       raise Thredded::Errors::TopicNotFound
     end

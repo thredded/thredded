@@ -2,15 +2,15 @@
 require 'spec_helper'
 
 module Thredded
-  describe Topic, '.find_by_slug!' do
+  describe Topic, '.friendly_find!' do
     it 'finds the topic' do
       topic = create(:topic, title: 'Oh Hello')
 
-      expect(Topic.find_by_slug!('oh-hello')).to eq topic
+      expect(Topic.friendly_find!('oh-hello')).to eq topic
     end
 
     it 'raises Thredded::Errors::TopicNotFound error' do
-      expect { Topic.find_by_slug!('rubbish') }
+      expect { Topic.friendly_find!('rubbish') }
         .to raise_error(Thredded::Errors::TopicNotFound)
     end
   end

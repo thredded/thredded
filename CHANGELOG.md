@@ -9,6 +9,12 @@ This release contains new functionality and backwards-incompatible changes.
 * You can configure which notifiers are enabled: remove the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting the
  `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
 
+## Changed
+
+* Removed `Topic.find_by_slug` and `PrivateTopic.find_by_slug` methods.
+  Added `friendly_find!` to `Messageboard`, `Topic`, and `PrivateTopic` instead to avoid confusion with the Rails
+  dynamic finders.
+
 
 # v0.8.4
 

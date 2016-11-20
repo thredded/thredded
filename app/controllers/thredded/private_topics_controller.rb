@@ -72,8 +72,13 @@ module Thredded
       (params[:page] || 1).to_i
     end
 
+    # Returns the `@private_topic` instance variable.
+    # If `@private_topic` is not set, it first sets it to the topic with the slug or ID given by `params[:id]`.
+    #
+    # @return [Thredded::PrivateTopic]
+    # @raise [Thredded::Errors::PrivateTopicNotFound] if the topic with the given slug does not exist.
     def private_topic
-      @private_topic ||= Thredded::PrivateTopic.find_by_slug(params[:id])
+      @private_topic ||= Thredded::PrivateTopic.friendly_find!(params[:id])
     end
 
     def private_topic_params

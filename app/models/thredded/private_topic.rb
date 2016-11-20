@@ -48,8 +48,12 @@ module Thredded
 
     before_validation :ensure_user_in_private_users
 
-    def self.find_by_slug(slug)
-      friendly.find(slug)
+    # Finds the topic by its slug or ID, or raises Thredded::Errors::PrivateTopicNotFound.
+    # @param slug_or_id [String]
+    # @return [Thredded::PrivateTopic]
+    # @raise [Thredded::Errors::PrivateTopicNotFound] if the topic with the given slug does not exist.
+    def self.friendly_find!(slug_or_id)
+      friendly.find(slug_or_id)
     rescue ActiveRecord::RecordNotFound
       raise Thredded::Errors::PrivateTopicNotFound
     end

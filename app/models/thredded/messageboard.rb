@@ -81,6 +81,17 @@ module Thredded
       order(topics_count: :desc)
     }
     # rubocop:enable Style/Lambda
+
+    # Finds the messageboard by its slug or ID, or raises Thredded::Errors::MessageboardNotFound.
+    # @param slug_or_id [String]
+    # @return [Thredded::Messageboard]
+    # @raise [Thredded::Errors::MessageboardNotFound] if the messageboard with the given slug does not exist.
+    def self.friendly_find!(slug_or_id)
+      friendly.find(slug_or_id)
+    rescue ActiveRecord::RecordNotFound
+      raise Thredded::Errors::MessageboardNotFound
+    end
+
     def last_user
       last_topic.try(:last_user)
     end
