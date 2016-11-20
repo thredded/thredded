@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Place this file into lib/dependencies_logger.rb and require it from application.rb after Bundler.require as:
 # require_relative '../lib/dependencies_logger'
 
@@ -11,13 +12,13 @@ class DependenciesLogger
 
   def start_load(path, call:)
     STDERR.write indent @load_depth * 2,
-                "#{"\n" if @need_newline}(#{call} #{short_path(path).inspect}"
+                        "#{"\n" if @need_newline}(#{call} #{short_path(path).inspect}"
     STDERR.flush
     @load_depth += 1
     @need_newline = true
   end
 
-  def end_load(path, call:, result:)
+  def end_load(_path, call:, result:) # rubocop:disable Lint/UnusedMethodArgument
     STDERR.puts indent (@need_newline ? 1 : @load_depth * 2), "#{result})"
     @load_depth -= 1
     @need_newline = false
@@ -43,8 +44,8 @@ class DependenciesLogger
 
   def short_path(path)
     if defined?(Rails) && Rails.app_class &&
-        Rails.app_class.instance_variable_get(:@instance) &&
-        path.start_with?(Rails.root.to_s)
+       Rails.app_class.instance_variable_get(:@instance) &&
+       path.start_with?(Rails.root.to_s)
       path[Rails.root.to_s.size + 1..-1]
     elsif path.start_with?(ENV['HOME'])
       "~#{path[ENV['HOME'].size..-1]}"
@@ -68,9 +69,10 @@ ActiveSupport::Dependencies.singleton_class.prepend(Module.new do
     DependenciesLogger.instance.start_load path, call: :load_file
     super.tap do |result|
       DependenciesLogger.instance.end_load(
-          path, call: :load_file, result: result)
+        path, call: :load_file, result: result
+      )
     end
-  rescue Exception => e
+  rescue Exception => e # rubocop:disable Lint/RescueException
     DependenciesLogger.instance.end_load path, call: :require, result: e.class
     raise e
   end
@@ -82,7 +84,7 @@ Object.prepend(Module.new do
     super.tap do |result|
       DependenciesLogger.instance.end_load path, call: :load, result: result
     end
-  rescue Exception => e
+  rescue Exception => e # rubocop:disable Lint/RescueException
     DependenciesLogger.instance.end_load path, call: :require, result: e.class
     raise e
   end
@@ -92,7 +94,7 @@ Object.prepend(Module.new do
     super.tap do |result|
       DependenciesLogger.instance.end_load path, call: :require, result: result
     end
-  rescue Exception => e
+  rescue Exception => e # rubocop:disable Lint/RescueException
     DependenciesLogger.instance.end_load path, call: :require, result: e.class
     raise e
   end
