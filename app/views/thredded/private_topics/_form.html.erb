@@ -21,7 +21,8 @@
                content_label: t('thredded.private_topics.form.content_label') %>
 
     <li>
-      <button type="submit" class="thredded--form--submit">
+      <button type="submit" class="thredded--form--submit"
+              data-disable-with="<%= t 'thredded.private_topics.form.create_btn_submitting' %>">
         <%= t('thredded.private_topics.form.create_btn') %>
       </button>
     </li>

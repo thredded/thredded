@@ -13,7 +13,12 @@
       <%= f.collection_select :messageboard_group_id, Thredded::MessageboardGroup.all, :id, :name,
                               include_blank: t('thredded.messageboard.form.no_group') %>
     </li>
-    <li><%= f.submit @messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
-                     class: 'thredded--form--submit' %></li>
+    <li>
+      <%= f.submit @messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
+                   class: 'thredded--form--submit',
+                   'data-disable-with' => @messageboard.persisted? ?
+                       t('thredded.messageboard.form.update_btn_submitting') :
+                       t('thredded.messageboard.form.create_btn_submitting') %>
+    </li>
   </ul>
 <% end %>

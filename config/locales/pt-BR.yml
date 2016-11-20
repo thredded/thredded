@@ -12,11 +12,15 @@ pt-BR:
       private_topic_create_denied: Você não está autorizado a criar tópicos privados.
       private_topic_not_found: Este tópico privado não existe.
     form:
+      create_btn_submitting: Criando...
       update: Atualizar
+      update_btn_submitting: Atualizando...
     messageboard:
       create: Criar um novo Fórum de Mensagem
       form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
         no_group: Sem Grupo
+        update_btn_submitting: :thredded.form.update_btn_submitting
       index:
         page_title: Fóruns de Mensagens
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
@@ -25,6 +29,8 @@ pt-BR:
       updated_notice: Fórum de mensagem foi atualizado
     messageboard_group:
       create: Criar um novo grupo de mensagens
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Groupo de mensagens %{name} salvou
     moderation:
       approve_btn: Aprovar
@@ -67,7 +73,9 @@ pt-BR:
       form:
         content_label: Conteúdo
         create_btn: Enviar Resposta
+        create_btn_submitting: Postando...
         update_btn: Atualizar Post
+        update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: O envio da mensagem será publicada quando foi revisado por um moderador.
     preferences:
       edit:
@@ -98,6 +106,8 @@ pt-BR:
       form:
         content_label: Mensagem
         create_btn: Enviar Mensagem
+        create_btn_submitting: Enviando...
+        update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
       edit: Editar
       errors:
@@ -105,10 +115,12 @@ pt-BR:
       form:
         content_label: :thredded.private_posts.form.content_label
         create_btn: :thredded.private_posts.form.create_btn
+        create_btn_submitting: :thredded.private_posts.form.create_btn_submitting
         title_label: :thredded.topics.form.title_label
         title_placeholder_new: Escreva o assunto desta conversa
         title_placeholder_start: Iniciar uma nova conversa
         update_btn: Atualizar
+        update_btn_submitting: :thredded.private_posts.form.update_btn_submitting
         users_label: Participantes
         users_placeholder: Selecione usuários para participar desta conversa
       no_private_topics:

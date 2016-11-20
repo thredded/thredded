@@ -12,11 +12,15 @@ en:
       private_topic_create_denied: You are not authorized to create private topics.
       private_topic_not_found: This private topic does not exist.
     form:
+      create_btn_submitting: Creating...
       update: Update
+      update_btn_submitting: Updating...
     messageboard:
       create: Create a New Messageboard
       form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
         no_group: No Group
+        update_btn_submitting: :thredded.form.update_btn_submitting
       index:
         page_title: Messageboards
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
@@ -25,6 +29,8 @@ en:
       updated_notice: Messageboard has been updated
     messageboard_group:
       create: Create a New Messageboard Group
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Messageboard Group %{name} created
     moderation:
       approve_btn: Approve
@@ -67,7 +73,9 @@ en:
       form:
         content_label: Content
         create_btn: Submit Reply
+        create_btn_submitting: Posting...
         update_btn: Update Post
+        update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Your post will be published when it has been reviewed by a moderator.
     preferences:
       edit:
@@ -95,6 +103,8 @@ en:
       form:
         content_label: Message
         create_btn: Send Message
+        create_btn_submitting: Sending...
+        update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
       edit: Edit
       errors:
@@ -102,10 +112,12 @@ en:
       form:
         content_label: :thredded.private_posts.form.content_label
         create_btn: :thredded.private_posts.form.create_btn
+        create_btn_submitting: :thredded.private_posts.form.create_btn_submitting
         title_label: :thredded.topics.form.title_label
         title_placeholder_new: Write the subject of this conversation
         title_placeholder_start: Start a new conversation
         update_btn: Update
+        update_btn_submitting: :thredded.private_posts.form.update_btn_submitting
         users_label: Participants
         users_placeholder: Select users to participate in this conversation
       no_private_topics:
