@@ -1,3 +1,4 @@
+<%# locals: messageboard, topic, post, content_label, button_text, button_submitting_text. %>
 <%= form_for (post.private_topic_post? ? [topic, post] : [messageboard, topic, post]), as: :post,
              html: {
                  class: 'thredded--form thredded--post-form',
@@ -7,9 +8,12 @@
              } do |form| %>
   <ul class="thredded--form-list">
     <%= render 'thredded/posts_common/form/content_field', form: form, content_label: content_label %>
-
     <li>
-      <%= form.submit button_text, class: 'thredded--form--submit' %>
+      <% button_submitting_text ||=
+             post.persisted? ? t('thredded.form.update_btn_submitting') : t('thredded.form.create_btn_submitting') %>
+      <button type="submit" class="thredded--form--submit" data-disable-with="<%= button_submitting_text %>">
+        <%= button_text %>
+      </button>
     </li>
   </ul>
 <% end %>
