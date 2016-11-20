@@ -17,6 +17,8 @@ if ENV['HEROKU']
   require 'dalli'
 end
 
+require_relative '../lib/dependencies_logger'
+
 module Dummy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
