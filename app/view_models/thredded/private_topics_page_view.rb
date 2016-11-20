@@ -14,10 +14,16 @@ module Thredded
     # @param user [Thredded.user_class] the user who is viewing the posts page
     # @param topics_page_scope [ActiveRecord::Relation<Thredded::Topic>]
     def initialize(user, topics_page_scope)
-      @topics_page_scope = topics_page_scope
+      @topics_page_scope = refine_scope(topics_page_scope)
       @topic_views = @topics_page_scope.with_read_states(user).map do |(topic, read_state)|
         Thredded::PrivateTopicView.new(topic, read_state, Pundit.policy!(user, topic))
       end
+    end
+
+    protected
+
+    def refine_scope(topics_page_scope)
+      topics_page_scope.includes(:users)
     end
   end
 end
