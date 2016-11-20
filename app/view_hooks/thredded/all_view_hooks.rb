@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require 'thredded/view_hooks/config'
+require 'thredded/view_hooks/renderer'
+
 module Thredded
   class AllViewHooks
     # @return [PostForm]
