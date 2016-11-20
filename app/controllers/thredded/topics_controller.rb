@@ -41,10 +41,11 @@ module Thredded
     end
 
     def search
-      authorize_reading messageboard if messageboard_or_nil
+      in_messageboard = params.key?(:messageboard_id)
+      authorize_reading messageboard if in_messageboard
       @query = params[:q].to_s
       topics_scope = policy_scope(
-        if messageboard_or_nil
+        if in_messageboard
           messageboard.topics
         else
           Thredded::Topic.where(messageboard_id: policy_scope(Thredded::Messageboard.all).pluck(:id))
