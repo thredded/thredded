@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.8.3)
+    thredded (0.8.4)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       autosize-rails
@@ -128,7 +128,7 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kramdown (1.12.0)
+    kramdown (1.13.0)
     libv8 (3.16.14.15)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
