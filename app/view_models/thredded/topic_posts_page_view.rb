@@ -1,8 +1,7 @@
 # frozen_string_literal: true
-require_dependency 'thredded/posts_page_view'
 module Thredded
   # A view model for a page of PostViews of a Topic.
-  class TopicPostsPageView < PostsPageView
+  class TopicPostsPageView < Thredded::PostsPageView
     # @return [Thredded::BaseTopicView]
     attr_reader :topic
 

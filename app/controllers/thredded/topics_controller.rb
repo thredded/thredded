@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/posts_page_view'
-require_dependency 'thredded/topics_page_view'
 # rubocop:disable Metrics/ClassLength
 module Thredded
   class TopicsController < Thredded::ApplicationController
@@ -20,7 +18,7 @@ module Thredded
           .order_sticky_first.order_recently_posted_first
           .page(current_page)
       )
-      TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
+      Thredded::TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
         @new_topic = form if policy(form.topic).create?
       end
     end
@@ -33,7 +31,11 @@ module Thredded
         .page(current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
 
-      UserTopicReadState.touch!(thredded_current_user.id, topic.id, page_scope.last, current_page) if signed_in?
+      if signed_in?
+        Thredded::UserTopicReadState.touch!(
+          thredded_current_user.id, topic.id, page_scope.last, current_page
+        )
+      end
 
       @new_post = messageboard.posts.build(postable: topic)
     end
@@ -45,7 +47,7 @@ module Thredded
         if messageboard_or_nil
           messageboard.topics
         else
-          Topic.where(messageboard_id: policy_scope(Messageboard.all).pluck(:id))
+          Thredded::Topic.where(messageboard_id: policy_scope(Thredded::Messageboard.all).pluck(:id))
         end
       )
       @topics = Thredded::TopicsPageView.new(
@@ -59,7 +61,7 @@ module Thredded
     end
 
     def new
-      @new_topic = TopicForm.new(new_topic_params)
+      @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
     end
 
@@ -77,7 +79,7 @@ module Thredded
     end
 
     def create
-      @new_topic = TopicForm.new(new_topic_params)
+      @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
         redirect_to messageboard_topics_path(messageboard)
@@ -109,13 +111,13 @@ module Thredded
 
     def follow
       authorize topic, :read?
-      UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
+      Thredded::UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
       follow_change_response(following: true)
     end
 
     def unfollow
       authorize topic, :read?
-      UserTopicFollow.find_by(topic_id: topic.id, user_id: thredded_current_user.id).try(:destroy)
+      Thredded::UserTopicFollow.find_by(topic_id: topic.id, user_id: thredded_current_user.id).try(:destroy)
       follow_change_response(following: false)
     end
 

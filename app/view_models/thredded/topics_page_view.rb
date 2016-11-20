@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/topic_view'
 module Thredded
   # A view model for a page of BaseTopicViews.
   class TopicsPageView

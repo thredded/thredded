@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   # A view model for Topic.
-  class TopicView < BaseTopicView
+  class TopicView < Thredded::BaseTopicView
     delegate :categories, :id, :blocked?, :last_moderation_record, :followers,
              :last_post, :messageboard_id, :messageboard_name,
              to: :@topic
@@ -17,8 +17,8 @@ module Thredded
     def self.from_user(topic, user)
       read_state = follow = nil
       if user && !user.thredded_anonymous?
-        read_state = UserTopicReadState.find_by(user_id: user.id, postable_id: topic.id)
-        follow = UserTopicFollow.find_by(user_id: user.id, topic_id: topic.id)
+        read_state = Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: topic.id)
+        follow = Thredded::UserTopicFollow.find_by(user_id: user.id, topic_id: topic.id)
       end
       new(topic, read_state, follow, Pundit.policy!(user, topic))
     end

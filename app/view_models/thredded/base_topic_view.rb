@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/urls_helper'
 module Thredded
   # A view model for TopicCommon.
   class BaseTopicView

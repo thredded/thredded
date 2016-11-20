@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/posts_page_view'
-require_dependency 'thredded/topics_page_view'
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
     before_action :thredded_require_login!
@@ -8,7 +6,7 @@ module Thredded
     def index
       @private_topics = Thredded::PrivateTopicsPageView.new(
         thredded_current_user,
-        PrivateTopic
+        Thredded::PrivateTopic
           .distinct
           .for_user(thredded_current_user)
           .order_recently_posted_first
@@ -16,7 +14,7 @@ module Thredded
           .page(params[:page])
       )
 
-      PrivateTopicForm.new(user: thredded_current_user).tap do |form|
+      Thredded::PrivateTopicForm.new(user: thredded_current_user).tap do |form|
         @new_private_topic = form if policy(form.private_topic).create?
       end
     end
@@ -32,19 +30,21 @@ module Thredded
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
 
       if signed_in?
-        UserPrivateTopicReadState.touch!(thredded_current_user.id, private_topic.id, page_scope.last, current_page)
+        Thredded::UserPrivateTopicReadState.touch!(
+          thredded_current_user.id, private_topic.id, page_scope.last, current_page
+        )
       end
 
       @post = private_topic.posts.build
     end
 
     def new
-      @private_topic = PrivateTopicForm.new(user: thredded_current_user)
+      @private_topic = Thredded::PrivateTopicForm.new(user: thredded_current_user)
       authorize_creating @private_topic.private_topic
     end
 
     def create
-      @private_topic = PrivateTopicForm.new(new_private_topic_params)
+      @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
         redirect_to @private_topic.private_topic
       else

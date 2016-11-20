@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency 'thredded/private_topic_view'
 module Thredded
   # A view model for a page of BaseTopicViews.
   class PrivateTopicsPageView
@@ -17,7 +16,7 @@ module Thredded
     def initialize(user, topics_page_scope)
       @topics_page_scope = topics_page_scope
       @topic_views = @topics_page_scope.with_read_states(user).map do |(topic, read_state)|
-        PrivateTopicView.new(topic, read_state, Pundit.policy!(user, topic))
+        Thredded::PrivateTopicView.new(topic, read_state, Pundit.policy!(user, topic))
       end
     end
   end
