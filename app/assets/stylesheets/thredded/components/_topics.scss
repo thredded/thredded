@@ -74,14 +74,16 @@
 .thredded--topics--updated-by {
   margin-right: $thredded-small-spacing;
 
-  a + a::before {
-    content: '\2022\2000';
-  }
-
   abbr {
     &::before {
       content: 'updated ';
     }
+  }
+}
+
+.thredded--topics--participants--participant {
+  & + &::before {
+    content: '\2022\00A0'; // • and a non-breaking space
   }
 }
 

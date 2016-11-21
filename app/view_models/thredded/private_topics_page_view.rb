@@ -23,7 +23,7 @@ module Thredded
     protected
 
     def refine_scope(topics_page_scope)
-      topics_page_scope.includes(:users)
+      topics_page_scope.includes(:user, :last_user, :users)
     end
   end
 end

@@ -18,8 +18,8 @@
   }
 }
 
-.thredded--topic-header--participants .thredded--topic-header--participant {
-  a {
+.thredded--topic-header--participants--participant {
+  > a {
     @extend %thredded--link;
     display: inline-block;
     font-size: $thredded-font-size-small;

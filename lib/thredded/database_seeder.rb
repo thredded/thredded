@@ -231,12 +231,14 @@ module Thredded
       MODEL_CLASS = PrivateTopic
 
       def create(count: 1)
-        FactoryGirl.create_list(
-          :private_topic, count,
-          user: seeder.users[1..-1].sample,
-          last_user: seeder.users.sample,
-          users: [seeder.first_user]
-        )
+        Array.new(count) do
+          FactoryGirl.create(
+            :private_topic,
+            user: seeder.users[1..-1].sample,
+            last_user: seeder.users.sample,
+            users: [seeder.first_user, *seeder.users.sample(1 + rand(3))]
+          )
+        end
       end
     end
 
@@ -274,8 +276,9 @@ module Thredded
       def create(count: (1..1))
         log "Creating #{count} additional posts in each private topic..."
         seeder.private_topics.flat_map do |topic|
-          (count.min + rand(count.max + 1)).times do
-            FactoryGirl.create(:private_post, postable: topic, user: seeder.users.sample)
+          (count.min + rand(count.max + 1)).times do |i|
+            author = i.zero? ? topic.user : topic.users.sample
+            FactoryGirl.create(:private_post, postable: topic, user: author)
           end
         end
       end
