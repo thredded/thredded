@@ -18,17 +18,16 @@
   }
 }
 
-.thredded--topic-header--participants--participant {
-  > a {
-    @extend %thredded--link;
-    display: inline-block;
-    font-size: $thredded-font-size-small;
-    border: $thredded-base-border;
-    border-radius: $thredded-button-border-radius;
-    padding: $thredded-inline-spacing;
+.thredded--topic-header--participants {
+  color: $thredded-secondary-text-color;
 
-    &:hover {
-      border-color: darken($thredded-base-border-color, 15%);
+  &--participant {
+    > a {
+      @extend %thredded--link;
+      font-size: $thredded-font-size-small;
+    }
+    &::before {
+      content: '\2022\00A0'; // • and a non-breaking space
     }
   }
 }
