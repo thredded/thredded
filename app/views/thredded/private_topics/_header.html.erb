@@ -7,7 +7,7 @@
   </cite>
   <span class="thredded--topic-header--participants">
     <%= render partial: 'thredded/private_topics/header/participant',
-               collection: topic.users.without(topic.user) %>
+               collection: (topic.users - [topic.user]) %>
   </span>
   <% if topic.can_update? %>
     <%= link_to t('thredded.private_topics.edit'), topic.edit_path,
