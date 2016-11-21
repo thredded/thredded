@@ -18,6 +18,21 @@
   }
 }
 
+.thredded--topic-header--participants .thredded--topic-header--participant {
+  a {
+    @extend %thredded--link;
+    display: inline-block;
+    font-size: $thredded-font-size-small;
+    border: $thredded-base-border;
+    border-radius: $thredded-button-border-radius;
+    padding: $thredded-inline-spacing;
+
+    &:hover {
+      border-color: darken($thredded-base-border-color, 15%);
+    }
+  }
+}
+
 .thredded--topic-header--started-by {
   font-size: $thredded-font-size-small;
   color: $thredded-secondary-text-color;

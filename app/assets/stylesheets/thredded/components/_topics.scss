@@ -60,7 +60,6 @@
     color: lighten($thredded-text-color, 20%);
 
     &:hover {
-
       color: $thredded-action-color;
     }
   }
@@ -74,6 +73,10 @@
 
 .thredded--topics--updated-by {
   margin-right: $thredded-small-spacing;
+
+  a + a::before {
+    content: '\2022\2000';
+  }
 
   abbr {
     &::before {
