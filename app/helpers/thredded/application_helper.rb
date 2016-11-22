@@ -54,7 +54,17 @@ module Thredded
                   lang: I18n.locale.to_s.downcase,
                   format: ->(t, _opts) { t.year == Time.current.year ? :short : :long },
                   nojs: true,
+                  date_only: false,
                   default: default
+    end
+
+    # Override the default timeago_tag_content from rails-timeago
+    def timeago_tag_content(time, time_options = {})
+      if time_options[:nojs] && (time_options[:limit].nil? || time_options[:limit] < time)
+        time_ago_in_words(time)
+      else
+        I18n.l time.to_date, format: time_options[:format]
+      end
     end
 
     def paginate(collection, args = {})
