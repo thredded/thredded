@@ -130,6 +130,7 @@ en:
         btn_submit: :thredded.search.form.label
         label: Search
         placeholder: Search Topics and Posts
+    time_ago: "%{time} ago"
     topics:
       delete_confirm: Are you sure you want to delete this topic? This CANNOT be undone.
       delete_topic: Delete Topic

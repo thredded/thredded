@@ -133,6 +133,7 @@ pt-BR:
         btn_submit: :thredded.search.form.label
         label: Buscar
         placeholder: Buscar Tópicos e Posts
+    time_ago: há %{time}
     topics:
       delete_confirm: Você tem certeza que deseja remover este tópico? Isto não pode ser desfeito.
       delete_topic: Remover Tópico
