@@ -23,13 +23,13 @@
     - |
       https://vimeo.com/162326419
     - |
-      <iframe src="//player.vimeo.com/video/162326419?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+      <div class="thredded--embed-16-by-9"><iframe src="//player.vimeo.com/video/162326419?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div>
 
   youtube videos:
     - |
       https://www.youtube.com/watch?v=MrQmQp2P3g4
     - |
-      <div><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms"></iframe></div>
+      <div class="video youtube"><div class="thredded--embed-16-by-9"><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div></div>
 
   quotes in markdown:
     - |
