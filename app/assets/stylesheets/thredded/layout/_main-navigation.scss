@@ -1,5 +1,5 @@
 @mixin thredded-breadcrumbs-chevron() {
-  background: image-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
+  background: asset-data-url("thredded/breadcrumb-chevron.svg") no-repeat center center;
   content: "";
   display: inline-block;
   height: 10px;
