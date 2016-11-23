@@ -19,6 +19,7 @@ require 'inline_svg'
 require 'thredded/html_pipeline/at_mention_filter'
 require 'thredded/html_pipeline/autolink_filter'
 require 'thredded/html_pipeline/kramdown_filter'
+require 'thredded/html_pipeline/wrap_iframes_filter'
 
 # Asset compilation
 require 'autoprefixer-rails'

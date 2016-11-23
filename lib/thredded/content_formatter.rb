@@ -25,11 +25,12 @@ module Thredded
         'a'      => %w(href rel),
         'iframe' => %w(src width height frameborder allowfullscreen sandbox seamless),
         'span'   => %w(class),
+        'div'    => %w(class)
       },
       add_attributes: {
         'iframe' => {
           'seamless' => 'seamless',
-          'sandbox'  => 'allow-same-origin allow-scripts allow-forms',
+          'sandbox'  => 'allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox',
         }
       },
       protocols: {
@@ -63,7 +64,7 @@ module Thredded
       Thredded::HtmlPipeline::AutolinkFilter,
       HTML::Pipeline::EmojiFilter,
       Thredded::HtmlPipeline::AtMentionFilter,
-      HTML::Pipeline::SanitizationFilter,
+      Thredded::HtmlPipeline::WrapIframesFilter,
     ]
 
     # Filters that sanitize the resulting HTML.
