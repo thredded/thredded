@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-require 'thredded/topics_search'
 module Thredded
   class Topic < ActiveRecord::Base
-    include TopicCommon
-    include ContentModerationState
+    include Thredded::TopicCommon
+    include Thredded::ContentModerationState
 
     scope :for_messageboard, ->(messageboard) { where(messageboard_id: messageboard.id) }
 

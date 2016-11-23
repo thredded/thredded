@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-require 'thredded/search_parser'
 module Thredded
   class TopicsSearch
     def initialize(query, scope)
-      @terms = SearchParser.new(query).parse
+      @terms = Thredded::SearchParser.new(query).parse
       @scope = scope
 
       @search_categories = @search_users = @search_text = nil
@@ -12,7 +11,7 @@ module Thredded
     # @return [ActiveRecord::Relation<Thredded::Topic>]
     def search
       if categories.present?
-        @scope = @scope.joins(:topic_categories).merge(TopicCategory.where(category_id: categories))
+        @scope = @scope.joins(:topic_categories).merge(Thredded::TopicCategory.where(category_id: categories))
       end
       if text.present? || users.present?
         [search_topics, search_posts].compact.reduce(:union)
