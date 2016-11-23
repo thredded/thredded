@@ -9,11 +9,9 @@
                   class: ['thredded--main-section', 'thredded--topic', *topic_css_classes(private_topic)] do %>
     <%= render 'thredded/private_topics/header', topic: private_topic %>
     <%= render partial: 'thredded/private_posts/private_post', collection: @posts, cached: true %>
+    <%= paginate @posts %>
     <%= render 'thredded/private_posts/form',
                topic: private_topic,
                post:  @post %>
   <% end %>
-  <footer>
-    <%= paginate @posts %>
-  </footer>
 <% end %>

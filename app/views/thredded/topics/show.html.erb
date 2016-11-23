@@ -9,6 +9,8 @@
                   class: ['thredded--main-section', 'thredded--topic', *topic_css_classes(topic)] do %>
     <%= render 'thredded/topics/header', topic: topic %>
     <%= render partial: 'thredded/posts/post', collection: @posts, cached: true %>
+    <%= paginate @posts %>
+
     <% if policy(@new_post).create? %>
       <div class="thredded--post-form--wrapper">
         <h3 class="thredded--post-form--title">Add a post</h3>
@@ -29,8 +31,4 @@
       </div>
     <% end %>
   <% end %>
-
-  <footer>
-    <%= paginate @posts %>
-  </footer>
 <% end %>
