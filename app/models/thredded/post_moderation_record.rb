@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class PostModerationRecord < ActiveRecord::Base
-    include ModerationState
+    include Thredded::ModerationState
     # Rails 4 doesn't support enum _prefix
     if Rails::VERSION::MAJOR >= 5
       enum previous_moderation_state: moderation_states, _prefix: :previous

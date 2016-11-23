@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class PrivatePost < ActiveRecord::Base
-    include PostCommon
+    include Thredded::PostCommon
 
     belongs_to :user,
                class_name: Thredded.user_class,

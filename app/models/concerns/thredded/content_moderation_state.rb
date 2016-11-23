@@ -5,7 +5,7 @@ module Thredded
   # @api private
   module ContentModerationState
     extend ActiveSupport::Concern
-    include ModerationState
+    include Thredded::ModerationState
 
     included do
       before_validation :set_default_moderation_state, on: :create

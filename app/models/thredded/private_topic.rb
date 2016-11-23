@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class PrivateTopic < ActiveRecord::Base
-    include TopicCommon
+    include Thredded::TopicCommon
 
     scope :for_user, ->(user) { joins(:private_users).merge(PrivateUser.where(user_id: user.id)) }
 

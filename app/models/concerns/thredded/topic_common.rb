@@ -25,11 +25,11 @@ module Thredded
     end
 
     def user
-      super || NullUser.new
+      super || Thredded::NullUser.new
     end
 
     def last_user
-      super || NullUser.new
+      super || Thredded::NullUser.new
     end
 
     def private?

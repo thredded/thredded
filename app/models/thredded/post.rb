@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module Thredded
   class Post < ActiveRecord::Base
-    include PostCommon
-    include ContentModerationState
+    include Thredded::PostCommon
+    include Thredded::ContentModerationState
 
     belongs_to :user,
                class_name: Thredded.user_class,

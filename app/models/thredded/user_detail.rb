@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class UserDetail < ActiveRecord::Base
-    include ModerationState
+    include Thredded::ModerationState
 
     belongs_to :user, class_name: Thredded.user_class, inverse_of: :thredded_user_detail
     validates :user_id, presence: true, uniqueness: true
