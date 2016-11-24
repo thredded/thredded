@@ -79,6 +79,38 @@ module Thredded
       expect(Thredded::UserTopicFollow.last).to be_posted
     end
 
+    context 'when Thredded.auto_follow_when_creating_topic is false',
+            thredded_reset: %i(@@auto_follow_when_creating_topic) do
+      before { Thredded.auto_follow_when_creating_topic = false }
+      it 'does not create a follow for the creator of the first post' do
+        user = create(:user)
+        expect { create(:post, user: user, postable: create(:topic)) }
+          .to_not change { user.thredded_topic_follows.reload.count }
+      end
+
+      it 'creates a follow for the creator of the non-first post' do
+        user = create(:user)
+        expect { create(:post, user: user, postable: create(:topic, with_posts: 1)) }
+          .to change { user.thredded_topic_follows.reload.count }.from(0).to(1)
+      end
+    end
+
+    context 'when Thredded.auto_follow_when_posting_in_topic is false',
+            thredded_reset: %i(@@auto_follow_when_posting_in_topic) do
+      before { Thredded.auto_follow_when_posting_in_topic = false }
+      it 'does not create a follow for the creator of the non-first post' do
+        user = create(:user)
+        expect { create(:post, user: user, postable: create(:topic, with_posts: 1)) }
+          .to_not change { user.thredded_topic_follows.reload.count }
+      end
+
+      it 'creates a follow for the creator of the first post' do
+        user = create(:user)
+        expect { create(:post, user: user, postable: create(:topic)) }
+          .to change { user.thredded_topic_follows.reload.count }.from(0).to(1)
+      end
+    end
+
     it "doesn't create a follow if creator already has a follow" do
       shaun = create(:user)
       topic = create(:topic)

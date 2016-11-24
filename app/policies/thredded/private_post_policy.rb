@@ -21,7 +21,7 @@ module Thredded
     end
 
     def destroy?
-      @post.postable.first_post != @post && update?
+      !@post.first_in_topic? && update?
     end
 
     private

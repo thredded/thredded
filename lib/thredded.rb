@@ -74,6 +74,14 @@ module Thredded
   # @return [Symbol] The name of the method used by Thredded to display users
   mattr_accessor :user_display_name_method
 
+  # @return [Boolean] Whether the user should get subscribed to a new topic they've created.
+  mattr_accessor :auto_follow_when_creating_topic
+  self.auto_follow_when_creating_topic = true
+
+  # @return [Boolean] Whether the user should get subscribed to a topic after posting in it.
+  mattr_accessor :auto_follow_when_posting_in_topic
+  self.auto_follow_when_posting_in_topic = true
+
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
