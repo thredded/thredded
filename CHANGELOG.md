@@ -6,15 +6,40 @@ This release contains new functionality and backwards-incompatible changes.
 
 ## Added
 
-* You can configure which notifiers are enabled: remove the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting the
- `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
+* Notification plugins system. You can configure which notifiers are enabled: remove the email notifier totally,
+  or add other notifiers (e.g. Pushover, possibly Slack) by adjusting the `Thredded.notifiers` configuration in
+  your initializer. See the default initializer for examples.
+  [#441](https://github.com/thredded/thredded/issues/441)
+* Private topic participants are now displayed on both the "Private Messages" pages and the private topic page.
+  [#477](https://github.com/thredded/thredded/issues/477)
+* Buttons in forms are disabled on submit to prevent double-submits.
+  [#485](https://github.com/thredded/thredded/pull/485)
+* It is now possible to turn off automatic topic subscription on topic creation and when posting into an existing topic.
+  [#372](https://github.com/thredded/thredded/issues/372)
+* Minor front-end performance improvements.
+  [#489](https://github.com/thredded/thredded/issues/489)
+  [#6a2355](https://github.com/thredded/thredded/commit/6a235595f64d90422bc529fd260ce46a8832616b)
+  [#ccc49f](https://github.com/thredded/thredded/commit/ccc49fd07019bdcea5b263d3fb7bf098a353cbfb)
 
 ## Changed
 
+* Topic posts pagination is now displayed *before* the post form, making it obvious to the user if there are more posts.
+  [#491](https://github.com/thredded/thredded/issues/491)
 * Removed `Topic.find_by_slug` and `PrivateTopic.find_by_slug` methods.
   Added `friendly_find!` to `Messageboard`, `Topic`, and `PrivateTopic` instead to avoid confusion with the Rails
   dynamic finders.
+  [#482](https://github.com/thredded/thredded/pull/482)
 
+## Fixed
+
+* Video embeds and other iframes in the posts contents are now responsive (16-by-9 ratio by default).
+  [#493](https://github.com/thredded/thredded/issues/493)
+* The "Mark all as read" button in private messages is no longer shown when there are unread messages.
+  [#38c7a7](https://github.com/thredded/thredded/commit/38c7a70d3cf897ebae41ff93e967bbef2036a270)
+* Fixed an SQLite3 compatibility issue that resulted in the `database is locked` error.
+  [#37ad93](https://github.com/thredded/thredded/commit/37ad930bd28d9d8e5c89bba64a28a100b1cfde18)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.8.4...v0.9.0.
 
 # v0.8.4
 
