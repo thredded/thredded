@@ -1,8 +1,8 @@
-# v0.9.0
+# v0.9.1
 
 This release contains new functionality and backwards-incompatible changes.
 
-**NB:** If updating to this version from 0.8.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/v0.9.0/db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb) after upgrading the gem.
+**NB:** If updating to this version from 0.8.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/v0.9.1/db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb) after upgrading the gem.
 
 ## Added
 
@@ -39,7 +39,7 @@ This release contains new functionality and backwards-incompatible changes.
 * Fixed an SQLite3 compatibility issue that resulted in the `database is locked` error.
   [#37ad93](https://github.com/thredded/thredded/commit/37ad930bd28d9d8e5c89bba64a28a100b1cfde18)
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v0.8.4...v0.9.0.
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.8.4...v0.9.1.
 
 # v0.8.4
 
