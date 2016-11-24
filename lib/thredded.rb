@@ -127,8 +127,10 @@ module Thredded
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
+    # This is nil before the initializer is installed.
+    return nil if @@user_class.nil?
     fail 'Please use a String instead of a Class' if @@user_class.is_a?(Class)
-    fail 'user_class must be a String' unless @@user_class.is_a?(String)
+    fail "user_class must be a String, got #{@@user_class.inspect}" unless @@user_class.is_a?(String)
     begin
       Object.const_get(@@user_class)
     rescue NameError
