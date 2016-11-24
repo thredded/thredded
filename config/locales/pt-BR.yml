@@ -101,6 +101,7 @@ pt-BR:
           label: Notificações de mensagens privadas
         submit_btn: Atualizar Configurações
         title: Configurações
+        update_btn_submitting: :thredded.form.update_btn_submitting
       updated_notice: Suas configurações foram atualizadas.
     private_posts:
       form:

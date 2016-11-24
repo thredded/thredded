@@ -98,6 +98,7 @@ en:
           label: Notifications for private messages
         submit_btn: Update Settings
         title: Settings
+        update_btn_submitting: :thredded.form.update_btn_submitting
       updated_notice: Your settings have been updated.
     private_posts:
       form:
