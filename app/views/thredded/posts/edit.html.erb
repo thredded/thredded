@@ -9,7 +9,7 @@
 <%= thredded_page do %>
   <section class="thredded--main-section">
     <%= render 'thredded/posts/form',
-               messageboard: messageboard,
+               messageboard: (messageboard unless @post.private_topic_post?),
                topic:        topic,
                post:         @post,
                button_text:  t('thredded.posts.form.update_btn'),
