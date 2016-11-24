@@ -54,7 +54,7 @@ module Thredded
     def auto_follow_and_notify
       return unless user
       # need to do this in-process so that it appears to them immediately
-      if first_in_topic? ? Thredded.auto_follow_when_creating_topic : Thredded.auto_follow_when_posting_in_topic
+      if first_post_in_topic? ? Thredded.auto_follow_when_creating_topic : Thredded.auto_follow_when_posting_in_topic
         UserTopicFollow.create_unless_exists(user.id, postable_id, :posted)
       end
       # everything else can happen later

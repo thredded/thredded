@@ -32,7 +32,7 @@ module Thredded
       Thredded::ContentFormatter.new(view_context, users_provider: users_provider).format_content(content)
     end
 
-    def first_in_topic?
+    def first_post_in_topic?
       postable.first_post == self
     end
 
