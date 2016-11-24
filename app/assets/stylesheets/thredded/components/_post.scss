@@ -63,6 +63,9 @@
 .thredded--post--delete {
   font-size: $thredded-font-size-small;
   @extend %thredded--link;
+  @media print {
+    display: none;
+  }
 }
 
 .thredded--post--delete {

@@ -159,3 +159,10 @@
     @extend %thredded--not-following-icon;
   }
 }
+
+.thredded--new-topic-form,
+.thredded--new-private-topic-form {
+  @media print {
+    display: none;
+  }
+}

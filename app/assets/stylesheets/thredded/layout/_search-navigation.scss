@@ -85,4 +85,8 @@
   [type="submit"] {
     display: none;
   }
+
+  @media print {
+    display: none;
+  }
 }

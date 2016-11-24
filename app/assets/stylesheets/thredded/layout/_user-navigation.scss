@@ -1,5 +1,8 @@
 .thredded--user-navigation {
   @extend %thredded--nav-tabs;
+  @media print {
+    display: none;
+  }
 }
 
 .thredded--user-navigation--item {

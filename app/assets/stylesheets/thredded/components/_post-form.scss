@@ -19,3 +19,9 @@
     margin-top: $thredded-small-spacing;
   }
 }
+
+.thredded--post-form--wrapper {
+  @media print {
+    display: none;
+  }
+}

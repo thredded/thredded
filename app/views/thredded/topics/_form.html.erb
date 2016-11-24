@@ -1,6 +1,6 @@
 <%= form_for [messageboard, topic],
              html: {
-                 class: "thredded--form #{local_assigns[:css_class]}",
+                 class: "thredded--form thredded--new-topic-form #{local_assigns[:css_class]}",
                  'data-thredded-topic-form' => true,
                  'data-autocomplete-url' => autocomplete_users_path,
                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,

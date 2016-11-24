@@ -45,6 +45,9 @@
   @extend %thredded--link;
   font-size: $thredded-font-size-small;
   margin-left: 0.4rem;
+  @media print {
+    display: none;
+  }
 }
 
 .thredded--topic-header--follow-info {
@@ -85,6 +88,9 @@
       font: inherit;
       cursor: pointer;
       @extend %thredded--link;
+    }
+    @media print {
+      display: none;
     }
   }
 }

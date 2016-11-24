@@ -2,4 +2,7 @@
   border-top: $thredded-base-border;
   margin-top: $thredded-base-spacing;
   padding-top: $thredded-large-spacing;
+  @media print {
+    display: none;
+  }
 }

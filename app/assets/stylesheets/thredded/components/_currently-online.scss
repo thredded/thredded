@@ -45,4 +45,8 @@
     height: auto;
     visibility: visible;
   }
+
+  @media print {
+    display: none;
+  }
 }

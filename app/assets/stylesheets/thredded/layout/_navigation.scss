@@ -27,7 +27,9 @@
     .thredded--messageboards-index &,
     .thredded--topics-index &,
     .thredded--topic-search-results & {
-      display: block;
+      @media screen {
+        display: block;
+      }
     }
   }
   .thredded--user-navigation {
