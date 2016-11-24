@@ -37,7 +37,7 @@ module Thredded
     end
 
     def destroy?
-      @post.postable.first_post != @post && update?
+      !@post.first_post_in_topic? && update?
     end
 
     delegate :moderate?, to: :messageboard_policy
