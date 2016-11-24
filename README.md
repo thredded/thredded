@@ -157,29 +157,53 @@ You can also use Thredded with your application (or other) layout by by setting 
 
 In this case, you will need to reference your paths/routes carefully and pull in thredded assets (styles and javascript):
 
-#### Referencing your paths so that thredded views can find them
+#### Reference your paths so that Thredded can find them
 
 In your layout you will probably have links to other paths in your app (e.g. navigation links).
-For any url helpers (like `users_path` or `projects_path` or whatever) will need to have `main_app.` prefixed to  them so that they can be found from thredded (`main_app.users_path` will work from either thredded or your app).
+For any url helpers (like `users_path` or `projects_path` or whatever) will need to have `main_app.`
+prefixed to them so that they can be found from thredded (`main_app.users_path` will work from both thredded and your app).
 
 However if you don't want to update your layouts and partials, you can define methods automatically to delegate to the main_app's routes:
 See https://gist.github.com/timdiggins/bf6d09b28828a392198562c93554ad07.
 
-#### Pulling in thredded assets (styles and javascript)
+#### Add Thredded styles
 
 In this case, you will also need to include Thredded styles and JavaScript into the application styles and JavaScript.
 
-Add thredded styles to your `application.scss` (see below for customizing the styles):
+Add thredded styles to your `application.scss`:
 
 ```scss
 @import "thredded";
 ```
+
+Thredded wraps the views in a container element that has a `max-width` and paddings by default.
+If your app layout already has a container element that handles these, you can remove the `max-width` and paddings
+from the Thredded one by adding this Sass snippet after `@import "thredded";`:
+
+```scss
+.thredded--main-container {
+  // The padding and max-width are handled by the app's container.
+  max-width: none;
+  padding: 0;
+  @include thredded-media-tablet-and-up {
+    padding: 0;
+  }
+}
+```
+
+See [below](#styles) for customizing the styles via Sass variables.
+
+#### Add Thredded JavaScripts
 
 Include thredded JavaScripts in your `application.js`:
 
 ```js
 //= require thredded
 ```
+
+Thredded is fully compatible with deferred and async script loading.
+
+##### jQuery version
 
 To use thredded with your application layout, you also need to ensure that your layout and thredded don't load different
 versions of jQuery. By default, Thredded loads jQuery v3 (via `//= require jquery3` from [jquery-rails]),
