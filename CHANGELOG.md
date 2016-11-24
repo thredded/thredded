@@ -1,8 +1,8 @@
-# Master (future v0.9.0)
+# v0.9.0
 
 This release contains new functionality and backwards-incompatible changes.
 
-**NB:** If updating to this version from 0.8.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/master/db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb) after upgrading the gem.
+**NB:** If updating to this version from 0.8.x, you will need to copy and run [this migration](https://github.com/thredded/thredded/blob/v0.9.0/db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb) after upgrading the gem.
 
 ## Added
 
