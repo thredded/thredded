@@ -17,10 +17,12 @@
 
       <%= render @private_topics %>
 
-      <%= link_to t('thredded.nav.mark_all_read'),
-        mark_all_private_topics_read_path,
-        class: 'thredded--button thredded--button-light thredded--button-wide',
-        method: :put -%>
+      <% unless unread_private_topics_count.zero? %>
+        <%= link_to t('thredded.nav.mark_all_read'),
+                    mark_all_private_topics_read_path,
+                    class: 'thredded--button thredded--button-light thredded--button-wide',
+                    method: :put -%>
+      <% end %>
     <% end -%>
   <% end %>
 
