@@ -4,7 +4,7 @@ module Thredded
     include ActionView::RecordIdentifier
 
     helper_method :topic
-    before_action :update_user_activity
+    after_action :update_user_activity
 
     after_action :verify_authorized
 
