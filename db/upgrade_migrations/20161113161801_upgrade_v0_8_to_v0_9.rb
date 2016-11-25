@@ -4,14 +4,14 @@ class UpgradeV08ToV09 < ActiveRecord::Migration
   def up
     create_table :thredded_notifications_for_private_topics do |t|
       t.integer :user_id, null: false
-      t.string :notifier_key, null: false
+      t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
       t.index [:user_id, :notifier_key],
               name: 'thredded_notifications_for_private_topics_unique', unique: true
     end
     create_table :thredded_notifications_for_followed_topics do |t|
       t.integer :user_id, null: false
-      t.string :notifier_key, null: false
+      t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
       t.index [:user_id, :notifier_key],
               name: 'thredded_notifications_for_followed_topics_unique', unique: true
@@ -19,7 +19,7 @@ class UpgradeV08ToV09 < ActiveRecord::Migration
     create_table :thredded_messageboard_notifications_for_followed_topics do |t|
       t.integer :user_id, null: false
       t.integer :messageboard_id, null: false
-      t.string :notifier_key, null: false
+      t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
       t.index [:user_id, :messageboard_id, :notifier_key],
               name: 'thredded_messageboard_notifications_for_followed_topics_unique', unique: true
