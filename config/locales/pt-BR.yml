@@ -183,3 +183,4 @@ pt-BR:
       user_posted_in_topic_html: "%{user_link} postou em %{topic_link}"
       user_since_html: Utilizador desde %{time_ago}
       user_started_topic_html: "%{user_link} começou %{topic_link}"
+      currently_online: "Atualmente Online"

@@ -180,3 +180,4 @@ en:
       user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
       user_since_html: User since %{time_ago}
       user_started_topic_html: "%{user_link} started %{topic_link}"
+      currently_online: "Currently Online"

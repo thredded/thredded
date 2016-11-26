@@ -1,7 +1,9 @@
 <% if (users = active_users).present? %>
   <aside data-thredded-currently-online class="thredded--currently-online">
     <header>
-      <h3 class="thredded--currently-online--title open">Currently Online</h3>
+      <h3 class="thredded--currently-online--title open">
+        <%= t "thredded.users.currently_online" %>
+      </h3>
     </header>
 
     <ul class="thredded--currently-online--users">
