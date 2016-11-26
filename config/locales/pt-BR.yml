@@ -170,6 +170,7 @@ pt-BR:
       unfollowed_notice: Você não está mais seguindo este tópico
       updated_notice: Tópico atualizado
     users:
+      currently_online: Atualmente Online
       last_active_html: Última %{time_ago} ativa
       posted_in_topic_html: Postou em %{topic_link}
       posts_count:
@@ -183,4 +184,3 @@ pt-BR:
       user_posted_in_topic_html: "%{user_link} postou em %{topic_link}"
       user_since_html: Utilizador desde %{time_ago}
       user_started_topic_html: "%{user_link} começou %{topic_link}"
-      currently_online: "Atualmente Online"

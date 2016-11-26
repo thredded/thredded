@@ -167,6 +167,7 @@ en:
       unfollowed_notice: You are no longer following this topic
       updated_notice: Topic updated
     users:
+      currently_online: Currently Online
       last_active_html: Last active %{time_ago}
       posted_in_topic_html: Posted in %{topic_link}
       posts_count:
@@ -180,4 +181,3 @@ en:
       user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
       user_since_html: User since %{time_ago}
       user_started_topic_html: "%{user_link} started %{topic_link}"
-      currently_online: "Currently Online"

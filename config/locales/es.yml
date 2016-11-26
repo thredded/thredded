@@ -38,12 +38,13 @@ es:
       pending:
         empty:
           content: Todos los mensajes han sido moderados.
-          title: ¡Buen trabajo!
+          title: "¡Buen trabajo!"
       post_approved_html: Mensaje aprobado por %{moderator} hace %{time_ago}.
       post_blocked_html: Mensaje censurado por %{moderator} hace %{time_ago}.
       post_deleted_notice: Este mensaje ha sido eliminado.
       posts_content_changed_since_moderation_html: >-
-        El contenido del <a href="%{post_url}">mensaje</a> ha sido editado por un moderador. Debajo está el contenido original del mensaje.
+        El contenido del <a href="%{post_url}">mensaje</a> ha sido editado por un moderador. Debajo está el contenido
+        original del mensaje.
       search_users:
         form_label: Buscar usuarios
         form_placeholder: :thredded.moderation.search_users.form_label
@@ -66,7 +67,7 @@ es:
     null_user_name: Usuario eliminado
     posts:
       delete: Eliminar Mensaje
-      delete_confirm: ¿Estás seguro de que quieres eliminar este mensaje?
+      delete_confirm: "¿Estás seguro de que quieres eliminar este mensaje?"
       deleted_notice: Tu mensaje ha sido eliminado.
       edit: :thredded.nav.edit_post
       form:
@@ -85,7 +86,8 @@ es:
           label: Sigue temas en los que seas mencionado
         global_preferences_label: Ajustes Generales
         messageboard_follow_topics_on_mention:
-          hint: 'Cuando alguien te menciona usando tu nombre de usuario (por ejemplo: @sam) en este foro, seguirás el tema.'
+          hint: 'Cuando alguien te menciona usando tu nombre de usuario (por ejemplo: @sam) en este foro, seguirás
+            el tema.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
@@ -129,9 +131,9 @@ es:
         btn_submit: :thredded.search.form.label
         label: Buscar
         placeholder: Busca Temas y Mensajes
-    time_ago: "hace %{time}"
+    time_ago: hace %{time}
     topics:
-      delete_confirm: ¿Seguro que queires eliminar este tema? Esta acción NO se puede deshacer.
+      delete_confirm: "¿Seguro que queires eliminar este tema? Esta acción NO se puede deshacer."
       delete_topic: Eliminar Tema
       deleted_notice: Tema eliminado
       edit: Editar Tema
@@ -165,6 +167,7 @@ es:
       unfollowed_notice: Has dejado de seguir este tema
       updated_notice: Tema actualizado
     users:
+      currently_online: En línea
       last_active_html: Última vez activo hace %{time_ago}
       posted_in_topic_html: Escribió en %{topic_link}
       posts_count:
@@ -178,4 +181,3 @@ es:
       user_posted_in_topic_html: "%{user_link} escribió en %{topic_link}"
       user_since_html: Usuario desde %{time_ago}
       user_started_topic_html: "%{user_link} empezó %{topic_link}"
-      currently_online: "En línea"
