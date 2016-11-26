@@ -1,3 +1,9 @@
+# v0.9.2
+
+This release adds Spanish localization [#498](https://github.com/thredded/thredded/pull/498), and fixes
+the installation on MySQL < v5.7.
+[#925816](https://github.com/thredded/thredded/commit/9258164407884328efccb798e276f296439bc3f7)
+
 # v0.9.1
 
 This release contains new functionality and backwards-incompatible changes.
