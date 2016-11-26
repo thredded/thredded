@@ -323,8 +323,8 @@ You can also turn off the email notifier totally, or add other notifiers (e.g. P
 
 ## I18n
 
-Thredded is mostly internationalized. It is currently available in English and Brazilian Portuguese. We welcome PRs
-adding support for new languages.
+Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, and Spanish.
+We welcome PRs adding support for new languages.
 
 If you use thredded in languages other than English, you probably want to add `rails-i18n` to your Gemfile.
 Additionally, you will need to require the translations for rails-timeago in you JavaScript,
