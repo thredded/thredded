@@ -327,11 +327,13 @@ Thredded is mostly internationalized. It is currently available in English, Braz
 We welcome PRs adding support for new languages.
 
 If you use thredded in languages other than English, you probably want to add `rails-i18n` to your Gemfile.
-Additionally, you will need to require the translations for rails-timeago in you JavaScript,
-e.g. for Brazilian Portuguese:
+Additionally, you will need to require the translations for rails-timeago in your JavaScript before `thredded` but
+after `jquery.timeago` (included in `thredded/dependencies`). E.g. for Brazilian Portuguese:
 
 ```js
+//= require thredded/dependencies
 //= require locales/jquery.timeago.pt-br
+//= require thredded/thredded
 ```
 
 ## Permissions
