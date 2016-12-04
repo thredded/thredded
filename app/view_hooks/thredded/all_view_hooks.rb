@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module Thredded
   class AllViewHooks
+    # @return [PostsCommon]
+    attr_reader :posts_common
     # @return [PostForm]
     attr_reader :post_form
     # @return [ModerationUserPage]
@@ -19,8 +21,22 @@ module Thredded
     end
 
     def initialize
+      @posts_common = PostsCommon.new
       @post_form = PostForm.new
       @moderation_user_page = ModerationUserPage.new
+    end
+
+    # View hooks for collections of public or private posts.
+    class PostsCommon
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :pagination_top
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :pagination_bottom
+
+      def initialize
+        @pagination_top = ViewHook.new
+        @pagination_bottom = ViewHook.new
+      end
     end
 
     class PostForm

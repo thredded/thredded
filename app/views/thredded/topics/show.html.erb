@@ -7,9 +7,15 @@
   <%= content_tag :section,
                   id: dom_id(topic),
                   class: ['thredded--main-section', 'thredded--topic', *topic_css_classes(topic)] do %>
+
     <%= render 'thredded/topics/header', topic: topic %>
+    <%= view_hooks.posts_common.pagination_top.render(self, posts: @posts) do %>
+      <footer class="thredded--pagination-top"><%= paginate @posts %></footer>
+    <% end %>
     <%= render partial: 'thredded/posts/post', collection: @posts, cached: true %>
-    <%= paginate @posts %>
+    <%= view_hooks.posts_common.pagination_bottom.render(self, posts: @posts) do %>
+      <footer class="thredded--pagination-bottom"><%= paginate @posts %></footer>
+    <% end %>
 
     <% if policy(@new_post).create? %>
       <div class="thredded--post-form--wrapper">
