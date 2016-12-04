@@ -1,6 +1,5 @@
 .thredded--pagination {
   border-top: $thredded-base-border;
-  margin-top: $thredded-base-spacing;
   padding-top: $thredded-base-spacing;
   text-align: center;
 
@@ -23,4 +22,14 @@
       padding: ($thredded-small-spacing / 2) $thredded-small-spacing;
     }
   }
+}
+
+.thredded--pagination-top > .thredded--pagination {
+  border-bottom: $thredded-base-border;
+  margin-bottom: $thredded-base-spacing;
+  padding-bottom: $thredded-base-spacing;
+}
+
+.thredded--pagination-bottom > .thredded--pagination {
+  margin-top: $thredded-base-spacing;
 }
