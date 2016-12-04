@@ -17,6 +17,10 @@ if ENV['HEROKU']
   require 'dalli'
 end
 
+if Rails.env.development?
+  require 'web-console'
+end
+
 module Dummy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
