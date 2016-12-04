@@ -32,5 +32,3 @@ notifications:
 
 dist: trusty
 sudo: required
-before_install:
-- bash .travis.setup.sh
