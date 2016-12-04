@@ -17,9 +17,7 @@ if ENV['HEROKU']
   require 'dalli'
 end
 
-if Rails.env.development?
-  require 'web-console'
-end
+require 'web-console' if Rails.env.development?
 
 module Dummy
   class Application < Rails::Application
