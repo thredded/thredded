@@ -4,6 +4,7 @@ module Thredded
   class PostsPageView
     delegate :to_ary,
              :present?,
+             :to_a,
              to: :@post_views
     delegate :total_pages,
              :current_page,
