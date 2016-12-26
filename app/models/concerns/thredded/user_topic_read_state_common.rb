@@ -13,10 +13,10 @@ module Thredded
     end
 
     module ClassMethods
-      # @param user_id [Fixnum]
-      # @param topic_id [Fixnum]
+      # @param user_id [Integer]
+      # @param topic_id [Integer]
       # @param post [Thredded::PostCommon]
-      # @param post_page [Fixnum]
+      # @param post_page [Integer]
       def touch!(user_id, topic_id, post, post_page)
         # TODO: Switch to upsert once Travis supports PostgreSQL 9.5.
         # Travis issue: https://github.com/travis-ci/travis-ci/issues/4264

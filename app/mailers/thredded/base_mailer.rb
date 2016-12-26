@@ -7,7 +7,7 @@ module Thredded
 
     # Find a record by ID, or return the passed record.
     # @param [Class<ActiveRecord::Base>] klass
-    # @param [Fixnum, String, klass] id_or_record
+    # @param [Integer, String, klass] id_or_record
     # @return [klass]
     def find_record(klass, id_or_record)
       # Check by name because in development the Class might have been reloaded after id was initialized
