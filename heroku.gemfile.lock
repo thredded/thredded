@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.9.2)
+    thredded (0.9.3)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       autosize-rails
@@ -263,7 +263,7 @@ DEPENDENCIES
   uglifier
 
 RUBY VERSION
-   ruby 2.3.2p217
+   ruby 2.4.0p0
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
