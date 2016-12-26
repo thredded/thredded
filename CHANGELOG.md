@@ -1,3 +1,15 @@
+# v0.9.3
+
+This release brings Rails 5.0.1 compatibility to Thredded.
+
+## Fixed
+
+* Rails v5.0.1 compatibility. [#508](https://github.com/thredded/thredded/pull/508)
+* Fix "Mark all as read button" overflowing on mobile.
+  [#05089b](https://github.com/thredded/thredded/commit/05089b034f24e5efea30f71fef04c46cf9067e30)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.9.2...v0.9.3.
+
 # v0.9.2
 
 This release adds Spanish localization [#498](https://github.com/thredded/thredded/pull/498), and fixes
