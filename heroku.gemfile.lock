@@ -129,7 +129,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kramdown (1.13.1)
-    libv8 (3.16.14.17)
+    libv8 (5.3.332.38.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -139,6 +139,8 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
+    mini_racer (0.1.7)
+      libv8 (~> 5.3)
     minitest (5.10.1)
     multi_json (1.12.1)
     newrelic_rpm (3.17.2.327)
@@ -194,7 +196,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
     rb-gravatar (1.0.5)
-    ref (2.0.0)
     request_store (1.3.1)
     rinku (2.0.2)
     rollbar (2.14.0)
@@ -223,9 +224,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
@@ -249,6 +247,7 @@ DEPENDENCIES
   factory_girl_rails
   faker (>= 1.6.2)
   http_accept_language
+  mini_racer
   newrelic_rpm
   pg
   puma
@@ -257,7 +256,6 @@ DEPENDENCIES
   rails-i18n
   rails_email_preview (>= 1.0.3)
   rollbar
-  therubyracer
   thredded!
   turbolinks
   uglifier

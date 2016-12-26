@@ -24,6 +24,6 @@ gem 'faker', '>= 1.6.2'
 # Heroku-specific gems
 gem 'newrelic_rpm'
 gem 'rollbar'
-gem 'therubyracer'
+gem 'mini_racer'
 gem 'rack-canonical-host'
 gem 'dalli'
