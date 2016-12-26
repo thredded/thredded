@@ -7,7 +7,7 @@ PATH
       autosize-rails
       db_text_search (~> 0.2.0)
       friendly_id
-      gemoji
+      gemoji (~> 2.1.0)
       html-pipeline
       html-pipeline-vimeo
       html-pipeline-youtube
@@ -104,7 +104,7 @@ GEM
       i18n (~> 0.5)
     friendly_id (5.2.0)
       activerecord (>= 4.0.0)
-    gemoji (3.0.0)
+    gemoji (2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     html-pipeline (2.4.2)
