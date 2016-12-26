@@ -2,7 +2,8 @@
 module Thredded
   # A view model for a page of BaseTopicViews.
   class TopicsPageView
-    delegate :to_ary,
+    delegate :to_a,
+             :to_ary,
              :blank?,
              :empty?,
              to: :@topic_views
