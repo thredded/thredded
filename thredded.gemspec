@@ -39,7 +39,10 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
   # for the AutolinkFilter
   s.add_dependency 'rinku'
-  s.add_dependency 'gemoji'
+
+  # gemoji v3 removes most of the emoji from the gem, so lock to v2 until we find another solution.
+  s.add_dependency 'gemoji', '~> 2.1.0'
+
   s.add_dependency 'sanitize'
 
   # frontend

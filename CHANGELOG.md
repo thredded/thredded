@@ -2,6 +2,11 @@
 
 This release brings Rails 5.0.1 compatibility to Thredded.
 
+## Changed
+
+* The Gemoji gem now locked to `~> 2.1.0` due to v3 removing most of the emoji, until we find a better solution.
+  https://github.com/github/gemoji/releases/tag/v3.0.0.rc1
+
 ## Fixed
 
 * Rails v5.0.1 compatibility. [#508](https://github.com/thredded/thredded/pull/508)
