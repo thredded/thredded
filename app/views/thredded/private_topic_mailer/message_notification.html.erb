@@ -1,7 +1,5 @@
-<blockquote><%= @topic.posts.order_newest_first.first.filtered_content(self) %></blockquote>
-<%                           # as this is only sent on first post, doesn't need to define order %>
+<blockquote><%= @topic.posts.order_newest_first.first.content %></blockquote>
 <hr />
-
 <p>
   This email was sent to you because <%= @topic.user.thredded_display_name %> included you in a
   private topic, "<%= link_to @topic.title, @topic %>".

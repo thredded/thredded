@@ -1,5 +1,4 @@
 <%= @topic.posts.order_newest_first.first.content %>
-<%               # as this is only sent on first post, doesn't need to define order %>
 ---
 
 This email was sent to you because <%= @topic.user.thredded_display_name %>
