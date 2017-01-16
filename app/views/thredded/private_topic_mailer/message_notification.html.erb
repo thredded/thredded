@@ -1,4 +1,4 @@
-<blockquote><%= @topic.posts.order_newest_first.first.content %></blockquote>
+<blockquote><%= @topic.posts.last.content %></blockquote>
 <hr />
 <p>
   This email was sent to you because <%= @topic.user.thredded_display_name %> included you in a
