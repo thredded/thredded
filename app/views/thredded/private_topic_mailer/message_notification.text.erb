@@ -1,4 +1,4 @@
-<%= @topic.posts.first.content %>
+<%= @topic.posts.order_newest_first.first.content %>
 <%               # as this is only sent on first post, doesn't need to define order %>
 ---
 

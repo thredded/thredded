@@ -1,4 +1,4 @@
-<blockquote><%= @topic.posts.first.filtered_content(self) %></blockquote>
+<blockquote><%= @topic.posts.order_newest_first.first.filtered_content(self) %></blockquote>
 <%                           # as this is only sent on first post, doesn't need to define order %>
 <hr />
 
