@@ -42,11 +42,9 @@ module Thredded
       false
     end
 
-    # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.
-    def readers_from_user_names(user_names)
-      DbTextSearch::CaseInsensitive
-        .new(Thredded.user_class.thredded_messageboards_readers([messageboard]), Thredded.user_name_column)
-        .in(user_names)
+    # @return [ActiveRecord::Relation<Thredded.user_class>] users from that can read this post.
+    def readers
+      Thredded.user_class.thredded_messageboards_readers([messageboard])
     end
 
     private

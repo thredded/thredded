@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 module Thredded
+  # @abstract Classes that include this module are expected to implement {#readers}.
+  # @!method readers
+  #     @return [ActiveRecord::Relation<Thredded.user_class>] users from that can read this post.
   module PostCommon
     extend ActiveSupport::Concern
 
@@ -34,6 +37,14 @@ module Thredded
 
     def first_post_in_topic?
       postable.first_post == self
+    end
+
+    # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.
+    # @api private
+    def readers_from_user_names(user_names)
+      DbTextSearch::CaseInsensitive
+        .new(readers, Thredded.user_name_column)
+        .in(user_names)
     end
 
     private
