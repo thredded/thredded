@@ -2,6 +2,7 @@
 module Thredded
   # @abstract Classes that include this module are expected to implement {#readers}.
   # @!method readers
+  #     @abstract
   #     @return [ActiveRecord::Relation<Thredded.user_class>] users from that can read this post.
   module PostCommon
     extend ActiveSupport::Concern
