@@ -41,7 +41,7 @@ class ThreddedMentionAutocompletion {
       },
       replace  ({name, match}) {
         let prefix = match[1];
-        if (name.indexOf(" ") > -1) {
+        if (/[. ]/.test(name)) {
           return `${prefix}"${name}" `
         } else {
           return `${prefix}${name} `
@@ -51,4 +51,4 @@ class ThreddedMentionAutocompletion {
   }
 }
 
-ThreddedMentionAutocompletion.MATCH_RE = /(^@|\s@)"?((?:\w| )+)$/;
+ThreddedMentionAutocompletion.MATCH_RE = /(^@|\s@)"?([\w. ]+)$/;
