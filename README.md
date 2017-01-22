@@ -511,8 +511,9 @@ change_column_default :thredded_user_details, :moderation_state, 1 # approved
 
 The following official plugins are available for Thredded:
 
-* [BBCode](https://github.com/thredded/thredded-bbcode) formatting for posts, e.g. `[b]for bold[/b]`.
-* [Code Syntax Highlighting](https://github.com/thredded/thredded-markdown_coderay) using Coderay.
+* [BBCode](https://github.com/thredded/thredded-bbcode) formatting for posts, e.g. `[b]for bold[/b]`. Can be used alongside Markdown.
+* [Code Syntax Highlighting in Markdown](https://github.com/thredded/thredded-markdown_coderay) using Coderay.
+* [TeX math via KaTeX in Markdown](https://github.com/thredded/thredded-markdown_katex), fast, accessible, JS-free math rendering.
 
 Thredded is built for extensibility, and writing plugins for it is easy. If you plan on extending Thredded functionality
 in a way others may benefit from, please consider making it a plugin.
