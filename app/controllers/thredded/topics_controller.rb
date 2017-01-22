@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-# rubocop:disable Metrics/ClassLength
 module Thredded
   class TopicsController < Thredded::ApplicationController
+    include Thredded::NewTopicParams
+
     before_action :thredded_require_login!,
                   only: %i(edit new update create destroy follow unfollow)
     after_action :update_user_activity
@@ -147,20 +148,8 @@ module Thredded
         .permit(:title, :locked, :sticky, category_ids: [])
     end
 
-    def new_topic_params
-      params
-        .fetch(:topic, {})
-        .permit(:title, :locked, :sticky, :content, category_ids: [])
-        .merge(
-          messageboard: messageboard,
-          user: thredded_current_user,
-          ip: request.remote_ip,
-        )
-    end
-
     def current_page
       (params[:page] || 1).to_i
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

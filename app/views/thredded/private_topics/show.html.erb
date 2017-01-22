@@ -12,6 +12,7 @@
     <%= paginate @posts %>
     <%= render 'thredded/private_posts/form',
                topic: private_topic,
-               post:  @post %>
+               post: @post,
+               preview_url: private_topic.new_post_preview_path %>
   <% end %>
 <% end %>

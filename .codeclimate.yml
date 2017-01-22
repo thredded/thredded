@@ -6,8 +6,6 @@ engines:
       languages:
       - ruby
       - javascript
-  fixme:
-    enabled: true
   rubocop:
     enabled: true
 ratings:

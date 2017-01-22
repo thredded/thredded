@@ -27,8 +27,12 @@ module Thredded
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :content_text_area
 
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :preview_area
+
       def initialize
         @content_text_area = ViewHook.new
+        @preview_area = ViewHook.new
       end
     end
 

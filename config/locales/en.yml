@@ -15,6 +15,7 @@ en:
       create_btn_submitting: Creating...
       update: Update
       update_btn_submitting: Updating...
+      preview: Preview
     messageboard:
       create: Create a New Messageboard
       form:

@@ -20,9 +20,10 @@
       </li>
     <% end %>
 
-    <%= render 'thredded/posts_common/form/content_field',
-               form:          form,
-               content_label: t('thredded.topics.form.content_label') %>
+    <%= render 'thredded/posts_common/form/content',
+               form: form,
+               content_label: t('thredded.topics.form.content_label'),
+               preview_url: preview_url %>
     <%= render 'thredded/topics/topic_form_admin_options', form: form %>
 
     <li><%= form.submit t('thredded.topics.form.create_btn'), class: 'thredded--form--submit' %></li>

@@ -7,12 +7,17 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   scope path: 'private-topics' do
     resource :read_state, only: [:update], as: :mark_all_private_topics_read
-    resource :private_topic, only: [:new], path: ''
+    resource :private_topic, only: [:new], path: '' do
+      post :preview, on: :new, controller: 'private_topic_previews'
+    end
     resources :private_topics, except: [:new, :show], path: '' do
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
       end
-      resources :private_posts, path: '', except: [:index, :show], controller: 'posts'
+      resources :private_posts, path: '', except: [:index, :show], controller: 'posts' do
+        post :preview, on: :new, controller: 'private_post_previews'
+        resource :preview, only: [:update], controller: 'private_post_previews'
+      end
     end
   end
 
@@ -48,7 +53,9 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :messageboards, only: [:edit, :update]
   resources :messageboards, only: [:index, :create], path: '' do
     resource :preferences, only: [:edit, :update]
-    resource :topic, path: 'topics', only: [:new]
+    resource :topic, path: 'topics', only: [:new] do
+      post :preview, on: :new, controller: 'topic_previews'
+    end
     resources :topics, path: '', except: [:index, :new, :show] do
       collection do
         get '(page-:page)', action: :index, as: '', constraints: page_constraint
@@ -61,7 +68,10 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         match 'follow', via: [:post, :get]
         match 'unfollow', via: [:post, :get]
       end
-      resources :posts, except: [:index, :show], path: ''
+      resources :posts, except: [:index, :show], path: '' do
+        post :preview, on: :new, controller: 'post_previews'
+        resource :preview, only: [:update], controller: 'post_previews'
+      end
     end
   end
 

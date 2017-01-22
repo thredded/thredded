@@ -1,6 +1,8 @@
+<%# TODO: For private topics, only autocomplete users in this private topic %>
 <%= render 'thredded/posts_common/form',
            topic: topic,
            post: post,
+           preview_url: preview_url,
            button_text: t('thredded.private_posts.form.create_btn'),
            button_submitting_text: t('thredded.private_posts.form.create_btn_submitting'),
            content_label: t('thredded.private_posts.form.content_label') %>

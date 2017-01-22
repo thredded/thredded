@@ -15,5 +15,9 @@ module Thredded
                    end
       new(topic, read_state, Pundit.policy!(user, topic))
     end
+
+    def new_post_preview_path
+      Thredded::UrlsHelper.preview_new_private_topic_private_post_path(@topic)
+    end
   end
 end

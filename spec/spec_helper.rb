@@ -81,8 +81,6 @@ end
 
 Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 
-counter = -1
-
 FileUtils.mkdir('log') unless File.directory?('log')
 
 RSpec.configure do |config|
@@ -96,15 +94,15 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
   if ENV['MIGRATION_SPEC']
-    config.before(:suite) do
+    config.before(:suite, migration_spec: true) do
       DatabaseCleaner.strategy = :transaction unless Thredded::DbTools.adapter =~ /mysql/i
     end
 
-    config.before(:each) do
+    config.before(:each, migration_spec: true) do
       DatabaseCleaner.start unless Thredded::DbTools.adapter =~ /mysql/i
     end
 
-    config.after(:each) do
+    config.after(:each, migration_spec: true) do
       if Thredded::DbTools.adapter =~ /mysql/i
         ActiveRecord::Tasks::DatabaseTasks.drop_current
         ActiveRecord::Tasks::DatabaseTasks.create_current
@@ -115,9 +113,8 @@ RSpec.configure do |config|
     end
   else
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
       Thredded::DbTools.silence_active_record do
-        DatabaseCleaner.clean_with(:truncation)
+        DatabaseCleaner.clean_with(:truncation, reset_ids: true)
       end
       if Rails::VERSION::MAJOR < 5
         # after_commit testing is baked into rails 5.
@@ -127,24 +124,33 @@ RSpec.configure do |config|
       ActiveJob::Base.queue_adapter = :inline
     end
 
-    config.after(:suite) do
-      counter = 0
+    config.before(:each) do
+      DatabaseCleaner.strategy = :transaction
+    end
+
+    config.before(:each, type: :feature) do
+      # :rack_test driver's Rack app under test shares database connection
+      # with the specs, so continue to use transaction strategy for speed.
+      shared_db_connection = Capybara.current_driver == :rack_test
+
+      unless shared_db_connection
+        # Driver is probably for an external browser with an app
+        # under test that does *not* share a database connection with the
+        # specs, so use truncation strategy.
+        DatabaseCleaner.strategy = :truncation, { reset_ids: true, cache_tables: true }
+      end
     end
 
     config.before(:each) do
-      DatabaseCleaner.start
       Time.zone = 'UTC'
+      DatabaseCleaner.start
     end
 
     config.after(:each) do
       DatabaseCleaner.clean
-      counter += 1
-      if counter > 9
-        GC.enable
-        GC.start
-        GC.disable
-        counter = 0
-      end
     end
   end
 end
+
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist

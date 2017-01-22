@@ -1,3 +1,5 @@
+//= require ./thredded
+
 (() => {
   const isTurbolinks = 'Turbolinks' in window && window.Turbolinks.supported;
   const isTurbolinks5 = isTurbolinks && 'clearCache' in window.Turbolinks;
@@ -10,8 +12,6 @@
     });
     onPageLoadFiredOnce = true;
   };
-
-  window.Thredded = window.Thredded || {};
 
   // Fires the callback on DOMContentLoaded or a Turbolinks page load.
   // If called from an async script on the first page load, and the DOMContentLoad event

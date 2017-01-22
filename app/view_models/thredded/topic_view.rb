@@ -63,5 +63,9 @@ module Thredded
     def messageboard_path
       Thredded::UrlsHelper.messageboard_topics_path(@topic.messageboard)
     end
+
+    def new_post_preview_path
+      Thredded::UrlsHelper.preview_new_messageboard_topic_post_path(@topic.messageboard, @topic)
+    end
   end
 end
