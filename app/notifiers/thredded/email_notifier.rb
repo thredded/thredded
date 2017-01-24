@@ -18,7 +18,7 @@ module Thredded
       users = exclude_previously_notified(post, users)
       return unless users.present?
       PrivateTopicMailer
-        .message_notification(post.postable.id, users.map(&:email))
+        .message_notification(post.postable.id, post.id, users.map(&:email))
         .deliver_now
       MembersMarkedNotified.new(post, users).run
     end

@@ -1,7 +1,7 @@
 <figure>
     <figcaption><%= @post.user.email %> said:</figcaption>
     <blockquote>
-        <%= @post.content %>
+        <%= @post.filtered_content(self) %>
     </blockquote>
 </figure>
 <hr />

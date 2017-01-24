@@ -1,5 +1,5 @@
 <%= @post.user.email %> said:
-<%= @post.content %>
+<%= @post.filtered_content(self) %>
 ---
 
 This email was sent to you because <%= @topic.user.thredded_display_name %>

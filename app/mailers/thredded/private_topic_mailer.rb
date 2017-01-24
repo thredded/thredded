@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 module Thredded
   class PrivateTopicMailer < Thredded::BaseMailer
-    def message_notification(private_topic_id, post, emails)
+    def message_notification(private_topic_id, post_id, emails)
       @topic               = find_record Thredded::PrivateTopic, private_topic_id
-      @post                = post
+      @post                = find_record Thredded::PrivatePost, post_id
       email_details        = Thredded::TopicEmailView.new(@topic)
       headers['X-SMTPAPI'] = email_details.smtp_api_tag('private_topic_mailer')
 
