@@ -27,7 +27,7 @@ module Thredded
     attr_reader :post
 
     def include_auto_followers
-      post.messageboard.user_messageboard_preferences.where(auto_follow_topics: true).map(&:user)
+      post.messageboard.user_messageboard_preferences.auto_followers.map(&:user)
     end
 
     def exclude_those_opting_out_of_at_notifications(members)
