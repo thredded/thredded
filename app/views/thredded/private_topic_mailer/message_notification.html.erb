@@ -1,4 +1,9 @@
-<blockquote><%= @topic.posts.last.content %></blockquote>
+<figure>
+    <figcaption><%= @post.user.email %> said:</figcaption>
+    <blockquote>
+        <%= @post.content %>
+    </blockquote>
+</figure>
 <hr />
 <p>
   This email was sent to you because <%= @topic.user.thredded_display_name %> included you in a
