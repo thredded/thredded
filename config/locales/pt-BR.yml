@@ -81,12 +81,18 @@ pt-BR:
       edit:
         page_title: :thredded.nav.settings
       form:
+        auto_follow_topics:
+          hint: 'Você seguirá automaticamente todos os novos tópicos.'
+          label: 'Seguir automaticamente novos tópicos'
         follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
             deste post.
           label: Siga os tópicos que são mencionados na
         global_preferences_label: Configurações Globais
+        messageboard_auto_follow_topics:
+          hint: :thredded.preferences.form.auto_follow_topics.label
+          label: :thredded.preferences.form.auto_follow_topics.label
         messageboard_follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá receber
