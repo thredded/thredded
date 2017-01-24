@@ -8,7 +8,7 @@ module Thredded
         mock_private_topic(posts: [
                              post
                            ]),
-        post.id,
+        post,
         %w(glebm@test.com joel@test.com)
       )
     end
