@@ -27,6 +27,14 @@ module Thredded
       self.position ||= (created_at || Time.zone.now).to_i
     end
 
+    after_save :set_autofollow, on: :create
+
+    def set_autofollow
+      UserPreference.auto_followers.each do |user_preference|
+        user_messageboard_preferences.create(user_preference: user_preference, auto_follow_topics: true)
+      end
+    end
+
     has_many :categories, dependent: :destroy
     has_many :user_messageboard_preferences, dependent: :destroy
     has_many :posts, dependent: :destroy

@@ -16,6 +16,8 @@ module Thredded
     end
     validates :user_id, presence: true
 
+    scope :auto_followers, -> { where(auto_follow_topics: true) }
+
     accepts_nested_attributes_for :notifications_for_followed_topics,
                                   :notifications_for_private_topics,
                                   :messageboard_notifications_for_followed_topics

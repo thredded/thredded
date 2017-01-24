@@ -9,12 +9,14 @@ module Thredded
     validate :validate_children
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
+             :auto_follow_topics, :auto_follow_topics=,
              :messageboard_notifications_for_followed_topics_attributes=,
              :notifications_for_followed_topics_attributes=,
              :notifications_for_private_topics_attributes=,
              to: :user_preference
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
+             :auto_follow_topics, :auto_follow_topics=,
              to: :user_messageboard_preference,
              prefix: :messageboard
 

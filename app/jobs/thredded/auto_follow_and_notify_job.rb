@@ -6,7 +6,7 @@ module Thredded
     def perform(post_id)
       post = Post.find(post_id)
 
-      AutofollowMentionedUsers.new(post).run
+      AutofollowUsers.new(post).run
       NotifyFollowingUsers.new(post).run
     end
   end
