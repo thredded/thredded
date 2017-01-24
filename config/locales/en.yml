@@ -145,6 +145,7 @@ en:
         manual: You are following this topic.
         mentioned: You are following this topic because you were mentioned on it.
         posted: You are following this topic because you posted to it.
+        auto: You are following this topic because auto-follow is enabled.
       form:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label

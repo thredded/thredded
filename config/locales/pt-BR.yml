@@ -148,6 +148,7 @@ pt-BR:
         manual: Você está seguindo este tópico.
         mentioned: Você está seguindo este tópico porque você foi mencionado nele.
         posted: Você está seguindo este tópico porque foi você que o publicou.
+        auto: Você está seguindo este tópico porque o auto-follow está ativado.
       form:
         categories_placeholder: Categorias
         content_label: :thredded.posts.form.content_label
