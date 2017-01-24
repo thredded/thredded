@@ -1,5 +1,5 @@
-<%= @topic.posts.first.content %>
-<%               # as this is only sent on first post, doesn't need to define order %>
+<%= @post.user.email %> said:
+<%= @post.filtered_content(self) %>
 ---
 
 This email was sent to you because <%= @topic.user.thredded_display_name %>
