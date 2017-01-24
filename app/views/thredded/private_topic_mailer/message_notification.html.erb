@@ -1,5 +1,7 @@
 <figure>
-    <figcaption><%= @post.user.email %> said:</figcaption>
+    <figcaption>
+      <%= @post.user.thredded_display_name %> <%= link_to 'said', private_post_permalink_url(@post) %>:
+    </figcaption>
     <blockquote>
         <%= @post.filtered_content(self) %>
     </blockquote>
@@ -7,8 +9,7 @@
 <hr />
 <p>
   This email was sent to you because <%= @topic.user.thredded_display_name %> included you in a
-  private topic, "<%= link_to @topic.title, @topic %>".
-  <%= link_to 'Go here', @topic %> to view the conversation.
+  private topic, "<%= link_to @topic.title, private_topic_url(@topic) %>".
 </p>
 
 <p>

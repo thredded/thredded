@@ -1,11 +1,12 @@
-<%= @post.user.email %> said:
+<%= @post.user.thredded_display_name %> said:
 <%= @post.content %>
 ---
 
 This email was sent to you because <%= @topic.user.thredded_display_name %>
 included you in the private topic "<%= @topic.title %>".
+
 Go here to view the conversation:
-  <%= url_for @topic %>
+  <%= private_post_permalink_url(@post) %>
 
 To unsubscribe from these emails, update your preferences here:
   <%= edit_preferences_url %>
