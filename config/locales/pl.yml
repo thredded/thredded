@@ -42,7 +42,8 @@ pl:
       post_approved_html: Post zaakceptowany przez %{moderator} %{time_ago}.
       post_blocked_html: Post zablokowany przez %{moderator} %{time_ago}.
       post_deleted_notice: Ten post został usunięty.
-      posts_content_changed_since_moderation_html: Zawartość <a href="%{post_url}">postu</a> zmieniła się od czasu moderacji. Poniżej znajduje się jego treść
+      posts_content_changed_since_moderation_html: >-
+        Zawartość <a href="%{post_url}">postu</a> zmieniła się od czasu moderacji. Poniżej znajduje się jego treść
         z okresu moderacji.
       search_users:
         form_label: Wyszukaj użytkowników
@@ -136,7 +137,7 @@ pl:
       deleted_notice: Temat usunięty.
       edit: Edytuj temat
       follow: Obserwuj temat
-      followed_by: "Obserwowany przez:"
+      followed_by: 'Obserwowany przez:'
       followed_by_noone: Nikt nie obserwuje tego tematu
       followed_notice: Obserwujesz ten temat
       following:
@@ -155,9 +156,9 @@ pl:
         label: Zablokowany
       not_following: Nie obserwujesz tego tematu.
       search:
-        no_results_message: "Nie odnaleziono żadnych wyników dla frazy: %{query}"
+        no_results_message: 'Nie odnaleziono żadnych wyników dla frazy: %{query}'
         page_title: Wyniki wyszukiwania
-        results_message: "Wyniki wyszukiwania dla: %{query}"
+        results_message: 'Wyniki wyszukiwania dla: %{query}'
       started_by_html: Rozpoczęty %{time_ago} przez %{user}
       sticky:
         label: Przyklejony
@@ -169,17 +170,17 @@ pl:
       last_active_html: Ostatnio aktywny %{time_ago}
       posted_in_topic_html: Napisał w temacie %{topic_link}
       posts_count:
+        few: Napisał %{count} postów
+        many: Napisał %{count} postów
         one: Napisał 1 post
         other: Napisał %{count} postów
-        many: Napisał %{count} postów
-        few: Napisał %{count} postów
       recent_activity: :thredded.recent_activity
       started_topic_html: Rozpoczął %{topic_link}
       started_topics_count:
+        few: Rozpoczął %{count} tematy
+        many: Rozpoczął %{count} tematów
         one: Rozpoczął 1 temat
-        other: "Rozpoczął %{count} tematów"
-        many: "Rozpoczął %{count} tematów"
-        few: "Rozpoczął %{count} tematy"
+        other: Rozpoczął %{count} tematów
       user_posted_in_topic_html: "%{user_link} napisał w %{topic_link}"
       user_since_html: Zarejestrowany od %{time_ago}
       user_started_topic_html: "%{user_link} rozpoczął %{topic_link}"
