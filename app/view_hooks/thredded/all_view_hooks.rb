@@ -5,6 +5,8 @@ module Thredded
     attr_reader :posts_common
     # @return [PostForm]
     attr_reader :post_form
+    # @return [MessageboardsIndex]
+    attr_reader :messageboards_index
     # @return [ModerationUserPage]
     attr_reader :moderation_user_page
 
@@ -24,6 +26,7 @@ module Thredded
       @posts_common = PostsCommon.new
       @post_form = PostForm.new
       @moderation_user_page = ModerationUserPage.new
+      @messageboards_index = MessageboardsIndex.new
     end
 
     # View hooks for collections of public or private posts.
@@ -49,6 +52,24 @@ module Thredded
       def initialize
         @content_text_area = ViewHook.new
         @preview_area = ViewHook.new
+      end
+    end
+
+    class MessageboardsIndex
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :container
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :list
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :group
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :messageboard
+
+      def initialize
+        @container = ViewHook.new
+        @list = ViewHook.new
+        @group = ViewHook.new
+        @messageboard = ViewHook.new
       end
     end
 
