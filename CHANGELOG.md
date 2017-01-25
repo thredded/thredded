@@ -1,3 +1,24 @@
+# Master
+
+## Added
+
+* Polish localization.
+  [#519](https://github.com/thredded/thredded/pull/519)
+* KaTeX server-side TeX math rendering plugin.
+  [#476](https://github.com/thredded/thredded/issues/476)
+
+## Fixed
+
+* Private message notification mailer now correctly shows the relevant message
+  (previously it always showed the first message of the private topic).
+  Also, improved the email copy.
+  [#512](https://github.com/thredded/thredded/issues/512)
+* @-mentions now allow and autocomplete `.` when quoted, e.g. `@"Mr. Smith"`.
+  [#296773](https://github.com/thredded/thredded/commit/296773839b6931b7168202d663dbc3a007dbf84e)
+* Fixed a breadcrumb URL on the topic page.
+  [#9b5525](https://github.com/thredded/thredded/commit/9b55253f776d154692bed80da6507595631f86c6)
+
+
 # v0.9.3
 
 This release brings Rails 5.0.1 compatibility to Thredded.
