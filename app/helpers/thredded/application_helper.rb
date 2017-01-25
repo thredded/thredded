@@ -4,6 +4,7 @@ module Thredded
     include ::Thredded::UrlsHelper
     include ::Thredded::NavHelper
 
+    # @return [AllViewHooks] View hooks configuration.
     def view_hooks
       @view_hooks ||= Thredded.view_hooks
     end

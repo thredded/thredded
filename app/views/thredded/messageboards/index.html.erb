@@ -2,21 +2,31 @@
 <% content_for :thredded_page_id, 'thredded--messageboards-index' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 <%= thredded_page do %>
-  <section class="thredded--main-section thredded--messageboards">
-    <% @groups.each do |group| %>
-      <% if group.name.present? %>
-        <h3><%= group.name %></h3>
+  <%= view_hooks.messageboards_index.container.render self, groups: @groups do %>
+    <section class="thredded--main-section thredded--messageboards">
+      <%= view_hooks.messageboards_index.list.render self, groups: @groups do %>
+        <% @groups.each do |group| %>
+          <%= view_hooks.messageboards_index.group.render self, group: group do %>
+            <% if group.name.present? %>
+              <h3><%= group.name %></h3>
+            <% end %>
+            <%= render group.messageboards %>
+          <% end %>
+        <% end %>
       <% end %>
-      <%= render group.messageboards %>
-    <% end %>
 
-    <div class="thredded--messageboards--actions">
-      <% if policy(Thredded::Messageboard.new).create? %>
-        <a class="thredded--button" href="<%= new_messageboard_path %>"><%= t('thredded.messageboard.create') %></a>
-      <% end %>
-      <% if policy(Thredded::MessageboardGroup.new).create? %>
-        <a class="thredded--button" href="<%= new_messageboard_group_path %>"><%= t('thredded.messageboard_group.create') %></a>
-      <% end %>
-    </div>
-  </section>
+      <div class="thredded--messageboards--actions">
+        <% if policy(Thredded::Messageboard.new).create? %>
+          <a class="thredded--button" href="<%= new_messageboard_path %>">
+            <%= t('thredded.messageboard.create') %>
+          </a>
+        <% end %>
+        <% if policy(Thredded::MessageboardGroup.new).create? %>
+          <a class="thredded--button" href="<%= new_messageboard_group_path %>">
+            <%= t('thredded.messageboard_group.create') %>
+          </a>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
 <% end %>
