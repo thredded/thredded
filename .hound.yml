@@ -3,6 +3,7 @@ scss:
 
 ruby:
   enabled: false
+  config_file: .rubocop.yml
 
 javascript:
   enabled: false
