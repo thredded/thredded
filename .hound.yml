@@ -2,8 +2,11 @@ scss:
   enabled: true
 
 ruby:
-  enabled: false
+  enabled: true
   config_file: .rubocop.yml
+
+flog:
+  enabled: true
 
 javascript:
   enabled: false
