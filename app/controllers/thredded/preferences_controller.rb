@@ -5,7 +5,7 @@ module Thredded
                   :init_preferences
 
     def edit
-    end
+      end
 
     def update
       if @preferences.save
