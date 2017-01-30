@@ -22,6 +22,7 @@
 * Fixed a breadcrumb URL on the topic page.
   [#9b5525](https://github.com/thredded/thredded/commit/9b55253f776d154692bed80da6507595631f86c6)
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.9.3...v0.9.4.
 
 # v0.9.3
 
