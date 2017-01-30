@@ -1,9 +1,13 @@
-# Master
+# v0.9.4
 
 ## Added
 
+* Preview posts as yout type.
+  [#237](https://github.com/thredded/thredded/issues/237)
 * Polish localization.
   [#519](https://github.com/thredded/thredded/pull/519)
+* Pagination on top of the topic page as well as the bottom by default.
+  [#501](https://github.com/thredded/thredded/pull/501)
 * KaTeX server-side TeX math rendering plugin.
   [#476](https://github.com/thredded/thredded/issues/476)
 
