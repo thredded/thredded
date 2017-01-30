@@ -1,0 +1,442 @@
+.thredded--post--content {
+
+  $bg: hsl(220, 13%, 18%);
+  $comment: hsl(240, 0%, 39%);
+  $fg: hsl(220, 14%, 71%);
+  $line-number: hsl(218, 5%, 37%);
+  $yellow: hsl(39, 67%, 69%);
+  $orange: hsl(29, 54%, 61%);
+  $red: hsl(5, 48%, 51%);
+  $magenta: hsl(355, 65%, 65%);
+  $purple: hsl(286, 60%, 67%);
+  $blue: hsl(207, 82%, 66%);
+  $cyan: hsl(187, 47%, 55%);
+  $green: hsl(95, 38%, 62%);
+  $border: hsl(221, 9%, 26%);
+
+  span.CodeRay {
+    white-space: pre;
+    border: 0;
+    padding: 2px;
+  }
+
+  table.CodeRay {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 2px;
+
+    td {
+      padding: 2px 4px;
+      vertical-align: top;
+    }
+  }
+
+  .CodeRay {
+    background-color: $bg;
+    border: 1px solid $border;
+    border-radius: 5px;
+    color: $fg;
+    margin: 5px 0;
+
+    pre {
+      margin: 0;
+      background-color: $bg;
+      color: $fg;
+      border: 0 solid $border;
+      padding: 0.7em 1em;
+    }
+
+    .line-numbers {
+      color: $line-number;
+      text-align: right;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+
+      a {
+        background-color: $line-number !important;
+        color: $comment !important;
+        text-decoration: none !important;
+
+        &:target {
+          color: $blue !important;
+        }
+      }
+
+      pre {
+        word-break: normal;
+      }
+
+      .highlighted {
+        color: $red !important;
+
+        a {
+          color: $red !important;
+        }
+      }
+    }
+    span.line-numbers {
+      padding: 0 13px 0 0;
+    }
+
+    .line {
+      display: block;
+      float: left;
+      width: 100%;
+    }
+    .code {
+      width: 100%;
+    }
+    .debug {
+      color: $bg !important;
+      background: $blue !important;
+    }
+    .annotation {
+      color: $blue;
+    }
+    .attribute-name {
+      color: $orange;
+    }
+    .attribute-value {
+      color: $green;
+    }
+    .binary {
+      color: $purple;
+      .char {
+        color: $purple;
+      }
+      .delimiter {
+        color: $purple;
+      }
+    }
+
+    .char {
+      color: $red;
+      .content {
+        color: $red;
+      }
+      .delimiter {
+        color: $red;
+      }
+    }
+
+    .class {
+      color: $yellow;
+      // font-weight: bold;
+      &-variable {
+        color: $red;
+      }
+    }
+
+    .color {
+      color: $green;
+    }
+
+    .comment {
+      color: $comment;
+      font-style: italic;
+      .char {
+        color: $fg;
+      }
+      .delimiter {
+        color: $fg;
+      }
+    }
+
+    .constant {
+      color: $yellow;
+      // font-weight: bold;
+    }
+
+    .decorator {
+      color: $magenta;
+    }
+
+    .definition {
+      color: $cyan;
+      // font-weight: bold;
+    }
+
+    .delimiter {
+      color: $comment;
+    }
+
+    .directive {
+      color: $cyan;
+      // font-weight: bold;
+    }
+
+    .docstring {
+      color: $orange;
+    }
+
+    .doctype {
+      color: $blue;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: $comment;
+    }
+
+    .entity {
+      color: $red;
+      // font-weight: bold;
+    }
+
+    .error {
+      color: $bg;
+      background-color: $red;
+    }
+
+    .escape {
+      color: $comment;
+    }
+
+    .exception {
+      color: $red;
+      // font-weight: bold;
+    }
+
+    .float {
+      color: $orange;
+    }
+
+    .function {
+      color: $blue;
+      // font-weight: bold;
+      .delimiter {
+        color: $blue;
+        // font-weight: bold;
+      }
+    }
+
+    .global-variable {
+      color: $orange;
+    }
+
+    .hex {
+      color: $blue;
+    }
+
+    .id {
+      color: $blue;
+      // font-weight: bold;
+    }
+
+    .include {
+      color: $magenta;
+      // font-weight: bold;
+    }
+
+    .inline {
+      color: $green;
+      &-delimiter {
+        // font-weight: bold;
+        color: $magenta;
+      }
+    }
+
+    .instance-variable {
+      color: $magenta;
+    }
+
+    .integer {
+      color: $orange;
+    }
+
+    .imaginary {
+      color: $red;
+    }
+
+    .important {
+      color: $red;
+    }
+
+    .key {
+      color: $cyan;
+      .char {
+        color: $cyan;
+      }
+      .delimiter {
+        color: $cyan;
+      }
+    }
+
+    .keyword {
+      color: $purple;
+      // font-weight: bold;
+    }
+
+    .label {
+      color: $yellow;
+      // font-weight: bold;
+    }
+
+    .local-variable {
+      color: $fg;
+    }
+
+    .map {
+      .content {
+        color: $purple;
+      }
+      .delimiter {
+        color: $purple;
+      }
+    }
+
+    .namespace {
+      color: $purple;
+      // font-weight: bold;
+    }
+
+    .octal {
+      color: $purple;
+    }
+
+    .operator {
+    }
+
+    .predefined {
+      color: $blue;
+      // font-weight: bold;
+      &-constant {
+        color: $orange;
+      }
+      &-type {
+        color: $green;
+        // font-weight: bold;
+      }
+    }
+
+    .preprocessor {
+      color: $purple;
+    }
+
+    .pseudo-class {
+      color: $blue;
+      // font-weight: bold;
+    }
+
+    .regexp {
+      .content {
+        color: $purple;
+      }
+      .delimiter {
+        color: $purple;
+      }
+      .modifier {
+        color: $purple;
+      }
+    }
+
+    .reserved {
+      color: $green;
+      // font-weight: bold;
+    }
+
+    .shell {
+      .content {
+        color: $green;
+      }
+      .delimiter {
+        color: $green;
+      }
+    }
+
+    .string {
+      .char {
+        color: $green;
+      }
+      .content {
+        color: $green;
+      }
+      .delimiter {
+        color: $green;
+      }
+      .modifier {
+        color: $orange;
+      }
+    }
+
+    .symbol {
+      color: $cyan;
+      .content {
+        color: $cyan;
+      }
+      .delimiter {
+        color: $cyan;
+      }
+    }
+
+    .tag {
+      color: $red;
+      // font-weight: bold;
+    }
+
+    .type {
+      color: $purple;
+      // font-weight: bold;
+    }
+
+    .value {
+      color: $orange;
+    }
+
+    .variable {
+      color: $blue;
+    }
+
+    .insert {
+      background-color: hsla(120, 100%, 50%, 0.2);
+      .insert {
+        color: $green;
+        // font-weight: bold;
+      }
+      .eyecatcher {
+        background-color: hsla(120, 100%, 50%, 0.2);
+        border: 1px solid hsla(120, 100%, 25%, 0.5);
+        margin: -1px;
+        border-top: none;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+    }
+
+    .delete {
+      background: hsla(0, 100%, 50%, 0.12);
+      .delete {
+        color: $red;
+        background: transparent;
+        // font-weight: bold;
+      }
+      .eyecatcher {
+        background-color: hsla(0, 100%, 50%, 0.2);
+        border: 1px solid hsla(0, 100%, 45%, 0.5);
+        margin: -1px;
+        border-bottom: none;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+    }
+
+    .change {
+      color: $purple;
+      background: $blue;
+      .change {
+        color: $purple;
+      }
+    }
+
+    .head {
+      color: $purple;
+      .head {
+        color: $purple;
+      }
+      .filename {
+        color: $purple;
+      }
+    }
+  }
+}
