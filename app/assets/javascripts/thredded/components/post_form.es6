@@ -1,3 +1,5 @@
+//= require ./preview_area
+
 (($) => {
   const COMPONENT_SELECTOR = '[data-thredded-post-form]';
 
@@ -9,6 +11,9 @@
     init($nodes) {
       let $textarea = $nodes.find(this.textareaSelector);
       this.autosize($textarea);
+      $nodes.each(function() {
+        new ThreddedPreviewArea($(this));
+      });
       new ThreddedMentionAutocompletion($).init($nodes);
     }
 

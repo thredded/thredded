@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 module Thredded
+  # This currently handles both {Post}s and {PrivatePost}s.
+  # TODO: split up the PrivatePost functionality into a separate controller.
   class PostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
 

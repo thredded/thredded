@@ -1,4 +1,5 @@
-window.Thredded = window.Thredded || {};
+//= require ./thredded
+
 window.Thredded.hideSoftKeyboard = () => {
   const activeElement = document.activeElement;
   if (!activeElement || !activeElement.blur) return;

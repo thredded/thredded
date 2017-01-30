@@ -1,0 +1,1 @@
+window.Thredded = window.Thredded || {};

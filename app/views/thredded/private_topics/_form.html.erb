@@ -1,6 +1,12 @@
 <%= form_for private_topic,
-             url:  private_topics_path(@private_topic),
-             html: { class: "thredded--form thredded--new-private-topic-form #{local_assigns[:css_class]}", 'data-thredded-topic-form' => true } do |form| %>
+             url: private_topics_path(@private_topic),
+             html: {
+                 class: "thredded--form thredded--new-private-topic-form #{local_assigns[:css_class]}",
+                 'data-thredded-topic-form' => true,
+                 # TODO: only autocomplete users in this private topic
+                 'data-autocomplete-url' => autocomplete_users_path,
+                 'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
+             } do |form| %>
 
   <ul class="thredded--form-list on-top">
     <li class="title">
@@ -10,15 +16,16 @@
     <li>
       <%= form.label :user_ids, t('thredded.private_topics.form.users_label') %>
       <%= form.text_field :user_ids,
-                          placeholder:                   t('thredded.private_topics.form.users_placeholder'),
-                          'data-thredded-users-select'   => true,
-                          'data-autocomplete-url'        => autocomplete_users_path,
+                          placeholder: t('thredded.private_topics.form.users_placeholder'),
+                          'data-thredded-users-select' => true,
+                          'data-autocomplete-url' => autocomplete_users_path,
                           'data-autocomplete-min-length' => Thredded.autocomplete_min_length %>
     </li>
 
-    <%= render 'thredded/posts_common/form/content_field',
-               form:          form,
-               content_label: t('thredded.private_topics.form.content_label') %>
+    <%= render 'thredded/posts_common/form/content',
+               form: form,
+               content_label: t('thredded.private_topics.form.content_label'),
+               preview_url: preview_url %>
 
     <li>
       <button type="submit" class="thredded--form--submit"

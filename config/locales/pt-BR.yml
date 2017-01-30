@@ -13,6 +13,7 @@ pt-BR:
       private_topic_not_found: Este tópico privado não existe.
     form:
       create_btn_submitting: Criando...
+      preview: Pré-visualização
       update: Atualizar
       update_btn_submitting: Atualizando...
     messageboard:

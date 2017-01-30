@@ -27,7 +27,7 @@ development:
 
 test:
   <<: *defaults
-  database: <%= db_adapter == 'sqlite3' ? ENV.fetch('DATABASE_FILE', "':memory:'") : 'thredded_gem_test' %>
+  database: <%= db_adapter == 'sqlite3' ? ENV.fetch('DATABASE_FILE', 'db/test.sqlite3') : 'thredded_gem_test' %>
 
 production:
   <<: *defaults

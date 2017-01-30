@@ -1,0 +1,16 @@
+<%= view_hooks.post_form.preview_area.render self, form: form, preview_url: preview_url do %>
+  <li>
+    <noscript>
+      <button type="submit" class="thredded--button thredded--post--preview-btn"
+              formtarget="_blank" formaction="<%= preview_url %>">
+        <%= t 'thredded.form.preview' %>
+      </button>
+    </noscript>
+
+    <div class="thredded--preview-area"
+         data-thredded-preview-area data-thredded-preview-url="<%= preview_url %>">
+      <h4 class="thredded--preview-area--title"><%= t 'thredded.form.preview' %></h4>
+      <div class="thredded--preview-area--post thredded--post--content" data-thredded-preview-area-post></div>
+    </div>
+  </li>
+<% end %>

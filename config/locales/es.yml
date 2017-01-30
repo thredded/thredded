@@ -13,6 +13,7 @@ es:
       private_topic_not_found: Este tema privado no existe.
     form:
       create_btn_submitting: Creando...
+      preview: Vista previa
       update: Actualizar
       update_btn_submitting: Actualizando...
     messageboard:

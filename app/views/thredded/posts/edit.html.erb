@@ -12,6 +12,8 @@
                messageboard: (messageboard unless @post.private_topic_post?),
                topic:        topic,
                post:         @post,
+               preview_url:  (@post.private_topic_post? ? private_topic_private_post_preview_path(@post.postable, @post)
+                                                        : messageboard_topic_post_preview_path(messageboard, @post.postable, @post)),
                button_text:  t('thredded.posts.form.update_btn'),
                button_submitting_text: t('thredded.posts.form.update_btn_submitting')%>
   </section>

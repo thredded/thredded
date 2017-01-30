@@ -2,7 +2,7 @@
 require 'support/features/page_object/base'
 
 module PageObject
-  class Topics < Base
+  class Topics < Base # rubocop:disable Metrics/ClassLength
     attr_accessor :messageboard, :topic_title, :topic_content
 
     def initialize(messageboard)
@@ -22,22 +22,23 @@ module PageObject
     end
 
     def create_topic
-      topic_with_content('Lorem ipsum dolor samet')
+      fill_topic_form('Lorem ipsum dolor samet')
+      submit
     end
 
     def create_markdowned_topic
-      topic_with_content('Lorem **ipsum** dolor samet')
+      fill_topic_form('Lorem **ipsum** dolor samet')
+      submit
     end
 
     def rendering_markdown?
       has_css? 'strong', text: 'ipsum'
     end
 
-    def topic_with_content(post_content)
+    def fill_topic_form(post_content)
       visit_form
       title('Sample thread title')
       content(post_content)
-      click_button 'Create New Topic'
     end
 
     def visit_style_guide
@@ -65,7 +66,26 @@ module PageObject
     end
 
     def displayed?
-      has_content?(topic_title) && has_content?(topic_content)
+      has_content?(topic_title)
+    end
+
+    def preview_html
+      # Wait for debounced preview to trigger
+      Timeout.timeout(1) do
+        loop do
+          break if page.evaluate_script('jQuery.active') > 0
+        end
+      end
+      # Wait for the response from the preview handler
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        loop do
+          active = page.evaluate_script('jQuery.active')
+          break if active == 0
+        end
+      end
+      page.evaluate_script <<-JS
+        document.querySelectorAll('[data-thredded-preview-area-post]')[0].innerHTML
+      JS
     end
 
     alias has_the_title_and_content? displayed?
@@ -119,7 +139,7 @@ module PageObject
     end
 
     def submit
-      click_button 'Create New Topic'
+      click_button I18n.t('thredded.topics.form.create_btn')
     end
 
     def read?

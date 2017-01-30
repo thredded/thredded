@@ -1,0 +1,10 @@
+<% content_for :thredded_page_title, t('thredded.form.preview') %>
+<% content_for :thredded_page_id, 'thredded--post-preview' %>
+
+<%# The noscript version of a post preview %>
+<%= thredded_page do %>
+  <h1><%= t 'thredded.form.preview' %></h1>
+  <div class="thredded--preview-area--post thredded--post--content">
+    <%= @preview_content %>
+  </div>
+<% end %>

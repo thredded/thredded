@@ -2,10 +2,13 @@
 require 'spec_helper'
 
 feature 'User creates new topic' do
-  scenario 'with title and content' do
+  scenario 'with title and content', js: true do
     topic = new_topic
 
-    topic.create_topic
+    topic.fill_topic_form('Hello *world*!')
+    expect(topic.preview_html).to eq("<p>Hello <em>world</em>!</p>\n")
+    topic.submit
+
     expect(topic).to be_listed
     expect(topic).to be_read
 

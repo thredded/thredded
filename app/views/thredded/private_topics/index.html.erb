@@ -11,9 +11,10 @@
       <%= render 'thredded/private_topics/no_private_topics' %>
     <% else -%>
       <%= render 'thredded/private_topics/form',
-        private_topic: @new_private_topic,
-        css_class:     'thredded--is-compact',
-        placeholder:   t('thredded.private_topics.form.title_placeholder_start') %>
+                 private_topic: @new_private_topic,
+                 preview_url: preview_new_private_topic_path,
+                 css_class: 'thredded--is-compact',
+                 placeholder: t('thredded.private_topics.form.title_placeholder_start') %>
 
       <%= render @private_topics %>
 
