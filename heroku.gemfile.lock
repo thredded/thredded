@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.9.3)
+    thredded (0.9.4)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       autosize-rails
@@ -72,7 +72,7 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
-    autoprefixer-rails (6.6.0)
+    autoprefixer-rails (6.7.1)
       execjs
     autosize-rails (1.18.17)
       rails (>= 3.1)
@@ -80,7 +80,8 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    builder (3.2.2)
+    builder (3.2.3)
+    coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -88,7 +89,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.3)
+    concurrent-ruby (1.0.4)
     crass (1.0.2)
     dalli (2.7.6)
     db_text_search (0.2.1)
@@ -100,14 +101,14 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
-    faker (1.7.1)
+    faker (1.7.2)
       i18n (~> 0.5)
     friendly_id (5.2.0)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    html-pipeline (2.4.2)
+    html-pipeline (2.5.0)
       activesupport (>= 2)
       nokogiri (>= 1.4)
     html-pipeline-vimeo (0.1.1)
@@ -121,14 +122,25 @@ GEM
       activesupport (>= 4.0)
       loofah (>= 2.0)
       nokogiri (~> 1.6)
-    jquery-rails (4.2.1)
+    jquery-rails (4.2.2)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-    kramdown (1.13.1)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
+    katex (0.1.1)
+      execjs (~> 2.7)
+    kramdown (1.13.2)
     libv8 (5.3.332.38.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -143,15 +155,15 @@ GEM
       libv8 (~> 5.3)
     minitest (5.10.1)
     multi_json (1.12.1)
-    newrelic_rpm (3.17.2.327)
+    newrelic_rpm (3.18.0.329)
     nio4r (1.2.1)
-    nokogiri (1.6.8.1)
+    nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     nokogumbo (1.4.10)
       nokogiri
     pg (0.19.0)
-    public_suffix (2.0.4)
-    puma (3.6.2)
+    public_suffix (2.0.5)
+    puma (3.7.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.1)
@@ -172,12 +184,12 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.1)
       sprockets-rails (>= 2.0.0)
-    rails-dom-testing (2.0.1)
+    rails-dom-testing (2.0.2)
       activesupport (>= 4.2.0, < 6.0)
-      nokogiri (~> 1.6.0)
+      nokogiri (~> 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (5.0.1)
+    rails-i18n (5.0.2)
       i18n (~> 0.7)
       railties (~> 5.0)
     rails-timeago (2.15.0)
@@ -196,7 +208,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
     rb-gravatar (1.0.5)
-    request_store (1.3.1)
+    request_store (1.3.2)
     rinku (2.0.2)
     rollbar (2.14.0)
       multi_json
@@ -226,7 +238,11 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.5)
-    tilt (2.0.5)
+    thredded-markdown_coderay (0.1.0)
+      coderay
+    thredded-markdown_katex (0.1.0)
+      katex (>= 0.1.1)
+    tilt (2.0.6)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -234,7 +250,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
-    websocket-driver (0.6.4)
+    websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
 
@@ -257,6 +273,8 @@ DEPENDENCIES
   rails_email_preview (>= 1.0.3)
   rollbar
   thredded!
+  thredded-markdown_coderay
+  thredded-markdown_katex
   turbolinks
   uglifier
 
@@ -264,4 +282,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.13.7
+   1.14.2
