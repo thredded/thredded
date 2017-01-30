@@ -42,7 +42,7 @@ module Thredded
       false
     end
 
-    # @return [ActiveRecord::Relation<Thredded.user_class>] users from that can read this post.
+    # @return [ActiveRecord::Relation<Thredded.user_class>] users that can read this post.
     def readers
       Thredded.user_class.thredded_messageboards_readers([messageboard])
     end

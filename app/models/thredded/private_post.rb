@@ -27,9 +27,14 @@ module Thredded
       true
     end
 
-    # @return [ActiveRecord::Relation<Thredded.user_class>] users from that can read this post.
+    # @return [ActiveRecord::Relation<Thredded.user_class>] users that can read this post.
     def readers
-      postable.users
+      collection_proxy = postable.users
+      if persisted?
+        collection_proxy.scope
+      else
+        Thredded.user_class.where(id: collection_proxy.to_a.map(&:id))
+      end
     end
 
     private
