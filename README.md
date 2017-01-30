@@ -323,7 +323,7 @@ You can also turn off the email notifier totally, or add other notifiers (e.g. P
 
 ## I18n
 
-Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, and Spanish.
+Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Polish, and Spanish.
 We welcome PRs adding support for new languages.
 
 If you use thredded in languages other than English, you probably want to add `rails-i18n` to your Gemfile.
