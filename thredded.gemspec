@@ -76,6 +76,10 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'i18n-tasks'
   s.add_development_dependency 'web-console'
 
+  # add some plugins to the dummy app demo
+  s.add_development_dependency 'thredded-markdown_coderay'
+  s.add_development_dependency 'thredded-markdown_katex'
+
   # dummy app frontend
   s.add_development_dependency 'turbolinks'
   # required by the turbolinks gem

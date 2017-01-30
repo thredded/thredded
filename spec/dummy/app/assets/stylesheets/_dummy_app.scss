@@ -1,136 +1,16 @@
 @import "variables";
+
+// The homepage
 @import "app_home";
+
+// Demo forums
 @import "thredded";
-@import "rails_email_preview";
+@import "app_layout";
 @import "flash-messages";
 
-.thredded--main-container {
-  // The padding and max-width are handled by the app's container.
-  max-width: none;
-  padding: 0;
-  @include thredded-media-tablet-and-up {
-    padding: 0;
-  }
-}
+// Thredded plugins
+@import "thredded-coderay";
+@import "_katex";
 
-.app-layout {
-  margin: 0;
-  background: $app-bg;
-}
-
-.app {
-  @include thredded--clearfix;
-  -webkit-font-smoothing: antialiased;
-  font-family: $base-font-family;
-  font-size: $base-font-size;
-  line-height: $base-line-height;
-  margin: 0;
-}
-
-.app-container {
-  color: $text-color;
-  margin: 0 auto;
-  max-width: ($grid-container-max-width + 4rem);
-  padding: 0 1.2rem 0.75rem 1.2rem;
-  @include thredded-media-tablet-and-up {
-    padding: 0 2rem 0.75rem 2rem;
-  }
-  @media (min-width: $grid-container-max-width + 0.01rem) {
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
-  }
-}
-
-.app-header {
-  border-bottom: 1px solid $thredded-base-border-color;
-  a {
-    display: inline-block;
-    padding: 1rem 0;
-  }
-}
-
-.app-nav-logo {
-  color: $text-color;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.app-nav-auth {
-  float: right;
-
-  @include thredded-media-mobile {
-    font-size: 0;
-
-    a {
-      margin-left: 0.4rem;
-      font-size: 1rem;
-    }
-  }
-}
-
-.turbolinks-progress-bar {
-  background-color: $brand-primary;
-  height: 0.25rem;
-}
-
-.app-header {
-  a {
-    @extend %thredded--link;
-  }
-}
-
-.app-nav-theme, .app-nav-locale {
-  display: inline-block;
-  margin: 0 0 1rem 1.25rem;
-  font-size: 0.9rem;
-  color: $thredded-secondary-text-color;
-  > ul {
-    display: inline;
-    list-style: none;
-    padding: 0;
-    > li {
-      display: inline;
-      > button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: inherit;
-        padding: 0;
-        @extend %thredded--link;
-      }
-      > span {
-        color: $thredded-secondary-text-color;
-        font-weight: bold;
-      }
-    }
-  }
-  .app-nav-icon {
-    display: none;
-  }
-}
-
-@media (max-width: 620px) {
-  .app-nav-theme, .app-nav-locale {
-    margin: 0 0 0 0.3125rem;
-    > .app-nav-text, .app-current {
-      display: none;
-    }
-  }
-  .app-nav-theme {
-    .app-nav-text {
-      display: none;
-    }
-    button {
-      vertical-align: middle;
-    }
-    .app-nav-icon {
-      display: block;
-      svg {
-        fill: currentColor;
-        height: 1.5rem;
-        width: 1.5rem;
-      }
-    }
-  }
-}
-
+// Other plugins
+@import "rails_email_preview";

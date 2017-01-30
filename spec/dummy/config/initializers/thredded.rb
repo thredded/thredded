@@ -24,5 +24,10 @@ Rails.application.config.to_prepare do
       @message = exception.message
       render template: 'sessions/new', status: :forbidden
     end
+
+    Thredded.view_hooks.post_form.content_text_area.config.after do
+      # This is render in the Thredded view context, so all Thredded helpers and URLs are accessible here directly.
+      content_tag :span, I18n.with_locale('en') { t('thredded_post_form_help_html') }, class: 'app-form-hint'
+    end
   end
 end

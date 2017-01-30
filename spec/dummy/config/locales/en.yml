@@ -2,7 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  thredded_post_form_help_html: >-
+    Markdown <a href="https://kramdown.gettalong.org/quickref.html" target="_blank">quick reference</a>.
+    Wrap KaTeX <a href="https://kramdown.gettalong.org/syntax.html#math-blocks" target="_blank">math</a>
+    in <code>$$</code>.
   views:
     pagination:
       first: "First"

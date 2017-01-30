@@ -10,6 +10,8 @@ require 'rails-i18n'
 require 'turbolinks'
 require 'rails_email_preview'
 require 'thredded'
+require 'thredded/markdown_coderay'
+require 'thredded/markdown_katex'
 
 if ENV['HEROKU']
   require 'rack/canonical_host'
