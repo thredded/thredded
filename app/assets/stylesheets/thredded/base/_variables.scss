@@ -22,8 +22,8 @@ $thredded-dark-gray: #333 !default;
 $thredded-light-gray: #eee !default;
 
 // Colors of text, background, actions (links), and navigation
-$thredded-text-color: #575d6b !default;
-$thredded-secondary-text-color: lighten($thredded-text-color, 30%) !default;
+$thredded-text-color: rgba(black, 0.87) !default;
+$thredded-secondary-text-color: rgba(opacify($thredded-text-color, 1), 0.54) !default;
 $thredded-background-color: #fff !default;
 $thredded-action-color: $thredded-brand !default;
 $thredded-action-hover-color: darken($thredded-action-color, 15%) !default;
