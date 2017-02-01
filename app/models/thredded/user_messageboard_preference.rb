@@ -13,6 +13,8 @@ module Thredded
     validates :user_id, presence: true
     validates :messageboard_id, presence: true
 
+    scope :auto_followers, -> { where(auto_follow_topics: true) }
+
     def self.in(messageboard)
       find_or_initialize_by(messageboard_id: messageboard.id)
     end

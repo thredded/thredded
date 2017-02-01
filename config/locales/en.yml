@@ -82,10 +82,16 @@ en:
       edit:
         page_title: :thredded.nav.settings
       form:
+        auto_follow_topics:
+          hint: 'You will automatically follow all new topics.'
+          label: 'Automatically follow new topics'
         follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) you will follow the topic.'
           label: Follow topics you are mentioned in
         global_preferences_label: Global Settings
+        messageboard_auto_follow_topics:
+          hint: 'Automatically follow all new topics in this messageboard.'
+          label: 'Automatically follow new topics'
         messageboard_follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) in this messageboard you will follow the
             topic.'
@@ -146,6 +152,7 @@ en:
         manual: You are following this topic.
         mentioned: You are following this topic because you were mentioned on it.
         posted: You are following this topic because you posted to it.
+        auto: You are following this topic because auto-follow is enabled.
       form:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label

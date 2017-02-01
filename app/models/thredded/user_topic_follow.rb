@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class UserTopicFollow < ActiveRecord::Base
-    enum reason: [:manual, :posted, :mentioned]
+    enum reason: [:manual, :posted, :mentioned, :auto]
 
     belongs_to :user, inverse_of: :thredded_topic_follows, class_name: Thredded.user_class
     belongs_to :topic, inverse_of: :user_follows

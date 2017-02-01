@@ -28,6 +28,8 @@ module Thredded
 
     def preferences_params
       params.fetch(:user_preferences_form, {}).permit(
+        :auto_follow_topics,
+        :messageboard_auto_follow_topics,
         :follow_topics_on_mention,
         :messageboard_follow_topics_on_mention,
         messageboard_notifications_for_followed_topics_attributes: %i(notifier_key id messageboard_id enabled),

@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe AutofollowMentionedUsers, '#autofollowers' do
+  describe AutofollowUsers, '#autofollowers' do
     before do
       @sam = create(:user, name: 'sam')
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
@@ -17,13 +17,33 @@ module Thredded
       create(:user_preference, user: @john, follow_topics_on_mention: false)
       create(:user_messageboard_preference, user: @john, follow_topics_on_mention: true, messageboard: @messageboard)
 
-      expect(AutofollowMentionedUsers.new(@post).autofollowers).to be_empty
+      expect(AutofollowUsers.new(@post).autofollowers).to be_empty
     end
 
     it 'returns 2 users mentioned, not including post author' do
-      command = AutofollowMentionedUsers.new(@post)
+      command = AutofollowUsers.new(@post)
       autofollowable_mentioned_users = command.autofollowers
       expect(autofollowable_mentioned_users).to match_array([@joel, @john])
+    end
+
+    it 'includes users who have message board auto-follow set' do
+      @sara = create(:user, name: 'sara', email: 'sara@example.com')
+      create(:user_preference, user: @sara, auto_follow_topics: true)
+      create(:user_messageboard_preference, user: @sara, auto_follow_topics: true, messageboard: @messageboard)
+
+      command = AutofollowUsers.new(@post)
+      autofollowable_users = command.autofollowers
+      expect(autofollowable_users).to include(@sara)
+    end
+
+    it 'does not include users who have disabled auto-follow on this board' do
+      @sara = create(:user, name: 'sara', email: 'sara@example.com')
+      create(:user_preference, user: @sara, auto_follow_topics: true)
+      create(:user_messageboard_preference, user: @sara, auto_follow_topics: false, messageboard: @messageboard)
+
+      command = AutofollowUsers.new(@post)
+      autofollowable_users = command.autofollowers
+      expect(autofollowable_users).to_not include(@sara)
     end
 
     it 'does not return users that set their preference to "no @ notifications"' do
@@ -33,14 +53,14 @@ module Thredded
         user: @joel,
         messageboard: @post.messageboard
       )
-      command = AutofollowMentionedUsers.new(@post)
+      command = AutofollowUsers.new(@post)
       users = command.autofollowers
 
       expect(users).not_to include(@joel)
     end
   end
 
-  describe AutofollowMentionedUsers, '#run' do
+  describe AutofollowUsers, '#run' do
     before do
       sam = create(:user, name: 'sam')
       @john = create(:user, name: 'john', email: 'john@example.com')
@@ -48,13 +68,13 @@ module Thredded
     end
 
     it 'adds follows for the users mentioned' do
-      expect { AutofollowMentionedUsers.new(@post).run }
+      expect { AutofollowUsers.new(@post).run }
         .to change { @post.postable.user_follows.reload.count }.from(0).to(1)
     end
 
     it 'does add follows for users already following' do
       create(:user_topic_follow, user: @john, topic: @post.postable)
-      expect { AutofollowMentionedUsers.new(@post).run }
+      expect { AutofollowUsers.new(@post).run }
         .not_to change { @post.postable.user_follows.reload.count }.from(1)
     end
 

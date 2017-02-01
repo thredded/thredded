@@ -10,6 +10,15 @@
   <h3><%= t 'thredded.preferences.form.global_preferences_label' %></h3>
   <ul class="thredded--form-list">
     <li>
+      <%= f.label :auto_follow_topics do %>
+        <%= f.check_box :auto_follow_topics, 'data-thredded-bound-messageboard-pref' => 'user_preferences_form[messageboard_auto_follow_topics]' %>
+        <%= t 'thredded.preferences.form.auto_follow_topics.label' %>
+        <p class="thredded--form-list--hint">
+          <%= t 'thredded.preferences.form.auto_follow_topics.hint' %>
+        </p>
+      <% end %>
+    </li>
+    <li>
       <%= f.label :follow_topics_on_mention do %>
         <%= f.check_box :follow_topics_on_mention, 'data-thredded-bound-messageboard-pref' => 'user_preferences_form[messageboard_follow_topics_on_mention]' %>
         <%= t 'thredded.preferences.form.follow_topics_on_mention.label' %>
@@ -48,6 +57,15 @@
       <%= t 'thredded.preferences.form.messageboard_preferences_label_html', messageboard: messageboard.name %>
     </h3>
     <ul class="thredded--form-list" data-thredded-user-preferences-form-messageboard-fields>
+      <li>
+        <%= f.label :messageboard_auto_follow_topics do %>
+          <%= f.check_box :messageboard_auto_follow_topics %>
+          <%= t 'thredded.preferences.form.messageboard_auto_follow_topics.label' %>
+          <p class="thredded--form-list--hint">
+            <%= t 'thredded.preferences.form.messageboard_auto_follow_topics.hint' %>
+          </p>
+        <% end %>
+      </li>
       <li>
         <%= f.label :messageboard_follow_topics_on_mention do %>
           <%= f.check_box :messageboard_follow_topics_on_mention %>
