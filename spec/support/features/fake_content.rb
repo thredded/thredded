@@ -69,7 +69,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       $$
     TEX
   ].freeze
-  SMILEYS = %w(:smile: 💥 :woman_facepalming: :man_facepalming:).freeze
+  SMILEYS = %w(:smile: 💥).freeze
 
   def post_content # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
     result = []
