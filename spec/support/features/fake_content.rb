@@ -3,12 +3,27 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
   module_function
 
   IMAGES = [
-    ['Mario', 'https://storage.googleapis.com/glebm-stuff/mario.jpg'],
-    ['This is fine', 'https://storage.googleapis.com/glebm-stuff/this-is-fine.jpg'],
-    ['I want things to be different... oh no', 'https://storage.googleapis.com/glebm-stuff/webcomicname-different.jpg'],
+    <<~MARKDOWN,
+      Art:
+      ![Mario](https://storage.googleapis.com/glebm-stuff/mario.jpg
+    MARKDOWN
+    <<~MARKDOWN,
+      ![This is fine](https://storage.googleapis.com/glebm-stuff/this-is-fine.jpg
+    MARKDOWN
+    <<~MARKDOWN,
+      That feeling when:
+      ![I want things to be different... oh no](https://storage.googleapis.com/glebm-stuff/webcomicname-different.jpg)
+    MARKDOWN
+    <<~MARKDOWN,
+      This is what we've done:
+      ![XKCD 927: How standards proliferate](https://imgs.xkcd.com/comics/standards.png)
+    MARKDOWN
+    <<~MARKDOWN,
+      ![nyancat](https://storage.googleapis.com/glebm-stuff/nyancat.gif)
+    MARKDOWN
   ].freeze
 
-  YOUTUBE_VIDEO_IDS = %w(5lBBUPVuusM vDnpDgY_Im4 dQw4w9WgXcQ).freeze
+  YOUTUBE_VIDEO_IDS = %w(5lBBUPVuusM vDnpDgY_Im4 dQw4w9WgXcQ wZZ7oFKsKzY WrO9PTpuSSs).freeze
   CODE_SNIPPETS = [
     ['js', <<~'JAVASCRIPT'],
       // Substitution combinator
@@ -53,7 +68,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     SASS
   ].freeze
   FORMULAS = [
-    %q(Use the Euler's formula: $$e^{ \pm i\theta } = \cos \theta \pm i\sin \theta$$),
+    %q(Use the Euler's formula: $$e^{ \pm i\theta } = \cos \theta \pm i\sin \theta$$.),
     <<~'TEX',
       This is the recurrence relation you need:
 
@@ -62,14 +77,14 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       $$
     TEX
     <<~'TEX'
-      Well, obviously:
+      Therefore:
 
       \$$
       f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
       $$
     TEX
   ].freeze
-  SMILEYS = %w(:smile: 💥).freeze
+  SMILEYS = %w(:smile: :boom:).freeze
 
   def post_content # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
     result = []
@@ -82,18 +97,16 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
 
     result[0] += " #{SMILEYS.sample}" if rand < 0.1
 
-    if rand < 0.1
+    if rand < 0.05
       result << [
         'Check this out:',
         'Very relevant:',
+        'Must see:',
         "You're gonna love this!",
       ].sample + "\n\n" + "https://www.youtube.com/watch?v=#{YOUTUBE_VIDEO_IDS.sample}"
     end
 
-    if rand < 0.07
-      alt_text, url = IMAGES.sample
-      result << "That feeling when:\n![#{alt_text}](#{url})"
-    end
+    result << IMAGES.sample if rand < 0.07
 
     result << FORMULAS.sample if rand < 0.05
 
@@ -102,7 +115,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       result << "Here is how:\n```#{lang}\n#{source.chomp}\n```"
     end
 
-    if rand < 0.03
+    if rand < 0.02
       result << <<~'MARKDOWN'
         The encryption algorithm at the heart of our enterprise-grade software is:
 
@@ -112,10 +125,11 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
         | 1 | 0 |   1   |
         | 0 | 1 |   1   |
         | 0 | 0 |   0   |
+
       MARKDOWN
     end
 
-    if rand < 0.1
+    if rand < 0.08
       i = rand(result.length)
       result[i] = ["And then they said:\n", "So much this:\n"].sample +
                   result[i].split("\n").map { |line| ">#{' ' unless line.empty?}#{line}" }.join("\n")
