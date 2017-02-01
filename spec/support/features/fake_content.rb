@@ -23,7 +23,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     MARKDOWN
   ].freeze
 
-  YOUTUBE_VIDEO_IDS = %w(5lBBUPVuusM vDnpDgY_Im4 dQw4w9WgXcQ wZZ7oFKsKzY WrO9PTpuSSs).freeze
+  YOUTUBE_VIDEO_IDS = %w(5lBBUPVuusM vDnpDgY_Im4 dQw4w9WgXcQ wZZ7oFKsKzY WrO9PTpuSSs d-diB65scQU).freeze
   CODE_SNIPPETS = [
     ['js', <<~'JAVASCRIPT'],
       // Substitution combinator
@@ -111,7 +111,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     result << FORMULAS.sample if rand < 0.05
 
     if rand < 0.03
-      lang, source =  CODE_SNIPPETS.sample
+      lang, source = CODE_SNIPPETS.sample
       result << "Here is how:\n```#{lang}\n#{source.chomp}\n```"
     end
 

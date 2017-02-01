@@ -27,6 +27,5 @@ gem 'thredded-markdown_katex'
 # Heroku-specific gems
 gem 'newrelic_rpm'
 gem 'rollbar'
-gem 'mini_racer'
 gem 'rack-canonical-host'
 gem 'dalli'
