@@ -75,7 +75,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     result = []
 
     result << Faker::Hacker.say_something_smart.split(' ').map do |word|
-      next word unless rand < 0.05 || word.length < 4
+      next word unless rand < 0.05 && word.length >= 4
       style = %w(* ** _).sample
       "#{style}#{word}#{style}"
     end.join(' ')
