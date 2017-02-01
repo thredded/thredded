@@ -5,10 +5,10 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
   IMAGES = [
     <<~MARKDOWN,
       Art:
-      ![Mario](https://storage.googleapis.com/glebm-stuff/mario.jpg
+      ![Mario](https://storage.googleapis.com/glebm-stuff/mario.jpg)
     MARKDOWN
     <<~MARKDOWN,
-      ![This is fine](https://storage.googleapis.com/glebm-stuff/this-is-fine.jpg
+      ![This is fine](https://storage.googleapis.com/glebm-stuff/this-is-fine.jpg)
     MARKDOWN
     <<~MARKDOWN,
       That feeling when:
