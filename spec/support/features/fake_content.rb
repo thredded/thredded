@@ -86,8 +86,8 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       result << [
         'Check this out:',
         'Very relevant:',
-        %q(You're gonna love this!),
-      ].sample +  "\n\n" + "https://www.youtube.com/watch?v=#{YOUTUBE_VIDEO_IDS.sample}"
+        "You're gonna love this!",
+      ].sample + "\n\n" + "https://www.youtube.com/watch?v=#{YOUTUBE_VIDEO_IDS.sample}"
     end
 
     if rand < 0.07
