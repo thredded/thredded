@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'factory_girl_rails'
+require_relative '../../spec/support/features/fake_content'
 
 # rubocop:disable HandleExceptions
 begin

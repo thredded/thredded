@@ -37,7 +37,7 @@ FactoryGirl.define do
     user
     postable { association :topic, user: user }
 
-    content { Faker::Hacker.say_something_smart }
+    content { FakeContent.post_content }
     ip '127.0.0.1'
 
     after :build do |post|
