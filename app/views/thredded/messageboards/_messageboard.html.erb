@@ -1,12 +1,12 @@
 <% if policy(messageboard).read? %>
   <%= view_hooks.messageboards_index.messageboard.render self, messageboard: messageboard do %>
     <%= link_to messageboard_topics_path(messageboard), class: 'thredded--messageboard' do %>
-      <header>
+      <header class="thredded--messageboard--header">
         <h2 class="thredded--messageboard--title"><%= messageboard.name %></h2>
         <h3 class="thredded--messageboard--meta">
           <%= t 'thredded.messageboard.topics_and_posts_counts',
-                topics_count: number_to_human(messageboard.topics_count).downcase,
-                posts_count: number_to_human(messageboard.posts_count).downcase %>
+                topics_count: number_with_delimiter(messageboard.topics_count),
+                posts_count: number_with_delimiter(messageboard.posts_count) %>
         </h3>
       </header>
 

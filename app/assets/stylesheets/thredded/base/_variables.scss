@@ -83,3 +83,9 @@ $thredded-badge-active-color: $thredded-button-color !default;
 $thredded-badge-active-background: $thredded-action-color !default;
 $thredded-badge-inactive-color: $thredded-button-color !default;
 $thredded-badge-inactive-background: rgba($thredded-text-color, 0.3) !default;
+
+// Layout features
+// Whether to display messageboards as a grid on the desktop screen sizes.
+$thredded-messageboards-grid: true !default;
+// Minimum width of a grid item
+$thredded-messageboards-grid-item-flex-basis: map-get($thredded-grid-breakpoint-max-widths, tablet) / 3 !default;

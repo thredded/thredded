@@ -1,14 +1,14 @@
+.thredded--messageboards-group {
+  margin-bottom: $thredded-base-spacing;
+}
+
 .thredded--messageboard {
   @extend %thredded--link;
   border: $thredded-base-border;
   display: block;
-  margin-bottom: $thredded-base-spacing;
+  margin-bottom: -1px;
   padding: $thredded-base-spacing;
   position: relative;
-
-  header {
-    margin-bottom: $thredded-small-spacing;
-  }
 
   &:hover {
     background-color: rgba($thredded-brand, 0.035);
@@ -21,9 +21,20 @@
   float: left;
   font-size: 1.125rem; // 18px
   line-height: 1.2;
-  margin-bottom: 0;
   margin-right: $thredded-small-spacing;
   vertical-align: baseline;
+}
+
+.thredded--messageboard--title,
+.thredded--messageboard--meta,
+.thredded--messageboard--description {
+  margin-bottom: $thredded-small-spacing / 2;
+}
+
+.thredded--messageboard--description,
+.thredded--messageboard--meta,
+.thredded--messageboard--byline {
+  font-size: 0.875em;
 }
 
 .thredded--messageboard--meta {
@@ -31,21 +42,21 @@
   color: $thredded-secondary-text-color;
   display: inline-block;
   font-weight: normal;
-  margin-bottom: 0;
   vertical-align: baseline;
 }
 
 .thredded--messageboard--description {
   @extend %thredded--paragraph;
   clear: both;
-  margin-bottom: $thredded-small-spacing / 2;
   color: $thredded-text-color;
+  &:empty {
+    margin: 0;
+  }
 }
 
 .thredded--messageboard--byline {
   @extend %thredded--paragraph;
   color: $thredded-secondary-text-color;
-  font-size: 0.875em;
   font-weight: normal;
   margin-bottom: 0;
 }
@@ -54,5 +65,59 @@
   @extend %thredded--buttons-list;
   @media print {
     display: none;
+  }
+}
+
+@supports (flex-wrap: wrap) {
+  .thredded--messageboard {
+    display: flex;
+    flex-direction: column;
+    &--header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    &--meta {
+      text-align: right;
+    }
+    &--byline,
+    &--description {
+      margin-top: auto;
+    }
+  }
+
+  @if $thredded-messageboards-grid {
+    @include thredded-media-desktop-and-up {
+      $item-border-width: 1px;
+      $item-padding-x: ($thredded-base-spacing * 0.8);
+      $item-padding-y: $thredded-base-spacing;
+
+      .thredded--messageboards-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-left: $item-border-width;
+
+        &::after {
+          content: "";
+          margin-right: $item-border-width;
+          padding: 0 $item-padding-x;
+        }
+
+      }
+
+      .thredded--messageboard,
+      .thredded--messageboards-group::after {
+        flex-basis: $thredded-messageboards-grid-item-flex-basis;
+        flex-grow: 1;
+      }
+
+      .thredded--messageboard {
+        margin-left: -$item-border-width;
+        padding: $item-padding-y $item-padding-x;
+      }
+
+    }
   }
 }

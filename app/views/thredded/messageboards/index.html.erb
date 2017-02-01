@@ -6,12 +6,14 @@
     <section class="thredded--main-section thredded--messageboards">
       <%= view_hooks.messageboards_index.list.render self, groups: @groups do %>
         <% @groups.each do |group| %>
-          <%= view_hooks.messageboards_index.group.render self, group: group do %>
-            <% if group.name.present? %>
-              <h3><%= group.name %></h3>
-            <% end %>
-            <%= render group.messageboards %>
+          <% if group.name.present? %>
+            <h3 class="thredded--messageboards-group--title"><%= group.name %></h3>
           <% end %>
+          <div class="thredded--messageboards-group">
+            <%= view_hooks.messageboards_index.group.render self, group: group do %>
+              <%= render group.messageboards %>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
 
