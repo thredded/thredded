@@ -149,8 +149,8 @@ class CreateThredded < ActiveRecord::Migration
     end
 
     create_table :thredded_messageboard_users do |t|
-      t.references :thredded_user_detail, foreign_key: true, null: false
-      t.references :thredded_messageboard, foreign_key: true, null: false
+      t.references :thredded_user_detail, foreign_key: {on_delete: :cascade}, null: false
+      t.references :thredded_messageboard, foreign_key: {on_delete: :cascade}, null: false
       t.datetime :last_seen_at, null: false
       t.index [:thredded_messageboard_id, :thredded_user_detail_id],
               name: :index_thredded_messageboard_users_primary
