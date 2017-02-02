@@ -237,7 +237,7 @@ GEM
     thread_safe (0.3.5)
     thredded-markdown_coderay (0.1.0)
       coderay
-    thredded-markdown_katex (0.1.0)
+    thredded-markdown_katex (0.1.1)
       katex (>= 0.1.1)
     tilt (2.0.6)
     turbolinks (5.0.1)
