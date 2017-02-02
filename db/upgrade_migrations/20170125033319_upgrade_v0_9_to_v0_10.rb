@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UpgradeV09ToV010 < ActiveRecord::Migration
   def change
     remove_foreign_key :thredded_messageboard_users, :thredded_messageboards
