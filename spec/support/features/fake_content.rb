@@ -8,7 +8,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       ![Mario](https://storage.googleapis.com/glebm-stuff/mario.jpg)
     MARKDOWN
     <<~MARKDOWN,
-      ![This is fine](https://storage.googleapis.com/glebm-stuff/this-is-fine.jpg)
+      ![This is fine](https://storage.googleapis.com/glebm-stuff/this-is-fine.jpg){:width="359px" height="170px"}
     MARKDOWN
     <<~MARKDOWN,
       That feeling when:
@@ -129,10 +129,13 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       MARKDOWN
     end
 
+    # Randomly quote a piece
     if rand < 0.08
       i = rand(result.length)
-      result[i] = ["And then they said:\n", "So much this:\n"].sample +
-                  result[i].split("\n").map { |line| ">#{' ' unless line.empty?}#{line}" }.join("\n")
+      result[i] = [
+        ['And then they said:', 'So much this:'].sample,
+        *result[i].split("\n").map { |line| ">#{' ' unless line.empty?}#{line}" },
+      ].join("\n") + "\n"
     end
 
     result.shuffle!
