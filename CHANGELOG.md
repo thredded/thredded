@@ -1,3 +1,22 @@
+# Master (future v0.10.0)
+
+## Changed
+
+* Improved messageboards index layout.
+  [#525](https://github.com/thredded/thredded/pull/525)
+* Text contrast increased in the default theme to improve legibility.
+  [#fd6cd6](https://github.com/thredded/thredded/commit/fd6cd694d4b513ad3fa031b3da7bc1df8fca0ef5)
+
+## Added
+
+* More view hooks for the messageboards index page.
+  [#520](https://github.com/thredded/thredded/pull/520)
+
+## Fixed
+
+* Foreign key constraints that were preventing messageboard deletion on Postgres.
+  [#526](https://github.com/thredded/thredded/issues/526)
+
 # v0.9.4
 
 ## Added
