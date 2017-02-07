@@ -3,6 +3,13 @@ scss:
 
 ruby:
   enabled: false
+  config_file: .rubocop.yml
+
+flog:
+  enabled: true
 
 javascript:
   enabled: false
+
+reek:
+  enabled: true
