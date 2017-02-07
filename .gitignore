@@ -1,3 +1,5 @@
+.agignore
+.ruby-version
 db/schema*.rb
 Gemfile.lock
 *.gemfile.lock
