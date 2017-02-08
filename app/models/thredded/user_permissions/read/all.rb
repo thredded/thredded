@@ -12,7 +12,7 @@ module Thredded
         end
 
         module ClassMethods
-          # Users that can read the given messageboards.
+          # Users that can read some of the given messageboards.
           #
           # @param _messageboards [Array<Thredded::Messageboard>]
           # @return [ActiveRecord::Relation<Thredded.user_class>] users that can read the given messageboards
