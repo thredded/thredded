@@ -9,7 +9,7 @@ class UpgradeV09ToV010 < ActiveRecord::Migration
     create_table :thredded_user_post_notifications do |t|
       t.references :user, null: false
       t.foreign_key Thredded.user_class.table_name, column: :user_id, on_delete: :cascade
-      t.references :post, foreign_key: { on_delete: :cascade, to_table: :thredded_posts }, null: false
+      t.references :post, null: false
       t.foreign_key :thredded_posts, column: :post_id, on_delete: :cascade
       t.datetime :notified_at, null: false
       t.index :post_id, name: :index_thredded_user_post_notifications_on_post_id
