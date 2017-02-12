@@ -36,8 +36,16 @@ module PageObject
       all('a', text: @topic.title).any?
     end
 
+    def saved?
+      has_content?(I18n.t('thredded.topics.updated_notice'))
+    end
+
     def change_title_to(title)
       fill_in I18n.t('thredded.topics.form.title_label'), with: title
+    end
+
+    def change_messageboard_to(name)
+      select name, from: I18n.t('thredded.topics.form.messageboard_label')
     end
 
     def make_locked

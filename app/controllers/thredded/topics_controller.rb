@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  class TopicsController < Thredded::ApplicationController
+  class TopicsController < Thredded::ApplicationController # rubocop:disable Metrics/ClassLength
     include Thredded::NewTopicParams
 
     before_action :thredded_require_login!,
@@ -92,12 +92,23 @@ module Thredded
 
     def edit
       authorize topic, :update?
+      @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
     end
 
     def update
+      topic.assign_attributes(topic_params_for_update)
       authorize topic, :update?
-      if topic.update(topic_params.merge(last_user_id: thredded_current_user.id))
-        redirect_to messageboard_topic_url(messageboard, topic),
+      if topic.messageboard_id_changed?
+        # Work around the association not being reset.
+        # TODO: report issue to Rails. Looks like a regression of:
+        # https://rails.lighthouseapp.com/projects/8994/tickets/2989
+        topic.messageboard = Thredded::Messageboard.find(topic.messageboard_id)
+
+        authorize topic.messageboard, :post?
+      end
+      @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
+      if @edit_topic.save
+        redirect_to messageboard_topic_url(topic.messageboard, topic),
                     notice: t('thredded.topics.updated_notice')
       else
         render :edit
@@ -146,6 +157,12 @@ module Thredded
       params
         .require(:topic)
         .permit(:title, :locked, :sticky, category_ids: [])
+    end
+
+    def topic_params_for_update
+      params
+        .require(:topic)
+        .permit(:title, :locked, :sticky, :messageboard_id, category_ids: [])
     end
 
     def current_page

@@ -153,6 +153,7 @@ pt-BR:
         categories_placeholder: Categorias
         content_label: :thredded.posts.form.content_label
         create_btn: Criar Novo Tópico
+        messageboard_label: Fórum
         title_label: Título
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Iniciar um novo tópico

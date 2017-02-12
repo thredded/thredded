@@ -149,6 +149,7 @@ pl:
         categories_placeholder: Kategorie
         content_label: :thredded.posts.form.content_label
         create_btn: Stwórz nowy temat
+        messageboard_label: Tablica
         title_label: Tytuł
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Rozpocznij nowy temat

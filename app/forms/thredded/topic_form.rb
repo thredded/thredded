@@ -22,12 +22,8 @@ module Thredded
       Thredded::Topic.model_name
     end
 
-    def categories
-      topic.messageboard.categories
-    end
-
     def category_options
-      categories.map { |cat| [cat.name, cat.id] }
+      messageboard.categories.map { |cat| [cat.name, cat.id] }
     end
 
     def save

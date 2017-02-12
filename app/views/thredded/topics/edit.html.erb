@@ -1,16 +1,17 @@
-<% content_for :thredded_page_title, t('thredded.nav.edit_private_topic') %>
+<% content_for :thredded_page_title, t('thredded.nav.edit_topic') %>
 <% content_for :thredded_page_id, 'thredded--edit-topic' %>
 <% content_for :thredded_breadcrumbs do %>
   <ul class="thredded--navigation-breadcrumbs">
     <li><%= link_to t('thredded.nav.all_messageboards'), messageboards_path %></li>
-    <li><%= link_to messageboard.name, messageboard_topics_path(@topic.messageboard) %></li>
-    <li><%= link_to @topic.title, topic_path(@topic) %></li>
-    <li><%= link_to t('thredded.nav.edit_topic'), edit_messageboard_topic_path(@topic.messageboard, @topic) %></li>
+    <li><%= link_to messageboard.name, @edit_topic.messageboard_path %></li>
+    <li><%= link_to @edit_topic.title, @edit_topic.path %></li>
+    <li><%= link_to t('thredded.nav.edit_topic'), @edit_topic.edit_path %></li>
   </ul>
 <% end %>
 
 <%= thredded_page do %>
-  <%= form_for [@topic.messageboard, @topic],
+  <%= form_for @edit_topic,
+               url: @edit_topic.path,
                html: { class: 'thredded--form thredded--is-expanded', 'data-thredded-topic-form' => true } do |form| %>
     <ul class="thredded--form-list on-top">
 
@@ -22,13 +23,18 @@
                             required:    true %>
       </li>
 
-      <% if form.object.categories.any? %>
+      <% if form.object.category_options.any? %>
         <li class="category">
           <%= form.select :category_ids, form.object.category_options, {},
                           multiple:          true,
                           'data-placeholder' => t('thredded.topics.form.categories_placeholder') %>
         </li>
       <% end %>
+
+      <li>
+        <%= form.label :messageboard_id, t('thredded.topics.form.messageboard_label') %>
+        <%= form.select :messageboard_id, form.object.messageboard_options %>
+      </li>
 
       <%= render 'thredded/topics/topic_form_admin_options', form: form %>
 

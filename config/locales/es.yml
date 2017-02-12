@@ -150,6 +150,7 @@ es:
         categories_placeholder: Categorías
         content_label: :thredded.posts.form.content_label
         create_btn: Crear Nuevo Tema
+        messageboard_label: Foro
         title_label: Título
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Crear un Nuevo Tema
