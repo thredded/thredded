@@ -21,6 +21,9 @@ module Thredded
     has_many :moderation_records,
              class_name: 'Thredded::PostModerationRecord',
              dependent: :nullify
+    has_many :user_notifications,
+             class_name: 'Thredded::UserPostNotification',
+             dependent: :destroy
     has_one :last_moderation_record, -> { order_newest_first },
             class_name: 'Thredded::PostModerationRecord'
 

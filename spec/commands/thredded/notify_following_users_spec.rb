@@ -12,6 +12,13 @@ module Thredded
       let(:notifier) { EmailNotifier.new }
       subject { NotifyFollowingUsers.new(post).targeted_users(notifier) }
 
+      before do
+        # Creating a post will trigger the NotifyFollowingUsers job, creating UserPostNotification records.
+        # Create the post and then delete all the created UserPostNotification records for testing.
+        post
+        Thredded::UserPostNotification.destroy_all
+      end
+
       it 'includes followers where preference to receive these notifications' do
         create(:notifications_for_followed_topics,
                notifier_key: 'email',
@@ -21,8 +28,13 @@ module Thredded
         expect(subject).to include(follower)
       end
 
+      it 'excludes followers that have already been notified' do
+        expect(Thredded::UserPostNotification.create_from_post_and_user(post, follower)).to be_truthy
+        expect(subject).to_not include(follower)
+      end
+
       it "doesn't include the poster, even if they follow" do
-        create(:user_topic_follow, user: poster, topic: topic)
+        expect(UserTopicFollow.find_by(user_id: poster.id, topic_id: topic.id)).to_not be_nil
         expect(subject).to_not include(poster)
       end
 
@@ -98,7 +110,7 @@ module Thredded
       let(:post) { create(:post) }
 
       let(:command) { NotifyFollowingUsers.new(post) }
-      let(:targeted_users) { [build_stubbed(:user)] }
+      let(:targeted_users) { [create(:user)] }
       before { allow(command).to receive(:targeted_users).and_return(targeted_users) }
 
       it 'sends email' do
@@ -111,8 +123,9 @@ module Thredded
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end
-        it 'uses MockNotifier' do
+        it 'notifies exactly once' do
           expect { command.run }.to change { MockNotifier.users_notified_of_new_post }
+          expect { command.run }.to_not change { MockNotifier.users_notified_of_new_post }
         end
       end
     end
