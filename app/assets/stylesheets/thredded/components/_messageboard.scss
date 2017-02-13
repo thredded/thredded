@@ -92,6 +92,11 @@
       $item-padding-x: ($thredded-base-spacing * 0.8);
       $item-padding-y: $thredded-base-spacing;
 
+      %thredded--messageboards-cell-flex {
+        flex-basis: $thredded-messageboards-grid-item-flex-basis;
+        flex-grow: 1;
+      }
+
       .thredded--messageboards-group {
         display: flex;
         flex-direction: row;
@@ -99,21 +104,21 @@
         justify-content: space-between;
         margin-left: $item-border-width;
 
-        &::after {
+        // Size incomplete last rows with up to two missing items.
+        &::after, &::before {
+          @extend %thredded--messageboards-cell-flex;
           content: "";
           margin-right: $item-border-width;
           padding: 0 $item-padding-x;
         }
 
-      }
-
-      .thredded--messageboard,
-      .thredded--messageboards-group::after {
-        flex-basis: $thredded-messageboards-grid-item-flex-basis;
-        flex-grow: 1;
+        &::before {
+          order: 1
+        }
       }
 
       .thredded--messageboard {
+        @extend %thredded--messageboards-cell-flex;
         margin-left: -$item-border-width;
         padding: $item-padding-y $item-padding-x;
       }
