@@ -44,6 +44,7 @@ module Thredded
                counter_cache: :topics_count
 
     has_many :posts,
+             autosave: true,
              class_name:  'Thredded::Post',
              foreign_key: :postable_id,
              inverse_of:  :postable,
@@ -75,6 +76,10 @@ module Thredded
 
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
+
+    after_commit :handle_messageboard_change_after_commit,
+                 on: :update,
+                 if: -> { previous_changes.include?('messageboard_id') }
 
     # Finds the topic by its slug or ID, or raises Thredded::Errors::TopicNotFound.
     # @param slug_or_id [String]
@@ -150,6 +155,18 @@ module Thredded
 
     def update_messageboard_last_topic
       messageboard.update_last_topic!
+    end
+
+    def handle_messageboard_change_after_commit
+      # Update the `posts.messageboard_id` column. The column is just a performance optimization,
+      # so use update_all to avoid validitaing, triggering callbacks, and updating the timestamps:
+      posts.update_all(messageboard_id: messageboard_id)
+
+      # Update the associated messageboard metadata that Rails does not update them automatically.
+      previous_changes['messageboard_id'].each do |messageboard_id|
+        Thredded::Messageboard.reset_counters(messageboard_id, :topics, :posts)
+        Messageboard.find(messageboard_id).update_last_topic!
+      end
     end
   end
 end

@@ -150,6 +150,7 @@ en:
         categories_placeholder: Categories
         content_label: :thredded.posts.form.content_label
         create_btn: Create New Topic
+        messageboard_label: Messageboard
         title_label: Title
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Start a New Topic

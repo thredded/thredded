@@ -11,7 +11,7 @@
       <%= form.text_field :title, placeholder: placeholder, required: true %>
     </li>
 
-    <% if form.object.categories.any? %>
+    <% if form.object.category_options.any? %>
       <li class="category">
         <%= form.select :category_ids,
                         form.object.category_options,

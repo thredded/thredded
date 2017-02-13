@@ -17,7 +17,18 @@ feature 'User editing topics' do
     topic.change_title_to('this is changed')
     topic.submit
 
-    expect(topic).to have_content('this is changed')
+    expect(topic).to be_saved.and have_content('this is changed')
+  end
+
+  scenario 'updates topic messageboard' do
+    user.log_in
+    create(:messageboard, name: 'Another Messageboard')
+    topic = users_topic
+    topic.visit_topic_edit
+    topic.change_messageboard_to('Another Messageboard')
+    topic.submit
+
+    expect(topic).to be_saved.and have_content('Another Messageboard')
   end
 
   scenario "cannot edit someone else's topic" do

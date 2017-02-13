@@ -56,13 +56,14 @@ module Thredded
       [
         I18n.locale,
         @post.cache_key,
+        (@post.messageboard_id unless @post.private_topic_post?),
         @post.user ? @post.user.cache_key : 'users/nil',
         moderation_state || '+',
         [
           can_update?,
           can_destroy?
         ].map { |p| p ? '+' : '-' } * ''
-      ].join('/')
+      ].compact.join('/')
     end
     # rubocop:enable Metrics/CyclomaticComplexity
   end
