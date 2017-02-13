@@ -38,5 +38,31 @@ module Thredded
       expect { Thredded::ModeratePost.run!(post: topic.first_post, moderation_state: :blocked, moderator: moderator) }
         .to_not change { topic.first_post.reload.updated_at }
     end
+
+    context 'when not Thredded.content_visible_while_pending_moderation' do
+      around do |example|
+        with_thredded_setting(:content_visible_while_pending_moderation, false, &example)
+      end
+
+      it 'notifies followers on approval' do
+        # Create a topic and an additional post in that topic by another user.
+        # Nobody should get notified as the posts are approved yet.
+        topic = post = nil
+        expect do
+          topic = create(:topic, with_posts: 1)
+          post = create(:post, postable: topic, user: create(:user))
+        end.to_not change { UserPostNotification.count }
+
+        # Approving the original topic should notify the follower who is not the topic creator.
+        expect do
+          Thredded::ModeratePost.run!(post: topic.first_post, moderation_state: :approved, moderator: moderator)
+        end.to change { UserPostNotification.count }.by(1)
+
+        # Approving the additional post in the topic should notify the topic creator.
+        expect do
+          Thredded::ModeratePost.run!(post: post, moderation_state: :approved, moderator: moderator)
+        end.to change { UserPostNotification.count }.by(1)
+      end
+    end
   end
 end
