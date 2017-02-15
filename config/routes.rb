@@ -71,6 +71,9 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :posts, except: [:index, :show], path: '' do
         post :preview, on: :new, controller: 'post_previews'
         resource :preview, only: [:update], controller: 'post_previews'
+        member do
+          match 'mark_as_unread', via: [:post, :get]
+        end
       end
     end
   end

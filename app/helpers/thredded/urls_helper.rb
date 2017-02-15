@@ -103,5 +103,9 @@ module Thredded
         messageboards_search_path
       end
     end
+
+    def mark_unread_path(post, _params = {})
+      mark_as_unread_messageboard_topic_post_path(post.messageboard, post.postable, post)
+    end
   end
 end

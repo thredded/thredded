@@ -272,4 +272,40 @@ module Thredded
       expect(subject).to eq(3)
     end
   end
+
+  describe Post, '#mark_as_unread' do
+    let(:user) { create(:user) }
+    let(:topic) { create(:topic) }
+    let(:first_post) { create(:post, postable: topic) }
+    let(:second_post) { create(:post, postable: topic) }
+    let(:third_post) { create(:post, postable: topic) }
+    let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: 1.day.ago) }
+
+    before do
+      travel_to 1.day.ago do
+        first_post
+      end
+      travel_to 1.hour.ago do
+        second_post
+      end
+      third_post
+      read_state
+    end
+
+    context 'when first post' do
+      it 'removes the read state' do
+        expect do
+          first_post.mark_as_unread(user)
+        end.to change { topic.reload.user_read_states.count }.by(-1)
+      end
+    end
+
+    context 'when third (say) post' do
+      it 'changes the read state to the previous post' do
+        expect do
+          third_post.mark_as_unread(user)
+        end.to change { read_state.reload.read_at }.to eq second_post.created_at
+      end
+    end
+  end
 end
