@@ -160,6 +160,7 @@ pt-BR:
         update_btn: Atualizar Tópico
       locked:
         label: Trancado
+      mark_as_unread: marcar como não lido
       not_following: Você não está seguindo este tema.
       search:
         no_results_message: Nenhum resultado encontrado para sua busca - %{query}

@@ -157,7 +157,7 @@ en:
         update_btn: Update Topic
       locked:
         label: Locked
-      mark_as_unread: Mark as unread from here
+      mark_as_unread: Mark as unread
       not_following: You are not following this topic.
       search:
         no_results_message: There are no results for your search - %{query}

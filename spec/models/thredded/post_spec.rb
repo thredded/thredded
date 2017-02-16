@@ -279,7 +279,7 @@ module Thredded
     let(:first_post) { create(:post, postable: topic) }
     let(:second_post) { create(:post, postable: topic) }
     let(:third_post) { create(:post, postable: topic) }
-    let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: 1.day.ago) }
+    let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: third_post.created_at) }
 
     before do
       travel_to 1.day.ago do
@@ -302,6 +302,30 @@ module Thredded
 
     context 'when third (say) post' do
       it 'changes the read state to the previous post' do
+        expect do
+          third_post.mark_as_unread(user)
+        end.to change { read_state.reload.read_at }.to eq second_post.created_at
+      end
+    end
+
+    context 'when none are read (no ReadState at all)' do
+      let(:read_state) { nil }
+      it 'marking first post as unread does nothing' do
+        expect do
+          first_post.mark_as_unread(user)
+        end.to_not change { topic.reload.user_read_states.count }
+      end
+      it 'marking third post as unread creates read state' do
+        expect do
+          third_post.mark_as_unread(user)
+        end.to_not change { topic.reload.user_read_states.count }
+      end
+    end
+
+    context 'when read up to first post' do
+      let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: first_post.created_at) }
+
+      it 'marking the third post as unread changes read state to second post' do
         expect do
           third_post.mark_as_unread(user)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at

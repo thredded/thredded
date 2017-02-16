@@ -50,10 +50,6 @@ module Thredded
       Thredded.user_class.thredded_messageboards_readers([messageboard])
     end
 
-    def mark_as_unread(user)
-
-    end
-
     private
 
     def auto_follow_and_notify

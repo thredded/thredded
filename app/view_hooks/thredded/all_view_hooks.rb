@@ -35,10 +35,13 @@ module Thredded
       attr_reader :pagination_top
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :pagination_bottom
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :mark_as_unread_link
 
       def initialize
         @pagination_top = ViewHook.new
         @pagination_bottom = ViewHook.new
+        @mark_as_unread_link = ViewHook.new
       end
     end
 

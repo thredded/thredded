@@ -72,6 +72,12 @@
   margin-left: 0.4rem;
 }
 
+a.thredded--post--mark-as-unread {
+  @extend %thredded--link;
+  font-size: $thredded-font-size-small;
+  margin-left: 0.4rem;
+}
+
 .thredded--post--content {
   font-size: 1.063rem; // 17px
   line-height: 1.65;

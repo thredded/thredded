@@ -9,3 +9,7 @@
               data:   { confirm: I18n.t('thredded.posts.delete_confirm') }
   %>
 <% end %>
+
+<%= view_hooks.posts_common.mark_as_unread_link.render self, post: post do %>
+  <%= render partial: 'thredded/posts_common/mark_as_unread_link', locals: {post: post} %>
+<% end %>

@@ -14,7 +14,7 @@ feature 'Logged in user' do
     topic.visit_topic
     post = topic.first_post
     post.topic_unread_from_here
-    expect(page.current_path).to eq thredded.messageboard_path(messageboard)
+    expect(page.current_path).to eq thredded.messageboard_topics_path(messageboard)
   end
 
   def member_signs_in
