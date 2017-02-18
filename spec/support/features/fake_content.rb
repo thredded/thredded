@@ -86,51 +86,31 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
   ].freeze
   SMILEYS = %w(:smile: :boom:).freeze
 
-  def post_content # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
+  def post_content(with_everything: false) # rubocop:disable Metrics/CyclomaticComplexity
+    with_smiley = with_everything || rand < 0.1
+    with_youtube = with_everything || rand < 0.05
+    with_image = with_everything || rand < 0.07
+    with_formula = with_everything || rand < 0.05
+    with_code_snippet = with_everything || rand < 0.03
+    with_markdown_table = with_everything || rand < 0.02
+    with_quote = with_everything || rand < 0.08
+
     result = []
 
-    result << Faker::Hacker.say_something_smart.split(' ').map do |word|
-      next word unless rand < 0.05 && word.length >= 4
-      style = %w(* ** _).sample
-      "#{style}#{word}#{style}"
-    end.join(' ')
+    result << styled_smart_thing(with_smiley: with_smiley)
 
-    result[0] += " #{SMILEYS.sample}" if rand < 0.1
+    result << youtube_reference if with_youtube
 
-    if rand < 0.05
-      result << [
-        'Check this out:',
-        'Very relevant:',
-        'Must see:',
-        "You're gonna love this!",
-      ].sample + "\n\n" + "https://www.youtube.com/watch?v=#{YOUTUBE_VIDEO_IDS.sample}"
-    end
+    result << IMAGES.sample if with_image
 
-    result << IMAGES.sample if rand < 0.07
+    result << FORMULAS.sample if with_formula
 
-    result << FORMULAS.sample if rand < 0.05
+    result << code_snippet if with_code_snippet
 
-    if rand < 0.03
-      lang, source = CODE_SNIPPETS.sample
-      result << "Here is how:\n```#{lang}\n#{source.chomp}\n```"
-    end
-
-    if rand < 0.02
-      result << <<~'MARKDOWN'
-        The encryption algorithm at the heart of our enterprise-grade software is:
-
-        | x | y | x ⊕ y |
-        |---|---|:-----:|
-        | 1 | 1 |   0   |
-        | 1 | 0 |   1   |
-        | 0 | 1 |   1   |
-        | 0 | 0 |   0   |
-
-      MARKDOWN
-    end
+    result << markdown_table if with_markdown_table
 
     # Randomly quote a piece
-    if rand < 0.08
+    if with_quote
       i = rand(result.length)
       result[i] = [
         ['And then they said:', 'So much this:'].sample,
@@ -140,5 +120,43 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
 
     result.shuffle!
     result.join("\n")
+  end
+
+  def styled_smart_thing(with_smiley:)
+    results = Faker::Hacker.say_something_smart.split(' ').map do |word|
+      next word unless rand < 0.05 && word.length >= 4
+      style = %w(* ** _).sample
+      "#{style}#{word}#{style}"
+    end
+    results << " #{SMILEYS.sample}" if with_smiley
+    results.join(' ')
+  end
+
+  def youtube_reference
+    [
+      'Check this out:',
+      'Very relevant:',
+      'Must see:',
+      "You're gonna love this!",
+    ].sample + "\n\n" + "https://www.youtube.com/watch?v=#{YOUTUBE_VIDEO_IDS.sample}"
+  end
+
+  def code_snippet
+    lang, source = CODE_SNIPPETS.sample
+    "Here is how:\n```#{lang}\n#{source.chomp}\n```"
+  end
+
+  def markdown_table
+    <<~'MARKDOWN'
+      The encryption algorithm at the heart of our enterprise-grade software is:
+
+      | x | y | x ⊕ y |
+      |---|---|:-----:|
+      | 1 | 1 |   0   |
+      | 1 | 0 |   1   |
+      | 0 | 1 |   1   |
+      | 0 | 0 |   0   |
+
+    MARKDOWN
   end
 end
