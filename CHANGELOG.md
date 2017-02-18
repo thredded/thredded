@@ -9,6 +9,8 @@
 
 ## Added
 
+* A user with permissions to edit a topic can now move the topic to another messageboard.
+  [#530](https://github.com/thredded/thredded/pull/530)
 * More view hooks for the messageboards index page.
   [#520](https://github.com/thredded/thredded/pull/520)
 
@@ -16,6 +18,8 @@
 
 * Foreign key constraints that were preventing messageboard deletion on Postgres.
   [#526](https://github.com/thredded/thredded/issues/526)
+* Issues with notifications: lack of policy checking and sending a notification more than once per a post and a user.
+  [#529](https://github.com/thredded/thredded/issues/529)
 
 # v0.9.4
 
