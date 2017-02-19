@@ -4,14 +4,20 @@
 
 .thredded--messageboard {
   @extend %thredded--link;
-  border: $thredded-base-border;
+  outline: 1px solid $thredded-base-border-color;
   display: block;
-  margin-bottom: -1px;
+  margin-bottom: 1px;
   padding: $thredded-base-spacing;
   position: relative;
 
   &:hover {
     background-color: rgba($thredded-brand, 0.035);
+  }
+
+  &:active, &:focus {
+    box-shadow: 0 0 3px $thredded-action-color;
+    outline: 1px solid $thredded-action-color;
+    z-index: 1;
   }
 }
 
@@ -119,7 +125,7 @@
 
       .thredded--messageboard {
         @extend %thredded--messageboards-cell-flex;
-        margin-left: -$item-border-width;
+        margin-left: 1px;
         padding: $item-padding-y $item-padding-x;
       }
 
