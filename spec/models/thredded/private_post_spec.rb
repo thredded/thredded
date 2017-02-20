@@ -58,7 +58,11 @@ module Thredded
     let(:first_post) { create(:private_post, postable: private_topic) }
     let(:second_post) { create(:private_post, postable: private_topic) }
     let(:third_post) { create(:private_post, postable: private_topic) }
-    let(:read_state) { create(:user_private_topic_read_state, postable: private_topic, user: user, read_at: third_post.created_at) }
+    let(:read_state) do
+      create(:user_private_topic_read_state,
+             postable: private_topic,
+             user: user, read_at: third_post.created_at)
+    end
 
     before do
       travel_to 2.days.ago do
@@ -104,7 +108,12 @@ module Thredded
     end
 
     context 'when read up to first post' do
-      let(:read_state) { create(:user_private_topic_read_state, postable: private_topic, user: user, read_at: first_post.created_at) }
+      let(:read_state) do
+        create(:user_private_topic_read_state,
+               postable: private_topic,
+               user: user,
+               read_at: first_post.created_at)
+      end
 
       it 'marking the third post as unread changes read state to second post' do
         expect do

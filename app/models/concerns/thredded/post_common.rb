@@ -53,7 +53,9 @@ module Thredded
         read_state = postable.user_read_states.find_by(user_id: user.id)
         read_state.destroy if read_state
       else
-        read_state = postable.user_read_states.create_with(read_at: previous_post.created_at).find_or_create_by(user_id: user.id)
+        read_state = postable.user_read_states.create_with(
+          read_at: previous_post.created_at
+        ).find_or_create_by(user_id: user.id)
         read_state.update_columns(read_at: previous_post.created_at)
       end
     end
