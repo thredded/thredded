@@ -95,6 +95,9 @@
   blockquote {
     @extend %thredded--blockquote;
   }
+  pre {
+    overflow-x: auto;
+  }
 
   &--spoiler {
     color: $thredded-spoiler-hidden-color;
