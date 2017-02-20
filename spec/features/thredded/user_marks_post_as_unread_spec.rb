@@ -8,7 +8,7 @@ feature 'Logged in user' do
     PageObject::Topic.new(topic)
   end
 
-  scenario 'can mark a topic as unread' do
+  scenario 'can mark a post as unread' do
     member_signs_in
 
     topic.visit_topic
