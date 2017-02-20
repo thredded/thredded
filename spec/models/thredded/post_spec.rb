@@ -282,14 +282,16 @@ module Thredded
     let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: third_post.created_at) }
 
     before do
-      travel_to 1.day.ago do
+      travel_to 2.days.ago do
         first_post
       end
-      travel_to 1.hour.ago do
+      travel_to 1.day.ago do
         second_post
       end
-      third_post
-      read_state
+      travel_to 1.minute.ago do
+        third_post
+        read_state
+      end
     end
 
     context 'when first post' do
