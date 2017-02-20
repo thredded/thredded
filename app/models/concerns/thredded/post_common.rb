@@ -49,14 +49,17 @@ module Thredded
     end
 
     def mark_as_unread(user)
-      read_state = UserTopicReadState.find_by(user_id: user.id, postable: postable)
-      return unless read_state
-      if first_post_in_topic?
-        read_state.destroy
+      if previous_post.nil?
+        read_state = postable.user_read_states.find_by(user_id: user.id)
+        read_state.destroy if read_state
       else
-        previous_post = postable.posts.order_newest_first.find_by('created_at < ?', created_at)
+        read_state = postable.user_read_states.create_with(read_at: previous_post.created_at).find_or_create_by(user_id: user.id)
         read_state.update_columns(read_at: previous_post.created_at)
       end
+    end
+
+    def previous_post
+      @previous_post ||= postable.posts.order_newest_first.find_by('created_at < ?', created_at)
     end
 
     private

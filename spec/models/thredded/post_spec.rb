@@ -317,10 +317,11 @@ module Thredded
           first_post.mark_as_unread(user)
         end.to_not change { topic.reload.user_read_states.count }
       end
-      it 'marking third post as unread creates read state' do
+      it 'marking third post as unread creates read state for second post' do
         expect do
           third_post.mark_as_unread(user)
-        end.to_not change { topic.reload.user_read_states.count }
+        end.to change { topic.reload.user_read_states.count }.by(1)
+        expect(topic.user_read_states.last.read_at).to eq(second_post.created_at)
       end
     end
 
