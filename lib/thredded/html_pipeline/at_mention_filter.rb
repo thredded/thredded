@@ -34,7 +34,7 @@ module Thredded
 
       private
 
-      MATCH_NAME_RE = /(?:^|[\s>])@(\w+|"[\w. ]+")(?=\W|$)/
+      MATCH_NAME_RE = /(?:^|[\s>])@([\w\-]+|"[\w.,\- ()]+")(?=\W|$)/
 
       def mentioned_names(text_node_html)
         text_node_html.scan(MATCH_NAME_RE).map(&:first).map { |m| m.start_with?('"') ? m[1..-2] : m }
@@ -45,7 +45,7 @@ module Thredded
         return unless names.present?
         @users_provider.call(names).each do |user|
           name = user.thredded_display_name
-          maybe_quoted_name = name =~ /[. ]/ ? %("#{name}") : name
+          maybe_quoted_name = name =~ /[., ()]/ ? %("#{name}") : name
           url = Thredded.user_path(@view_context, user)
           text_node_html.gsub!(
             /(^|[\s>])(@#{Regexp.escape maybe_quoted_name})([^a-z\d]|$)/i,
