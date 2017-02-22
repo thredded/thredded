@@ -154,3 +154,7 @@ end
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
+Capybara.configure do |config|
+  # bump from the default of 2 seconds because travis can be slow
+  config.default_max_wait_time = 5
+end
