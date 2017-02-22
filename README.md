@@ -105,26 +105,13 @@ rails g thredded:install
 
 But then compare this with the previous version to decide what to keep.
 
-2) To upgrade the database:
-
-Latest version (in this example from v0.6 to v0.7):
+2) To upgrade the database (in this example from v0.9 to v0.10):
 
 ```console
-# Note that for guaranteed best results you will want to run this with the gem checked out with v0.7.0
-cp `bundle show thredded`/db/upgrade_migrations/20160723012349_upgrade_v0_6_to_v0_7.rb db/migrate
+# Note that for guaranteed best results you will want to run this with the gem checked out with v0.10.0
+cp `bundle show thredded`/db/upgrade_migrations/20170125033319_upgrade_v0_9_to_v0_10.rb db/migrate
 rake db:migrate
 ```
-
-
-To upgrade the database (in this example from v0.7 to v0.8):
-
-```console
-# Note that for guaranteed best results you will want to run this with the gem checked out with v0.8.0.
-cp `bundle show thredded`/db/upgrade_migrations/20161019150201_upgrade_v0_7_to_v0_8.rb db/migrate
-rake db:migrate
-```
-
-
 
 ### Migrating from Forem
 
