@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.9.4)
+    thredded (0.10.0)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       autosize-rails
@@ -72,7 +72,7 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
-    autoprefixer-rails (6.7.3)
+    autoprefixer-rails (6.7.5)
       execjs
     autosize-rails (1.18.17)
       rails (>= 3.1)
@@ -117,7 +117,7 @@ GEM
       html-pipeline (~> 2.0)
     htmlentities (4.3.4)
     http_accept_language (2.1.0)
-    i18n (0.8.0)
+    i18n (0.8.1)
     inline_svg (0.11.1)
       activesupport (>= 4.0)
       loofah (>= 2.0)
@@ -160,7 +160,7 @@ GEM
       nokogiri
     pg (0.19.0)
     public_suffix (2.0.5)
-    puma (3.7.0)
+    puma (3.7.1)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.1)
@@ -234,7 +234,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (0.19.4)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     thredded-markdown_coderay (0.1.0)
       coderay
     thredded-markdown_katex (0.1.1)
