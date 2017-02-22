@@ -1,4 +1,4 @@
-# Master (future v0.10.0)
+# v0.10.0
 
 ## Changed
 
