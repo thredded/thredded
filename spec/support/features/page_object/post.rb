@@ -59,7 +59,7 @@ module PageObject
 
     def topic_unread_from_here
       within(css_selector) do
-        click_link('Mark as unread')
+        click_link('Mark unread from here')
       end
     end
   end

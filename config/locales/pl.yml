@@ -156,7 +156,7 @@ pl:
         update_btn: Zaktualizuj temat
       locked:
         label: Zablokowany
-      mark_as_unread: Oznacz jako nieprzeczytane
+      mark_as_unread: Oznacz jako nieprzeczytane stąd
       not_following: Nie obserwujesz tego tematu.
       search:
         no_results_message: 'Nie odnaleziono żadnych wyników dla frazy: %{query}'
