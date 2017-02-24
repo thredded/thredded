@@ -280,6 +280,8 @@ module Thredded
     let(:second_post) { create(:post, postable: topic) }
     let(:third_post) { create(:post, postable: topic) }
     let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: third_post.created_at) }
+    let(:page) { 1 }
+    let(:a_different_page) { 3 }
 
     before do
       travel_to 2.days.ago do
@@ -297,7 +299,7 @@ module Thredded
     context 'when first post' do
       it 'removes the read state' do
         expect do
-          first_post.mark_as_unread(user)
+          first_post.mark_as_unread(user, page)
         end.to change { topic.reload.user_read_states.count }.by(-1)
       end
     end
@@ -305,8 +307,13 @@ module Thredded
     context 'when third (say) post' do
       it 'changes the read state to the previous post' do
         expect do
-          third_post.mark_as_unread(user)
+          third_post.mark_as_unread(user, page)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at
+      end
+
+      it 'changes the page to the previous posts' do
+        third_post.mark_as_unread(user, a_different_page)
+        expect(read_state.reload.page).to eq(a_different_page)
       end
     end
 
@@ -314,14 +321,18 @@ module Thredded
       let(:read_state) { nil }
       it 'marking first post as unread does nothing' do
         expect do
-          first_post.mark_as_unread(user)
+          first_post.mark_as_unread(user, page)
         end.to_not change { topic.reload.user_read_states.count }
       end
       it 'marking third post as unread creates read state for second post' do
         expect do
-          third_post.mark_as_unread(user)
-        end.to change { topic.reload.user_read_states.count }.by(1)
+          third_post.mark_as_unread(user, page)
+        end.to change { topic.reload.user_read_states.count }.by(page)
         expect(topic.user_read_states.last.read_at).to eq(second_post.created_at)
+      end
+      it 'uses given page' do
+        third_post.mark_as_unread(user, a_different_page)
+        expect(topic.user_read_states.last.page).to eq(a_different_page)
       end
     end
 
@@ -330,7 +341,7 @@ module Thredded
 
       it 'marking the third post as unread changes read state to second post' do
         expect do
-          third_post.mark_as_unread(user)
+          third_post.mark_as_unread(user, page)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at
       end
     end
