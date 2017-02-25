@@ -1,16 +1,18 @@
 .thredded--messageboards-group {
+  box-sizing: border-box;
   margin-bottom: $thredded-base-spacing;
 }
 
 .thredded--messageboard {
   @extend %thredded--link;
+  box-sizing: border-box;
   display: block;
-  margin-bottom: 1px;
+  margin-bottom: -$thredded-messageboards-grid-item-border-width;
   padding: $thredded-base-spacing;
   position: relative;
 
   &, &:focus, &:hover, &:active {
-    outline: 1px solid $thredded-base-border-color;
+    border: $thredded-messageboards-grid-item-border-width solid $thredded-base-border-color;
   }
 
   &:hover {
@@ -95,13 +97,18 @@
 
   @if $thredded-messageboards-grid {
     @include thredded-media-desktop-and-up {
-      $item-border-width: 1px;
-      $item-padding-x: ($thredded-base-spacing * 0.8);
-      $item-padding-y: $thredded-base-spacing;
+      $gutter-x: $thredded-messageboards-grid-item-gutter-x;
+      $gutter-y: $thredded-messageboards-grid-item-gutter-y;
+      $border-width: $thredded-messageboards-grid-item-border-width;
+      // Collapse borders when there is no gutter
+      $margin-x: $gutter-x / 2 - if($gutter-x == 0, $border-width / 2, 0);
+      $margin-y: $gutter-y / 2 - if($gutter-y == 0, $border-width / 2, 0);
 
       %thredded--messageboards-cell-flex {
         flex-basis: $thredded-messageboards-grid-item-flex-basis;
         flex-grow: 1;
+        margin-left: $margin-x;
+        margin-right: $margin-x;
       }
 
       .thredded--messageboards-group {
@@ -109,14 +116,14 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-left: $item-border-width;
+        margin: (-$margin-y) (-$margin-x);
 
         // Size incomplete last rows with up to two missing items.
         &::after, &::before {
           @extend %thredded--messageboards-cell-flex;
+          box-sizing: border-box;
           content: "";
-          margin-right: $item-border-width;
-          padding: 0 $item-padding-x;
+          padding: 0 $thredded-messageboards-grid-item-padding-x;
         }
 
         &::before {
@@ -126,8 +133,9 @@
 
       .thredded--messageboard {
         @extend %thredded--messageboards-cell-flex;
-        margin-left: 1px;
-        padding: $item-padding-y $item-padding-x;
+        margin-top: $margin-y;
+        margin-bottom: $margin-y;
+        padding: $thredded-messageboards-grid-item-padding-y $thredded-messageboards-grid-item-padding-x;
       }
 
     }

@@ -87,5 +87,13 @@ $thredded-badge-inactive-background: rgba($thredded-text-color, 0.3) !default;
 // Layout features
 // Whether to display messageboards as a grid on the desktop screen sizes.
 $thredded-messageboards-grid: true !default;
+// Paddings within a grid item
+$thredded-messageboards-grid-item-padding-x: ($thredded-base-spacing * 0.8) !default;
+$thredded-messageboards-grid-item-padding-y: $thredded-base-spacing !default;
+// Spacing between grid items, must be set in the same unit as the border width
+$thredded-messageboards-grid-item-gutter-x: 0 !default;
+$thredded-messageboards-grid-item-gutter-y: 0 !default;
+// The width of the border around a grid item
+$thredded-messageboards-grid-item-border-width: 1px !default;
 // Minimum width of a grid item
-$thredded-messageboards-grid-item-flex-basis: map-get($thredded-grid-breakpoint-max-widths, tablet) / 3 !default;
+$thredded-messageboards-grid-item-flex-basis: 21.5rem !default;
