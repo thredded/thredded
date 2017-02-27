@@ -24,6 +24,10 @@ module Thredded
       !@post.first_post_in_topic? && update?
     end
 
+    def anonymous?
+      @user.thredded_anonymous?
+    end
+
     private
 
     def own_post?

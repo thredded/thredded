@@ -8,5 +8,9 @@ module Thredded
     def read?
       false
     end
+
+    def post_read?(_post)
+      false
+    end
   end
 end

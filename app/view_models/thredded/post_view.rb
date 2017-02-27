@@ -15,9 +15,11 @@ module Thredded
 
     # @param post [Thredded::PostCommon]
     # @param policy [#update? #destroy?]
-    def initialize(post, policy)
+    # @param policy [Thredded::TopicView]
+    def initialize(post, policy, topic_view: nil)
       @post   = post
       @policy = policy
+      @topic_view = topic_view
     end
 
     def can_update?
@@ -48,6 +50,15 @@ module Thredded
       Thredded::UrlsHelper.post_permalink_path(@post.id)
     end
 
+    def read_state_class
+      case read_state
+      when :unread
+        'thredded--unread--post'
+      when :read
+        'thredded--read--post'
+      end
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity
     def cache_key
       moderation_state = unless @post.private_topic_post?
@@ -62,13 +73,27 @@ module Thredded
         @post.cache_key,
         (@post.messageboard_id unless @post.private_topic_post?),
         @post.user ? @post.user.cache_key : 'users/nil',
+        read_state,
         moderation_state || '+',
         [
           can_update?,
           can_destroy?
         ].map { |p| p ? '+' : '-' } * ''
+
       ].compact.join('/')
     end
     # rubocop:enable Metrics/CyclomaticComplexity
+
+    private
+
+    def read_state
+      if @topic_view.nil? || @policy.anonymous?
+        :unknown
+      elsif @topic_view.post_read?(@post)
+        :read
+      else
+        :unread
+      end
+    end
   end
 end

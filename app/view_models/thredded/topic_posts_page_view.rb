@@ -9,8 +9,8 @@ module Thredded
     # @param topic [Thredded::TopicCommon]
     # @param paginated_scope [ActiveRecord::Relation<Thredded::PostCommon>]
     def initialize(user, topic, paginated_scope)
-      super(user, paginated_scope)
       @topic = "#{paginated_scope.reflect_on_association(:postable).klass}View".constantize.from_user(topic, user)
+      super(user, paginated_scope, topic_view: @topic)
     end
   end
 end
