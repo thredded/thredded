@@ -52,9 +52,9 @@ module Thredded
 
     def read_state_class
       case read_state
-      when :unread
+      when POST_IS_UNREAD
         'thredded--unread--post'
-      when :read
+      when POST_IS_READ
         'thredded--read--post'
       end
     end
@@ -84,15 +84,17 @@ module Thredded
     end
     # rubocop:enable Metrics/CyclomaticComplexity
 
-    private
+    POST_IS_READ = :r
+    POST_IS_UNREAD = :u
 
+    # returns nil if read state is not appropriate to the view (i.e. viewing posts outside a topic)
     def read_state
       if @topic_view.nil? || @policy.anonymous?
-        :unknown
+        nil
       elsif @topic_view.post_read?(@post)
-        :read
+        POST_IS_READ
       else
-        :unread
+        POST_IS_UNREAD
       end
     end
   end

@@ -15,8 +15,10 @@
       %>
     <% end %>
 
-    <%= view_hooks.posts_common.mark_as_unread_link.render self, post: post do %>
-      <%= render partial: 'thredded/posts_common/mark_as_unread_link', locals: {post: post} %>
+    <% if post.read_state %>
+      <%= view_hooks.posts_common.mark_as_unread_link.render self, post: post do %>
+        <%= render partial: 'thredded/posts_common/mark_as_unread_link', locals: {post: post} %>
+      <% end %>
     <% end %>
   </div>
 </div>

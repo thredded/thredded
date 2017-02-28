@@ -8,6 +8,12 @@ feature 'Logged in user' do
     PageObject::Topic.new(topic)
   end
 
+  def member_signs_in
+    user = PageObject::User.new(create(:user, name: 'joel'))
+    user.log_in
+    user
+  end
+
   scenario 'can mark a post as unread' do
     member_signs_in
 
@@ -17,9 +23,8 @@ feature 'Logged in user' do
     expect(page.current_path).to eq thredded.messageboard_topics_path(messageboard)
   end
 
-  def member_signs_in
-    user = PageObject::User.new(create(:user, name: 'joel'))
-    user.log_in
-    user
+  scenario "can't mark as unread when not logged in" do
+    topic.visit_topic
+    expect(page).to_not have_content('Mark unread from here')
   end
 end
