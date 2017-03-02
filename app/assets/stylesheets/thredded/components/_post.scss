@@ -4,7 +4,7 @@
   @include thredded-media-mobile {
     margin-bottom: $thredded-base-spacing;
   }
-  .thredded--post--dropbtn .thredded--post--three-dot-menu {
+  .thredded--post--dropdown--toggle {
     fill: currentColor;
     color: $thredded-action-color;
     display: inline-block;
@@ -66,7 +66,7 @@
     display: block;
   }
 
-  .thredded--post--dropdown:hover .thredded--post--dropbtn .thredded--post--three-dot-menu  {
+  .thredded--post--dropdown:hover .thredded--post--dropdown--toggle  {
     color: $thredded-action-hover-color;
   }
 }
