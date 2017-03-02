@@ -50,15 +50,6 @@ module Thredded
       Thredded::UrlsHelper.post_permalink_path(@post.id)
     end
 
-    def read_state_class
-      case read_state
-      when POST_IS_UNREAD
-        'thredded--unread--post'
-      when POST_IS_READ
-        'thredded--read--post'
-      end
-    end
-
     # rubocop:disable Metrics/CyclomaticComplexity
     def cache_key
       moderation_state = unless @post.private_topic_post?
@@ -84,8 +75,8 @@ module Thredded
     end
     # rubocop:enable Metrics/CyclomaticComplexity
 
-    POST_IS_READ = :r
-    POST_IS_UNREAD = :u
+    POST_IS_READ = :read
+    POST_IS_UNREAD = :unread
 
     # returns nil if read state is not appropriate to the view (i.e. viewing posts outside a topic)
     def read_state
