@@ -114,6 +114,11 @@ feature 'User views a topic' do
         expect(page).not_to have_selector('article.thredded--read--post')
         expect(page).not_to have_selector('article.thredded--unread--post')
       end
+
+      scenario "the toggle doen't display" do
+        topic_page.visit_topic
+        expect(page).to_not have_selector('.thredded--post--dropdown--toggle')
+      end
     end
 
     context 'when logged in' do
