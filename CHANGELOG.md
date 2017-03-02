@@ -1,3 +1,21 @@
+# Master
+
+## Fixed
+
+* Various minor style issues.
+  [#0631f46](https://github.com/thredded/thredded/commit/0631f461b7456b57239d2d8360abb06a06d19ff0)
+  [#f341135](https://github.com/thredded/thredded/commit/f341135ad07beb8ac6e62c99293faefea1b052f9)
+  [#3387cfc](https://github.com/thredded/thredded/commit/3387cfced6cbad1f59e8d5b045623c754693c21f)
+  [#deb6ec8](https://github.com/thredded/thredded/commit/deb6ec876a5c474fc6575ce5852ddf25aa54569b)
+  [#430dedb](https://github.com/thredded/thredded/commit/430dedbf0733304eb912bfa8d2ceca15a0760951)
+
+## Added
+
+* More Sass variables for style customization:
+
+  * `$thredded-messageboards-grid-item-border-(width|color)`
+  * `$thredded-messageboards-grid-item-(padding|gutter)-(x|y)`
+
 # v0.10.0
 
 ## Changed
