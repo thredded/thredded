@@ -1,6 +1,7 @@
 .thredded--main-container {
   @include thredded--clearfix;
   -webkit-font-smoothing: antialiased;
+  box-sizing: content-box;
   color: $thredded-text-color;
   font-family: $thredded-base-font-family;
   font-size: $thredded-base-font-size;
