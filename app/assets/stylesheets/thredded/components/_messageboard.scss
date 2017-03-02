@@ -12,7 +12,7 @@
   position: relative;
 
   &, &:focus, &:hover, &:active {
-    border: $thredded-messageboards-grid-item-border-width solid $thredded-base-border-color;
+    border: $thredded-messageboards-grid-item-border-width solid $thredded-messageboards-grid-item-border-color;
   }
 
   &:hover {

@@ -95,5 +95,13 @@ $thredded-messageboards-grid-item-gutter-x: 0 !default;
 $thredded-messageboards-grid-item-gutter-y: 0 !default;
 // The width of the border around a grid item
 $thredded-messageboards-grid-item-border-width: 1px !default;
+$thredded-messageboards-grid-item-border-color:
+    // If one of the gutters is 0 the borders will be collapsed by overlap.
+    // Ensure their color does not have and alpha component:
+    if($thredded-messageboards-grid-item-gutter-x == 0 or $thredded-messageboards-grid-item-gutter-y == 0,
+       // Use the closest non-transparent color
+       mix(opacify($thredded-base-border-color, 1), $thredded-background-color,
+           percentage(alpha($thredded-base-border-color))),
+       $thredded-base-border-color) !default;
 // Minimum width of a grid item
 $thredded-messageboards-grid-item-flex-basis: 21.5rem !default;
