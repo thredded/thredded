@@ -30,18 +30,15 @@
       width: auto;
       padding: 0.9375rem 0.75rem 0.875rem 0.75rem;
       margin: -1px (-$padding-x) 0 0;
-      // Webkit adds an extra padding that we need to remove.
-      -webkit-margin-end: -($padding-x + 0.75rem);
 
       &, &:focus {
         transition: background, border-color, box-shadow, min-width 0.15s ease-out 0s;
       }
 
-      &:focus {
+      &:focus, &:not(:placeholder-shown) {
         background: $thredded-background-color;
         box-shadow: none;
         margin-right: 0;
-        -webkit-margin-end: 0;
         min-width: 16rem;
         text-align: left;
       }
@@ -59,6 +56,16 @@
         max-height: $line-height;
       }
 
+      &:placeholder-shown, &:not(:focus) {
+        // On Chrome, the search [x] takes up space even when invisible,
+        // breaking the placeholder positioning. Remove it:
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-decoration {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+
       &::placeholder {
         color: $thredded-secondary-nav-color;
         transition: $thredded-action-transition;
@@ -70,13 +77,15 @@
       }
 
       &:hover:not(:focus) {
-        cursor: pointer;
+        &:placeholder-shown {
+          cursor: pointer;
+        }
         &::placeholder {
           color: $thredded-nav-hover-color;
         }
       }
 
-      &:focus {
+      &:focus, &:not(:placeholder-shown) {
         border-color: $thredded-base-border-color;
       }
     }
