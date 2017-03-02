@@ -1,6 +1,7 @@
 .thredded--currently-online {
   background-color: $thredded-base-border-color;
   bottom: -1.25rem;
+  box-sizing: content-box;
   padding: $thredded-base-spacing;
   position: fixed;
   right: 0;
