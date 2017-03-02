@@ -70,6 +70,11 @@
   color: $thredded-action-hover-color;
 }
 
+.thredded--post--mark-as-unread {
+  background: none;
+  border: none;
+}
+
 .thredded--post--avatar {
   border-radius: 50%;
   display: inline-block;
