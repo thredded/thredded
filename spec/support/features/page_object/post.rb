@@ -57,7 +57,7 @@ module PageObject
       end
     end
 
-    def topic_unread_from_here
+    def mark_unread_from_here
       within(css_selector) do
         click_button('Mark unread from here')
       end

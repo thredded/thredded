@@ -19,7 +19,7 @@ feature 'Logged in user' do
 
     topic.visit_topic
     post = topic.first_post
-    post.topic_unread_from_here
+    post.mark_unread_from_here
     expect(page.current_path).to eq thredded.messageboard_topics_path(messageboard)
   end
 
