@@ -1,14 +1,14 @@
 <div class='thredded--post--dropdown'>
   <%= inline_svg 'thredded/three-dot-menu.svg', class: 'thredded--post--dropdown--toggle' %>
-  <div class='thredded--post--actions'>
+  <div class='thredded--post--dropdown--actions'>
     <% if post.can_update? %>
-      <%= link_to t('thredded.posts.edit'), post.edit_path, class: 'thredded--post--edit' %>
+      <%= link_to t('thredded.posts.edit'), post.edit_path, class: 'thredded--post--edit thredded--post--dropdown--actions--item' %>
     <% end %>
 
     <% if post.can_destroy? %>
       <%= link_to t('thredded.posts.delete'), post.destroy_path,
           method: :delete,
-          class: 'thredded--post--delete',
+          class: 'thredded--post--delete thredded--post--dropdown--actions--item',
           data: {confirm: I18n.t('thredded.posts.delete_confirm')}
       %>
     <% end %>

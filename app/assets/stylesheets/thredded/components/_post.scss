@@ -4,71 +4,70 @@
   @include thredded-media-mobile {
     margin-bottom: $thredded-base-spacing;
   }
-  .thredded--post--dropdown--toggle {
-    fill: currentColor;
-    color: $thredded-action-color;
-    display: inline-block;
-    font-size: 1em;
-    width: 1rem;
-    height: 1rem;
-    padding-left: 1.5rem;
-  }
+}
 
-  .thredded--post--dropdown {
-    position: relative;
-    display: inline-block;
-    float: right;
-    text-align: right;
-    cursor: pointer;
-    @media print {
-      display: none;
-    }
-  }
+.thredded--post--dropdown--toggle {
+  fill: currentColor;
+  color: $thredded-action-color;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  padding-left: 1.5rem;
+}
 
-  .thredded--post--actions {
+.thredded--post--dropdown {
+  position: relative;
+  display: inline-block;
+  float: right;
+  text-align: right;
+  cursor: pointer;
+  @media print {
     display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 170px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  }
+}
+
+.thredded--post--dropdown--actions {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: $thredded-background-color;
+  min-width: 10rem;
+  box-shadow: 0rem 0.5rem 1rem 0rem rgba(0,0,0,0.2);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.thredded--post--dropdown--actions--item {
+  font-size: $thredded-font-size-small;
+  color: $thredded-text-color;
+  //color: $thredded-action-color;
+  text-decoration: none;
+  //transition: $thredded-action-transition;
+  padding: 1rem 0.75rem;
+  display: block;
+  white-space: nowrap;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $thredded-action-color;
+    color: $thredded-background-color;
+    text-decoration: none;
     cursor: pointer;
   }
 
-  .thredded--post--actions a {
-    font-size: $thredded-font-size-small;
-    color: $thredded-text-color;
-    //color: $thredded-action-color;
-    text-decoration: none;
-    //transition: $thredded-action-transition;
-    padding: 5px 10px;
-    display: block;
-    white-space: nowrap;
-
-    &:active,
-    &:focus,
-    &:hover {
-      background-color: $thredded-action-color;
-      color: $thredded-background-color;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    &:active,
-    &:focus {
-      outline: none;
-    }
-
+  &:active,
+  &:focus {
+    outline: none;
   }
+}
 
-  .thredded--post--dropdown:hover .thredded--post--actions {
-    display: block;
-  }
+.thredded--post--dropdown:hover .thredded--post--dropdown--actions {
+  display: block;
+}
 
-  .thredded--post--dropdown:hover .thredded--post--dropdown--toggle  {
-    color: $thredded-action-hover-color;
-  }
+.thredded--post--dropdown:hover .thredded--post--dropdown--toggle {
+  color: $thredded-action-hover-color;
 }
 
 .thredded--post--avatar {
