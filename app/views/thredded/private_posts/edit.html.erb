@@ -9,10 +9,9 @@
 <%= thredded_page do %>
   <section class="thredded--main-section">
     <%= render 'thredded/posts/form',
-               messageboard: messageboard,
                topic:        topic,
                post:         @post,
-               preview_url:  messageboard_topic_post_preview_path(messageboard, @post.postable, @post),
+               preview_url:  private_topic_private_post_preview_path(@post.postable, @post),
                button_text:  t('thredded.posts.form.update_btn'),
                button_submitting_text: t('thredded.posts.form.update_btn_submitting')%>
   </section>

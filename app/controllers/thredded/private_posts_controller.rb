@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
-  # A controller for managing {Post}s.
-  class PostsController < Thredded::ApplicationController
+  # A controller for managing {PrivatePost}s.
+  class PrivatePostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
 
     helper_method :topic
@@ -38,7 +38,7 @@ module Thredded
 
     def mark_as_unread
       authorize post, :read?
-      page = post.page(user: thredded_current_user)
+      page = post.page
       post.mark_as_unread(thredded_current_user, page)
       after_mark_as_unread # customization hook
     end
@@ -46,7 +46,7 @@ module Thredded
     private
 
     def after_mark_as_unread
-      redirect_to messageboard_topics_path(messageboard)
+      redirect_to private_topics_path
     end
 
     def topic
@@ -56,18 +56,18 @@ module Thredded
     def post_params
       params.require(:post)
         .permit(:content)
-        .merge(user: thredded_current_user, ip: request.remote_ip, messageboard: messageboard)
+        .merge(user: thredded_current_user, ip: request.remote_ip)
     end
 
     def parent_topic
-      Topic
-        .where(messageboard: messageboard)
+      PrivateTopic
+        .includes(:private_users)
         .friendly
-        .find(params[:topic_id])
+        .find(params[:private_topic_id])
     end
 
     def post
-      @post ||= Thredded::Post.find(params[:id])
+      @post ||= Thredded::PrivatePost.find(params[:id])
     end
 
     def current_page

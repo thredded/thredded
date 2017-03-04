@@ -14,7 +14,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
       end
-      resources :private_posts, path: '', except: [:index, :show], controller: 'posts' do
+      resources :private_posts, path: '', except: [:index, :show] do
         post :preview, on: :new, controller: 'private_post_previews'
         resource :preview, only: [:update], controller: 'private_post_previews'
         member do
