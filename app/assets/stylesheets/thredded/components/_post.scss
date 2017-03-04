@@ -12,7 +12,9 @@
   display: inline-block;
   width: 1rem;
   height: 1rem;
-  padding-left: 1.5rem;
+  padding: 0.875rem 0.875rem 0.875rem 1.5rem;
+  margin-right: -0.875rem;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .thredded--post--dropdown {
@@ -27,6 +29,7 @@
 
 .thredded--post--dropdown--actions {
   position: absolute;
+  margin-top: -0.875rem;
   right: 0;
   background-color: $thredded-overlay-background-color;
   border-radius: 2px;
