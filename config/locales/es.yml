@@ -157,6 +157,7 @@ es:
         update_btn: Actualizar Tema
       locked:
         label: Bloqueado
+      mark_as_unread: Marcar sin leer desde aquí
       not_following: No estás siguiendo este tema.
       search:
         no_results_message: No hay resultados para tu búsqueda - %{query}

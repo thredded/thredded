@@ -37,7 +37,22 @@ module Thredded
                     notice: I18n.t('thredded.posts.deleted_notice')
     end
 
+    def mark_as_unread
+      authorize post, :read?
+      page = post.private_topic_post? ? post.page : post.page(user: thredded_current_user)
+      post.mark_as_unread(thredded_current_user, page)
+      after_mark_as_unread # customization hook
+    end
+
     private
+
+    def after_mark_as_unread
+      if post.private_topic_post?
+        redirect_to private_topics_path
+      else
+        redirect_to messageboard_topics_path(messageboard)
+      end
+    end
 
     def topic
       post.postable

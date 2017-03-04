@@ -1,11 +1,30 @@
-<% if post.can_update? %>
-  <%= link_to t('thredded.posts.edit'), post.edit_path, class: 'thredded--post--edit' %>
+<% actions = capture do %>
+
+  <% if post.can_update? %>
+    <%= link_to t('thredded.posts.edit'), post.edit_path, class: 'thredded--post--edit thredded--post--dropdown--actions--item' %>
+  <% end %>
+
+  <% if post.can_destroy? %>
+    <%= link_to t('thredded.posts.delete'), post.destroy_path,
+        method: :delete,
+        class: 'thredded--post--delete thredded--post--dropdown--actions--item',
+        data: {confirm: I18n.t('thredded.posts.delete_confirm')}
+    %>
+  <% end %>
+
+  <% if post.read_state %>
+    <%= view_hooks.posts_common.mark_as_unread_link.render self, post: post do %>
+      <%= render partial: 'thredded/posts_common/mark_as_unread_link', locals: {post: post} %>
+    <% end %>
+  <% end %>
+
 <% end %>
 
-<% if post.can_destroy? %>
-  <%= link_to t('thredded.posts.delete'), post.destroy_path,
-              method: :delete,
-              class:  'thredded--post--delete',
-              data:   { confirm: I18n.t('thredded.posts.delete_confirm') }
-  %>
+<%- if actions.present? %>
+  <div class='thredded--post--dropdown'>
+    <%= inline_svg 'thredded/three-dot-menu.svg', class: 'thredded--post--dropdown--toggle' %>
+    <div class='thredded--post--dropdown--actions'>
+      <%= actions %>
+    </div>
+  </div>
 <% end %>

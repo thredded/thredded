@@ -56,5 +56,11 @@ module PageObject
         click_link('Delete Post')
       end
     end
+
+    def mark_unread_from_here
+      within(css_selector) do
+        click_button('Mark unread from here')
+      end
+    end
   end
 end

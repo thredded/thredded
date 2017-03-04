@@ -48,6 +48,23 @@ module Thredded
         .in(user_names)
     end
 
+    def mark_as_unread(user, page)
+      if previous_post.nil?
+        read_state = postable.user_read_states.find_by(user_id: user.id)
+        read_state.destroy if read_state
+      else
+        read_state = postable.user_read_states.create_with(
+          read_at: previous_post.created_at,
+          page: page
+        ).find_or_create_by(user_id: user.id)
+        read_state.update_columns(read_at: previous_post.created_at, page: page)
+      end
+    end
+
+    def previous_post
+      @previous_post ||= postable.posts.order_newest_first.find_by('created_at < ?', created_at)
+    end
+
     private
 
     def ensure_user_detail

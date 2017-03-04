@@ -15,9 +15,11 @@ module Thredded
 
     # @param post [Thredded::PostCommon]
     # @param policy [#update? #destroy?]
-    def initialize(post, policy)
+    # @param policy [Thredded::TopicView]
+    def initialize(post, policy, topic_view: nil)
       @post   = post
       @policy = policy
+      @topic_view = topic_view
     end
 
     def can_update?
@@ -34,6 +36,10 @@ module Thredded
 
     def edit_path
       Thredded::UrlsHelper.edit_post_path(@post)
+    end
+
+    def mark_unread_path
+      Thredded::UrlsHelper.mark_unread_path(@post)
     end
 
     def destroy_path
@@ -58,13 +64,29 @@ module Thredded
         @post.cache_key,
         (@post.messageboard_id unless @post.private_topic_post?),
         @post.user ? @post.user.cache_key : 'users/nil',
+        read_state,
         moderation_state || '+',
         [
           can_update?,
           can_destroy?
         ].map { |p| p ? '+' : '-' } * ''
+
       ].compact.join('/')
     end
     # rubocop:enable Metrics/CyclomaticComplexity
+
+    POST_IS_READ = :read
+    POST_IS_UNREAD = :unread
+
+    # returns nil if read state is not appropriate to the view (i.e. viewing posts outside a topic)
+    def read_state
+      if @topic_view.nil? || @policy.anonymous?
+        nil
+      elsif @topic_view.post_read?(@post)
+        POST_IS_READ
+      else
+        POST_IS_UNREAD
+      end
+    end
   end
 end

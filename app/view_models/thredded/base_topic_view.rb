@@ -11,7 +11,7 @@ module Thredded
              :to_model,
              to: :@topic
 
-    delegate :read?,
+    delegate :read?, :post_read?,
              to: :@read_state
 
     # @param topic [TopicCommon]

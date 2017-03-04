@@ -22,5 +22,11 @@ module PageObject
     def submit
       click_button I18n.t('thredded.private_topics.form.update_btn')
     end
+
+    def mark_unread_from_here
+      within('.thredded--post--dropdown') do
+        click_button('Mark unread from here')
+      end
+    end
   end
 end

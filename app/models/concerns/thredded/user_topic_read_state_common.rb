@@ -12,6 +12,12 @@ module Thredded
       postable.last_post_at <= read_at
     end
 
+    # @param post [Post or PrivatePost]
+    # @return [Boolean]
+    def post_read?(post)
+      post.created_at <= read_at
+    end
+
     module ClassMethods
       # @param user_id [Integer]
       # @param topic_id [Integer]
