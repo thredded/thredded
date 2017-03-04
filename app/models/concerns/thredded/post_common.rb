@@ -48,6 +48,9 @@ module Thredded
         .in(user_names)
     end
 
+    # Marks all the posts from the given one as unread for the given user
+    # @param user [Thredded.user_class]
+    # @param page [Integer]
     def mark_as_unread(user, page)
       if previous_post.nil?
         read_state = postable.user_read_states.find_by(user_id: user.id)
