@@ -1,23 +1,17 @@
 <% actions = capture do %>
-
-  <% if post.can_update? %>
-    <%= link_to t('thredded.posts.edit'), post.edit_path, class: 'thredded--post--edit thredded--post--dropdown--actions--item' %>
-  <% end %>
-
-  <% if post.can_destroy? %>
-    <%= link_to t('thredded.posts.delete'), post.destroy_path,
-        method: :delete,
-        class: 'thredded--post--delete thredded--post--dropdown--actions--item',
-        data: {confirm: I18n.t('thredded.posts.delete_confirm')}
-    %>
-  <% end %>
-
-  <% if post.read_state %>
-    <%= view_hooks.posts_common.mark_as_unread_link.render self, post: post do %>
-      <%= render partial: 'thredded/posts_common/mark_as_unread_link', locals: {post: post} %>
+  <%= view_hooks.post_common.actions.render self, post: post do %>
+    <% if post.can_update? %>
+      <%= render 'thredded/posts_common/actions/edit', post: post %>
+    <% end %>
+    <% if post.can_destroy? %>
+      <%= render 'thredded/posts_common/actions/delete', post: post %>
+    <% end %>
+    <% if post.read_state %>
+      <%= view_hooks.post_common.mark_as_unread.render self, post: post do %>
+        <%= render 'thredded/posts_common/actions/mark_as_unread', post: post %>
+      <% end %>
     <% end %>
   <% end %>
-
 <% end %>
 
 <%- if actions.present? %>

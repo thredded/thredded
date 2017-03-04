@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module Thredded
   class AllViewHooks
+    # @return [PostCommon]
+    attr_reader :post_common
     # @return [PostsCommon]
     attr_reader :posts_common
     # @return [PostForm]
@@ -23,6 +25,7 @@ module Thredded
     end
 
     def initialize
+      @post_common = PostCommon.new
       @posts_common = PostsCommon.new
       @post_form = PostForm.new
       @moderation_user_page = ModerationUserPage.new
@@ -35,13 +38,22 @@ module Thredded
       attr_reader :pagination_top
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :pagination_bottom
-      # @return [Thredded::AllViewHooks::ViewHook]
-      attr_reader :mark_as_unread_link
 
       def initialize
         @pagination_top = ViewHook.new
         @pagination_bottom = ViewHook.new
-        @mark_as_unread_link = ViewHook.new
+      end
+    end
+
+    class PostCommon
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :actions
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :mark_as_unread
+
+      def initialize
+        @actions = ViewHook.new
+        @mark_as_unread = ViewHook.new
       end
     end
 
