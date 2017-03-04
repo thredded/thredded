@@ -3,6 +3,7 @@
 ## Changed
 
 * Post actions moved to a dropdown menu.
+  [#533](https://github.com/thredded/thredded/pull/533)
 
 ## Fixed
 
@@ -15,13 +16,14 @@
 
 ## Added
 
+* Posts can be marked as unread.
+  [#533](https://github.com/thredded/thredded/pull/533)
+
 * More Sass variables for style customization:
 
   * `$thredded-messageboards-grid-item-border-(width|color)`
   * `$thredded-messageboards-grid-item-(padding|gutter)-(x|y)`
   * `$thredded-overlay-(background-color|box-shadow)`
-
-* Posts can be marked as unread.
 
 # v0.10.0
 
