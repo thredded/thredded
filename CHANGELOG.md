@@ -1,5 +1,9 @@
 # Master
 
+## Changed
+
+* Post actions moved to a dropdown menu.
+
 ## Fixed
 
 * Various minor style issues.
@@ -15,6 +19,9 @@
 
   * `$thredded-messageboards-grid-item-border-(width|color)`
   * `$thredded-messageboards-grid-item-(padding|gutter)-(x|y)`
+  * `$thredded-overlay-(background-color|box-shadow)`
+
+* Posts can be marked as unread.
 
 # v0.10.0
 

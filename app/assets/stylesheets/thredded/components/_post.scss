@@ -19,7 +19,6 @@
   position: relative;
   display: inline-block;
   float: right;
-  text-align: right;
   cursor: pointer;
   @media print {
     display: none;
@@ -27,22 +26,24 @@
 }
 
 .thredded--post--dropdown--actions {
-  display: none;
   position: absolute;
   right: 0;
-  background-color: $thredded-background-color;
+  background-color: $thredded-overlay-background-color;
   min-width: 10rem;
-  box-shadow: 0rem 0.5rem 1rem 0rem rgba(0,0,0,0.2);
   z-index: 1;
   cursor: pointer;
+  box-shadow: $thredded-overlay-box-shadow;
+  transform: scale(0);
+  opacity: 0;
+  transform-origin: 100% 0;
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1), opacity .2s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
 }
 
 .thredded--post--dropdown--actions--item {
   font-size: $thredded-font-size-small;
   color: $thredded-text-color;
-  //color: $thredded-action-color;
   text-decoration: none;
-  //transition: $thredded-action-transition;
   padding: 1rem 0.75rem;
   display: block;
   white-space: nowrap;
@@ -63,7 +64,8 @@
 }
 
 .thredded--post--dropdown:hover .thredded--post--dropdown--actions {
-  display: block;
+  transform: scale(1);
+  opacity: 1;
 }
 
 .thredded--post--dropdown:hover .thredded--post--dropdown--toggle {
