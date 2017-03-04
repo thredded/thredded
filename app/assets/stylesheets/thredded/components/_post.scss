@@ -29,6 +29,8 @@
   position: absolute;
   right: 0;
   background-color: $thredded-overlay-background-color;
+  border-radius: 2px;
+  overflow: hidden;
   min-width: 10rem;
   z-index: 1;
   cursor: pointer;
