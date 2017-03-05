@@ -15,8 +15,8 @@ module Thredded
       instrument(:collection, count: collection.size) do |instrumentation_payload|
         return [] if collection.blank?
         keyed_collection = collection.each_with_object({}) do |item, hash|
-          key = view_context.fragment_cache_key(
-            view_context.cache_fragment_name(item, virtual_path: template.virtual_path)
+          key = ActiveSupport::Cache.expand_cache_key(
+            view_context.cache_fragment_name(item, virtual_path: template.virtual_path), :views
           )
           # #read_multi & #write may require key mutability, Dalli 2.6.0.
           hash[key.frozen? ? key.dup : key] = item
