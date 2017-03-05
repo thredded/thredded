@@ -6,6 +6,7 @@ module Thredded
              :to_ary,
              :blank?,
              :empty?,
+             :[],
              to: :@topic_views
     delegate :total_pages,
              :current_page,
