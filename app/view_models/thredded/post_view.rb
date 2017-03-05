@@ -50,30 +50,10 @@ module Thredded
       Thredded::UrlsHelper.post_permalink_path(@post.id)
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
+    # This cache key is used only for caching the content.
     def cache_key
-      moderation_state = unless @post.private_topic_post?
-                           if @post.pending_moderation? && !Thredded.content_visible_while_pending_moderation
-                             'p'
-                           elsif @post.blocked?
-                             '-'
-                           end
-                         end
-      [
-        I18n.locale,
-        @post.cache_key,
-        (@post.messageboard_id unless @post.private_topic_post?),
-        @post.user ? @post.user.cache_key : 'users/nil',
-        read_state,
-        moderation_state || '+',
-        [
-          can_update?,
-          can_destroy?
-        ].map { |p| p ? '+' : '-' } * ''
-
-      ].compact.join('/')
+      @post.cache_key
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     POST_IS_READ = :read
     POST_IS_UNREAD = :unread

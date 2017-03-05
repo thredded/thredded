@@ -10,7 +10,9 @@
       </div>
     <% end %>
     <% if @posts.present? %>
-      <%= render partial: 'post', collection: @posts %>
+      <%= render_posts @posts,
+                       partial: 'thredded/moderation/post',
+                       content_partial: 'thredded/posts/content' %>
       <%= paginate @posts %>
     <% else %>
       <div class="thredded--empty">
