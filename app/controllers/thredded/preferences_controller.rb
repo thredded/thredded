@@ -4,8 +4,7 @@ module Thredded
     before_action :thredded_require_login!,
                   :init_preferences
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @preferences.save

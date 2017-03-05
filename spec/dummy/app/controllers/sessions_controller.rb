@@ -2,8 +2,7 @@
 class SessionsController < ApplicationController
   self.store_location_fullpath = false
 
-  def new
-  end
+  def new; end
 
   def create
     user = Thredded.user_class.find_or_initialize_by(name: params[:name])

@@ -7,7 +7,7 @@ module Thredded
     # @param partial [String]
     # @param expires_in [ActiveSupport::Duration]
     # @return Array<[T, String]>
-    def render_collection_to_strings_with_cache(# rubocop:disable Metrics/ParameterLists
+    def render_collection_to_strings_with_cache( # rubocop:disable Metrics/ParameterLists
       view_context, collection:, partial:, expires_in:, locals: {}, **opts
     )
       template = @lookup_context.find_template(partial, [], true, locals, {})
