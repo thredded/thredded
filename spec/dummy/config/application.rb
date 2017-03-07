@@ -14,6 +14,7 @@ require 'thredded/markdown_coderay'
 require 'thredded/markdown_katex'
 
 if ENV['HEROKU']
+  require 'tunemygc'
   require 'rack/canonical_host'
   require 'newrelic_rpm'
   require 'dalli'
