@@ -52,9 +52,12 @@ form.button_to > .thredded--post--dropdown--actions--item {
   background: none;
   border-radius: 0;
   border: 0;
+  box-sizing: border-box;
   font: inherit;
   margin: 0;
+  text-align: left;
   transition: none;
+  width: 100%;
 
   font-size: $thredded-font-size-small;
   color: $thredded-text-color;
