@@ -44,7 +44,7 @@ module Thredded
       send(Thredded.current_user_method) || NullUser.new
     end
 
-    def signed_in?
+    def signed_in?(scope=nil)
       !thredded_current_user.thredded_anonymous?
     end
 
