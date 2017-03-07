@@ -48,18 +48,20 @@ module PageObject
     end
 
     def deletable?
-      has_css? "#{css_selector} .thredded--post--delete", text: 'Delete Post'
+      within css_selector do
+        has_button? I18n.t('thredded.posts.delete')
+      end
     end
 
     def delete
-      within(css_selector) do
-        click_link('Delete Post')
+      within css_selector do
+        click_button I18n.t('thredded.posts.delete')
       end
     end
 
     def mark_unread_from_here
-      within(css_selector) do
-        click_button('Mark unread from here')
+      within css_selector do
+        click_button I18n.t('thredded.topics.mark_as_unread')
       end
     end
   end
