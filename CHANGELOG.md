@@ -28,6 +28,9 @@
 * Support PostgreSQL UUID primary keys.
   [#538](https://github.com/thredded/thredded/issues/538)
 
+* A divider line between sticky and non-sticky topic.
+  [#537](https://github.com/thredded/thredded/pull/537)
+
 # v0.10.0
 
 ## Changed
