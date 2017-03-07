@@ -65,7 +65,7 @@ module Thredded
 
     def topic_categories
       if category_ids
-        ids = category_ids.reject(&:empty?).map(&:to_i)
+        ids = category_ids.reject(&:empty?)
         Category.where(id: ids)
       else
         []

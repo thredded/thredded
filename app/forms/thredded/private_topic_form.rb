@@ -64,7 +64,7 @@ module Thredded
 
     def topic_categories
       if category_ids
-        ids = category_ids.reject(&:empty?).map(&:to_i)
+        ids = category_ids.reject(&:empty?)
         Category.where(id: ids)
       else
         []
@@ -82,8 +82,8 @@ module Thredded
     def normalized_user_ids
       user_ids
         .reject(&:empty?)
-        .map(&:to_i)
-        .push(user.id)
+        .map(&:to_s)
+        .push(user.id.to_s)
         .uniq
     end
 
