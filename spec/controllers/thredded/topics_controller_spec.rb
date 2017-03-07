@@ -12,7 +12,6 @@ module Thredded
       @post         = create(:post, postable: @topic, content: 'hi')
       allow(controller).to receive_messages(
         topics:        [@topic],
-        sticky_topics: [],
         cannot?:       false,
         the_current_user:  user,
         messageboard:  @messageboard

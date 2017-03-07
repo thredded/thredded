@@ -40,3 +40,7 @@
     </span>
   <% end %>
 <% end %>
+
+<% if !topic_iteration.last? && topic.sticky? && !topics[topic_counter + 1].sticky? %>
+  <%= render 'thredded/topics/sticky_topics_divider' %>
+<% end %>

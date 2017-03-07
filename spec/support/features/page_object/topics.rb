@@ -69,6 +69,10 @@ module PageObject
       has_content?(topic_title)
     end
 
+    def has_sticky_divider?
+      has_css?('.thredded--topics--sticky-topics-divider')
+    end
+
     def preview_html
       # Wait for debounced preview to trigger
       Timeout.timeout(1) do

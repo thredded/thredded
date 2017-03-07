@@ -15,7 +15,7 @@
                css_class: 'thredded--is-compact',
                preview_url: preview_new_messageboard_topic_path(messageboard),
                placeholder: t('thredded.topics.form.title_placeholder_start') if @new_topic %>
-    <%= render @topics %>
+    <%= render partial: 'thredded/topics/topic', collection: @topics, locals: {topics: @topics} %>
   <% end %>
 
   <footer class="thredded--pagination-bottom">

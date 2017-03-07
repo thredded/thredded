@@ -23,6 +23,7 @@ feature 'User viewing topics' do
 
     expect(topics.stuck_topics.size).to eq(1)
     expect(topics.normal_topics.size).to eq(2)
+    expect(topics).to have_sticky_divider
   end
 
   def three_topics

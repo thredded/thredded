@@ -1,5 +1,5 @@
 .thredded--topics--topic {
-  margin-bottom: $thredded-base-spacing;
+  margin-bottom: $thredded-topics-list-gutter-y;
   position: relative;
 
   @media (max-width: $thredded-grid-container-max-width) {
@@ -8,7 +8,13 @@
   @include thredded-media-mobile {
     margin-right: 2rem;
   }
+}
 
+.thredded--topics--sticky-topics-divider {
+  margin-top: -$thredded-topics-list-gutter-y / 2;
+  margin-bottom: $thredded-topics-list-gutter-y / 2;
+  border: 0;
+  border-top: $thredded-base-border;
 }
 
 .thredded--topics--title {
