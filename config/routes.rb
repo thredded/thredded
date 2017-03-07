@@ -2,8 +2,7 @@
 Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
 
-  positive_int = /[1-9]\d*/
-  page_constraint = { page: positive_int }
+  page_constraint = { page: /[1-9]\d*/ }
 
   scope path: 'private-topics' do
     resource :read_state, only: [:update], as: :mark_all_private_topics_read
@@ -24,7 +23,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  scope only: [:show], constraints: { id: positive_int } do
+  scope only: [:show], constraints: { id: Thredded.routes_id_constraint } do
     resources :private_post_permalinks, path: 'private-posts'
     resources :post_permalinks, path: 'posts'
   end

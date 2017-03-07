@@ -48,6 +48,7 @@ module Thredded
     :email_outgoing_prefix,
     :layout,
     :messageboards_order,
+    :routes_id_constraint,
     :user_class,
     :user_display_name_method,
     :user_name_column,
@@ -92,6 +93,7 @@ module Thredded
   self.show_topic_followers = false
   self.messageboards_order = :position
   self.autocomplete_min_length = 2
+  self.routes_id_constraint = /[1-9]\d*/
 
   # @return [Thredded::AllViewHooks] View hooks configuration.
   def self.view_hooks

@@ -29,6 +29,13 @@ Thredded.current_user_method = :"current_#{Thredded.user_class.name.underscore}"
 # User avatar URL. rb-gravatar gem is used by default:
 Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
 
+# ==> Database Configuration
+# By default, thredded uses integers for record ID route constraints.
+# For integer based IDs (default):
+# Thredded.routes_id_constraint = /[1-9]\d*/
+# For UUID based IDs (example):
+# Thredded.routes_id_constraint = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+
 # ==> Permissions Configuration
 # By default, thredded uses a simple permission model, where all the users can post to all message boards,
 # and admins and moderators are determined by a flag on the users table.
