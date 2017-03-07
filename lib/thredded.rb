@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 # Backend
+require 'set'
 require 'pundit'
 require 'active_record_union'
 require 'db_text_search'
@@ -35,6 +36,7 @@ require 'thredded/errors'
 
 require 'thredded/view_hooks/config'
 require 'thredded/view_hooks/renderer'
+require 'thredded/topics_search'
 
 # Require Thredded::ContentFormatter explicitly so that it doesn't need to be required if used in the initializer.
 require 'thredded/content_formatter'
