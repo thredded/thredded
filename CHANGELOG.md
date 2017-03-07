@@ -25,6 +25,9 @@
   * `$thredded-messageboards-grid-item-(padding|gutter)-(x|y)`
   * `$thredded-overlay-(background-color|box-shadow)`
 
+* Support PostgreSQL UUID primary keys.
+  [#538](https://github.com/thredded/thredded/issues/538)
+
 # v0.10.0
 
 ## Changed

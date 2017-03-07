@@ -76,7 +76,7 @@ module Thredded
 
     def maybe_set_last_moderated_record_flash
       return unless flash[:last_moderated_record_id]
-      @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id])
+      @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id].to_s)
     end
 
     def moderatable_posts
