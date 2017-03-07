@@ -45,7 +45,16 @@
   will-change: transform;
 }
 
-.thredded--post--dropdown--actions--item {
+.thredded--post--dropdown--actions--item,
+// This specific selector protects from global button rules
+form.button_to > .thredded--post--dropdown--actions--item {
+  // Override potential global rules
+  background: none;
+  border-radius: 0;
+  border: 0;
+  font: inherit;
+  margin: 0;
+
   font-size: $thredded-font-size-small;
   color: $thredded-text-color;
   text-decoration: none;
@@ -75,11 +84,6 @@
 
 .thredded--post--dropdown:hover .thredded--post--dropdown--toggle {
   color: $thredded-action-hover-color;
-}
-
-.thredded--post--mark-as-unread {
-  background: none;
-  border: none;
 }
 
 .thredded--post--avatar {
