@@ -46,6 +46,7 @@ module Thredded
     :autocomplete_min_length,
     :active_user_threshold,
     :avatar_url,
+    :display_name,
     :email_from,
     :email_outgoing_prefix,
     :layout,
@@ -113,6 +114,10 @@ module Thredded
   def self.notifiers=(notifiers)
     notifiers.each { |notifier| BaseNotifier.validate_notifier(notifier) }
     @@notifiers = notifiers # rubocop:disable Style/ClassVars
+  end
+
+  def self.display_name(user)
+    [user.send(Thredded.user_name_column), user.send(Thredded.user_display_name_method)].uniq.join(' - ')
   end
 
   def self.user_display_name_method
