@@ -11,7 +11,9 @@
     <%= view_hooks.posts_common.pagination_top.render(self, posts: @posts) do %>
       <footer class="thredded--pagination-top"><%= paginate @posts %></footer>
     <% end %>
-    <%= render partial: 'thredded/private_posts/private_post', collection: @posts, cached: true %>
+    <%= render_posts @posts,
+                     partial: 'thredded/private_posts/private_post',
+                     content_partial: 'thredded/private_posts/content' %>
     <%= view_hooks.posts_common.pagination_bottom.render(self, posts: @posts) do %>
       <footer class="thredded--pagination-bottom"><%= paginate @posts %></footer>
     <% end %>

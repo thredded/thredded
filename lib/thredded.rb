@@ -39,6 +39,8 @@ require 'thredded/view_hooks/renderer'
 # Require Thredded::ContentFormatter explicitly so that it doesn't need to be required if used in the initializer.
 require 'thredded/content_formatter'
 
+require 'thredded/collection_to_strings_with_cache_renderer'
+
 module Thredded
   mattr_accessor \
     :autocomplete_min_length,

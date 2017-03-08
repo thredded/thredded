@@ -42,7 +42,9 @@
   <% end %>
   <% if @posts.present? %>
     <h2><%= t 'thredded.users.recent_activity' %></h2>
-    <%= render partial: 'user_post', collection: @posts, as: :post %>
+    <%= render_posts @posts,
+                     partial: 'thredded/moderation/user_post',
+                     content_partial: 'thredded/posts/content' %>
     <%= paginate @posts %>
   <% end %>
 <% end %>

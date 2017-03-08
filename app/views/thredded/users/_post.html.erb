@@ -1,6 +1,6 @@
-<%# @param post [Thredded::PostView] %>
+<% post, content = post_and_content if local_assigns.key?(:post_and_content) %>
 <%= content_tag :article, id: dom_id(post), class: 'thredded--post' do %>
   <%= render 'thredded/posts_common/header_with_topic', post: post %>
-  <%= render 'thredded/posts_common/content', post: post %>
+  <%= content || render('thredded/posts/content', post: post) %>
   <%= render 'thredded/posts_common/actions', post: post %>
 <% end %>

@@ -63,7 +63,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails', '>= 3.5.0'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'rubocop', '= 0.45.0'
+  s.add_development_dependency 'rubocop', '= 0.46.0'
 
   # dummy app dependencies
   s.add_development_dependency 'rails-i18n'

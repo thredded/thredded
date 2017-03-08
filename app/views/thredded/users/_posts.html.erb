@@ -4,4 +4,4 @@
   TODO: Use a Cell instead. https://github.com/apotonick/cells
 %>
 <%# @param posts [Thredded::PostsPageView] %>
-<%= render partial: 'thredded/users/post', collection: posts %>
+<%= render_posts posts, partial: 'thredded/users/post', content_partial: 'thredded/posts/content' %>

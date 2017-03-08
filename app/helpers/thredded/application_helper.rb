@@ -3,6 +3,7 @@ module Thredded
   module ApplicationHelper
     include ::Thredded::UrlsHelper
     include ::Thredded::NavHelper
+    include ::Thredded::RenderHelper
 
     # @return [AllViewHooks] View hooks configuration.
     def view_hooks
@@ -66,6 +67,16 @@ module Thredded
       else
         I18n.l time.to_date, format: time_options[:format]
       end
+    end
+
+    # @param posts [Thredded::PostsPageView, Array<Thredded::PostView>]
+    # @param partial [String]
+    # @param content_partial [String]
+    def render_posts(posts, partial: 'thredded/posts/post', content_partial: 'thredded/posts/content')
+      posts_with_contents = render_collection_to_strings_with_cache(
+        partial: content_partial, collection: posts, as: :post, expires_in: 1.week
+      )
+      render partial: partial, collection: posts_with_contents, as: :post_and_content
     end
 
     def paginate(collection, args = {})

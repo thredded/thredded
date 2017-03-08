@@ -33,6 +33,7 @@ feature 'User editing posts' do
 
       post = someone_elses_post
       post.visit_post_edit
+      expect(post).to be_editable
       post.submit_new_content('I edited this')
 
       expect(post).to be_authored_by('sal')
