@@ -5,15 +5,6 @@
 * Post actions moved to a dropdown menu.
   [#533](https://github.com/thredded/thredded/pull/533)
 
-## Fixed
-
-* Various minor style issues.
-  [#0631f46](https://github.com/thredded/thredded/commit/0631f461b7456b57239d2d8360abb06a06d19ff0)
-  [#f341135](https://github.com/thredded/thredded/commit/f341135ad07beb8ac6e62c99293faefea1b052f9)
-  [#3387cfc](https://github.com/thredded/thredded/commit/3387cfced6cbad1f59e8d5b045623c754693c21f)
-  [#deb6ec8](https://github.com/thredded/thredded/commit/deb6ec876a5c474fc6575ce5852ddf25aa54569b)
-  [#430dedb](https://github.com/thredded/thredded/commit/430dedbf0733304eb912bfa8d2ceca15a0760951)
-
 ## Added
 
 * Posts can be marked as unread.
@@ -30,6 +21,24 @@
 
 * A divider line between sticky and non-sticky topic.
   [#537](https://github.com/thredded/thredded/pull/537)
+
+## Fixed
+
+* Various minor style issues.
+  [#0631f46](https://github.com/thredded/thredded/commit/0631f461b7456b57239d2d8360abb06a06d19ff0)
+  [#f341135](https://github.com/thredded/thredded/commit/f341135ad07beb8ac6e62c99293faefea1b052f9)
+  [#3387cfc](https://github.com/thredded/thredded/commit/3387cfced6cbad1f59e8d5b045623c754693c21f)
+  [#deb6ec8](https://github.com/thredded/thredded/commit/deb6ec876a5c474fc6575ce5852ddf25aa54569b)
+  [#430dedb](https://github.com/thredded/thredded/commit/430dedbf0733304eb912bfa8d2ceca15a0760951)
+
+## Internals
+
+* Thredded now caches only the posts' contents (and not the UI around them).
+  [#536](https://github.com/thredded/thredded/pull/536)
+
+* The `Thredded::ApplicationController#signed_in?` method has been renamed to `thredded_signed_in?`,
+  to avoid conflicts with the parent (application) controller.
+  [#543](https://github.com/thredded/thredded/pull/543)
 
 # v0.10.0
 
