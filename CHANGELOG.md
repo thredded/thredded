@@ -9,16 +9,13 @@
 
 * Posts can be marked as unread.
   [#533](https://github.com/thredded/thredded/pull/533)
-
 * More Sass variables for style customization:
-
   * `$thredded-messageboards-grid-item-border-(width|color)`
   * `$thredded-messageboards-grid-item-(padding|gutter)-(x|y)`
   * `$thredded-overlay-(background-color|box-shadow)`
 
 * Support PostgreSQL UUID primary keys.
   [#538](https://github.com/thredded/thredded/issues/538)
-
 * A divider line between sticky and non-sticky topic.
   [#537](https://github.com/thredded/thredded/pull/537)
 
@@ -35,7 +32,6 @@
 
 * Thredded now caches only the posts' contents (and not the UI around them).
   [#536](https://github.com/thredded/thredded/pull/536)
-
 * The `Thredded::ApplicationController#signed_in?` method has been renamed to `thredded_signed_in?`,
   to avoid conflicts with the parent (application) controller.
   [#543](https://github.com/thredded/thredded/pull/543)
