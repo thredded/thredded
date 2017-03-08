@@ -40,7 +40,7 @@ module Thredded
 
     protected
 
-    # The current_user? and signed_in? methods are prefixed with `thredded_`
+    # The `current_user` and `signed_in?` methods are prefixed with `thredded_`
     # to avoid conflicts with methods from the parent controller.
 
     def thredded_current_user
