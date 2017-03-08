@@ -107,7 +107,7 @@ module Thredded
 
     def unread_private_topics_count
       @unread_private_topics_count ||=
-        if signed_in?
+        if thredded_signed_in?
           Thredded::PrivateTopic
             .for_user(thredded_current_user)
             .unread(thredded_current_user)

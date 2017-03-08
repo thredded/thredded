@@ -32,7 +32,7 @@ module Thredded
         .page(current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
 
-      if signed_in?
+      if thredded_signed_in?
         Thredded::UserTopicReadState.touch!(
           thredded_current_user.id, topic.id, page_scope.last, current_page
         )

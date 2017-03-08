@@ -3,13 +3,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SetLocale
   include StoreLocationFullpath
-  helper_method :signed_in?, :the_current_user
+  helper_method :the_current_user
 
   protected
-
-  def signed_in?
-    the_current_user.present?
-  end
 
   def the_current_user
     return unless session[:user_id]

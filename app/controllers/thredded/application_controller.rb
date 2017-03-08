@@ -12,7 +12,7 @@ module Thredded
       :messageboard,
       :messageboard_or_nil,
       :preferences,
-      :signed_in?
+      :thredded_signed_in?
 
     rescue_from Thredded::Errors::MessageboardNotFound,
                 Thredded::Errors::PrivateTopicNotFound,
@@ -40,11 +40,14 @@ module Thredded
 
     protected
 
+    # The current_user? and signed_in? methods are prefixed with `thredded_`
+    # to avoid conflicts with methods from the parent controller.
+
     def thredded_current_user
       send(Thredded.current_user_method) || NullUser.new
     end
 
-    def signed_in?
+    def thredded_signed_in?
       !thredded_current_user.thredded_anonymous?
     end
 
@@ -76,7 +79,7 @@ module Thredded
     end
 
     def update_user_activity
-      return if !messageboard_or_nil || !signed_in?
+      return if !messageboard_or_nil || !thredded_signed_in?
 
       Thredded::ActivityUpdaterJob.perform_later(
         thredded_current_user.id,

@@ -1,6 +1,6 @@
 <nav class="thredded--navigation">
   <ul class="thredded--user-navigation<%= ' thredded--user-navigation-standalone' if Thredded.standalone_layout? %>">
-    <% if signed_in? && Thredded.standalone_layout? %>
+    <% if thredded_signed_in? && Thredded.standalone_layout? %>
       <li class="thredded--user-navigation--profile thredded--user-navigation--item">
         <%= link_to thredded_current_user.thredded_display_name, user_path(thredded_current_user) %>
       </li>
