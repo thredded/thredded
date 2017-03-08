@@ -17,7 +17,7 @@ module Thredded
     describe 'PUT update' do
       context 'user is signed in' do
         before do
-          allow(controller).to receive(:signed_in?) { true }
+          allow(controller).to receive(:thredded_signed_in?) { true }
         end
 
         it 'calls MarkAllRead service' do
@@ -29,7 +29,7 @@ module Thredded
 
       context 'user is not signed in' do
         before do
-          allow(controller).to receive(:signed_in?) { false }
+          allow(controller).to receive(:thredded_signed_in?) { false }
         end
 
         it 'does not call MarkAllRead service' do
