@@ -98,6 +98,10 @@ module Thredded
   self.autocomplete_min_length = 2
   self.routes_id_constraint = /[1-9]\d*/
 
+  self.display_name = ->(user) do
+    [user.send(Thredded.user_name_column), user.send(Thredded.user_display_name_method)].uniq.join(' - ')
+  end
+
   # @return [Thredded::AllViewHooks] View hooks configuration.
   def self.view_hooks
     instance = Thredded::AllViewHooks.instance
@@ -114,10 +118,6 @@ module Thredded
   def self.notifiers=(notifiers)
     notifiers.each { |notifier| BaseNotifier.validate_notifier(notifier) }
     @@notifiers = notifiers # rubocop:disable Style/ClassVars
-  end
-
-  def self.display_name(user)
-    [user.send(Thredded.user_name_column), user.send(Thredded.user_display_name_method)].uniq.join(' - ')
   end
 
   def self.user_display_name_method
