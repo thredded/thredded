@@ -44,7 +44,15 @@ module Thredded
       send(Thredded.current_user_method) || NullUser.new
     end
 
-    def signed_in?(scope=nil)
+    # When used with the devise_security_extension gem (https://github.com/phatworx/devise_security_extension),
+    # the gem's authentication implementation calls the 'signed_in?' method with a parameter named 'scope'.
+    # The original Thredded implementation of the 'signed_in?' method does not accept any parameters, so when
+    # it's called by the devise_security_extension gem (called in lib/devise_security_extension/controllers/helpers.rb,
+    # line #31), the consuming webapp fails with a 'wrong number of arguments' error. Adding an unused 'scope' parameter
+    # to this method prevents that from happening, while allowing all existing calls with no parameters to continue
+    # working as expected.
+
+    def signed_in?(_scope = nil)
       !thredded_current_user.thredded_anonymous?
     end
 
