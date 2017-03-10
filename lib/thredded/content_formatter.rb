@@ -9,34 +9,19 @@ module Thredded
       elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(iframe span figure figcaption),
       transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
         lambda do |env|
-          node = env[:node]
-
-          a_tags = node.css('a')
-          a_tags.each do |a_tag|
+          env[:node].css('a').each do |a_tag|
             a_tag['href'] ||= '#'
-            if a_tag['href'].starts_with? 'http'
+            if a_tag['href'] =~ %r{^(?:[a-z]+:)?//}
               a_tag['target'] = '_blank'
               a_tag['rel']    = 'nofollow noopener'
             end
           end
         end
       ],
-      attributes:     {
+      attributes: {
         'a'      => %w(href rel),
-        'iframe' => %w(src width height frameborder allowfullscreen sandbox seamless),
         'span'   => %w(class),
         'div'    => %w(class)
-      },
-      add_attributes: {
-        'iframe' => {
-          'seamless' => 'seamless',
-          'sandbox'  => 'allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox',
-        }
-      },
-      protocols: {
-        'iframe' => {
-          'src' => ['https', 'http', :relative]
-        }
       }
     )
 
@@ -44,8 +29,6 @@ module Thredded
     # input: markup, output: markup.
     mattr_accessor :before_markup_filters
     self.before_markup_filters = [
-      HTML::Pipeline::VimeoFilter,
-      HTML::Pipeline::YoutubeFilter,
     ]
 
     # Markup filters, such as BBCode, Markdown, Autolink, etc.
@@ -64,7 +47,6 @@ module Thredded
       Thredded::HtmlPipeline::AutolinkFilter,
       HTML::Pipeline::EmojiFilter,
       Thredded::HtmlPipeline::AtMentionFilter,
-      Thredded::HtmlPipeline::WrapIframesFilter,
     ]
 
     # Filters that sanitize the resulting HTML.
@@ -74,6 +56,14 @@ module Thredded
       HTML::Pipeline::SanitizationFilter,
     ]
 
+    # Filters that run after sanitization
+    # input: sanitized html, output: html
+    mattr_accessor :after_sanitization_filters
+    self.after_sanitization_filters = [
+      Thredded::HtmlPipeline::OneboxFilter,
+      Thredded::HtmlPipeline::WrapIframesFilter,
+    ]
+
     # All the HTML::Pipeline filters, read-only.
     def self.pipeline_filters
       filters = [
@@ -81,6 +71,7 @@ module Thredded
         *markup_filters,
         *after_markup_filters,
         *sanitization_filters,
+        *after_sanitization_filters
       ]
       # Changing the result in-place has no effect on the ContentFormatter output,
       # and is most likely the result of a programmer error.

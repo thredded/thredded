@@ -36,6 +36,7 @@ $thredded-overlay-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgb
 $thredded-secondary-nav-color: $thredded-secondary-text-color !default;
 $thredded-spoiler-hidden-color: $thredded-light-gray !default;
 $thredded-spoiler-shown-color: black !default;
+$thredded-code-selected-line-background: #f8eec7 !default;
 
 
 // Colors of alerts and flash messages
@@ -85,6 +86,22 @@ $thredded-badge-active-color: $thredded-button-color !default;
 $thredded-badge-active-background: $thredded-action-color !default;
 $thredded-badge-inactive-color: $thredded-button-color !default;
 $thredded-badge-inactive-background: rgba($thredded-text-color, 0.3) !default;
+
+// Onebox
+$thredded-onebox-favicons: (
+  'amazon': 'favicons/amazon.png',
+  'githubblob': 'favicons/github.png',
+  'githubcommit': 'favicons/github.png',
+  'githubgist': 'favicons/github.png',
+  'githubissue': 'favicons/github.png',
+  'githubpullrequest': 'favicons/github.png',
+  'googledocs': 'favicons/google_branding/logo_drive_48px.png',
+  'stackexchange': 'favicons/stackexchange.png',
+  'twitterstatus': 'favicons/twitter.png',
+  'wikipedia': 'favicons/wikipedia.png',
+) !default;
+// Properties applied based on the image filename:
+$thredded-onebox-favicon-properties: () !default;
 
 // Layout features
 

@@ -19,17 +19,11 @@
       <a href="/forum/a-topic">a topic</a><br>
       <a href="http://example.com" target="_blank" rel="nofollow noopener">link</a></p>
 
-  vimeo videos:
-    - |
-      https://vimeo.com/162326419
-    - |
-      <div class="thredded--embed-16-by-9"><iframe src="//player.vimeo.com/video/162326419?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div>
-
   youtube videos:
     - |
       https://www.youtube.com/watch?v=MrQmQp2P3g4
     - |
-      <div class="video youtube"><div class="thredded--embed-16-by-9"><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div></div>
+      <div class="thredded--embed-16-by-9"><iframe width="480" height="360" src="https://www.youtube.com/embed/MrQmQp2P3g4?feature=oembed&amp;wmode=opaque" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox">
 
   quotes in markdown:
     - |
@@ -44,14 +38,15 @@
       <p>I quoted</p>
 
   youtube videos in a quote:
-  - |
-    > Here is a video:
-    > https://www.youtube.com/watch?v=MrQmQp2P3g4
-  - |
-    <blockquote>
-    <p>Here is a video:</p>
-    <div class="video youtube"><div class="thredded--embed-16-by-9"><iframe width="420" height="315" src="//www.youtube.com/embed/MrQmQp2P3g4" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div></div>
-    </blockquote>
+   - |
+     > Here is a video:
+     > https://www.youtube.com/watch?v=MrQmQp2P3g4
+   - |
+     <blockquote>
+     <p>Here is a video:</p>
+     <div class="thredded--embed-16-by-9"><iframe width="480" height="360" src="https://www.youtube.com/embed/MrQmQp2P3g4?feature=oembed&amp;wmode=opaque" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox">
+     </iframe></div>
+     </blockquote>
 
   code snippets in markdown:
     - |

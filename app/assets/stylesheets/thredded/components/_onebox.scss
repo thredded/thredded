@@ -1,0 +1,276 @@
+// Roughly based on the Discourse onebox styles:
+// https://github.com/discourse/discourse/blob/a6dd1a2cd4f13965bcd59ad2f9af44e13b45cbe6/app/assets/stylesheets/common/base/onebox.scss
+
+aside.onebox,
+.maps-onebox,
+.thredded--embed-16-by-9 {
+  margin-bottom: $thredded-small-spacing;
+}
+
+aside.onebox {
+  border: $thredded-base-border;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+  padding: $thredded-small-spacing;
+  line-height: normal;
+  font-size: 0.85em;
+
+  %onebox-favicon {
+    background: no-repeat 50% 50%;
+    background-size: 16px 16px;
+    content: ' ';
+    display: inline-block;
+    height: 16px;
+    vertical-align: bottom;
+    width: 16px;
+    margin-right: 0.4em;
+  }
+
+  @each $class, $image in $thredded-onebox-favicons {
+    &.#{$class} .source > a::before {
+      @extend %onebox-favicon;
+      background-image: image-url($image);
+      @debug map-get($thredded-onebox-favicon-properties, $image);
+      @each $name, $value in map-get($thredded-onebox-favicon-properties, $image) {
+        #{$name}: $value;
+      }
+    }
+  }
+
+  header {
+    a[href] {
+      color: $thredded-secondary-text-color;
+      text-decoration: none;
+    }
+  }
+
+  .onebox-body {
+    clear: both;
+
+    h3, h4 {
+      font-size: 1em;
+      margin: 10px 0;
+    }
+
+    img {
+      max-height: 80%;
+      max-width: 20%;
+      height: auto;
+      float: left;
+      margin-right: 1em;
+    }
+
+    .tweet-images {
+      display: block;
+      clear: both;
+
+      img.tweet-image {
+        margin-top: 1em;
+        max-width: 100%;
+        max-height: 100%;
+        float: none;
+      }
+    }
+  }
+}
+
+.googledocs-onebox-logo {
+  width: 60px;
+  height: 50px;
+  float: left;
+  @each $type in docs, forms, sheets, slides, calendar, drive {
+    &.g-#{$type}-logo {
+      background: image-url("favicons/google_branding/logo_#{$type}_48px.png") no-repeat;
+    }
+  }
+}
+
+// Google Calendar Placeholder
+.gdocs-onebox-splash {
+  background-color: $thredded-overlay-background-color;
+  color: $thredded-text-color;
+  border: 1px inset $thredded-text-color;
+  .gdocs-onebox-logo {
+    display: inline-block;
+    width: 128px;
+    height: 128px;
+    &.g-calendar-logo {
+      background: image-url("favicons/google_branding/logo_calendar_128px.png") no-repeat;
+    }
+  }
+}
+
+aside.onebox .onebox-body .onebox-avatar {
+  max-height: none;
+  max-width: none;
+  height: 90px;
+  width: 90px;
+}
+
+// -- Onebox Github Code Blob --
+pre.onebox code {
+  font-size: 14px;
+  tab-size: 4;
+  white-space: normal;
+
+  ol.lines li:before {
+    position: absolute;
+    display: inline-block;
+    width: 35px;
+    left: -40px;
+    color: #afafaf;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 12px;
+    line-height: 1.9em;
+    content: counter(li-counter);
+    counter-increment: li-counter;
+  }
+
+  ol {
+    margin-left: 0;
+    line-height: 1.5em;
+  }
+
+  li {
+    padding-left: 5px;
+  }
+
+  ol.lines {
+    padding: 0;
+    margin: 0 0 0.2rem 2rem;
+    position: relative;
+  }
+
+  ol.lines li {
+    border-left: 1px solid $thredded-base-border-color;
+    list-style-type: none;
+    margin: 0;
+    min-height: 1.5em; // show empty li lines
+    padding-left: 5px;
+    white-space: pre;
+  }
+
+  li.selected {
+    background-color: $thredded-code-selected-line-background;
+  }
+}
+
+// Onebox - Github - Pull request
+.onebox-body {
+  .github-commit-status {
+    background: #f5f5f5;
+    border-radius: 5px;
+    margin: 0 0 5px 100px;
+    padding: 10px;
+  }
+
+  .status_tag {
+    display: inline-block;
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+  }
+
+  .build_status {
+    padding: 2px;
+    font-size: 12px;
+  }
+
+  .status_tag.open {
+    background-color: #6cc644;
+  }
+
+  .status_tag.merged {
+    background-color: #6e5494;
+  }
+
+  .status_tag.closed {
+    background-color: #bd2c00;
+  }
+
+  .github-content-right {
+    margin-left: 100px;
+  }
+}
+
+// Onebox - Twitter - Status
+aside.onebox.twitterstatus .onebox-body {
+  h4 {
+    margin-bottom: 0;
+  }
+}
+
+.onebox.twitterstatus {
+  .thumbnail {
+    float: left;
+  }
+  p, .tweet {
+    float: left;
+    display: inline-block;
+    white-space: pre-wrap;
+    padding-top: 3px;
+    width: 85%;
+  }
+  .date {
+    clear: left;
+    padding-top: 5px;
+  }
+}
+
+// Onebox - Imgur - Album
+.onebox.imgur-album {
+  .outer-box {
+    position: absolute;
+    z-index: 935;
+    height: 30px;
+    overflow: hidden;
+    font-size: 12px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-overflow: ellipsis;
+    max-width: 100%;
+
+    .inner-box {
+      padding-left: 10px;
+      padding-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: normal;
+      white-space: nowrap;
+
+      .album-title {
+        width: 100%;
+        font-size: 13px;
+        line-height: 30px;
+        color: #ccc;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Resize stackexchange onebox image
+aside.onebox.stackexchange .onebox-body {
+  img {
+    max-height: 60%;
+    max-width: 10%;
+  }
+
+  .tags {
+    color: gray;
+  }
+}
+
+.onebox-metadata {
+  color: $thredded-secondary-text-color;
+}
+
+.onebox.xkcd .onebox-body {
+  img {
+    max-width: 100% !important;
+    float: none !important;
+  }
+}
