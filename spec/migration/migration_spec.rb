@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 require 'spec_helper'
 Rails.env = 'test'
+# To run the migration tests, run:
+# MIGRATION_SPEC=1 rspec spec/migration/migration_spec.rb
 describe 'Migrations', migration_spec: true, order: :defined do
   def migrate(migration_file)
     migration_name = File.basename(migration_file)
@@ -58,6 +60,14 @@ describe 'Migrations', migration_spec: true, order: :defined do
 
   context 'v0.9 to v0.10' do
     let(:migration_file) { 'db/upgrade_migrations/20170125033319_upgrade_v0_9_to_v0_10.rb' }
+
+    it 'smoke test' do
+      migrate(migration_file)
+    end
+  end
+
+  context 'v0.10 to v0.11' do
+    let(:migration_file) { 'db/upgrade_migrations/20170312131417_upgrade_thredded_v0_10_to_v0_11.rb' }
 
     it 'smoke test' do
       migrate(migration_file)

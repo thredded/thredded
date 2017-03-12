@@ -53,12 +53,6 @@ FactoryGirl.define do
     ip '127.0.0.1'
   end
 
-  factory :post_notification, class: Thredded::PostNotification do
-    email 'someone@example.com'
-
-    post
-  end
-
   factory :user_preference, class: Thredded::UserPreference do
     user
   end

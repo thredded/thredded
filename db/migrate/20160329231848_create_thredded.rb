@@ -45,14 +45,6 @@ class CreateThredded < ActiveRecord::Migration
       t.index [:slug], name: :index_thredded_messageboards_on_slug
     end
 
-    create_table :thredded_post_notifications do |t|
-      t.string :email, limit: 191, null: false
-      t.references :post, null: false
-      t.timestamps null: false
-      t.string :post_type, limit: 191
-      t.index [:post_id, :post_type], name: :index_thredded_post_notifications_on_post
-    end
-
     create_table :thredded_posts do |t|
       t.integer :user_id, limit: 4
       t.text :content, limit: 65_535
