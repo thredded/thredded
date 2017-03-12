@@ -1,5 +1,6 @@
 <% post, content = post_and_content if local_assigns.key?(:post_and_content) %>
 <%= content_tag :article, id: dom_id(post), class: 'thredded--post thredded--post-moderation' do %>
+  <%= render 'thredded/posts_common/actions', post: post %>
   <%= render 'thredded/posts_common/header_with_user_and_topic',
              post:           post,
              post_user_link: if post.user
@@ -9,7 +10,6 @@
                              end
   %>
   <%= content || render('thredded/posts/content', post: post) %>
-  <%= render 'thredded/posts_common/actions', post: post %>
   <% if post.blocked? %>
     <p class="thredded--alert thredded--alert-danger">
       <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: post.last_moderation_record %>
