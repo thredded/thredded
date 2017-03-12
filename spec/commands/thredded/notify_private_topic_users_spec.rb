@@ -12,7 +12,7 @@ module Thredded
     let(:notifier) { EmailNotifier.new }
 
     describe '#targeted_users' do
-      let(:post) { build_stubbed(:private_post, postable: private_topic, post_notifications: [], user: @john) }
+      let(:post) { build_stubbed(:private_post, postable: private_topic, user: @john) }
 
       it 'returns everyone but the sender' do
         recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
@@ -46,13 +46,6 @@ module Thredded
       let(:command) { NotifyPrivateTopicUsers.new(private_post) }
       let(:targeted_users) { [build_stubbed(:user)] }
       before { allow(command).to receive(:targeted_users).and_return(targeted_users) }
-
-      it 'marks the right users as modified' do
-        emails = private_topic.posts.first.post_notifications.map(&:email)
-        expect(emails).to include('joel@example.com')
-        expect(emails).to include('sam@example.com')
-        expect(emails.size).to eq(2)
-      end
 
       it 'sends some emails' do
         expect { command.run }.to change { ActionMailer::Base.deliveries.count }.by(1)

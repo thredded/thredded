@@ -136,7 +136,7 @@ module Thredded
       shaun = create(:user)
       expect { @post = create(:post, user: shaun, postable: topic) }
         .to change { ActionMailer::Base.deliveries.count }.by(1)
-      notified_emails = @post.post_notifications.map(&:email)
+      notified_emails = @post.user_notifications.map { |notification| notification.user.email }
       expect(notified_emails).to eq(['joel@example.com'])
     end
   end

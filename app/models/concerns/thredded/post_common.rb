@@ -12,8 +12,6 @@ module Thredded
 
       delegate :email, to: :user, prefix: true, allow_nil: true
 
-      has_many :post_notifications, as: :post, dependent: :destroy
-
       validates :content, presence: true
 
       scope :order_oldest_first, -> { order(created_at: :asc, id: :asc) }
