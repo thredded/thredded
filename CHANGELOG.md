@@ -1,4 +1,4 @@
-# Master
+# v0.10.1
 
 ## Changed
 
@@ -36,6 +36,8 @@
   to avoid conflicts with the parent (application) controller.
   [#543](https://github.com/thredded/thredded/pull/543)
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.10.0...v0.10.1.
+
 # v0.10.0
 
 ## Changed
@@ -58,6 +60,8 @@
   [#526](https://github.com/thredded/thredded/issues/526)
 * Issues with notifications: lack of policy checking and sending a notification more than once per a post and a user.
   [#529](https://github.com/thredded/thredded/issues/529)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.9.4...v0.10.0.
 
 # v0.9.4
 
