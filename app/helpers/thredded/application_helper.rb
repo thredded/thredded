@@ -19,7 +19,7 @@ module Thredded
 
     def thredded_container_classes
       ['thredded--main-container', content_for(:thredded_page_id)].tap do |classes|
-        classes << 'thredded--is-moderator' if moderatable_messageboards_ids
+        classes << 'thredded--is-moderator' unless moderatable_messageboards_ids.empty?
       end
     end
 
