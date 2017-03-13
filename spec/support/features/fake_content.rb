@@ -16,7 +16,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     MARKDOWN
     <<~MARKDOWN,
       This is what we've done:
-      ![XKCD 927: How standards proliferate](https://imgs.xkcd.com/comics/standards.png)
+      https://xkcd.com/297/
     MARKDOWN
     <<~MARKDOWN,
       ![nyancat](https://storage.googleapis.com/glebm-stuff/nyancat.gif)
@@ -85,15 +85,26 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     TEX
   ].freeze
   SMILEYS = %w(:smile: :boom:).freeze
+  ONEBOXES = [
+    'Best tweet ever: https://twitter.com/thredded/status/838824533477982209',
+    'Toys aint what they used to be: https://en.wikipedia.org/wiki/Gilbert_U-238_Atomic_Energy_Laboratory',
+    'Going to a concert here next week: https://goo.gl/maps/wwNFezQso332',
+    'Mad beats: https://upload.wikimedia.org/wikipedia/commons/3/30/Ten_o_clock.ogg',
+    'Bayesian statistics give error bounds, e.g.: https://www.ncbi.nlm.nih.gov/pubmed/7288891',
+    'Have you seen this CodeGolf? http://codegolf.stackexchange.com/questions/45701/apportionment-paradox',
+    'My home office whiteboard is from Amazon: https://www.amazon.co.uk/gp/product/B014PFRN9G',
+    'Reported on GitHub: https://github.com/thredded/thredded/issues/545',
+  ].freeze
 
   def post_content(with_everything: false) # rubocop:disable Metrics/CyclomaticComplexity
     with_smiley = with_everything || rand < 0.1
-    with_youtube = with_everything || rand < 0.05
+    with_youtube = with_everything || rand < 0.04
     with_image = with_everything || rand < 0.07
     with_formula = with_everything || rand < 0.05
     with_code_snippet = with_everything || rand < 0.03
     with_markdown_table = with_everything || rand < 0.02
     with_quote = with_everything || rand < 0.08
+    with_onebox = with_everything || rand < 0.04
 
     result = []
 
@@ -108,6 +119,8 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     result << code_snippet if with_code_snippet
 
     result << markdown_table if with_markdown_table
+
+    result << ONEBOXES.sample if with_onebox
 
     # Randomly quote a piece
     if with_quote

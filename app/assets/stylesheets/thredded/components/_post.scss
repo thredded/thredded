@@ -15,6 +15,9 @@
   padding: 0.875rem 0.875rem 0.875rem 1.5rem;
   margin-right: -0.875rem;
   -webkit-tap-highlight-color: transparent;
+  @include thredded-media-avatar-breakout {
+    margin-top: -0.75rem;
+  }
 }
 
 .thredded--post--dropdown {
