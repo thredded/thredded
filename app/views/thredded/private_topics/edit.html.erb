@@ -11,23 +11,25 @@
 
 
 <%= thredded_page do %>
-  <%= form_for @private_topic,
-               url:  private_topic_path(@private_topic),
-               html: { class: 'thredded--form', 'data-thredded-topic-form' => true } do |form| %>
-    <ul class="thredded--form-list on-top">
-      <li class="title">
-        <%= form.label :title, t('thredded.private_topics.form.title_label') %>
-        <%= form.text_field :title,
-                            placeholder: t('thredded.private_topics.form.title_placeholder_new'),
-                            autofocus:   true,
-                            required:    true %>
-      </li>
-      <li>
-        <button type="submit" class="thredded--form--submit"
-                data-disable-with="<%= t 'thredded.private_topics.form.update_btn_submitting' %>">
-          <%= t('thredded.private_topics.form.update_btn') %>
-        </button>
-      </li>
-    </ul>
-  <% end %>
+  <section class="thredded--main-section">
+    <%= form_for @private_topic,
+                 url: private_topic_path(@private_topic),
+                 html: { class: 'thredded--form', 'data-thredded-topic-form' => true } do |form| %>
+      <ul class="thredded--form-list on-top">
+        <li class="title">
+          <%= form.label :title, t('thredded.private_topics.form.title_label') %>
+          <%= form.text_field :title,
+                              placeholder: t('thredded.private_topics.form.title_placeholder_new'),
+                              autofocus: true,
+                              required: true %>
+        </li>
+        <li>
+          <button type="submit" class="thredded--form--submit"
+                  data-disable-with="<%= t 'thredded.private_topics.form.update_btn_submitting' %>">
+            <%= t('thredded.private_topics.form.update_btn') %>
+          </button>
+        </li>
+      </ul>
+    <% end %>
+  </section>
 <% end %>

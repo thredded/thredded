@@ -3,10 +3,12 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <%= render 'thredded/topics/form',
-             messageboard: messageboard,
-             topic: @new_topic,
-             css_class: 'thredded--is-expanded',
-             preview_url: preview_new_messageboard_topic_path(messageboard),
-             placeholder: t('thredded.topics.form.title_placeholder_start') %>
+  <section class="thredded--main-section">
+    <%= render 'thredded/topics/form',
+               messageboard: messageboard,
+               topic: @new_topic,
+               css_class: 'thredded--is-expanded',
+               preview_url: preview_new_messageboard_topic_path(messageboard),
+               placeholder: t('thredded.topics.form.title_placeholder_start') %>
+  </section>
 <% end %>

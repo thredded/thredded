@@ -10,39 +10,41 @@
 <% end %>
 
 <%= thredded_page do %>
-  <%= form_for @edit_topic,
-               url: @edit_topic.path,
-               html: { class: 'thredded--form thredded--is-expanded', 'data-thredded-topic-form' => true } do |form| %>
-    <ul class="thredded--form-list on-top">
+  <section class="thredded--main-section">
+    <%= form_for @edit_topic,
+                 url: @edit_topic.path,
+                 html: { class: 'thredded--form thredded--is-expanded', 'data-thredded-topic-form' => true } do |form| %>
+      <ul class="thredded--form-list on-top">
 
-      <li class="title">
-        <%= form.label :title, t('thredded.topics.form.title_label') %>
-        <%= form.text_field :title,
-                            placeholder: t('thredded.topics.form.title_placeholder'),
-                            autofocus:   true,
-                            required:    true %>
-      </li>
-
-      <% if form.object.category_options.any? %>
-        <li class="category">
-          <%= form.select :category_ids, form.object.category_options, {},
-                          multiple:          true,
-                          'data-placeholder' => t('thredded.topics.form.categories_placeholder') %>
+        <li class="title">
+          <%= form.label :title, t('thredded.topics.form.title_label') %>
+          <%= form.text_field :title,
+                              placeholder: t('thredded.topics.form.title_placeholder'),
+                              autofocus: true,
+                              required: true %>
         </li>
-      <% end %>
 
-      <li>
-        <%= form.label :messageboard_id, t('thredded.topics.form.messageboard_label') %>
-        <%= form.select :messageboard_id, form.object.messageboard_options %>
-      </li>
+        <% if form.object.category_options.any? %>
+          <li class="category">
+            <%= form.select :category_ids, form.object.category_options, {},
+                            multiple: true,
+                            'data-placeholder' => t('thredded.topics.form.categories_placeholder') %>
+          </li>
+        <% end %>
 
-      <%= render 'thredded/topics/topic_form_admin_options', form: form %>
+        <li>
+          <%= form.label :messageboard_id, t('thredded.topics.form.messageboard_label') %>
+          <%= form.select :messageboard_id, form.object.messageboard_options %>
+        </li>
 
-      <li>
-        <button type="submit" class="thredded--form--submit">
-          <%= t('thredded.topics.form.update_btn') %>
-        </button>
-      </li>
-  <% end %>
-  </ul>
+        <%= render 'thredded/topics/topic_form_admin_options', form: form %>
+
+        <li>
+          <button type="submit" class="thredded--form--submit">
+            <%= t('thredded.topics.form.update_btn') %>
+          </button>
+        </li>
+    <% end %>
+    </ul>
+  </section>
 <% end %>
