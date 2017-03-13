@@ -47,6 +47,10 @@
   p:last-of-type {
     margin-bottom: 0;
   }
+
+  @include thredded-media-mobile {
+    padding: ($thredded-small-spacing / 2) $thredded-small-spacing;
+  }
 }
 
 %thredded--embed-16-by-9 {

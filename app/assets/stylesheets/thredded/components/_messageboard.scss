@@ -1,6 +1,9 @@
 .thredded--messageboards-group {
   box-sizing: border-box;
-  margin-bottom: $thredded-base-spacing;
+  &--title {
+    font-size: 1em;
+    margin: 0.75em 0 0.625em 0;
+  }
 }
 
 .thredded--messageboard {

@@ -1,3 +1,9 @@
 .thredded--main-section {
   margin-bottom: $thredded-large-spacing;
+  @include thredded-media-tablet {
+    margin-bottom: $thredded-base-spacing;
+  }
+  @include thredded-media-mobile {
+    margin-bottom: $thredded-small-spacing;
+  }
 }
