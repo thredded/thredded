@@ -69,8 +69,8 @@ form.button_to > .thredded--post--dropdown--actions--item {
   &:active,
   &:focus,
   &:hover {
-    background-color: $thredded-action-color;
-    color: $thredded-background-color;
+    background-color: $thredded-button-background;
+    color: $thredded-button-color;
     text-decoration: none;
     cursor: pointer;
   }
