@@ -3,18 +3,20 @@
 <%= render 'nav' %>
 
 <%= thredded_page do %>
-  <h1><%= t 'thredded.recent_activity' %></h1>
-  <%= content_tag :section, class: 'thredded--main-section' do %>
-    <% if @last_moderated_record %>
-      <div class="thredded--moderated-notice">
-        <%= render 'post_moderation_record', post_moderation_record: @last_moderated_record %>
-      </div>
+  <section class="thredded--main-section">
+    <h1><%= t 'thredded.recent_activity' %></h1>
+    <%= content_tag :section, class: 'thredded--main-section' do %>
+      <% if @last_moderated_record %>
+        <div class="thredded--moderated-notice">
+          <%= render 'post_moderation_record', post_moderation_record: @last_moderated_record %>
+        </div>
+      <% end %>
+      <% if @posts.present? %>
+        <%= render_posts @posts,
+                         partial: 'thredded/moderation/post',
+                         content_partial: 'thredded/posts/content' %>
+        <%= paginate @posts %>
+      <% end %>
     <% end %>
-    <% if @posts.present? %>
-      <%= render_posts @posts,
-                       partial: 'thredded/moderation/post',
-                       content_partial: 'thredded/posts/content' %>
-      <%= paginate @posts %>
-    <% end %>
-  <% end %>
+  </section>
 <% end %>

@@ -3,36 +3,38 @@
 <%= render 'nav' %>
 
 <%= thredded_page do %>
-  <% if @users.present? %>
-    <% if @query.present? %>
-      <p class="thredded--alert thredded--alert-success">
-        <%= t 'thredded.moderation.search_users.results_message', query: "'#{@query}'" %>
+  <section class="thredded--main-section">
+    <% if @users.present? %>
+      <% if @query.present? %>
+        <p class="thredded--alert thredded--alert-success">
+          <%= t 'thredded.moderation.search_users.results_message', query: "'#{@query}'" %>
+        </p>
+      <% end %>
+      <table class="thredded--moderation--users-table thredded--table">
+        <thead>
+        <tr>
+          <th>User</th>
+          <th>Moderation state</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= link_to user.thredded_display_name, user_moderation_path(user.id), class: 'thredded--link' %>
+            </td>
+            <td>
+              <%= render 'user_moderation_state', user: user %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <%= paginate @users %>
+    <% else %>
+      <p class="thredded--alert thredded--alert-danger">
+        <%= t 'thredded.moderation.search_users.no_results_message', query: "'#{@query}'" %>
       </p>
     <% end %>
-    <table class="thredded--moderation--users-table thredded--table">
-      <thead>
-      <tr>
-        <th>User</th>
-        <th>Moderation state</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td>
-            <%= link_to user.thredded_display_name, user_moderation_path(user.id), class: 'thredded--link' %>
-          </td>
-          <td>
-            <%= render 'user_moderation_state', user: user %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @users %>
-  <% else %>
-    <p class="thredded--alert thredded--alert-danger">
-      <%= t 'thredded.moderation.search_users.no_results_message', query: "'#{@query}'" %>
-    </p>
-  <% end %>
+  </section>
 <% end %>

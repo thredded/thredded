@@ -3,7 +3,7 @@
 <%= render 'nav' %>
 
 <%= thredded_page do %>
-  <%= content_tag :section, class: 'thredded--main-section' do %>
+  <section class="thredded--main-section">
     <% if @last_moderated_record %>
       <div class="thredded--moderated-notice">
         <%= render 'post_moderation_record', post_moderation_record: @last_moderated_record %>
@@ -20,5 +20,5 @@
         <p><%= t 'thredded.moderation.pending.empty.content' %></p>
       </div>
     <% end %>
-  <% end %>
+  </section>
 <% end %>
