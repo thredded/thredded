@@ -1,10 +1,10 @@
-<figure>
-    <figcaption>
-      <%= @post.user.thredded_display_name %> <%= link_to 'said', private_post_permalink_url(@post) %>:
-    </figcaption>
-    <blockquote>
-        <%= @post.filtered_content(self) %>
-    </blockquote>
+<figure class="thredded--email-post">
+  <figcaption class="thredded--email-post--author">
+    <%= @post.user.thredded_display_name %> <%= link_to 'said', private_post_permalink_url(@post) %>:
+  </figcaption>
+  <blockquote class="thredded--post--content">
+    <%= @post.filtered_content(self) %>
+  </blockquote>
 </figure>
 <hr />
 <p>
