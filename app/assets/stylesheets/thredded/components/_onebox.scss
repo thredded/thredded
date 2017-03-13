@@ -29,7 +29,6 @@ aside.onebox {
     &.#{$class} .source > a::before {
       @extend %onebox-favicon;
       background-image: image-url($image);
-      @debug map-get($thredded-onebox-favicon-properties, $image);
       @each $name, $value in map-get($thredded-onebox-favicon-properties, $image) {
         #{$name}: $value;
       }
