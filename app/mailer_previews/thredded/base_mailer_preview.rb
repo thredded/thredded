@@ -11,9 +11,40 @@ module Thredded
 
     def mock_content(mention_users: [])
       <<-MARKDOWN
-#{mention_users.map { |u| "@#{u}" } * ', '}, if we synthesize the driver, we can get to the HDD panel through the `1080p EXE` bus!
-I'll program the **redundant** SMTP array, that should monitor the SMS microchip!
-MARKDOWN
+Hey #{mention_users.map { |u| "@#{u}" } * ', '}!
+#{mock_content_parts.join("\n")}
+      MARKDOWN
+    end
+
+    def mock_content_parts
+      [
+        <<-'MARKDOWN',
+All of the basic [Markdown](https://kramdown.gettalong.org/quickref.html) formatting is supported (powered by [Kramdown](https://kramdown.gettalong.org)).
+
+Additionally, Markdown is extended to support the following:
+        MARKDOWN
+
+        <<-'MARKDOWN',
+#### Oneboxes
+
+URLs of supported resources are replaced with boxes like these:
+
+**Twitter** `https://twitter.com/glebm/status/836237442747228162`:
+https://twitter.com/glebm/status/836237442747228162
+**GitHub** `https://github.com/google/dart-scissors/pull/67`:
+https://github.com/google/dart-scissors/pull/67
+**StackExchange** `http://codegolf.stackexchange.com/questions/45701`:
+http://codegolf.stackexchange.com/questions/45701
+**Amazon** `https://www.amazon.co.uk/dp/0521797071`:
+https://www.amazon.co.uk/dp/0521797071
+**YouTube** `https://www.youtube.com/watch?v=1QP7elXwpLw`:
+https://www.youtube.com/watch?v=1QP7elXwpLw
+**Google Maps** `https://goo.gl/maps/R6nj3Qwf2LR2`:
+https://goo.gl/maps/R6nj3Qwf2LR2
+
+Many more resources are [supported](https://github.com/discourse/onebox/tree/master/lib/onebox/engine). Powered by the [onebox](https://github.com/discourse/onebox) library.
+        MARKDOWN
+      ]
     end
 
     def mock_topic(attr = {})

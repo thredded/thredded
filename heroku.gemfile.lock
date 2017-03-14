@@ -90,6 +90,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
+    css_parser (1.4.10)
+      addressable
     dalli (2.7.6)
     db_text_search (0.2.1)
       activerecord (>= 4.1.15, < 6.0)
@@ -166,7 +168,7 @@ GEM
       sanitize
     pg (0.20.0)
     public_suffix (2.0.5)
-    puma (3.8.1)
+    puma (3.8.2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.1)
@@ -198,7 +200,7 @@ GEM
     rails-timeago (2.15.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
-    rails_email_preview (2.0.1)
+    rails_email_preview (2.0.2)
       rails (>= 4.2)
       request_store
       sass-rails
@@ -213,6 +215,12 @@ GEM
     rb-gravatar (1.0.5)
     request_store (1.3.2)
     rinku (2.0.2)
+    roadie (3.2.1)
+      css_parser (~> 1.4.5)
+      nokogiri (>= 1.5.0, < 1.8.0)
+    roadie-rails (1.1.1)
+      railties (>= 3.0, < 5.1)
+      roadie (~> 3.1)
     rollbar (2.14.0)
       multi_json
     sanitize (4.4.0)
@@ -274,6 +282,7 @@ DEPENDENCIES
   rails (~> 5.0.0)
   rails-i18n
   rails_email_preview (>= 1.0.3)
+  roadie-rails
   rollbar
   thredded!
   thredded-markdown_coderay

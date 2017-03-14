@@ -10,6 +10,7 @@ Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'retro') }
 Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
+Thredded.parent_mailer = 'ApplicationMailer'
 
 Rails.application.config.to_prepare do
   # Thredded.notifiers = [Thredded::EmailNotifier.new]
