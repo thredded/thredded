@@ -35,8 +35,9 @@ require 'thredded/errors'
 require 'thredded/view_hooks/config'
 require 'thredded/view_hooks/renderer'
 
-# Require Thredded::ContentFormatter explicitly so that it doesn't need to be required if used in the initializer.
+# Require these explicitly so that they do not need to be required if used in the initializer:
 require 'thredded/content_formatter'
+require 'thredded/email_transformer'
 
 require 'thredded/collection_to_strings_with_cache_renderer'
 
