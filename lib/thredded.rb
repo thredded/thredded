@@ -77,6 +77,10 @@ module Thredded
   # @return [Symbol] The name of the method used by Thredded to display users
   mattr_accessor :user_display_name_method
 
+  # @return [String] The name of the parent mailer class for Thredded mailers.
+  mattr_accessor :parent_mailer
+  self.parent_mailer = 'ActionMailer::Base'
+
   # @return [Boolean] Whether the user should get subscribed to a new topic they've created.
   mattr_accessor :auto_follow_when_creating_topic
   self.auto_follow_when_creating_topic = true

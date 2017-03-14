@@ -300,6 +300,8 @@ any duplicate CSS.
 ### Email and other notifications
 
 Thredded sends several notification emails to the users. You can override in the same way as the views.
+See [this page](https://github.com/thredded/thredded/wiki/Styling-email-content) on how to style the emails.
+
 If you use [Rails Email Preview], you can include Thredded emails into the list of previews by adding
 `Thredded::BaseMailerPreview.preview_classes` to the [Rails Email Preview] `preview_classes` config option.
 

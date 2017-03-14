@@ -68,12 +68,10 @@ Dummy::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = {
-    host: 'http://thredded.org'
-  }
+  config.roadie.url_options = config.action_mailer.default_url_options = { host: 'thredded.org', protocol: 'https' }
 
-  # Enable threaded mode
-  # config.threadsafe!
+  # See https://github.com/Mange/roadie-rails/blob/9e3cb2ed59f4ec9fda252ad016b23e106983a440/README.md#known-issues
+  config.action_mailer.asset_host = nil
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
