@@ -68,12 +68,6 @@
         display: none;
       }
     }
-
-    @include thredded-media-desktop-and-up {
-      a, &.thredded--navigation-breadcrumbs--item-no-link {
-        padding: $thredded-base-spacing 0;
-      }
-    }
   }
 
   a {
