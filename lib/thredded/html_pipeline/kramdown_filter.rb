@@ -19,7 +19,11 @@ module Thredded
 
       def initialize(text, context = nil, result = nil)
         super text, context, result
-        @text.delete! "\r"
+        if @text.frozen?
+          @text = @text.delete("\r")
+        else
+          @text.delete! "\r"
+        end
       end
 
       # Convert Markdown to HTML using the best available implementation
