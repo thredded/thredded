@@ -42,7 +42,7 @@
   .thredded--post {
     margin-bottom: 0;
     margin-left: 1rem;
-    @include thredded-media-avatar-breakout {
+    @include thredded-media-content-breakout {
       margin-left: 4rem;
     }
   }

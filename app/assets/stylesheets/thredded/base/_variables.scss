@@ -2,6 +2,10 @@
 $thredded-grid-container-max-width: 43.125rem !default;
 $thredded-grid-breakpoint-max-widths: (mobile: 34rem, tablet: 48rem) !default;
 
+// Minimum width required for the content that breaks out of the container, such
+// as post avatars and topic post counts
+$thredded-content-breakout-min-width: 4rem !default;
+
 // Typography
 $thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !default;
 $thredded-base-font-size: 1rem !default; // 16px
@@ -129,3 +133,5 @@ $thredded-messageboards-grid-item-flex-basis: 21.5rem !default;
 
 // Topics list
 $thredded-topics-list-gutter-y: $thredded-base-spacing !default;
+$thredded-topics-topic-posts-counter-width: 3rem !default;
+$thredded-topics-topic-follow-icon-width: 2rem !default;

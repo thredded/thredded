@@ -30,8 +30,21 @@
   }
 }
 
+@mixin thredded-media-content-breakout {
+  @media (min-width: $thredded-grid-container-max-width + $thredded-content-breakout-min-width + 0.00001rem) {
+    @content;
+  }
+}
+
+@mixin thredded-media-content-no-breakout {
+  @media (max-width: $thredded-grid-container-max-width + $thredded-content-breakout-min-width) {
+    @content;
+  }
+}
+
 @mixin thredded-media-avatar-breakout {
-  @media (min-width: $thredded-grid-container-max-width + 4rem) {
+  @warn "thredded-media-avatar-breakout is deprecated, use thredded-media-content-breakout instead";
+  @include thredded-media-content-breakout {
     @content;
   }
 }

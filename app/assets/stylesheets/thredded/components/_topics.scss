@@ -2,11 +2,11 @@
   margin-bottom: $thredded-topics-list-gutter-y;
   position: relative;
 
-  @media (max-width: $thredded-grid-container-max-width) {
-    margin-left: 3rem;
+  @include thredded-media-content-no-breakout {
+    margin-left: $thredded-topics-topic-posts-counter-width;
   }
   @include thredded-media-mobile {
-    margin-right: 2rem;
+    margin-right: $thredded-topics-topic-follow-icon-width;
   }
 }
 
@@ -115,7 +115,7 @@
   font-weight: 900;
   font-size: 0.8rem;
   height: 2rem;
-  left: -3rem;
+  left: -$thredded-topics-topic-posts-counter-width;
   line-height: 2rem;
   margin-right: $thredded-base-spacing;
   position: absolute;
@@ -150,7 +150,7 @@
   right: -1.6rem;
   top: 0;
   @include thredded-media-mobile {
-    right: -2rem;
+    right: -$thredded-topics-topic-posts-counter-width;
   }
 }
 

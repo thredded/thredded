@@ -15,7 +15,7 @@
   padding: 0.875rem 0.875rem 0.875rem 1.5rem;
   margin-right: -0.875rem;
   -webkit-tap-highlight-color: transparent;
-  @include thredded-media-avatar-breakout {
+  @include thredded-media-content-breakout {
     margin-top: -0.75rem;
   }
 }
@@ -103,7 +103,7 @@ form.button_to > .thredded--post--dropdown--actions--item {
   vertical-align: baseline;
   width: 1.75rem; // 28px
 
-  @include thredded-media-avatar-breakout {
+  @include thredded-media-content-breakout {
     height: 2.25rem; // 36px
     left: -3rem;
     position: absolute;
