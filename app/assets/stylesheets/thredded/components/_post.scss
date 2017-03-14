@@ -1,8 +1,8 @@
 .thredded--post {
   position: relative;
-  margin-bottom: $thredded-large-spacing;
-  @include thredded-media-mobile {
-    margin-bottom: $thredded-base-spacing;
+  margin-bottom: $thredded-base-spacing;
+  @include thredded-media-desktop-and-up {
+    margin-bottom: $thredded-large-spacing;
   }
 }
 
