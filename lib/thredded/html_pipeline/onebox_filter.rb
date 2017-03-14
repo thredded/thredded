@@ -39,7 +39,15 @@ module Thredded
       end
 
       def self.onebox_options(_url)
-        { cache: Rails.cache, sanitize_config: SANITIZE_CONFIG }
+        cache = if Rails.env.development? || Rails.env.test?
+                  # In development and test, caching is usually disabled.
+                  # Regardless, always store the onebox in a file cache to enable offline development,
+                  # persistence between test runs, and to improve performance.
+                  @cache ||= Moneta.new(:File, dir: 'tmp/cache/onebox')
+                else
+                  Rails.cache
+                end
+        { cache: cache, sanitize_config: SANITIZE_CONFIG }
       end
 
       private
