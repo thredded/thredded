@@ -9,12 +9,12 @@ module Thredded
       elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(iframe span figure figcaption),
       transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
         lambda do |env|
-          env[:node].css('a').each do |a_tag|
-            a_tag['href'] ||= '#'
-            if a_tag['href'] =~ %r{^(?:[a-z]+:)?//}
-              a_tag['target'] = '_blank'
-              a_tag['rel']    = 'nofollow noopener'
-            end
+          next unless env[:node_name] == 'a'
+          a_tag = env[:node]
+          a_tag['href'] ||= '#'
+          if a_tag['href'] =~ %r{^(?:[a-z]+:)?//}
+            a_tag['target'] = '_blank'
+            a_tag['rel']    = 'nofollow noopener'
           end
         end
       ],
