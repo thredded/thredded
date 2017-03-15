@@ -8,6 +8,7 @@
 
 .thredded--post--dropdown--toggle {
   fill: currentColor;
+  box-sizing: content-box;
   color: $thredded-action-color;
   display: inline-block;
   width: 1rem;
