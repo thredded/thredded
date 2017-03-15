@@ -3,9 +3,9 @@
     <figcaption class="thredded--email-post--author">
       <%= @post.user.thredded_display_name %> <%= link_to 'said', post_permalink_url(@post) %>:
     </figcaption>
-    <blockquote class="thredded--post--content">
-      <%= @post.filtered_content(self) %>
-    </blockquote>
+    <pre><%=  @post.cache_key.inspect %></pre>
+    <%# Render as a collection of a single post so that the cache key used is the same %>
+    <%= render partial: 'thredded/posts/content', collection: [@post], as: :post, cached: true %>
   </figure>
   <hr/>
 

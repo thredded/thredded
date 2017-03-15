@@ -77,7 +77,7 @@ Many more resources are [supported](https://github.com/discourse/onebox/tree/mas
           updated_at:   Time.zone.now,
           user:         topic.last_user,
         )
-      )
+      ).tap { |m| mock_post_cache_key! m }
     end
 
     def mock_private_topic(attr = {})
@@ -106,7 +106,7 @@ Many more resources are [supported](https://github.com/discourse/onebox/tree/mas
           updated_at: Time.zone.now,
           user:       private_topic.last_user,
         )
-      )
+      ).tap { |m| mock_post_cache_key! m }
     end
 
     def mock_messageboard(attr = {})
@@ -132,6 +132,13 @@ Many more resources are [supported](https://github.com/discourse/onebox/tree/mas
           email:                    "#{name.downcase}@test.com",
         )
       )
+    end
+
+    def mock_post_cache_key!(post)
+      orig_key = post.cache_key
+      post.define_singleton_method :cache_key do
+        orig_key.sub(/new$/, "preview-#{Digest.hexencode(Digest::SHA2.new.digest(content))}")
+      end
     end
   end
 end

@@ -21,29 +21,29 @@
   &--author {
     margin-bottom: 1em;
   }
-}
 
-blockquote.thredded--post--content {
-  border-left: solid 5px $thredded-blockquote-border-color;
-  margin: 0 0 0.75rem;
-  padding: ($thredded-small-spacing / 2) $thredded-small-spacing;
+  .thredded--post--content {
+    border-left: solid 5px $thredded-blockquote-border-color;
+    margin: 0 0 0.75rem;
+    padding: ($thredded-small-spacing / 2) $thredded-small-spacing;
 
-  .onebox-wrapper-table {
-    width: 100%;
-    td {
-      border: $thredded-base-border;
-      text-align: left;
-      padding: $thredded-small-spacing;
-      > aside.onebox {
-        margin-bottom: 0;
-        padding: 0;
-        border: 0;
-        box-shadow: none;
+    .onebox-wrapper-table {
+      width: 100%;
+      td {
+        border: $thredded-base-border;
+        text-align: left;
+        padding: $thredded-small-spacing;
+        > aside.onebox {
+          margin-bottom: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+        }
       }
     }
-  }
 
-  aside.onebox {
-    margin-bottom: $thredded-small-spacing;
+    aside.onebox {
+      margin-bottom: $thredded-small-spacing;
+    }
   }
 }
