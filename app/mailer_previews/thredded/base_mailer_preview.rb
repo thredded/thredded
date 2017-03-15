@@ -3,8 +3,6 @@ module Thredded
   # A base class for Thredded mailer previews.
   # @abstract
   class BaseMailerPreview
-    class_attribute :mock_content_parts, instance_accessor: false
-
     def self.preview_classes
       RailsEmailPreview.find_preview_classes File.expand_path('..', File.dirname(__FILE__))
     end
@@ -18,32 +16,9 @@ All of the basic [Markdown](https://kramdown.gettalong.org/quickref.html) format
 
 Additionally, Markdown is extended to support the following:
 
-#{self.class.mock_content_parts.join("\n")}
+#{Thredded::FormattingDemoContent.parts.join("\n")}
       MARKDOWN
     end
-
-    self.mock_content_parts = [
-      <<-'MARKDOWN',
-#### Oneboxes
-
-URLs of supported resources are replaced with boxes like these:
-
-**Twitter** `https://twitter.com/glebm/status/836237442747228162`:
-https://twitter.com/glebm/status/836237442747228162
-**GitHub** `https://github.com/google/dart-scissors/pull/67`:
-https://github.com/google/dart-scissors/pull/67
-**StackExchange** `http://codegolf.stackexchange.com/questions/45701`:
-http://codegolf.stackexchange.com/questions/45701
-**Amazon** `https://www.amazon.co.uk/dp/0521797071`:
-https://www.amazon.co.uk/dp/0521797071
-**YouTube** `https://www.youtube.com/watch?v=1QP7elXwpLw`:
-https://www.youtube.com/watch?v=1QP7elXwpLw
-**Google Maps** `https://goo.gl/maps/R6nj3Qwf2LR2`:
-https://goo.gl/maps/R6nj3Qwf2LR2
-
-Many more resources are [supported](https://github.com/discourse/onebox/tree/master/lib/onebox/engine). Powered by the [onebox](https://github.com/discourse/onebox) library.
-      MARKDOWN
-    ]
 
     def mock_topic(attr = {})
       fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)

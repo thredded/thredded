@@ -14,6 +14,7 @@ require 'inline_svg'
 
 # Require these explictly to make sure they are not reloaded.
 # This allows for configuring them by accessing class methods in the initializer.
+require 'thredded/formatting_demo_content'
 require 'thredded/html_pipeline/at_mention_filter'
 require 'thredded/html_pipeline/autolink_filter'
 require 'thredded/html_pipeline/kramdown_filter'
