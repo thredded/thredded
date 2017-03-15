@@ -3,6 +3,8 @@ module Thredded
   # A base class for Thredded mailer previews.
   # @abstract
   class BaseMailerPreview
+    class_attribute :mock_content_parts, instance_accessor: false
+
     def self.preview_classes
       RailsEmailPreview.find_preview_classes File.expand_path('..', File.dirname(__FILE__))
     end
@@ -12,19 +14,16 @@ module Thredded
     def mock_content(mention_users: [])
       <<-MARKDOWN
 Hey #{mention_users.map { |u| "@#{u}" } * ', '}!
-#{mock_content_parts.join("\n")}
-      MARKDOWN
-    end
-
-    def mock_content_parts
-      [
-        <<-'MARKDOWN',
 All of the basic [Markdown](https://kramdown.gettalong.org/quickref.html) formatting is supported (powered by [Kramdown](https://kramdown.gettalong.org)).
 
 Additionally, Markdown is extended to support the following:
-        MARKDOWN
 
-        <<-'MARKDOWN',
+#{self.class.mock_content_parts.join("\n")}
+      MARKDOWN
+    end
+
+    self.mock_content_parts = [
+      <<-'MARKDOWN',
 #### Oneboxes
 
 URLs of supported resources are replaced with boxes like these:
@@ -43,9 +42,8 @@ https://www.youtube.com/watch?v=1QP7elXwpLw
 https://goo.gl/maps/R6nj3Qwf2LR2
 
 Many more resources are [supported](https://github.com/discourse/onebox/tree/master/lib/onebox/engine). Powered by the [onebox](https://github.com/discourse/onebox) library.
-        MARKDOWN
-      ]
-    end
+      MARKDOWN
+    ]
 
     def mock_topic(attr = {})
       fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
