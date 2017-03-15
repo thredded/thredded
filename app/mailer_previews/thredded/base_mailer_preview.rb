@@ -48,12 +48,12 @@ Many more resources are [supported](https://github.com/discourse/onebox/tree/mas
     end
 
     def mock_topic(attr = {})
+      fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
       Topic.new(
         attr.reverse_merge(
           title:        'A test topic',
           slug:         'a-test-topic',
           created_at:   3.days.ago,
-          id:           1 + rand(1334),
           last_user:    mock_user,
           locked:       [false, true].sample,
           messageboard: mock_messageboard,
@@ -81,12 +81,12 @@ Many more resources are [supported](https://github.com/discourse/onebox/tree/mas
     end
 
     def mock_private_topic(attr = {})
+      fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
       PrivateTopic.new(
         attr.reverse_merge(
           title:       'A test private topic',
           slug:        'a-test-private-topic',
           created_at:  3.days.ago,
-          id:          1 + rand(1334),
           last_user:   mock_user,
           posts_count: 1 + rand(42),
           updated_at:  Time.zone.now,
@@ -110,13 +110,13 @@ Many more resources are [supported](https://github.com/discourse/onebox/tree/mas
     end
 
     def mock_messageboard(attr = {})
+      fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
       Messageboard.new(
         attr.reverse_merge(
           name:         'A test messageboard',
           slug:         'a-test-messageboard',
           description:  'Test messageboard description',
           created_at:   1.month.ago,
-          id:           1 + rand(1334),
           posts_count:  rand(1337),
           topics_count: rand(42),
           updated_at:   Time.zone.now,
