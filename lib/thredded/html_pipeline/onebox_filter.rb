@@ -30,11 +30,19 @@ module Thredded
         ]
       )
 
+      class << self
+        attr_accessor :onebox_views_cache
+      end
+
+      if Rails.env.development? || Rails.env.test?
+        self.onebox_views_cache = ActiveSupport::Cache::FileStore.new('tmp/cache/onebox-views')
+      end
+
       def call
         doc.css('a').each do |element|
           url = element['href'].to_s
           next unless url.present? && url == element.content && on_its_own_line?(element)
-          onebox_html = render_onebox(url)
+          onebox_html = render_onebox_with_cache(url)
           next if onebox_html.empty?
           fixup_paragraph! element
           element.swap onebox_html
@@ -44,11 +52,18 @@ module Thredded
 
       private
 
+      def render_onebox_with_cache(url)
+        onebox_views_cache.fetch("onebox-views:#{url}#{':p' if context[:onebox_placeholders]}",
+                                 expires_in: context[:onebox_views_cache_expires_in] || 1.week) do
+          render_onebox(url)
+        end
+      end
+
       def render_onebox(url)
         preview = Onebox.preview(url, onebox_options(url))
         if context[:onebox_placeholders]
           %(<p><a href="#{ERB::Util.html_escape(url)}" target="_blank" rel="nofollow noopener">) \
-            "#{preview.placeholder_html}</a></p>"
+          "#{preview.placeholder_html}</a></p>"
         else
           preview.to_s.strip
         end
@@ -64,6 +79,10 @@ module Thredded
                   Rails.cache
                 end
         { cache: cache, sanitize_config: SANITIZE_CONFIG }
+      end
+
+      def onebox_views_cache
+        context[:onebox_views_cache] || self.class.onebox_views_cache || Rails.cache
       end
 
       def on_its_own_line?(element)

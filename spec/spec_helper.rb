@@ -88,7 +88,6 @@ Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 FileUtils.mkdir('log') unless File.directory?('log')
 
 RSpec.configure do |config|
-
   if ENV['MIGRATION_SPEC']
     config.filter_run_excluding migration_spec: false
   else
