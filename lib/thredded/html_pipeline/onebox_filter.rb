@@ -31,11 +31,16 @@ module Thredded
       )
 
       class << self
+        # In development and test, caching is usually disabled.
+        # Regardless, always store the onebox in a file cache to enable offline development,
+        # persistence between test runs, and to improve performance.
         attr_accessor :onebox_views_cache
+        attr_accessor :onebox_data_cache
       end
 
       if Rails.env.development? || Rails.env.test?
         self.onebox_views_cache = ActiveSupport::Cache::FileStore.new('tmp/cache/onebox-views')
+        self.onebox_data_cache = ActiveSupport::Cache::FileStore.new('tmp/cache/onebox-data')
       end
 
       def call
@@ -70,15 +75,8 @@ module Thredded
       end
 
       def onebox_options(_url)
-        cache = if Rails.env.development? || Rails.env.test?
-                  # In development and test, caching is usually disabled.
-                  # Regardless, always store the onebox in a file cache to enable offline development,
-                  # persistence between test runs, and to improve performance.
-                  @cache ||= Moneta.new(:File, dir: 'tmp/cache/onebox')
-                else
-                  Rails.cache
-                end
-        { cache: cache, sanitize_config: SANITIZE_CONFIG }
+        { cache: context[:onebox_data_cache] || self.class.onebox_data_cache || Rails.cache,
+          sanitize_config: SANITIZE_CONFIG }
       end
 
       def onebox_views_cache
