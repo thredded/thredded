@@ -25,6 +25,7 @@
   }
 
   .thredded--post--content {
+    font-size: inherit;
     border-left: solid 5px $thredded-blockquote-border-color;
     margin: 0 0 0.75rem;
     padding: ($thredded-small-spacing / 2) $thredded-small-spacing;

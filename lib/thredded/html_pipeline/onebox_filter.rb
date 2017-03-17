@@ -34,7 +34,7 @@ module Thredded
         doc.css('a').each do |element|
           url = element['href'].to_s
           next unless url.present? && url == element.content && on_its_own_line?(element)
-          onebox_html = Onebox.preview(url, self.class.onebox_options(url)).to_s.strip
+          onebox_html = render_onebox(url)
           next if onebox_html.empty?
           fixup_paragraph! element
           element.swap onebox_html
@@ -42,7 +42,19 @@ module Thredded
         doc
       end
 
-      def self.onebox_options(_url)
+      private
+
+      def render_onebox(url)
+        preview = Onebox.preview(url, onebox_options(url))
+        if context[:onebox_placeholders]
+          %(<p><a href="#{ERB::Util.html_escape(url)}" target="_blank" rel="nofollow noopener">) \
+            "#{preview.placeholder_html}</a></p>"
+        else
+          preview.to_s.strip
+        end
+      end
+
+      def onebox_options(_url)
         cache = if Rails.env.development? || Rails.env.test?
                   # In development and test, caching is usually disabled.
                   # Regardless, always store the onebox in a file cache to enable offline development,
@@ -53,8 +65,6 @@ module Thredded
                 end
         { cache: cache, sanitize_config: SANITIZE_CONFIG }
       end
-
-      private
 
       def on_its_own_line?(element)
         siblings = element.parent.children

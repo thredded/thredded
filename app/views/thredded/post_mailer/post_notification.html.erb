@@ -3,8 +3,10 @@
     <figcaption class="thredded--email-post--author">
       <%= @post.user.thredded_display_name %> <%= link_to 'said', post_permalink_url(@post) %>:
     </figcaption>
-    <%# Render as a collection of a single post so that the cache key used is the same %>
-    <%= render partial: 'thredded/posts/content', collection: [@post], as: :post, cached: true %>
+    <% cache [@post, 'content-onebox-placeholders'] do %>
+      <%= render partial: 'thredded/posts/content',
+                 locals: { post: @post, options: {onebox_placeholders: true} } %>
+    <% end %>
   </figure>
   <hr/>
 

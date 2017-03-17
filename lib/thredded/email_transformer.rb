@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'thredded/email_transformer/maps_onebox'
-require 'thredded/email_transformer/youtube_onebox'
 require 'thredded/email_transformer/onebox'
 
 module Thredded
@@ -13,7 +11,7 @@ module Thredded
   #
   module EmailTransformer
     mattr_accessor :transformers
-    self.transformers = [MapsOnebox, YoutubeOnebox, Onebox]
+    self.transformers = [Onebox]
 
     # @param doc [Nokogiri::HTML::Document]
     def self.call(doc)
