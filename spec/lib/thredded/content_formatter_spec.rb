@@ -13,6 +13,10 @@ describe Thredded::ContentFormatter do
     ).format_content(post.content)
   end
 
+  def format_content(content)
+    Thredded::ContentFormatter.new(ViewContextStub).format_content(content)
+  end
+
   context 'various content from post_contents.yml' do
     YAML.load_file("#{File.dirname(__FILE__)}/post_contents.yml").each do |title, contents|
       it "renders: '#{title}'" do
@@ -60,6 +64,52 @@ describe Thredded::ContentFormatter do
         .and_return([sam, joe])
 
       expect(format_post_content(post)).to eq expected_html
+    end
+  end
+
+  context 'onebox' do
+    let(:xkcd_url) { 'https://xkcd.com/327/' }
+    before do
+      stub_request(:get, "#{xkcd_url}info.0.json")
+        .to_return(body: File.read('spec/fixtures/network/xkcd327-response.json'))
+    end
+
+    context 'oneboxes a URL on its own line' do
+      it 'when it is the only line' do
+        expect(format_content(xkcd_url)).to include('onebox')
+      end
+
+      it 'with \nEOF after' do
+        expect(format_content("#{xkcd_url}\n")).to include('onebox')
+      end
+
+      it 'with \n before and \nEOF after' do
+        expect(format_content(<<-MARKDOWN)).to include('onebox')
+Hello
+#{xkcd_url}
+        MARKDOWN
+      end
+
+      it 'and indented' do
+        expect(format_content(<<-MARKDOWN)).to include('onebox')
+1. Hello
+   #{xkcd_url}
+      MARKDOWN
+      end
+    end
+
+    context 'does not onebox a URL not on its own line' do
+      it 'with text before on its line' do
+        expect(format_content("Hello #{xkcd_url}")).to_not include('onebox')
+      end
+      it 'with text after on its line' do
+        expect(format_content("Hello #{xkcd_url}")).to_not include('onebox')
+      end
+    end
+
+    it 'renders FakeContent sample oneboxes' do
+      # This also ensures all the oneboxes are VCR'd
+      expect { format_content(FakeContent::ONEBOXES.join("\n")) }.to_not raise_error
     end
   end
 end

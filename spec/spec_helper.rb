@@ -42,10 +42,14 @@ require File.expand_path('../../spec/support/features/page_object/authentication
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'
+require 'webmock/rspec'
 require 'factory_girl_rails'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
+
+# Driver makes web requests to localhost, configure WebMock to let them through
+WebMock.allow_net_connect!
 
 if Rails::VERSION::MAJOR >= 5
   require 'rails-controller-testing'
@@ -84,6 +88,7 @@ Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
 FileUtils.mkdir('log') unless File.directory?('log')
 
 RSpec.configure do |config|
+
   if ENV['MIGRATION_SPEC']
     config.filter_run_excluding migration_spec: false
   else

@@ -31,13 +31,12 @@ module Thredded
       )
 
       def call
-        doc = self.doc.is_a?(String) ? Nokogiri::HTML.fragment(self.doc) : self.doc
         doc.css('a').each do |element|
           url = element['href'].to_s
-          next unless url.present? && url == element.content
+          next unless url.present? && url == element.content && on_its_own_line?(element)
           onebox_html = Onebox.preview(url, self.class.onebox_options(url)).to_s.strip
           next if onebox_html.empty?
-          fixup_paragraph! doc, element
+          fixup_paragraph! element
           element.swap onebox_html
         end
         doc
@@ -57,7 +56,19 @@ module Thredded
 
       private
 
-      def fixup_paragraph!(doc, element)
+      def on_its_own_line?(element)
+        siblings = element.parent.children
+        element_index = siblings.index(element)
+        all_blank_until_br?(siblings[0...element_index].reverse) &&
+          all_blank_until_br?(siblings[element_index + 1..-1])
+      end
+
+      def all_blank_until_br?(nodes)
+        nodes.take_while { |node| !node_name?(node, 'br') }
+          .all? { |node| node.text? && node.blank? }
+      end
+
+      def fixup_paragraph!(element)
         # Can't have a div inside a paragraph, so split the paragraph
         p = element.parent
         return unless node_name?(p, 'p')
