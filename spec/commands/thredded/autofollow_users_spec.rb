@@ -11,52 +11,58 @@ module Thredded
       @messageboard = @post.messageboard
     end
 
-    it 'respects global notification preferences' do
-      create(:user_preference, user: @joel, follow_topics_on_mention: true)
-      create(:user_messageboard_preference, user: @joel, follow_topics_on_mention: false, messageboard: @messageboard)
-      create(:user_preference, user: @john, follow_topics_on_mention: false)
-      create(:user_messageboard_preference, user: @john, follow_topics_on_mention: true, messageboard: @messageboard)
+    context '@-mention' do
+      it 'respects global `follow_topics_on_mention` notification preference' do
+        create(:user_preference, user: @joel, follow_topics_on_mention: true)
+        create(:user_messageboard_preference, user: @joel, follow_topics_on_mention: false, messageboard: @messageboard)
+        create(:user_preference, user: @john, follow_topics_on_mention: false)
+        create(:user_messageboard_preference, user: @john, follow_topics_on_mention: true, messageboard: @messageboard)
+        expect(AutofollowUsers.new(@post).new_followers).to be_empty
+      end
 
-      expect(AutofollowUsers.new(@post).autofollowers).to be_empty
+      it 'returns 2 users mentioned, not including post author' do
+        expect(AutofollowUsers.new(@post).new_followers).to match(@joel => :mentioned, @john => :mentioned)
+      end
+
+      it 'does not return users that set their preference to "no @ notifications"' do
+        create(
+          :user_messageboard_preference,
+          follow_topics_on_mention: false,
+          user: @joel,
+          messageboard: @post.messageboard
+        )
+        expect(AutofollowUsers.new(@post).new_followers).not_to include(@joel)
+      end
     end
 
-    it 'returns 2 users mentioned, not including post author' do
-      command = AutofollowUsers.new(@post)
-      autofollowable_mentioned_users = command.autofollowers
-      expect(autofollowable_mentioned_users).to match_array([@joel, @john])
-    end
+    context 'auto-follow' do
+      it 'includes users who have both global and messageboard auto-follow enabled' do
+        @sara = create(:user, name: 'sara', email: 'sara@example.com')
+        create(:user_preference, user: @sara, auto_follow_topics: true)
+        create(:user_messageboard_preference, user: @sara, auto_follow_topics: true, messageboard: @messageboard)
+        expect(AutofollowUsers.new(@post).new_followers).to include(@sara => :auto)
+      end
 
-    it 'includes users who have message board auto-follow set' do
-      @sara = create(:user, name: 'sara', email: 'sara@example.com')
-      create(:user_preference, user: @sara, auto_follow_topics: true)
-      create(:user_messageboard_preference, user: @sara, auto_follow_topics: true, messageboard: @messageboard)
+      it 'includes users who have global auto-follow disabled and messageboard auto-follow enabled' do
+        @sara = create(:user, name: 'sara', email: 'sara@example.com')
+        create(:user_preference, user: @sara, auto_follow_topics: false)
+        create(:user_messageboard_preference, user: @sara, auto_follow_topics: true, messageboard: @messageboard)
+        expect(AutofollowUsers.new(@post).new_followers).to include(@sara => :auto)
+      end
 
-      command = AutofollowUsers.new(@post)
-      autofollowable_users = command.autofollowers
-      expect(autofollowable_users).to include(@sara)
-    end
+      it 'does not include users who have global auto-follow enabled but messageboard auto-follow disabled' do
+        @sara = create(:user, name: 'sara', email: 'sara@example.com')
+        create(:user_preference, user: @sara, auto_follow_topics: true)
+        create(:user_messageboard_preference, user: @sara, auto_follow_topics: false, messageboard: @messageboard)
+        expect(AutofollowUsers.new(@post).new_followers).to_not include(@sara)
+      end
 
-    it 'does not include users who have disabled auto-follow on this board' do
-      @sara = create(:user, name: 'sara', email: 'sara@example.com')
-      create(:user_preference, user: @sara, auto_follow_topics: true)
-      create(:user_messageboard_preference, user: @sara, auto_follow_topics: false, messageboard: @messageboard)
-
-      command = AutofollowUsers.new(@post)
-      autofollowable_users = command.autofollowers
-      expect(autofollowable_users).to_not include(@sara)
-    end
-
-    it 'does not return users that set their preference to "no @ notifications"' do
-      create(
-        :user_messageboard_preference,
-        follow_topics_on_mention: false,
-        user: @joel,
-        messageboard: @post.messageboard
-      )
-      command = AutofollowUsers.new(@post)
-      users = command.autofollowers
-
-      expect(users).not_to include(@joel)
+      it 'does not include users who have both global and messageboard auto-follow disabled' do
+        @sara = create(:user, name: 'sara', email: 'sara@example.com')
+        create(:user_preference, user: @sara, auto_follow_topics: false)
+        create(:user_messageboard_preference, user: @sara, auto_follow_topics: false, messageboard: @messageboard)
+        expect(AutofollowUsers.new(@post).new_followers).to_not include(@sara)
+      end
     end
   end
 

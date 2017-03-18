@@ -156,16 +156,4 @@ module Thredded
       expect(messageboard.position).to eq(12)
     end
   end
-
-  describe '#set_autofollow' do
-    it 'creates messageboard preferences for each auto-following user' do
-      no_follow_user_preference = create(:user_preference, auto_follow_topics: false)
-      auto_follow_preference = create(:user_preference, auto_follow_topics: true)
-
-      expect {
-        messageboard = create(:messageboard)
-        expect(messageboard.user_messageboard_preferences.last.user_preference).to eq(auto_follow_preference)
-      }.to change(UserMessageboardPreference, :count).by(1)
-    end
-  end
 end
