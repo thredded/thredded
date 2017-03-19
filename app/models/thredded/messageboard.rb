@@ -108,5 +108,9 @@ module Thredded
       self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.first
       save! if last_topic_id_changed?
     end
+
+    def unused_parameters(x,y,z)
+      puts x,y # but not z
+    end
   end
 end
