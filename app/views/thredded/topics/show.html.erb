@@ -19,7 +19,7 @@
 
     <% if policy(@new_post).create? %>
       <div class="thredded--post-form--wrapper">
-        <h3 class="thredded--post-form--title">Add a post</h3>
+        <h3 class="thredded--post-form--title"><%= t('thredded.posts.form.title_label') %></h3>
         <%= render 'thredded/posts/form',
                    topic:       topic,
                    post:        @new_post,
