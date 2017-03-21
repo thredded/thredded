@@ -1,3 +1,28 @@
+# Master
+
+## Added
+
+* **Oneboxes**: URLs to supported resources placed on their own line are replaced with a "onebox".
+  Oneboxes replace the previous YouTube and Vimeo implementations and add support for dozens more sites, including
+  Tweets, Google Maps, and so on. The implementation is powered by the [onebox](https://github.com/discourse/onebox)
+  gem.
+  [#545](https://github.com/thredded/thredded/issues/545)
+
+* **Email styles**: the emails now come in style.
+  See the [wiki article](https://github.com/thredded/thredded/wiki/Styling-email-content) on how to enable
+  the email styles. In the emails, interactive content (such as Google Maps, YouTube Videos) is shown as a static
+  image.
+  [#550](https://github.com/thredded/thredded/pull/550)
+
+## Fixed
+
+Minor UI fixes throughout.
+
+## Internals
+
+* Removed the now-redundant `thredded_post_notifications` table.
+  [#547](https://github.com/thredded/thredded/pull/547)
+
 # v0.10.1
 
 ## Changed
