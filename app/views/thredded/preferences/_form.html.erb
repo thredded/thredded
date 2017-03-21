@@ -1,17 +1,16 @@
-<%= form_for(
-        preferences,
-        method: :patch,
-        url:    (preferences.messageboard ? messageboard_preferences_path(preferences.messageboard) : global_preferences_path),
-        html:   {
-            class:                                'thredded--form thredded--notification-preferences-form',
-            'data-thredded-user-preferences-form' => true
-        }) do |f| %>
+<%# @type preferences [Thredded::UserPreferencesForm] %>
+<%= form_for(preferences, method: :patch, url: preferences.update_path, html: {
+    class: 'thredded--form thredded--notification-preferences-form',
+    'data-thredded-user-preferences-form' => true
+}) do |f| %>
 
   <h3><%= t 'thredded.preferences.form.global_preferences_label' %></h3>
   <ul class="thredded--form-list">
     <li>
       <%= f.label :auto_follow_topics do %>
-        <%= f.check_box :auto_follow_topics, 'data-thredded-bound-messageboard-pref' => 'user_preferences_form[messageboard_auto_follow_topics]' %>
+        <%= f.check_box :auto_follow_topics,
+                        'data-thredded-update-checkbox-on-change' =>
+                            'user_preferences_form[messageboard_auto_follow_topics]' %>
         <%= t 'thredded.preferences.form.auto_follow_topics.label' %>
         <p class="thredded--form-list--hint">
           <%= t 'thredded.preferences.form.auto_follow_topics.hint' %>
