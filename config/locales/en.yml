@@ -22,6 +22,9 @@ en:
         create_btn_submitting: :thredded.form.create_btn_submitting
         no_group: No Group
         update_btn_submitting: :thredded.form.update_btn_submitting
+        title_label: Name
+        description_label: Description
+        messageboard_group_id_label: Messageboard group
       index:
         page_title: Messageboards
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
@@ -73,6 +76,7 @@ en:
       edit: :thredded.nav.edit_post
       form:
         content_label: Content
+        title_label: Add a post
         create_btn: Submit Reply
         create_btn_submitting: Posting...
         update_btn: Update Post
