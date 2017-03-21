@@ -82,6 +82,10 @@ module Thredded
   mattr_accessor :parent_mailer
   self.parent_mailer = 'ActionMailer::Base'
 
+  # @return [Proc] The proc that Thredded uses to generate URL slugs from text.
+  mattr_accessor :slugifier
+  self.slugifier = ->(input) { input.parameterize }
+
   # @return [Boolean] Whether the user should get subscribed to a new topic they've created.
   mattr_accessor :auto_follow_when_creating_topic
   self.auto_follow_when_creating_topic = true

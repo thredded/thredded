@@ -76,6 +76,15 @@ Thredded.messageboards_order = :position
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
 
+# ==> URLs
+# How Thredded generates URL slugs from text.
+
+# Default:
+# Thredded.slugifier = ->(input) { input.parameterize }
+
+# If your forum is in a language other than English, you might want to use the babosa gem instead
+# Thredded.slugifier = ->(input) { Babosa::Identifier.new(input).normalize.to_s }
+
 # ==> Post Content Formatting
 # Customize the way Thredded handles post formatting.
 

@@ -9,5 +9,9 @@ module Thredded
 
     validates :name, presence: true
     validates :messageboard_id, presence: true
+
+    def normalize_friendly_id(input)
+      Thredded.slugifier.call(input.to_s)
+    end
   end
 end
