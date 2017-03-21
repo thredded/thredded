@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  class Topic < ActiveRecord::Base
+  class Topic < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     include Thredded::TopicCommon
     include Thredded::ContentModerationState
 
@@ -121,10 +121,6 @@ module Thredded
       true
     end
 
-    def should_generate_new_friendly_id?
-      title_changed?
-    end
-
     # @return [Thredded::PostModerationRecord, nil]
     def last_moderation_record
       first_post.try(:last_moderation_record)
@@ -142,6 +138,14 @@ module Thredded
         # This shouldn't happen in stock Thredded.
         update_columns(last_user_id: nil, last_post_at: created_at, updated_at: Time.zone.now)
       end
+    end
+
+    def should_generate_new_friendly_id?
+      title_changed?
+    end
+
+    def normalize_friendly_id(input)
+      Thredded.slugifier.call(input.to_s)
     end
 
     private

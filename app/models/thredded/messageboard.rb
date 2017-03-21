@@ -96,17 +96,23 @@ module Thredded
       last_topic.try(:last_user)
     end
 
+    def update_last_topic!
+      return if destroyed?
+      self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.first
+      save! if last_topic_id_changed?
+    end
+
+    def normalize_friendly_id(input)
+      Thredded.slugifier.call(input.to_s)
+    end
+
+    private
+
     def slug_candidates
       [
         :name,
         [:name, '-board']
       ]
-    end
-
-    def update_last_topic!
-      return if destroyed?
-      self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.first
-      save! if last_topic_id_changed?
     end
   end
 end

@@ -66,6 +66,10 @@ module Thredded
       title_changed?
     end
 
+    def normalize_friendly_id(input)
+      Thredded.slugifier.call(input.to_s)
+    end
+
     private
 
     def slug_candidates
