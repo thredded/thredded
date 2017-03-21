@@ -315,15 +315,22 @@ You can also turn off the email notifier totally, or add other notifiers (e.g. P
 Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Polish, and Spanish.
 We welcome PRs adding support for new languages.
 
-If you use thredded in languages other than English, you probably want to add `rails-i18n` to your Gemfile.
-Additionally, you will need to require the translations for rails-timeago in your JavaScript before `thredded` but
-after `jquery.timeago` (included in `thredded/dependencies`). E.g. for Brazilian Portuguese:
+Here are the steps to ensure the best support for your language if it isn't English:
 
-```js
-//= require thredded/dependencies
-//= require locales/jquery.timeago.pt-br
-//= require thredded/thredded
-```
+1. Add `rails-i18n` to your Gemfile.
+
+2. Require the translations for rails-timeago in your JavaScript before `thredded` but after `jquery.timeago`
+   (included in `thredded/dependencies`). E.g. for Brazilian Portuguese:
+
+   ```js
+   //= require thredded/dependencies
+   //= require locales/jquery.timeago.pt-br
+   //= require thredded/thredded
+   ```
+
+3. To generate URL slugs for messageboards, categories, and topics with support for more language than English,
+   you can use a gem like [babosa](https://github.com/norman/babosa).
+   Add babosa to your Gemfile and uncomment the `Thredded.slugifier` proc for babosa in the initializer.
 
 ## Permissions
 
