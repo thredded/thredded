@@ -3,7 +3,15 @@ language: ruby
 rvm:
   - 2.3
 
-cache: bundler
+cache:
+  bundler: true
+  directories:
+  # Cache the Onebox data and views to speed up tests
+  - tmp/cache/onebox-data
+  - tmp/cache/onebox-views
+  - spec/dummy/tmp/cache/onebox-data
+  - spec/dummy/tmp/cache/onebox-views
+
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
   - spec/gemfiles/rails_4_2.gemfile
