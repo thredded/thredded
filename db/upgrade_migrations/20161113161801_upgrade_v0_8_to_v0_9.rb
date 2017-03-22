@@ -25,16 +25,17 @@ class UpgradeV08ToV09 < ActiveRecord::Migration
               name: 'thredded_messageboard_notifications_for_followed_topics_unique', unique: true
     end
 
-    Thredded::UserPreference.includes(:user).each do |pref|
+    Thredded::UserPreference.all.each do |pref|
       pref.notifications_for_private_topics.create(notifier_key: 'email', enabled: pref.notify_on_message)
       pref.notifications_for_followed_topics.create(notifier_key: 'email', enabled: pref.followed_topic_emails)
     end
-    Thredded::UserMessageboardPreference.includes(:user).each do |pref|
+    Thredded::UserMessageboardPreference.pluck(:user_id, :messageboard_id, :followed_topic_emails)
+      .each do |user_id, messageboard_id, emails|
       Thredded::MessageboardNotificationsForFollowedTopics.create(
-        user_id: pref.user_id,
-        messageboard_id: pref.messageboard_id,
+        user_id: user_id,
+        messageboard_id: messageboard_id,
         notifier_key: 'email',
-        enabled: pref.followed_topic_emails
+        enabled: emails
       )
     end
 
