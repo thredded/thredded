@@ -25,10 +25,20 @@ module Thredded
       super || build_user_preference
     end
 
+    def user_id=(value)
+      super
+      set_auto_follow_from_user_preference
+    end
+
+    def user=(value)
+      super
+      set_auto_follow_from_user_preference
+    end
+
     private
 
     def set_auto_follow_from_user_preference
-      self.auto_follow_topics = user_preference.auto_follow_topics
+      self.auto_follow_topics = user_preference.auto_follow_topics if user_id && !id
     end
   end
 end
