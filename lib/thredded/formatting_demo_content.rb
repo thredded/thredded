@@ -11,10 +11,10 @@ module Thredded
 
 URLs of supported resources are replaced with boxes like these:
 
-**Twitter** `https://twitter.com/glebm/status/836237442747228162`:
-https://twitter.com/glebm/status/836237442747228162
-**GitHub** `https://github.com/google/dart-scissors/pull/67`:
-https://github.com/google/dart-scissors/pull/67
+**Twitter** `https://twitter.com/thredded/status/838824533477982209`:
+https://twitter.com/thredded/status/838824533477982209
+**GitHub** `https://github.com/github/balanced-employee-ip-agreement/issues/38`:
+https://github.com/github/balanced-employee-ip-agreement/issues/38
 **StackExchange** `http://codegolf.stackexchange.com/questions/45701`:
 http://codegolf.stackexchange.com/questions/45701
 **Amazon** `https://www.amazon.co.uk/dp/0521797071`:
