@@ -20,7 +20,10 @@ pl:
       create: Stwórz nową tablicę
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        description_label: Opis
+        messageboard_group_id_label: messageboard grupa
         no_group: Brak grupy
+        title_label: Nazwa
         update_btn_submitting: :thredded.form.update_btn_submitting
       index:
         page_title: Tablice
@@ -75,6 +78,7 @@ pl:
         content_label: Treść
         create_btn: Wyślij odpowiedź
         create_btn_submitting: Wysyłanie...
+        title_label: Dodaj posta
         update_btn: Zaktualizuj post
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Twój post zostanie zamieszczony po zweryfikowaniu go przez moderatora.

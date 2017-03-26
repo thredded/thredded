@@ -20,7 +20,10 @@ pt-BR:
       create: Criar um novo Fórum de Mensagem
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        description_label: Descrição
+        messageboard_group_id_label: grupo messageboard
         no_group: Sem Grupo
+        title_label: Nome
         update_btn_submitting: :thredded.form.update_btn_submitting
       index:
         page_title: Fóruns de Mensagens
@@ -75,6 +78,7 @@ pt-BR:
         content_label: Conteúdo
         create_btn: Enviar Resposta
         create_btn_submitting: Postando...
+        title_label: Adicionar um post
         update_btn: Atualizar Post
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: O envio da mensagem será publicada quando foi revisado por um moderador.

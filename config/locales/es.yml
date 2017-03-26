@@ -20,7 +20,10 @@ es:
       create: Crear un nuevo foro
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        description_label: Descripción
+        messageboard_group_id_label: grupo messageboard
         no_group: Sin grupo
+        title_label: Nombre
         update_btn_submitting: :thredded.form.update_btn_submitting
       index:
         page_title: Foros
@@ -75,6 +78,7 @@ es:
         content_label: Contenido
         create_btn: Responder
         create_btn_submitting: Enviando...
+        title_label: Añadir una publicación
         update_btn: Actualizar Mensaje
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Tu post será publicado cuando haya sido revisado por un moderador.
