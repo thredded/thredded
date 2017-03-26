@@ -503,6 +503,16 @@ To disable moderation, e.g. if you run internal forums that do not need moderati
 change_column_default :thredded_user_details, :moderation_state, 1 # approved
 ```
 
+### Enabling auto-follow
+
+In some cases, you'll want all users to auto-follow new messageboard topics by default. This might be useful
+for a team messageboard or a company announcements board, for example. To enable user auto-follow of new topics,
+run the following migration(s):
+
+```ruby
+change_column_default :thredded_user_preferences, :auto_follow_topics, 1
+```
+
 ## Plugins
 
 The following official plugins are available for Thredded:

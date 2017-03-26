@@ -82,12 +82,19 @@ pt-BR:
       edit:
         page_title: :thredded.nav.settings
       form:
+        auto_follow_topics:
+          hint: siga automaticamente todos os novos temas. Alterar essa configuração vai mudá-lo para todos os messageboards.
+          label: Siga todos os novos temas
         follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
             deste post.
           label: Siga os tópicos que são mencionados na
         global_preferences_label: Configurações Globais
+        messageboard_auto_follow_topics:
+          hint: siga automaticamente todos os novos tópicos neste messageboard. Isso substitui a respectiva definição
+            acima.
+          label: Siga todos os novos temas
         messageboard_follow_topics_on_mention:
           hint: >-
             Quando alguém mencionar você através do seu usuário (ex.: @sam) neste fórum de mensagens, você irá receber
@@ -146,6 +153,7 @@ pt-BR:
       followed_by_noone: Ninguém está seguindo este tópico
       followed_notice: Você agora está seguindo este tópico
       following:
+        auto: Você está seguindo este tópico porque o auto-follow está ativado.
         manual: Você está seguindo este tópico.
         mentioned: Você está seguindo este tópico porque você foi mencionado nele.
         posted: Você está seguindo este tópico porque foi você que o publicou.

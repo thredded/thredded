@@ -82,10 +82,18 @@ pl:
       edit:
         page_title: :thredded.nav.settings
       form:
+        auto_follow_topics:
+          hint: >-
+            Automatycznie śledzić wszystkie nowe tematy. Zmiana tego ustawienia powoduje zmianę dla wszystkich messageboards.
+          label: Śledź wszystkie nowe tematy
         follow_topics_on_mention:
           hint: 'Gdy ktoś w temacie wspomni o Tobie (np.: @sam) zaczniesz obserwować ten temat.'
           label: Obserwuj tematy, w których zostałeś wspomiany
         global_preferences_label: Ustawienia powiadomień
+        messageboard_auto_follow_topics:
+          hint: Automatycznie śledzić wszystkie nowe tematy na tym messageboard. To zastępuje odpowiednie ustawienie
+            powyżej.
+          label: Śledź wszystkie nowe tematy
         messageboard_follow_topics_on_mention:
           hint: 'Gdy ktoś w temacie wspomni o Tobie (np.: @sam) zaczniesz obserwować ten temat.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
@@ -142,6 +150,7 @@ pl:
       followed_by_noone: Nikt nie obserwuje tego tematu
       followed_notice: Obserwujesz ten temat
       following:
+        auto: Osoby stosujące ten temat, ponieważ auto naśladowania jest włączony.
         manual: Obserwujesz ten temat.
         mentioned: Obserwujesz ten temat, ponieważ ktoś wspomniał w nim o tobie.
         posted: Obserwujesz ten temat, ponieważ w nim napisałeś.

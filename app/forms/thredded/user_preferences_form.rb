@@ -9,12 +9,14 @@ module Thredded
     validate :validate_children
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
+             :auto_follow_topics, :auto_follow_topics=,
              :messageboard_notifications_for_followed_topics_attributes=,
              :notifications_for_followed_topics_attributes=,
              :notifications_for_private_topics_attributes=,
              to: :user_preference
 
     delegate :follow_topics_on_mention, :follow_topics_on_mention=,
+             :auto_follow_topics, :auto_follow_topics=,
              to: :user_messageboard_preference,
              prefix: :messageboard
 
@@ -31,6 +33,14 @@ module Thredded
       return false unless valid?
       Thredded::UserPreference.transaction do
         user_preference.save!
+
+        # Update all of the messageboards' auto_follow_topics if the global preference has changed.
+        if user_preference.previous_changes.include?('auto_follow_topics')
+          UserMessageboardPreference.where(user: @user)
+            .update_all(auto_follow_topics: user_preference.auto_follow_topics)
+          user_messageboard_preference.auto_follow_topics_will_change! if messageboard
+        end
+
         user_messageboard_preference.save! if messageboard
       end
       true
@@ -52,6 +62,14 @@ module Thredded
     def for_every_notifier(prefs)
       Thredded.notifiers.map do |notifier|
         prefs.find { |n| n.notifier_key == notifier.key } || prefs.build(notifier_key: notifier.key)
+      end
+    end
+
+    def update_path
+      if @messageboard
+        Thredded::UrlsHelper.messageboard_preferences_path(@messageboard)
+      else
+        Thredded::UrlsHelper.global_preferences_path
       end
     end
 
