@@ -14,6 +14,12 @@
   image.
   [#550](https://github.com/thredded/thredded/pull/550)
 
+* **Auto-follow all new topics setting**.
+  [#488](https://github.com/thredded/thredded/issues/488) [#554](https://github.com/thredded/thredded/pull/554)
+
+* Russian translation.
+  [#556](https://github.com/thredded/thredded/pull/556)
+
 ## Fixed
 
 Minor UI fixes throughout.
