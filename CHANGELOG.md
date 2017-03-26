@@ -29,6 +29,8 @@ Minor UI fixes throughout.
 * Removed the now-redundant `thredded_post_notifications` table.
   [#547](https://github.com/thredded/thredded/pull/547)
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.10.1...v0.11.0.
+
 # v0.10.1
 
 ## Changed
