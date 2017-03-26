@@ -312,7 +312,8 @@ You can also turn off the email notifier totally, or add other notifiers (e.g. P
 
 ## I18n
 
-Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Polish, and Spanish.
+Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Polish, Russian,
+and Spanish.
 We welcome PRs adding support for new languages.
 
 Here are the steps to ensure the best support for your language if it isn't English:
