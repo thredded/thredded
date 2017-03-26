@@ -83,14 +83,14 @@ en:
         page_title: :thredded.nav.settings
       form:
         auto_follow_topics:
-          hint: 'You will automatically follow all new topics.'
+          hint: 'You will automatically follow all new topics. Changing this setting will change it for all messageboards.'
           label: 'Automatically follow new topics'
         follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) you will follow the topic.'
           label: Follow topics you are mentioned in
         global_preferences_label: Global Settings
         messageboard_auto_follow_topics:
-          hint: 'Automatically follow all new topics in this messageboard.'
+          hint: 'Automatically follow all new topics in this messageboard. This overrides the respective setting above.'
           label: 'Automatically follow new topics'
         messageboard_follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) in this messageboard you will follow the
