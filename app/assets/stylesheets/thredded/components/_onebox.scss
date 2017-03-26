@@ -195,6 +195,15 @@ pre.onebox code {
   }
 }
 
+// Onebox - Google Maps
+.maps-onebox {
+  // The onebox gem adds a div with inline styles that breaks mobile
+  // Hide the div
+  > div:first-child {
+    display: none;
+  }
+}
+
 // Onebox - Twitter - Status
 aside.onebox.twitterstatus .onebox-body {
   h4 {
