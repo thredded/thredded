@@ -4,6 +4,9 @@ ruby '2.4.0'
 
 gem 'thredded', path: File.dirname(__FILE__)
 
+# Hot-fix for https://github.com/discourse/onebox/pull/350
+gem 'mustache', '= 1.0.3'
+
 # Rails 5
 gem 'rails', '~> 5.0.0'
 

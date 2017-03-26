@@ -151,7 +151,7 @@ GEM
     minitest (5.10.1)
     moneta (1.0.0)
     multi_json (1.12.1)
-    mustache (1.0.4)
+    mustache (1.0.3)
     newrelic_rpm (4.0.0.332)
     nio4r (2.0.0)
     nokogiri (1.7.1)
@@ -275,6 +275,7 @@ DEPENDENCIES
   factory_girl_rails
   faker (>= 1.6.2)
   http_accept_language
+  mustache (= 1.0.3)
   newrelic_rpm
   pg
   puma
