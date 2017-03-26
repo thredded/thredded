@@ -1,24 +1,24 @@
 <%= form_for messageboard, html: { class: 'thredded--form' } do |f| %>
-  <ul class="thredded--form-list">
-    <li>
-      <%= f.label :name %>
-      <%= f.text_field :name, required: true %>
-    </li>
-    <li>
-      <%= f.label :description %>
-      <%= f.text_field :description %>
-    </li>
-    <li>
-      <%= f.label :messageboard_group_id %>
-      <%= f.collection_select :messageboard_group_id, Thredded::MessageboardGroup.all, :id, :name,
-                              include_blank: t('thredded.messageboard.form.no_group') %>
-    </li>
-    <li>
-      <%= f.submit @messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
-                   class: 'thredded--form--submit',
-                   'data-disable-with' => @messageboard.persisted? ?
-                       t('thredded.messageboard.form.update_btn_submitting') :
-                       t('thredded.messageboard.form.create_btn_submitting') %>
-    </li>
-  </ul>
+    <ul class="thredded--form-list">
+      <li>
+        <%= f.label t('thredded.messageboard.form.title_label') %>
+        <%= f.text_field :name, required: true %>
+      </li>
+      <li>
+        <%= f.label t('thredded.messageboard.form.description_label') %>
+        <%= f.text_field :description %>
+      </li>
+      <li>
+        <%= f.label t('thredded.messageboard.form.messageboard_group_id_label') %>
+        <%= f.collection_select :messageboard_group_id, Thredded::MessageboardGroup.all, :id, :name,
+                                include_blank: t('thredded.messageboard.form.no_group') %>
+      </li>
+      <li>
+        <%= f.submit @messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
+                     class: 'thredded--form--submit',
+                     'data-disable-with' => @messageboard.persisted? ?
+                         t('thredded.messageboard.form.update_btn_submitting') :
+                         t('thredded.messageboard.form.create_btn_submitting') %>
+      </li>
+    </ul>
 <% end %>
