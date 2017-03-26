@@ -37,7 +37,9 @@ module Thredded
       user_board_prefs = post.messageboard.user_messageboard_preferences.each_with_object({}) do |ump, h|
         h[ump.user] = ump
       end
-      User.includes(:thredded_user_preference).all.select do |user|
+      Thredded.user_class.includes(:thredded_user_preference)
+        .select(Thredded.user_class.primary_key)
+        .find_each(batch_size: 50_000).select do |user|
         (user_board_prefs[user] ||
             Thredded::UserMessageboardPreference.new(messageboard: post.messageboard, user: user)).auto_follow_topics?
       end
