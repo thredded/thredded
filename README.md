@@ -33,6 +33,9 @@ application and not an engine like Thredded.
 
 [Discourse]: http://www.discourse.org/
 
+Table of Contents
+=================
+
 * [Installation](#installation)
   * [Creating a new Rails app with Thredded](#creating-a-new-rails-app-with-thredded)
   * [Adding Thredded to an existing Rails app](#adding-thredded-to-an-existing-rails-app)
