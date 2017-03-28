@@ -54,6 +54,7 @@ Table of Contents
   * [Theming](#theming)
     * [Styles](#styles)
 * [Email and other notifications](#email-and-other-notifications)
+  * [Enabling auto-follow](#enabling-auto-follow)
 * [I18n](#i18n)
 * [Permissions](#permissions)
   * [Permission methods](#permission-methods)
@@ -66,7 +67,6 @@ Table of Contents
   * [Handling "Permission denied" and "Not found" errors](#handling-permission-denied-and-not-found-errors)
 * [Moderation](#moderation)
   * [Disabling moderation](#disabling-moderation)
-  * [Enabling auto-follow](#enabling-auto-follow)
 * [Plugins](#plugins)
 * [Development](#development)
   * [Ruby](#ruby)
@@ -349,8 +349,18 @@ If you use [Rails Email Preview], you can include Thredded emails into the list 
 
 [Rails Email Preview]: https://github.com/glebm/rails_email_preview
 
-You can also turn off the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting the
- `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
+You can also turn off the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting
+the `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
+
+### Enabling auto-follow
+
+In some cases, you'll want all users to auto-follow new messageboard topics by default. This might be useful
+for a team messageboard or a company announcements board, for example. To enable user auto-follow of new topics,
+run the following migration(s):
+
+```ruby
+change_column_default :thredded_user_preferences, :auto_follow_topics, 1
+```
 
 ## I18n
 
@@ -544,16 +554,6 @@ To disable moderation, e.g. if you run internal forums that do not need moderati
 
 ```ruby
 change_column_default :thredded_user_details, :moderation_state, 1 # approved
-```
-
-### Enabling auto-follow
-
-In some cases, you'll want all users to auto-follow new messageboard topics by default. This might be useful
-for a team messageboard or a company announcements board, for example. To enable user auto-follow of new topics,
-run the following migration(s):
-
-```ruby
-change_column_default :thredded_user_preferences, :auto_follow_topics, 1
 ```
 
 ## Plugins
