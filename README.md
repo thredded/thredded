@@ -33,6 +33,45 @@ application and not an engine like Thredded.
 
 [Discourse]: http://www.discourse.org/
 
+* [Installation](#installation)
+  * [Creating a new Rails app with Thredded](#creating-a-new-rails-app-with-thredded)
+  * [Adding Thredded to an existing Rails app](#adding-thredded-to-an-existing-rails-app)
+  * [Upgrading an existing install](#upgrading-an-existing-install)
+  * [Migrating from Forem](#migrating-from-forem)
+* [Views and other assets](#views-and-other-assets)
+  * [Standalone layout](#standalone-layout)
+  * [Application layout](#application-layout)
+    * [Reference your paths so that Thredded can find them](#reference-your-paths-so-that-thredded-can-find-them)
+    * [Add Thredded styles](#add-thredded-styles)
+    * [Add Thredded JavaScripts](#add-thredded-javascripts)
+      * [jQuery version](#jquery-version)
+  * [User profile page](#user-profile-page)
+  * [Customizing views](#customizing-views)
+    * [View hooks](#view-hooks)
+  * [Theming](#theming)
+    * [Styles](#styles)
+* [Email and other notifications](#email-and-other-notifications)
+* [I18n](#i18n)
+* [Permissions](#permissions)
+  * [Permission methods](#permission-methods)
+    * [Reading messageboards](#reading-messageboards)
+    * [Posting to messageboards](#posting-to-messageboards)
+    * [Messaging other users (posting to private topics)](#messaging-other-users-posting-to-private-topics)
+    * [Moderating messageboards](#moderating-messageboards)
+    * [Admin permissions](#admin-permissions)
+  * [Default permissions](#default-permissions)
+  * [Handling "Permission denied" and "Not found" errors](#handling-permission-denied-and-not-found-errors)
+* [Moderation](#moderation)
+  * [Disabling moderation](#disabling-moderation)
+  * [Enabling auto-follow](#enabling-auto-follow)
+* [Plugins](#plugins)
+* [Development](#development)
+  * [Ruby](#ruby)
+  * [JavaScript](#javascript)
+  * [Testing with all the databases and Rails versions locally.](#testing-with-all-the-databases-and-rails-versions-locally)
+  * [Developing and Testing with Docker Compose](#developing-and-testing-with-docker-compose)
+
+
 ## Installation
 
 ### Creating a new Rails app with Thredded
@@ -261,13 +300,13 @@ To see the complete list of view hooks and their arguments, run:
 grep view_hooks -R --include '*.html.erb' "$(bundle show thredded)"
 ```
 
-## Theming
+### Theming
 
 The engine comes by default with a light and effective implementation of the
 views, styles, and javascript. Once you mount the engine you will be presented
 with a "themed" version of thredded.
 
-### Styles
+#### Styles
 
 Thredded comes with a light Sass theme controlled by a handful of variables that can be found here:
 https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/base/_variables.scss.
@@ -635,7 +674,7 @@ To test all combinations of supported databases and Rails versions, run:
 rake test_all
 ```
 
-## Developing and Testing with [Docker Compose](http://docs.docker.com/compose/)
+### Developing and Testing with [Docker Compose](http://docs.docker.com/compose/)
 
 To quickly try out _Thredded_ with the included dummy app, clone the source and
 start the included docker-compose.yml file with:
