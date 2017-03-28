@@ -7,7 +7,7 @@
 # for your user class - change it here.
 Thredded.user_class = 'User'
 
-# User name column, used in @mention syntax and should be unique.
+# User name column, used in @mention syntax and *must* be unique.
 # This is the column used to search for users' names if/when someone is @ mentioned.
 Thredded.user_name_column = :name
 
