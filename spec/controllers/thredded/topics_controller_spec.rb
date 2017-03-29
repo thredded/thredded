@@ -18,17 +18,24 @@ module Thredded
       )
     end
 
-    it 'renders GET index' do
-      get :index, params: { messageboard_id: @messageboard.id }
+    describe 'GET index' do
+      it 'renders' do
+        get :index, params: { messageboard_id: @messageboard.slug }
 
-      expect(response).to be_successful
-      expect(response).to render_template('index')
+        expect(response).to be_successful
+        expect(response).to render_template('index')
+      end
+
+      it 'performs canonical redirect' do
+        get :index, params: { messageboard_id: @messageboard.id }
+        expect(response).to redirect_to(action: :index, messageboard_id: @messageboard.slug)
+      end
     end
 
     describe 'GET search' do
       it 'renders search' do
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))
-        get :search, params: { messageboard_id: @messageboard.id, q: 'hi' }
+        get :search, params: { messageboard_id: @messageboard.slug, q: 'hi' }
 
         expect(response).to be_successful
         expect(response).to render_template('search')
@@ -36,38 +43,49 @@ module Thredded
 
       it 'is successful with spaces around search term(s)' do
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))
-        get :search, params: { messageboard_id: @messageboard.id, q: '  hi  ' }
+        get :search, params: { messageboard_id: @messageboard.slug, q: '  hi  ' }
 
         expect(response).to be_successful
       end
 
+      it 'performs canonical redirect' do
+        get :search, params: { messageboard_id: @messageboard.id }
+        expect(response).to redirect_to(action: :search, messageboard_id: @messageboard.slug)
+      end
+
       context 'renders' do
         render_views
-
         it 'a No Results message' do
           allow(Topic).to receive_messages(search_query: Topic.none)
-          get :search, params: { messageboard_id: @messageboard.id, q: 'hi' }
+          get :search, params: { messageboard_id: @messageboard.slug, q: 'hi' }
 
           expect(response.body).to have_content "There are no results for your search - 'hi'"
         end
       end
     end
+
     describe 'GET new' do
       it 'works with no extra parameters' do
-        get :new, params: { messageboard_id: @messageboard.id }
+        get :new, params: { messageboard_id: @messageboard.slug }
         expect(response).to be_successful
         expect(response).to render_template('new')
         expect(assigns(:new_topic).title).to be_blank
         expect(assigns(:new_topic).content).to be_blank
       end
+
       it 'assigns extra parameters' do
         get :new, params: {
-          messageboard_id: @messageboard.id, topic: { title: 'given title', content: 'preset content' }
+          messageboard_id: @messageboard.slug, topic: { title: 'given title', content: 'preset content' }
         }
         expect(response).to be_successful
         expect(response).to render_template('new')
         expect(assigns(:new_topic).title).to eq 'given title'
         expect(assigns(:new_topic).content).to eq 'preset content'
+      end
+
+      it 'performs canonical redirect' do
+        get :new, params: { messageboard_id: @messageboard.id }
+        expect(response).to redirect_to(action: :new, messageboard_id: @messageboard.slug)
       end
     end
 

@@ -19,6 +19,8 @@ module Thredded
 
     def edit
       authorize post, :update?
+      return if redirect_to_canonical_topic!
+      render
     end
 
     def update
@@ -44,6 +46,11 @@ module Thredded
     end
 
     private
+
+    def redirect_to_canonical_topic!
+      return if params[:private_topic_id].to_s == topic.slug
+      redirect_to private_topic_id: topic.slug
+    end
 
     def after_mark_as_unread
       redirect_to private_topics_path
