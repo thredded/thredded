@@ -90,7 +90,7 @@ module Thredded
     # @param content [String]
     # @return [String] formatted and sanitized html-safe content.
     def format_content(content)
-      pipeline = HTML::Pipeline.new(content_pipeline_filters, content_pipeline_options.merge(@pipeline_options))
+      pipeline = HTML::Pipeline.new(content_pipeline_filters, content_pipeline_options.deep_merge(@pipeline_options))
       result = pipeline.call(content, view_context: @view_context)
       # rubocop:disable Rails/OutputSafety
       result[:output].to_s.html_safe
