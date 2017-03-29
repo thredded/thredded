@@ -1,6 +1,6 @@
 <%= form_tag users_moderation_path,
              method: 'get',
-             class: 'thredded--form thredded--navigation--search',
+             class: 'thredded--form thredded--navigation--search thredded--navigation--search--right',
              'data-thredded-turboform' => true do %>
   <%= label_tag :q, t('thredded.moderation.search_users.form_label') %>
   <%= text_field_tag :q, @query,
