@@ -29,7 +29,7 @@ module Thredded
       # Convert Markdown to HTML using the best available implementation
       # and convert into a DocumentFragment.
       def call
-        result = Kramdown::Document.new(@text, self.class.options.merge(context[:kramdown_options] || {})).to_html
+        result = Kramdown::Document.new(@text, self.class.options.deep_merge(context[:kramdown_options] || {})).to_html
         result.rstrip!
         result
       end
