@@ -1,9 +1,10 @@
 .thredded--navigation--search {
-  margin-right: 0;
+  $input-padding-x: 0.75rem;
+
+  margin: 0;
   padding: 0;
   position: absolute;
   top: 0;
-  right: 0;
 
   @include thredded-media-tablet-and-down {
     position: initial;
@@ -20,16 +21,15 @@
 
     @include thredded-media-desktop-and-up {
       $line-height: 1rem;
-      $padding-x: 0.75rem;
       background: transparent;
       border-color: transparent;
       font-size: $thredded-font-size-small;
       line-height: $line-height;
       min-width: 13rem;
-      text-align: right;
       width: auto;
-      padding: 0.9375rem 0.75rem 0.875rem 0.75rem;
-      margin: -1px (-$padding-x) 0 0;
+      padding: 0.9375rem $input-padding-x 0.875rem $input-padding-x;
+      margin-top: -1px;
+      margin-bottom: 0;
 
       &, &:focus {
         transition: background, border-color, box-shadow, min-width 0.15s ease-out 0s;
@@ -39,6 +39,7 @@
         background: $thredded-background-color;
         box-shadow: none;
         margin-right: 0;
+        margin-left: 0;
         min-width: 16rem;
         text-align: left;
       }
@@ -97,5 +98,29 @@
 
   @media print {
     display: none;
+  }
+
+  // On the left:
+  right: auto;
+  left: 0;
+  @include thredded-media-desktop-and-up {
+    input[type="search"] {
+      text-align: left;
+      margin-right: 0;
+      margin-left: -$input-padding-x;
+    }
+  }
+
+  // On the right:
+  &--right {
+    right: 0;
+    left: auto;
+    @include thredded-media-desktop-and-up {
+      input[type="search"] {
+        text-align: right;
+        margin-right: -$input-padding-x;
+        margin-left: 0;
+      }
+    }
   }
 }
