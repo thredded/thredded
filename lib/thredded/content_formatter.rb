@@ -6,7 +6,7 @@ module Thredded
     mattr_accessor :whitelist
 
     self.whitelist = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-      elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(iframe span figure figcaption),
+      elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(abbr iframe span figure figcaption),
       transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
         lambda do |env|
           next unless env[:node_name] == 'a'
@@ -20,6 +20,7 @@ module Thredded
       ],
       attributes: {
         'a'      => %w(href rel),
+        'abbr'   => %w(title),
         'span'   => %w(class),
         'div'    => %w(class)
       }
