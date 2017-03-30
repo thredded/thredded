@@ -22,7 +22,7 @@ module Thredded
 
     def show
       authorize private_topic, :read?
-      return if redirect_to_canonical_topic!
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
 
       page_scope = private_topic
         .posts
@@ -56,7 +56,7 @@ module Thredded
 
     def edit
       authorize private_topic, :update?
-      return if redirect_to_canonical_topic!
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       render
     end
 
@@ -72,9 +72,8 @@ module Thredded
 
     private
 
-    def redirect_to_canonical_topic!
-      return if params[:id].to_s == private_topic.slug
-      redirect_to id: private_topic.slug
+    def canonical_topic_params
+      { id: private_topic.slug }
     end
 
     def current_page

@@ -12,9 +12,9 @@ module Thredded
 
     def index
       authorize_reading messageboard
-      if redirect_to_canonical_messageboard!
+      unless params_match?(canonical_messageboard_params)
         skip_policy_scope
-        return
+        return redirect_to(canonical_messageboard_params)
       end
 
       @topics = Thredded::TopicsPageView.new(
@@ -30,7 +30,7 @@ module Thredded
 
     def show
       authorize topic, :read?
-      return if redirect_to_canonical_topic!
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard, :postable)
@@ -50,9 +50,9 @@ module Thredded
       in_messageboard = params.key?(:messageboard_id)
       if in_messageboard
         authorize_reading messageboard
-        if redirect_to_canonical_messageboard!
+        unless params_match?(canonical_messageboard_params)
           skip_policy_scope
-          return
+          return redirect_to(canonical_messageboard_params)
         end
       end
       @query = params[:q].to_s
@@ -76,7 +76,7 @@ module Thredded
     def new
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
-      return if redirect_to_canonical_messageboard!
+      return redirect_to(canonical_messageboard_params) unless params_match?(canonical_messageboard_params)
       render
     end
 
@@ -105,7 +105,7 @@ module Thredded
 
     def edit
       authorize topic, :update?
-      return if redirect_to_canonical_topic!
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
     end
 
@@ -150,18 +150,12 @@ module Thredded
 
     private
 
-    def redirect_to_canonical_messageboard!
-      return if params[:messageboard_id].to_s == messageboard.slug
-      redirect_to messageboard_id: messageboard.slug
+    def canonical_messageboard_params
+      { messageboard_id: messageboard.slug }
     end
 
-    def redirect_to_canonical_topic!
-      return if params[:messageboard_id].to_s == messageboard.slug && params[:id].to_s == topic.slug
-      redirect_to messageboard_id: messageboard.slug, id: topic.slug
-    end
-
-    def canonical_topic?
-      params[:id].to_s == topic.slug
+    def canonical_topic_params
+      { messageboard_id: messageboard.slug, id: topic.slug }
     end
 
     def follow_change_response(following:)

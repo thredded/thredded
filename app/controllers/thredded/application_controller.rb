@@ -60,6 +60,12 @@ module Thredded
       end
     end
 
+    # @param given [Hash]
+    # @return [Boolean] whether the given params are a subset of the controller's {#params}.
+    def params_match?(given = {})
+      given.all? { |k, v| v == params[k] }
+    end
+
     private
 
     def thredded_layout
