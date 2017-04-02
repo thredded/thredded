@@ -12,6 +12,10 @@ module Thredded
 
     def index
       authorize_reading messageboard
+      unless params_match?(canonical_messageboard_params)
+        skip_policy_scope
+        return redirect_to(canonical_messageboard_params)
+      end
 
       @topics = Thredded::TopicsPageView.new(
         thredded_current_user,
@@ -26,6 +30,7 @@ module Thredded
 
     def show
       authorize topic, :read?
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard, :postable)
@@ -43,7 +48,13 @@ module Thredded
 
     def search
       in_messageboard = params.key?(:messageboard_id)
-      authorize_reading messageboard if in_messageboard
+      if in_messageboard
+        authorize_reading messageboard
+        unless params_match?(canonical_messageboard_params)
+          skip_policy_scope
+          return redirect_to(canonical_messageboard_params)
+        end
+      end
       @query = params[:q].to_s
       topics_scope = policy_scope(
         if in_messageboard
@@ -65,6 +76,8 @@ module Thredded
     def new
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
+      return redirect_to(canonical_messageboard_params) unless params_match?(canonical_messageboard_params)
+      render
     end
 
     def category
@@ -92,6 +105,7 @@ module Thredded
 
     def edit
       authorize topic, :update?
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
     end
 
@@ -135,6 +149,14 @@ module Thredded
     end
 
     private
+
+    def canonical_messageboard_params
+      { messageboard_id: messageboard.slug }
+    end
+
+    def canonical_topic_params
+      { messageboard_id: messageboard.slug, id: topic.slug }
+    end
 
     def follow_change_response(following:)
       notice = following ? t('thredded.topics.followed_notice') : t('thredded.topics.unfollowed_notice')

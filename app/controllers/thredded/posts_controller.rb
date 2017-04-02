@@ -19,6 +19,8 @@ module Thredded
 
     def edit
       authorize post, :update?
+      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
+      render
     end
 
     def update
@@ -44,6 +46,10 @@ module Thredded
     end
 
     private
+
+    def canonical_topic_params
+      { messageboard_id: messageboard.slug, topic_id: topic.slug }
+    end
 
     def after_mark_as_unread
       redirect_to messageboard_topics_path(messageboard)
