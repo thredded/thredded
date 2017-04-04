@@ -1,6 +1,6 @@
 (($) => {
   window.Thredded.onPageLoad(() => {
-    $('.app-nav-locale li button').click(function(evt) {
+    $('.app-nav-locale--options--option').click(function(evt) {
       let expiresAt = new Date();
       expiresAt.setMonth(expiresAt.getMonth() + 12);
       document.cookie = 'locale=' + $(this.parentNode).data('locale') +

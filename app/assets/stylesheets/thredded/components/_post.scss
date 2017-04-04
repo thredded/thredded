@@ -7,6 +7,7 @@
 }
 
 .thredded--post--dropdown--toggle {
+  @extend %thredded--dropdown-menu--toggle;
   fill: currentColor;
   box-sizing: content-box;
   color: $thredded-action-color;
@@ -22,76 +23,20 @@
 }
 
 .thredded--post--dropdown {
-  position: relative;
-  display: inline-block;
+  @extend %thredded--dropdown-menu--container;
   float: right;
-  cursor: pointer;
   @media print {
     display: none;
   }
 }
 
 .thredded--post--dropdown--actions {
-  position: absolute;
+  @extend %thredded--dropdown-menu--actions-bottom-left;
   margin-top: -0.875rem;
-  right: 0;
-  background-color: $thredded-overlay-background-color;
-  border-radius: 2px;
-  overflow: hidden;
-  min-width: 10rem;
-  z-index: 1;
-  cursor: pointer;
-  box-shadow: $thredded-overlay-box-shadow;
-  transform: scale(0);
-  opacity: 0;
-  transform-origin: 100% 0;
-  transition: transform .3s cubic-bezier(.4, 0, .2, 1), opacity .2s cubic-bezier(.4, 0, .2, 1);
-  will-change: transform;
 }
 
-.thredded--post--dropdown--actions--item,
-// This specific selector protects from global button rules
-form.button_to > .thredded--post--dropdown--actions--item {
-  // Override potential global rules
-  background: none;
-  border-radius: 0;
-  border: 0;
-  box-sizing: border-box;
-  font: inherit;
-  margin: 0;
-  text-align: left;
-  transition: none;
-  width: 100%;
-
-  font-size: $thredded-font-size-small;
-  color: $thredded-text-color;
-  text-decoration: none;
-  padding: 1rem 0.75rem;
-  display: block;
-  white-space: nowrap;
-
-  &:active,
-  &:focus,
-  &:hover {
-    background-color: $thredded-button-background;
-    color: $thredded-button-color;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-}
-
-.thredded--post--dropdown:hover .thredded--post--dropdown--actions {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.thredded--post--dropdown:hover .thredded--post--dropdown--toggle {
-  color: $thredded-action-hover-color;
+.thredded--post--dropdown--actions--item {
+  @extend %thredded--dropdown-menu--actions--item;
 }
 
 .thredded--post--avatar {

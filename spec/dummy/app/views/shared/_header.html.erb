@@ -28,19 +28,26 @@
     </ul>
   </div>
   <div class="app-nav-locale">
-    <span class="app-nav-text">Locale:</span>
-    <ul>
+    <span class="app-nav-locale--selected">
+      <span class="app-nav-locale--selected--label">Locale: </span>
+      <%= I18n.locale.to_s %>
+      <span class="app-nav-locale--selected--caret">▽</span>
+    </span>
+    <div class="app-nav-locale--options">
       <% I18n.available_locales.each do |locale| %>
-          <%= content_tag :li, class: ('app-current' if locale.to_s == I18n.locale.to_s), 'data-locale' => locale do -%>
+          <%= content_tag :span, class: ('app-current' if locale.to_s == I18n.locale.to_s),
+                          'data-locale' => locale do -%>
               <% if locale.to_s == I18n.locale.to_s -%>
-                <span class="app-nav-text"><%= locale %></span>
+              <span class="app-nav-locale--options--option">
+                <%= locale %>
+              </span>
               <% else -%>
-              <button type="button">
-                <span class="app-nav-text"><%= locale %></span>
-              </button>
+                  <button class="app-nav-locale--options--option" type="button">
+                    <%= locale %>
+                  </button>
               <% end -%>
           <% end -%>
       <% end %>
-    </ul>
+    </div>
   </div>
 </header>

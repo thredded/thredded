@@ -1,0 +1,83 @@
+%thredded--dropdown-menu--container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    %thredded--dropdown-menu--toggle {
+      color: $thredded-action-hover-color;
+    }
+
+    %thredded--dropdown-menu--actions {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+%thredded--dropdown-menu--toggle {
+  color: $thredded-action-color;
+}
+
+%thredded--dropdown-menu--actions {
+  position: absolute;
+  background-color: $thredded-overlay-background-color;
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 8.5rem;
+  z-index: 3;
+  cursor: pointer;
+  box-shadow: $thredded-overlay-box-shadow;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1), opacity .2s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
+}
+
+%thredded--dropdown-menu--actions-bottom-left {
+  @extend %thredded--dropdown-menu--actions;
+  right: 0;
+  transform-origin: 100% 0;
+}
+
+%thredded--dropdown-menu--actions-bottom-right {
+  @extend %thredded--dropdown-menu--actions;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+%thredded--dropdown-menu--actions--item,
+// This specific selector protects from global button rules
+form.button_to > %thredded--dropdown-menu--actions--item {
+  // Override potential global rules
+  background: none;
+  border-radius: 0;
+  border: 0;
+  box-sizing: border-box;
+  font: inherit;
+  margin: 0;
+  text-align: left;
+  transition: none;
+  width: 100%;
+
+  font-size: $thredded-font-size-small;
+  color: $thredded-text-color;
+  text-decoration: none;
+  padding: 1rem 0.75rem;
+  display: block;
+  white-space: nowrap;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $thredded-button-background;
+    color: $thredded-button-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}

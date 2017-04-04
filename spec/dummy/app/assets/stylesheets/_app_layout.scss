@@ -1,3 +1,5 @@
+$tiny-phone-breakpoint: 330px;
+
 .thredded--main-container {
   // The padding and max-width are handled by the app's container.
   max-width: none;
@@ -32,6 +34,10 @@
   @media (min-width: $grid-container-max-width + 0.01rem) {
     padding-left: 3.5rem;
     padding-right: 3.5rem;
+  }
+  @media (max-width: $tiny-phone-breakpoint) {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 }
 
@@ -85,6 +91,9 @@
   display: inline-block;
   margin: 0 0 1rem 1.25rem;
   font-size: 0.9rem;
+}
+
+.app-nav-theme {
   color: $thredded-secondary-text-color;
   > ul {
     display: inline;
@@ -114,11 +123,11 @@
 @media (max-width: 620px) {
   .app-nav-theme, .app-nav-locale {
     margin: 0 0 0 0.3125rem;
-    > .app-nav-text, .app-current {
-      display: none;
-    }
   }
   .app-nav-theme {
+    > .app-current {
+      display: none;
+    }
     .app-nav-text {
       display: none;
     }
@@ -132,6 +141,43 @@
         height: 1.5rem;
         width: 1.5rem;
       }
+    }
+  }
+}
+
+@media (max-width: $tiny-phone-breakpoint) {
+  .app-nav-theme, .app-nav-locale {
+    margin: 0;
+  }
+}
+
+.app-nav-locale {
+  @extend %thredded--dropdown-menu--container;
+  margin-bottom: 0;
+  &--selected {
+    @extend %thredded--dropdown-menu--toggle;
+    display: block;
+    padding-bottom: 0.4rem;
+    &--label {
+      color: $thredded-secondary-text-color;
+    }
+  }
+  &--options {
+    @extend %thredded--dropdown-menu--actions-bottom-right;
+    &--option {
+      @extend %thredded--dropdown-menu--actions--item;
+    }
+  }
+
+  @media (max-width: 430px) {
+    &--selected--label {
+      display: none;
+    }
+  }
+
+  @media (max-width: $tiny-phone-breakpoint) {
+    &--selected--caret {
+      display: none;
     }
   }
 }
