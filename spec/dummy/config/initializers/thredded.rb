@@ -2,7 +2,7 @@
 Thredded.user_class = 'User'
 Thredded.user_name_column = :name
 Thredded.user_path = ->(user) { main_app.user_path(user.id) }
-Thredded.current_user_method = :"the_current_#{Thredded.user_class.name.underscore}"
+Thredded.current_user_method = :"the_current_#{Thredded.user_class_name.underscore}"
 Thredded.email_from = 'no-reply@example.com'
 Thredded.email_outgoing_prefix = '[Thredded] '
 Thredded.layout = 'application' unless ENV['THREDDED_DUMMY_LAYOUT_STANDALONE']

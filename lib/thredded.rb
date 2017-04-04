@@ -52,7 +52,6 @@ module Thredded
     :layout,
     :messageboards_order,
     :routes_id_constraint,
-    :user_class,
     :user_display_name_method,
     :user_name_column,
     :user_path
@@ -93,6 +92,9 @@ module Thredded
   # @return [Boolean] Whether the user should get subscribed to a topic after posting in it.
   mattr_accessor :auto_follow_when_posting_in_topic
   self.auto_follow_when_posting_in_topic = true
+
+  # @return [String] The name of the user class
+  mattr_reader :user_class_name
 
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
@@ -138,17 +140,19 @@ module Thredded
     end
   end
 
+  # @param user_class_name [String]
+  def self.user_class=(user_class_name)
+    unless user_class_name.is_a?(String)
+      fail "Thredded.user_class must be set to a String, got #{user_class_name.inspect}"
+    end
+    @@user_class_name = user_class_name # rubocop:disable Style/ClassVars
+  end
+
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
   def self.user_class
     # This is nil before the initializer is installed.
-    return nil if @@user_class.nil?
-    fail 'Please use a String instead of a Class' if @@user_class.is_a?(Class)
-    fail "user_class must be a String, got #{@@user_class.inspect}" unless @@user_class.is_a?(String)
-    begin
-      Object.const_get(@@user_class)
-    rescue NameError
-      @@user_class.constantize
-    end
+    return nil if @@user_class_name.nil?
+    @@user_class_name.constantize
   end
 
   # @param view_context [Object] context to execute the lambda in.
