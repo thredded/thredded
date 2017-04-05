@@ -370,7 +370,7 @@ We welcome PRs adding support for new languages.
 
 Here are the steps to ensure the best support for your language if it isn't English:
 
-1. Add `rails-i18n` to your Gemfile.
+1. Add `rails-i18n` and `kaminari-i18n` to your Gemfile.
 
 2. Require the translations for rails-timeago in your JavaScript before `thredded` but after `jquery.timeago`
    (included in `thredded/dependencies`). E.g. for Brazilian Portuguese:
