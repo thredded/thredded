@@ -1,5 +1,4 @@
 .agignore
-.ruby-version
 db/schema*.rb
 Gemfile.lock
 *.gemfile.lock
@@ -24,3 +23,11 @@ tmp/
 /doc/
 /.yardoc/
 .idea/
+.rvmrc
+.versions.conf
+.ruby-gemset
+.ruby-version
+.ruby-env
+.rbenv-version
+.rbenv-vars
+.rbfu-version
