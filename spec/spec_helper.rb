@@ -9,6 +9,8 @@ end
 
 require File.expand_path('../dummy/config/environment', __FILE__)
 
+FileUtils.mkdir('log') unless File.directory?('log')
+
 # If desired can log SQL to STDERR -- this tends to overload travis' log limits though.
 if ENV['LOG_SQL_TO_STDERR']
   Rails.logger = Logger.new(STDERR)
@@ -84,8 +86,6 @@ ensure
 end
 
 Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
-
-FileUtils.mkdir('log') unless File.directory?('log')
 
 RSpec.configure do |config|
   if ENV['MIGRATION_SPEC']
