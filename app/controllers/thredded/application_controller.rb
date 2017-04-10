@@ -20,7 +20,7 @@ module Thredded
                 Thredded::Errors::UserNotFound do |exception|
       @error   = exception
       @message = exception.message
-      render template: 'thredded/error_pages/not_found', status: :not_found
+      render template: 'thredded/error_pages/not_found', status: :not_found, formats: [:html]
     end
 
     rescue_from Pundit::NotAuthorizedError,
