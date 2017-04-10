@@ -69,6 +69,7 @@ Table of Contents
   * [Disabling moderation](#disabling-moderation)
 * [Plugins](#plugins)
 * [Development](#development)
+  * [Testing](#testing)
   * [Ruby](#ruby)
   * [JavaScript](#javascript)
   * [Testing with all the databases and Rails versions locally.](#testing-with-all-the-databases-and-rails-versions-locally)
@@ -586,11 +587,15 @@ Then, start the dummy app server:
 rake dev:server
 ```
 
+### Testing
+
 To run the tests, just run `rspec`. The test suite will re-create the test database on every run, so there is no need to
 run tasks that maintain the test database.
 
 By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, MySQL,
 and all the supported Rails versions.
+
+This test suite uses on PhantomJS for headless website testing. PhantomJS can be installed with brew on OS X 10.11+ (El Capitan) by running `brew install phantomjs`. For additional installation options, including other Operating Systems, please refer to [PhantomJS Download](http://phantomjs.org/download.html).
 
 ### Ruby
 
