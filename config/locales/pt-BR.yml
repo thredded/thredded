@@ -175,9 +175,12 @@ pt-BR:
       mark_as_unread: Marca não lida a partir daqui
       not_following: Você não está seguindo este tema.
       search:
-        no_results_message: Nenhum resultado encontrado para sua busca - %{query}
+        no_results_in_messageboard_message_html: Não há resultados para sua busca <q>%{query}</q> em %{messageboard}
+        no_results_message_html: Nenhum resultado encontrado para sua busca <q>%{query}</q>
         page_title: Tópicos dos Resultados da Busca
-        results_message: Resultados de Busca para %{query}
+        results_in_messageboard_message_html: Resultados da pesquisa para <q>%{query}</q> em %{messageboard}
+        results_message_html: Resultados de busca para <q>%{query}</q>
+        search_in_all_messageboards_btn: Buscar em todos os lugares
       started_by_html: Iniciado %{time_ago} por %{user}
       sticky:
         label: Pegajoso

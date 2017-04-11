@@ -172,9 +172,12 @@ pl:
       mark_as_unread: Oznacz jako nieprzeczytane stąd
       not_following: Nie obserwujesz tego tematu.
       search:
-        no_results_message: 'Nie odnaleziono żadnych wyników dla frazy: %{query}'
+        no_results_in_messageboard_message_html: Nie odnaleziono żadnych wyników dla frazy <q>%{query}</q> w %{messageboard}
+        no_results_message_html: 'Nie odnaleziono żadnych wyników dla frazy: <q>%{query}</q>'
         page_title: Wyniki wyszukiwania
-        results_message: 'Wyniki wyszukiwania dla: %{query}'
+        results_in_messageboard_message_html: Wyniki wyszukiwania dla <q>%{query}</q> w %{messageboard}
+        results_message_html: 'Wyniki wyszukiwania dla: <q>%{query}</q>'
+        search_in_all_messageboards_btn: Szukaj wszędzie
       started_by_html: Rozpoczęty %{time_ago} przez %{user}
       sticky:
         label: Przyklejony
