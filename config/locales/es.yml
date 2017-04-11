@@ -27,7 +27,7 @@ es:
         update_btn_submitting: :thredded.form.update_btn_submitting
       index:
         page_title: Foros
-      last_updated_by_html: Actualizado hace %{time_ago} <cite>por %{user}</cite>
+      last_updated_by_html: Actualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} temas / %{posts_count} mensajes"
       update: :thredded.form.update
       updated_notice: Foro actualizado
