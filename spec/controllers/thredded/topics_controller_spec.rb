@@ -59,7 +59,10 @@ module Thredded
           allow(Topic).to receive_messages(search_query: Topic.none)
           get :search, params: { messageboard_id: @messageboard.slug, q: 'hi' }
 
-          expect(response.body).to have_content "There are no results for your search - 'hi'"
+          expect(response.body).to(
+            include(I18n.t('thredded.topics.search.no_results_in_messageboard_message_html',
+                           query: 'hi', messageboard: @messageboard.name))
+          )
         end
       end
     end

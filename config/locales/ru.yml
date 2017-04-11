@@ -171,9 +171,12 @@ ru:
       mark_as_unread: Пометить как непрочитанное
       not_following: не отслеживаю
       search:
-        no_results_message: Там нет никаких результатов для этой категории - %{query}
-        page_title: Темы Результаты поиска
-        results_message: Результаты поиска для %{query}
+        no_results_in_messageboard_message_html: Не найдо результатов по запросу <q>%{query}</q> в %{messageboard}
+        no_results_message_html: Не найдо результатов по запросу <q>%{query}</q>
+        page_title: Результаты поиска
+        results_in_messageboard_message_html: Результаты поиска для <q>%{query}</q> в %{messageboard}
+        results_message_html: Результаты поиска для <q>%{query}</q>
+        search_in_all_messageboards_btn: Искать везде
       started_by_html: Начат %{user} %{time_ago}
       sticky:
         label: Закрепить

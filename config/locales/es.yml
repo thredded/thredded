@@ -174,9 +174,12 @@ es:
       mark_as_unread: Marcar sin leer desde aquí
       not_following: No estás siguiendo este tema.
       search:
-        no_results_message: No hay resultados para tu búsqueda - %{query}
+        no_results_in_messageboard_message_html: No hay resultados para tu búsqueda <q>%{query}</q> en %{messageboard}
+        no_results_message_html: No hay resultados para tu búsqueda - <q>%{query}</q>
         page_title: Temas encontrados
-        results_message: Resultados de búsqueda para %{query}
+        results_in_messageboard_message_html: Resultados de la búsqueda para <q>%{query}</q> en %{messageboard}
+        results_message_html: Resultados de búsqueda para <q>%{query}</q>
+        search_in_all_messageboards_btn: Buscar en todas partes
       started_by_html: Empezado hace %{time_ago} por %{user}
       sticky:
         label: Fijado

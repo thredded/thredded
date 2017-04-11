@@ -172,9 +172,12 @@ en:
       mark_as_unread: Mark unread from here
       not_following: You are not following this topic.
       search:
-        no_results_message: There are no results for your search - %{query}
+        no_results_in_messageboard_message_html: There are no results for your search <q>%{query}</q> in %{messageboard}
+        no_results_message_html: There are no results for your search <q>%{query}</q>
         page_title: Topics Search Results
-        results_message: Search Results for %{query}
+        results_in_messageboard_message_html: Search results for <q>%{query}</q> in %{messageboard}
+        results_message_html: Search results for <q>%{query}</q>
+        search_in_all_messageboards_btn: Search everywhere
       started_by_html: Started %{time_ago} by %{user}
       sticky:
         label: Sticky
