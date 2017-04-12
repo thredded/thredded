@@ -22,7 +22,9 @@ module Thredded
         'a'      => %w(href rel),
         'abbr'   => %w(title),
         'span'   => %w(class),
-        'div'    => %w(class)
+        'div'    => %w(class),
+        :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
+          %w(aria-label aria-labelledby aria-hidden),
       }
     )
 
