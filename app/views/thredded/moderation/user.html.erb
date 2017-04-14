@@ -14,17 +14,19 @@
     <% end %>
     <%= view_hooks.moderation_user_page.user_info.render self, user: user do %>
       <ul class="thredded--moderation--user--info">
-        <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>
-        <% if user_detail.last_seen_at %>
-          <li><%= t 'thredded.users.last_active_html', time_ago: time_ago(user_detail.last_seen_at) %></li>
-        <% end %>
-        <% if user_detail.topics_count > 0 %>
-          <li><%= t 'thredded.users.started_topics_count', count: user_detail.topics_count %></li>
-        <% end %>
-        <% if user_detail.posts_count > 0 %>
-          <li><%= t 'thredded.users.posts_count', count: user_detail.posts_count %></li>
-        <% end %>
-        <li><%= render 'user_moderation_state', user: @user %></li>
+        <%= view_hooks.moderation_user_page.user_info_list_items.render self, user: user do %>
+          <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>
+          <% if user_detail.last_seen_at %>
+            <li><%= t 'thredded.users.last_active_html', time_ago: time_ago(user_detail.last_seen_at) %></li>
+          <% end %>
+          <% if user_detail.topics_count > 0 %>
+            <li><%= t 'thredded.users.started_topics_count', count: user_detail.topics_count %></li>
+          <% end %>
+          <% if user_detail.posts_count > 0 %>
+            <li><%= t 'thredded.users.posts_count', count: user_detail.posts_count %></li>
+          <% end %>
+          <li><%= render 'user_moderation_state', user: @user %></li>
+        <% end  %>
       </ul>
     <% end %>
     <%= view_hooks.moderation_user_page.user_moderation_actions.render self, user: user do %>

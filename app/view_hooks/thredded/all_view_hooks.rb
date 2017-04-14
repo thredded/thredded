@@ -94,11 +94,14 @@ module Thredded
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :user_info
       # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :user_info_list_items
+      # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :user_moderation_actions
 
       def initialize
         @user_title = ViewHook.new
         @user_info = ViewHook.new
+        @user_info_list_items = ViewHook.new
         @user_moderation_actions = ViewHook.new
       end
     end
