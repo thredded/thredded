@@ -19,8 +19,11 @@
     <% end %>
   </ul>
   <h2><%= t 'thredded.users.recent_activity' %></h2>
-  <%= render 'thredded/users/posts',
-             posts: Thredded.posts_page_view(
-                 scope: user.thredded_posts.order_newest_first.limit(5),
-                 current_user: the_current_user) %>
+  <%= Thredded::ApplicationController.renderer.new(request.env).render(
+          partial: 'thredded/users/posts',
+          locals: {
+              posts: Thredded.posts_page_view(
+                  scope: user.thredded_posts.order_newest_first.limit(5),
+                  current_user: the_current_user)
+          }) %>
 </div>
