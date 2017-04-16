@@ -1,4 +1,5 @@
 $tiny-phone-breakpoint: 330px;
+$app-nav-font-size: 0.9rem;
 
 .thredded--main-container {
   // The padding and max-width are handled by the app's container.
@@ -64,14 +65,20 @@ $tiny-phone-breakpoint: 330px;
 }
 
 .app-nav-auth {
+  $line-height: $base-line-height;
+  $font-size: $app-nav-font-size;
   float: right;
+  font-size: $font-size;
+  line-height: ($line-height / $font-size * 1rem);
+  // Adjust for nav's 1px bottom border
+  padding-top: 1px;
 
   @include thredded-media-mobile {
     font-size: 0;
 
     a {
       margin-left: 0.4rem;
-      font-size: 1rem;
+      font-size: $font-size;
     }
   }
 }
@@ -90,7 +97,7 @@ $tiny-phone-breakpoint: 330px;
 .app-nav-theme, .app-nav-locale {
   display: inline-block;
   margin: 0 0 1rem 1.25rem;
-  font-size: 0.9rem;
+  font-size: $app-nav-font-size;
 }
 
 .app-nav-theme {
