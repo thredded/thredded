@@ -18,10 +18,13 @@
 
   li {
     display: block;
-    font-weight: bold;
 
     a {
       display: block;
+    }
+
+    @include thredded-media-tablet-and-down {
+      font-weight: bold;
     }
 
     @include thredded-media-mobile {
