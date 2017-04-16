@@ -6,11 +6,16 @@
     <p class="thredded--alert thredded--alert-warning"><%= @message %></p>
   <% end %>
   <p>
-    Sign in as anyone to post. The only requirement in this demo app is a username:
+    Sign in as anyone to proceed. The only requirement in this demo app is a username.
   </p>
   <%= form_tag(main_app.user_sessions_path, class: 'thredded--form') do %>
     <ul class="thredded--form-list">
-      <li><%= text_field_tag 'name', 'Joe', placeholder: 'Name' %></li>
+      <li>
+        <label for="name">
+          Name
+        </label>
+        <%= text_field_tag 'name', 'Joe', placeholder: 'Name' %>
+      </li>
       <li><label><%= check_box_tag 'admin', '1', true %> Admin</label></li>
       <li><%= submit_tag 'Sign in', class: 'thredded--form--submit' %></li>
     </ul>
