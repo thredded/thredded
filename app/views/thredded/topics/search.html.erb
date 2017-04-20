@@ -8,6 +8,10 @@
       <% if messageboard_or_nil %>
         <%= t 'thredded.topics.search.results_in_messageboard_message_html',
               query: @query, messageboard: messageboard.name %>
+        <br>
+        <a href="<%= messageboards_search_path(q: @query) %>">
+          <%= t('thredded.topics.search.search_in_all_messageboards_btn') -%>
+        </a>
       <% else %>
         <%= t 'thredded.topics.search.results_message_html', query: @query %>
       <% end %>
