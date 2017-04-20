@@ -5,7 +5,7 @@
 * User navigation is now shown on the right, and search is on the left.
   [#563](https://github.com/thredded/thredded/pull/563)
 * On desktop screen sizes, messageboard breadcrumbs are no longer bold.
-  [#aa1f3b40](https://github.com/thredded/thredded/commit/aa1f3b4087bd078e478ffb85186a84650a2a6c89)
+  [#574](https://github.com/thredded/thredded/pull/574)
 
 ## Added
 

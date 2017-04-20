@@ -83,7 +83,7 @@ Thredded.layout = 'thredded/application'
 # Thredded.slugifier = ->(input) { input.parameterize }
 
 # If your forum is in a language other than English, you might want to use the babosa gem instead
-# Thredded.slugifier = ->(input) { Babosa::Identifier.new(input).normalize.to_s }
+# Thredded.slugifier = ->(input) { Babosa::Identifier.new(input).normalize.transliterate(:russian).to_s }
 
 # ==> Post Content Formatting
 # Customize the way Thredded handles post formatting.
