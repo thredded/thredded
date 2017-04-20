@@ -1,3 +1,29 @@
+# v0.11.1
+
+## Changed
+
+* User navigation is now shown on the right, and search is on the left.
+  [#563](https://github.com/thredded/thredded/pull/563)
+* On desktop screen sizes, messageboard breadcrumbs are no longer bold.
+  [#aa1f3b40](https://github.com/thredded/thredded/commit/aa1f3b4087bd078e478ffb85186a84650a2a6c89)
+
+## Added
+
+* Sanitization defaults now allow `<abbr>` and a few ARIA attributes.
+  [#2d29ef21](https://github.com/thredded/thredded/commit/2d29ef21c219e7aeefea6eefe121e636c6867240)
+  [#df38d9e4](https://github.com/thredded/thredded/commit/df38d9e42bad31737d996da32788c0bd7ac6d04b)
+* Kramdown options can now be passed to the ContentFormatter.
+  [#c25d8765](https://github.com/thredded/thredded/commit/c25d876510588f8f4a5383385234ca5b2193e597)
+
+## Fixed
+
+* Topic URLs that use old slugs are now redirected to the current version.
+  [#564](https://github.com/thredded/thredded/pull/564)
+* PostPolicy no longer allows anonymous users to edit posts of deleted users.
+  [#092d40b5](https://github.com/thredded/thredded/commit/092d40b5d2316eac04522333811eba7b122902f4)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.11.0...v0.11.1.
+
 # v0.11.0
 
 ## Added
