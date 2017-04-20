@@ -5,6 +5,10 @@ module Thredded
 
     before_action :thredded_require_login!,
                   only: %i(edit new update create destroy follow unfollow)
+
+    before_action :use_topic_messageboard,
+                  only: %i(show edit update destroy follow unfollow)
+
     after_action :update_user_activity
 
     after_action :verify_authorized, except: %i(search)
@@ -172,7 +176,13 @@ module Thredded
     # @return [Thredded::Topic]
     # @raise [Thredded::Errors::TopicNotFound] if the topic with the given slug does not exist.
     def topic
-      @topic ||= messageboard.topics.friendly_find!(params[:id])
+      @topic ||= Thredded::Topic.friendly_find!(params[:id])
+    end
+
+    # Use the topic's messageboard instead of the one specified in the URL,
+    # to account for `params[:messageboard_id]` pointing to the wrong messageboard
+    def use_topic_messageboard
+      @messageboard = topic.messageboard
     end
 
     def topic_params

@@ -118,7 +118,7 @@ class CreateThredded < ActiveRecord::Migration
               order: { sticky: :desc, updated_at: :desc },
               name:  :index_thredded_topics_for_display
       t.index [:hash_id], name: :index_thredded_topics_on_hash_id
-      t.index [:messageboard_id, :slug], name: :index_thredded_topics_on_messageboard_id_and_slug, unique: true
+      t.index [:slug], name: :index_thredded_topics_on_slug, unique: true
       t.index [:messageboard_id], name: :index_thredded_topics_on_messageboard_id
       t.index [:user_id], name: :index_thredded_topics_on_user_id
     end

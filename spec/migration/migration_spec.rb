@@ -90,4 +90,22 @@ describe 'Migrations', migration_spec: true, order: :defined do
       migrate(migration_file)
     end
   end
+
+  context 'v0.11 to v0.12' do
+    let(:migration_file) { 'db/upgrade_migrations/20170420163138_upgrade_thredded_v0_11_to_v0_12.rb' }
+
+    it 'correctly updates the slugs' do
+      messageboard_a = Thredded::Messageboard.create!(name: 'A')
+      messageboard_b = Thredded::Messageboard.create!(name: 'B')
+      user = create(:user)
+      topic_attr = -> { { moderation_state: 1, user_id: user.id, hash_id: SecureRandom.hex(10) } }
+      topic_1_id = insert_record Thredded::Topic,
+                                 slug: 'x', title: 'X', messageboard_id: messageboard_a.id, **topic_attr.call
+      topic_2_id = insert_record Thredded::Topic,
+                                 slug: 'x', title: 'X', messageboard_id: messageboard_b.id, **topic_attr.call
+      migrate(migration_file)
+      expect(Thredded::Topic.find(topic_1_id).slug).to eq 'x'
+      expect(Thredded::Topic.find(topic_2_id).slug).to eq 'x-b'
+    end
+  end
 end

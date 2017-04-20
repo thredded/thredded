@@ -22,8 +22,7 @@ module Thredded
 
     extend FriendlyId
     friendly_id :slug_candidates,
-                use:            [:history, :reserved, :scoped],
-                scope:          :messageboard,
+                use: %i(history reserved),
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(topics))
 
@@ -153,7 +152,8 @@ module Thredded
     def slug_candidates
       [
         :title,
-        [:title, '-topic'],
+        [:title, '-', messageboard.try(:name)],
+        [:title, '-', messageboard.try(:name), '-topic']
       ]
     end
 
