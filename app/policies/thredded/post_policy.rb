@@ -53,7 +53,7 @@ module Thredded
     end
 
     def own_post?
-      @user.id == @post.user_id
+      !anonymous? && @user.id == @post.user_id
     end
   end
 end
