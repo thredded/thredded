@@ -22,9 +22,11 @@ module Thredded
 
     # @param user [Thredded.user_class]
     # @param messageboard [Thredded::Messageboard, nil]
-    def initialize(user:, messageboard: nil, params: {})
+    # @param messageboards [ActiveRecord::Relation<Thredded::Messageboard>]
+    def initialize(user:, messageboard: nil, messageboards: nil, params: {})
       @user = user
       @messageboard = messageboard
+      @messageboards = messageboards
       super(params)
     end
 
@@ -44,6 +46,10 @@ module Thredded
         user_messageboard_preference.save! if messageboard
       end
       true
+    end
+
+    def messageboard_groups
+      @messageboard_groups ||= MessageboardGroupView.grouped(@messageboards)
     end
 
     def notifications_for_private_topics

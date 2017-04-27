@@ -5,7 +5,7 @@ module Thredded
     delegate :name, to: :@group, allow_nil: true
     attr_reader :group, :messageboards
 
-    # @param messageboard_scope [ActiveRecord::Relation]
+    # @param messageboard_scope [ActiveRecord::Relation<Thredded::Messageboard>]
     # @return [Array<MessageboardGroupView>]
     def self.grouped(messageboard_scope)
       messageboard_scope.preload(last_topic: [:last_user])

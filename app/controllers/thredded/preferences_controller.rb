@@ -21,6 +21,7 @@ module Thredded
       @preferences = UserPreferencesForm.new(
         user:         thredded_current_user,
         messageboard: messageboard_or_nil,
+        messageboards: policy_scope(Messageboard.all),
         params: preferences_params
       )
     end

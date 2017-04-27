@@ -3,8 +3,18 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <section class="thredded--main-section preferences">
-    <%= render 'thredded/preferences/header' %>
-    <%= render 'thredded/preferences/form', preferences: @preferences %>
+  <section class="thredded--main-section thredded--preferences">
+    <section class="thredded--preferences--form">
+      <h2 class="thredded--preferences--title"><%= t 'thredded.preferences.global_preferences_title' %></h2>
+      <%= render 'thredded/preferences/form', preferences: @preferences %>
+    </section>
+    <% unless preferences.messageboard %>
+      <section class="thredded--preferences--messageboards-nav">
+        <h2 class="thredded--preferences--title">
+          <%= t 'thredded.preferences.messageboard_preferences_nav_title' %>
+        </h2>
+        <%= render 'thredded/preferences/messageboards_nav', preferences: @preferences %>
+      </section>
+    <% end %>
   </section>
 <% end %>

@@ -94,7 +94,6 @@ pt-BR:
             Quando alguém mencionar você através do seu usuário (ex.: @sam) você irá receber um e-mail com o conteúdo
             deste post.
           label: Siga os tópicos que são mencionados na
-        global_preferences_label: Configurações Globais
         messageboard_auto_follow_topics:
           hint: siga automaticamente todos os novos tópicos neste messageboard. Isso substitui a respectiva definição
             acima.
@@ -106,14 +105,15 @@ pt-BR:
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
-        messageboard_preferences_label_html: Configurações de Notificação para <em>%{messageboard}</em>
         notifications_for_followed_topics:
           label: Notificações para tópicos seguido
         notifications_for_private_topics:
           label: Notificações de mensagens privadas
         submit_btn: Atualizar Configurações
-        title: Configurações
         update_btn_submitting: :thredded.form.update_btn_submitting
+      global_preferences_title: Configurações Globais
+      messageboard_preferences_nav_title: Configurações por Fórum de Mensagem
+      messageboard_preferences_title_html: Configurações de Notificação para <em>%{messageboard}</em>
       updated_notice: Suas configurações foram atualizadas.
     private_posts:
       form:

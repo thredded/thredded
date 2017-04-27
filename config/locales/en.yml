@@ -92,7 +92,6 @@ en:
         follow_topics_on_mention:
           hint: 'When someone mentions you by your username (eg: @sam) you will follow the topic.'
           label: Follow topics you are mentioned in
-        global_preferences_label: Global Settings
         messageboard_auto_follow_topics:
           hint: Automatically follow all new topics in this messageboard. This overrides the respective setting
             above.
@@ -103,14 +102,15 @@ en:
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
-        messageboard_preferences_label_html: Notification Settings for <em>%{messageboard}</em>
         notifications_for_followed_topics:
           label: Notifications for followed topics
         notifications_for_private_topics:
           label: Notifications for private messages
         submit_btn: Update Settings
-        title: Settings
         update_btn_submitting: :thredded.form.update_btn_submitting
+      global_preferences_title: Global Settings
+      messageboard_preferences_nav_title: Messageboard Settings
+      messageboard_preferences_title_html: Settings for <em>%{messageboard}</em>
       updated_notice: Your settings have been updated.
     private_posts:
       form:

@@ -103,7 +103,7 @@
 
   <%= render 'section_title', label: 'preferences#edit', href: edit_messageboard_preferences_path(@messageboard) %>
   <%= content_tag :section, class: 'thredded--thredded--main-section preferences' do %>
-    <%= render 'thredded/preferences/header' %>
+    <h2 class="thredded--preferences-header--title"><%= t 'thredded.preferences.global_preferences_title' %></h2>
     <%= render 'thredded/preferences/form', preferences: @preferences %>
   <% end %>
 

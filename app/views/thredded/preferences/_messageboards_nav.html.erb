@@ -1,0 +1,8 @@
+<% preferences.messageboard_groups.each do |group| %>
+  <h3 class="thredded--messageboards-group--title"><%= group.name %></h3>
+  <div class="thredded--messageboards-group">
+    <%= render partial: 'thredded/preferences/messageboards_nav_item',
+               collection: group.messageboards,
+               as: :messageboard %>
+  </div>
+<% end %>
