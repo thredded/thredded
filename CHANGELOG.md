@@ -1,3 +1,13 @@
+# Master (future v0.12.0)
+
+## Changed
+
+* Topic slugs are now unique across messageboards.
+  This allows us to correctly redirect to the new topic URL when the
+  topic's messageboard has changed.
+  [#573](https://github.com/thredded/thredded/issues/573)
+  [#576](https://github.com/thredded/thredded/pull/576)
+
 # v0.11.1
 
 ## Changed
