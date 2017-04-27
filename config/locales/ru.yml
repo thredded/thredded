@@ -188,16 +188,16 @@ ru:
       last_active_html: Последняя активность %{time_ago}
       posted_in_topic_html: Сделан пост в %{topic_link}
       posts_count:
-        one: Сделан %{count} пост
         few: Сделано %{count} поста
         many: Сделано %{count} постов
+        one: Сделан %{count} пост
         other: Сделано %{count} постов
       recent_activity: :thredded.recent_activity
       started_topic_html: Начато %{topic_link}
       started_topics_count:
-        one: Начата %{count} тема
         few: Начато %{count} темы
         many: Начато %{count} тем
+        one: Начата %{count} тема
         other: Начато %{count} тем
       user_posted_in_topic_html: "%{user_link} сделал запись в %{topic_link}"
       user_since_html: Пользователь был %{time_ago}
