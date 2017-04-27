@@ -3,8 +3,6 @@
     class: 'thredded--form thredded--notification-preferences-form',
     'data-thredded-user-preferences-form' => true
 }) do |f| %>
-
-  <h3><%= t 'thredded.preferences.form.global_preferences_label' %></h3>
   <ul class="thredded--form-list">
     <li>
       <%= f.label :auto_follow_topics do %>
@@ -52,9 +50,9 @@
     <% end %>
   </ul>
   <% if preferences.messageboard %>
-    <h3>
-      <%= t 'thredded.preferences.form.messageboard_preferences_label_html', messageboard: messageboard.name %>
-    </h3>
+    <h2 class="thredded--preferences--title">
+      <%= t 'thredded.preferences.messageboard_preferences_title_html', messageboard: messageboard.name %>
+    </h2>
     <ul class="thredded--form-list" data-thredded-user-preferences-form-messageboard-fields>
       <li>
         <%= f.label :messageboard_auto_follow_topics do %>

@@ -66,7 +66,7 @@ ru:
       moderation_pending: В ожидании
       moderation_users: Пользователи
       private_topics: Личное
-      settings: Уведомления
+      settings: Настройки
     null_user_name: Пользователь удален
     posts:
       delete: Удалить пост
@@ -92,7 +92,6 @@ ru:
         follow_topics_on_mention:
           hint: 'Когда кто-то упоминает вас на форуме (например: @sam), Вы будете наблюдать за этой темой.'
           label: Наблюдать за темой, в которой Вы упомянуты
-        global_preferences_label: Настройки форума
         messageboard_auto_follow_topics:
           hint: Автоматически следовать все новые темы в этом ОБЪЯВЛЕНИЯ. Это отменяет соответствующую настройку
             выше.
@@ -102,14 +101,15 @@ ru:
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
-        messageboard_preferences_label_html: Настройки уведомлений для <em>%{messageboard}</em>
         notifications_for_followed_topics:
           label: Уведомления для отслеживаемых тем
         notifications_for_private_topics:
           label: Уведомления для личных сообщений
         submit_btn: Сохранить настройки
-        title: Настройки
         update_btn_submitting: :thredded.form.update_btn_submitting
+      global_preferences_title: Общие настройки
+      messageboard_preferences_nav_title: Настройки форума
+      messageboard_preferences_title_html: Настройки уведомлений для <em>%{messageboard}</em>
       updated_notice: Ваши настройки были обновлены.
     private_posts:
       form:
