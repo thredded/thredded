@@ -21,14 +21,13 @@
   margin: 0;
 
   &--author {
-    margin-bottom: 1em;
+    margin-bottom: 2px;
   }
 
   .thredded--post--content {
     font-size: inherit;
-    border-left: solid 5px $thredded-blockquote-border-color;
     margin: 0 0 0.75rem;
-    padding: ($thredded-small-spacing / 2) $thredded-small-spacing;
+    padding-left: 6px;
 
     .onebox-wrapper-table {
       width: 100%;
