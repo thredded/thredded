@@ -111,5 +111,15 @@ module Thredded
         mark_as_unread_messageboard_topic_post_path(post.messageboard, post.postable, post)
       end
     end
+
+    # @param post [Post, PrivatePost]
+    # @return [String] post permalink path
+    def permalink_path(post)
+      if post.private_topic_post?
+        private_post_permalink_path(post)
+      else
+        post_permalink_path(post)
+      end
+    end
   end
 end

@@ -47,7 +47,7 @@ module Thredded
     end
 
     def permalink_path
-      Thredded::UrlsHelper.post_permalink_path(@post.id)
+      Thredded::UrlsHelper.permalink_path(@post)
     end
 
     # This cache key is used only for caching the content.
