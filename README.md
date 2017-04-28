@@ -151,7 +151,7 @@ But then compare this with the previous version to decide what to keep.
 2) To upgrade the database (in this example from v0.10 to v0.11):
 
 ```console
-# Note that for guaranteed best results you will want to run this with the gem checked out with v0.10.0
+# Note that for guaranteed best results you will want to run this with the gem checked out with v0.11
 cp `bundle show thredded`/db/upgrade_migrations/20170312131417_upgrade_thredded_v0_10_to_v0_11.rb db/migrate
 rake db:migrate
 ```
