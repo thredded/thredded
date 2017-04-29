@@ -1,5 +1,5 @@
 <%= form_for private_topic,
-             url: private_topics_path(@private_topic),
+             url: private_topic.submit_path,
              html: {
                  class: "thredded--form thredded--new-private-topic-form #{local_assigns[:css_class]}",
                  'data-thredded-topic-form' => true,
@@ -25,7 +25,7 @@
     <%= render 'thredded/posts_common/form/content',
                form: form,
                content_label: t('thredded.private_topics.form.content_label'),
-               preview_url: preview_url %>
+               preview_url: private_topic.preview_path %>
 
     <li>
       <button type="submit" class="thredded--form--submit"

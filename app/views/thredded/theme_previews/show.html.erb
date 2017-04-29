@@ -19,9 +19,7 @@
   <%= render 'section_title', label: 'topics#index', href: messageboard_topics_path(@messageboard) %>
   <%= content_tag :section, class: 'thredded--thredded--main-section topics' do %>
     <%= render 'thredded/topics/form',
-               messageboard: @messageboard,
                topic:        @new_topic,
-               preview_url:  preview_new_messageboard_topic_path(@messageboard),
                css_class:    'thredded--is-compact',
                placeholder:  'Start a New Topic' %>
     <%= render @topics %>
@@ -37,19 +35,14 @@
     <%= render 'thredded/topics/header', topic: @topic %>
     <%= render @posts %>
     <%= render 'thredded/posts/form',
-               messageboard: @messageboard,
-               topic:        @topic,
                post:         @new_post,
-               preview_url:  @topic.new_post_preview_path,
                button_text:  t('thredded.posts.form.create_btn')
     %>
   <% end %>
 
   <%= render 'section_title', label: 'topics#new', href: new_messageboard_topic_path(@messageboard) %>
   <%= render 'thredded/topics/form',
-             messageboard: @messageboard,
              topic:        @new_topic,
-             preview_url:  preview_new_messageboard_topic_path(@messageboard),
              placeholder:  'Start a New Topic' %>
 
   <%= render 'section_title', label: 'posts#edit', href: edit_messageboard_topic_post_path(@messageboard, @post.postable, @post) %>
@@ -57,10 +50,7 @@
     <h3 class="thredded--post-form--title">Edit Post</h3>
 
     <%= render 'thredded/posts/form',
-               messageboard: @messageboard,
-               topic:        @topic,
-               post:         @post,
-               preview_url:  @topic.new_post_preview_path,
+               post:         @post_form,
                button_text:  t('thredded.posts.form.update_btn')
     %>
   <% end %>
@@ -76,7 +66,6 @@
     <%= render 'thredded/private_topics/form',
                private_topic: @new_private_topic,
                css_class:     'thredded--is-compact',
-               preview_url:   preview_new_private_topic_path,
                placeholder:   t('thredded.private_topics.form.title_placeholder_start') %>
     <%= render @private_topics %>
   <% end %>
@@ -85,7 +74,6 @@
   <section class="thredded--thredded--main-section">
     <%= render 'thredded/private_topics/form',
                private_topic: @new_private_topic,
-               preview_url:   preview_new_private_topic_path,
                placeholder:   t('thredded.private_topics.form.title_placeholder_new') %>
   </section>
 
@@ -94,9 +82,7 @@
     <%= render 'thredded/private_topics/header', topic: @private_topic %>
     <%= render @private_posts %>
     <%= render 'thredded/private_posts/form',
-               topic:       @private_topic,
-               post:        @private_post,
-               preview_url: @private_topic.new_post_preview_path,
+               post:        @private_post_form,
                button_text: t('thredded.private_posts.form.create_btn')
     %>
   </section>

@@ -1,0 +1,11 @@
+<% private_topic = @post_form.topic %>
+<% content_for :thredded_page_title, private_topic.title %>
+<% content_for :thredded_page_id, 'thredded--private-topic--new_post' %>
+<% content_for :thredded_breadcrumbs, render('thredded/private_topics/breadcrumbs') %>
+
+<%= thredded_page do %>
+  <section class="thredded--main-section">
+    <%= render 'thredded/private_posts/form',
+               post: @post_form %>
+  </section>
+<% end %>

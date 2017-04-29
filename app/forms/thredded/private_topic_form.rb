@@ -60,6 +60,14 @@ module Thredded
       )
     end
 
+    def submit_path
+      Thredded::UrlsHelper.url_for([private_topic, only_path: true])
+    end
+
+    def preview_path
+      Thredded::UrlsHelper.preview_new_private_topic_path
+    end
+
     private
 
     def topic_categories

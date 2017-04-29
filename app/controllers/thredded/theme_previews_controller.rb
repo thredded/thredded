@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class ThemePreviewsController < Thredded::ApplicationController
-    def show
+    def show # rubocop:disable Metrics/MethodLength
       @messageboard = Messageboard.first
       fail Thredded::Errors::DatabaseEmpty unless @messageboard
       @user              = if thredded_current_user.thredded_anonymous?
@@ -16,7 +16,8 @@ module Thredded
       @topic             = TopicView.from_user(topic, @user)
       @posts             = TopicPostsPageView.new(@user, topic, topic.posts.page(1).limit(3))
       @post              = topic.posts.build(id: 1337, postable: topic, content: 'Hello world', user: @user)
-      @new_post          = @messageboard.posts.build(postable: topic)
+      @post_form         = PostForm.for_persisted(@post)
+      @new_post          = PostForm.new(user: @user, topic: topic)
       @new_topic         = TopicForm.new(user: @user, messageboard: @messageboard)
       @new_private_topic = PrivateTopicForm.new(user: @user)
       private_topic      = PrivateTopic.new(id: 1337, title: 'Hello', user: @user, last_user: @user, users: [@user])
@@ -25,6 +26,7 @@ module Thredded
       @private_post      = private_topic.posts.build(
         id: 1337, postable: private_topic, content: 'A private hello world', user: @user
       )
+      @private_post_form = PrivatePostForm.for_persisted(@private_post)
       @preferences = UserPreferencesForm.new(user: @user, messageboard: @messageboard)
     end
   end

@@ -55,6 +55,14 @@ module Thredded
       )
     end
 
+    def submit_path
+      Thredded::UrlsHelper.url_for([messageboard, topic, only_path: true])
+    end
+
+    def preview_path
+      Thredded::UrlsHelper.preview_new_messageboard_topic_path(messageboard)
+    end
+
     private
 
     # @return [Thredded.user_class, nil] return a user or nil if the user is a NullUser

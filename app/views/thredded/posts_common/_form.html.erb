@@ -1,5 +1,7 @@
-<%# locals: messageboard, topic, post, preview_url, content_label, button_text, button_submitting_text. %>
-<%= form_for (post.private_topic_post? ? [topic, post] : [messageboard, topic, post]), as: :post,
+<%# locals: post, content_label, button_text, button_submitting_text. %>
+<%= form_for post,
+             url: post.submit_path,
+             as: :post,
              html: {
                  class: 'thredded--form thredded--post-form',
                  'data-thredded-post-form' => true,
@@ -8,7 +10,7 @@
              } do |form| %>
   <ul class="thredded--form-list">
     <%= render 'thredded/posts_common/form/content',
-               form: form, content_label: content_label, preview_url: preview_url %>
+               form: form, content_label: content_label, preview_url: post.preview_path %>
     <li>
       <% button_submitting_text ||=
              post.persisted? ? t('thredded.form.update_btn_submitting') : t('thredded.form.create_btn_submitting') %>

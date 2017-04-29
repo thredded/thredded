@@ -3,29 +3,39 @@ module Thredded
   # A controller for managing {Post}s.
   class PostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
+    include Thredded::NewPostParams
 
     helper_method :topic
     after_action :update_user_activity
 
     after_action :verify_authorized
 
-    def create
-      post = parent_topic.posts.build(post_params)
-      authorize_creating post
-      post.save!
+    def new
+      @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
+      authorize_creating @post_form.post
+    end
 
-      redirect_to post_path(post, user: thredded_current_user)
+    def create
+      @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
+      authorize_creating @post_form.post
+
+      if @post_form.save
+        redirect_to post_path(@post_form.post, user: thredded_current_user)
+      else
+        render :new
+      end
     end
 
     def edit
-      authorize post, :update?
+      @post_form = PostForm.for_persisted(post)
+      authorize @post_form.post, :update?
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       render
     end
 
     def update
       authorize post, :update?
-      post.update_attributes(post_params.except(:user, :ip))
+      post.update_attributes(new_post_params)
 
       redirect_to post_path(post, user: thredded_current_user)
     end
@@ -57,12 +67,6 @@ module Thredded
 
     def topic
       post.postable
-    end
-
-    def post_params
-      params.require(:post)
-        .permit(:content)
-        .merge(user: thredded_current_user, ip: request.remote_ip, messageboard: messageboard)
     end
 
     def parent_topic

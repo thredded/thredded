@@ -2,6 +2,7 @@
 module Thredded
   class PrivateTopicsController < Thredded::ApplicationController
     include Thredded::NewPrivateTopicParams
+    include Thredded::NewPrivatePostParams
 
     before_action :thredded_require_login!
 
@@ -37,7 +38,9 @@ module Thredded
         )
       end
 
-      @post = private_topic.posts.build
+      @new_post = Thredded::PrivatePostForm.new(
+        user: thredded_current_user, topic: private_topic, post_params: new_private_post_params
+      )
     end
 
     def new

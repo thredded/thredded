@@ -1,4 +1,5 @@
-<%= form_for [messageboard, topic],
+<%= form_for topic,
+             url: topic.submit_path,
              html: {
                  class: "thredded--form thredded--new-topic-form #{local_assigns[:css_class]}",
                  'data-thredded-topic-form' => true,
@@ -23,7 +24,7 @@
     <%= render 'thredded/posts_common/form/content',
                form: form,
                content_label: t('thredded.topics.form.content_label'),
-               preview_url: preview_url %>
+               preview_url: topic.preview_path %>
     <%= render 'thredded/topics/topic_form_admin_options', form: form %>
 
     <li><%= form.submit t('thredded.topics.form.create_btn'), class: 'thredded--form--submit' %></li>

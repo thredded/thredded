@@ -17,9 +17,11 @@
     <%= view_hooks.posts_common.pagination_bottom.render(self, posts: @posts) do %>
       <footer class="thredded--pagination-bottom"><%= paginate @posts %></footer>
     <% end %>
-    <%= render 'thredded/private_posts/form',
+
+    <% if policy(@new_post.post).create? %>
+      <%= render 'thredded/private_posts/form',
                topic: private_topic,
-               post: @post,
-               preview_url: private_topic.new_post_preview_path %>
+               post: @new_post %>
+    <% end %>
   <% end %>
 <% end %>

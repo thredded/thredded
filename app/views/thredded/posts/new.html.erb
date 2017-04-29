@@ -1,0 +1,15 @@
+<% content_for :thredded_page_title, @post_form.topic.title %>
+<% content_for :thredded_page_id, 'thredded--topic--new-post' %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
+
+<%= thredded_page do %>
+  <section class="thredded--main-section">
+    <div class="thredded--post-form--wrapper">
+      <h3 class="thredded--post-form--title"><%= t('thredded.posts.form.title_label') %></h3>
+      <%= render 'thredded/posts/form',
+                 post: @post_form,
+                 button_text: t('thredded.posts.form.create_btn'),
+                 button_submitting_text: t('thredded.posts.form.create_btn_submitting') %>
+    </div>
+  </section>
+<% end %>

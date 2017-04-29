@@ -6,7 +6,6 @@
   <section class="thredded--main-section">
     <%= render 'thredded/private_topics/form',
                private_topic: @private_topic,
-               preview_url: preview_new_private_topic_path,
                placeholder:   t('thredded.private_topics.form.title_placeholder_new') if @private_topic %>
   </section>
 <% end %>

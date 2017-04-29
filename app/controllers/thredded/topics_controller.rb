@@ -2,6 +2,7 @@
 module Thredded
   class TopicsController < Thredded::ApplicationController # rubocop:disable Metrics/ClassLength
     include Thredded::NewTopicParams
+    include Thredded::NewPostParams
 
     before_action :thredded_require_login!,
                   only: %i(edit new update create destroy follow unfollow)
@@ -47,7 +48,7 @@ module Thredded
         )
       end
 
-      @new_post = messageboard.posts.build(postable: topic)
+      @new_post = Thredded::PostForm.new(user: thredded_current_user, topic: topic, post_params: new_post_params)
     end
 
     def search
