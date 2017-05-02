@@ -26,6 +26,14 @@
   };
 
   if (isTurbolinks5) {
+    // In Turbolinks 5.0.1, turbolinks:load may have already fired (before DOMContentLoaded).
+    // If so, add our own DOMContentLoaded listener:
+    // See: https://github.com/turbolinks/turbolinks/commit/69d353ea73d10ee6b25c2866fc5706879ba403e3
+    if (window.Turbolinks.controller.lastRenderedLocation) {
+      document.addEventListener('DOMContentLoaded', () => {
+        triggerOnPageLoad();
+      });
+    }
     document.addEventListener('turbolinks:load', () => {
       triggerOnPageLoad();
     });
