@@ -1,4 +1,4 @@
-(($) => {
+(($, autosize) => {
   const COMPONENT_SELECTOR = '[data-thredded-topic-form]';
   class ThreddedTopicForm {
     constructor() {
@@ -15,7 +15,7 @@
     }
 
     init($nodes) {
-      $nodes.find(this.textareaSelector).autosize();
+      autosize($nodes.find(this.textareaSelector));
       $nodes.each(function() {
         new ThreddedPreviewArea($(this));
       });
@@ -47,7 +47,7 @@
     }
 
     destroy($nodes) {
-      $nodes.find(this.textareaSelector).trigger('autosize.destroy');
+      autosize.destroy($nodes.find(this.textareaSelector));
     }
   }
 
@@ -64,6 +64,6 @@
       new ThreddedTopicForm().destroy($nodes);
     }
   });
-})(jQuery);
+})(jQuery, window.autosize);
 
 

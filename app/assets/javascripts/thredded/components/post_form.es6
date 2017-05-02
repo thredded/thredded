@@ -1,6 +1,6 @@
 //= require ./preview_area
 
-(($) => {
+(($, autosize) => {
   const COMPONENT_SELECTOR = '[data-thredded-post-form]';
 
   class ThreddedPostForm {
@@ -18,11 +18,11 @@
     }
 
     autosize($textarea) {
-      $textarea.autosize()
+      autosize($textarea)
     }
 
     destroy($nodes) {
-      $nodes.find(this.textareaSelector).trigger('autosize.destroy');
+      autosize.destroy($nodes.find(this.textareaSelector));
     }
   }
 
@@ -39,4 +39,4 @@
       new ThreddedPostForm().destroy($nodes);
     }
   });
-})(jQuery);
+})(jQuery, window.autosize);

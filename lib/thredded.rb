@@ -23,7 +23,6 @@ require 'thredded/html_pipeline/wrap_iframes_filter'
 
 # Asset compilation
 require 'autoprefixer-rails'
-require 'autosize/rails'
 require 'jquery/rails'
 require 'rails-timeago'
 require 'select2-rails'
