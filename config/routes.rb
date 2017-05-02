@@ -17,6 +17,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         post :preview, on: :new, controller: 'private_post_previews'
         resource :preview, only: [:update], controller: 'private_post_previews'
         member do
+          get 'quote'
           post 'mark_as_unread'
         end
       end
@@ -74,6 +75,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         post :preview, on: :new, controller: 'post_previews'
         resource :preview, only: [:update], controller: 'post_previews'
         member do
+          get 'quote'
           post 'mark_as_unread'
         end
       end

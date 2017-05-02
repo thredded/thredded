@@ -1,5 +1,8 @@
 <% actions = capture do %>
   <%= view_hooks.post_common.actions.render self, post: post do %>
+    <% if post.can_reply? %>
+      <%= render 'thredded/posts_common/actions/quote', post: post %>
+    <% end  %>
     <% if post.can_update? %>
       <%= render 'thredded/posts_common/actions/edit', post: post %>
     <% end %>

@@ -99,6 +99,17 @@ module Thredded
       # rubocop:enable Rails/OutputSafety
     end
 
+    # @param content [String]
+    # @return [String] a quote containing the formatted content
+    def self.quote_content(content)
+      result = String.new(content)
+      result.gsub!(/^(?!$)/, '> ')
+      result.gsub!(/^$/, '>')
+      result << "\n" unless result.end_with?("\n")
+      result << "\n"
+      result
+    end
+
     protected
 
     # @return [Array<HTML::Pipeline::Filter]>]

@@ -82,6 +82,7 @@ en:
         update_btn: Update Post
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Your post will be published when it has been reviewed by a moderator.
+      quote_btn: Quote
     preferences:
       edit:
         page_title: :thredded.nav.settings

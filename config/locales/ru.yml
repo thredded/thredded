@@ -81,6 +81,7 @@ ru:
         update_btn: Обновить пост
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Ваш пост будет опубликован, когда будет одобрен модератором.
+      quote_btn: Цитировать
     preferences:
       edit:
         page_title: :thredded.nav.settings

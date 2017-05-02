@@ -17,7 +17,7 @@ module Thredded
     end
 
     def update?
-      @user.id == @private_topic.user_id
+      !@user.thredded_anonymous? && @user.id == @private_topic.user_id
     end
   end
 end
