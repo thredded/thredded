@@ -82,6 +82,7 @@ pl:
         update_btn: Zaktualizuj post
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Twój post zostanie zamieszczony po zweryfikowaniu go przez moderatora.
+      quote_btn: Zacytować
     preferences:
       edit:
         page_title: :thredded.nav.settings

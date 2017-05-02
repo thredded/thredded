@@ -33,6 +33,28 @@ module PageObject
       has_css?('strong', text: content)
     end
 
+    def first_post
+      PageObject::Post.new(@posts.first)
+    end
+
+    def post_form
+      PageObject::PostForm.new
+    end
+
+    def quote_page_for_post(post)
+      messageboard_topic_path(
+        topic.messageboard.slug,
+        topic.slug,
+        post: {
+          quote_post_id: post.id
+        }
+      )
+    end
+
+    def quote_page_for_first_post
+      quote_page_for_post(@posts.first)
+    end
+
     private
 
     attr_reader :messageboard, :topic

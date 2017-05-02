@@ -104,6 +104,14 @@ module Thredded
       end
     end
 
+    def quote_post_path(post)
+      if post.private_topic_post?
+        quote_private_topic_private_post_path(post.postable, post)
+      else
+        quote_messageboard_topic_post_path(post.messageboard, post.postable, post)
+      end
+    end
+
     def mark_unread_path(post, _params = {})
       if post.private_topic_post?
         mark_as_unread_private_topic_private_post_path(post.postable, post)

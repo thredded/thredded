@@ -112,4 +112,10 @@ Hello
       expect { format_content(FakeContent::ONEBOXES.join("\n")) }.to_not raise_error
     end
   end
+
+  context '.quote_content' do
+    it 'quotes as markdown' do
+      expect(Thredded::ContentFormatter.quote_content('Hello')).to eq "> Hello\n\n"
+    end
+  end
 end

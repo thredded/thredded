@@ -14,12 +14,16 @@ module Thredded
              to: :@post
 
     # @param post [Thredded::PostCommon]
-    # @param policy [#update? #destroy?]
-    # @param policy [Thredded::TopicView]
+    # @param policy [#create? #update? #destroy? #moderate?]
+    # @param topic_view [Thredded::TopicView]
     def initialize(post, policy, topic_view: nil)
       @post   = post
       @policy = policy
       @topic_view = topic_view
+    end
+
+    def can_reply?
+      @can_reply ||= @policy.create?
     end
 
     def can_update?
@@ -32,6 +36,18 @@ module Thredded
 
     def can_moderate?
       @can_moderate ||= @policy.moderate?
+    end
+
+    def quote_url_params
+      if @post.private_topic_post?
+        { post: { quote_private_post_id: @post.id } }
+      else
+        { post: { quote_post_id: @post.id } }
+      end.update(anchor: 'post_content')
+    end
+
+    def quote_path
+      Thredded::UrlsHelper.quote_post_path(@post)
     end
 
     def edit_path

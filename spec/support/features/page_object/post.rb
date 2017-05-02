@@ -39,6 +39,19 @@ module PageObject
       click_on I18n.t('thredded.posts.form.update_btn')
     end
 
+    def start_quote
+      open_post_actions
+      within css_selector do
+        click_on I18n.t('thredded.posts.quote_btn')
+      end
+    end
+
+    def open_post_actions
+      within css_selector do
+        find('.thredded--post--dropdown').click
+      end
+    end
+
     def css_selector
       "article#post_#{post.id}"
     end
