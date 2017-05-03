@@ -1,12 +1,32 @@
-# Master (future v0.12.0)
+# v0.12.0
 
 ## Changed
 
 * Topic slugs are now unique across messageboards.
-  This allows us to correctly redirect to the new topic URL when the
-  topic's messageboard has changed.
+  This allows us to correctly redirect to the new topic URL when the topic's messageboard has changed.
   [#573](https://github.com/thredded/thredded/issues/573)
   [#576](https://github.com/thredded/thredded/pull/576)
+
+## Added
+
+* Basic "Quote" reply action.
+  [#585](https://github.com/thredded/thredded/pull/585)
+
+* Navigation to individual messageboard settings from the global settings page.
+  [#581](https://github.com/thredded/thredded/pull/581)
+
+## Fixed
+
+* Private topics page for blocked users.
+  [#3a4d7032](https://github.com/thredded/thredded/commit/3a4d70323818f36405de32964d1782aaadfaa088)
+* Support for Turbolinks v5.0.1 and the upcoming v5.1.0.
+  [#25269979](https://github.com/thredded/thredded/commit/2526997965f818defd37522b05e7fa58814db96f)
+
+## Internals
+
+* The unmaintained `autosize-rails` gem replaced with a vendored version of
+  [jackmoore/autosize](https://github.com/jackmoore/autosize).
+  [#1023c215](https://github.com/thredded/thredded/commit/1023c21598575d51f8cd4448251f447c47cefa8f)
 
 # v0.11.1
 
