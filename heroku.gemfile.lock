@@ -1,10 +1,9 @@
 PATH
   remote: .
   specs:
-    thredded (0.11.1)
+    thredded (0.12.0)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
-      autosize-rails
       db_text_search (~> 0.2.0)
       friendly_id
       gemoji (~> 2.1.0)
@@ -73,8 +72,6 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.7.7.2)
       execjs
-    autosize-rails (1.18.17)
-      rails (>= 3.1)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -116,7 +113,7 @@ GEM
     htmlentities (4.3.4)
     http_accept_language (2.1.0)
     i18n (0.8.1)
-    inline_svg (1.2.0)
+    inline_svg (1.2.1)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     jquery-rails (4.3.1)
@@ -143,7 +140,7 @@ GEM
     kramdown (1.13.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.4)
+    mail (2.6.5)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mime-types (3.1)
@@ -199,7 +196,7 @@ GEM
     rails-i18n (5.0.3)
       i18n (~> 0.7)
       railties (~> 5.0)
-    rails-timeago (2.15.0)
+    rails-timeago (2.16.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
     rails_email_preview (2.0.2)
@@ -259,7 +256,7 @@ GEM
     tunemygc (1.0.69)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
-    turbolinks-source (5.0.0)
+    turbolinks-source (5.0.2)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
