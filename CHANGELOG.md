@@ -11,7 +11,6 @@
 
 * Basic "Quote" reply action.
   [#585](https://github.com/thredded/thredded/pull/585)
-
 * Navigation to individual messageboard settings from the global settings page.
   [#581](https://github.com/thredded/thredded/pull/581)
 
@@ -27,6 +26,17 @@
 * The unmaintained `autosize-rails` gem replaced with a vendored version of
   [jackmoore/autosize](https://github.com/jackmoore/autosize).
   [#1023c215](https://github.com/thredded/thredded/commit/1023c21598575d51f8cd4448251f447c47cefa8f)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.11.1...v0.12.0.
+
+---
+
+**NB:** If updating to this version from 0.11.x, you must copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20170420163138_upgrade_thredded_v0_11_to_v0_12.rb db/migrate
+rake db:migrate
+```
 
 # v0.11.1
 
@@ -53,6 +63,15 @@
   [#092d40b5](https://github.com/thredded/thredded/commit/092d40b5d2316eac04522333811eba7b122902f4)
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v0.11.0...v0.11.1.
+
+---
+
+**NB:** If updating to this version from 0.10.x, you must copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20170312131417_upgrade_thredded_v0_10_to_v0_11.rb db/migrate
+rake db:migrate
+```
 
 # v0.11.0
 
