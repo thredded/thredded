@@ -1,6 +1,7 @@
-<% actions = capture do %>
+<% actions ||= {} %>
+<% actions_html = capture do %>
   <%= view_hooks.post_common.actions.render self, post: post do %>
-    <% if post.can_reply? %>
+    <% if actions[:quote] && post.can_reply? %>
       <%= render 'thredded/posts_common/actions/quote', post: post %>
     <% end  %>
     <% if post.can_update? %>
@@ -17,11 +18,11 @@
   <% end %>
 <% end %>
 
-<%- if actions.present? %>
+<%- if actions_html.present? %>
   <div class='thredded--post--dropdown'>
     <%= inline_svg 'thredded/three-dot-menu.svg', class: 'thredded--post--dropdown--toggle' %>
     <div class='thredded--post--dropdown--actions'>
-      <%= actions %>
+      <%= actions_html %>
     </div>
   </div>
 <% end %>

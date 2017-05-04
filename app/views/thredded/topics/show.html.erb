@@ -12,7 +12,10 @@
     <%= view_hooks.posts_common.pagination_top.render(self, posts: @posts) do %>
       <footer class="thredded--pagination-top"><%= paginate @posts %></footer>
     <% end %>
-    <%= render_posts @posts, partial: 'thredded/posts/post', content_partial: 'thredded/posts/content' %>
+    <%= render_posts @posts,
+                     partial: 'thredded/posts/post',
+                     content_partial: 'thredded/posts/content',
+                     locals: { actions: { quote: true } } %>
     <%= view_hooks.posts_common.pagination_bottom.render(self, posts: @posts) do %>
       <footer class="thredded--pagination-bottom"><%= paginate @posts %></footer>
     <% end %>
