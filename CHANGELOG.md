@@ -1,3 +1,10 @@
+# v0.12.1
+
+The quote action now only appears on the topic page (and not in moderation, user's posts, etc).
+[#fc960483](https://github.com/thredded/thredded/commit/fc96048399d5aa60fcea5b24ddedf4a4853fcc69)
+
+This is the only the change in this release.
+
 # v0.12.0
 
 ## Changed
