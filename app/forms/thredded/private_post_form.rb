@@ -15,6 +15,7 @@ module Thredded
     def initialize(user:, topic:, post: nil, post_params: {})
       @topic = topic
       @post = post ? post : topic.posts.build
+      user ||= Thredded::NullUser.new
 
       if post_params.include?(:quote_post)
         post_params[:content] =

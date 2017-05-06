@@ -16,6 +16,7 @@ module Thredded
       @messageboard = topic.messageboard
       @topic = topic
       @post = post ? post : topic.posts.build
+      user ||= Thredded::NullUser.new
 
       if post_params.include?(:quote_post)
         post_params[:content] =
