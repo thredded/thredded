@@ -7,7 +7,8 @@
   </cite>
   <% if topic.can_update? %>
     <%= link_to t('thredded.topics.edit'), topic.edit_path,
-                class: 'thredded--topic-header--edit-topic' %>
+                class: 'thredded--topic-header--edit-topic',
+                rel: 'nofollow' %>
   <% end %>
   <% if thredded_current_user %>
     <% if topic.followed? %>
