@@ -14,8 +14,8 @@ module Thredded
         when /sqlite/i
           system ['sqlite3', Rails.root.join(database), '.dump', '>', to].join(' ')
         when /postgres/i
-          cmd = "pg_dump --host #{host} --username #{username} --verbose --clean --no-owner --no-acl --format=c " \
-            "#{database} > #{to}"
+          cmd = "pg_dump --dbname=postgresql://#{username}:#{password}@#{host}:5432/#{database}" \
+            "--verbose --clean --no-owner --no-acl --format=c > #{to}"
           system cmd
         when /mysql/i
           system("mysqldump --user #{username} -p#{password} #{database} > #{to}")
@@ -26,10 +26,9 @@ module Thredded
         case adapter
         when /postgres/i
           cmd = [
-            "pg_restore --verbose --host #{host}",
-            "--username #{username}",
-            ' --clean --no-owner --no-acl ',
-            " --dbname #{database} #{from}",
+            'pg_restore --verbose --clean --no-owner --no-acl',
+            "--dbname=postgresql://#{username}:#{password}@#{host}:5432/#{database}",
+            from,
             '>',
             Rails.root.join('log', 'restore.log')
           ].join(' ')

@@ -99,11 +99,8 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   config.include ActiveSupport::Testing::TimeHelpers
 
   if ENV['MIGRATION_SPEC']
-    config.before(:suite, migration_spec: true) do
-      DatabaseCleaner.strategy = :transaction unless Thredded::DbTools.adapter =~ /mysql/i
-    end
-
     config.before(:each, migration_spec: true) do
+      DatabaseCleaner.strategy = :transaction unless Thredded::DbTools.adapter =~ /mysql/i
       DatabaseCleaner.start unless Thredded::DbTools.adapter =~ /mysql/i
     end
 
