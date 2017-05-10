@@ -1,3 +1,9 @@
+# v0.12.2
+
+This release brings Rails 5.1 support to Thredded.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.12.1...v0.12.2.
+
 # v0.12.1
 
 The quote action now only appears on the topic page (and not in moderation, user's posts, etc).
