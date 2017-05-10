@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class UpgradeThreddedV011ToV012 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
+require 'thredded/base_migration'
+
+class UpgradeThreddedV011ToV012 < Thredded::BaseMigration
   def up
     FriendlyId::Slug.transaction do
       FriendlyId::Slug.where(sluggable_type: 'Thredded::Topic').where(

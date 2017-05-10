@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class UpgradeThreddedV010ToV011 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
+require 'thredded/base_migration'
+
+class UpgradeThreddedV010ToV011 < Thredded::BaseMigration
   def up
     drop_table :thredded_post_notifications
     add_column :thredded_user_preferences, :auto_follow_topics, :boolean, default: false, null: false

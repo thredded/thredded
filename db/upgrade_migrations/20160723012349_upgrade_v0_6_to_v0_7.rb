@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class UpgradeV06ToV07 < ActiveRecord::Migration
+require 'thredded/base_migration'
+
+class UpgradeV06ToV07 < Thredded::BaseMigration
   def up
     Thredded::MessageboardGroup.transaction do
       Thredded::MessageboardGroup.where(

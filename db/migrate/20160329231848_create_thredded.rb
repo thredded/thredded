@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
+require 'thredded/base_migration'
+
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/MethodLength
-class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
+class CreateThredded < Thredded::BaseMigration
   def change
     unless table_exists?(:friendly_id_slugs)
       # The user might have installed FriendlyId separately already.
       create_table :friendly_id_slugs do |t|
-        t.string :slug, limit: 191, null: false
+        t.string :slug, null: false
         t.integer :sluggable_id, null: false
         t.string :sluggable_type, limit: 50
-        t.string :scope, limit: 191
-        t.datetime :created_at, null: false
-        t.index %i[slug sluggable_type scope],
-                name: :index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope,
-                unique: true
-        t.index %i[slug sluggable_type], name: :index_friendly_id_slugs_on_slug_and_sluggable_type
-        t.index [:sluggable_id], name: :index_friendly_id_slugs_on_sluggable_id
-        t.index [:sluggable_type], name: :index_friendly_id_slugs_on_sluggable_type
+        t.string :scope
+        t.datetime :created_at
       end
+      add_index :friendly_id_slugs, :sluggable_id
+      add_index :friendly_id_slugs, %i[slug sluggable_type], length: { slug: 140, sluggable_type: 50 }
+      add_index :friendly_id_slugs, %i[slug sluggable_type scope],
+                length: { slug: 70, sluggable_type: 50, scope: 70 },
+                unique: true
+      add_index :friendly_id_slugs, :sluggable_type
     end
 
     create_table :thredded_categories do |t|
@@ -47,7 +49,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_posts do |t|
-      t.integer :user_id, limit: 4
+      t.references :user, type: user_id_type, index: false
       t.text :content, limit: 65_535
       t.string :ip, limit: 255
       t.string :source, limit: 255, default: 'web'
@@ -66,7 +68,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     DbTextSearch::FullText.add_index connection, :thredded_posts, :content, name: :thredded_posts_content_fts
 
     create_table :thredded_private_posts do |t|
-      t.references :user, index: false
+      t.references :user, type: user_id_type, index: false
       t.text :content, limit: 65_535
       t.references :postable, null: false, index: false
       t.string :ip, limit: 255
@@ -74,7 +76,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_private_topics do |t|
-      t.references :user, index: false
+      t.references :user, type: user_id_type, index: false
       t.references :last_user, index: false
       t.string :title, limit: 255, null: false
       t.string :slug, limit: 191, null: false
@@ -88,7 +90,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
 
     create_table :thredded_private_users do |t|
       t.references :private_topic, index: false
-      t.references :user, index: false
+      t.references :user, type: user_id_type, index: false
       t.timestamps null: false
       t.index [:private_topic_id], name: :index_thredded_private_users_on_private_topic_id
       t.index [:user_id], name: :index_thredded_private_users_on_user_id
@@ -102,7 +104,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_topics do |t|
-      t.references :user, index: false
+      t.references :user, type: user_id_type, index: false
       t.references :last_user, index: false
       t.string :title, limit: 255, null: false
       t.string :slug, limit: 191, null: false
@@ -126,7 +128,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     DbTextSearch::FullText.add_index connection, :thredded_topics, :title, name: :thredded_topics_title_fts
 
     create_table :thredded_user_details do |t|
-      t.references :user, null: false, index: false
+      t.references :user, type: user_id_type, null: false, index: false
       t.datetime :latest_activity_at
       t.integer :posts_count, default: 0
       t.integer :topics_count, default: 0
@@ -142,17 +144,21 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_messageboard_users do |t|
-      t.references :thredded_user_detail, foreign_key: { on_delete: :cascade }, null: false, index: false
-      t.references :thredded_messageboard, foreign_key: { on_delete: :cascade }, null: false, index: false
+      t.references :thredded_user_detail, null: false, index: false
+      t.references :thredded_messageboard, null: false, index: false
       t.datetime :last_seen_at, null: false
       t.index %i[thredded_messageboard_id thredded_user_detail_id],
               name: :index_thredded_messageboard_users_primary
       t.index %i[thredded_messageboard_id last_seen_at],
               name: :index_thredded_messageboard_users_for_recently_active
     end
+    add_foreign_key :thredded_messageboard_users, :thredded_user_details,
+                    column: :thredded_user_detail_id, on_delete: :cascade
+    add_foreign_key :thredded_messageboard_users, :thredded_messageboards,
+                    column: :thredded_messageboard_id, on_delete: :cascade
 
     create_table :thredded_user_preferences do |t|
-      t.references :user, null: false, index: false
+      t.references :user, type: user_id_type, null: false, index: false
       t.boolean :follow_topics_on_mention, default: true, null: false
       t.boolean :auto_follow_topics, default: false, null: false
       t.timestamps null: false
@@ -160,7 +166,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_user_messageboard_preferences do |t|
-      t.references :user, null: false, index: false
+      t.references :user, type: user_id_type, null: false, index: false
       t.references :messageboard, null: false, index: false
       t.boolean :follow_topics_on_mention, default: true, null: false
       t.boolean :auto_follow_topics, default: false, null: false
@@ -173,8 +179,8 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     %i[topic private_topic].each do |topics_table|
       table_name = :"thredded_user_#{topics_table}_read_states"
       create_table table_name do |t|
-        t.references :user, null: false, index: false
-        t.integer :postable_id, null: false
+        t.references :user, type: user_id_type, null: false, index: false
+        t.references :postable, null: false, index: false
         t.integer :page, default: 1, null: false
         t.timestamp :read_at, null: false
         t.index %i[user_id postable_id], name: :"#{table_name}_user_postable", unique: true
@@ -188,8 +194,8 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_user_topic_follows do |t|
-      t.references :user, null: false, index: false
-      t.integer :topic_id, null: false
+      t.references :user, type: user_id_type, null: false, index: false
+      t.references :topic, null: false, index: false
       t.datetime :created_at, null: false
       t.integer :reason, limit: 1
       t.index %i[user_id topic_id], name: :thredded_user_topic_follows_user_topic, unique: true
@@ -211,22 +217,22 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_notifications_for_private_topics do |t|
-      t.integer :user_id, null: false
+      t.references :user, null: false, index: false, type: user_id_type
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
       t.index %i[user_id notifier_key],
               name: 'thredded_notifications_for_private_topics_unique', unique: true
     end
     create_table :thredded_notifications_for_followed_topics do |t|
-      t.integer :user_id, null: false
+      t.references :user, null: false, index: false, type: user_id_type
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
       t.index %i[user_id notifier_key],
               name: 'thredded_notifications_for_followed_topics_unique', unique: true
     end
     create_table :thredded_messageboard_notifications_for_followed_topics do |t|
-      t.integer :user_id, null: false
-      t.integer :messageboard_id, null: false
+      t.references :user, null: false, index: false, type: user_id_type
+      t.references :messageboard, null: false, index: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
       t.index %i[user_id messageboard_id notifier_key],
@@ -234,14 +240,16 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
     end
 
     create_table :thredded_user_post_notifications do |t|
-      t.references :user, null: false, index: false
-      t.foreign_key Thredded.user_class.table_name, column: :user_id, on_delete: :cascade
+      t.references :user, null: false, index: false, type: user_id_type
       t.references :post, null: false, index: false
-      t.foreign_key :thredded_posts, column: :post_id, on_delete: :cascade
       t.datetime :notified_at, null: false
       t.index :post_id, name: :index_thredded_user_post_notifications_on_post_id
       t.index %i[user_id post_id], name: :index_thredded_user_post_notifications_on_user_id_and_post_id, unique: true
     end
+    add_foreign_key :thredded_user_post_notifications,
+                    Thredded.user_class.table_name, column: :user_id, on_delete: :cascade
+    add_foreign_key :thredded_user_post_notifications,
+                    :thredded_posts, column: :post_id, on_delete: :cascade
   end
 end
 # rubocop:enable Metrics/MethodLength
