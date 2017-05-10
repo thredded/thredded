@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class ThemePreviewsController < Thredded::ApplicationController
     def show # rubocop:disable Metrics/MethodLength

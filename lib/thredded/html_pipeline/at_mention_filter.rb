@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 module Thredded
   module HtmlPipeline
     class AtMentionFilter < ::HTML::Pipeline::Filter
-      DEFAULT_IGNORED_ANCESTOR_TAGS = %w(pre code tt a style).freeze
+      DEFAULT_IGNORED_ANCESTOR_TAGS = %w[pre code tt a style].freeze
 
       # @param context [Hash]
       # @option context :users_provider [#call(usernames)] given usernames, returns a list of users.
@@ -42,7 +43,7 @@ module Thredded
 
       def highlight!(text_node_html)
         names = mentioned_names(text_node_html)
-        return unless names.present?
+        return if names.blank?
         @users_provider.call(names).each do |user|
           name = user.thredded_display_name
           maybe_quoted_name = name =~ /[., ()]/ ? %("#{name}") : name

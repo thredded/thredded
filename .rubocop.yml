@@ -9,8 +9,25 @@ Style/SafeNavigation:
   # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
   Enabled: false
 
+Style/IndentHeredoc:
+  # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+  - Rakefile
+  - spec/**/*_spec.rb
+  - spec/dummy/config/environments/*.rb
+  - spec/factories.rb
 
 Metrics/ClassLength:
   Max: 125

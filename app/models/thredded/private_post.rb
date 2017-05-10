@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PrivatePost < ActiveRecord::Base
     include Thredded::PostCommon
@@ -15,7 +16,7 @@ module Thredded
                primary_key: :user_id,
                foreign_key: :user_id
 
-    after_commit :update_parent_last_user_and_timestamp, on: [:create, :destroy]
+    after_commit :update_parent_last_user_and_timestamp, on: %i[create destroy]
     after_commit :notify_users, on: [:create]
 
     # @param [Integer] per_page

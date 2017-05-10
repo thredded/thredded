@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'thredded/email_transformer/onebox'
 
 module Thredded

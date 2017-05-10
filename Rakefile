@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 begin
   require 'bundler/setup'
 rescue LoadError
@@ -49,7 +50,7 @@ module TestTasks
   end
 
   def dbs
-    %w(sqlite3 mysql2 postgresql)
+    %w[sqlite3 mysql2 postgresql]
   end
 
   def to_bash_cmd_with_env(cmd, env)
@@ -119,14 +120,14 @@ else
   RSpec::Core::RakeTask.new(:spec)
 
   task(:default).clear
-  task default: [:spec, :rubocop]
+  task default: %i[spec rubocop]
 end
 
 namespace :db do
   desc "Wipe out all tables' data"
   task truncate: :environment do
     connection = ActiveRecord::Base.connection
-    tables = connection.tables - %w(schema_migrations)
+    tables = connection.tables - %w[schema_migrations]
 
     tables.each do |table|
       case connection.adapter_name
@@ -142,7 +143,7 @@ namespace :db do
   end
 
   desc 'Re-seed database with new data'
-  task reseed: [:truncate, :seed]
+  task reseed: %i[truncate seed]
 
   desc 'do a mini seed to generate sample data for migration tests'
   task miniseed: :environment do

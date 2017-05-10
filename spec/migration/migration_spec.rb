@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 Rails.env = 'test'
 # To run the migration tests, run:

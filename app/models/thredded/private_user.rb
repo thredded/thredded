@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PrivateUser < ActiveRecord::Base
     belongs_to :private_topic, inverse_of: :private_users

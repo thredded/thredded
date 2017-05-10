@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'kramdown'
 module Thredded
   module HtmlPipeline
@@ -12,7 +13,7 @@ module Thredded
         input: 'GFM',
         gfm_quirks: 'paragraph_end',
         # Smart quotes conflict with @"at mentions". Disable smart quotes.
-        smart_quotes: %w(apos apos quot quot),
+        smart_quotes: %w[apos apos quot quot],
         remove_block_html_tags: false,
         syntax_highlighter: nil
       }

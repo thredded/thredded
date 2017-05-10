@@ -6,7 +6,7 @@ module Thredded
       unless notifier.respond_to?(:key) && /^[a-z_]+$/.match(notifier.key)
         fail "Notifier problem: #{notifier.class.name} must respond to #key with a snake_case string"
       end
-      [:human_name, :new_post, :new_private_post].each do |m|
+      %i[human_name new_post new_private_post].each do |m|
         unless notifier.respond_to?(m)
           fail "#{notifier.class.name} must respond to ##{m}"
         end

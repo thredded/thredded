@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Thredded, '.user_path', thredded_reset: [:@@user_path] do
@@ -20,7 +21,7 @@ describe Thredded, '.user_path', thredded_reset: [:@@user_path] do
   end
 end
 
-describe Thredded, '.user_display_name_method', thredded_reset: [:@@user_display_name_method, :@@user_name_column] do
+describe Thredded, '.user_display_name_method', thredded_reset: %i[@@user_display_name_method @@user_name_column] do
   it 'when nil it returns the same value as name method' do
     Thredded.user_name_column = :name
     Thredded.user_display_name_method = nil
@@ -38,7 +39,7 @@ describe Thredded, '.messageboards_order', thredded_reset: [:@@messageboards_ord
     expect(Thredded.messageboards_order).to eq(:position)
   end
   describe 'valid values' do
-    [:position, :topics_count_desc, :last_post_at_desc].each do |valid_value|
+    %i[position topics_count_desc last_post_at_desc].each do |valid_value|
       it ":#{valid_value}" do
         Thredded.messageboards_order = valid_value
         expect(Thredded.messageboards_order).to eq(valid_value)

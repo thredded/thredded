@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'action_view/renderer/abstract_renderer'
 module Thredded
   class CollectionToStringsWithCacheRenderer < ActionView::AbstractRenderer

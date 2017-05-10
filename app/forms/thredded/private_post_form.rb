@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PrivatePostForm
     attr_reader :post, :topic

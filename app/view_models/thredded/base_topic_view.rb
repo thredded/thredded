@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # A view model for TopicCommon.
   class BaseTopicView

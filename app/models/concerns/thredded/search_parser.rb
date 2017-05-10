@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 module Thredded
   class SearchParser
     def initialize(query)
       @query = query
-      @keywords = %w(in by order)
+      @keywords = %w[in by order]
     end
 
     def parse
@@ -20,7 +21,7 @@ module Thredded
         keyword_scan = @query.scan(regex)
         @query = @query.gsub(regex, '')
 
-        next unless keyword_scan.present?
+        next if keyword_scan.blank?
         keyword_scan.each do |term|
           found_terms_hash[keyword] ||= []
           found_terms_hash[keyword] << term.delete(' ').split(':')[1]

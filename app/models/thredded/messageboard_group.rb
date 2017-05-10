@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class MessageboardGroup < ActiveRecord::Base
     has_many :messageboards,

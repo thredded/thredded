@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class Topic < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     include Thredded::TopicCommon
@@ -22,9 +23,9 @@ module Thredded
 
     extend FriendlyId
     friendly_id :slug_candidates,
-                use: %i(history reserved),
+                use: %i[history reserved],
                 # Avoid route conflicts
-                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(topics))
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w[topics])
 
     belongs_to :user,
                class_name: Thredded.user_class_name,

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   module DbTools
     class << self
@@ -11,7 +12,7 @@ module Thredded
       def dump(to = dump_file)
         case adapter
         when /sqlite/i
-          system "sqlite3 #{Rails.root.join(database)} .dump > #{to}"
+          system ['sqlite3', Rails.root.join(database), '.dump', '>', to].join(' ')
         when /postgres/i
           cmd = "pg_dump --host #{host} --username #{username} --verbose --clean --no-owner --no-acl --format=c " \
             "#{database} > #{to}"
@@ -29,7 +30,8 @@ module Thredded
             "--username #{username}",
             ' --clean --no-owner --no-acl ',
             " --dbname #{database} #{from}",
-            " > #{Rails.root.join('log/restore.log')}"
+            '>',
+            Rails.root.join('log', 'restore.log')
           ].join(' ')
           system cmd
         when /mysql/i, /sqlite/i

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'thredded/email_transformer/base'
 module Thredded
   module EmailTransformer

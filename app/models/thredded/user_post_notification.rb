@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # Delivery records for Thredded::Post notifications.
   class UserPostNotification < ActiveRecord::Base

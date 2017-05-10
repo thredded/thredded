@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PrivateTopic < ActiveRecord::Base
     include Thredded::TopicCommon
@@ -7,9 +8,9 @@ module Thredded
 
     extend FriendlyId
     friendly_id :slug_candidates,
-                use:            [:history, :reserved],
+                use:            %i[history reserved],
                 # Avoid route conflicts
-                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(new))
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w[new])
 
     belongs_to :user,
                class_name: Thredded.user_class_name,

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Dummy::Application.configure do
   config.assets.compress = false
   config.assets.debug = true

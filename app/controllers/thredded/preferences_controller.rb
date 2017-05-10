@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PreferencesController < Thredded::ApplicationController
     before_action :thredded_require_login!,
@@ -32,9 +33,9 @@ module Thredded
         :messageboard_auto_follow_topics,
         :follow_topics_on_mention,
         :messageboard_follow_topics_on_mention,
-        messageboard_notifications_for_followed_topics_attributes: %i(notifier_key id messageboard_id enabled),
-        notifications_for_followed_topics_attributes: %i(notifier_key id enabled),
-        notifications_for_private_topics_attributes: %i(notifier_key id enabled)
+        messageboard_notifications_for_followed_topics_attributes: %i[notifier_key id messageboard_id enabled],
+        notifications_for_followed_topics_attributes: %i[notifier_key id enabled],
+        notifications_for_private_topics_attributes: %i[notifier_key id enabled]
       )
     end
   end

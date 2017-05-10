@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 ENV['RAILS_ENV'] = 'test'
 db = ENV.fetch('DB', 'sqlite3')
 
-if ENV['COVERAGE'] && !%w(rbx jruby).include?(RUBY_ENGINE) && !ENV['MIGRATION_SPEC']
+if ENV['COVERAGE'] && !%w[rbx jruby].include?(RUBY_ENGINE) && !ENV['MIGRATION_SPEC']
   require 'simplecov'
   SimpleCov.command_name 'RSpec'
 end
@@ -33,7 +34,7 @@ else
     verbose_was = ActiveRecord::Migration.verbose
     ActiveRecord::Migration.verbose = false
     Thredded::DbTools.silence_active_record do
-      ActiveRecord::Migrator.migrate(['db/migrate/', File.join(Rails.root, 'db/migrate/')])
+      ActiveRecord::Migrator.migrate(['db/migrate/', Rails.root.join('db', 'migrate')])
     end
   ensure
     ActiveRecord::Migration.verbose = verbose_was
@@ -56,7 +57,7 @@ WebMock.allow_net_connect!
 if Rails::VERSION::MAJOR >= 5
   require 'rails-controller-testing'
   RSpec.configure do |config|
-    [:controller, :view, :request].each do |type|
+    %i[controller view request].each do |type|
       config.include ::Rails::Controller::Testing::TestProcess, type: type
       config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
       config.include ::Rails::Controller::Testing::Integration, type: type
@@ -64,14 +65,14 @@ if Rails::VERSION::MAJOR >= 5
   end
 else
   module Rails5StyleRequestMethods
-    %i(get post patch delete).each do |m|
+    %i[get post patch delete].each do |m|
       define_method m do |path, params: {}, **args|
         super(path, args.merge(params))
       end
     end
   end
   RSpec.configure do |config|
-    [:controller, :request].each do |type|
+    %i[controller request].each do |type|
       config.prepend Rails5StyleRequestMethods, type: type
     end
   end
@@ -85,9 +86,9 @@ ensure
   Thredded.send(:"#{setting}=", was)
 end
 
-Dir[Rails.root.join('../../spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('..', '..', 'spec', 'support', '**', '*.rb')].each { |f| require f }
 
-RSpec.configure do |config|
+RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   if ENV['MIGRATION_SPEC']
     config.filter_run_excluding migration_spec: false
   else

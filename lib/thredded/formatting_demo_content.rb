@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # Content for demo-ing formatting functionality
   module FormattingDemoContent

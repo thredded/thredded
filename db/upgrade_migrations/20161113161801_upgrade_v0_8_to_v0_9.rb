@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Metrics/MethodLength
 class UpgradeV08ToV09 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
   def up
@@ -6,14 +7,14 @@ class UpgradeV08ToV09 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] :
       t.integer :user_id, null: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
-      t.index [:user_id, :notifier_key],
+      t.index %i[user_id notifier_key],
               name: 'thredded_notifications_for_private_topics_unique', unique: true
     end
     create_table :thredded_notifications_for_followed_topics do |t|
       t.integer :user_id, null: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
-      t.index [:user_id, :notifier_key],
+      t.index %i[user_id notifier_key],
               name: 'thredded_notifications_for_followed_topics_unique', unique: true
     end
     create_table :thredded_messageboard_notifications_for_followed_topics do |t|
@@ -21,7 +22,7 @@ class UpgradeV08ToV09 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] :
       t.integer :messageboard_id, null: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
-      t.index [:user_id, :messageboard_id, :notifier_key],
+      t.index %i[user_id messageboard_id notifier_key],
               name: 'thredded_messageboard_notifications_for_followed_topics_unique', unique: true
     end
 

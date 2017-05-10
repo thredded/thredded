@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # A base class for Thredded mailer previews.
   # @abstract
@@ -98,7 +99,7 @@ Additionally, Markdown is extended to support the following:
     end
 
     def mock_user(attr = {})
-      name = %w(Alice Bob).sample
+      name = %w[Alice Bob].sample
       Thredded.user_class.new(
         attr.reverse_merge(
           Thredded.user_name_column => name,

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # A view model for Topic.
   class TopicView < Thredded::BaseTopicView

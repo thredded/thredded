@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/MethodLength
 class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
@@ -11,10 +12,10 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
         t.string :sluggable_type, limit: 50
         t.string :scope, limit: 191
         t.datetime :created_at, null: false
-        t.index [:slug, :sluggable_type, :scope],
+        t.index %i[slug sluggable_type scope],
                 name: :index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope,
                 unique: true
-        t.index [:slug, :sluggable_type], name: :index_friendly_id_slugs_on_slug_and_sluggable_type
+        t.index %i[slug sluggable_type], name: :index_friendly_id_slugs_on_slug_and_sluggable_type
         t.index [:sluggable_id], name: :index_friendly_id_slugs_on_sluggable_id
         t.index [:sluggable_type], name: :index_friendly_id_slugs_on_sluggable_type
       end
@@ -26,7 +27,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.string :description, limit: 255
       t.timestamps null: false
       t.string :slug, limit: 191, null: false
-      t.index [:messageboard_id, :slug], name: :index_thredded_categories_on_messageboard_id_and_slug, unique: true
+      t.index %i[messageboard_id slug], name: :index_thredded_categories_on_messageboard_id_and_slug, unique: true
       t.index [:messageboard_id], name: :index_thredded_categories_on_messageboard_id
     end
     DbTextSearch::CaseInsensitive.add_index connection, :thredded_categories, :name, name: :thredded_categories_name_ci
@@ -54,7 +55,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.references :messageboard, null: false, index: false
       t.integer :moderation_state, null: false
       t.timestamps null: false
-      t.index [:moderation_state, :updated_at],
+      t.index %i[moderation_state updated_at],
               order: { updated_at: :asc },
               name:  :index_thredded_posts_for_display
       t.index [:messageboard_id], name: :index_thredded_posts_on_messageboard_id
@@ -114,7 +115,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.integer :moderation_state, null: false
       t.datetime :last_post_at
       t.timestamps null: false
-      t.index %i(moderation_state sticky updated_at),
+      t.index %i[moderation_state sticky updated_at],
               order: { sticky: :desc, updated_at: :desc },
               name:  :index_thredded_topics_for_display
       t.index [:hash_id], name: :index_thredded_topics_on_hash_id
@@ -133,20 +134,20 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.integer :moderation_state, null: false, default: 0 # pending_moderation
       t.timestamp :moderation_state_changed_at
       t.timestamps null: false
-      t.index %i(moderation_state moderation_state_changed_at),
+      t.index %i[moderation_state moderation_state_changed_at],
               order: { moderation_state_changed_at: :desc },
               name: :index_thredded_user_details_for_moderations
-      t.index %i(latest_activity_at), name: :index_thredded_user_details_on_latest_activity_at
-      t.index %i(user_id), name: :index_thredded_user_details_on_user_id
+      t.index %i[latest_activity_at], name: :index_thredded_user_details_on_latest_activity_at
+      t.index %i[user_id], name: :index_thredded_user_details_on_user_id
     end
 
     create_table :thredded_messageboard_users do |t|
       t.references :thredded_user_detail, foreign_key: { on_delete: :cascade }, null: false, index: false
       t.references :thredded_messageboard, foreign_key: { on_delete: :cascade }, null: false, index: false
       t.datetime :last_seen_at, null: false
-      t.index [:thredded_messageboard_id, :thredded_user_detail_id],
+      t.index %i[thredded_messageboard_id thredded_user_detail_id],
               name: :index_thredded_messageboard_users_primary
-      t.index [:thredded_messageboard_id, :last_seen_at],
+      t.index %i[thredded_messageboard_id last_seen_at],
               name: :index_thredded_messageboard_users_for_recently_active
     end
 
@@ -164,19 +165,19 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.boolean :follow_topics_on_mention, default: true, null: false
       t.boolean :auto_follow_topics, default: false, null: false
       t.timestamps null: false
-      t.index [:user_id, :messageboard_id],
+      t.index %i[user_id messageboard_id],
               name: :thredded_user_messageboard_preferences_user_id_messageboard_id,
               unique: true
     end
 
-    %i(topic private_topic).each do |topics_table|
+    %i[topic private_topic].each do |topics_table|
       table_name = :"thredded_user_#{topics_table}_read_states"
       create_table table_name do |t|
         t.references :user, null: false, index: false
         t.integer :postable_id, null: false
         t.integer :page, default: 1, null: false
         t.timestamp :read_at, null: false
-        t.index [:user_id, :postable_id], name: :"#{table_name}_user_postable", unique: true
+        t.index %i[user_id postable_id], name: :"#{table_name}_user_postable", unique: true
       end
     end
 
@@ -191,7 +192,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.integer :topic_id, null: false
       t.datetime :created_at, null: false
       t.integer :reason, limit: 1
-      t.index [:user_id, :topic_id], name: :thredded_user_topic_follows_user_topic, unique: true
+      t.index %i[user_id topic_id], name: :thredded_user_topic_follows_user_topic, unique: true
     end
 
     create_table :thredded_post_moderation_records do |t|
@@ -204,7 +205,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.integer :moderation_state, null: false
       t.integer :previous_moderation_state, null: false
       t.timestamp :created_at, null: false
-      t.index [:messageboard_id, :created_at],
+      t.index %i[messageboard_id created_at],
               order: { created_at: :desc },
               name:  :index_thredded_moderation_records_for_display
     end
@@ -213,14 +214,14 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.integer :user_id, null: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
-      t.index [:user_id, :notifier_key],
+      t.index %i[user_id notifier_key],
               name: 'thredded_notifications_for_private_topics_unique', unique: true
     end
     create_table :thredded_notifications_for_followed_topics do |t|
       t.integer :user_id, null: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
-      t.index [:user_id, :notifier_key],
+      t.index %i[user_id notifier_key],
               name: 'thredded_notifications_for_followed_topics_unique', unique: true
     end
     create_table :thredded_messageboard_notifications_for_followed_topics do |t|
@@ -228,7 +229,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.integer :messageboard_id, null: false
       t.string :notifier_key, null: false, limit: 90
       t.boolean :enabled, default: true, null: false
-      t.index [:user_id, :messageboard_id, :notifier_key],
+      t.index %i[user_id messageboard_id notifier_key],
               name: 'thredded_messageboard_notifications_for_followed_topics_unique', unique: true
     end
 
@@ -239,7 +240,7 @@ class CreateThredded < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : 
       t.foreign_key :thredded_posts, column: :post_id, on_delete: :cascade
       t.datetime :notified_at, null: false
       t.index :post_id, name: :index_thredded_user_post_notifications_on_post_id
-      t.index [:user_id, :post_id], name: :index_thredded_user_post_notifications_on_user_id_and_post_id, unique: true
+      t.index %i[user_id post_id], name: :index_thredded_user_post_notifications_on_user_id_and_post_id, unique: true
     end
   end
 end

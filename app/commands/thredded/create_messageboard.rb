@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # Creates a new messageboard and seeds it with a topic.
   class CreateMessageboard

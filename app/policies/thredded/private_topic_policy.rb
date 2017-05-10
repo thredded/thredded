@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PrivateTopicPolicy
     # @param user [Thredded.user_class]

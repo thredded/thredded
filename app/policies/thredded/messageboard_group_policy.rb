@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class MessageboardGroupPolicy
     # @param user [Thredded.user_class]

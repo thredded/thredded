@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PageObject
   class NewMessageboard
     include Capybara::DSL

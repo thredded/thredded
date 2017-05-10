@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'faker'
 I18n.reload!
 include ActionDispatch::TestProcess
@@ -136,7 +137,7 @@ FactoryGirl.define do
     user
   end
 
-  factory :user, aliases: [:email_confirmed_user, :last_user], class: ::User do
+  factory :user, aliases: %i[email_confirmed_user last_user], class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
     name { Faker::Name.name }
 

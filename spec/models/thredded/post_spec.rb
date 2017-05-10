@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 module Thredded
@@ -80,7 +81,7 @@ module Thredded
     end
 
     context 'when Thredded.auto_follow_when_creating_topic is false',
-            thredded_reset: %i(@@auto_follow_when_creating_topic) do
+            thredded_reset: %i[@@auto_follow_when_creating_topic] do
       before { Thredded.auto_follow_when_creating_topic = false }
       it 'does not create a follow for the creator of the first post' do
         user = create(:user)
@@ -96,7 +97,7 @@ module Thredded
     end
 
     context 'when Thredded.auto_follow_when_posting_in_topic is false',
-            thredded_reset: %i(@@auto_follow_when_posting_in_topic) do
+            thredded_reset: %i[@@auto_follow_when_posting_in_topic] do
       before { Thredded.auto_follow_when_posting_in_topic = false }
       it 'does not create a follow for the creator of the non-first post' do
         user = create(:user)

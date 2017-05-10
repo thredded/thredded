@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # Generates HTML from content source.
   class ContentFormatter
@@ -6,7 +7,7 @@ module Thredded
     mattr_accessor :whitelist
 
     self.whitelist = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-      elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w(abbr iframe span figure figcaption),
+      elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w[abbr iframe span figure figcaption],
       transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
         lambda do |env|
           next unless env[:node_name] == 'a'
@@ -19,12 +20,12 @@ module Thredded
         end
       ],
       attributes: {
-        'a'      => %w(href rel),
-        'abbr'   => %w(title),
-        'span'   => %w(class),
-        'div'    => %w(class),
+        'a'      => %w[href rel],
+        'abbr'   => %w[title],
+        'span'   => %w[class],
+        'div'    => %w[class],
         :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
-          %w(aria-label aria-labelledby aria-hidden),
+          %w[aria-label aria-labelledby aria-hidden],
       }
     )
 

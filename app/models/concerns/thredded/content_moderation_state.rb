@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # Moderation state of a piece of content, such as a Topic or a Post.
   # Requires an integer moderation_state column, a user_id column, and a user_detail association on the including class.

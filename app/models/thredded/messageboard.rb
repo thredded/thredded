@@ -1,12 +1,13 @@
 # frozen_string_literal: true
+
 module Thredded
   class Messageboard < ActiveRecord::Base
     extend FriendlyId
     friendly_id :slug_candidates,
-                use:            [:slugged, :reserved],
+                use:            %i[slugged reserved],
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
-                  %w(
+                  %w[
                     admin
                     autocomplete-users
                     messageboards
@@ -15,7 +16,7 @@ module Thredded
                     private-posts
                     private-topics
                     theme-preview
-                  )
+                  ]
                 )
 
     validates :name, uniqueness: true, length: { maximum: 60 }, presence: true

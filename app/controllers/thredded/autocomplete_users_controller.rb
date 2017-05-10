@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class AutocompleteUsersController < Thredded::ApplicationController
     MAX_RESULTS = 20

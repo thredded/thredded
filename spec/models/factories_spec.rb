@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 FactoryGirl.factories.map(&:name).each do |factory_name|

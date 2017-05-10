@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class NullUser
     include ::Thredded::UserPermissions::Read::All

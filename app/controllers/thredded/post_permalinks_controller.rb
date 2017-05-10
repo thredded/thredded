@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PostPermalinksController < Thredded::ApplicationController
     def show

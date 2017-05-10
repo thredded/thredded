@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # @abstract Classes that include this module are expected to implement {#readers}.
   # @!method readers

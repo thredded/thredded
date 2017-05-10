@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class Post < ActiveRecord::Base
     include Thredded::PostCommon
@@ -29,10 +30,10 @@ module Thredded
 
     validates :messageboard_id, presence: true
 
-    after_commit :update_parent_last_user_and_time_from_last_post, on: [:create, :destroy]
+    after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
     after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
 
-    after_commit :auto_follow_and_notify, on: [:create, :update]
+    after_commit :auto_follow_and_notify, on: %i[create update]
 
     # @param [Integer] per_page
     # @param [Thredded.user_class] user

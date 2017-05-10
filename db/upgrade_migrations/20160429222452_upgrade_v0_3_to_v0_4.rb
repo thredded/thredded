@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UpgradeV03ToV04 < ActiveRecord::Migration
   def up
     create_table :thredded_messageboard_groups do |t|

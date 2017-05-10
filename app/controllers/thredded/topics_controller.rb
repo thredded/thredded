@@ -1,19 +1,20 @@
 # frozen_string_literal: true
+
 module Thredded
   class TopicsController < Thredded::ApplicationController # rubocop:disable Metrics/ClassLength
     include Thredded::NewTopicParams
     include Thredded::NewPostParams
 
     before_action :thredded_require_login!,
-                  only: %i(edit new update create destroy follow unfollow)
+                  only: %i[edit new update create destroy follow unfollow]
 
     before_action :use_topic_messageboard,
-                  only: %i(show edit update destroy follow unfollow)
+                  only: %i[show edit update destroy follow unfollow]
 
     after_action :update_user_activity
 
-    after_action :verify_authorized, except: %i(search)
-    after_action :verify_policy_scoped, except: %i(show new create edit update destroy follow unfollow)
+    after_action :verify_authorized, except: %i[search]
+    after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow]
 
     def index
       authorize_reading messageboard

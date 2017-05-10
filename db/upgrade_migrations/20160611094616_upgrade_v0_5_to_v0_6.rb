@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UpgradeV05ToV06 < ActiveRecord::Migration
   def up
     add_column :thredded_messageboards, :last_topic_id, :integer

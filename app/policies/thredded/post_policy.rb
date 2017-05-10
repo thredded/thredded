@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PostPolicy
     # The scope of readable posts.

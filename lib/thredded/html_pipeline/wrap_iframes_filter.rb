@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   module HtmlPipeline
     # Wraps iframes with a <div class="thredded--embed-16-by-9"/>

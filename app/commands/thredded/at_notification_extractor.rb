@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class AtNotificationExtractor
     def initialize(post)

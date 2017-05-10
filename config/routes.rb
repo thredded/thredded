@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
-  resource :theme_preview, only: [:show], path: 'theme-preview' if %w(development test).include? Rails.env
+  resource :theme_preview, only: [:show], path: 'theme-preview' if %w[development test].include? Rails.env
 
   page_constraint = { page: /[1-9]\d*/ }
 
@@ -9,11 +10,11 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     resource :private_topic, only: [:new], path: '' do
       post :preview, on: :new, controller: 'private_topic_previews'
     end
-    resources :private_topics, except: [:new, :show], path: '' do
+    resources :private_topics, except: %i[new show], path: '' do
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
       end
-      resources :private_posts, path: '', except: [:index, :show] do
+      resources :private_posts, path: '', except: %i[index show] do
         post :preview, on: :new, controller: 'private_post_previews'
         resource :preview, only: [:update], controller: 'private_post_previews'
         member do
@@ -37,7 +38,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   scope path: 'admin' do
-    resources :messageboard_groups, only: [:new, :create]
+    resources :messageboard_groups, only: %i[new create]
     scope controller: :moderation, path: 'moderation' do
       scope constraints: page_constraint do
         get '(/page-:page)', action: :pending, as: :pending_moderation
@@ -51,15 +52,15 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  resource :preferences, only: [:edit, :update], as: :global_preferences
+  resource :preferences, only: %i[edit update], as: :global_preferences
   resource :messageboard, path: 'messageboards', only: [:new]
-  resources :messageboards, only: [:edit, :update]
-  resources :messageboards, only: [:index, :create], path: '' do
-    resource :preferences, only: [:edit, :update]
+  resources :messageboards, only: %i[edit update]
+  resources :messageboards, only: %i[index create], path: '' do
+    resource :preferences, only: %i[edit update]
     resource :topic, path: 'topics', only: [:new] do
       post :preview, on: :new, controller: 'topic_previews'
     end
-    resources :topics, path: '', except: [:index, :new, :show] do
+    resources :topics, path: '', except: %i[index new show] do
       collection do
         get '(page-:page)', action: :index, as: '', constraints: page_constraint
         get '/category/:category_id', action: :category, as: :categories
@@ -68,10 +69,10 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
 
         # match (un)follow via get as well so that redirecting back to it after sign in works.
-        match 'follow', via: [:post, :get]
-        match 'unfollow', via: [:post, :get]
+        match 'follow', via: %i[post get]
+        match 'unfollow', via: %i[post get]
       end
-      resources :posts, except: [:index, :show], path: '' do
+      resources :posts, except: %i[index show], path: '' do
         post :preview, on: :new, controller: 'post_previews'
         resource :preview, only: [:update], controller: 'post_previews'
         member do

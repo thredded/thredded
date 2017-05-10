@@ -1,29 +1,30 @@
 # frozen_string_literal: true
+
 require 'set'
 module Thredded
   module NavHelper
     USER_NAV_MODERATION_PAGES = Set.new(
-      %w(
+      %w[
         thredded--pending-moderation
         thredded--moderation-activity
         thredded--moderation-history
         thredded--moderation-users
         thredded--moderation-user
-      )
+      ]
     )
 
     USER_NAV_PREFERENCES_PAGES = Set.new(
-      %w(
+      %w[
         thredded--preferences
-      )
+      ]
     )
 
     USER_NAV_PRIVATE_TOPICS_PAGES = Set.new(
-      %w(
+      %w[
         thredded--new-private-topic
         thredded--private-topics-index
         thredded--private-topic-show
-      )
+      ]
     )
 
     def current_page_preferences?

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'onebox'
 
 module Thredded
@@ -7,7 +8,7 @@ module Thredded
       SANITIZE_CONFIG = Sanitize::Config.merge(
         Sanitize::Config::ONEBOX,
         attributes: {
-          'a' => Sanitize::Config::ONEBOX[:attributes]['a'] + %w(target),
+          'a' => Sanitize::Config::ONEBOX[:attributes]['a'] + %w[target],
         },
         add_attributes: {
           'iframe' => {

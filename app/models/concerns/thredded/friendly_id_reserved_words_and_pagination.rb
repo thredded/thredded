@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'set'
 module Thredded
   # Excludes pagination routes in addition to the given list of reserved words.

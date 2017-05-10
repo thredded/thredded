@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # Previews for the PrivateTopicMailer
   class PrivateTopicMailerPreview < BaseMailerPreview
@@ -9,7 +10,7 @@ module Thredded
                              post
                            ]),
         post,
-        %w(glebm@test.com joel@test.com)
+        %w[glebm@test.com joel@test.com]
       )
     end
   end

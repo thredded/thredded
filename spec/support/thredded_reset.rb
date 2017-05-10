@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.configure do |c|
   # always reset notifiers -- it's easier this way
   c.around(:example) do |example|

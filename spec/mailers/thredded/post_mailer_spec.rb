@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 module Thredded
@@ -6,7 +7,7 @@ module Thredded
     it 'sets the correct headers' do
       expect(email.from).to eq(['no-reply@example.com'])
       expect(email.to).to eq(['no-reply@example.com'])
-      expect(email.bcc).to eq(%w(john@email.com sam@email.com))
+      expect(email.bcc).to eq(%w[john@email.com sam@email.com])
       expect(email.subject).to eq('[Thredded] A title')
     end
 
@@ -36,7 +37,7 @@ module Thredded
           messageboard: messageboard
         )
         allow(Post).to receive_messages(find: post)
-        emails = %w(john@email.com sam@email.com)
+        emails = %w[john@email.com sam@email.com]
 
         PostMailer.post_notification(post.id, emails)
       end

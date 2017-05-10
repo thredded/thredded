@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Thredded::ContentFormatter do
@@ -84,16 +85,16 @@ describe Thredded::ContentFormatter do
       end
 
       it 'with \n before and \nEOF after' do
-        expect(format_content(<<-MARKDOWN)).to include('onebox')
-Hello
-#{xkcd_url}
+        expect(format_content(<<~MARKDOWN)).to include('onebox')
+          Hello
+          #{xkcd_url}
         MARKDOWN
       end
 
       it 'and indented' do
-        expect(format_content(<<-MARKDOWN)).to include('onebox')
-1. Hello
-   #{xkcd_url}
+        expect(format_content(<<~MARKDOWN)).to include('onebox')
+          1. Hello
+             #{xkcd_url}
       MARKDOWN
       end
     end

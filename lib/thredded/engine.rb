@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class Engine < ::Rails::Engine
     isolate_namespace Thredded
@@ -17,11 +18,11 @@ module Thredded
     end
 
     initializer 'thredded.setup_assets' do
-      Thredded::Engine.config.assets.precompile += %w(
+      Thredded::Engine.config.assets.precompile += %w[
         thredded.js
         thredded.css
         thredded/*.svg
-      )
+      ]
     end
   end
 end

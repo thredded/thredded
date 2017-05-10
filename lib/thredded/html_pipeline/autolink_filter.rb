@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   module HtmlPipeline
     # HTML Filter for auto_linking urls in HTML.

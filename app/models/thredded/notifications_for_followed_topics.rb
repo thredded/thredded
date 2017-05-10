@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class NotificationsForFollowedTopics < ActiveRecord::Base
     belongs_to :user,

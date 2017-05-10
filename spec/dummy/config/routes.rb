@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
   root to: 'home#show'
 
   resources :user_sessions,
-            only: [:new, :create],
+            only: %i[new create],
             controller: 'sessions'
   delete '/session' => 'sessions#destroy',
          as: :destroy_user_session

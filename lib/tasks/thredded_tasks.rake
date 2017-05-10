@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 namespace :thredded do
   namespace :install do
     desc 'Copy emoji to the Rails `public/emoji` directory'

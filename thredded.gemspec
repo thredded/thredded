@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'thredded/version'
@@ -15,7 +16,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.description = 'The best Rails 4.2+ forums engine ever. Its goal is to be as simple and feature rich as possible.
 Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at https://thredded.org/.'
 
-  s.files = Dir['{app,bin,config,db,lib,vendor}/**/*'] + %w(MIT-LICENSE README.md)
+  s.files = Dir['{app,bin,config,db,lib,vendor}/**/*'] + %w[MIT-LICENSE README.md]
 
   s.required_ruby_version = '~> 2.1'
 
@@ -62,7 +63,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails', '>= 3.5.0'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'rubocop', '= 0.46.0'
+  s.add_development_dependency 'rubocop', '= 0.48.1'
 
   # dummy app dependencies
   s.add_development_dependency 'rails-i18n'

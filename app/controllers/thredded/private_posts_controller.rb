@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # A controller for managing {PrivatePost}s.
   class PrivatePostsController < Thredded::ApplicationController

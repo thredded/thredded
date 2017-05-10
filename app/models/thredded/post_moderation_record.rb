@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class PostModerationRecord < ActiveRecord::Base
     include Thredded::ModerationState

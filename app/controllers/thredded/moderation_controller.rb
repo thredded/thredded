@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class ModerationController < Thredded::ApplicationController
     before_action :thredded_require_login!

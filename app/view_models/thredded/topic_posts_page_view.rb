@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   # A view model for a page of PostViews of a Topic.
   class TopicPostsPageView < Thredded::PostsPageView

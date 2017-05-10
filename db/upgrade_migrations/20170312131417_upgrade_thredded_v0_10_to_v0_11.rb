@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UpgradeThreddedV010ToV011 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
   def up
     drop_table :thredded_post_notifications
@@ -14,7 +15,7 @@ class UpgradeThreddedV010ToV011 < (Thredded.rails_gte_51? ? ActiveRecord::Migrat
       t.references :post, null: false, index: false
       t.timestamps null: false
       t.string :post_type, limit: 191
-      t.index [:post_id, :post_type], name: :index_thredded_post_notifications_on_post
+      t.index %i[post_id post_type], name: :index_thredded_post_notifications_on_post
     end
   end
 end

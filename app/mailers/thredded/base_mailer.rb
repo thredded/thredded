@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Thredded
   class BaseMailer < Thredded.parent_mailer.constantize
     helper ::Thredded::UrlsHelper
