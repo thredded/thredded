@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UpgradeThreddedV010ToV011 < ActiveRecord::Migration
+class UpgradeThreddedV010ToV011 < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
   def up
     drop_table :thredded_post_notifications
     add_column :thredded_user_preferences, :auto_follow_topics, :boolean, default: false, null: false
@@ -11,7 +11,7 @@ class UpgradeThreddedV010ToV011 < ActiveRecord::Migration
     remove_column :thredded_user_preferences, :auto_follow_topics
     create_table :thredded_post_notifications do |t|
       t.string :email, limit: 191, null: false
-      t.references :post, null: false
+      t.references :post, null: false, index: false
       t.timestamps null: false
       t.string :post_type, limit: 191
       t.index [:post_id, :post_type], name: :index_thredded_post_notifications_on_post

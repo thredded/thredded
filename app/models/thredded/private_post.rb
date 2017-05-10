@@ -4,7 +4,7 @@ module Thredded
     include Thredded::PostCommon
 
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_private_posts
     belongs_to :postable,
                class_name:    'Thredded::PrivateTopic',

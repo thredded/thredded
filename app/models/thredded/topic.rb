@@ -27,7 +27,7 @@ module Thredded
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(topics))
 
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_topics
 
     belongs_to :messageboard,
@@ -67,14 +67,14 @@ module Thredded
              inverse_of: :topic,
              dependent: :destroy
     has_many :followers,
-             class_name: Thredded.user_class,
+             class_name: Thredded.user_class_name,
              source: :user,
              through: :user_follows
 
     delegate :name, to: :messageboard, prefix: true
 
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
-    after_update :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
+    after_commit :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
     after_commit :handle_messageboard_change_after_commit,
                  on: :update,

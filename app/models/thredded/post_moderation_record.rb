@@ -13,8 +13,8 @@ module Thredded
     belongs_to :messageboard, inverse_of: :post_moderation_records
     validates :messageboard_id, presence: true
     belongs_to :post, inverse_of: :moderation_records
-    belongs_to :post_user, class_name: Thredded.user_class, inverse_of: :thredded_post_moderation_records
-    belongs_to :moderator, class_name: Thredded.user_class, inverse_of: :thredded_post_moderation_records
+    belongs_to :post_user, class_name: Thredded.user_class_name, inverse_of: :thredded_post_moderation_records
+    belongs_to :moderator, class_name: Thredded.user_class_name, inverse_of: :thredded_post_moderation_records
 
     validates_each :moderation_state do |record, attr, value|
       if record.previous_moderation_state == value

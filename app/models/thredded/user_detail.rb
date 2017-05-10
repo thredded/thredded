@@ -3,7 +3,7 @@ module Thredded
   class UserDetail < ActiveRecord::Base
     include Thredded::ModerationState
 
-    belongs_to :user, class_name: Thredded.user_class, inverse_of: :thredded_user_detail
+    belongs_to :user, class_name: Thredded.user_class_name, inverse_of: :thredded_user_detail
     validates :user_id, presence: true, uniqueness: true
 
     has_many :topics, class_name: 'Thredded::Topic', foreign_key: :user_id, primary_key: :user_id

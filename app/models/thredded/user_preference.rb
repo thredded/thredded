@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
   class UserPreference < ActiveRecord::Base
-    belongs_to :user, class_name: Thredded.user_class, inverse_of: :thredded_user_preference
+    belongs_to :user, class_name: Thredded.user_class_name, inverse_of: :thredded_user_preference
 
     with_options(inverse_of: :user_preference, primary_key: :user_id, foreign_key: :user_id,
                  dependent: :destroy) do |opt|

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class CreateUsers < ActiveRecord::Migration
+class CreateUsers < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
   def change
     create_table :users do |t|
       t.string :name, null: false

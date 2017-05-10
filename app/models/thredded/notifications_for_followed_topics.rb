@@ -2,7 +2,7 @@
 module Thredded
   class NotificationsForFollowedTopics < ActiveRecord::Base
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_notifications_for_followed_topics
     belongs_to :messageboard # or is global
     belongs_to :user_preference,

@@ -310,9 +310,18 @@ module Thredded
           .to change { @topic.reload.updated_at }
       end
 
-      it 'changes last_read_at' do
+      it 'changes last_post_at' do
         expect { travel_to(1.day.from_now) { create(:post, postable: @topic) } }
           .to change { @topic.reload.last_post_at }
+      end
+
+      it 'updates last_topic of the messageboard' do
+        previous_last_topic = create(:topic, messageboard: @messageboard, with_posts: 1)
+        @messageboard.reload
+        expect do
+          travel_to(1.day.from_now) { create(:post, postable: @topic) }
+          @messageboard.reload
+        end.to change(@messageboard, :last_topic_id).from(previous_last_topic.id).to(@topic.id)
       end
     end
 
@@ -348,6 +357,23 @@ module Thredded
       it 'does not change updated_at' do
         expect { @post.update_attributes(content: 'hi there') }
           .not_to change { @post.postable.reload.last_post_at }
+      end
+    end
+
+    context 'when its messageboard is changed' do
+      let(:topic) { create(:topic, with_posts: 1) }
+      it 'updates last_topic on both old and new boards' do
+        messageboard = topic.messageboard
+        another_messageboard = create(:messageboard)
+        expect do
+          topic.messageboard_id = another_messageboard.id
+          topic.save!
+          messageboard.reload
+          another_messageboard.reload
+        end.to(
+          change(messageboard, :last_topic_id).from(topic.id).to(nil)
+            .and(change(another_messageboard, :last_topic_id).from(nil).to(topic.id))
+        )
       end
     end
 
