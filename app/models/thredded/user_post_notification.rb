@@ -2,7 +2,7 @@
 module Thredded
   # Delivery records for Thredded::Post notifications.
   class UserPostNotification < ActiveRecord::Base
-    belongs_to :user, class_name: Thredded.user_class, inverse_of: :thredded_post_notifications
+    belongs_to :user, class_name: Thredded.user_class_name, inverse_of: :thredded_post_notifications
     belongs_to :post, class_name: 'Thredded::Post', inverse_of: :user_notifications
 
     # @param post [Thredded::Post]

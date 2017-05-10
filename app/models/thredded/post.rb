@@ -5,7 +5,7 @@ module Thredded
     include Thredded::ContentModerationState
 
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_posts
     belongs_to :messageboard,
                counter_cache: true

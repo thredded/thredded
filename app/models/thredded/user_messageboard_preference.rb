@@ -6,7 +6,7 @@ module Thredded
                foreign_key: :user_id,
                inverse_of: :messageboard_preferences
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_user_messageboard_preferences
     belongs_to :messageboard
 

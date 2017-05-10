@@ -12,7 +12,7 @@ module Thredded
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w(new))
 
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_private_topics
     belongs_to :user_detail,
                primary_key:   :user_id,

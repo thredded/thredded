@@ -3,7 +3,7 @@ module Thredded
   class UserPrivateTopicReadState < ActiveRecord::Base
     include Thredded::UserTopicReadStateCommon
     belongs_to :user,
-               class_name: Thredded.user_class,
+               class_name: Thredded.user_class_name,
                inverse_of: :thredded_private_topic_read_states
     belongs_to :postable,
                class_name: 'Thredded::PrivateTopic',

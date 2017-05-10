@@ -181,4 +181,10 @@ module Thredded
         .includes(:postable)
     )
   end
+
+  # @api private
+  def self.rails_gte_51?
+    @rails_gte_51 = (Rails.gem_version >= Gem::Version.new('5.1.0')) if @rails_gte_51.nil?
+    @rails_gte_51
+  end
 end

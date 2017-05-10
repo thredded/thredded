@@ -6,7 +6,7 @@ module Thredded
       paginates_per 50 if respond_to?(:paginates_per)
 
       belongs_to :last_user,
-                 class_name:  Thredded.user_class,
+                 class_name: Thredded.user_class_name,
                  foreign_key: 'last_user_id'
 
       scope :order_recently_posted_first, -> { order(last_post_at: :desc, id: :desc) }

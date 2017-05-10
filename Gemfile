@@ -2,7 +2,7 @@
 source 'https://rubygems.org'
 
 # Rails 5
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 
 group :test do
   gem 'rails-controller-testing'

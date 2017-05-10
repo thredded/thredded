@@ -45,7 +45,7 @@ module Thredded
              through:    :messageboard_users,
              source:     :user_detail
     has_many :recently_active_users,
-             class_name: Thredded.user_class,
+             class_name: Thredded.user_class_name,
              through:    :recently_active_user_details,
              source:     :user
 
