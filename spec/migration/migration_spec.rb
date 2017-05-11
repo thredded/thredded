@@ -6,12 +6,11 @@ Rails.env = 'test'
 # MIGRATION_SPEC=1 rspec spec/migration/migration_spec.rb
 describe 'Migrations', migration_spec: true, order: :defined do
   def migrate(migration_file)
-    migration_name = File.basename(migration_file)
     verbose_was = ActiveRecord::Migration.verbose
     ActiveRecord::Migration.verbose = false
     Thredded::DbTools.silence_active_record do
       ActiveRecord::Migrator.migrate('db/upgrade_migrations') do |m|
-        m.filename.include?(migration_name)
+        'db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb' <= m.filename && m.filename <= migration_file
       end
     end
   ensure
@@ -105,8 +104,7 @@ describe 'Migrations', migration_spec: true, order: :defined do
       topic_2_id = insert_record Thredded::Topic,
                                  slug: 'x', title: 'X', messageboard_id: messageboard_b.id, **topic_attr.call
       migrate(migration_file)
-      expect(Thredded::Topic.find(topic_1_id).slug).to eq 'x'
-      expect(Thredded::Topic.find(topic_2_id).slug).to eq 'x-b'
+      expect([Thredded::Topic.find(topic_1_id).slug, Thredded::Topic.find(topic_2_id).slug]).to eq %w[x x-b]
     end
   end
 end
