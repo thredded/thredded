@@ -1,3 +1,10 @@
+# v0.12.3
+
+This release adds a minor fix for Rails 5.1 compatibility.
+[#b5669c61](https://github.com/thredded/thredded/commit/b5669c61173621298480f3f0d954a3083b672a80)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.12.2...v0.12.3.
+
 # v0.12.2
 
 This release brings Rails 5.1 support to Thredded.
