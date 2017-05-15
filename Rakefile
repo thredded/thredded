@@ -83,8 +83,6 @@ Bundler::GemHelper.install_tasks
 namespace :dev do
   desc 'Start development web server'
   task :server do
-    require 'rails/commands/server'
-
     host = '0.0.0.0'
     port = ENV['PORT'] || 9292
     ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'development'
