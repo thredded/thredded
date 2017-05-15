@@ -33,7 +33,7 @@ module Thredded
     has_many :posts, dependent: :destroy
     has_many :topics, dependent: :destroy, inverse_of: :messageboard
 
-    belongs_to :last_topic, class_name: 'Thredded::Topic'
+    belongs_to :last_topic, class_name: 'Thredded::Topic', **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     has_many :user_details, through: :posts
     has_many :messageboard_users,
@@ -53,7 +53,8 @@ module Thredded
     belongs_to :group,
                inverse_of: :messageboards,
                foreign_key: :messageboard_group_id,
-               class_name: 'Thredded::MessageboardGroup'
+               class_name: 'Thredded::MessageboardGroup',
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
 

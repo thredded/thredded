@@ -6,7 +6,8 @@ module Thredded
 
     belongs_to :user,
                class_name: Thredded.user_class_name,
-               inverse_of: :thredded_private_posts
+               inverse_of: :thredded_private_posts,
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
     belongs_to :postable,
                class_name:    'Thredded::PrivateTopic',
                inverse_of:    :posts,
@@ -14,7 +15,8 @@ module Thredded
     belongs_to :user_detail,
                inverse_of:  :private_posts,
                primary_key: :user_id,
-               foreign_key: :user_id
+               foreign_key: :user_id,
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     after_commit :update_parent_last_user_and_timestamp, on: %i[create destroy]
     after_commit :notify_users, on: [:create]

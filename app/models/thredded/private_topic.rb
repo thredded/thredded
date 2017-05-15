@@ -14,11 +14,13 @@ module Thredded
 
     belongs_to :user,
                class_name: Thredded.user_class_name,
-               inverse_of: :thredded_private_topics
+               inverse_of: :thredded_private_topics,
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
     belongs_to :user_detail,
                primary_key:   :user_id,
                foreign_key:   :user_id,
-               inverse_of:    :private_topics
+               inverse_of:    :private_topics,
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     has_many :posts,
              class_name:  'Thredded::PrivatePost',
