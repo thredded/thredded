@@ -142,8 +142,8 @@ it:
     search:
       form:
         btn_submit: :thredded.search.form.label
-        label: Search
-        placeholder: Search Topics and Posts
+        label: Cerca
+        placeholder: Cerca argomenti e post
     time_ago: "%{time} ago"
     topics:
       delete_confirm: Are you sure you want to delete this topic? This CANNOT be undone.
@@ -173,20 +173,20 @@ it:
       mark_as_unread: Mark unread from here
       not_following: You are not following this topic.
       search:
-        no_results_in_messageboard_message_html: There are no results for your search <q>%{query}</q> in %{messageboard}
-        no_results_message_html: There are no results for your search <q>%{query}</q>
-        page_title: Topics Search Results
-        results_in_messageboard_message_html: Search results for <q>%{query}</q> in %{messageboard}
-        results_message_html: Search results for <q>%{query}</q>
-        search_in_all_messageboards_btn: Search everywhere
-      started_by_html: Started %{time_ago} by %{user}
+        no_results_in_messageboard_message_html: Non ci sono risultati per la tua ricerca <q>%{query}</q> in %{messageboard}
+        no_results_message_html: Non ci sono risultati per la tua ricerca <q>%{query}</q>
+        page_title: Risultati della ricerca
+        results_in_messageboard_message_html: Risultati della ricerca <q>%{query}</q> in %{messageboard}
+        results_message_html: Risultati della ricerca per <q>%{query}</q>
+        search_in_all_messageboards_btn: Cerca ovunque
+      started_by_html: Iniziato %{time_ago} da %{user}
       sticky:
         label: Sticky
-      unfollow: Stop following
-      unfollowed_notice: You are no longer following this topic
-      updated_notice: Topic updated
+      unfollow: Smetti di seguire
+      unfollowed_notice: Non segui più questo argomento
+      updated_notice: Argomento aggiornato
     users:
-      currently_online: Currently Online
+      currently_online: Online
       last_active_html: Last active %{time_ago}
       posted_in_topic_html: Posted in %{topic_link}
       posts_count:
