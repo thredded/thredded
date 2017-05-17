@@ -166,7 +166,7 @@ it:
         messageboard_label: Messageboard
         title_label: Titolo
         title_placeholder: :thredded.topics.form.title_label
-        title_placeholder_start: Inizia una nuova discussione
+        title_placeholder_start: Crea una nuova discussione
         update_btn: Aggiorna discussione
       locked:
         label: Locked
