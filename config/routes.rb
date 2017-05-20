@@ -5,6 +5,14 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   page_constraint = { page: /[1-9]\d*/ }
 
+  resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
+
+  constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
+    get '/' => 'topics#search', as: :messageboards_search
+    get '/private-topics(/:topic_id)' => 'private_topics#search', as: :private_topics_search
+    get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
+  end
+
   scope path: 'private-topics' do
     resource :read_state, only: [:update], as: :mark_all_private_topics_read
     resource :private_topic, only: [:new], path: '' do
@@ -28,13 +36,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   scope only: [:show], constraints: { id: Thredded.routes_id_constraint } do
     resources :private_post_permalinks, path: 'private-posts'
     resources :post_permalinks, path: 'posts'
-  end
-
-  resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
-
-  constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
-    get '/' => 'topics#search', as: :messageboards_search
-    get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
   end
 
   scope path: 'admin' do
