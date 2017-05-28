@@ -1,7 +1,7 @@
 //= require thredded/dependencies/jquery
 // Require jquery.timeago instead of rails-timeago so that we can control the initialization.
 //= require jquery.timeago
-//= require jquery_ujs
+//= require thredded/dependencies/ujs
 //= require autosize
 //= require jquery.textcomplete
 //= require select2
