@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.12.2)
+    thredded (0.12.4)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       db_text_search (~> 0.2.0)
@@ -70,7 +70,7 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
-    autoprefixer-rails (7.1.0)
+    autoprefixer-rails (7.1.1)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -78,9 +78,9 @@ GEM
       execjs (~> 2.0)
     builder (3.2.3)
     coderay (1.1.1)
-    coffee-rails (4.2.1)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.2.x)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -107,7 +107,7 @@ GEM
     gemoji (2.1.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    html-pipeline (2.5.0)
+    html-pipeline (2.6.0)
       activesupport (>= 2)
       nokogiri (>= 1.4)
     htmlentities (4.3.4)
@@ -151,13 +151,13 @@ GEM
     moneta (1.0.0)
     multi_json (1.12.1)
     mustache (1.0.5)
-    newrelic_rpm (4.1.0.333)
-    nio4r (2.0.0)
+    newrelic_rpm (4.2.0.334)
+    nio4r (2.1.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
-    nokogumbo (1.4.10)
+    nokogumbo (1.4.11)
       nokogiri
-    onebox (1.8.5)
+    onebox (1.8.8)
       fast_blank (>= 1.0.0)
       htmlentities (~> 4.3)
       moneta (~> 1.0)
@@ -226,7 +226,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
       nokogumbo (~> 1.4.1)
-    sass (3.4.23)
+    sass (3.4.24)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -296,4 +296,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.14.6
+   1.15.0
