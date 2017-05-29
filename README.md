@@ -240,7 +240,7 @@ or `// require jquery2`. If you are not loading jQuery in your app, or if you ar
 
 [jquery-rails]: https://github.com/rails/jquery-rails
 
-#### Rails UJS version
+##### Rails UJS version
 
 By default, thredded requires `jquery_ujs`. If you'd like to change that to `rails-ujs` (default since Rails v5.1),
 run this command from your app directory:
