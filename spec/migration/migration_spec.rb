@@ -10,7 +10,7 @@ describe 'Migrations', migration_spec: true, order: :defined do
     ActiveRecord::Migration.verbose = false
     Thredded::DbTools.silence_active_record do
       ActiveRecord::Migrator.migrate('db/upgrade_migrations') do |m|
-        'db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb' <= m.filename && m.filename <= migration_file
+        m.filename >= 'db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb' && m.filename <= migration_file
       end
     end
   ensure

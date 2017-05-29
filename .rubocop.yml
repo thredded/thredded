@@ -9,11 +9,17 @@ Style/SafeNavigation:
   # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
   Enabled: false
 
-Style/IndentHeredoc:
+Layout/IndentHeredoc:
   # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Rails/ApplicationRecord:
   Enabled: false
 
 Rails/SkipsModelValidations:
@@ -50,9 +56,6 @@ Style/CollectionMethods:
 
 Style/Documentation:
   Enabled: false
-
-Style/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
 
 Style/PredicateName:
   Exclude:
