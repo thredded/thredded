@@ -1,3 +1,18 @@
+# v0.12.4
+
+This release adds the ability to tell Thredded with version of Rails UJS to use.
+Since Rails v5.1, the default is `rails-ujs` but Thredded for now still uses `jquery_ujs` by default.
+This will change in Thredded v0.13.
+
+If you'd like to tell Thredded to use `rails-ujs` now, update to this release and run the following command
+from your app directory:
+
+```bash
+echo '//= require rails-ujs' > app/assets/javascripts/thredded/dependencies/ujs.js
+```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.12.3...v0.12.4.
+
 # v0.12.3
 
 This release adds a minor fix for Rails 5.1 compatibility.
