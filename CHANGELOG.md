@@ -8,6 +8,7 @@ If you'd like to tell Thredded to use `rails-ujs` now, update to this release an
 from your app directory:
 
 ```bash
+mkdir -p app/assets/javascripts/thredded/dependencies/
 echo '//= require rails-ujs' > app/assets/javascripts/thredded/dependencies/ujs.js
 ```
 

@@ -246,8 +246,13 @@ By default, thredded requires `jquery_ujs`. If you'd like to change that to `rai
 run this command from your app directory:
 
 ```bash
+mkdir -p app/assets/javascripts/thredded/dependencies/
 echo '//= require rails-ujs' > app/assets/javascripts/thredded/dependencies/ujs.js
 ```
+
+The default UJS framework will change from `jquery_ujs` to `rails-ujs` in the upcoming Thredded v0.13.0 release.
+
+#### Thredded page title and ID
 
 Thredded views also provide two `content_tag`s available to yield - `:thredded_page_title` and `:thredded_page_id`.
 The views within Thredded pass those up through to your layout if you would like to use them.
