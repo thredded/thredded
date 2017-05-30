@@ -144,7 +144,7 @@ pl:
         btn_submit: :thredded.search.form.label
         label: Wyszukaj
         placeholder: Wyszukaj tematy i posty.
-    time_ago: "%{time} ago"
+    time_ago: "%{time} temu"
     topics:
       delete_confirm: Jesteś pewien, że chcesz usunąć ten temat? Tej operacji nie można cofnąć.
       delete_topic: Usuń temat
