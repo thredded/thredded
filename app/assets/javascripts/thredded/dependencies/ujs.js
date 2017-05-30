@@ -1,1 +1,1 @@
-//= require jquery_ujs
+//= require rails-ujs

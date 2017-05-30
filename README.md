@@ -242,15 +242,15 @@ or `// require jquery2`. If you are not loading jQuery in your app, or if you ar
 
 ##### Rails UJS version
 
-By default, thredded requires `jquery_ujs`. If you'd like to change that to `rails-ujs` (default since Rails v5.1),
-run this command from your app directory:
+By default, thredded loads `rails-ujs`. If you're using Rails before v5.1, you need to add `rails-ujs` to
+your Gemfile.
+
+If you'd like it to use `jquery_ujs` instead, run this command from your app directory:
 
 ```bash
 mkdir -p app/assets/javascripts/thredded/dependencies/
-echo '//= require rails-ujs' > app/assets/javascripts/thredded/dependencies/ujs.js
+printf '//= require jquery3\n//= require jquery_ujs\n' > app/assets/javascripts/thredded/dependencies/ujs.js
 ```
-
-The default UJS framework will change from `jquery_ujs` to `rails-ujs` in the upcoming Thredded v0.13.0 release.
 
 ##### Timeago version
 
