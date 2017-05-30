@@ -25,7 +25,7 @@ require 'thredded/html_pipeline/wrap_iframes_filter'
 # Asset compilation
 require 'autoprefixer-rails'
 require 'jquery/rails'
-require 'rails-timeago'
+require 'timeago_js'
 require 'select2-rails'
 require 'sprockets/es6'
 

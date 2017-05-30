@@ -252,6 +252,27 @@ echo '//= require rails-ujs' > app/assets/javascripts/thredded/dependencies/ujs.
 
 The default UJS framework will change from `jquery_ujs` to `rails-ujs` in the upcoming Thredded v0.13.0 release.
 
+##### Timeago version
+
+By default, thredded loads `timeago.js`.
+
+If you'd like to use `jquery.timeago` or `rails-timeago` instead, run this command from your app directory:
+
+```bash
+mkdir -p app/assets/javascripts/thredded/dependencies/
+echo '//= require jquery.timeago' > app/assets/javascripts/thredded/dependencies/timeago.js
+```
+
+You will also need to adjust the `//= require` statements for timeago locales if your site is translated into multiple
+languages. For `jquery.timeago`, these need to be require after `thredded/dependencies` but before `thredded/thredded`.
+E.g. for Brazilian Portuguese:
+
+ ```js
+ //= require thredded/dependencies
+ //= require locales/jquery.timeago.pt-br
+ //= require thredded/thredded
+ ```
+
 #### Thredded page title and ID
 
 Thredded views also provide two `content_tag`s available to yield - `:thredded_page_title` and `:thredded_page_id`.
@@ -384,13 +405,10 @@ Here are the steps to ensure the best support for your language if it isn't Engl
 
 1. Add `rails-i18n` and `kaminari-i18n` to your Gemfile.
 
-2. Require the translations for rails-timeago in your JavaScript before `thredded` but after `jquery.timeago`
-   (included in `thredded/dependencies`). E.g. for Brazilian Portuguese:
+2. Require the translations for timeago.js in your JavaScript. E.g. for Brazilian Portuguese:
 
    ```js
-   //= require thredded/dependencies
-   //= require locales/jquery.timeago.pt-br
-   //= require thredded/thredded
+   //= require timeago/locales/pt_BR
    ```
 
 3. To generate URL slugs for messageboards, categories, and topics with support for more language than English,

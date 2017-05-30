@@ -1,10 +1,9 @@
 //= require jquery3
 //= require jquery_ujs
 //= require turbolinks
-//= require thredded/dependencies
-//= require locales/jquery.timeago.es
-//= require locales/jquery.timeago.pl
-//= require locales/jquery.timeago.pt-br
-//= require locales/jquery.timeago.ru
-//= require thredded/thredded
+//= require thredded
+//= require timeago/locales/es
+//= require timeago/locales/pl
+//= require timeago/locales/pt_BR
+//= require timeago/locales/ru
 //= require_tree ./app
