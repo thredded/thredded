@@ -7,9 +7,9 @@
   <div class="thredded--topics--follow-info" title="<%= topic_follow_reason_text topic.follow_reason %>">
     <svg class="thredded--topics--follow-icon" viewBox="0 0 116 121" role="img">
       <% if topic.followed? %>
-        <use xlink:href="#thredded-follow-icon"/>
+        <use xlink:href="#thredded-follow-icon"></use>
       <% else %>
-        <use xlink:href="#thredded-unfollow-icon"/>
+        <use xlink:href="#thredded-unfollow-icon"></use>
       <% end %>
     </svg>
   </div>

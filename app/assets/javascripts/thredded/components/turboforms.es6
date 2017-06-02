@@ -1,15 +1,25 @@
-// Submit GET forms with turbolinks
-(function($) {
-  if (window.Turbolinks && window.Turbolinks.supported) {
-    window.Thredded.onPageLoad(() => {
-      $('[data-thredded-turboform]').on('submit', function(evt) {
-        evt.preventDefault();
-        Turbolinks.visit(this.action + (this.action.indexOf('?') === -1 ? '?' : '&') + $(this).serialize());
+//= require thredded/core/on_page_load
+//= require thredded/core/serialize_form
 
-        // On mobile the soft keyboard doesn't won't go away after the submit since we're submitting with
-        // Turbolinks. Hide it:
-        window.Thredded.hideSoftKeyboard();
-      });
+// Submit GET forms with turbolinks
+(() => {
+  const Thredded = window.Thredded;
+  const Turbolinks = window.Turbolinks;
+
+  Thredded.onPageLoad(() => {
+    if (!Turbolinks || !Turbolinks.supported) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-thredded-turboform]'), (form) => {
+      form.addEventListener('submit', handleSubmit);
     });
-  }
-})(jQuery);
+  });
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    Turbolinks.visit(form.action + (form.action.indexOf('?') === -1 ? '?' : '&') + Thredded.serializeForm(form));
+
+    // On mobile the soft keyboard doesn't won't go away after the submit since we're submitting with
+    // Turbolinks. Hide it:
+    Thredded.hideSoftKeyboard();
+  };
+})();

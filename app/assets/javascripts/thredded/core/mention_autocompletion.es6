@@ -1,16 +1,17 @@
 class ThreddedMentionAutocompletion {
-  constructor($) {
-    this.$ = $;
+  constructor() {
     this.textareaSelector = 'textarea';
   }
-  init($nodes){
-    const $textarea = $nodes.find(this.textareaSelector);
-    this.autocompleteMinLength = parseInt($nodes.data('autocompleteMinLength'), 10);
-    this.automentionCompletion($textarea, $nodes.data('autocompleteUrl'));
+
+  init(node) {
+    this.autocompleteMinLength = parseInt(node.getAttribute('data-autocomplete-min-length'), 10);
+    this.automentionCompletion(node.querySelector(this.textareaSelector), node.getAttribute('data-autocomplete-url'));
   }
 
   escapeHtml(text) {
-    return this.$('<div/>').text(text).html();
+    const node = document.createElement('div');
+    node.textContent = text;
+    return node.innerHTML;
   }
 
   formatUser({avatar_url, name, escapeHtml}) {
@@ -20,24 +21,31 @@ class ThreddedMentionAutocompletion {
       '</div>';
   }
 
-
-  automentionCompletion($textarea, autocompleteUrl) {
-    let mentionAC = this;
-    $textarea.textcomplete([{
+  automentionCompletion(textarea, autocompleteUrl) {
+    jQuery(textarea).textcomplete([{
       match: ThreddedMentionAutocompletion.MATCH_RE,
       search (term, callback, match) {
         if(term.length < this.autocompleteMinLength){
-          return callback({});
+          callback([]);
+          return;
         }
-        let termsUrl = `${autocompleteUrl}?q=${term}`;
-        $.ajax({url: termsUrl}).done(function (response) {
-          callback($.map(response.results, function ({avatar_url, id, name}) {
+        const request = new XMLHttpRequest();
+        request.open('GET', `${autocompleteUrl}?q=${term}`, /* async */ true);
+        request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        request.onload = () => {
+          // Ignore errors
+          if (request.status < 200 || request.status >= 400) {
+            callback([]);
+            return;
+          }
+          callback(JSON.parse(request.responseText).results.map(({avatar_url, id, name}) => {
             return {avatar_url, id, name, match};
           }));
-        });
+        };
+        request.send();
       },
-      template ({avatar_url, name}) {
-        return mentionAC.formatUser({avatar_url, name});
+      template: ({avatar_url, name}) => {
+        return this.formatUser({avatar_url, name});
       },
       replace  ({name, match}) {
         let prefix = match[1];
