@@ -11,6 +11,6 @@ fi
 
 heroku maintenance:on
 heroku pg:reset DATABASE --confirm thredded-demo
-git push heroku master
+git push -f heroku master
 heroku run rake db:migrate db:seed
 heroku maintenance:off

@@ -155,7 +155,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
-    nokogumbo (1.4.12)
+    nokogumbo (1.4.11)
       nokogiri
     onebox (1.8.9)
       fast_blank (>= 1.0.0)
@@ -277,6 +277,7 @@ DEPENDENCIES
   kaminari-i18n
   mustache
   newrelic_rpm
+  nokogumbo (= 1.4.11)
   pg
   puma
   rack-canonical-host

@@ -4,6 +4,9 @@ ruby '2.4.1'
 
 gem 'thredded', path: File.dirname(__FILE__)
 
+# https://github.com/rubys/nokogumbo/issues/25
+gem 'nokogumbo', '= 1.4.11'
+
 gem 'mustache'
 
 # Rails 5
