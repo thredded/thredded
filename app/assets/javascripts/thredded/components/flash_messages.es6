@@ -1,11 +1,9 @@
-(($) => {
+(() => {
   const COMPONENT_SELECTOR = '[data-thredded-flash-message]';
 
-  const destroy = () => {
-    $(COMPONENT_SELECTOR).remove();
-  };
-
   document.addEventListener('turbolinks:before-cache', () => {
-    destroy()
+    Array.prototype.forEach.call(document.querySelectorAll(COMPONENT_SELECTOR), (node) => {
+      node.parentNode.removeChild(node);
+    });
   });
-})(jQuery);
+})();

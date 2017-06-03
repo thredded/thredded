@@ -1,9 +1,11 @@
 //= require autosize
 //= require thredded/core/on_page_load
+//= require thredded/components/mention_autocompletion
 //= require thredded/components/preview_area
 
 (() => {
   const Thredded = window.Thredded;
+  const ThreddedMentionAutocompletion = window.ThreddedMentionAutocompletion;
   const ThreddedPreviewArea = window.ThreddedPreviewArea;
   const autosize = window.autosize;
 

@@ -1,8 +1,9 @@
-($ => {
+//= require thredded/core/on_page_load
+
+(() => {
   const COMPONENT_SELECTOR = '[data-thredded-users-select]';
 
-
-  let formatUser = (user, container, query, escapeHtml) => {
+  const formatUser = (user, container, query, escapeHtml) => {
     if (user.loading) return user.text;
     return "<div class='thredded--select2-user-result'>" +
       `<img class='thredded--select2-user-result__avatar' src='${escapeHtml(user.avatar_url)}' >` +
@@ -10,63 +11,73 @@
       '</div>';
   };
 
-  let formatUserSelection = (user, container, escapeHtml) => {
+  const formatUserSelection = (user, container, escapeHtml) => {
     return `<span class='thredded--select2-user-selection'>` +
       `<img class='thredded--select2-user-selection__avatar' src='${escapeHtml(user.avatar_url)}' >` +
       `<span class='thredded--select2-user-selection__name'>${escapeHtml(user.name)}</span>` +
       '</span>';
   };
 
-  let initSelection = ($el, callback) => {
-    let ids = ($el.val() || '').split(',');
-    if (ids.length && ids[0] != '') {
-      $.ajax(`${$el.data('autocompleteUrl')}?ids=${ids.join(',')}`, {dataType: 'json'}).done(data => callback(data.results));
+  const initSelection = ($input, callback) => {
+    const input = $input.get(0);
+    const ids = (input.value || '').split(',');
+    if (ids.length && ids[0] !== '') {
+      const request = new XMLHttpRequest();
+      request.open('GET', `${input.getAttribute('data-autocomplete-url')}?ids=${ids.join(',')}`, /* async */ true);
+      request.onload = () => {
+        // Ignore errors
+        if (request.status < 200 || request.status >= 400) {
+          callback([]);
+          return;
+        }
+        callback(JSON.parse(request.responseText).results);
+      };
+      request.send();
     } else {
       callback([]);
     }
   };
 
-  let initOne = $el => {
-    $el.select2({
+  const initUsersSelect = (input) => {
+    jQuery(input).select2({
       ajax: {
         cache: true,
         data: query => ({q: query}),
         results: data => data,
         dataType: 'json',
-        url: $el.data('autocompleteUrl')
+        url: input.getAttribute('data-autocomplete-url')
       },
       containerCssClass: 'thredded--select2-container',
       dropdownCssClass: 'thredded--select2-drop',
       initSelection: initSelection,
-      minimumInputLength: $el.data('autocompleteMinLength'),
+      minimumInputLength: input.getAttribute('data-autocomplete-min-length'),
       multiple: true,
       formatResult: formatUser,
       formatSelection: formatUserSelection
     });
   };
 
-  let init = () => {
-    $(COMPONENT_SELECTOR).each(function() {
-      initOne($(this));
-    });
-  };
-
-  let destroy = () => {
-    $(COMPONENT_SELECTOR).each(function() {
-      $(this).select2('destroy');
-    });
-    $('.select2-drop, .select2-drop-mask').remove();
+  const destroyUsersSelect = (input) => {
+    jQuery(input).select2('destroy');
   };
 
   window.Thredded.onPageLoad(() => {
-    init()
+    Array.prototype.forEach.call(document.querySelectorAll(COMPONENT_SELECTOR), (node) => {
+      initUsersSelect(node);
+    });
   });
 
   document.addEventListener('turbolinks:before-cache', () => {
     // Turbolinks 5 clones the body node for caching, losing all the bound
     // events. Undo the select2 transformation before storing to cache,
     // so that it applies cleanly on restore.
-    destroy()
+    Array.prototype.forEach.call(document.querySelectorAll(COMPONENT_SELECTOR), (node) => {
+      destroyUsersSelect(node);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.select2-drop, .select2-drop-mask'), (node) => {
+      node.parentNode.removeChild(node);
+    });
   });
 
 })(jQuery);

@@ -1,4 +1,4 @@
-//= require ./thredded
+//= require thredded/core/thredded
 
 /**
  * Return a function, that, as long as it continues to be invoked, will

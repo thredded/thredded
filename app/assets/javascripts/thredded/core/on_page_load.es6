@@ -1,4 +1,4 @@
-//= require ./thredded
+//= require thredded/core/thredded
 
 (() => {
   const isTurbolinks = 'Turbolinks' in window && window.Turbolinks.supported;
