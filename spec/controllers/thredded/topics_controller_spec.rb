@@ -14,8 +14,7 @@ module Thredded
       allow(controller).to receive_messages(
         topics:        [@topic],
         cannot?:       false,
-        the_current_user:  user,
-        messageboard:  @messageboard
+        the_current_user:  user
       )
     end
 
@@ -30,6 +29,18 @@ module Thredded
       it 'performs canonical redirect' do
         get :index, params: { messageboard_id: @messageboard.id }
         expect(response).to redirect_to(action: :index, messageboard_id: @messageboard.slug)
+      end
+
+      context 'with missing messageboard' do
+        it 'returns a 404 for HTML requests' do
+          get :index, params: { messageboard_id: 'notfound' }
+          expect(response.status).to eq(404)
+        end
+
+        it 'returns a 404 for JSON requests' do
+          get :index, params: { messageboard_id: 'notfound', format: :json }
+          expect(response.status).to eq(404)
+        end
       end
     end
 
