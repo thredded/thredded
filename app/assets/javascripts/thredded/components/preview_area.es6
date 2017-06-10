@@ -15,11 +15,17 @@
       this.previewPost = form.querySelector(PREVIEW_AREA_POST_SELECTOR);
       this.previewUrl = this.preview.getAttribute('data-thredded-preview-url');
 
+      let prevValue = null;
       const onChange = Thredded.debounce(() => {
-        this.updatePreview()
+        if (prevValue !== textarea.value) {
+          this.updatePreview();
+          prevValue = textarea.value;
+        }
       }, 200, false);
 
       textarea.addEventListener('input', onChange, false);
+      // Triggered by textcomplete
+      textarea.addEventListener('change', onChange, false);
 
       this.requestId = 0;
     }

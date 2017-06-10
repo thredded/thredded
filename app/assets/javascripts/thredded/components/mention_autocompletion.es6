@@ -26,11 +26,6 @@ class ThreddedMentionAutocompletion {
     const textcomplete = new Textcomplete(editor, {
       dropdown: ThreddedMentionAutocompletion.DROPDOWN_OPTIONS,
     });
-    textcomplete.on('select', () => {
-      setTimeout(() => {
-        textarea.dispatchEvent(new Event('input'));
-      });
-    });
     textcomplete.register([{
       match: ThreddedMentionAutocompletion.MATCH_RE,
       search (term, callback, match) {
