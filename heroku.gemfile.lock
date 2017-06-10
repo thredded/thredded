@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.12.4)
+    thredded (0.13.0)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       db_text_search (~> 0.2.0)
