@@ -47,7 +47,6 @@ Table of Contents
     * [Reference your paths so that Thredded can find them](#reference-your-paths-so-that-thredded-can-find-them)
     * [Add Thredded styles](#add-thredded-styles)
     * [Add Thredded JavaScripts](#add-thredded-javascripts)
-      * [jQuery version](#jquery-version)
   * [User profile page](#user-profile-page)
   * [Customizing views](#customizing-views)
     * [View hooks](#view-hooks)
@@ -230,16 +229,6 @@ Include thredded JavaScripts in your `application.js`:
 
 Thredded is fully compatible with deferred and async script loading.
 
-##### jQuery version
-
-To use thredded with your application layout, you also need to ensure that your layout and thredded don't load different
-versions of jQuery. By default, Thredded loads jQuery v3 (via `//= require jquery3` from [jquery-rails]),
-but if you want to use jQuery v1 or v2, then you need to create a file at
-`app/assets/javascripts/thredded/dependencies/jquery.js` which contains just `//= require jquery`
-or `// require jquery2`. If you are not loading jQuery in your app, or if you are already using jQuery v3, then you don't need to do do this (You also don't need to worry about this if you are using the default ["Standalone" layout](#standalone-layout))
-
-[jquery-rails]: https://github.com/rails/jquery-rails
-
 ##### Rails UJS version
 
 By default, thredded loads `rails-ujs`. If you're using Rails before v5.1, you need to add `rails-ujs` to
@@ -265,7 +254,7 @@ echo '//= require jquery.timeago' > app/assets/javascripts/thredded/dependencies
 
 You will also need to adjust the `//= require` statements for timeago locales if your site is translated into multiple
 languages. For `jquery.timeago`, these need to be require after `thredded/dependencies` but before `thredded/thredded`.
-E.g. for Brazilian Portuguese:
+E.g. for Brazilian Portuguese with jquery.timeago:
 
  ```js
  //= require thredded/dependencies

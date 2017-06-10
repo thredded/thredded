@@ -1,4 +1,3 @@
-//= require thredded/dependencies/jquery
 //= require thredded/dependencies/timeago
 //= require thredded/dependencies/ujs
 //= require autosize
