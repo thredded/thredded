@@ -21,9 +21,6 @@
 
       textarea.addEventListener('input', onChange, false);
 
-      // Listen to the jQuery change event as that's what is triggered by plugins such as jquery.textcomplete.
-      jQuery(textarea).on('change', onChange);
-
       this.requestId = 0;
     }
 
