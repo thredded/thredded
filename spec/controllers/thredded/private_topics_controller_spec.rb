@@ -9,12 +9,7 @@ module Thredded
     let(:user) { create(:user) }
     before { allow(controller).to receive_messages(thredded_current_user: user) }
 
-    describe 'create' do
-      subject do
-        post :create, params: {
-          private_topic: { content: 'blah', user_ids: [create(:user).id], title: 'titleasdfa' }
-        }
-      end
+    shared_examples 'private topic creation' do
       it 'creates one' do
         expect { subject }.to change { PrivateTopic.count }
       end
@@ -25,6 +20,24 @@ module Thredded
         expect(notifier).to receive(:run)
         subject
       end
+    end
+
+    describe 'create with user IDs' do
+      subject do
+        post :create, params: {
+          private_topic: { content: 'blah', user_ids: [create(:user).id], title: 'titleasdfa' }
+        }
+      end
+      include_examples 'private topic creation'
+    end
+
+    describe 'create with user names' do
+      subject do
+        post :create, params: {
+          private_topic: { content: 'blah', user_names: create(:user).name, title: 'titleasdfa' }
+        }
+      end
+      include_examples 'private topic creation'
     end
   end
 end

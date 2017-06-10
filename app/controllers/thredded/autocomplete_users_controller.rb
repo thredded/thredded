@@ -29,7 +29,6 @@ module Thredded
       end
     end
 
-    # This method is used by select2 do fetch users by ids, e.g. in case of a browser-prefilled field.
     def users_by_ids
       ids = params[:ids].to_s.split(',')
       if ids.present?

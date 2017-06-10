@@ -6,9 +6,8 @@
 
   class ThreddedPreviewArea {
 
-    constructor(form) {
+    constructor(form, textarea) {
       const preview = form.querySelector(PREVIEW_AREA_SELECTOR);
-      const textarea = form.querySelector('textarea');
       if (!preview || !textarea) return;
       this.form = form;
       this.preview = preview;
@@ -24,8 +23,6 @@
       }, 200, false);
 
       textarea.addEventListener('input', onChange, false);
-      // Triggered by textcomplete
-      textarea.addEventListener('change', onChange, false);
 
       this.requestId = 0;
     }

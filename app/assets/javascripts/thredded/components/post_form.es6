@@ -10,16 +10,17 @@
   const autosize = window.autosize;
 
   const COMPONENT_SELECTOR = '[data-thredded-post-form]';
+  const CONTENT_TEXTAREA_SELECTOR = 'textarea[name$="[content]"]';
 
   const initPostForm = (form) => {
-    const textarea = form.querySelector('textarea');
+    const textarea = form.querySelector(CONTENT_TEXTAREA_SELECTOR);
     autosize(textarea);
-    new ThreddedPreviewArea(form);
-    new ThreddedMentionAutocompletion().init(form);
+    new ThreddedPreviewArea(form, textarea);
+    ThreddedMentionAutocompletion.init(form, textarea);
   };
 
   const destroyPostForm = (form) => {
-    autosize.destroy(form.querySelector('textarea'));
+    autosize.destroy(form.querySelector(CONTENT_TEXTAREA_SELECTOR));
   };
 
   Thredded.onPageLoad(() => {
