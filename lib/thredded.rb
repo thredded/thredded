@@ -26,7 +26,6 @@ require 'thredded/html_pipeline/wrap_iframes_filter'
 require 'autoprefixer-rails'
 require 'jquery/rails'
 require 'timeago_js'
-require 'select2-rails'
 require 'sprockets/es6'
 
 require 'thredded/version'

@@ -33,3 +33,16 @@ ul.thredded--textcomplete-dropdown {
 }
 
 
+.thredded--textcomplete-user-result {
+  &__avatar {
+    width: 2rem;
+    min-height: 2rem;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &__name {
+    display: inline-block;
+    margin-left: 0.6rem
+  }
+}

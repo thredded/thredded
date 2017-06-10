@@ -3,7 +3,6 @@
 //= require thredded/dependencies/ujs
 //= require autosize
 //= require thredded/dependencies/textcomplete
-//= require select2
 
 // We are not currently using any features that require the Babel polyfill
 // Enable this if we do:

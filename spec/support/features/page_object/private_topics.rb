@@ -32,7 +32,7 @@ module PageObject
       user = create(:user, name: 'carl')
       visit new_private_topic_path
       fill_in I18n.t('thredded.private_topics.form.title_label'), with: private_title
-      find(:css, '#private_topic_user_ids').set(user.id)
+      find(:css, '[name="private_topic[user_names]"]').set(user.name)
       fill_in I18n.t('thredded.private_topics.form.content_label'), with: 'not for others'
 
       click_on I18n.t('thredded.private_topics.form.create_btn')

@@ -14,12 +14,13 @@
       <%= form.text_field :title, placeholder: placeholder, required: true %>
     </li>
     <li>
-      <%= form.label :user_ids, t('thredded.private_topics.form.users_label') %>
-      <%= form.text_field :user_ids,
-                          placeholder: t('thredded.private_topics.form.users_placeholder'),
-                          'data-thredded-users-select' => true,
-                          'data-autocomplete-url' => autocomplete_users_path,
-                          'data-autocomplete-min-length' => Thredded.autocomplete_min_length %>
+      <%= form.label :user_names, t('thredded.private_topics.form.users_label') %>
+      <%= form.text_area :user_names,
+                         placeholder: t('thredded.private_topics.form.users_placeholder'),
+                         'data-thredded-users-select' => true,
+                         'data-autocomplete-url' => autocomplete_users_path,
+                         'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
+                         rows: 1 %>
     </li>
 
     <%= render 'thredded/posts_common/form/content',

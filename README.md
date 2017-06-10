@@ -355,21 +355,11 @@ $thredded-brand: #9c27b0;
 @import "thredded";
 ```
 
-The `@import "thredded"` directive above will import thredded styles and the [dependencies][thredded-scss-dependencies]
-(currently just "select2" from [select2-rails]). If you already include your own styles for any of thredded
-dependencies, you can import just the thredded styles alone like this:
-
-```scss
-// application.scss
-@import "thredded/thredded";
-```
-
 If you are writing a Thredded plugin, import the [`thredded/base`][thredded-scss-base] Sass package instead.
 The `base` package only defines variables, mixins, and %-placeholders, so it can be imported safely without producing
 any duplicate CSS.
 
 [thredded-scss-dependencies]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_dependencies.scss
-[select2-rails]: https://github.com/argerim/select2-rails
 [thredded-scss-base]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_base.scss
 
 ### Email and other notifications
@@ -658,8 +648,8 @@ To achieve the above, all the Thredded code must register onload via
 
 ```js
 window.Thredded.onPageLoad(() => {
-  // Initialize widgets:
-  $('[data-thredded-select2]').select2();
+  // Initialize widgets
+  autosize('textarea');
 });
 ```
 
@@ -675,8 +665,8 @@ e.g.:
 
 ```js
 document.addEventListener('turbolinks:before-cache', () => {
-  // Destroy widgets:
-  $('[data-thredded-select2]').select2('destroy');
+  // Destroy widgets
+  autosize.destroy('textarea');
 });
 ```
 
