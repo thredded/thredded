@@ -1,3 +1,20 @@
+# v0.13.0
+
+This release removes jQuery dependency from Thredded JavaScripts, reducing the size of the Thredded JavaScript bundle
+from 67 KiB to 22 KiB gzipped.
+
+## Changed
+
+* rails-ujs is used instead of jquery_ujs by default. [#592](https://github.com/thredded/thredded/pull/592)
+  See the [README](https://github.com/thredded/thredded/#rails-ujs-version) for more information.
+* select2 -> [textcomplete], split by commas.
+  [#597](https://github.com/thredded/thredded/pull/597)
+* [jquery.textcomplete] -> [textcomplete] [#596](https://github.com/thredded/thredded/pull/596)
+* jquery.timeago -> timeago.js [#591](https://github.com/thredded/thredded/pull/591)
+
+[jquery.textcomplete]: https://github.com/yuku-t/jquery-textcomplete
+[textcomplete]: https://github.com/yuku-t/textcomplete
+
 # v0.12.4
 
 This release adds the ability to tell Thredded with version of Rails UJS to use.
