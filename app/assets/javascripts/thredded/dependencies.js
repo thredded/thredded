@@ -3,7 +3,7 @@
 //= require jquery.timeago
 //= require thredded/dependencies/ujs
 //= require autosize
-//= require jquery.textcomplete
+//= require thredded/dependencies/textcomplete
 //= require select2
 
 // We are not currently using any features that require the Babel polyfill

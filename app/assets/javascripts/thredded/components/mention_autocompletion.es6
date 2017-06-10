@@ -22,7 +22,16 @@ class ThreddedMentionAutocompletion {
   }
 
   automentionCompletion(textarea, autocompleteUrl) {
-    jQuery(textarea).textcomplete([{
+    const editor = new Textcomplete.editors.Textarea(textarea);
+    const textcomplete = new Textcomplete(editor, {
+      dropdown: ThreddedMentionAutocompletion.DROPDOWN_OPTIONS,
+    });
+    textcomplete.on('select', () => {
+      setTimeout(() => {
+        textarea.dispatchEvent(new Event('input'));
+      });
+    });
+    textcomplete.register([{
       match: ThreddedMentionAutocompletion.MATCH_RE,
       search (term, callback, match) {
         if(term.length < this.autocompleteMinLength){
@@ -55,8 +64,12 @@ class ThreddedMentionAutocompletion {
           return `${prefix}${name} `
         }
       }
-    }], {dropdownClassName: 'thredded--textcomplete-dropdown'});
+    }]);
   }
 }
 
 ThreddedMentionAutocompletion.MATCH_RE = /(^@|\s@)"?([\w.,\- ()]+)$/;
+ThreddedMentionAutocompletion.DROPDOWN_OPTIONS = {
+  className: 'thredded--textcomplete-dropdown',
+  maxCount: 6,
+};
