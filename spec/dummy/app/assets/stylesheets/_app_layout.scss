@@ -108,13 +108,16 @@ $app-nav-font-size: 0.9rem;
     padding: 0;
     > li {
       display: inline;
-      > button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: inherit;
-        padding: 0;
-        @extend %thredded--link;
+      > form {
+        display: inline-block;
+        > button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: inherit;
+          padding: 0;
+          @extend %thredded--link;
+        }
       }
       > span {
         color: $thredded-secondary-text-color;

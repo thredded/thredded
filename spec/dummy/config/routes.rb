@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show], path: 'u'
 
+  post '/settings/set-locale/:locale' => 'settings#update_locale', as: :update_locale
+  post '/settings/set-theme/:theme' => 'settings#update_theme', as: :update_theme
+
   mount RailsEmailPreview::Engine, at: '/emails'
   mount Thredded::Engine => '/thredded'
 end
