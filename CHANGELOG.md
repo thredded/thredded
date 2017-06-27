@@ -1,3 +1,14 @@
+# v0.13.1
+
+This is a minor bugfix release.
+
+## Fixed
+
+* Maps onebox display for onebox v1.8.4+ and bumps the minimum required onebox version to v1.8.13.
+  [#198dbeeb](https://github.com/thredded/thredded/commit/198dbeebf32c509db0afb65c33293394581defd9)
+* Autoloading conflicts when the parent app defines constants with the same name as Thredded constants.
+  [#e2ebb1e4](https://github.com/thredded/thredded/commit/e2ebb1e418894c65f8b884821e2d7be085af3715)
+
 # v0.13.0
 
 This release removes jQuery dependency from Thredded JavaScripts, reducing the size of the Thredded JavaScript bundle
