@@ -33,7 +33,7 @@ module Thredded
       ActiveRecord::Base.transaction do
         topic.save!
         post.save!
-        UserTopicReadState.read_on_first_post!(user, topic) if topic.previous_changes.include?(:id)
+        Thredded::UserTopicReadState.read_on_first_post!(user, topic) if topic.previous_changes.include?(:id)
       end
       true
     end
@@ -75,7 +75,7 @@ module Thredded
     def topic_categories
       if category_ids
         ids = category_ids.reject(&:empty?)
-        Category.where(id: ids)
+        Thredded::Category.where(id: ids)
       else
         []
       end

@@ -12,14 +12,14 @@ module Thredded
     after_action :verify_authorized
 
     def new
-      @post_form = PrivatePostForm.new(
+      @post_form = Thredded::PrivatePostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_private_post_params
       )
       authorize_creating @post_form.post
     end
 
     def create
-      @post_form = PrivatePostForm.new(
+      @post_form = Thredded::PrivatePostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_private_post_params
       )
       authorize_creating @post_form.post
@@ -31,7 +31,7 @@ module Thredded
     end
 
     def edit
-      @post_form = PrivatePostForm.for_persisted(post)
+      @post_form = Thredded::PrivatePostForm.for_persisted(post)
       authorize @post_form.post, :update?
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       render
@@ -79,7 +79,7 @@ module Thredded
     end
 
     def parent_topic
-      PrivateTopic
+      Thredded::PrivateTopic
         .includes(:private_users)
         .friendly
         .find(params[:private_topic_id])

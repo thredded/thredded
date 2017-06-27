@@ -12,14 +12,14 @@ module Thredded
 
     # @return [boolean] true if the messageboard was created and seeded with a topic successfully.
     def run
-      Messageboard.transaction do
+      Thredded::Messageboard.transaction do
         fail ActiveRecord::Rollback unless @messageboard.save
-        topic = Topic.create!(
+        topic = Thredded::Topic.create!(
           messageboard: @messageboard,
           user: @user,
           title: first_topic_title
         )
-        Post.create!(
+        Thredded::Post.create!(
           messageboard: @messageboard,
           user: @user,
           postable: topic,

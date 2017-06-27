@@ -105,7 +105,7 @@ module Thredded
     # @return [Thredded::Messageboard]
     # @raise [Thredded::Errors::MessageboardNotFound] if the messageboard with the given slug does not exist.
     def messageboard
-      @messageboard ||= Messageboard.friendly_find!(params[:messageboard_id])
+      @messageboard ||= Thredded::Messageboard.friendly_find!(params[:messageboard_id])
     end
 
     def messageboard_or_nil

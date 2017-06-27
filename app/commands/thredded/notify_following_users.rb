@@ -31,9 +31,9 @@ module Thredded
 
     def users_subscribed_via(notifier)
       subscribed_users.select do |user|
-        NotificationsForFollowedTopics
+        Thredded::NotificationsForFollowedTopics
           .detect_or_default(user.thredded_notifications_for_followed_topics, notifier).enabled? &&
-          MessageboardNotificationsForFollowedTopics
+          Thredded::MessageboardNotificationsForFollowedTopics
             .detect_or_default(messageboard_notifier_prefs_by_user_id[user.id], notifier).enabled?
       end
     end
@@ -52,7 +52,7 @@ module Thredded
     private
 
     def messageboard_notifier_prefs_by_user_id
-      @messageboard_notifier_prefs_by_user_id ||= MessageboardNotificationsForFollowedTopics
+      @messageboard_notifier_prefs_by_user_id ||= Thredded::MessageboardNotificationsForFollowedTopics
         .where(user_id: subscribed_users.map(&:id))
         .for_messageboard(@post.messageboard).group_by(&:user_id)
     end

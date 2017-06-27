@@ -172,7 +172,7 @@ module Thredded
       # Update the associated messageboard metadata that Rails does not update them automatically.
       previous_changes['messageboard_id'].each do |messageboard_id|
         Thredded::Messageboard.reset_counters(messageboard_id, :topics, :posts)
-        Messageboard.find(messageboard_id).update_last_topic!
+        Thredded::Messageboard.find(messageboard_id).update_last_topic!
       end
     end
   end

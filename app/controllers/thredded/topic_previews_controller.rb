@@ -6,7 +6,7 @@ module Thredded
     include Thredded::RenderPreview
 
     def preview
-      form = TopicForm.new(new_topic_params)
+      form = Thredded::TopicForm.new(new_topic_params)
       @post = form.post
       @post.postable = form.topic
       render_preview

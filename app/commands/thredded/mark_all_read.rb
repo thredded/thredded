@@ -10,7 +10,7 @@ module Thredded
         last_post = topic.posts.order_oldest_first.last
         total_pages = topic.posts.page(1).total_pages
 
-        UserPrivateTopicReadState.touch!(
+        Thredded::UserPrivateTopicReadState.touch!(
           user.id,
           topic.id,
           last_post,

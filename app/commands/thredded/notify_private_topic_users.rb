@@ -26,7 +26,7 @@ module Thredded
 
     def only_those_with_this_notifier_enabled(users, notifier)
       users.select do |user|
-        NotificationsForPrivateTopics
+        Thredded::NotificationsForPrivateTopics
           .detect_or_default(user.thredded_notifications_for_private_topics, notifier).enabled?
       end
     end

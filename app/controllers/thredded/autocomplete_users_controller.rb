@@ -5,7 +5,7 @@ module Thredded
     MAX_RESULTS = 20
 
     def index
-      authorize_creating PrivateTopicForm.new(user: thredded_current_user).private_topic
+      authorize_creating Thredded::PrivateTopicForm.new(user: thredded_current_user).private_topic
       users = params.key?(:q) ? users_by_prefix : users_by_ids
       render json: {
         results: users.map do |user|

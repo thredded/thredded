@@ -5,10 +5,10 @@ module Thredded
     queue_as :default
 
     def perform(post_id)
-      post = Post.find(post_id)
+      post = Thredded::Post.find(post_id)
 
-      AutofollowUsers.new(post).run
-      NotifyFollowingUsers.new(post).run
+      Thredded::AutofollowUsers.new(post).run
+      Thredded::NotifyFollowingUsers.new(post).run
     end
   end
 end

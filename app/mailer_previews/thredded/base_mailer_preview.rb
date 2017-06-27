@@ -23,7 +23,7 @@ Additionally, Markdown is extended to support the following:
 
     def mock_topic(attr = {})
       fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
-      Topic.new(
+      Thredded::Topic.new(
         attr.reverse_merge(
           title:        'A test topic',
           slug:         'a-test-topic',
@@ -41,7 +41,7 @@ Additionally, Markdown is extended to support the following:
 
     def mock_post(attr = {})
       topic = attr[:postable] || mock_topic
-      Post.new(
+      Thredded::Post.new(
         attr.reverse_merge(
           content:      'A test post',
           created_at:   Time.zone.now,
@@ -56,7 +56,7 @@ Additionally, Markdown is extended to support the following:
 
     def mock_private_topic(attr = {})
       fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
-      PrivateTopic.new(
+      Thredded::PrivateTopic.new(
         attr.reverse_merge(
           title:       'A test private topic',
           slug:        'a-test-private-topic',
@@ -71,7 +71,7 @@ Additionally, Markdown is extended to support the following:
 
     def mock_private_post(attr = {})
       private_topic = attr[:postable] || mock_private_topic
-      PrivatePost.new(
+      Thredded::PrivatePost.new(
         attr.reverse_merge(
           content:    'A test private post',
           created_at: Time.zone.now,
@@ -85,7 +85,7 @@ Additionally, Markdown is extended to support the following:
 
     def mock_messageboard(attr = {})
       fail 'Do not assign ID here or a has_many association might get updated' if attr.key?(:id)
-      Messageboard.new(
+      Thredded::Messageboard.new(
         attr.reverse_merge(
           name:         'A test messageboard',
           slug:         'a-test-messageboard',

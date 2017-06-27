@@ -8,17 +8,17 @@ module Thredded
     after_action :verify_policy_scoped, except: %i[new create edit update]
 
     def index
-      @groups = MessageboardGroupView.grouped(policy_scope(Messageboard.all))
+      @groups = Thredded::MessageboardGroupView.grouped(policy_scope(Thredded::Messageboard.all))
     end
 
     def new
-      @messageboard = Messageboard.new
-      @messageboard_group = MessageboardGroup.all
+      @messageboard = Thredded::Messageboard.new
+      @messageboard_group = Thredded::MessageboardGroup.all
       authorize_creating @messageboard
     end
 
     def create
-      @messageboard = Messageboard.new(messageboard_params)
+      @messageboard = Thredded::Messageboard.new(messageboard_params)
       authorize_creating @messageboard
       if Thredded::CreateMessageboard.new(@messageboard, thredded_current_user).run
         redirect_to root_path
@@ -28,12 +28,12 @@ module Thredded
     end
 
     def edit
-      @messageboard = Messageboard.friendly_find!(params[:id])
+      @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       authorize @messageboard, :update?
     end
 
     def update
-      @messageboard = Messageboard.friendly_find!(params[:id])
+      @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       authorize @messageboard, :update?
       if @messageboard.update(messageboard_params)
         redirect_to messageboard_topics_path(@messageboard), notice: I18n.t('thredded.messageboard.updated_notice')
