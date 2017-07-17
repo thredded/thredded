@@ -114,7 +114,7 @@ ru:
       updated_notice: Ваши настройки были обновлены.
     private_posts:
       form:
-        content_label: Сообшение
+        content_label: Сообщение
         create_btn: Послать сообщение
         create_btn_submitting: Посылаю...
         update_btn_submitting: :thredded.form.update_btn_submitting
