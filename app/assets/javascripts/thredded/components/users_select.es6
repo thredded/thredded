@@ -1,6 +1,6 @@
 //= require thredded/core/on_page_load
 //= require thredded/components/user_textcomplete
-//= require autosize
+//= require thredded/dependencies/autosize
 
 (() => {
   const Thredded = window.Thredded;

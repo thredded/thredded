@@ -1,4 +1,4 @@
-//= require autosize
+//= require thredded/dependencies/autosize
 //= require thredded/core/on_page_load
 //= require thredded/components/mention_autocompletion
 //= require thredded/components/preview_area
