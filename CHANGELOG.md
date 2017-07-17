@@ -1,3 +1,9 @@
+# v0.13.2
+
+This release updates the bundled JavaScript dependencies, [autosize] and [textcomplete], to their latest versions.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.1...v0.13.2.
+
 # v0.13.1
 
 This is a minor bugfix release.
