@@ -23,7 +23,7 @@
     - |
       https://www.youtube.com/watch?v=MrQmQp2P3g4
     - |
-      <div class="thredded--embed-16-by-9"><iframe width="480" height="360" src="https://www.youtube.com/embed/MrQmQp2P3g4?feature=oembed&amp;wmode=opaque" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox">
+      <div class="thredded--embed-16-by-9"><iframe width="480" height="360" src="https://www.youtube.com/embed/MrQmQp2P3g4?feature=oembed&amp;wmode=opaque" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation">
 
   quotes in markdown:
     - |
@@ -44,7 +44,7 @@
    - |
      <blockquote>
      <p>Here is a video:</p>
-     <div class="thredded--embed-16-by-9"><iframe width="480" height="360" src="https://www.youtube.com/embed/MrQmQp2P3g4?feature=oembed&amp;wmode=opaque" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox">
+     <div class="thredded--embed-16-by-9"><iframe width="480" height="360" src="https://www.youtube.com/embed/MrQmQp2P3g4?feature=oembed&amp;wmode=opaque" frameborder="0" allowfullscreen="" seamless="seamless" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation">
      </iframe></div>
      </blockquote>
 
