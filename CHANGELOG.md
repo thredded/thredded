@@ -1,3 +1,10 @@
+# Master
+
+## Added
+
+* French localization :fr:.
+  [#605](https://github.com/thredded/thredded/pull/605)
+
 # v0.13.2
 
 This release updates the bundled JavaScript dependencies, [autosize] and [textcomplete], to their latest versions.
