@@ -229,7 +229,9 @@ Include thredded JavaScripts in your `application.js`:
 
 Thredded is fully compatible with deferred and async script loading.
 
-##### Rails UJS version
+##### Alternative JavaScript dependencies
+
+<details><summary><b>Rails UJS version</b></summary>
 
 By default, thredded loads `rails-ujs`. If you're using Rails before v5.1, you need to add `rails-ujs` to
 your Gemfile.
@@ -240,8 +242,9 @@ If you'd like it to use `jquery_ujs` instead, run this command from your app dir
 mkdir -p app/assets/javascripts/thredded/dependencies/
 printf '//= require jquery3\n//= require jquery_ujs\n' > app/assets/javascripts/thredded/dependencies/ujs.js
 ```
+</details>
 
-##### Timeago version
+<details><summary><b>Timeago version</b></summary>
 
 By default, thredded loads `timeago.js`.
 
@@ -261,6 +264,7 @@ E.g. for Brazilian Portuguese with jquery.timeago:
  //= require locales/jquery.timeago.pt-br
  //= require thredded/thredded
  ```
+</details>
 
 #### Thredded page title and ID
 
