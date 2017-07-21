@@ -6,6 +6,42 @@ es:
       content_blocked_notice_with_record_html: Censurado por %{moderator} hace %{time_ago}
     email_notifier:
       by_email: vía email
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Este correo electrónico se te envió porque %{user} te incluyó en un tema privado, "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: 'Un nuevo mensaje de %{user} en <a href="%{post_url}">"%{topic_title}"</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Un nuevo mensaje de %{user} en "%{topic_title}"
+        text:
+          email_sent_reason: |-
+            Este correo electrónico se te envió porque %{user} te incluyó en
+            el tema privado "%{topic_title}".
+
+            Ve aquí para ver la conversación:
+            %{post_url}
+          post_lead: 'Un nuevo mensaje de %{user} en "%{topic_title}":'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Este correo electrónico se le envió porque está siguiendo este tema: "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: '%{user} <a href="%{post_url}">dijo en "%{topic_title}"</a>:'
+          unsubscribe_instructions_html: >-
+            Para cancelar la suscripción a estos correos electrónicos, actualice sus <a href="%{preferences_url}">preferencias</a>.
+        subject: Un nuevo mensaje en "%{topic_title}" de %{user}
+        text:
+          email_sent_reason: |-
+            Este correo electrónico se te envió porque estás siguiendo
+            el tema "%{topic_title}".
+
+            Ve aquí para ver la conversación:
+            %{post_url}
+          post_lead: '%{user} dijo en "%{topic_title}":'
+          unsubscribe_instructions: |-
+            Para anular la suscripción de estos correos electrónicos, actualice sus preferencias aquí:
+            %{unsubscribe_url}
     errors:
       login_required: Por favor, inicia sesión.
       not_authorized: No estás autorizado para ver esta página.
