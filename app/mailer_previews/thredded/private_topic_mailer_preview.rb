@@ -4,12 +4,8 @@ module Thredded
   # Previews for the PrivateTopicMailer
   class PrivateTopicMailerPreview < BaseMailerPreview
     def message_notification
-      post = mock_private_post(content: mock_content(mention_users: ['glebm']))
       PrivateTopicMailer.message_notification(
-        mock_private_topic(posts: [
-                             post
-                           ]),
-        post,
+        mock_private_post(content: mock_content(mention_users: ['glebm'])),
         %w[glebm@test.com joel@test.com]
       )
     end
