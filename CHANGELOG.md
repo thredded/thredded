@@ -4,6 +4,8 @@
 
 * French localization :fr:.
   [#605](https://github.com/thredded/thredded/pull/605)
+* Email templates now use i18n throughout. The copy has been improved.
+  [#607](https://github.com/thredded/thredded/pull/607)
 
 # v0.13.2
 
