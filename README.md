@@ -387,8 +387,12 @@ Here are the steps to ensure the best support for your language if it isn't Engl
 2. Require the translations for timeago.js in your JavaScript. E.g. for Brazilian Portuguese:
 
    ```js
+   //= require thredded/dependencies/timeago
    //= require timeago/locales/pt_BR
+   //= require thredded
    ```
+
+   Note that it is important that timeago and its locales are required *before* `//= require thredded`.
 
 3. To generate URL slugs for messageboards, categories, and topics with support for more language than English,
    you can use a gem like [babosa](https://github.com/norman/babosa).
