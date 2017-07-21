@@ -1,0 +1,202 @@
+---
+fr:
+  thredded:
+    content_moderation_states:
+      content_blocked_notice: Bloqué
+      content_blocked_notice_with_record_html: Bloqué par %{moderator} %{time_ago}
+    email_notifier:
+      by_email: via email
+    errors:
+      login_required: Connectez vous s'il vous plait
+      not_authorized: Vous n'êtes pas authorisé à accéder à cette page.
+      private_topic_create_denied: Vous n'êtes pas authorisé à créer des sujets.
+      private_topic_not_found: Ce sujet privé n'existe pas.
+    form:
+      create_btn_submitting: Création en cours...
+      preview: Aperçu
+      update: Mise à jour
+      update_btn_submitting: Mise à jour en cours...
+    messageboard:
+      create: Créer une Nouvelle Catégorie
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
+        description_label: Description
+        messageboard_group_id_label: Groupe de la catégorie
+        no_group: Pas de groupe
+        title_label: Nom
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      index:
+        page_title: Catégories
+      last_updated_by_html: Mise à jour %{time_ago} <cite>par %{user}</cite>
+      topics_and_posts_counts: "%{topics_count} sujets / %{posts_count} commentaires"
+      update: :thredded.form.update
+      updated_notice: La catégorie a été mise à jour
+    messageboard_group:
+      create: Créer un nouveau groupe de catégorie
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
+      saved: Le Groupe %{name} a été créé
+    moderation:
+      approve_btn: Approuver
+      block_btn: Bloqué
+      pending:
+        empty:
+          content: Tous les commentaires ont été modérés.
+          title: Bien joué!
+      post_approved_html: Commentaire approuvé par %{moderator} %{time_ago}.
+      post_blocked_html: Commentaire bloqué par %{moderator} %{time_ago}.
+      post_deleted_notice: Ce commentaire a été effacé.
+      posts_content_changed_since_moderation_html: >-
+        Le <a href="%{post_url}">commentaire</a> a changé depuis qu'il a été modéré.
+        La date de modération est affiché en dessous.
+      search_users:
+        form_label: Rechercher des utilisateurs
+        form_placeholder: :thredded.moderation.search_users.form_label
+        no_results_message: Aucun utilisateur avec un nom commençant par %{query}
+        results_message: Utilisateurs avec le nom commençant par %{query}
+    nav:
+      all_messageboards: Toutes les catégories
+      edit_messageboard: Éditer la catégorie
+      edit_post: Éditer le commentaire
+      edit_private_topic: :thredded.nav.edit_topic
+      edit_topic: Éditer
+      mark_all_read: Marquer comme lu
+      moderation: Modération
+      moderation_activity: Activité
+      moderation_history: Historique
+      moderation_pending: En attente
+      moderation_users: Utilisateurs
+      private_topics: Messages Privés
+      settings: Paramètres de Notifications
+    null_user_name: Utilisateur effacé
+    posts:
+      delete: Supprimer le commentaire
+      delete_confirm: Êtes-vous sure de vouloir effacé ce commentaire ?
+      deleted_notice: Votre commentaire a été effacé.
+      edit: :thredded.nav.edit_post
+      form:
+        content_label: Contenu
+        create_btn: Soumettre la réponse
+        create_btn_submitting: Soumission en cours...
+        title_label: Écrire un commentaire
+        update_btn: Mettre à jour le commentaire
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      pending_moderation_notice: Votre commentaire sera publié dès lors qu'il aura été validé par un modérateur.
+      quote_btn: Citer
+    preferences:
+      edit:
+        page_title: :thredded.nav.settings
+      form:
+        auto_follow_topics:
+          hint: Suivre automatiquement les nouveaux sujets. Changer ce paramètre affectera aussi toutes les catégories.
+          label: Suivre tout les nouveaux sujets
+        follow_topics_on_mention:
+          hint: "Suivre un sujet lorsqu'on est mentionné par son nom (exemple: @marc)"
+          label: Suivre un sujet dans lequel vous êtes mentionné
+        messageboard_auto_follow_topics:
+          hint: Suivre automatiquement tout les nouveaux sujets dans cette catégorie.
+            Ce paramètre outrepasse le paramètre relatif au dessus.
+          label: Suivre tout les nouveaux sujets
+        messageboard_follow_topics_on_mention:
+          hint: "Quand quelqu'un mentionnera votre nom (exemple: @marc) dans cette catégorie, vous serez abonné au
+            sujet."
+          label: :thredded.preferences.form.follow_topics_on_mention.label
+        messageboard_notifications_for_followed_topics:
+          label: :thredded.preferences.form.notifications_for_followed_topics.label
+        notifications_for_followed_topics:
+          label: Notifications pour les sujets suivis
+        notifications_for_private_topics:
+          label: Notifications pour les messages privés
+        submit_btn: Mettre à jour les paramètres
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      global_preferences_title: Paramètres Globaux
+      messageboard_preferences_nav_title: Paramètre de la Catégorie
+      messageboard_preferences_title_html: Paramètre pour <em>%{messageboard}</em>
+      updated_notice: Vos paramètres ont été mise à jour.
+    private_posts:
+      form:
+        content_label: Message
+        create_btn: Envoyer le Message
+        create_btn_submitting: Message en cours d'envoi...
+        update_btn_submitting: :thredded.form.update_btn_submitting
+    private_topics:
+      edit: Éditer
+      errors:
+        user_ids_length: Spécifier au moins un autre utilisateur.
+      form:
+        content_label: :thredded.private_posts.form.content_label
+        create_btn: :thredded.private_posts.form.create_btn
+        create_btn_submitting: :thredded.private_posts.form.create_btn_submitting
+        title_label: :thredded.topics.form.title_label
+        title_placeholder_new: Écrire le sujet de cette conversation
+        title_placeholder_start: Commencer une nouvelle conversation
+        update_btn: Mettre à jour
+        update_btn_submitting: :thredded.private_posts.form.update_btn_submitting
+        users_label: Participants
+        users_placeholder: Sélectionner les utilisateurs qui participeront à cette conversation
+      no_private_topics:
+        create_btn: Commencer votre première conversation
+        title: Vous n'avez pas de messages privés.
+      updated_notice: Titre mise à jour
+    recent_activity: Activité récente
+    search:
+      form:
+        btn_submit: :thredded.search.form.label
+        label: Recherche
+        placeholder: Rechercher un Sujet ou un Commentaire
+    time_ago: "il y a %{time}"
+    topics:
+      delete_confirm: Êtes-vous sur de vouloir supprimer ce sujet ? Cette action est irréversible.
+      delete_topic: Supprimer le Sujet
+      deleted_notice: Sujet supprimé
+      edit: Éditer le Sujet
+      follow: Suivre le sujet
+      followed_by: 'Suivi par :'
+      followed_by_noone: Personne ne suit ce sujet
+      followed_notice: Vous suivez ce sujet
+      following:
+        auto: vous suivez ce sujet car la fonction de suivi automatique est activée.
+        manual: Vous suivez ce sujet.
+        mentioned: Vous suivez ce sujet car vous y avait été mentionné.
+        posted: Vous suivez ce sujet car vous y avait écris un commentaire.
+      form:
+        categories_placeholder: Catégories
+        content_label: :thredded.posts.form.content_label
+        create_btn: Créer un Nouveau Sujet
+        messageboard_label: Catégorie
+        title_label: Titre
+        title_placeholder: :thredded.topics.form.title_label
+        title_placeholder_start: Commencer un Nouveau Sujet
+        update_btn: Mettre à jour le Sujet
+      locked:
+        label: Verrouillé
+      mark_as_unread: Marquer comme non lu à partir d'ici
+      not_following: Vous ne suivez pas ce sujet.
+      search:
+        no_results_in_messageboard_message_html: Il n'y a aucun résultat pour votre recherche <q>%{query}</q> dans %{messageboard}
+        no_results_message_html: Il n'y a aucun résultat pour votre recherche <q>%{query}</q>
+        page_title: Résultat de la Recherche de Sujet
+        results_in_messageboard_message_html: Recherche pour <q>%{query}</q> dans %{messageboard}
+        results_message_html: Recherche pour <q>%{query}</q>
+        search_in_all_messageboards_btn: Chercher partout
+      started_by_html: Démarré %{time_ago} par %{user}
+      sticky:
+        label: Collant
+      unfollow: Arrêter de Suivre
+      unfollowed_notice: Vous ne suivez dorénavant plus ce sujet
+      updated_notice: Sujet mis à jour
+    users:
+      currently_online: En ce moment connecté
+      last_active_html: 'Actif pour la dernière fois : %{time_ago}'
+      posted_in_topic_html: Commenté dans %{topic_link}
+      posts_count:
+        one: Commenté une seule fois
+        other: Commenté %{count} fois
+      recent_activity: :thredded.recent_activity
+      started_topic_html: Démarré %{topic_link}
+      started_topics_count:
+        one: Démarré un sujet
+        other: Démarré %{count} sujets
+      user_posted_in_topic_html: "%{user_link} a commenté dans %{topic_link}"
+      user_since_html: Utilisateur depuis %{time_ago}
+      user_started_topic_html: "%{user_link} démarré %{topic_link}"
