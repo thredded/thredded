@@ -6,6 +6,40 @@ ru:
       content_blocked_notice_with_record_html: Блокировано %{moderator} %{time_ago}
     email_notifier:
       by_email: email
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Это письмо было отправлено вам, потому что %{user} добавил вас в приватную тему «<a href="%{post_url}">%{topic_title}</a>».
+          post_lead_html: 'Новое сообщение от %{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Новое сообщение от %{user} в «%{topic_title}»
+        text:
+          email_sent_reason: |-
+            Это письмо было отправлено вам, потому что %{user} добавил вас в
+            приватную тему «%{topic_title}».
+
+            Перейдите сюда, чтобы просмотреть разговор:
+            %{post_url}
+          post_lead: 'Новое сообщение от %{user} в «%{topic_title}»:'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Это письмо было отправлено вам, потому что вы подписаны на тему: «<a href="%{post_url}">%{topic_title}</a>».
+          post_lead_html: '%{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
+          unsubscribe_instructions_html: Чтобы отписаться от этих писем, обновите свои <a href="%{preferences_url}">настройки</a>.
+        subject: Новое сообщение в «%{topic_title}» от %{user}
+        text:
+          email_sent_reason: |-
+            Это письмо было отправлено вам, потому что вы подписаны на тему «%{topic_title}».
+
+            Перейдите сюда, чтобы просмотреть разговор:
+            %{post_url}
+          post_lead: "%{user} указан в «%{topic_title}»:"
+          unsubscribe_instructions: |-
+            Чтобы отписаться от этих писем, обновите свои настройки здесь:
+            %{unsubscribe_url}
     errors:
       login_required: Необходимо зайти на форум.
       not_authorized: Вы не авторизованы.

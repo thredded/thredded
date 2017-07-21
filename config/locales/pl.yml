@@ -6,6 +6,41 @@ pl:
       content_blocked_notice_with_record_html: Zablokowany przez %{moderator} %{time_ago}
     email_notifier:
       by_email: przez e-mail
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Ten e-mail został wysłany do Ciebie, ponieważ %{user} włącza Cię do prywatnego tematu "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: 'Nowa wiadomość z %{user} w <a href="%{post_url}">"%{topic_title}"</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Nowa wiadomość z %{user} w "%{topic_title}"
+        text:
+          email_sent_reason: |-
+            Ten e-mail został wysłany do Ciebie, ponieważ %{user} Cię włączyło
+            Prywatny temat "%{topic_title}".
+
+            Przejdź tutaj, aby wyświetlić rozmowę:
+            %{post_url}
+          post_lead: 'Nowa wiadomość z %{user} w "%{topic_title}":'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Ten e-mail został wysłany do Ciebie, ponieważ śledzisz ten temat: "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: '%{user} <a href="%{post_url}">powiedział w "%{topic_title}"</a>:'
+          unsubscribe_instructions_html: Aby wypisać się z tych e-maili, zaktualizuj swoje <a href="%{preferences_url}">preferencje</a>.
+        subject: Nowy post w "%{topic_title}" przez %{user}
+        text:
+          email_sent_reason: |-
+            Ten e-mail został wysłany do Ciebie, ponieważ śledzisz
+            Temat "%{topic_title}".
+
+            Przejdź tutaj, aby wyświetlić rozmowę:
+            %{post_url}
+          post_lead: '%{user} powiedział w "%{topic_title}":'
+          unsubscribe_instructions: |-
+            Aby wypisać się z tych e-maili, zaktualizuj swoje preferencje:
+            %{unsubscribe_url}
     errors:
       login_required: Proszę się najpierw zalogować.
       not_authorized: Nie masz uprawnień aby zobaczyć tę stronę.

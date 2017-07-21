@@ -6,6 +6,40 @@ fr:
       content_blocked_notice_with_record_html: Bloqué par %{moderator} %{time_ago}
     email_notifier:
       by_email: via email
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Ce courriel vous a été envoyé parce que %{user} vous a inclus dans un sujet privé, "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: 'Un nouveau message de %{user} dans <a href="%{post_url}">"%{topic_title}"</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Un nouveau message de %{user} dans "%{topic_title}"
+        text:
+          email_sent_reason: |-
+            Ce courriel vous a été envoyé parce que %{user} vous a inclus
+            le sujet privé "%{topic_title}".
+
+            Allez ici pour voir la conversation:
+            %{post_url}
+          post_lead: 'Un nouveau message de %{user} dans "%{topic_title}":'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: 'Ce courriel vous a été envoyé car vous suivez ce sujet: "<a href="%{post_url}">%{topic_title}</a>".'
+          post_lead_html: '%{user} a <a href="%{post_url}">déclaré dans "%{topic_title}"</a>:'
+          unsubscribe_instructions_html: Pour vous désabonner de ces courriels, mettez à jour vos <a href="%{preferences_url}">préférences</a>.
+        subject: Une nouvelle publication dans "%{topic_title}" par %{user}
+        text:
+          email_sent_reason: |-
+            Ce courriel vous a été envoyé parce que vous suivez
+            le sujet "%{topic_title}".
+
+            Allez ici pour voir la conversation:
+            %{post_url}
+          post_lead: '%{user} a déclaré dans "%{topic_title}":'
+          unsubscribe_instructions: |-
+            Pour vous désabonner de ces courriels, mettez à jour vos préférences ici:
+            %{unsubscribe_url}
     errors:
       login_required: Connectez vous s'il vous plait
       not_authorized: Vous n'êtes pas authorisé à accéder à cette page.
@@ -47,8 +81,8 @@ fr:
       post_blocked_html: Commentaire bloqué par %{moderator} %{time_ago}.
       post_deleted_notice: Ce commentaire a été effacé.
       posts_content_changed_since_moderation_html: >-
-        Le <a href="%{post_url}">commentaire</a> a changé depuis qu'il a été modéré.
-        La date de modération est affiché en dessous.
+        Le <a href="%{post_url}">commentaire</a> a changé depuis qu'il a été modéré. La date de modération est affiché
+        en dessous.
       search_users:
         form_label: Rechercher des utilisateurs
         form_placeholder: :thredded.moderation.search_users.form_label
@@ -91,15 +125,16 @@ fr:
           hint: Suivre automatiquement les nouveaux sujets. Changer ce paramètre affectera aussi toutes les catégories.
           label: Suivre tout les nouveaux sujets
         follow_topics_on_mention:
-          hint: "Suivre un sujet lorsqu'on est mentionné par son nom (exemple: @marc)"
+          hint: 'Suivre un sujet lorsqu''on est mentionné par son nom (exemple: @marc)'
           label: Suivre un sujet dans lequel vous êtes mentionné
         messageboard_auto_follow_topics:
-          hint: Suivre automatiquement tout les nouveaux sujets dans cette catégorie.
-            Ce paramètre outrepasse le paramètre relatif au dessus.
+          hint: >-
+            Suivre automatiquement tout les nouveaux sujets dans cette catégorie. Ce paramètre outrepasse le paramètre
+            relatif au dessus.
           label: Suivre tout les nouveaux sujets
         messageboard_follow_topics_on_mention:
-          hint: "Quand quelqu'un mentionnera votre nom (exemple: @marc) dans cette catégorie, vous serez abonné au
-            sujet."
+          hint: 'Quand quelqu''un mentionnera votre nom (exemple: @marc) dans cette catégorie, vous serez abonné
+            au sujet.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
@@ -144,7 +179,7 @@ fr:
         btn_submit: :thredded.search.form.label
         label: Recherche
         placeholder: Rechercher un Sujet ou un Commentaire
-    time_ago: "il y a %{time}"
+    time_ago: il y a %{time}
     topics:
       delete_confirm: Êtes-vous sur de vouloir supprimer ce sujet ? Cette action est irréversible.
       delete_topic: Supprimer le Sujet
@@ -173,7 +208,8 @@ fr:
       mark_as_unread: Marquer comme non lu à partir d'ici
       not_following: Vous ne suivez pas ce sujet.
       search:
-        no_results_in_messageboard_message_html: Il n'y a aucun résultat pour votre recherche <q>%{query}</q> dans %{messageboard}
+        no_results_in_messageboard_message_html: Il n'y a aucun résultat pour votre recherche <q>%{query}</q> dans
+          %{messageboard}
         no_results_message_html: Il n'y a aucun résultat pour votre recherche <q>%{query}</q>
         page_title: Résultat de la Recherche de Sujet
         results_in_messageboard_message_html: Recherche pour <q>%{query}</q> dans %{messageboard}
