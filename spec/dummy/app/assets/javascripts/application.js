@@ -2,6 +2,7 @@
 //= require turbolinks
 //= require thredded
 //= require timeago/locales/es
+//= require timeago/locales/fr
 //= require timeago/locales/pl
 //= require timeago/locales/pt_BR
 //= require timeago/locales/ru
