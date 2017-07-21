@@ -53,7 +53,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
 
-    config.i18n.available_locales = [:en, :es, :pl, 'pt-BR', :ru]
+    config.i18n.available_locales = [:en, :es, :fr, :pl, 'pt-BR', :ru]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
