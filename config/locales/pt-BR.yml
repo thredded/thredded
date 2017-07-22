@@ -90,6 +90,7 @@ pt-BR:
         no_results_message: Nenhum usuário com o nome começando com %{query}
         results_message: Os usuários com nomes começando com %{query}
     nav:
+      active_topics:
       all_messageboards: Todos os Fóruns de Mensagens
       edit_messageboard: Editar Fórum de Mensagem
       edit_post: Editar Post

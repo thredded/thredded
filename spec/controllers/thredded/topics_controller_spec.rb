@@ -33,6 +33,15 @@ module Thredded
       end
     end
 
+    describe 'GET active' do
+      it 'renders' do
+        get :active, params: {}
+
+        expect(response).to be_successful
+        expect(response).to render_template('active')
+      end
+    end
+
     describe 'GET search' do
       it 'renders search' do
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))

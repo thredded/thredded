@@ -91,6 +91,7 @@ es:
         no_results_message: No existen usuarios con el nombre empezando por %{query}
         results_message: Usuarios cuyo nombre empieza por %{query}
     nav:
+      active_topics:
       all_messageboards: Todos los Foros
       edit_messageboard: Editar Foro
       edit_post: Editar Mensaje

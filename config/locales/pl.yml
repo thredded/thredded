@@ -90,6 +90,7 @@ pl:
         no_results_message: 'Brak użytkowników zaczynających się od: %{query}'
         results_message: 'Użytkownicy zaczynający się od: %{query}'
     nav:
+      active_topics:
       all_messageboards: Wszystkie tablice
       edit_messageboard: Edytuj tablicę
       edit_post: Edytuj post

@@ -89,6 +89,7 @@ fr:
         no_results_message: Aucun utilisateur avec un nom commençant par %{query}
         results_message: Utilisateurs avec le nom commençant par %{query}
     nav:
+      active_topics: Sujets actifs
       all_messageboards: Toutes les catégories
       edit_messageboard: Éditer la catégorie
       edit_post: Éditer le commentaire

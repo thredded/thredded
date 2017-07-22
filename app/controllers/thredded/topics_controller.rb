@@ -13,7 +13,7 @@ module Thredded
 
     after_action :update_user_activity
 
-    after_action :verify_authorized, except: %i[search]
+    after_action :verify_authorized, except: %i[search active]
     after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow]
 
     def index
@@ -50,6 +50,15 @@ module Thredded
       end
 
       @new_post = Thredded::PostForm.new(user: thredded_current_user, topic: topic, post_params: new_post_params)
+    end
+
+    def active
+      @topics = Thredded::TopicsPageView.new(
+        thredded_current_user,
+        policy_scope(Thredded::Topic.all)
+          .order_recently_posted_first
+          .page(current_page)
+      )
     end
 
     def search

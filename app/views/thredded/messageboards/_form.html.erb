@@ -1,4 +1,5 @@
-<%= form_for messageboard, html: { class: 'thredded--form' } do |f| %>
+<% url = messageboard.new_record? ? root_path : messageboard_path(messageboard) %>
+<%= form_for messageboard, url: url, html: { class: 'thredded--form' } do |f| %>
     <ul class="thredded--form-list">
       <li>
         <%= f.label t('thredded.messageboard.form.title_label') %>

@@ -52,10 +52,14 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  resource :topics, only: [] do
+    get 'active', action: :active
+  end
+
   resource :preferences, only: %i[edit update], as: :global_preferences
   resource :messageboard, path: 'messageboards', only: [:new]
-  resources :messageboards, only: %i[edit update]
-  resources :messageboards, only: %i[index create], path: '' do
+  resources :messageboards, only: %i[index edit update]
+  resources :messageboards, only: %i[create], path: '' do
     resource :preferences, only: %i[edit update]
     resource :topic, path: 'topics', only: [:new] do
       post :preview, on: :new, controller: 'topic_previews'
@@ -83,5 +87,15 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  root to: 'messageboards#index'
+  root_path =
+    redirect do |_, request|
+      case Thredded.landing_page
+      when :active_topics
+        "#{request.script_name}/topics/active"
+      else
+        "#{request.script_name}/messageboards"
+      end
+    end
+
+  root to: root_path
 end

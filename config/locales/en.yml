@@ -89,6 +89,7 @@ en:
         no_results_message: No users with name starting with %{query}
         results_message: Users with names starting with %{query}
     nav:
+      active_topics: Active Topics
       all_messageboards: All Messageboards
       edit_messageboard: Edit Messageboard
       edit_post: Edit Post

@@ -1,6 +1,12 @@
 <ul class="thredded--navigation-breadcrumbs">
-  <li><%= link_to t('thredded.nav.all_messageboards'), messageboards_path %></li>
-  <% if messageboard_or_nil.try(:persisted?) %>
-    <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
-  <% end %>
+  <div class="thredded--left-navigation-menu">
+    <li><%= link_to t('thredded.nav.all_messageboards'), messageboards_path %></li>
+    <% if messageboard_or_nil.try(:persisted?) %>
+      <li><%= link_to messageboard.name, messageboard_topics_path(messageboard) %></li>
+    <% end %>
+  </div>
 </ul>
+
+<div class="thredded--right-navigation-menu">
+  <%= link_to t('thredded.nav.active_topics'), active_topics_path %>
+</div>

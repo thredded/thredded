@@ -16,6 +16,10 @@ Thredded.user_name_column = :name
 # You may want to use :to_s or some more elaborate method
 # Thredded.user_display_name_method = :to_s
 
+# The default landing the user will land on when hitting the root page
+# default value is :messageboards which is the message boards index page
+# Thredded.landing_page = :active_topics
+
 # The path (or URL) you will use to link to your users' profiles.
 # When linking to a user, Thredded will use this lambda to spit out
 # the path or url to your user. This lambda is evaluated in the view context.

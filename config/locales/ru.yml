@@ -88,6 +88,7 @@ ru:
         no_results_message: Не найдено пользователей %{query}
         results_message: Пользователи, начинающиеся с ... %{query}
     nav:
+      active_topics:
       all_messageboards: Все форумы
       edit_messageboard: Редактировать форум
       edit_post: Редактировать пост

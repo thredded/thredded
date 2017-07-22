@@ -11,6 +11,23 @@
   @extend %thredded--list-unstyled;
   @include thredded--clearfix;
   display: block;
+
+  .thredded--left-navigation-menu {
+    display: block;
+    float: left;
+  }
+
+  .thredded--right-navigation-menu {
+    display: block;
+    float: right;
+    text-align: right;
+
+    a {
+      padding: 0.75rem 0;
+      display: inline-block;
+      @extend %thredded--nav-link;
+    }
+  }
 }
 
 .thredded--navigation-breadcrumbs {

@@ -47,6 +47,7 @@ module Thredded
     :avatar_url,
     :email_from,
     :email_outgoing_prefix,
+    :landing_page,
     :layout,
     :messageboards_order,
     :routes_id_constraint,
@@ -98,6 +99,7 @@ module Thredded
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
   self.layout = 'thredded/application'
+  self.landing_page = :messageboards
   self.moderator_column = :admin
   self.user_name_column = :name
   self.content_visible_while_pending_moderation = true
