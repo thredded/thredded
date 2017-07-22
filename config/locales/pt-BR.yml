@@ -6,6 +6,41 @@ pt-BR:
       content_blocked_notice_with_record_html: Bloqueados por %{moderator} %{time_ago}
     email_notifier:
       by_email: de e-mail
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Este e-mail foi enviado para você porque %{user} incluiu você em um tópico privado, "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: 'Uma nova mensagem de %{user} em <a href="%{post_url}">"%{topic_title}"</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Uma nova mensagem de %{user} em "%{topic_title}"
+        text:
+          email_sent_reason: |-
+            Este e-mail foi enviado para você porque %{user} incluiu você em
+            o tópico privado "%{topic_title}".
+
+            Vá aqui para ver a conversa:
+            %{post_url}
+          post_lead: 'Uma nova mensagem de %{user} em "%{topic_title}":'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Este e-mail foi enviado para você porque você está seguindo este tópico: "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: '%{user} <a href="%{post_url}">disse em "%{topic_title}"</a>:'
+          unsubscribe_instructions_html: Para cancelar a inscrição desses e-mails, atualize suas <a href="%{preferences_url}">preferências</a>.
+        subject: Uma nova postagem em "%{topic_title}" por %{user}
+        text:
+          email_sent_reason: |-
+            Este e-mail foi enviado para você porque você está seguindo
+            o tópico "%{topic_title}".
+
+            Vá aqui para ver a conversa:
+            %{post_url}
+          post_lead: '%{user} disse em "%{topic_title}":'
+          unsubscribe_instructions: |-
+            Para cancelar a inscrição desses e-mails, atualize suas preferências aqui:
+            %{unsubscribe_url}
     errors:
       login_required: Por favor, autentique-se primeiro.
       not_authorized: Você não está autorizado a acessar esta página.

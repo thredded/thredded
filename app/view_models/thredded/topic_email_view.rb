@@ -11,10 +11,6 @@ module Thredded
       %({"category": ["thredded_#{@topic.private? ? 'private_topic' : @topic.messageboard.name}","#{tag}"]})
     end
 
-    def subject
-      "#{Thredded.email_outgoing_prefix} #{@topic.title}"
-    end
-
     def no_reply
       Thredded.email_from
     end

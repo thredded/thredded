@@ -142,7 +142,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.2.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     moneta (1.0.0)
     multi_json (1.12.1)
     mustache (1.0.5)
@@ -152,7 +152,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     nokogumbo (1.4.13)
       nokogiri
-    onebox (1.8.15)
+    onebox (1.8.16)
       fast_blank (>= 1.0.0)
       htmlentities (~> 4.3)
       moneta (~> 1.0)

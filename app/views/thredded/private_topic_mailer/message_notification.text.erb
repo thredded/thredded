@@ -1,12 +1,15 @@
-<%= @post.user.thredded_display_name %> said:
+<%= t 'thredded.emails.message_notification.text.post_lead',
+      user: @post.user.thredded_display_name,
+      topic_title: @post.postable.title %>
+
 <%= @post.content %>
+
 ---
 
-This email was sent to you because <%= @topic.user.thredded_display_name %>
-included you in the private topic "<%= @topic.title %>".
+<%= t 'thredded.emails.message_notification.text.email_sent_reason',
+      user: @post.postable.user.thredded_display_name,
+      topic_title: @post.postable.title,
+      post_url: private_post_permalink_url(@post.id) %>
 
-Go here to view the conversation:
-  <%= private_post_permalink_url(@post) %>
-
-To unsubscribe from these emails, update your preferences here:
-  <%= edit_preferences_url %>
+<%= t 'thredded.emails.message_notification.text.unsubscribe_instructions',
+      unsubscribe_url: edit_preferences_url %>

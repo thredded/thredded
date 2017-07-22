@@ -6,6 +6,40 @@ en:
       content_blocked_notice_with_record_html: Blocked by %{moderator} %{time_ago}
     email_notifier:
       by_email: by email
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            This email was sent to you because %{user} included you in a private topic, “<a href="%{post_url}">%{topic_title}</a>”.
+          post_lead_html: 'A new message from %{user} in <a href="%{post_url}">“%{topic_title}”</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: A new message from %{user} in “%{topic_title}”
+        text:
+          email_sent_reason: |-
+            This email was sent to you because %{user} included you in
+            the private topic “%{topic_title}”.
+
+            Go here to view the conversation:
+            %{post_url}
+          post_lead: 'A new message from %{user} in “%{topic_title}”:'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: 'This email was sent to you because you are following this topic: “<a href="%{post_url}">%{topic_title}</a>”.'
+          post_lead_html: '%{user} <a href="%{post_url}">said in “%{topic_title}”</a>:'
+          unsubscribe_instructions_html: To unsubscribe from these emails, update your <a href="%{preferences_url}">preferences</a>.
+        subject: A new post in “%{topic_title}” by %{user}
+        text:
+          email_sent_reason: |-
+            This email was sent to you because you are following
+            the topic “%{topic_title}”.
+
+            Go here to view the conversation:
+            %{post_url}
+          post_lead: "%{user} said in “%{topic_title}”:"
+          unsubscribe_instructions: |-
+            To unsubscribe from these emails, update your preferences here:
+            %{unsubscribe_url}
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
