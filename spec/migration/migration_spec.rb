@@ -107,4 +107,12 @@ describe 'Migrations', migration_spec: true, order: :defined do
       expect([Thredded::Topic.find(topic_1_id).slug, Thredded::Topic.find(topic_2_id).slug]).to eq %w[x x-b]
     end
   end
+
+  context 'v0.13 to v0.14' do
+    let(:migration_file) { 'db/upgrade_migrations/20170420163138_upgrade_thredded_v0_13_to_v0_14.rb' }
+
+    it 'smoke test' do
+      migrate(migration_file)
+    end
+  end
 end
