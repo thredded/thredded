@@ -23,7 +23,7 @@ elsif !ENV['TRAVIS']
 end
 
 # Re-create the test database and run the migrations
-system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
+system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS'] || ENV['DOCKER']
 ActiveRecord::Tasks::DatabaseTasks.drop_current
 ActiveRecord::Tasks::DatabaseTasks.create_current
 require File.expand_path('../../lib/thredded/db_tools', __FILE__)
@@ -154,8 +154,26 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   end
 end
 
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+require 'selenium-webdriver'
+
+Selenium::WebDriver::Chrome.path = ENV['CHROMIUM_BIN'] || %w[
+  /usr/bin/chromium-browser
+  /Applications/Chromium.app/Contents/MacOS/Chromium
+].find { |path| File.executable?(path) }
+Selenium::WebDriver::Chrome.driver_path = ENV['CHROMEDRIVER_PATH'] || %w[
+  /usr/bin/chromedriver
+  /usr/lib/chromium-browser/chromedriver
+  /usr/local/bin/chromedriver
+].find { |path| File.executable?(path) }
+
+Capybara.register_driver :headless_chromium do |app|
+  options = ::Selenium::WebDriver::Chrome::Options.new
+  options.add_argument 'headless'
+  options.add_argument 'disable-gpu'
+  options.add_argument 'window-size=1280,1024'
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+Capybara.javascript_driver = :headless_chromium
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
   config.default_max_wait_time = 5
