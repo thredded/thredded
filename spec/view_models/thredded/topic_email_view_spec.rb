@@ -15,13 +15,6 @@ module Thredded
       end
     end
 
-    describe '.subject' do
-      it 'returns a subject for this topic' do
-        expect(decorated_topic.subject)
-          .to eq("#{Thredded.email_outgoing_prefix} #{topic.title}")
-      end
-    end
-
     describe '.no_reply' do
       it 'returns the standard email-from address' do
         expect(decorated_topic.no_reply)
