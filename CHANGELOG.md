@@ -7,6 +7,11 @@
 * Email templates now use i18n throughout. The copy has been improved.
   [#607](https://github.com/thredded/thredded/pull/607)
 
+## Changed
+
+* Avatars are now larger on large screens.
+  [#565](https://github.com/thredded/thredded/issues/565)
+
 # v0.13.2
 
 This release updates the bundled JavaScript dependencies, [autosize] and [textcomplete], to their latest versions.
