@@ -49,12 +49,18 @@
   vertical-align: baseline;
   width: 1.75rem; // 28px
 
-  @include thredded-media-content-breakout {
+  @media (min-width: $thredded-grid-container-max-width + $thredded-content-breakout-min-width + 0.00001rem) {
     height: 2.25rem; // 36px
     left: -3rem;
     position: absolute;
     top: -0.5rem;
     width: 2.25rem; // 36px
+  }
+
+  @media (min-width: $thredded-grid-container-max-width + $thredded-content-breakout-min-width + 9.5rem + 0.00001rem) {
+    height: 3.25rem;
+    left: -4.125rem;
+    width: 3.25rem;
   }
 }
 

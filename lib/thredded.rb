@@ -96,7 +96,7 @@ module Thredded
 
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
-  self.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
+  self.avatar_url = ->(user) { Gravatar.src(user.email, 156, 'mm') }
   self.layout = 'thredded/application'
   self.moderator_column = :admin
   self.user_name_column = :name
