@@ -1,3 +1,10 @@
+# Master
+
+## Fixed
+
+* Sticky topics in search results no longer break search results.
+  [#611](https://github.com/thredded/thredded/issues/611)
+
 # v0.13.3
 
 ## Added

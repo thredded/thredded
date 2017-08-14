@@ -13,7 +13,12 @@
                topic: @new_topic,
                css_class: 'thredded--is-compact',
                placeholder: t('thredded.topics.form.title_placeholder_start') if @new_topic %>
-    <%= render partial: 'thredded/topics/topic', collection: @topics, locals: {topics: @topics} %>
+    <%= render partial: 'thredded/topics/topic',
+               collection: @topics,
+               locals: {
+                 sticky_topics_divider: true,
+                 topics: @topics
+               } %>
   <% end %>
 
   <footer class="thredded--pagination-bottom">
