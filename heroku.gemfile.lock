@@ -68,7 +68,7 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
-    autoprefixer-rails (7.1.2.4)
+    autoprefixer-rails (7.1.2.6)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -130,7 +130,7 @@ GEM
     kaminari-i18n (0.4.0)
       kaminari
       rails
-    katex (0.1.1)
+    katex (0.2.2)
       execjs (~> 2.7)
     kramdown (1.14.0)
     loofah (2.0.3)
