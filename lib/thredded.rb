@@ -143,7 +143,7 @@ module Thredded
     unless user_class_name.is_a?(String)
       fail "Thredded.user_class must be set to a String, got #{user_class_name.inspect}"
     end
-    @@user_class_name = user_class_name # rubocop:disable Style/ClassVars
+    @@user_class_name = user_class_name.demodulize # rubocop:disable Style/ClassVars
   end
 
   # @return [Class<Thredded::UserExtender>] the user class from the host application.
