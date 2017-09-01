@@ -65,10 +65,10 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
-    autoprefixer-rails (7.1.2.6)
+    autoprefixer-rails (7.1.3)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -130,7 +130,7 @@ GEM
     kaminari-i18n (0.4.0)
       kaminari
       rails
-    katex (0.2.3)
+    katex (0.3.0)
       execjs (~> 2.7)
     kramdown (1.14.0)
     loofah (2.0.3)
@@ -146,13 +146,13 @@ GEM
     moneta (1.0.0)
     multi_json (1.12.1)
     mustache (1.0.5)
-    newrelic_rpm (4.3.0.335)
+    newrelic_rpm (4.4.0.336)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     nokogumbo (1.4.13)
       nokogiri
-    onebox (1.8.17)
+    onebox (1.8.18)
       fast_blank (>= 1.0.0)
       htmlentities (~> 4.3)
       moneta (~> 1.0)
@@ -161,8 +161,8 @@ GEM
       nokogiri (~> 1.7)
       sanitize
     pg (0.21.0)
-    public_suffix (2.0.5)
-    puma (3.9.1)
+    public_suffix (3.0.0)
+    puma (3.10.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.3)
@@ -208,14 +208,14 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     request_store (1.3.2)
-    rinku (2.0.2)
+    rinku (2.0.3)
     roadie (3.2.2)
       css_parser (~> 1.4)
       nokogiri (~> 1.5)
     roadie-rails (1.2.1)
       railties (>= 3.0, < 5.2)
       roadie (~> 3.1)
-    rollbar (2.15.0)
+    rollbar (2.15.1)
       multi_json
     sanitize (4.5.0)
       crass (~> 1.0.2)
@@ -233,7 +233,7 @@ GEM
       babel-source (>= 5.8.11)
       babel-transpiler
       sprockets (>= 3.0.0)
-    sprockets-rails (3.2.0)
+    sprockets-rails (3.2.1)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -241,7 +241,7 @@ GEM
     thread_safe (0.3.6)
     thredded-markdown_coderay (0.1.1)
       coderay
-    thredded-markdown_katex (0.1.2)
+    thredded-markdown_katex (0.2.0)
       katex (>= 0.1.1)
     timeago_js (3.0.2)
     tunemygc (1.0.69)
@@ -287,4 +287,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.3
+   1.15.4
