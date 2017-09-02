@@ -37,6 +37,7 @@ require 'thredded/view_hooks/renderer'
 # Require these explicitly so that they do not need to be required if used in the initializer:
 require 'thredded/content_formatter'
 require 'thredded/email_transformer'
+require 'thredded/base_notifier'
 
 require 'thredded/collection_to_strings_with_cache_renderer'
 
