@@ -14,8 +14,7 @@ module Thredded
         notifiable_users.each do |user|
           # Record idempotently that the notification happened
           # If a notification was already created (from another thread/process),
-          # this won't create another notification, but will renotify (too bad)
-          # and the user will be excluded.
+          # this won't create another notification, but will renotify (too bad).
           Thredded::UserPostNotification.create_from_post_and_user(@post, user)
         end
         next if notifiable_users.empty?
