@@ -63,6 +63,29 @@ module Thredded
           expect { command.run }.to change { mock_notifier.users_notified_of_new_private_post }
         end
       end
+
+      context 'with multiple notifiers', thredded_reset: ['@@notifiers'] do
+        let(:mock_notifier1) { MockNotifier.new }
+        let(:mock_notifier2) { MockNotifier.new }
+
+        before { Thredded.notifiers = [mock_notifier1, mock_notifier2] }
+
+        def count_users_for_each_notifier
+          [
+            mock_notifier1.users_notified_of_new_private_post.length,
+            mock_notifier2.users_notified_of_new_private_post.length
+          ]
+        end
+        it 'notifies via all notifiers' do
+          expect { command.run }
+            .to change { count_users_for_each_notifier }.from([0, 0]).to([1, 1])
+        end
+        it "second run doesn't notify" do
+          command.run
+          expect { command.run }
+            .to_not change { count_users_for_each_notifier }
+        end
+      end
     end
   end
 end

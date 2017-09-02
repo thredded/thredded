@@ -11,10 +11,10 @@ module Thredded
     def run
       Thredded.notifiers.each do |notifier|
         notifiable_users = targeted_users(notifier)
-        notifiable_users = notifiable_users.select do |user|
-          # Create a notification for the user.
+        notifiable_users.each do |user|
+          # Record idempotently that the notification happened
           # If a notification was already created (from another thread/process),
-          # this will return false due to the unique constraint on the table
+          # this won't create another notification, but will renotify (too bad)
           # and the user will be excluded.
           Thredded::UserPostNotification.create_from_post_and_user(@post, user)
         end
