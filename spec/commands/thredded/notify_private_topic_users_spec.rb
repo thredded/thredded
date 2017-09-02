@@ -34,7 +34,7 @@ module Thredded
 
         context 'but with MockNotifier' do
           it 'includes them' do
-            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(MockNotifier.new.resetted)
+            recipients = NotifyPrivateTopicUsers.new(post).targeted_users(MockNotifier.new)
             expect(recipients).to include(@joel)
           end
         end
@@ -53,12 +53,14 @@ module Thredded
       end
 
       context 'with the MockNotifier', thredded_reset: ['@@notifiers'] do
-        before { Thredded.notifiers = [MockNotifier.new.resetted] }
+        let(:mock_notifier) { MockNotifier.new }
+
+        before { Thredded.notifiers = [mock_notifier] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end
         it 'uses MockNotifier' do
-          expect { command.run }.to change { MockNotifier.users_notified_of_new_private_post }
+          expect { command.run }.to change { mock_notifier.users_notified_of_new_private_post }
         end
       end
     end
