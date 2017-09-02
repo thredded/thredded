@@ -64,7 +64,7 @@ describe Thredded, '.notifiers', thredded_reset: [:@@notifiers] do
   end
 
   specify 'can assign to new notifier instance' do
-    mock = MockNotifier.new.resetted
+    mock = MockNotifier.new
     Thredded.notifiers = [mock]
     expect(Thredded.notifiers).to eq([mock])
   end
