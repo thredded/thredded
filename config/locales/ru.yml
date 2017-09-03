@@ -25,8 +25,7 @@ ru:
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
-          email_sent_reason_html: >-
-            Это письмо было отправлено вам, потому что вы подписаны на тему: «<a href="%{post_url}">%{topic_title}</a>».
+          email_sent_reason_html: 'Это письмо было отправлено вам, потому что вы подписаны на тему: «<a href="%{post_url}">%{topic_title}</a>».'
           post_lead_html: '%{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
           unsubscribe_instructions_html: Чтобы отписаться от этих писем, обновите свои <a href="%{preferences_url}">настройки</a>.
         subject: Новое сообщение в «%{topic_title}» от %{user}

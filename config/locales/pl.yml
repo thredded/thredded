@@ -25,8 +25,7 @@ pl:
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
-          email_sent_reason_html: >-
-            Ten e-mail został wysłany do Ciebie, ponieważ śledzisz ten temat: "<a href="%{post_url}">%{topic_title}</a>".
+          email_sent_reason_html: 'Ten e-mail został wysłany do Ciebie, ponieważ śledzisz ten temat: "<a href="%{post_url}">%{topic_title}</a>".'
           post_lead_html: '%{user} <a href="%{post_url}">powiedział w "%{topic_title}"</a>:'
           unsubscribe_instructions_html: Aby wypisać się z tych e-maili, zaktualizuj swoje <a href="%{preferences_url}">preferencje</a>.
         subject: Nowy post w "%{topic_title}" przez %{user}
