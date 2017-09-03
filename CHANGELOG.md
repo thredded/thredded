@@ -1,9 +1,17 @@
 # Master
 
+## Added
+
+* CSS classes for targeting specific preference list items.
+  [#614](https://github.com/thredded/thredded/pull/614)
+
 ## Fixed
 
 * Sticky topics in search results no longer break search results.
   [#611](https://github.com/thredded/thredded/issues/611)
+* If a user was subscribed to a topic via more than one notifier,
+  they would only be notified via one of them.
+  [#540](https://github.com/thredded/thredded/issues/540)
 
 # v0.13.3
 
