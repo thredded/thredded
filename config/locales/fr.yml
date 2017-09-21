@@ -28,7 +28,7 @@ fr:
           email_sent_reason_html: 'Ce courriel vous a été envoyé car vous suivez ce sujet: "<a href="%{post_url}">%{topic_title}</a>".'
           post_lead_html: '%{user} a <a href="%{post_url}">déclaré dans "%{topic_title}"</a>:'
           unsubscribe_instructions_html: Pour vous désabonner de ces courriels, mettez à jour vos <a href="%{preferences_url}">préférences</a>.
-        subject: Une nouvelle publication dans "%{topic_title}" par %{user}
+        subject: Une nouvelle publication dans "%{topic_title}"
         text:
           email_sent_reason: |-
             Ce courriel vous a été envoyé parce que vous suivez

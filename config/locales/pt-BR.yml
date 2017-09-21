@@ -29,7 +29,7 @@ pt-BR:
             Este e-mail foi enviado para você porque você está seguindo este tópico: "<a href="%{post_url}">%{topic_title}</a>".
           post_lead_html: '%{user} <a href="%{post_url}">disse em "%{topic_title}"</a>:'
           unsubscribe_instructions_html: Para cancelar a inscrição desses e-mails, atualize suas <a href="%{preferences_url}">preferências</a>.
-        subject: Uma nova postagem em "%{topic_title}" por %{user}
+        subject: Uma nova postagem em "%{topic_title}"
         text:
           email_sent_reason: |-
             Este e-mail foi enviado para você porque você está seguindo
