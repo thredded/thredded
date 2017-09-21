@@ -30,7 +30,7 @@ es:
           post_lead_html: '%{user} <a href="%{post_url}">dijo en "%{topic_title}"</a>:'
           unsubscribe_instructions_html: >-
             Para cancelar la suscripción a estos correos electrónicos, actualice sus <a href="%{preferences_url}">preferencias</a>.
-        subject: Un nuevo mensaje en "%{topic_title}" de %{user}
+        subject: Un nuevo mensaje en "%{topic_title}"
         text:
           email_sent_reason: |-
             Este correo electrónico se te envió porque estás siguiendo

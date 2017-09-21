@@ -28,7 +28,7 @@ en:
           email_sent_reason_html: 'This email was sent to you because you are following this topic: “<a href="%{post_url}">%{topic_title}</a>”.'
           post_lead_html: '%{user} <a href="%{post_url}">said in “%{topic_title}”</a>:'
           unsubscribe_instructions_html: To unsubscribe from these emails, update your <a href="%{preferences_url}">preferences</a>.
-        subject: A new post in “%{topic_title}” by %{user}
+        subject: A new post in “%{topic_title}”
         text:
           email_sent_reason: |-
             This email was sent to you because you are following

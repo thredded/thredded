@@ -28,7 +28,7 @@ ru:
           email_sent_reason_html: 'Это письмо было отправлено вам, потому что вы подписаны на тему: «<a href="%{post_url}">%{topic_title}</a>».'
           post_lead_html: '%{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
           unsubscribe_instructions_html: Чтобы отписаться от этих писем, обновите свои <a href="%{preferences_url}">настройки</a>.
-        subject: Новое сообщение в «%{topic_title}» от %{user}
+        subject: Новое сообщение в «%{topic_title}»
         text:
           email_sent_reason: |-
             Это письмо было отправлено вам, потому что вы подписаны на тему «%{topic_title}».
