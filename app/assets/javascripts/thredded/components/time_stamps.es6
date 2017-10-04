@@ -8,7 +8,7 @@
       if (!threddedContainer) return;
       timeago().render(
         document.querySelectorAll(COMPONENT_SELECTOR),
-        threddedContainer.getAttribute('data-thredded-locale'));
+        threddedContainer.getAttribute('data-thredded-locale').replace('-', '_'));
     });
     document.addEventListener('turbolinks:before-cache', () => {
       timeago.cancel();
