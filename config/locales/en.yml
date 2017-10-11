@@ -73,6 +73,8 @@ en:
     moderation:
       approve_btn: Approve
       block_btn: Block
+      moderation_state:
+        name: Moderation state
       pending:
         empty:
           content: All posts have been moderated.
@@ -88,6 +90,8 @@ en:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: No users with name starting with %{query}
         results_message: Users with names starting with %{query}
+      user:
+        name: User
     nav:
       all_messageboards: All Messageboards
       edit_messageboard: Edit Messageboard
@@ -154,6 +158,7 @@ en:
         create_btn_submitting: Sending...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Edit
       errors:
         user_ids_length: Please specify at least one other user.
@@ -180,6 +185,7 @@ en:
         placeholder: Search Topics and Posts
     time_ago: "%{time} ago"
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Are you sure you want to delete this topic? This CANNOT be undone.
       delete_topic: Delete Topic
       deleted_notice: Topic deleted

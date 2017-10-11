@@ -73,6 +73,8 @@ pl:
     moderation:
       approve_btn: Zaakceptuj
       block_btn: Zablokuj
+      moderation_state:
+        name: Stan moderacji
       pending:
         empty:
           content: Wszystkie posty zostały zweryfikowane.
@@ -88,6 +90,8 @@ pl:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: 'Brak użytkowników zaczynających się od: %{query}'
         results_message: 'Użytkownicy zaczynający się od: %{query}'
+      user:
+        name: Użytkownik
     nav:
       all_messageboards: Wszystkie tablice
       edit_messageboard: Edytuj tablicę
@@ -154,6 +158,7 @@ pl:
         create_btn_submitting: Wysyłanie
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Edytuj
       errors:
         user_ids_length: Proszę dodać przynajmniej jednego innego użytkownika.
@@ -180,6 +185,7 @@ pl:
         placeholder: Wyszukaj tematy i posty.
     time_ago: "%{time} temu"
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Jesteś pewien, że chcesz usunąć ten temat? Tej operacji nie można cofnąć.
       delete_topic: Usuń temat
       deleted_notice: Temat usunięty.

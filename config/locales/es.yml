@@ -75,6 +75,8 @@ es:
     moderation:
       approve_btn: Aprobar
       block_btn: Rechazar
+      moderation_state:
+        name: Estado de moderación
       pending:
         empty:
           content: Todos los mensajes han sido moderados.
@@ -90,6 +92,8 @@ es:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: No existen usuarios con el nombre empezando por %{query}
         results_message: Usuarios cuyo nombre empieza por %{query}
+      user:
+        name: Usuario
     nav:
       all_messageboards: Todos los Foros
       edit_messageboard: Editar Foro
@@ -158,6 +162,7 @@ es:
         create_btn_submitting: Enviando...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Editar
       errors:
         user_ids_length: Por favor, introduce el nombre de al menos un usuario.
@@ -184,6 +189,7 @@ es:
         placeholder: Busca Temas y Mensajes
     time_ago: hace %{time}
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: "¿Seguro que queires eliminar este tema? Esta acción NO se puede deshacer."
       delete_topic: Eliminar Tema
       deleted_notice: Tema eliminado

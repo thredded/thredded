@@ -72,6 +72,8 @@ ru:
     moderation:
       approve_btn: Одобрить
       block_btn: Заблокировать
+      moderation_state:
+        name: Состояние модерации
       pending:
         empty:
           content: Все посты промодерированы.
@@ -86,6 +88,8 @@ ru:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: Не найдено пользователей %{query}
         results_message: Пользователи, начинающиеся с ... %{query}
+      user:
+        name: Пользователь
     nav:
       all_messageboards: Все форумы
       edit_messageboard: Редактировать форум
@@ -152,6 +156,7 @@ ru:
         create_btn_submitting: Посылаю...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Редактировать
       errors:
         user_ids_length: Выберите хотя-бы одного пользователя.
@@ -178,6 +183,7 @@ ru:
         placeholder: Поиск тем или записей
     time_ago: "%{time} назад"
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Вы уверены что хотите удалить эту тему? Это безвозвратно.
       delete_topic: Удалить тему
       deleted_notice: Тема "удалена"

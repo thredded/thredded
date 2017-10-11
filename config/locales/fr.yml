@@ -73,6 +73,8 @@ fr:
     moderation:
       approve_btn: Approuver
       block_btn: Bloqué
+      moderation_state:
+        name: État de modération
       pending:
         empty:
           content: Tous les commentaires ont été modérés.
@@ -88,6 +90,8 @@ fr:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: Aucun utilisateur avec un nom commençant par %{query}
         results_message: Utilisateurs avec le nom commençant par %{query}
+      user:
+        name: Utilisateur
     nav:
       all_messageboards: Toutes les catégories
       edit_messageboard: Éditer la catégorie
@@ -155,6 +159,7 @@ fr:
         create_btn_submitting: Message en cours d'envoi...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Éditer
       errors:
         user_ids_length: Spécifier au moins un autre utilisateur.
@@ -181,6 +186,7 @@ fr:
         placeholder: Rechercher un Sujet ou un Commentaire
     time_ago: il y a %{time}
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Êtes-vous sur de vouloir supprimer ce sujet ? Cette action est irréversible.
       delete_topic: Supprimer le Sujet
       deleted_notice: Sujet supprimé
