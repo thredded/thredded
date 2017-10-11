@@ -28,7 +28,7 @@ module Thredded
         thredded_current_user,
         moderatable_posts
           .order_newest_first
-          .preload(:user, :postable)
+          .preload(:user, :postable, :messageboard)
           .page(current_page)
       )
       maybe_set_last_moderated_record_flash
