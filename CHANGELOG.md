@@ -1,3 +1,18 @@
+# v0.13.5
+
+## Fixed
+
+* timeago.js with locales that contain a hyphen (e.g. `zh-CN`).
+  [#626](https://github.com/thredded/thredded/issues/626)
+
+## Changed
+
+* Post notification email subject no longer contains the post's author name.
+  Notification emails for the same topic now stay in the same thread in the email client.
+  [#90c6f5ff](https://github.com/thredded/thredded/commit/90c6f5fffd42ec1001c39dceb5ab5e875a71869d)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.4...v0.13.5.
+
 # v0.13.4
 
 ## Added
