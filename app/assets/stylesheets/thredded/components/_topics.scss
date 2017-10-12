@@ -172,3 +172,10 @@
     display: none;
   }
 }
+
+.thredded--topic-locked { 
+  .thredded--topics--posts-count {
+    border: 1px solid red;
+    background-color: darkred;
+  }
+}
