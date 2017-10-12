@@ -1,3 +1,15 @@
+# v0.13.6
+
+## Fixed
+
+* Private posts can be edited again.
+
+## Added
+
+* Locked topics have a different badge color in the topics list.
+  Locked topics also display a message saying that they are locked.
+  [#629](https://github.com/thredded/thredded/pull/629)
+
 # v0.13.5
 
 ## Fixed
