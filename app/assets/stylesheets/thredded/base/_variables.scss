@@ -91,6 +91,10 @@ $thredded-badge-active-background: $thredded-action-color !default;
 $thredded-badge-inactive-color: $thredded-button-color !default;
 $thredded-badge-inactive-background: rgba($thredded-text-color, 0.3) !default;
 
+// Locked topics
+$thredded-badge-locked-color: $thredded-alert-warning-background;
+$thredded-badge-locked-background: $thredded-alert-warning-color;
+
 // Onebox
 $thredded-onebox-favicons: (
   'amazon': 'favicons/amazon.png',

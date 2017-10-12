@@ -173,9 +173,14 @@
   }
 }
 
-.thredded--topic-locked { 
+.thredded--topic-locked {
   .thredded--topics--posts-count {
-    border: 1px solid red;
-    background-color: darkred;
+    color: $thredded-badge-locked-color;
+    background-color: $thredded-badge-locked-background;
   }
+}
+
+.thredded--topic--locked-notice {
+  @extend %thredded--alert;
+  @extend %thredded--alert--warning;
 }
