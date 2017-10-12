@@ -39,7 +39,7 @@ module Thredded
 
     def update
       authorize post, :update?
-      post.update_attributes(post_params.except(:user, :ip))
+      post.update(new_private_post_params)
 
       redirect_to post_path(post, user: thredded_current_user)
     end
