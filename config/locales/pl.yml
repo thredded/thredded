@@ -210,6 +210,7 @@ pl:
         update_btn: Zaktualizuj temat
       locked:
         label: Zablokowany
+        message: Ten temat został zablokowany przez moderatora.
       mark_as_unread: Oznacz jako nieprzeczytane stąd
       not_following: Nie obserwujesz tego tematu.
       search:

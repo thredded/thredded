@@ -214,6 +214,7 @@ es:
         update_btn: Actualizar Tema
       locked:
         label: Bloqueado
+        message: Este tema ha sido bloqueado por un moderador.
       mark_as_unread: Marcar sin leer desde aquí
       not_following: No estás siguiendo este tema.
       search:

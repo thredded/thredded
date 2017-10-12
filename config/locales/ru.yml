@@ -208,6 +208,7 @@ ru:
         update_btn: Обновление темы
       locked:
         label: Заблокировать тему
+        message: Эта тема закрыта модератором.
       mark_as_unread: Пометить как непрочитанное
       not_following: не отслеживаю
       search:

@@ -211,6 +211,7 @@ fr:
         update_btn: Mettre à jour le Sujet
       locked:
         label: Verrouillé
+        message: Ce sujet a été verrouillé par un modérateur.
       mark_as_unread: Marquer comme non lu à partir d'ici
       not_following: Vous ne suivez pas ce sujet.
       search:

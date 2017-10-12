@@ -214,6 +214,7 @@ pt-BR:
         update_btn: Atualizar Tópico
       locked:
         label: Trancado
+        message: Este tópico foi bloqueado por um moderador.
       mark_as_unread: Marca não lida a partir daqui
       not_following: Você não está seguindo este tema.
       search:
