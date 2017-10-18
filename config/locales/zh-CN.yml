@@ -2,15 +2,15 @@
 zh-CN:
   thredded:
     content_moderation_states:
-      content_blocked_notice: "被锁定"
+      content_blocked_notice: 被锁定
       content_blocked_notice_with_record_html: "%{moderator} 在%{time_ago}锁定"
     email_notifier:
-      by_email: "电子邮箱"
+      by_email: 电子邮箱
     emails:
       message_notification:
         html:
-          email_sent_reason_html: "我们给你发送这封邮件是因为 %{user} 在一个私人对话中提到你，“<a href=\"%{post_url}\">%{topic_title}</a>”。"
-          post_lead_html: "%{user} 在<a href=\"%{post_url}\">“%{topic_title}”</a>中发表了新消息："
+          email_sent_reason_html: 我们给你发送这封邮件是因为 %{user} 在一个私人对话中提到你，“<a href="%{post_url}">%{topic_title}</a>”。
+          post_lead_html: '%{user} 在<a href="%{post_url}">“%{topic_title}”</a>中发表了新消息：'
           unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
         subject: "%{user} 在“%{topic_title}”中发表了新消息"
         text:
@@ -23,10 +23,10 @@ zh-CN:
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
-          email_sent_reason_html: "我们给你发送这封邮件是因为你关注了帖子： “<a href=\"%{post_url}\">%{topic_title}</a>”。"
-          post_lead_html: "%{user} 在<a href=\"%{post_url}\">“%{topic_title}”</a>中说到："
-          unsubscribe_instructions_html: "退订这些邮件, 请前往<a href=\"%{preferences_url}\">设置</a>。"
-        subject: "%{user} 在“%{topic_title}”中的新回复"
+          email_sent_reason_html: 我们给你发送这封邮件是因为你关注了帖子： “<a href="%{post_url}">%{topic_title}</a>”。
+          post_lead_html: '%{user} 在<a href="%{post_url}">“%{topic_title}”</a>中说到：'
+          unsubscribe_instructions_html: 退订这些邮件, 请前往<a href="%{preferences_url}">设置</a>。
+        subject: "“%{topic_title}”有新回复"
         text:
           email_sent_reason: |-
             我们给你发送这封邮件是因为你关注了这个帖子“%{topic_title}“。
@@ -38,192 +38,199 @@ zh-CN:
             退订这些邮件，请前往设置：
             %{unsubscribe_url}
     errors:
-      login_required: "请先登录"
-      not_authorized: "你没有权限访问该页面"
-      private_topic_create_denied: "你没有权限创建私人对话"
-      private_topic_not_found: "该私人对话不存在"
+      login_required: 请先登录
+      not_authorized: 你没有权限访问该页面
+      private_topic_create_denied: 你没有权限创建私人对话
+      private_topic_not_found: 该私人对话不存在
     form:
-      create_btn_submitting: "创建中..."
-      preview: "预览"
-      update: "更新"
-      update_btn_submitting: "更新中..."
+      create_btn_submitting: 创建中...
+      preview: 预览
+      update: 更新
+      update_btn_submitting: 更新中...
     messageboard:
-      create: "创建一个新板块"
+      create: 创建一个新板块
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
-        description_label: "描述"
-        messageboard_group_id_label: "板块分组"
-        no_group: "没有分组"
-        title_label: "名称"
+        description_label: 描述
+        messageboard_group_id_label: 板块分组
+        no_group: 没有分组
+        title_label: 名称
         update_btn_submitting: :thredded.form.update_btn_submitting
       index:
-        page_title: "板块"
-      last_updated_by_html: "最近由 <span>%{user}</span> 在%{time_ago}更新"
+        page_title: 板块
+      last_updated_by_html: 最近由 <span>%{user}</span> 在%{time_ago}更新
       topics_and_posts_counts: "%{topics_count} 帖子 / %{posts_count} 回复"
       update: :thredded.form.update
-      updated_notice: "板块已更新"
+      updated_notice: 板块已更新
     messageboard_group:
-      create: "创建一个新的板块分组"
+      create: 创建一个新的板块分组
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
-      saved: "板块分组 %{name} 已创建"
+      saved: 板块分组 %{name} 已创建
     moderation:
-      approve_btn: "通过"
-      block_btn: "锁定"
+      approve_btn: 通过
+      block_btn: 锁定
+      moderation_state:
+        name: 审核状态
       pending:
         empty:
-          content: "所有回复已审核"
-          title: "干的漂亮！"
+          content: 所有回复已审核
+          title: 干的漂亮！
       post_approved_html: "%{moderator} %{time_ago}通过了该内容"
       post_blocked_html: "%{moderator} %{time_ago}锁定了该内容"
-      post_deleted_notice: "该内容已被删除"
-      posts_content_changed_since_moderation_html: "<a href=\"%{post_url}\">该内容</a>已发生变化，以下是被审核时的内容："
+      post_deleted_notice: 该内容已被删除
+      posts_content_changed_since_moderation_html: <a href="%{post_url}">该内容</a>已发生变化，以下是被审核时的内容：
       search_users:
-        form_label: "搜索用户"
+        form_label: 搜索用户
         form_placeholder: :thredded.moderation.search_users.form_label
-        no_results_message: "未找到有关 %{query} 的用户"
-        results_message: "有关 %{query} 的所有用户"
+        no_results_message: 未找到有关 %{query} 的用户
+        results_message: 有关 %{query} 的所有用户
+      user:
+        name: 用户
     nav:
-      all_messageboards: "所有板块"
-      edit_messageboard: "编辑板块"
-      edit_post: "编辑内容"
+      all_messageboards: 所有板块
+      edit_messageboard: 编辑板块
+      edit_post: 编辑内容
       edit_private_topic: :thredded.nav.edit_topic
-      edit_topic: "编辑"
-      mark_all_read: "标记所有为已读"
-      moderation: "审核"
-      moderation_activity: "状况"
-      moderation_history: "历史"
-      moderation_pending: "待定"
-      moderation_users: "用户"
-      private_topics: "私人对话"
-      settings: "通知设置"
-    null_user_name: "删除用户"
+      edit_topic: 编辑
+      mark_all_read: 标记所有为已读
+      moderation: 审核
+      moderation_activity: 状况
+      moderation_history: 历史
+      moderation_pending: 待定
+      moderation_users: 用户
+      private_topics: 私人对话
+      settings: 通知设置
+    null_user_name: 删除用户
     posts:
-      delete: "删除回复"
-      delete_confirm: "你确定删除该回复吗？"
-      deleted_notice: "你的回复已删除"
+      delete: 删除回复
+      delete_confirm: 你确定删除该回复吗？
+      deleted_notice: 你的回复已删除
       edit: :thredded.nav.edit_post
       form:
-        content_label: "内容"
-        create_btn: "提交回复"
-        create_btn_submitting: "回复中..."
-        title_label: "回复"
-        update_btn: "更新"
+        content_label: 内容
+        create_btn: 提交回复
+        create_btn_submitting: 回复中...
+        title_label: 回复
+        update_btn: 更新
         update_btn_submitting: :thredded.form.update_btn_submitting
-      pending_moderation_notice: "你的回复将在审核之后公开发表"
-      quote_btn: "引用"
+      pending_moderation_notice: 你的回复将在审核之后公开发表
+      quote_btn: 引用
     preferences:
       edit:
         page_title: :thredded.nav.settings
       form:
         auto_follow_topics:
-          hint: "自动关注所有新帖子，更改该设置将会更改所有板块的设置"
-          label: "关注所有新帖子"
+          hint: 自动关注所有新帖子，更改该设置将会更改所有板块的设置
+          label: 关注所有新帖子
         follow_topics_on_mention:
-          hint: "当有人在帖子中@你时将自动关注该帖子"
-          label: "关注那些@你的帖子"
+          hint: 当有人在帖子中@你时将自动关注该帖子
+          label: 关注那些@你的帖子
         messageboard_auto_follow_topics:
-          hint: "自动关注该板块的所有新帖子，这将覆盖以上所有的设置"
-          label: "关注所有新帖子"
+          hint: 自动关注该板块的所有新帖子，这将覆盖以上所有的设置
+          label: 关注所有新帖子
         messageboard_follow_topics_on_mention:
-          hint: "当有人在该板块中@你时将自动关注该帖子"
+          hint: 当有人在该板块中@你时将自动关注该帖子
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
         notifications_for_followed_topics:
-          label: "关注帖子的通知"
+          label: 关注帖子的通知
         notifications_for_private_topics:
-          label: "私人对话的通知"
-        submit_btn: "更新设置"
+          label: 私人对话的通知
+        submit_btn: 更新设置
         update_btn_submitting: :thredded.form.update_btn_submitting
-      global_preferences_title: "全局设置"
-      messageboard_preferences_nav_title: "板块设置"
+      global_preferences_title: 全局设置
+      messageboard_preferences_nav_title: 板块设置
       messageboard_preferences_title_html: "<em>%{messageboard}</em> 的相关设置"
-      updated_notice: "你的设置已经更新"
+      updated_notice: 你的设置已经更新
     private_posts:
       form:
-        content_label: "对话消息"
-        create_btn: "发送对话消息"
-        create_btn_submitting: "发送中..."
+        content_label: 对话消息
+        create_btn: 发送对话消息
+        create_btn_submitting: 发送中...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
-      edit: "编辑"
+      create: :thredded.private_topics.form.create_btn
+      edit: 编辑
       errors:
-        user_ids_length: "请指定至少一个用户"
+        user_ids_length: 请指定至少一个用户
       form:
         content_label: :thredded.private_posts.form.content_label
         create_btn: :thredded.private_posts.form.create_btn
         create_btn_submitting: :thredded.private_posts.form.create_btn_submitting
         title_label: :thredded.topics.form.title_label
-        title_placeholder_new: "对话标题"
-        title_placeholder_start: "发布新对话"
-        update_btn: "更新"
+        title_placeholder_new: 对话标题
+        title_placeholder_start: 发布新对话
+        update_btn: 更新
         update_btn_submitting: :thredded.private_posts.form.update_btn_submitting
-        users_label: "会话者"
-        users_placeholder: "选择参与此对话的用户"
+        users_label: 会话者
+        users_placeholder: 选择参与此对话的用户
       no_private_topics:
-        create_btn: "创建你的第一个私人对话"
-        title: "你没有私人对话"
-      updated_notice: "标题已更新"
-    recent_activity: "最近状况"
+        create_btn: 创建你的第一个私人对话
+        title: 你没有私人对话
+      updated_notice: 标题已更新
+    recent_activity: 最近状况
     search:
       form:
         btn_submit: :thredded.search.form.label
-        label: "搜索"
-        placeholder: "搜索帖子和回复"
+        label: 搜索
+        placeholder: 搜索帖子和回复
     time_ago: "%{time}前"
     topics:
-      delete_confirm: "你确定删除该帖子吗？一旦删除将无法恢复"
-      delete_topic: "删除帖子"
-      deleted_notice: "帖子已删除"
-      edit: "编辑帖子"
-      follow: "关注该帖子"
-      followed_by: "关注者："
-      followed_by_noone: "无人关注该帖子"
-      followed_notice: "你在关注该帖子"
+      create: :thredded.topics.form.create_btn
+      delete_confirm: 你确定删除该帖子吗？一旦删除将无法恢复
+      delete_topic: 删除帖子
+      deleted_notice: 帖子已删除
+      edit: 编辑帖子
+      follow: 关注该帖子
+      followed_by: 关注者：
+      followed_by_noone: 无人关注该帖子
+      followed_notice: 你在关注该帖子
       following:
-        auto: "由于自动关注开启你已关注该帖子"
-        manual: "你正在关注该帖子"
-        mentioned: "由于你被@到所以你自动关注该帖子"
-        posted: "由于你参与了回复现已关注该帖子"
+        auto: 由于自动关注开启你已关注该帖子
+        manual: 你正在关注该帖子
+        mentioned: 由于你被@到所以你自动关注该帖子
+        posted: 由于你参与了回复现已关注该帖子
       form:
-        categories_placeholder: "分类"
+        categories_placeholder: 分类
         content_label: :thredded.posts.form.content_label
-        create_btn: "创建新帖子"
-        messageboard_label: "板块"
-        title_label: "标题"
+        create_btn: 创建新帖子
+        messageboard_label: 板块
+        title_label: 标题
         title_placeholder: :thredded.topics.form.title_label
-        title_placeholder_start: "发布新帖子"
-        update_btn: "更新帖子"
+        title_placeholder_start: 发布新帖子
+        update_btn: 更新帖子
       locked:
-        label: "锁定"
-      mark_as_unread: "标记未读"
-      not_following: "你未关注该帖子"
+        label: 锁定
+        message: 该帖子被某个审核者锁定
+      mark_as_unread: 标记未读
+      not_following: 你未关注该帖子
       search:
-        no_results_in_messageboard_message_html: "在%{messageboard}板块中未找到 <q>%{query}</q> 相关的搜索结果"
-        no_results_message_html: "没有关于 <q>%{query}</q> 的搜索结果"
-        page_title: "搜索结果"
-        results_in_messageboard_message_html: "在%{messageboard}板块中关于 <q>%{query}</q> 的搜索结果"
-        results_message_html: "关于 <q>%{query}</q> 的搜索结果"
-        search_in_all_messageboards_btn: "搜索全站"
+        no_results_in_messageboard_message_html: 在%{messageboard}板块中未找到 <q>%{query}</q> 相关的搜索结果
+        no_results_message_html: 没有关于 <q>%{query}</q> 的搜索结果
+        page_title: 搜索结果
+        results_in_messageboard_message_html: 在%{messageboard}板块中关于 <q>%{query}</q> 的搜索结果
+        results_message_html: 关于 <q>%{query}</q> 的搜索结果
+        search_in_all_messageboards_btn: 搜索全站
       started_by_html: "%{user} %{time_ago}发布"
       sticky:
-        label: "置顶"
-      unfollow: "取消关注"
-      unfollowed_notice: "你不再关注该帖子"
-      updated_notice: "帖子已更新"
+        label: 置顶
+      unfollow: 取消关注
+      unfollowed_notice: 你不再关注该帖子
+      updated_notice: 帖子已更新
     users:
-      currently_online: "目前在线"
-      last_active_html: "最后活跃%{time_ago}"
-      posted_in_topic_html: "在%{topic_link}中回复到："
+      currently_online: 目前在线
+      last_active_html: 最后活跃%{time_ago}
+      posted_in_topic_html: 在%{topic_link}中回复到：
       posts_count:
-        one: "一个回复"
+        one: 一个回复
         other: "%{count} 个回复"
       recent_activity: :thredded.recent_activity
-      started_topic_html: "发布帖子 %{topic_link}"
+      started_topic_html: 发布帖子 %{topic_link}
       started_topics_count:
-        one: "发布一个帖子"
-        other: "发布 %{count} 个帖子"
+        one: 发布一个帖子
+        other: 发布 %{count} 个帖子
       user_posted_in_topic_html: "%{user_link} 回复在 %{topic_link}"
-      user_since_html: "用户自%{time_ago}"
+      user_since_html: 用户自%{time_ago}
       user_started_topic_html: "%{user_link} 发布 %{topic_link}"
