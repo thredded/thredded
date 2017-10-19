@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thredded (0.13.6)
+    thredded (0.13.7)
       active_record_union (>= 1.2.0)
       autoprefixer-rails
       db_text_search (~> 0.2.0)
@@ -111,22 +111,23 @@ GEM
       nokogiri (>= 1.4)
     htmlentities (4.3.4)
     http_accept_language (2.1.1)
-    i18n (0.8.6)
+    i18n (0.9.0)
+      concurrent-ruby (~> 1.0)
     inline_svg (1.2.3)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
-    kaminari (1.0.1)
+    kaminari (1.1.0)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.0.1)
-      kaminari-activerecord (= 1.0.1)
-      kaminari-core (= 1.0.1)
-    kaminari-actionview (1.0.1)
+      kaminari-actionview (= 1.1.0)
+      kaminari-activerecord (= 1.1.0)
+      kaminari-core (= 1.1.0)
+    kaminari-actionview (1.1.0)
       actionview
-      kaminari-core (= 1.0.1)
-    kaminari-activerecord (1.0.1)
+      kaminari-core (= 1.1.0)
+    kaminari-activerecord (1.1.0)
       activerecord
-      kaminari-core (= 1.0.1)
-    kaminari-core (1.0.1)
+      kaminari-core (= 1.1.0)
+    kaminari-core (1.1.0)
     kaminari-i18n (0.4.0)
       kaminari
       rails
