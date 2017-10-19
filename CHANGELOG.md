@@ -1,3 +1,10 @@
+# v0.13.7
+
+## Added
+
+* Simplified Chinese localization. 🇨🇳
+  [#632](https://github.com/thredded/thredded/pull/632)
+
 # v0.13.6
 
 ## Fixed

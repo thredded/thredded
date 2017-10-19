@@ -98,7 +98,7 @@ Then, see the rest of this Readme for more information about using and customizi
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.13.6'
+gem 'thredded', '~> 0.13.7'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
@@ -380,8 +380,8 @@ change_column_default :thredded_user_preferences, :auto_follow_topics, 1
 
 ## I18n
 
-Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Polish, Russian,
-French, and Spanish.
+Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Chinese (Simplified),
+Polish, Russian, French, and Spanish.
 We welcome PRs adding support for new languages.
 
 Here are the steps to ensure the best support for your language if it isn't English:
