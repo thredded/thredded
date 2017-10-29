@@ -43,6 +43,15 @@
   margin-bottom: $thredded-small-spacing / 2;
 }
 
+.threadded--messageboard--icon {
+  fill: currentColor;
+  display: inline-block;
+  font-size: 1em;
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.4;
+}
+
 .thredded--messageboard--description,
 .thredded--messageboard--meta,
 .thredded--messageboard--byline {
