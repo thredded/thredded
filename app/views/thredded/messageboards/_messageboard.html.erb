@@ -19,6 +19,8 @@
                 user: messageboard.last_user.thredded_display_name %>
         </p>
       <% end %>
+      <br>
+      <%= inline_svg('thredded/lock.svg', class: 'threadded--messageboard--icon') if messageboard.locked %>
     <% end %>
   <% end %>
 <% end %>
