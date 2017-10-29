@@ -14,6 +14,12 @@
                                 include_blank: t('thredded.messageboard.form.no_group') %>
       </li>
       <li>
+        <%= f.label :locked do %>
+            <%= f.check_box :locked %> <%= t 'thredded.messageboard.form.locked.label' %>
+        <% end %>
+      </li>
+
+      <li>
         <%= f.submit @messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
                      class: 'thredded--form--submit',
                      'data-disable-with' => @messageboard.persisted? ?

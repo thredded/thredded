@@ -59,6 +59,8 @@ fr:
         no_group: Pas de groupe
         title_label: Nom
         update_btn_submitting: :thredded.form.update_btn_submitting
+        locked:
+          label: Verrouillé
       index:
         page_title: Catégories
       last_updated_by_html: Mise à jour %{time_ago} <cite>par %{user}</cite>

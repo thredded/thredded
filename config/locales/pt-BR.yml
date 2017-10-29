@@ -60,6 +60,8 @@ pt-BR:
         no_group: Sem Grupo
         title_label: Nome
         update_btn_submitting: :thredded.form.update_btn_submitting
+        locked:
+          label: Trancado
       index:
         page_title: Fóruns de Mensagens
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>

@@ -47,7 +47,7 @@ module Thredded
     def messageboard_params
       params
         .require(:messageboard)
-        .permit(:name, :description, :messageboard_group_id)
+        .permit(:name, :description, :messageboard_group_id, :locked)
     end
   end
 end
