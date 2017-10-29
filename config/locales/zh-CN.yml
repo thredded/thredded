@@ -56,6 +56,8 @@ zh-CN:
         no_group: 没有分组
         title_label: 名称
         update_btn_submitting: :thredded.form.update_btn_submitting
+        locked:
+          label: 锁定
       index:
         page_title: 板块
       last_updated_by_html: 最近由 <span>%{user}</span> 在%{time_ago}更新

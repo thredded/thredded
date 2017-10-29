@@ -59,6 +59,8 @@ pl:
         no_group: Brak grupy
         title_label: Nazwa
         update_btn_submitting: :thredded.form.update_btn_submitting
+        locked:
+          label: Zablokowany
       index:
         page_title: Tablice
       last_updated_by_html: Zaktualizowano %{time_ago} <cite>przez %{user}</cite>

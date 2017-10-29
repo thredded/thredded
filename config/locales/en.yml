@@ -59,6 +59,8 @@ en:
         no_group: No Group
         title_label: Name
         update_btn_submitting: :thredded.form.update_btn_submitting
+        locked:
+          label: Locked
       index:
         page_title: Messageboards
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>

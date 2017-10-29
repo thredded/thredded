@@ -61,6 +61,8 @@ es:
         no_group: Sin grupo
         title_label: Nombre
         update_btn_submitting: :thredded.form.update_btn_submitting
+        locked:
+          label: Bloqueado
       index:
         page_title: Foros
       last_updated_by_html: Actualizado %{time_ago} <cite>por %{user}</cite>
