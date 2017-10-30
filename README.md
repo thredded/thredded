@@ -433,19 +433,11 @@ The methods used by Thredded for determining the permissions are described below
 
 #### Posting to messageboards
 
-1. A list of messageboards that a given user can post in.
+A list of messageboards that a given user can post in.
 
   ```ruby
   # @return [ActiveRecord::Relation<Thredded::Messageboard>] messageboards that the user can post in
   thredded_can_write_messageboards
-  ```
-
-2. A list of users that can post to a given list of messageboards.
-
-  ```ruby
-  # @param messageboards [Array<Thredded::Messageboard>]
-  # @return [ActiveRecord::Relation<User>] users that can post to the given messageboards
-  self.thredded_messageboards_writers(messageboards)
   ```
 
 #### Messaging other users (posting to private topics)
