@@ -451,18 +451,11 @@ thredded_can_message_users
 
 #### Moderating messageboards
 
-1. A list of messageboards that a given user can moderate:
+A list of messageboards that a given user can moderate:
 
   ```ruby
   # @return [ActiveRecord::Relation<Thredded::Messageboard>] messageboards that the user can moderate
   thredded_can_moderate_messageboards
-  ```
-2. A list of users that can moderate a given list of messageboards:
-
-  ```ruby
-  # @param messageboards [Array<Thredded::Messageboard>]
-  # @return [ActiveRecord::Relation<User>] users that can moderate the given messageboards
-  self.thredded_messageboards_moderators(messageboards)
   ```
 
 #### Admin permissions
