@@ -255,7 +255,7 @@ module Thredded
           posts = range_of_dates_in_order(up_to: last_post_at, count: posts_count).map.with_index do |written_at, i|
             author = i.zero? ? topic.user : seeder.users.sample
             FactoryBot.create(:post, postable: topic, messageboard: seeder.first_messageboard,
-                                      user: author, created_at: written_at, updated_at: written_at)
+                                     user: author, created_at: written_at, updated_at: written_at)
           end
           topic.update!(last_user_id: posts.last.user.id, updated_at: last_post_at, last_post_at: last_post_at)
           posts
