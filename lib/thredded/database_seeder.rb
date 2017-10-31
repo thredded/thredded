@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require_relative '../../spec/support/features/fake_content'
 
 # rubocop:disable HandleExceptions
 begin
-  if FactoryGirl.factories.instance_variable_get(:@items).none?
+  if FactoryBot.factories.instance_variable_get(:@items).none?
     require_relative '../../spec/factories'
   end
 rescue NameError
@@ -71,7 +71,7 @@ module Thredded
       log "Creating #{additional_messageboards.length} additional messageboards..."
       additional_messageboards.each do |(name, description, group_id)|
         messageboard = Messageboard.create!(name: name, description: description, messageboard_group_id: group_id)
-        FactoryGirl.create_list(:topic, 1 + rand(3), messageboard: messageboard, with_posts: 1)
+        FactoryBot.create_list(:topic, 1 + rand(3), messageboard: messageboard, with_posts: 1)
       end
     end
 
@@ -184,7 +184,7 @@ module Thredded
 
       def create
         log 'Creating first user...'
-        FactoryGirl.create(:user, :approved, :admin, name: 'Joe', email: 'joe@example.com')
+        FactoryBot.create(:user, :approved, :admin, name: 'Joe', email: 'joe@example.com')
       end
     end
 
@@ -196,8 +196,8 @@ module Thredded
         log "Creating #{count} users..."
         approved_users_count = (count * 0.97).round
         [seeder.first_user] +
-          FactoryGirl.create_list(:user, approved_users_count, :approved) +
-          FactoryGirl.create_list(:user, count - approved_users_count)
+          FactoryBot.create_list(:user, approved_users_count, :approved) +
+          FactoryBot.create_list(:user, count - approved_users_count)
       end
     end
 
@@ -206,7 +206,7 @@ module Thredded
 
       def create
         log 'Creating a messageboard...'
-        @first_messageboard = FactoryGirl.create(
+        @first_messageboard = FactoryBot.create(
           :messageboard,
           name: 'Main Board',
           slug: 'main-board',
@@ -220,7 +220,7 @@ module Thredded
 
       def create(count: 1, messageboard: seeder.first_messageboard)
         log "Creating #{count} topics in #{messageboard.name}..."
-        FactoryGirl.create_list(
+        FactoryBot.create_list(
           :topic, count,
           messageboard: messageboard,
           user: seeder.users.sample,
@@ -234,7 +234,7 @@ module Thredded
 
       def create(count: 1)
         Array.new(count) do
-          FactoryGirl.create(
+          FactoryBot.create(
             :private_topic,
             user: seeder.users[1..-1].sample,
             last_user: seeder.users.sample,
@@ -254,7 +254,7 @@ module Thredded
           posts_count = (count.min + rand(count.max + 1))
           posts = range_of_dates_in_order(up_to: last_post_at, count: posts_count).map.with_index do |written_at, i|
             author = i.zero? ? topic.user : seeder.users.sample
-            FactoryGirl.create(:post, postable: topic, messageboard: seeder.first_messageboard,
+            FactoryBot.create(:post, postable: topic, messageboard: seeder.first_messageboard,
                                       user: author, created_at: written_at, updated_at: written_at)
           end
           topic.update!(last_user_id: posts.last.user.id, updated_at: last_post_at, last_post_at: last_post_at)
@@ -280,7 +280,7 @@ module Thredded
         seeder.private_topics.flat_map do |topic|
           (count.min + rand(count.max + 1)).times do |i|
             author = i.zero? ? topic.user : topic.users.sample
-            FactoryGirl.create(:private_post, postable: topic, user: author)
+            FactoryBot.create(:private_post, postable: topic, user: author)
           end
         end
       end

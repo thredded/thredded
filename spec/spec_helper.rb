@@ -46,7 +46,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'
 require 'webmock/rspec'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
@@ -95,7 +95,7 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
     config.filter_run_excluding migration_spec: true
   end
   config.infer_spec_type_from_file_location!
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
 
   if ENV['MIGRATION_SPEC']

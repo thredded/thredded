@@ -4,7 +4,7 @@ require 'faker'
 I18n.reload!
 include ActionDispatch::TestProcess
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:topic_hash) { |n| "hash#{n}" }
 
   factory :email, class: OpenStruct do

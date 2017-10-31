@@ -36,7 +36,7 @@ module PageObject
     end
 
     def create_messageboard_group
-      FactoryGirl.create(:messageboard_group, name: group_name)
+      FactoryBot.create(:messageboard_group, name: group_name)
     end
 
     def group_name
