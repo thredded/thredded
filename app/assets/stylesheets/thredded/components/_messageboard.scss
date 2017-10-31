@@ -44,7 +44,7 @@
 }
 
 .thredded--messageboard--icon {
-  fill: currentColor;
+  @extend %thredded--icon;
   display: inline-block;
   font-size: 1em;
   width: 1rem;
