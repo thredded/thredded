@@ -159,6 +159,7 @@ require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.path = ENV['CHROMIUM_BIN'] || %w[
   /usr/bin/chromium-browser
   /Applications/Chromium.app/Contents/MacOS/Chromium
+  /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 ].find { |path| File.executable?(path) }
 Selenium::WebDriver::Chrome.driver_path = ENV['CHROMEDRIVER_PATH'] || %w[
   /usr/bin/chromedriver
