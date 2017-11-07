@@ -38,6 +38,12 @@ module Thredded
     def user_link(user)
       render partial: 'thredded/users/link', locals: { user: user }
     end
+    
+    def user_anon_link(post)
+      DisplayName.create_unless_exists(post.user, post.topic)
+      username = DisplayName.find(post.user, post.topic)
+      render partial: 'thredded/users/anonlink', locals: { username: username }
+    end
 
     # @param user [Thredded.user_class]
     # @return [String] wrapped @mention string

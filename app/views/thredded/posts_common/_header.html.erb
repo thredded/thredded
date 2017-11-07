@@ -1,7 +1,7 @@
 <%# @param post [Thredded::PostView] %>
 <header>
   <%= image_tag post.avatar_url, class: 'thredded--post--avatar' if post.user %>
-  <h2 class="thredded--post--user"><%= user_link post.user %></h2>
+  <h2 class="thredded--post--user"><%= user_anon_link post %></h2>
   <a href="<%= post.permalink_path %>" rel="nofollow" class="thredded--link thredded--post--created-at">
     <%= time_ago post.created_at %>
   </a>
