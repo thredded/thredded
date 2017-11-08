@@ -2,12 +2,7 @@
 <%= content_tag :article, id: dom_id(post), class: 'thredded--post thredded--post-moderation' do %>
   <%= render 'thredded/posts_common/actions', post: post %>
   <%= render 'thredded/posts_common/header_with_user_and_topic',
-             post:           post,
-             post_user_link: if post.user
-                               link_to(post.user.thredded_display_name, user_moderation_path(post.user.id))
-                             else
-                               content_tag :em, t('thredded.null_user_name')
-                             end
+             post:           post
   %>
   <%= content || render('thredded/posts/content', post: post) %>
   <% if post.blocked? %>

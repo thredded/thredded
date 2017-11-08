@@ -2,12 +2,8 @@
   <h1 class="thredded--topic-header--title"><%= topic.title %></h1>
   <cite class="thredded--topic-header--started-by">
     <%= t 'thredded.topics.started_by_html',
-          time_ago: time_ago(topic.created_at),
-          user:     user_link(topic.user) %>
+          time_ago: time_ago(topic.created_at) %>
   </cite>
-  <span class="thredded--topic-header--participants">
-    <%= render partial: 'thredded/private_topics/header/participant',
-               collection: (topic.users - [topic.user]) %>
   </span>
   <% if topic.can_update? %>
     <%= link_to t('thredded.private_topics.edit'), topic.edit_path,
