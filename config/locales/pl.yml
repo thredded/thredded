@@ -55,12 +55,11 @@ pl:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Opis
+        locked_label: Zablokowany
         messageboard_group_id_label: messageboard grupa
         no_group: Brak grupy
         title_label: Nazwa
         update_btn_submitting: :thredded.form.update_btn_submitting
-        locked:
-          label: Zablokowany
       index:
         page_title: Tablice
       last_updated_by_html: Zaktualizowano %{time_ago} <cite>przez %{user}</cite>

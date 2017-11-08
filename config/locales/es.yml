@@ -57,12 +57,11 @@ es:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Descripción
+        locked_label: Bloqueado
         messageboard_group_id_label: grupo messageboard
         no_group: Sin grupo
         title_label: Nombre
         update_btn_submitting: :thredded.form.update_btn_submitting
-        locked:
-          label: Bloqueado
       index:
         page_title: Foros
       last_updated_by_html: Actualizado %{time_ago} <cite>por %{user}</cite>
