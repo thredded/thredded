@@ -56,12 +56,11 @@ pt-BR:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Descrição
+        locked_label: Trancado
         messageboard_group_id_label: grupo messageboard
         no_group: Sem Grupo
         title_label: Nome
         update_btn_submitting: :thredded.form.update_btn_submitting
-        locked:
-          label: Trancado
       index:
         page_title: Fóruns de Mensagens
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>

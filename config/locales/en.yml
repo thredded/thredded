@@ -55,12 +55,12 @@ en:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Description
+        locked_label: Locked
+        locked_notice: This messageboard is locked. Only moderators can create new topics here.
         messageboard_group_id_label: Messageboard group
         no_group: No Group
         title_label: Name
         update_btn_submitting: :thredded.form.update_btn_submitting
-        locked:
-          label: Locked
       index:
         page_title: Messageboards
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>

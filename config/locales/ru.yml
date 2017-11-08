@@ -54,12 +54,11 @@ ru:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Описание
+        locked_label: Заблокировать
         messageboard_group_id_label: Выбрать группу
         no_group: Не группировать
         title_label: Название форума
         update_btn_submitting: :thredded.form.update_btn_submitting
-        locked:
-          label: Заблокировать
       index:
         page_title: Форумы
       last_updated_by_html: Обновлено %{time_ago} <cite>пользователем %{user}</cite>
