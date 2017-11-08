@@ -1,6 +1,6 @@
 <% if user %>
   <% if !user.thredded_anonymous? %>
-<a href="<%= user_path(user) %>"><%= user.thredded_display_name %></a>
+<%= user.thredded_display_name %>
   <% else %>
 <%= user.thredded_display_name %>
   <% end %>

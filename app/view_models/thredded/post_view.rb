@@ -11,6 +11,7 @@ module Thredded
              :pending_moderation?,
              :approved?,
              :blocked?,
+             :postable_id,
              :last_moderation_record,
              to: :@post
 

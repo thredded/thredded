@@ -220,7 +220,7 @@ en:
         results_in_messageboard_message_html: Search results for <q>%{query}</q> in %{messageboard}
         results_message_html: Search results for <q>%{query}</q>
         search_in_all_messageboards_btn: Search everywhere
-      started_by_html: Started %{time_ago} by %{user}
+      started_by_html: Started %{time_ago}
       sticky:
         label: Sticky
       unfollow: Stop following

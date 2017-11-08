@@ -71,5 +71,9 @@ module Thredded
         User.#{Thredded.user_display_name_method} must not be empty: please set make sure non nil or configure Thredded.user_display_name_method")
       ERROR
     end
+    
+    def thredded_display_name_post(post_id)
+      post_id
+    end
   end
 end
