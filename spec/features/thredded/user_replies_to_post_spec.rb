@@ -32,6 +32,33 @@ feature 'User replying to topic' do
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
   end
 
+  describe 'using dropdown', js: true do
+    shared_examples_for 'user can be mentioned' do
+      scenario 'can be mentioned' do
+        expect(page).not_to have_css('.thredded--textcomplete-dropdown')
+        posts.start_reply("Hey @#{other_user.name[0..2]}")
+        expect(page).to have_css('.thredded--textcomplete-dropdown')
+        find('.thredded--textcomplete-dropdown .textcomplete-item.active').click
+        expect(find_field('Content').value).to include(other_user_mention)
+        expect(page).not_to have_css('.thredded--textcomplete-dropdown')
+      end
+    end
+
+    context '(with a user with space in their name)' do
+      it_behaves_like 'user can be mentioned' do
+        let!(:other_user) { create(:user, name: 'Han Solo') }
+        let(:other_user_mention) { '@"Han Solo"' }
+      end
+    end
+
+    context '(with a user without a space)' do
+      it_behaves_like 'user can be mentioned' do
+        let!(:other_user) { create(:user, name: 'Chewie') }
+        let(:other_user_mention) { '@Chewie' }
+      end
+    end
+  end
+
   def user
     user = create(:user)
     PageObject::User.new(user)
