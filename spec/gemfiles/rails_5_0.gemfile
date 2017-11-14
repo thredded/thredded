@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
-eval_gemfile './shared.gemfile'
+eval_gemfile '../../shared.gemfile'
 gem 'rails', '~> 5.0.1'
 gem 'rails-ujs'
 gem 'rails-controller-testing'
