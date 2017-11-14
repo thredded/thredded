@@ -45,7 +45,7 @@ env:
 # Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
 script:
 #- bundle exec rspec --force-color --format d --tag=~js
-- bundle exec rspec --force-color --format d --tag=js
+- bundle exec rspec --force-color --format d --tag=js --seed=32354
 #- bundle exec rubocop
 #- bundle exec codeclimate-test-reporter
 #- MIGRATION_SPEC=1 bundle exec rspec spec/migration --force-color --format d
