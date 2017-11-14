@@ -68,9 +68,10 @@ feature 'User creates new topic' do
   end
 
   def new_topic
-    sign_in
     messageboard = create(:messageboard)
-    PageObject::Topics.new(messageboard)
+    topic = PageObject::Topics.new(messageboard)
+    sign_in # doing sign_in after creation, to prevent race condition with next navigation
+    topic
   end
 
   def new_topic_with_categories
