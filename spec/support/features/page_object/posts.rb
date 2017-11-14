@@ -13,7 +13,11 @@ module PageObject
     end
 
     def visit_posts
-      visit messageboard_topic_path(messageboard, topic)
+      visit path
+    end
+
+    def path
+      messageboard_topic_path(messageboard, topic)
     end
 
     def submit_reply(content = 'I replied')

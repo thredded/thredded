@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'User replying to topic' do
-  let(:posts) { posts_exist_in_a_topic }
+  let!(:posts) { posts_exist_in_a_topic }
   let(:post) { posts.first_post }
   before do
     user.log_in
@@ -24,7 +24,7 @@ feature 'User replying to topic' do
   scenario 'starts a quote-reply (js)', js: true do
     post.start_quote
     # Expect current path to not change because the JS magic takes place
-    expect(page).to have_current_path(current_path)
+    expect(page).to have_current_path(posts.path)
     # Wait for the async quote content fetch completion
     Timeout.timeout(1) do
       loop { break if posts.post_form.content != '...' }
