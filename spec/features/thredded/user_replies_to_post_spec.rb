@@ -23,13 +23,18 @@ feature 'User replying to topic' do
 
   scenario 'starts a quote-reply (js)', js: true do
     post.start_quote
+    p(content1: posts.post_form.content)
     # Expect current path to not change because the JS magic takes place
     expect(page).to have_current_path(posts.path)
     # Wait for the async quote content fetch completion
+    p(content2: posts.post_form.content)
     Timeout.timeout(1) do
       loop { break if posts.post_form.content != '...' }
     end
+    p(content: posts.post_form.content)
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
+    sleep(3) # TODO: replace this with something more sensible
+    # (it's just to stop it from impacting the next spec)
   end
 
   def user
