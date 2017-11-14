@@ -149,6 +149,9 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
     end
 
     config.append_after(:each) do
+      puts "about to reset (again?)"
+      Capybara.reset_sessions!
+      puts "about to clean"
       DatabaseCleaner.clean
     end
   end
