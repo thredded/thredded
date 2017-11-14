@@ -42,6 +42,7 @@ feature 'User replying to topic' do
   end
 
   def posts_exist_in_a_topic
+    create_list(:post, 10) # just to increase numbers of ids
     topic = create(:topic, messageboard: messageboard)
     posts = create_list(:post, 2, postable: topic, messageboard: messageboard)
     PageObject::Posts.new(posts)
