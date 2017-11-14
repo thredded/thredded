@@ -60,7 +60,7 @@ feature 'User replying to topic' do
   end
 
   def user
-    user = create(:user, name: "C-3PO")
+    user = create(:user, name: 'C-3PO')
     PageObject::User.new(user)
   end
 
