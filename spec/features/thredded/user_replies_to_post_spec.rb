@@ -17,24 +17,27 @@ feature 'User replying to topic' do
 
   scenario 'starts a quote-reply (no js)' do
     post.start_quote
-    expect(page).to have_current_path(posts.quote_page_for_first_post)
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
+    expect(page).to have_current_path(posts.quote_page_for_first_post)
   end
 
   scenario 'starts a quote-reply (js)', js: true do
     post.start_quote
-    p(content1: posts.post_form.content)
-    # Expect current path to not change because the JS magic takes place
-    expect(page).to have_current_path(posts.path)
-    # Wait for the async quote content fetch completion
     p(content2: posts.post_form.content)
+    # Wait for the async quote content fetch completion
     Timeout.timeout(1) do
-      loop { break if posts.post_form.content != '...' }
+      loop { print '^';break if posts.post_form.content != '...' }
     end
     p(content: posts.post_form.content)
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
-    sleep(3) # TODO: replace this with something more sensible
-    # (it's just to stop it from impacting the next spec)
+    # Expect current path to not have changed because the JS magic takes place
+    expect(page).to have_current_path(posts.path)
+
+    # (it's to try stop it from impacting the next spec)
+    # TODO: replace this with something more sensible
+    puts "sleeping for a long time"
+    sleep(10)
+    puts "slept for a long time"
   end
 
   def user
