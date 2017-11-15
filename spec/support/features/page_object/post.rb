@@ -49,7 +49,7 @@ module PageObject
 
     def open_post_actions
       within css_selector do
-        find('.thredded--post--dropdown').click
+        find('.thredded--post--dropdown').hover
       end
     end
 
