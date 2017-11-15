@@ -7,6 +7,7 @@ feature 'User replying to topic' do
   let(:post) { posts.first_post }
   before do
     user.log_in
+    expect(page).to have_text("Sign out") # to ensure sign in completes
     posts.visit_posts
   end
 

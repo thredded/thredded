@@ -71,6 +71,7 @@ feature 'User creates new topic' do
     messageboard = create(:messageboard)
     topic = PageObject::Topics.new(messageboard)
     sign_in # doing sign_in after creation, to prevent race condition with next navigation
+    expect(page).to have_text("Sign out") # to ensure sign in completes
     topic
   end
 
