@@ -27,7 +27,7 @@ feature 'User replying to topic' do
     p(content2: posts.post_form.content)
     # Wait for the async quote content fetch completion
     Timeout.timeout(1) do
-      loop { print '^';break if posts.post_form.content != '...' }
+      loop { print '^'; break if posts.post_form.content != '...' }
     end
     p(content: posts.post_form.content)
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
@@ -35,10 +35,10 @@ feature 'User replying to topic' do
     expect(page).to have_current_path(posts.path)
 
     # (it's to try stop it from impacting the next spec)
-    # TODO: replace this with something more sensible
-    puts "sleeping for a long time"
+    # TODO: if it works, replace this with something more sensible
+    puts 'sleeping for a long time'
     sleep(10)
-    puts "slept for a long time"
+    puts 'slept for a long time'
   end
 
   def user
