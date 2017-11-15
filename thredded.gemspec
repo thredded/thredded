@@ -52,7 +52,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'sprockets-es6'
 
   # test dependencies
-  s.add_development_dependency 'capybara', '~> 2.4'
+  s.add_development_dependency 'capybara', '~> 2.16'
   s.add_development_dependency 'selenium-webdriver', '>= 3.5.0'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'database_cleaner'
