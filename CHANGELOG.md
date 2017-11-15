@@ -1,3 +1,13 @@
+# v0.13.8
+
+## Fixed
+
+* Made @-mention dropdown work properly with usernames with no spaces.
+  [#645](https://github.com/thredded/thredded/pull/645)
+* Other @-mention dropdown improvements (update to latest textcomplete)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.7...v0.13.8.
+
 # v0.13.7
 
 ## Added
