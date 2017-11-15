@@ -13,7 +13,7 @@ addons:
 # For now, download chromedriver directly:
 before_script:
   - >
-      wget -q https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip &&
+      wget -q https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip &&
       unzip chromedriver_linux64.zip
 
 cache:
