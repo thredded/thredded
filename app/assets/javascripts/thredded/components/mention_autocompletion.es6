@@ -1,7 +1,8 @@
 //= require thredded/components/user_textcomplete
 
 const ThreddedMentionAutocompletion = {
-  MATCH_RE: /(^@|\s@)"?([\w.,\- ()]+)$/,
+  MATCH_RE: /(^@|\s@)"?([\w., \-()]+[\w.,\-()])$/,
+  // the last letter has to not be a space so it doesn't match after replacement
   DROPDOWN_MAX_COUNT: 6,
 
   init(form, textarea) {

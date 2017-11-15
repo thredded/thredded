@@ -139,7 +139,7 @@ FactoryBot.define do
 
   factory :user, aliases: %i[email_confirmed_user last_user], class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
-    name { Faker::Name.name }
+    name { [true, false].sample ? Faker::Name.name : Faker::Name.first_name }
 
     trait :admin do
       admin true
