@@ -3,13 +3,7 @@
     <%= link_to messageboard_topics_path(messageboard), class: 'thredded--messageboard' do %>
       <header class="thredded--messageboard--header">
         <h2 class="thredded--messageboard--title"><%= messageboard.name %></h2>
-        <span><%= inline_svg('thredded/lock.svg', class: 'thredded--messageboard--icon', title: t('thredded.messageboard.form.locked_notice')) if messageboard.locked %>
-          <h3 class="thredded--messageboard--meta">
-          <%= t 'thredded.messageboard.topics_and_posts_counts',
-                topics_count: number_with_delimiter(messageboard.topics_count),
-                posts_count: number_with_delimiter(messageboard.posts_count) %>
-        </h3>
-        </span>
+        <%= render 'thredded/messageboards/messageboard_meta', messageboard: messageboard %>
       </header>
 
       <p class="thredded--messageboard--description"><%= messageboard.description %></p>
