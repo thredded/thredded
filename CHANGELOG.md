@@ -1,3 +1,9 @@
+# v0.14.0 (unreleased)
+
+* Messageboard locking. By default, only moderators can create new topics in locked messageboards.
+  Posting to the existing topics is not affected.
+  [#635](https://github.com/thredded/thredded/pull/635)
+
 # v0.13.8
 
 ## Fixed
