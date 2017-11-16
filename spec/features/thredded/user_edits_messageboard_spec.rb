@@ -28,7 +28,7 @@ feature 'Editing a messageboard' do
     click_button I18n.t('thredded.messageboard.update')
 
     visit thredded.messageboards_path
-    expect(page).to have_css '.thredded--messageboard--icon'
+    expect(page).to have_css '.thredded--messageboard--meta--locked'
 
     user_2 = regular_user
     user_2.log_in
