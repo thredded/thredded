@@ -58,6 +58,7 @@ es:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Descripción
         locked_label: Bloqueado
+        locked_notice: Este mensaje está bloqueado. Solo los moderadores pueden crear nuevos temas aquí.
         messageboard_group_id_label: grupo messageboard
         no_group: Sin grupo
         title_label: Nombre

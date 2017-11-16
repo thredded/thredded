@@ -53,6 +53,7 @@ zh-CN:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: 描述
         locked_label: 锁定
+        locked_notice: 这个消息板被锁定。只有版主可以在这里创建新的主题。
         messageboard_group_id_label: 板块分组
         no_group: 没有分组
         title_label: 名称

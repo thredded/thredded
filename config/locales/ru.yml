@@ -55,6 +55,7 @@ ru:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Описание
         locked_label: Заблокировать
+        locked_notice: Этот форум заблокирован. Только модераторы могут создавать новые темы здесь.
         messageboard_group_id_label: Выбрать группу
         no_group: Не группировать
         title_label: Название форума

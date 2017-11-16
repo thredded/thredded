@@ -56,6 +56,7 @@ pl:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Opis
         locked_label: Zablokowany
+        locked_notice: Ta wiadomość jest zablokowana. Tylko moderatorzy mogą tworzyć nowe tematy tutaj.
         messageboard_group_id_label: messageboard grupa
         no_group: Brak grupy
         title_label: Nazwa
