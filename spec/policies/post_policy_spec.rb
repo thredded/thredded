@@ -15,12 +15,12 @@ module Thredded
 
     permissions :create? do
       it 'granted if you are allowed to create a topic' do
-        expect(MessageboardPolicy).to receive(:new).and_return(double('post?' => true))
+        expect(user).to receive(:thredded_can_write_messageboards).and_return(double('include?' => true))
         expect(subject).to permit(user, build_stubbed(:post))
       end
 
       it 'denied if you are not allowed to create a topic' do
-        expect(MessageboardPolicy).to receive(:new).and_return(double('post?' => false))
+        expect(user).to receive(:thredded_can_write_messageboards).and_return(double('include?' => false))
         expect(subject).to_not permit(user, build_stubbed(:post))
       end
 
