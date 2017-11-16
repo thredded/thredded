@@ -11,11 +11,11 @@ module Thredded
     end
 
     def new_post(post, users)
-      PostMailer.post_notification(post.id, users.map(&:email)).deliver_now
+      Thredded::PostMailer.post_notification(post.id, users.map(&:email)).deliver_now
     end
 
     def new_private_post(post, users)
-      PrivateTopicMailer.message_notification(post.id, users.map(&:email)).deliver_now
+      Thredded::PrivateTopicMailer.message_notification(post.id, users.map(&:email)).deliver_now
     end
   end
 end
