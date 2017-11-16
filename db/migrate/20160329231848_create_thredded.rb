@@ -44,6 +44,7 @@ class CreateThredded < Thredded::BaseMigration
       t.references :last_topic, index: false
       t.references :messageboard_group, index: false
       t.timestamps null: false
+      t.boolean :locked, null: false, default: false
       t.index [:messageboard_group_id], name: :index_thredded_messageboards_on_messageboard_group_id
       t.index [:slug], name: :index_thredded_messageboards_on_slug
     end
