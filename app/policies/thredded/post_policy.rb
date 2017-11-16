@@ -27,10 +27,10 @@ module Thredded
 
     def create?
       @user.thredded_admin? ||
-          !@post.postable.locked? &&
-              # Users are allowed to post in unlocked topics of a locked messageboard
-              # only if they would be allowed to post if the messageboard wasn't locked.
-              @user.thredded_can_write_messageboards.include?(@post.messageboard)
+        !@post.postable.locked? &&
+          # Users are allowed to post in unlocked topics of a locked messageboard
+          # only if they would be allowed to post if the messageboard wasn't locked.
+          @user.thredded_can_write_messageboards.include?(@post.messageboard)
     end
 
     def read?

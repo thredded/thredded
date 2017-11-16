@@ -30,8 +30,8 @@ feature 'Editing a messageboard' do
     visit thredded.messageboards_path
     expect(page).to have_css '.thredded--messageboard--icon'
 
-    user2 = regular_user
-    user2.log_in
+    user_2 = regular_user
+    user_2.log_in
 
     visit thredded.messageboard_topics_path(messageboard)
     expect(messageboard).not_to have_css('.thredded--form thredded--new-topic-form')
@@ -44,5 +44,4 @@ feature 'Editing a messageboard' do
   def an_admin
     PageObject::User.new(create(:user, name: 'joe-admin', admin: true))
   end
-
 end
