@@ -73,10 +73,12 @@ feature 'User replying to topic' do
   end
 
   def posts_exist_in_a_topic
+    posts_owner = create(:user, name: 'R2D2')
     topic = create(:topic,
                    with_posts: 2,
                    messageboard: messageboard,
-                   user: create(:user, name: 'R2D2'))
+                   user: posts_owner,
+                   last_user: posts_owner)
     PageObject::Posts.new(topic.posts)
   end
 end
