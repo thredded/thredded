@@ -10,6 +10,7 @@ module Thredded
                inverse_of: :thredded_posts,
                **(Thredded.rails_gte_51? ? { optional: true } : {})
     belongs_to :messageboard,
+               class_name: 'Thredded::Messageboard',
                counter_cache: true
     belongs_to :postable,
                class_name:    'Thredded::Topic',
