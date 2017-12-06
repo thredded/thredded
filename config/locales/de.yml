@@ -21,13 +21,14 @@ de:
 
             Klicken sie hier um die Diskussion zu sehen:
             %{post_url}
-          post_lead: 'Neue Nachricht von %{user} in “%{topic_title}”'
+          post_lead: Neue Nachricht von %{user} in “%{topic_title}”
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
           email_sent_reason_html: 'Sie erhalten diese E-Mail, da Sie der folgenden Diskussion folgen: “<a href="%{post_url}">%{topic_title}</a>”.'
           post_lead_html: '%{user} <a href="%{post_url}">schrieb in “%{topic_title}”</a>:'
-          unsubscribe_instructions_html: Um keine weiteren E-Mails zu erhalten, ändern Sie hier ihre <a href="%{preferences_url}">Benachrichtigungseinstellungen</a>.
+          unsubscribe_instructions_html: >-
+            Um keine weiteren E-Mails zu erhalten, ändern Sie hier ihre <a href="%{preferences_url}">Benachrichtigungseinstellungen</a>.
         subject: Ein neuer Beitrag in “%{topic_title}”
         text:
           email_sent_reason: |-
@@ -134,12 +135,12 @@ de:
           hint: 'Wenn dich jemand mit deinem Nutzernamen erwähnt (eg: @sam) wirst du dem Beitrag folgen.'
           label: Allen Diskussionen folgen, in denen du erwähnt wurdest
         messageboard_auto_follow_topics:
-          hint: Folge automatisch allen neuen Diskussionen in diesem Forum. Dies überschreibt die jeweiligen
-            Einstellungen weiter oben.
+          hint: >-
+            Folge automatisch allen neuen Diskussionen in diesem Forum. Dies überschreibt die jeweiligen Einstellungen
+            weiter oben.
           label: Folge allen neuen Diskussionen
         messageboard_follow_topics_on_mention:
-          hint: 'Wenn jemand deinen Nutzernamen (eg: @sam) in diesem Forum erwähnt, wirst du der Diskussion
-            folgen.'
+          hint: 'Wenn jemand deinen Nutzernamen (eg: @sam) in diesem Forum erwähnt, wirst du der Diskussion folgen.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
@@ -185,10 +186,12 @@ de:
         btn_submit: :thredded.search.form.label
         label: Suche
         placeholder: Foren durchsuchen
-    time_ago: "vor %{time} "
+    time_ago: 'vor %{time} '
     topics:
       create: :thredded.topics.form.create_btn
-      delete_confirm: Bist du sicher, dass du diese Diskussion endgültig löschen möchtest? Dies kann nicht rückgängig gemacht werden.
+      delete_confirm: >-
+        Bist du sicher, dass du diese Diskussion endgültig löschen möchtest? Dies kann nicht rückgängig gemacht
+        werden.
       delete_topic: Diskussion löschen
       deleted_notice: Diskussion gelöscht
       edit: Diskussion bearbeiten
@@ -216,7 +219,8 @@ de:
       mark_as_unread: Als ungelesen markieren
       not_following: Du folgst dieser Diskussion nicht
       search:
-        no_results_in_messageboard_message_html: Deine Suche nach <q>%{query}</q> in %{messageboard} hat keine Ergebnisse erzielt
+        no_results_in_messageboard_message_html: Deine Suche nach <q>%{query}</q> in %{messageboard} hat keine Ergebnisse
+          erzielt
         no_results_message_html: Deine Suche nach <q>%{query}</q> erzielte keine Treffer
         page_title: Suchergebnisse
         results_in_messageboard_message_html: Suchergebnisse für <q>%{query}</q> in %{messageboard}
