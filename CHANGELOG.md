@@ -1,4 +1,4 @@
-# v0.14.0 (unreleased)
+# v0.14.0
 
 ## Added
 
@@ -15,6 +15,16 @@
   [#609](https://github.com/thredded/thredded/pull/609)
 * Mention completion now works in IE11.
   [yuku-t/textcomplete#125](https://github.com/yuku-t/textcomplete/pull/125)
+
+
+**NB:** If updating to this version from 0.13.x, you must copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20170811090735_upgrade_thredded_v0_13_to_v_014.rb db/migrate
+rake db:migrate
+```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.8...v0.14.0.
 
 # v0.13.8
 
