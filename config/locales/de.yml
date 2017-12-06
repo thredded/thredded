@@ -6,11 +6,45 @@ de:
       content_blocked_notice_with_record_html: Blockiert von %{moderator} %{time_ago}
     email_notifier:
       by_email: Per E-mail
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Sie erhalten diese E-Mail, da %{user} Sie zu einer privaten Diskussion hinzugefügt hat, “<a href="%{post_url}">%{topic_title}</a>”.
+          post_lead_html: 'Eine neue Nachricht von %{user} in <a href="%{post_url}">“%{topic_title}”</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Neue Nachricht von %{user} in “%{topic_title}”
+        text:
+          email_sent_reason: |-
+            Sie erhalten diese E-Mail, da %{user} Sie zu einer privaten Diskussion
+            “%{topic_title}” hinzugefügt hat.
+
+            Klicken sie hier um die Diskussion zu sehen:
+            %{post_url}
+          post_lead: 'Neue Nachricht von %{user} in “%{topic_title}”'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: 'Sie erhalten diese E-Mail, da Sie der folgenden Diskussion folgen: “<a href="%{post_url}">%{topic_title}</a>”.'
+          post_lead_html: '%{user} <a href="%{post_url}">schrieb in “%{topic_title}”</a>:'
+          unsubscribe_instructions_html: Um keine weiteren E-Mails zu erhalten, ändern Sie hier ihre <a href="%{preferences_url}">Benachrichtigungseinstellungen</a>.
+        subject: Ein neuer Beitrag in “%{topic_title}”
+        text:
+          email_sent_reason: |-
+            Sie erhalten diese E-Mail, da Sie der folgenden Diskussion
+            “%{topic_title}” folgen.
+
+            Klicken sie hier um die Diskussion zu sehen:
+            %{post_url}
+          post_lead: "%{user} schrieb in “%{topic_title}”:"
+          unsubscribe_instructions: |-
+            Um keine weiteren E-Mails zu erhalten, ändern Sie hier ihre Benachrichtigungseinstellungen:
+            %{unsubscribe_url}
     errors:
       login_required: Bitte zuerst anmelden
       not_authorized: Du hast keinen Zugriff auf diese Seite
-      private_topic_create_denied: Du bist nicht autorisiert, private Diskussionen zu erstellen
-      private_topic_not_found: Diese private Diskussion existiert nicht
+      private_topic_create_denied: Du bist nicht autorisiert, private Unterhaltungen zu erstellen
+      private_topic_not_found: Diese private Unterhaltung existiert nicht
     form:
       create_btn_submitting: Erstellen...
       preview: Vorschau
@@ -21,6 +55,8 @@ de:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Beschreibung
+        locked_label: Geschlossen
+        locked_notice: Dieses Forum ist geschlossen. Nur Moderatoren können hier neue Beiträge erstellen.
         messageboard_group_id_label: Gruppe
         no_group: Keine Gruppe
         title_label: Name
@@ -39,6 +75,8 @@ de:
     moderation:
       approve_btn: Erlauben
       block_btn: Blockieren
+      moderation_state:
+        name: Moderationsstatus
       pending:
         empty:
           content: Alle Beiträge wurden moderiert
@@ -47,12 +85,15 @@ de:
       post_blocked_html: Beitrag wurde von %{moderator} %{time_ago} blockiert
       post_deleted_notice: Dieser Beitrag wurde gelöscht
       posts_content_changed_since_moderation_html: >-
-        Der Beitrag <a href="%{post_url}">post's</a> wurde in seinem Inhalt geändert. Unten wird der ursprüngliche Beitrag angezeigt.
+        Der Beitrag <a href="%{post_url}">post's</a> wurde in seinem Inhalt geändert. Unten wird der ursprüngliche
+        Beitrag angezeigt.
       search_users:
         form_label: Benutzer suchen
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: Keine Nutzer mit dem Inhalt %{query} gefunden
         results_message: Nutzer mit dem Inhalt %{query} gefunden
+      user:
+        name: Benutzer
     nav:
       all_messageboards: Forenübersicht
       edit_messageboard: Forum bearbeiten
@@ -65,7 +106,7 @@ de:
       moderation_history: Verlauf
       moderation_pending: Ausstehend
       moderation_users: Nutzer
-      private_topics: Private Nachrichten
+      private_topics: Private Unterhaltungen
       settings: Benachrichtigungseinstellungen
     null_user_name: Gelöschte Nutzer
     posts:
@@ -90,20 +131,22 @@ de:
           hint: Automatisch allen neuen Diskussionen folgen. Das Ändern dieser Einstellung wird alle Foren betreffen.
           label: Allen Diskussionen folgen
         follow_topics_on_mention:
-          hint: 'Wenn dich jemand mit deinem Nutzernamen erwähnt (eg: @sam) wirst du dem Thema folgen.'
+          hint: 'Wenn dich jemand mit deinem Nutzernamen erwähnt (eg: @sam) wirst du dem Beitrag folgen.'
           label: Allen Diskussionen folgen, in denen du erwähnt wurdest
         messageboard_auto_follow_topics:
-          hint: Folge automatisch allen neuen Diskussionen in diesem Forum. Dies überschreibt die jeweiligen Einstellungen weiter oben.
+          hint: Folge automatisch allen neuen Diskussionen in diesem Forum. Dies überschreibt die jeweiligen
+            Einstellungen weiter oben.
           label: Folge allen neuen Diskussionen
         messageboard_follow_topics_on_mention:
-          hint: 'Wenn jemand deinen Nutzernamen (eg: @sam) in diesem Forum erwähnt, wirst du der Diskussion folgen.'
+          hint: 'Wenn jemand deinen Nutzernamen (eg: @sam) in diesem Forum erwähnt, wirst du der Diskussion
+            folgen.'
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
         notifications_for_followed_topics:
           label: Benachrichtigung für Diskussionen, denen du folgst
         notifications_for_private_topics:
-          label: Benachrichtigung für private Diskussionen
+          label: Benachrichtigung für private Unterhaltungen
         submit_btn: Einstellungen bearbeiten
         update_btn_submitting: :thredded.form.update_btn_submitting
       global_preferences_title: Allgemeine Einstellungen
@@ -117,6 +160,7 @@ de:
         create_btn_submitting: Senden...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Bearbeiten
       errors:
         user_ids_length: Bitte nenne mindestens einen anderen Nutzer
@@ -143,6 +187,7 @@ de:
         placeholder: Foren durchsuchen
     time_ago: "vor %{time} "
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Bist du sicher, dass du diese Diskussion endgültig löschen möchtest? Dies kann nicht rückgängig gemacht werden.
       delete_topic: Diskussion löschen
       deleted_notice: Diskussion gelöscht
@@ -164,9 +209,10 @@ de:
         title_label: Titel
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Starte eine neue Diskussion
-        update_btn: Thema bearbeiten
+        update_btn: Beitrag bearbeiten
       locked:
         label: Gesperrt
+        message: Der Beitrag wurde von einem Moderator gesperrt
       mark_as_unread: Als ungelesen markieren
       not_following: Du folgst dieser Diskussion nicht
       search:
@@ -181,7 +227,7 @@ de:
         label: Angepinnt
       unfollow: Nich mehr folgen
       unfollowed_notice: Du folgst der Diskussion nicht mehr
-      updated_notice: Thema aktualisiert
+      updated_notice: Beitrag aktualisiert
     users:
       currently_online: Zurzeit Online
       last_active_html: Zuletzt aktiv %{time_ago}
