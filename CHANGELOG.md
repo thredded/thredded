@@ -1,8 +1,20 @@
 # v0.14.0 (unreleased)
 
+## Added
+
 * Messageboard locking. By default, only moderators can create new topics in locked messageboards.
   Posting to the existing topics is not affected.
   [#635](https://github.com/thredded/thredded/pull/635)
+
+* German localization. 🇩🇪
+  [#666](https://github.com/thredded/thredded/pull/666)
+
+## Fixed
+
+* `thredded_user_details` and `thredded_user_preferences` now use unique `user_id` indices.
+  [#609](https://github.com/thredded/thredded/pull/609)
+* Mention completion now works in IE11.
+  [yuku-t/textcomplete#125](https://github.com/yuku-t/textcomplete/pull/125)
 
 # v0.13.8
 
