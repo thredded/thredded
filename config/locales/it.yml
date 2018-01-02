@@ -24,7 +24,8 @@ it:
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
-          email_sent_reason_html: 'Questa email ti è stata spedita perché stai seguendo questa discussione: “<a href="%{post_url}">%{topic_title}</a>”.'
+          email_sent_reason_html: >-
+            Questa email ti è stata spedita perché stai seguendo questa discussione: “<a href="%{post_url}">%{topic_title}</a>”.
           post_lead_html: '%{user} <a href="%{post_url}">ha detto in “%{topic_title}”</a>:'
           unsubscribe_instructions_html: Per non ricevere più queste email, aggiorna le tue <a href="%{preferences_url}">preferenze</a>.
         subject: Un nuovo messaggio in “%{topic_title}”
@@ -54,6 +55,8 @@ it:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Descrizione
+        locked_label: Bloccato
+        locked_notice: Questa bacheca è bloccata. Solo i moderatori possono creare nuove discussioni qui.
         messageboard_group_id_label: Gruppo bacheca
         no_group: Nessun gruppo
         title_label: Nome
@@ -72,6 +75,8 @@ it:
     moderation:
       approve_btn: Approva
       block_btn: Blocca
+      moderation_state:
+        name: Stato di moderazione
       pending:
         empty:
           content: Tutti i messaggi sono stati moderati.
@@ -80,13 +85,15 @@ it:
       post_blocked_html: Post bloccato da %{moderator} %{time_ago}.
       post_deleted_notice: Questo messaggio è stato cancellato.
       posts_content_changed_since_moderation_html: >-
-        Il contenuto del <a href="%{post_url}">messaggio</a> è cambiato per via di una moderazione.
-        Qua sotto il contenuto al momento in cui è stato modificato.
+        Il contenuto del <a href="%{post_url}">messaggio</a> è cambiato per via di una moderazione. Qua sotto il
+        contenuto al momento in cui è stato modificato.
       search_users:
         form_label: Cerca utenti
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: Nessun utente col nome che inizia per %{query}
         results_message: Utenti col nome che inizia per %{query}
+      user:
+        name: Utente
     nav:
       all_messageboards: Tutte le bacheche
       edit_messageboard: Modifica bacheca
@@ -121,18 +128,22 @@ it:
         page_title: :thredded.nav.settings
       form:
         auto_follow_topics:
-          hint: Segui automaticamente tutte le nuove discussioni. La modifica di questo parametro verrà applicata a tutte le bacheche.
+          hint: >-
+            Segui automaticamente tutte le nuove discussioni. La modifica di questo parametro verrà applicata a
+            tutte le bacheche.
           label: Segui tutte le nuove discussioni
         follow_topics_on_mention:
           hint: 'Quando qualcuno menziona il tuo nome utente (eg: @marco) seguirai automaticamente la discussione.'
           label: Segui le discussioni in cui sei menzionato
         messageboard_auto_follow_topics:
-          hint: Segui automaticamente tutte le discussioni di questa bacheca. Questo non terrà conto delle rispettive
+          hint: >-
+            Segui automaticamente tutte le discussioni di questa bacheca. Questo non terrà conto delle rispettive
             impostazioni di cui sopra.
           label: Segui tutte le discussioni
         messageboard_follow_topics_on_mention:
-          hint: 'Quando qualcuno menziona il tuo nome utente (eg: @marco) in questa bacheca
-            seguirai automaticamente la discussione.'
+          hint: >-
+            Quando qualcuno menziona il tuo nome utente (eg: @marco) in questa bacheca seguirai automaticamente
+            la discussione.
           label: :thredded.preferences.form.follow_topics_on_mention.label
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
@@ -153,6 +164,7 @@ it:
         create_btn_submitting: Invio in corso...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Modifica
       errors:
         user_ids_length: Prego specificare almeno un altro utente.
@@ -176,11 +188,11 @@ it:
       form:
         btn_submit: :thredded.search.form.label
         label: Cerca
-        placeholder: Cerca #Discussioni e Messaggi
+        placeholder: Cerca
     time_ago: "%{time} fa"
     topics:
-      delete_confirm: Sei sicuro di voler candellare questa discussione?
-        Attenzione NON sarà possibile tornare indietro.
+      create: :thredded.topics.form.create_btn
+      delete_confirm: Sei sicuro di voler cancellare questa discussione? Attenzione NON sarà possibile tornare indietro.
       delete_topic: Cancella discussione
       deleted_notice: Discussione cancellata
       edit: Modifica discussione
@@ -204,6 +216,7 @@ it:
         update_btn: Aggiorna Discussione
       locked:
         label: Bloccata
+        message: Questa discussione è stata bloccata da un moderatore.
       mark_as_unread: Segna come non letto
       not_following: Non stai seguendo questa discussione.
       search:
