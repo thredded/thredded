@@ -114,6 +114,13 @@ pl:
       delete_confirm: Jesteś pewny, że chcesz usunąć ten post?
       deleted_notice: Twój post został usunięty.
       edit: :thredded.nav.edit_post
+      first_of_messageboard:
+        content: |-
+          There's not a whole lot here for now.
+
+          These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+          You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+          Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
       form:
         content_label: Treść
         create_btn: Wyślij odpowiedź
@@ -192,6 +199,8 @@ pl:
       delete_topic: Usuń temat
       deleted_notice: Temat usunięty.
       edit: Edytuj temat
+      first_of_messageboard:
+        title: Welcome to your messageboard's very first thread
       follow: Obserwuj temat
       followed_by: 'Obserwowany przez:'
       followed_by_noone: Nikt nie obserwuje tego tematu

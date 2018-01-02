@@ -114,6 +114,13 @@ fr:
       delete_confirm: Êtes-vous sure de vouloir effacé ce commentaire ?
       deleted_notice: Votre commentaire a été effacé.
       edit: :thredded.nav.edit_post
+      first_of_messageboard:
+        content: |-
+          There's not a whole lot here for now.
+
+          These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+          You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+          Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
       form:
         content_label: Contenu
         create_btn: Soumettre la réponse
@@ -193,6 +200,8 @@ fr:
       delete_topic: Supprimer le Sujet
       deleted_notice: Sujet supprimé
       edit: Éditer le Sujet
+      first_of_messageboard:
+        title: Welcome to your messageboard's very first thread
       follow: Suivre le sujet
       followed_by: 'Suivi par :'
       followed_by_noone: Personne ne suit ce sujet
