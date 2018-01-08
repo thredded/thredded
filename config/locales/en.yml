@@ -67,6 +67,14 @@ en:
       topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
       update: :thredded.form.update
       updated_notice: Messageboard has been updated
+    messageboard_first_topic:
+      content: |-
+        There's not a whole lot here for now.
+
+        These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+        Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+      title: Welcome to your messageboard's very first thread
     messageboard_group:
       create: Create a New Messageboard Group
       form:
@@ -114,13 +122,6 @@ en:
       delete_confirm: Are you sure you want to delete this post?
       deleted_notice: Your post has been deleted.
       edit: :thredded.nav.edit_post
-      first_of_messageboard:
-        content: |-
-          There's not a whole lot here for now.
-
-          These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
-          You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
-          Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
       form:
         content_label: Content
         create_btn: Submit Reply
@@ -199,8 +200,6 @@ en:
       delete_topic: Delete Topic
       deleted_notice: Topic deleted
       edit: Edit Topic
-      first_of_messageboard:
-        title: Welcome to your messageboard's very first thread
       follow: Follow this topic
       followed_by: 'Followed by:'
       followed_by_noone: No one is following this topic

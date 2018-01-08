@@ -64,6 +64,14 @@ zh-CN:
       topics_and_posts_counts: "%{topics_count} 帖子 / %{posts_count} 回复"
       update: :thredded.form.update
       updated_notice: 板块已更新
+    messageboard_first_topic:
+      content: |-
+        There's not a whole lot here for now.
+
+        These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+        Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+      title: Welcome to your messageboard's very first thread
     messageboard_group:
       create: 创建一个新的板块分组
       form:
@@ -109,13 +117,6 @@ zh-CN:
       delete_confirm: 你确定删除该回复吗？
       deleted_notice: 你的回复已删除
       edit: :thredded.nav.edit_post
-      first_of_messageboard:
-        content: |-
-          There's not a whole lot here for now.
-
-          These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
-          You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
-          Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
       form:
         content_label: 内容
         create_btn: 提交回复
@@ -192,8 +193,6 @@ zh-CN:
       delete_topic: 删除帖子
       deleted_notice: 帖子已删除
       edit: 编辑帖子
-      first_of_messageboard:
-        title: Welcome to your messageboard's very first thread
       follow: 关注该帖子
       followed_by: 关注者：
       followed_by_noone: 无人关注该帖子

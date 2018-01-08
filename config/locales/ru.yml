@@ -66,6 +66,14 @@ ru:
       topics_and_posts_counts: "%{topics_count} тем / %{posts_count} постов"
       update: :thredded.form.update
       updated_notice: Форум обновлен
+    messageboard_first_topic:
+      content: |-
+        There's not a whole lot here for now.
+
+        These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+        Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+      title: Welcome to your messageboard's very first thread
     messageboard_group:
       create: Создать группу форумов
       form:
@@ -112,13 +120,6 @@ ru:
       delete_confirm: Вы уверены что хотите удалить пост?
       deleted_notice: Пост был удален.
       edit: :thredded.nav.edit_post
-      first_of_messageboard:
-        content: |-
-          There's not a whole lot here for now.
-
-          These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
-          You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
-          Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
       form:
         content_label: Контент
         create_btn: Ответить
@@ -197,8 +198,6 @@ ru:
       delete_topic: Удалить тему
       deleted_notice: Тема "удалена"
       edit: Редактировать тему
-      first_of_messageboard:
-        title: Welcome to your messageboard's very first thread
       follow: Наблюдать за темой
       followed_by: Наблюдаю
       followed_by_noone: Никто не наблюдает за этой темой

@@ -23,19 +23,19 @@ module Thredded
           messageboard: @messageboard,
           user: @user,
           postable: topic,
-          content: first_post_content
+          content: first_topic_content
         )
         true
       end
     end
 
     def first_topic_title
-      I18n.t('thredded.topics.first_of_messageboard.title')
+      I18n.t('thredded.messageboard_first_topic.title')
     end
 
-    def first_post_content
+    def first_topic_content
       <<-MARKDOWN
-#{I18n.t('thredded.posts.first_of_messageboard.content', thredded_version: Thredded::VERSION)}
+#{I18n.t('thredded.messageboard_first_topic.content', thredded_version: Thredded::VERSION)}
       MARKDOWN
     end
   end
