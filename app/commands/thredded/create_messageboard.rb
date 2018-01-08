@@ -23,23 +23,19 @@ module Thredded
           messageboard: @messageboard,
           user: @user,
           postable: topic,
-          content: first_post_content
+          content: first_topic_content
         )
         true
       end
     end
 
     def first_topic_title
-      "Welcome to your messageboard's very first thread"
+      I18n.t('thredded.messageboard_first_topic.title')
     end
 
-    def first_post_content
+    def first_topic_content
       <<-MARKDOWN
-There's not a whole lot here for now.
-
-These forums are powered by [Thredded](https://github.com/thredded/thredded) v#{Thredded::VERSION}.
-You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
-Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+#{I18n.t('thredded.messageboard_first_topic.content', thredded_version: Thredded::VERSION)}
       MARKDOWN
     end
   end

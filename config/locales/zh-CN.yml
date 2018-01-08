@@ -64,6 +64,14 @@ zh-CN:
       topics_and_posts_counts: "%{topics_count} 帖子 / %{posts_count} 回复"
       update: :thredded.form.update
       updated_notice: 板块已更新
+    messageboard_first_topic:
+      content: |-
+        There's not a whole lot here for now.
+
+        These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+        Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+      title: Welcome to your messageboard's very first thread
     messageboard_group:
       create: 创建一个新的板块分组
       form:
