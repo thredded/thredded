@@ -67,6 +67,14 @@ it:
       topics_and_posts_counts: "%{topics_count} discussioni / %{posts_count} messaggi"
       update: :thredded.form.update
       updated_notice: La bacheca è stata aggiornata
+    messageboard_first_topic:
+      content: |-
+        Non c'è molto qui, per ora.
+
+        Questi forum girano su [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        Puoi contattare il team di Thredded attraverso [la chat room di Thredded](https://gitter.im/thredded/thredded).
+        Per favore, facci sapere che stai usando Thredded con un tweet a [@thredded](https://twitter.com/thredded)!
+      title: Benvenuto nella prima discussione di questa bacheca
     messageboard_group:
       create: Crea un nuovo Gruppo di bacheche
       form:
