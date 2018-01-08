@@ -1,0 +1,249 @@
+---
+it:
+  thredded:
+    content_moderation_states:
+      content_blocked_notice: Bloccato
+      content_blocked_notice_with_record_html: Bloccato da %{moderator} %{time_ago}
+    email_notifier:
+      by_email: via email
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Ti è stata spedita questa mail perché %{user} ti ha incluso in una discussione privata, “<a href="%{post_url}">%{topic_title}</a>”.
+          post_lead_html: 'Un nuovo messaggio da %{user} in <a href="%{post_url}">“%{topic_title}”</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Un nuovo messaggio di %{user} in “%{topic_title}”
+        text:
+          email_sent_reason: |-
+            Ti è stata spedita questa mail perché %{user} ti ha incluso nel discussione privata “%{topic_title}”.
+
+            Vai qui per vedere la conversazione:
+            %{post_url}
+          post_lead: 'Un nuovo messaggio di %{user} in “%{topic_title}”:'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Questa email ti è stata spedita perché stai seguendo questa discussione: “<a href="%{post_url}">%{topic_title}</a>”.
+          post_lead_html: '%{user} <a href="%{post_url}">ha detto in “%{topic_title}”</a>:'
+          unsubscribe_instructions_html: Per non ricevere più queste email, aggiorna le tue <a href="%{preferences_url}">preferenze</a>.
+        subject: Un nuovo messaggio in “%{topic_title}”
+        text:
+          email_sent_reason: |-
+            Questa email ti è stata spedita perché stai seguendo
+            la discussione “%{topic_title}”.
+
+            Vai qui per vedere la conversazione:
+            %{post_url}
+          post_lead: "%{user} ha detto in “%{topic_title}”:"
+          unsubscribe_instructions: |-
+            Per non riceve più queste email, aggiorna qui le tue preferenze:
+            %{unsubscribe_url}
+    errors:
+      login_required: Per visualizzare questa pagina bisogna accedere tramite login.
+      not_authorized: Non sei autorizzato a vedere questa pagina.
+      private_topic_create_denied: Non sei autorizzato a creare discussioni private.
+      private_topic_not_found: Questa discussione privata non esiste.
+    form:
+      create_btn_submitting: Creazione in corso...
+      preview: Anteprima
+      update: Aggiorna
+      update_btn_submitting: Aggiornamento in corso...
+    messageboard:
+      create: Crea una nuova bacheca
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
+        description_label: Descrizione
+        locked_label: Bloccato
+        locked_notice: Questa bacheca è bloccata. Solo i moderatori possono creare nuove discussioni qui.
+        messageboard_group_id_label: Gruppo bacheca
+        no_group: Nessun gruppo
+        title_label: Nome
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      index:
+        page_title: Bacheche
+      last_updated_by_html: Aggiornato %{time_ago} <cite>da %{user}</cite>
+      topics_and_posts_counts: "%{topics_count} discussioni / %{posts_count} messaggi"
+      update: :thredded.form.update
+      updated_notice: La bacheca è stata aggiornata
+    messageboard_group:
+      create: Crea un nuovo Gruppo di bacheche
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
+      saved: Creato il gruppo di bacheche %{name}
+    moderation:
+      approve_btn: Approva
+      block_btn: Blocca
+      moderation_state:
+        name: Stato di moderazione
+      pending:
+        empty:
+          content: Tutti i messaggi sono stati moderati.
+          title: Ottimo lavoro!
+      post_approved_html: Post approvato da %{moderator} %{time_ago}.
+      post_blocked_html: Post bloccato da %{moderator} %{time_ago}.
+      post_deleted_notice: Questo messaggio è stato cancellato.
+      posts_content_changed_since_moderation_html: >-
+        Il contenuto del <a href="%{post_url}">messaggio</a> è cambiato per via di una moderazione. Qua sotto il
+        contenuto al momento in cui è stato modificato.
+      search_users:
+        form_label: Cerca utenti
+        form_placeholder: :thredded.moderation.search_users.form_label
+        no_results_message: Nessun utente col nome che inizia per %{query}
+        results_message: Utenti col nome che inizia per %{query}
+      user:
+        name: Utente
+    nav:
+      all_messageboards: Tutte le bacheche
+      edit_messageboard: Modifica bacheca
+      edit_post: Modifica Post
+      edit_private_topic: :thredded.nav.edit_topic
+      edit_topic: Modifica
+      mark_all_read: Segna tutto come già letto
+      moderation: Moderazione
+      moderation_activity: Attività
+      moderation_history: Storia
+      moderation_pending: Da fare (pending)
+      moderation_users: Utenti
+      private_topics: Messaggi Privati
+      settings: Impostazioni Notifiche
+    null_user_name: Utente cancellato
+    posts:
+      delete: Cancella messaggio
+      delete_confirm: Sei sicuro di voler cancellare questo messaggio?
+      deleted_notice: Il tuo messaggio è stato cancellato.
+      edit: :thredded.nav.edit_post
+      form:
+        content_label: Contenuto
+        create_btn: Invia risposta
+        create_btn_submitting: Invio in corso...
+        title_label: Crea messaggio
+        update_btn: Modifica messaggio
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      pending_moderation_notice: Il tuo messaggio sarà pubblicato dopo essere stato controllato da un moderatore.
+      quote_btn: Citazione
+    preferences:
+      edit:
+        page_title: :thredded.nav.settings
+      form:
+        auto_follow_topics:
+          hint: >-
+            Segui automaticamente tutte le nuove discussioni. La modifica di questo parametro verrà applicata a
+            tutte le bacheche.
+          label: Segui tutte le nuove discussioni
+        follow_topics_on_mention:
+          hint: 'Quando qualcuno menziona il tuo nome utente (eg: @marco) seguirai automaticamente la discussione.'
+          label: Segui le discussioni in cui sei menzionato
+        messageboard_auto_follow_topics:
+          hint: >-
+            Segui automaticamente tutte le discussioni di questa bacheca. Questo non terrà conto delle rispettive
+            impostazioni di cui sopra.
+          label: Segui tutte le discussioni
+        messageboard_follow_topics_on_mention:
+          hint: >-
+            Quando qualcuno menziona il tuo nome utente (eg: @marco) in questa bacheca seguirai automaticamente
+            la discussione.
+          label: :thredded.preferences.form.follow_topics_on_mention.label
+        messageboard_notifications_for_followed_topics:
+          label: :thredded.preferences.form.notifications_for_followed_topics.label
+        notifications_for_followed_topics:
+          label: Notifiche per discussioni che stai seguendo
+        notifications_for_private_topics:
+          label: Notifiche per i messaggi privati
+        submit_btn: Aggiorna Impostazioni
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      global_preferences_title: Impostazioni Globali
+      messageboard_preferences_nav_title: Impostazioni Bacheca
+      messageboard_preferences_title_html: Impostazioni per <em>%{messageboard}</em>
+      updated_notice: Le tue impostazioni sono state aggiornate.
+    private_posts:
+      form:
+        content_label: Messaggio
+        create_btn: Invia messaggio
+        create_btn_submitting: Invio in corso...
+        update_btn_submitting: :thredded.form.update_btn_submitting
+    private_topics:
+      create: :thredded.private_topics.form.create_btn
+      edit: Modifica
+      errors:
+        user_ids_length: Prego specificare almeno un altro utente.
+      form:
+        content_label: :thredded.private_posts.form.content_label
+        create_btn: :thredded.private_posts.form.create_btn
+        create_btn_submitting: :thredded.private_posts.form.create_btn_submitting
+        title_label: :thredded.topics.form.title_label
+        title_placeholder_new: Scrivi l'oggetto di questa conversazione
+        title_placeholder_start: Inizia una nuova conversazione
+        update_btn: Aggiorna
+        update_btn_submitting: :thredded.private_posts.form.update_btn_submitting
+        users_label: Partecipanti
+        users_placeholder: Seleziona gli utenti per farli partecipare a questa conversazione
+      no_private_topics:
+        create_btn: Inizia la tua prima conversazione privata
+        title: Non hai nessun messaggio privato.
+      updated_notice: Titolo aggiornato
+    recent_activity: Attività recenti
+    search:
+      form:
+        btn_submit: :thredded.search.form.label
+        label: Cerca
+        placeholder: Cerca
+    time_ago: "%{time} fa"
+    topics:
+      create: :thredded.topics.form.create_btn
+      delete_confirm: Sei sicuro di voler cancellare questa discussione? Attenzione NON sarà possibile tornare indietro.
+      delete_topic: Cancella discussione
+      deleted_notice: Discussione cancellata
+      edit: Modifica discussione
+      follow: Segui questa discussione
+      followed_by: 'Seguita da:'
+      followed_by_noone: Nessuno sta seguendo questa discussione
+      followed_notice: Ora stai seguendo questa discussione
+      following:
+        auto: Stai seguendo perché hai attivato Segui in automatico.
+        manual: Stai seguendo questa discussione.
+        mentioned: Stai seguendo perché sei stato menzionato.
+        posted: Stai seguendo perché hai scritto un messaggio.
+      form:
+        categories_placeholder: Categorie
+        content_label: :thredded.posts.form.content_label
+        create_btn: Crea una nuova discussione
+        messageboard_label: Bacheca
+        title_label: Titolo
+        title_placeholder: :thredded.topics.form.title_label
+        title_placeholder_start: Inizia una Nuova Discussione
+        update_btn: Aggiorna Discussione
+      locked:
+        label: Bloccata
+        message: Questa discussione è stata bloccata da un moderatore.
+      mark_as_unread: Segna come non letto
+      not_following: Non stai seguendo questa discussione.
+      search:
+        no_results_in_messageboard_message_html: Nessun risultato trovato per le ricerca <q>%{query}</q> in %{messageboard}
+        no_results_message_html: Nessun risultato trovato per le ricerca <q>%{query}</q>
+        page_title: Risutati Ricerca Discussioni
+        results_in_messageboard_message_html: Risultati della ricerca per <q>%{query}</q> in %{messageboard}
+        results_message_html: Risultati della ricerca per <q>%{query}</q>
+        search_in_all_messageboards_btn: Cerca ovunque
+      started_by_html: Iniziata %{time_ago}, da %{user}
+      sticky:
+        label: Blocca in cima
+      unfollow: Non seguire più questa discussione
+      unfollowed_notice: Ora non stai più seguendo questa discussione
+      updated_notice: Discussione aggiornata
+    users:
+      currently_online: Attualmente connessi
+      last_active_html: Ultima attività %{time_ago}
+      posted_in_topic_html: Ha scritto in %{topic_link}
+      posts_count:
+        one: Ha commentato una volta
+        other: Ha commentato %{count} volte
+      recent_activity: :thredded.recent_activity
+      started_topic_html: Ha iniziato %{topic_link}
+      started_topics_count:
+        one: Ha iniziato una discussione
+        other: Ha iniziato %{count} discussioni
+      user_posted_in_topic_html: "%{user_link} ha commentato in %{topic_link}"
+      user_since_html: Utente da %{time_ago}
+      user_started_topic_html: "%{user_link} ha iniziato %{topic_link}"

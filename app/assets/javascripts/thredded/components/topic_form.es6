@@ -18,6 +18,9 @@
 
   const initTopicForm = (form) => {
     const textarea = form.querySelector(CONTENT_TEXTAREA_SELECTOR);
+    if (!textarea) {
+      return;
+    }
     autosize(textarea);
     new ThreddedPreviewArea(form, textarea);
     ThreddedMentionAutocompletion.init(form, textarea);
@@ -68,7 +71,11 @@
   };
 
   const destroyTopicForm = (form) => {
-    autosize.destroy(form.querySelector(CONTENT_TEXTAREA_SELECTOR));
+    const textarea = form.querySelector(CONTENT_TEXTAREA_SELECTOR);
+    if (!textarea) {
+      return;
+    }
+    autosize.destroy(textarea);
   };
 
   Thredded.onPageLoad(() => {
