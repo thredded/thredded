@@ -149,7 +149,8 @@ class CreateThredded < Thredded::BaseMigration
       t.references :thredded_messageboard, null: false, index: false
       t.datetime :last_seen_at, null: false
       t.index %i[thredded_messageboard_id thredded_user_detail_id],
-              name: :index_thredded_messageboard_users_primary
+              name: :index_thredded_messageboard_users_primary,
+              unique: true
       t.index %i[thredded_messageboard_id last_seen_at],
               name: :index_thredded_messageboard_users_for_recently_active
     end

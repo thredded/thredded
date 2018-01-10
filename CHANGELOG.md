@@ -1,3 +1,17 @@
+# v0.15.0 (unreleased)
+
+## Fixed
+
+* Fixes a race condition when setting `last_seen_at` for the user.
+  [#674](https://github.com/thredded/thredded/pull/674)
+
+**NB: If updating to this version from 0.14.x, you **must** copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20180110200009_upgrade_thredded_v0_14_to_v0_15.rb db/migrate
+rake db:migrate
+```
+
 # v0.14.5
 
 ## Added

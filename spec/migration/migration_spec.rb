@@ -114,7 +114,15 @@ describe 'Migrations', migration_spec: true, order: :defined do
   end
 
   context 'v0.13 to v0.14' do
-    let(:migration_file) { 'db/upgrade_migrations/20170420163138_upgrade_thredded_v0_13_to_v0_14.rb' }
+    let(:migration_file) { 'db/upgrade_migrations/20170811090735_upgrade_thredded_v0_13_to_v0_14.rb' }
+
+    it 'smoke test' do
+      migrate(migration_file)
+    end
+  end
+
+  context 'v0.14 to v0.15' do
+    let(:migration_file) { 'db/upgrade_migrations/20180110200009_upgrade_thredded_v0_14_to_v0_15.rb' }
 
     it 'smoke test' do
       migrate(migration_file)
