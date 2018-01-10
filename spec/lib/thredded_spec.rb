@@ -19,6 +19,12 @@ describe Thredded, '.user_path', thredded_reset: [:@@user_path] do
     Thredded.user_path = ->(_user) { reverse }
     expect(Thredded.user_path(_view_context = 'abc', _user = nil)).to eq 'cba'
   end
+
+  it 'returns nil' do
+    me = build_stubbed(:user, name: 'joel')
+    Thredded.user_path = ->(_user) { nil }
+    expect(Thredded.user_path(_view_context = nil, _user = me)).to be_nil
+  end
 end
 
 describe Thredded, '.user_display_name_method', thredded_reset: %i[@@user_display_name_method @@user_name_column] do
