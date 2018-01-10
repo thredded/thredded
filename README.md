@@ -381,7 +381,7 @@ change_column_default :thredded_user_preferences, :auto_follow_topics, 1
 ## I18n
 
 Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Chinese (Simplified),
-German, Polish, Russian, French, and Spanish.
+German, Polish, Italian, Russian, French, and Spanish.
 We welcome PRs adding support for new languages.
 
 Here are the steps to ensure the best support for your language if it isn't English:

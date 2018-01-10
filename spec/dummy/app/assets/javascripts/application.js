@@ -4,6 +4,7 @@
 //= require timeago/locales/de
 //= require timeago/locales/es
 //= require timeago/locales/fr
+//= require timeago/locales/it
 //= require timeago/locales/pl
 //= require timeago/locales/pt_BR
 //= require timeago/locales/ru
