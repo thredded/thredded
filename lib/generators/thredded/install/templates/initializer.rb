@@ -19,6 +19,8 @@ Thredded.user_name_column = :name
 # The path (or URL) you will use to link to your users' profiles.
 # When linking to a user, Thredded will use this lambda to spit out
 # the path or url to your user. This lambda is evaluated in the view context.
+# If the lambda returns nil, a span element is returned instead of a link; so
+# setting this to always return nil effectively disables all user links.
 Thredded.user_path = lambda do |user|
   user_path = :"#{Thredded.user_class_name.demodulize.underscore}_path"
   main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
