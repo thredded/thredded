@@ -14,7 +14,8 @@ gem 'uglifier'
 
 # Make these gems available in production
 gem 'puma'
-gem 'pg'
+# Locked to < v1 due to: https://bitbucket.org/ged/ruby-pg/issues/270/pg-100-x64-mingw32-rails-server-not-start
+gem 'pg', '~> 0.21'
 gem 'rails_email_preview', '>= 1.0.3'
 gem 'roadie-rails'
 gem 'turbolinks'
