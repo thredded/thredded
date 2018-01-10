@@ -1,3 +1,21 @@
+# v0.14.1
+
+## Added
+
+* Italian localization. 🇮🇹
+  [#669](https://github.com/thredded/thredded/pull/669)
+* Allow disabling user links.
+  [#673](https://github.com/thredded/thredded/pull/673)
+* Allow customizing first messageboard post.
+  [#670](https://github.com/thredded/thredded/pull/670)
+
+## Fixed
+
+* A minor JavaScript error on the topic edit form.
+  [#be45f262](https://github.com/thredded/thredded/commit/be45f2627ca37c76165d33fad0118a87139f291b)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.0...v0.14.1.
+
 # v0.14.0
 
 ## Added
