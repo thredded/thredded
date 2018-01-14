@@ -30,6 +30,7 @@ gemfile:
   - spec/gemfiles/rails_4_2.gemfile
   - spec/gemfiles/rails_5_0.gemfile
   - spec/gemfiles/rails_5_1.gemfile
+  - spec/gemfiles/rails_5_2.gemfile
 
 env:
   matrix:

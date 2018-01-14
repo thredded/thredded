@@ -11,7 +11,8 @@ module Thredded
     def self.grouped(messageboard_scope)
       messageboard_scope.preload(last_topic: [:last_user])
         .eager_load(:group)
-        .order('coalesce(thredded_messageboard_groups.position, 0) asc, thredded_messageboard_groups.id asc').ordered
+        .order(Arel.sql('COALESCE(thredded_messageboard_groups.position, 0) ASC, thredded_messageboard_groups.id ASC'))
+        .ordered
         .group_by(&:group)
         .map { |(group, messageboards)| MessageboardGroupView.new(group, messageboards) }
     end

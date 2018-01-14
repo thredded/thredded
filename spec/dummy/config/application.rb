@@ -70,6 +70,10 @@ module Dummy
       config.active_record.raise_in_transactional_callbacks = true
     end
 
+    if Rails.gem_version >= Gem::Version.new('5.2.0.beta2')
+      config.active_record.sqlite3.represent_boolean_as_integer = true
+    end
+
     # Enable the asset pipeline
     config.assets.enabled = true
 

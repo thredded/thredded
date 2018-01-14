@@ -17,13 +17,21 @@ describe 'Migrations', migration_spec: true, order: :defined do
     ActiveRecord::Migration.verbose = verbose_was
   end
 
-  # create a record bypassing ActiveRecord
-  # @return [Integer] record id
-  def insert_record(klass, attributes)
-    klass.unscoped.insert(
-      attributes.reverse_merge(created_at: Time.zone.now, updated_at: Time.zone.now)
-        .each_with_object({}) { |(k, v), h| h[klass.arel_table[k]] = v }
-    )
+  if Rails.gem_version >= Gem::Version.new('5.2.0.beta2')
+    # create a record bypassing ActiveRecord
+    # @return [Integer] record id
+    def insert_record(klass, attributes)
+      klass._insert_record(values_for_insert(klass, attributes))
+    end
+  else
+    def insert_record(klass, attributes)
+      klass.unscoped.insert(values_for_insert(klass, attributes))
+    end
+  end
+
+  def values_for_insert(klass, attributes)
+    attributes.reverse_merge(created_at: Time.zone.now, updated_at: Time.zone.now)
+      .each_with_object({}) { |(k, v), h| h[klass.arel_table[k]] = v }
   end
 
   context 'v0.8 to v0.9' do
