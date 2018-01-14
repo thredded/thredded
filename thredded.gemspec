@@ -68,8 +68,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'kaminari-i18n'
   s.add_development_dependency 'http_accept_language'
   s.add_development_dependency 'mysql2'
-  # Locked to < v1 due to: https://bitbucket.org/ged/ruby-pg/issues/270/pg-100-x64-mingw32-rails-server-not-start
-  s.add_development_dependency 'pg', '~> 0.21'
+  s.add_development_dependency 'pg'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'rails_email_preview', '>= 2.0.1'

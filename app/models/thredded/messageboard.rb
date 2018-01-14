@@ -77,7 +77,7 @@ module Thredded
     scope :ordered_by_created_at_asc, ->() { order(created_at: :asc) }
     scope :ordered_by_last_post_at_desc, ->() {
       joins('LEFT JOIN thredded_topics AS last_topics ON thredded_messageboards.last_topic_id = last_topics.id')
-        .order('COALESCE(last_topics.last_post_at, thredded_messageboards.created_at) DESC')
+        .order(Arel.sql('COALESCE(last_topics.last_post_at, thredded_messageboards.created_at) DESC'))
     }
     scope :ordered_by_topics_count_desc, ->() {
       order(topics_count: :desc)
