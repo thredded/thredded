@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.5.0'
 
 gem 'thredded', path: File.dirname(__FILE__)
 
 gem 'mustache'
 
-# Rails 5
-gem 'rails', '~> 5.1.0'
+# pg v1.0+ compatibility, https://github.com/rails/rails/pull/31671:
+gem 'rails', '~> 5.2.0.beta2', git: 'https://github.com/rails/rails', ref: 'c2ba530c43244b5b60fd629f61cd8b44c43ecda9'
+
+# Rails 5.2 deprecation warnings fixes: https://github.com/norman/friendly_id/pull/849
+gem 'friendly_id', git: 'https://github.com/norman/friendly_id', ref: '4bd4300035b5c250aeb2e5feec4c2feb9bcf2a19'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 
 # Make these gems available in production
 gem 'puma'
-# Locked to < v1 due to: https://bitbucket.org/ged/ruby-pg/issues/270/pg-100-x64-mingw32-rails-server-not-start
-gem 'pg', '~> 0.21'
+gem 'pg'
 gem 'rails_email_preview', '>= 1.0.3'
 gem 'roadie-rails'
 gem 'turbolinks'
@@ -28,6 +30,8 @@ gem 'faker', '>= 1.6.2'
 
 gem 'thredded-markdown_coderay'
 gem 'thredded-markdown_katex'
+
+gem 'katex', '>= 0.4.0.beta'
 
 # Heroku-specific gems
 gem 'newrelic_rpm'
