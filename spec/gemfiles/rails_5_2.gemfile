@@ -7,8 +7,5 @@ gem 'rails-controller-testing'
 # pg v1.0+ compatibility, https://github.com/rails/rails/pull/31671:
 gem 'rails', '~> 5.2.0.beta2', git: 'https://github.com/rails/rails', ref: 'f1af27fd9d9101684b26d0dcf2028859d67bec1f'
 
-# Rails 5.2 support: https://github.com/brianhempel/active_record_union/pull/19
-gem 'active_record_union', git: 'https://github.com/brianhempel/active_record_union', ref: 'dec1205c14b64117ee7f7201ce75906a7bc93063'
-
 # Rails 5.2 deprecation warnings fixes: https://github.com/norman/friendly_id/pull/849
 gem 'friendly_id', git: 'https://github.com/norman/friendly_id', ref: 'a29e7d7cc280d7d46c181f58fabd7cc9be67eefe'
