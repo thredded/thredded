@@ -30,15 +30,7 @@ require File.expand_path('../../lib/thredded/db_tools', __FILE__)
 if ENV['MIGRATION_SPEC']
   Thredded::DbTools.restore
 else
-  begin
-    verbose_was = ActiveRecord::Migration.verbose
-    ActiveRecord::Migration.verbose = false
-    Thredded::DbTools.silence_active_record do
-      ActiveRecord::Migrator.migrate(['db/migrate/', Rails.root.join('db', 'migrate')])
-    end
-  ensure
-    ActiveRecord::Migration.verbose = verbose_was
-  end
+  Thredded::DbTools.migrate(paths: ['db/migrate/', Rails.root.join('db', 'migrate')], quiet: true)
 end
 
 require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)

@@ -6,15 +6,9 @@ Rails.env = 'test'
 # MIGRATION_SPEC=1 rspec spec/migration/migration_spec.rb
 describe 'Migrations', migration_spec: true, order: :defined do
   def migrate(migration_file)
-    verbose_was = ActiveRecord::Migration.verbose
-    ActiveRecord::Migration.verbose = false
-    Thredded::DbTools.silence_active_record do
-      ActiveRecord::Migrator.migrate('db/upgrade_migrations') do |m|
-        m.filename >= 'db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb' && m.filename <= migration_file
-      end
+    Thredded::DbTools.migrate paths: 'db/upgrade_migrations', quiet: true do |m|
+      m.filename >= 'db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb' && m.filename <= migration_file
     end
-  ensure
-    ActiveRecord::Migration.verbose = verbose_was
   end
 
   if Rails.gem_version >= Gem::Version.new('5.2.0.beta2')
