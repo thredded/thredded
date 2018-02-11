@@ -558,6 +558,28 @@ To disable moderation, e.g. if you run internal forums that do not need moderati
 change_column_default :thredded_user_details, :moderation_state, 1 # approved
 ```
 
+### Requiring authentication to access Thredded
+
+To require users to be authenticated to access any part of Thredded, add the following to your initializer:
+
+```ruby
+# config/initializers/thredded.rb
+Rails.application.config.to_prepare do
+  Thredded::ApplicationController.module_eval do
+    # Require authentication to access the forums:
+    before_action :thredded_require_login!
+
+    # You may also want to render a login form after the
+    # "Please sign in first" message:
+    rescue_from Thredded::Errors::LoginRequired do |exception|
+      # Place the code for rendering the login form here, for example:
+      @message = exception.message
+      render template: 'sessions/new', status: :forbidden
+    end
+  end
+end
+```
+
 ## Plugins
 
 The following official plugins are available for Thredded:
