@@ -529,6 +529,16 @@ Currently, the default behaviour is to render an error message with an appropria
 layout. You may want to override the handling for `Thredded::Errors::LoginRequired` to render a login form instead.
 For an example of how to do this, see the initializer.
 
+### Require User Authentication (private forum)
+
+To enforce users being autheticated before using thredded you can the appropriate `before_action` to `Thredded::ApplicationController`.
+
+If you are using Devise and your model name is "User" then you could put the following in the "thredded.rb" initializer.
+
+```ruby
+Thredded::ApplicationController.before_action :authenticate_user!
+```
+
 ## Moderation
 
 Thredded comes with two options for the moderation system:
