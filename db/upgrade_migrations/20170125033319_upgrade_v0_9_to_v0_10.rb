@@ -10,7 +10,7 @@ class UpgradeV09ToV010 < Thredded::BaseMigration
     remove_foreign_key :thredded_messageboard_users, :thredded_user_details
     add_foreign_key :thredded_messageboard_users, :thredded_user_details,
                     column: :thredded_user_detail_id, on_delete: :cascade
-    
+
     create_table :thredded_user_post_notifications do |t|
       t.references :user, null: false, index: false, type: user_id_type
       t.references :post, null: false, index: false, type: column_type(:thredded_posts, :id)

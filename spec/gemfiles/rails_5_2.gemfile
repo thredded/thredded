@@ -4,8 +4,7 @@ eval_gemfile '../../shared.gemfile'
 
 gem 'rails-controller-testing'
 
-# pg v1.0+ compatibility, https://github.com/rails/rails/pull/31671:
-gem 'rails', '~> 5.2.0.beta2', git: 'https://github.com/rails/rails', ref: 'c2ba530c43244b5b60fd629f61cd8b44c43ecda9'
+gem 'rails', '~> 5.2.0.rc1'
 
 # Rails 5.2 deprecation warnings fixes: https://github.com/norman/friendly_id/pull/849
 gem 'friendly_id', git: 'https://github.com/norman/friendly_id', ref: '4bd4300035b5c250aeb2e5feec4c2feb9bcf2a19'
