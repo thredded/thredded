@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature 'User views a topic' do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, name: 'Not a Faker username') }
   let(:messageboard) { create(:messageboard) }
 
   context 'when Thredded.show_topic_followers' do
