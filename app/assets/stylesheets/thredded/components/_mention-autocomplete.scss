@@ -45,4 +45,13 @@ ul.thredded--textcomplete-dropdown {
     display: inline-block;
     margin-left: 0.6rem
   }
+  &__display_name {
+    display: inline-block;
+    margin-left: 0.4rem;
+
+    color: $thredded-secondary-text-color;
+    .textcomplete-item.active & {
+      color: invert($thredded-secondary-text-color);
+    }
+  }
 }
