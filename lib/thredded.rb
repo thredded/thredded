@@ -46,6 +46,7 @@ module Thredded
     :autocomplete_min_length,
     :active_user_threshold,
     :avatar_url,
+    :display_name,
     :email_from,
     :email_outgoing_prefix,
     :layout,
@@ -106,6 +107,10 @@ module Thredded
   self.messageboards_order = :position
   self.autocomplete_min_length = 2
   self.routes_id_constraint = /[1-9]\d*/
+
+  self.display_name = ->(user) do
+    [user.send(Thredded.user_name_column), user.send(Thredded.user_display_name_method)].uniq.join(' - ')
+  end
 
   # @return [Thredded::AllViewHooks] View hooks configuration.
   def self.view_hooks
