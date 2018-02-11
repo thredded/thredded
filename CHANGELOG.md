@@ -1,3 +1,14 @@
+# v0.14.2
+
+## Added
+
+* Rails 5.2 support.
+* User's display name (via `Thredded.user_display_name_method`) is now displayed in autocomplete results
+  if it is different from the user name (`Thredded.user_name_column`).
+  [#680](https://github.com/thredded/thredded/pull/680)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.1...v0.14.2.
+
 # v0.14.1
 
 ## Added
