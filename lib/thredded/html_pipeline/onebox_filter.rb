@@ -75,7 +75,7 @@ module Thredded
           preview.to_s.strip
         end
       rescue => e
-        puts "Onebox error for #{url}: #{e} "
+        Rails.logger.error("Onebox error for #{url}: #{e}")
         url
       end
 

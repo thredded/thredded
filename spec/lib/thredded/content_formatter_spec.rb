@@ -108,7 +108,7 @@ describe Thredded::ContentFormatter do
       end
     end
 
-    context "with no onebox caching" do
+    context 'with no onebox caching' do
       around do |example|
         onebox_views_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache
         onebox_data_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache
@@ -120,13 +120,12 @@ describe Thredded::ContentFormatter do
       end
 
       context 'if onebox throws an error' do
-        it "we just render the url" do
-          allow(Onebox).to receive(:preview) do
-            raise "Onebox internal error"
-          end
-          rendered = format_content(xkcd_url)
-          expect(rendered).not_to include('onebox')
-          expect(rendered).to eq(xkcd_url)
+        subject { format_content(xkcd_url) }
+
+        it 'renders just the url without error' do
+          allow(Onebox).to receive(:preview).and_raise('Onebox internal error')
+          expect(subject).not_to include('onebox')
+          expect(subject).to eq(xkcd_url)
         end
       end
     end
