@@ -108,6 +108,29 @@ describe Thredded::ContentFormatter do
       end
     end
 
+    context "with no onebox caching" do
+      around do |example|
+        onebox_views_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache
+        onebox_data_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache
+        Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache = ActiveSupport::Cache::MemoryStore.new
+        Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache = ActiveSupport::Cache::MemoryStore.new
+        example.run
+        Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache = onebox_views_cache
+        Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache = onebox_data_cache
+      end
+
+      context 'if onebox throws an error' do
+        it "we just render the url" do
+          allow(Onebox).to receive(:preview) do
+            raise "Onebox internal error"
+          end
+          rendered = format_content(xkcd_url)
+          expect(rendered).not_to include('onebox')
+          expect(rendered).to eq(xkcd_url)
+        end
+      end
+    end
+
     it 'renders FakeContent sample oneboxes' do
       # This also ensures all the oneboxes are VCR'd
       expect { format_content(FakeContent::ONEBOXES.join("\n")) }.to_not raise_error

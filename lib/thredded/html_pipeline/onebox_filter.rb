@@ -74,6 +74,9 @@ module Thredded
         else
           preview.to_s.strip
         end
+      rescue => e
+        puts "Onebox error for #{url}: #{e} "
+        url
       end
 
       def onebox_options(_url)
