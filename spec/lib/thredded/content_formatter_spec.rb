@@ -126,7 +126,7 @@ describe Thredded::ContentFormatter do
           allow(Onebox).to receive(:preview).and_raise('Onebox internal error')
           expect(subject).not_to include('onebox')
           expect(subject).to include(xkcd_url)
-          expect(subject).to match /href=["']#{xkcd_url}/
+          expect(subject).to match(/href=["']#{xkcd_url}/)
         end
       end
     end
