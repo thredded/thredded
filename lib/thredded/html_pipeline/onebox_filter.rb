@@ -74,6 +74,11 @@ module Thredded
         else
           preview.to_s.strip
         end
+      rescue StandardError => e
+        Rails.logger.error("Onebox error for #{url}: #{e}")
+        <<~HTML
+          <p><a href="#{ERB::Util.html_escape(url)}" target="_blank" rel="nofollow noopener">#{ERB::Util.html_escape(url)}</p>
+        HTML
       end
 
       def onebox_options(_url)
