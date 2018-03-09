@@ -28,7 +28,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'htmlentities'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
-  s.add_dependency 'rails', '>= 4.2.0'
+  s.add_dependency 'rails', '>= 4.2.10'
   s.add_dependency 'rb-gravatar'
   s.add_dependency 'inline_svg'
 
