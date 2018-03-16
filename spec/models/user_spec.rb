@@ -9,6 +9,14 @@ describe User, '.to_s' do
   end
 end
 
+describe User do
+  it 'loads I18n locales before User class is loaded' do
+    user = build(:user, name: nil)
+    user.save
+    expect(user.errors[:name]).to include("must be given please")
+  end
+end
+
 describe User, '.thredded_display_name' do
   before { allow_any_instance_of(User).to receive(:to_s, &:name) }
   it 'returns the users name' do
