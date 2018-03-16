@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, presence: { message: I18n.t('presence_validation_message', locale: :en) }
 
   def to_s
     fail 'Deliberately failing so we can test'
