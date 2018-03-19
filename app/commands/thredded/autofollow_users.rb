@@ -36,13 +36,18 @@ module Thredded
     # @return [Enumerable<Thredded.user_class>]
     def auto_followers
       user_board_prefs = post.messageboard.user_messageboard_preferences.each_with_object({}) do |ump, h|
-        h[ump.user] = ump
+        h[ump.user_id] = ump
       end
       Thredded.user_class.includes(:thredded_user_preference)
         .select(Thredded.user_class.primary_key)
         .find_each(batch_size: 50_000).select do |user|
-        (user_board_prefs[user] ||
-            Thredded::UserMessageboardPreference.new(messageboard: post.messageboard, user: user)).auto_follow_topics?
+
+        result = user_board_prefs[user.id]
+        result ||= Thredded::UserMessageboardPreference.new(
+          messageboard: post.messageboard,
+          user_preference: user.thredded_user_preference
+        )
+        result.auto_follow_topics?
       end
     end
 
