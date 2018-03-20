@@ -1,3 +1,18 @@
+# v0.14.3
+
+## Fixed
+
+* Accidental N+1 query in `AutofollowUsers` job.
+  [#690](https://github.com/thredded/thredded/pull/690)
+
+* Some French translations.
+  [#681](https://github.com/thredded/thredded/pull/681)
+
+* Onebox errors resulting in 500 response.
+  [#683](https://github.com/thredded/thredded/pull/683)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.2...v0.14.3.
+
 # v0.14.2
 
 ## Added
