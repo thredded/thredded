@@ -6,7 +6,7 @@ gem 'thredded', path: File.dirname(__FILE__)
 
 gem 'mustache'
 
-gem 'rails', '~> 5.2.0.rc1'
+gem 'rails', '~> 5.2.0'
 
 # Rails 5.2 deprecation warnings fixes: https://github.com/norman/friendly_id/pull/849
 gem 'friendly_id', git: 'https://github.com/norman/friendly_id', ref: '4bd4300035b5c250aeb2e5feec4c2feb9bcf2a19'
@@ -30,7 +30,7 @@ gem 'faker', '>= 1.6.2'
 gem 'thredded-markdown_coderay'
 gem 'thredded-markdown_katex'
 
-gem 'katex', '>= 0.4.0.beta'
+gem 'katex', '>= 0.4.0'
 
 # Heroku-specific gems
 gem 'newrelic_rpm'
