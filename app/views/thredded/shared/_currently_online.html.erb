@@ -9,8 +9,10 @@
     <ul class="thredded--currently-online--users">
       <% users.each do |user| %>
         <li class="thredded--currently-online--user">
-          <img class="thredded--currently-online--avatar" src="<%= Thredded.avatar_url.call(user) %>" alt=""/>
-          <%= user.thredded_display_name %>
+          <a class="thredded--link" href="<%= user_path(user) %>">
+            <img class="thredded--currently-online--avatar" src="<%= Thredded.avatar_url.call(user) %>" alt=""/>
+            <%= user.thredded_display_name %>
+          </a>
         </li>
       <% end %>
     </ul>
