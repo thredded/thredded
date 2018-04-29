@@ -1,3 +1,14 @@
+# v0.14.4
+
+## Added
+
+* Usernames in the "Currently Online" list are now links leading to the users' profiles.
+
+## Fixed
+
+* Fixes an error when saving global notification preferences.
+  [#9bc0e815](https://github.com/thredded/thredded/commit/9bc0e81566a54534214ddf5a8713aafae7b017d9)
+
 # v0.14.3
 
 ## Fixed

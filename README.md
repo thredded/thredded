@@ -15,10 +15,6 @@ Some of the features currently in Thredded:
 * Basic moderation.
 * Lightweight default theme configurable via Sass.
 
-<a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
-
-<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development
-
 | ![Messageboards (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338810/1fbc4240-abd1-11e6-9cba-4ae2e654c4d4.png) |  ![Topics (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338809/1fbb7dc4-abd1-11e6-9bc3-207b94018931.png) |
 |:---:|:---:|
 | ![Topic on iPhone 6 (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338433/0920debc-abcf-11e6-811c-8f29d10dfed7.png) | ![Messageboard Preferences on iPhone 6 (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338432/090e9c5c-abcf-11e6-8e7e-e287d31f6a54.png) |
@@ -98,7 +94,7 @@ Then, see the rest of this Readme for more information about using and customizi
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.14.3'
+gem 'thredded', '~> 0.14.4'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
