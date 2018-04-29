@@ -45,7 +45,7 @@ module Thredded
     end
 
     def new
-      @private_topic = Thredded::PrivateTopicForm.new(user: thredded_current_user)
+      @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
       authorize_creating @private_topic.private_topic
     end
 
