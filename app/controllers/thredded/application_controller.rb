@@ -67,6 +67,16 @@ module Thredded
       given.all? { |k, v| v == params[k] }
     end
 
+    # Returns true if the current page is beyond the end of the collection
+    def page_beyond_last?(page_scope)
+      page_scope.to_a.empty? && page_scope.current_page != 1
+    end
+
+    # Returns URL parameters for the last page of the given page scope.
+    def last_page_params(page_scope)
+      { page: page_scope.total_pages }
+    end
+
     private
 
     def thredded_layout

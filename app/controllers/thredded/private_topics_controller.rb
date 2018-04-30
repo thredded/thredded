@@ -8,14 +8,13 @@ module Thredded
     before_action :thredded_require_login!
 
     def index
-      @private_topics = Thredded::PrivateTopicsPageView.new(
-        thredded_current_user,
-        Thredded::PrivateTopic
-          .distinct
-          .for_user(thredded_current_user)
-          .order_recently_posted_first
-          .page(params[:page])
-      )
+      page_scope = Thredded::PrivateTopic
+        .distinct
+        .for_user(thredded_current_user)
+        .order_recently_posted_first
+        .page(params[:page])
+      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
+      @private_topics = Thredded::PrivateTopicsPageView.new(thredded_current_user, page_scope)
 
       Thredded::PrivateTopicForm.new(user: thredded_current_user).tap do |form|
         @new_private_topic = form if policy(form.private_topic).create?
@@ -31,6 +30,7 @@ module Thredded
         .includes(:user)
         .order_oldest_first
         .page(current_page)
+      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
 
       if thredded_signed_in?
