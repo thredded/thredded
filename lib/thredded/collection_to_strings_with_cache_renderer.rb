@@ -1,15 +1,23 @@
 # frozen_string_literal: true
 
 require 'action_view/renderer/abstract_renderer'
+
 module Thredded
   class CollectionToStringsWithCacheRenderer < ActionView::AbstractRenderer
+    # The default number of threads to use for rendering.
+    mattr_accessor :render_threads
+    self.render_threads = 50
+
     # @param view_context
-    # @param collection [Array<T>]
-    # @param partial [String]
-    # @param expires_in [ActiveSupport::Duration]
+    # @param [Array<T>] collection
+    # @param [String] partial
+    # @param [ActiveSupport::Duration] expires_in
+    # @param [Integer] render_threads the number of threads to use for rendering. This is useful even on MRI ruby
+    #   for IO-bound operations.
+    # @param [Hash] locals
     # @return Array<[T, String]>
     def render_collection_to_strings_with_cache( # rubocop:disable Metrics/ParameterLists
-      view_context, collection:, partial:, expires_in:, locals: {}, **opts
+      view_context, collection:, partial:, expires_in:, render_threads: self.class.render_threads, locals: {}, **opts
     )
       template = @lookup_context.find_template(partial, [], true, locals, {})
       collection = collection.to_a
@@ -28,7 +36,9 @@ module Thredded
 
         collection_to_render = keyed_collection.reject { |key, _| cached_partials.key?(key) }.values
         rendered_partials = render_partials(
-          view_context, collection: collection_to_render, partial: partial, locals: locals, **opts
+          view_context,
+          collection: collection_to_render, render_threads: render_threads,
+          partial: partial, locals: locals, **opts
         ).each
 
         keyed_collection.map do |cache_key, item|
@@ -52,12 +62,25 @@ module Thredded
     end
 
     # @return [Array<String>]
-    def render_partials(view_context, collection:, **opts)
+    def render_partials(view_context, collection:, render_threads:, **opts)
       return [] if collection.empty?
-      partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
-      collection.map do |item|
-        partial_renderer.render(view_context, opts.merge(object: item), nil)
+      num_threads = [render_threads, collection.size].min
+      if num_threads == 1
+        render_partials_serial(view_context, collection, opts)
+      else
+        collection.each_slice(collection.size / num_threads).map do |slice|
+          Thread.start { render_partials_serial(view_context.dup, slice, opts) }
+        end.flat_map(&:value)
       end
+    end
+
+    # @param [Array<Object>] collection
+    # @param [Hash] opts
+    # @param view_context
+    # @return [Array<String>]
+    def render_partials_serial(view_context, collection, opts)
+      partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
+      collection.map { |object| partial_renderer.render(view_context, opts.merge(object: object), nil) }
     end
   end
 end
