@@ -1,3 +1,23 @@
+# v0.14.5
+
+## Added
+
+* Improved performance of rendering threads with multiple onebox by rendering the posts concurrently.
+  [#696](https://github.com/thredded/thredded/pull/696)
+* Private topic parameters can now be pre-filled from URL.
+  [#b107e65c](https://github.com/thredded/thredded/commit/b107e65c404b52fd31fe91e90137417047929066)
+
+  A "Send private message" link can now be generated like this:
+
+  ```ruby
+  new_private_topic_path(private_topic: { user_names: 'glebm' })
+  ```
+
+## Fixed
+
+* Now handles pages beyond the last one by issuing a redirect to the last page.
+  [#4a43b1e3](https://github.com/thredded/thredded/commit/4a43b1e3be854480fcbba1e9a110786d49e4ddbd)
+
 # v0.14.4
 
 ## Added
