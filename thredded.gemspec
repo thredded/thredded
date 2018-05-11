@@ -82,6 +82,4 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
 
   # dummy app frontend
   s.add_development_dependency 'turbolinks'
-  # required by the turbolinks gem
-  s.add_development_dependency 'coffee-rails'
 end
