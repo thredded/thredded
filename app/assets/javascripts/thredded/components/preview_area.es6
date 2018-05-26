@@ -1,6 +1,8 @@
 //= require thredded/core/serialize_form
+//= require thredded/components/spoilers
 
 (() => {
+  const Thredded = window.Thredded;
   const PREVIEW_AREA_SELECTOR = '[data-thredded-preview-area]';
   const PREVIEW_AREA_POST_SELECTOR = '[data-thredded-preview-area-post]';
 
@@ -49,6 +51,7 @@
     onPreviewResponse(data) {
       this.preview.style.display = 'block';
       this.previewPost.innerHTML = data;
+      Thredded.spoilers.init(this.previewPost);
     }
   }
 

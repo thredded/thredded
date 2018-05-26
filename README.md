@@ -4,7 +4,7 @@ _Thredded_ is a Rails 4.2+ forum/messageboard engine. Its goal is to be as simpl
 
 Some of the features currently in Thredded:
 
-* Markdown (default) or BBCode post formatting.
+* Markdown (default) and / or BBCode post formatting, with [onebox] and `<spoiler>` / `[spoiler]` tag support.
 * (Un)read posts tracking.
 * Email notifications, topic subscriptions, @-mentions, per-messageboard notification settings.
 * Private group messaging.
@@ -28,6 +28,7 @@ If you're looking for variations on a theme - see [Discourse]. However, It is a 
 application and not an engine like Thredded.
 
 [Discourse]: http://www.discourse.org/
+[onebox]: https://github.com/discourse/onebox
 
 Table of Contents
 =================

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'thredded/email_transformer/onebox'
+require 'thredded/email_transformer/spoiler'
 
 module Thredded
   # This transformer should applied to emails so that they render correctly in the email clients.
@@ -12,7 +13,7 @@ module Thredded
   #
   module EmailTransformer
     mattr_accessor :transformers
-    self.transformers = [Onebox]
+    self.transformers = [Onebox, Spoiler]
 
     # @param doc [Nokogiri::HTML::Document]
     def self.call(doc)

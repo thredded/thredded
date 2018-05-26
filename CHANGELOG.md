@@ -1,5 +1,13 @@
 # v0.15.0 (unreleased)
 
+## Added
+
+* Spoiler tags via `<spoiler></spoiler>` or `[spoiler][/spoiler]`.
+  Supported out of the box for any markup processor.
+  Spoilers are focusable and are activated on mousedown, spacebar, or enter. They can also be nested.
+  Markup is configurable via `Thredded::SpoilerTagFilter.spoiler_tags`.
+  [#701](https://github.com/thredded/thredded/pull/701)
+
 ## Fixed
 
 * Fixes a race condition when setting `last_seen_at` for the user.

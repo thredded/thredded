@@ -124,15 +124,4 @@
   pre {
     overflow-x: auto;
   }
-
-  &--spoiler {
-    color: $thredded-spoiler-hidden-color;
-    background-color: $thredded-spoiler-hidden-color;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      color: $thredded-spoiler-shown-color;
-    }
-  }
 }

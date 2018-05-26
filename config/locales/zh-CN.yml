@@ -126,6 +126,8 @@ zh-CN:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: 你的回复将在审核之后公开发表
       quote_btn: 引用
+      spoiler_summary: 剧透 - 点击显示。
+      spoiler_summary_for_email: 扰流板 - 选择下面的内容来查看：
     preferences:
       edit:
         page_title: :thredded.nav.settings

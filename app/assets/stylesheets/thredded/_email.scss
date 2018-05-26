@@ -49,3 +49,28 @@
     }
   }
 }
+
+.thredded--post--content--spoiler {
+  background-color: $thredded-spoiler-background-color;
+  padding: 16px;
+
+  &--summary {
+    border-bottom: 1px solid $thredded-dark-gray;
+  }
+
+  &--contents {
+    color: transparent !important;
+
+    * {
+      color: transparent !important;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

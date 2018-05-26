@@ -25,7 +25,7 @@ module Thredded
         'span'   => %w[class],
         'div'    => %w[class],
         :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
-          %w[aria-label aria-labelledby aria-hidden],
+          %w[aria-expanded aria-label aria-labelledby aria-live aria-hidden aria-pressed role],
       }
     )
 
@@ -33,6 +33,7 @@ module Thredded
     # input: markup, output: markup.
     mattr_accessor :before_markup_filters
     self.before_markup_filters = [
+      Thredded::HtmlPipeline::SpoilerTagFilter::BeforeMarkup
     ]
 
     # Markup filters, such as BBCode, Markdown, Autolink, etc.
@@ -51,6 +52,7 @@ module Thredded
       Thredded::HtmlPipeline::AutolinkFilter,
       HTML::Pipeline::EmojiFilter,
       Thredded::HtmlPipeline::AtMentionFilter,
+      Thredded::HtmlPipeline::SpoilerTagFilter::AfterMarkup,
     ]
 
     # Filters that sanitize the resulting HTML.

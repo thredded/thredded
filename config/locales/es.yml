@@ -133,6 +133,8 @@ es:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Tu post será publicado cuando haya sido revisado por un moderador.
       quote_btn: Citar
+      spoiler_summary: 'Spoiler: haz clic para mostrar.'
+      spoiler_summary_for_email: 'Spoiler: selecciona el contenido a continuación para ver:'
     preferences:
       edit:
         page_title: :thredded.nav.settings
