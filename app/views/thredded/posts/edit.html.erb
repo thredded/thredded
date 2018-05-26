@@ -2,6 +2,7 @@
 <% content_for :thredded_page_id, 'thredded--edit-post' %>
 <% content_for :thredded_breadcrumbs do %>
   <ul class="thredded--navigation-breadcrumbs">
+    <li><%= link_to @post_form.topic.title, post_path(@post_form.post, user: thredded_current_user) %></li>
     <li><%= link_to t('thredded.nav.edit_post'), edit_post_path(@post_form.post) %></li>
   </ul>
 <% end %>

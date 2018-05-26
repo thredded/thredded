@@ -20,7 +20,9 @@ $thredded-code-selected-line-background: #541;
 $thredded-button-color: $thredded-text-color;
 $thredded-button-hover-background: $material-600;
 $thredded-badge-active-background: $thredded-brand;
+$thredded-dark-gray: rgba(#fff, 0.1);
 $thredded-light-gray: rgba(#424242, 0.8);
+$thredded-spoiler-background-color: rgba(#424242, .32) !default;
 
 $thredded-onebox-favicon-properties: (
   'favicons/amazon.png': (filter: invert(100%) hue-rotate(175deg) brightness(150%)),

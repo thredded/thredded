@@ -94,7 +94,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     "Reported on GitHub:\nhttps://github.com/thredded/thredded/issues/545",
   ].freeze
 
-  def post_content(with_everything: false) # rubocop:disable Metrics/CyclomaticComplexity
+  def post_content(with_everything: false) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
     with_smiley = with_everything || rand < 0.1
     with_youtube = with_everything || rand < 0.04
     with_image = with_everything || rand < 0.07
@@ -103,6 +103,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     with_markdown_table = with_everything || rand < 0.02
     with_quote = with_everything || rand < 0.08
     with_onebox = with_everything || rand < 0.08
+    with_spoiler = with_everything || rand < 0.08
 
     result = []
 
@@ -119,6 +120,8 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     result << markdown_table if with_markdown_table
 
     result << (with_everything ? ONEBOXES.join("\n") : ONEBOXES.sample) if with_onebox
+
+    result << spoiler if with_spoiler
 
     # Randomly quote a piece
     if with_quote
@@ -169,5 +172,18 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       | 0 | 0 |   0   |
 
     MARKDOWN
+  end
+
+  def spoiler
+    content = [
+      -> { styled_smart_thing(with_smiley: rand < 0.1) },
+      -> { youtube_reference },
+      -> { IMAGES.sample }
+    ].sample.call
+    if content.include?("\n")
+      "<spoiler>\n#{content}\n</spoiler>"
+    else
+      "<spoiler>#{content}</spoiler>"
+    end
   end
 end

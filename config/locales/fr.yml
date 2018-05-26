@@ -131,6 +131,8 @@ fr:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Votre commentaire sera publié dès qu'il aura été validé par un modérateur.
       quote_btn: Citer
+      spoiler_summary: Spoiler - cliquez pour afficher.
+      spoiler_summary_for_email: 'Spoiler - sélectionnez le contenu ci-dessous pour voir:'
     preferences:
       edit:
         page_title: :thredded.nav.settings

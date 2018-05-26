@@ -133,6 +133,8 @@ pt-BR:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: O envio da mensagem será publicada quando foi revisado por um moderador.
       quote_btn: Citar
+      spoiler_summary: Spoiler - clique para mostrar.
+      spoiler_summary_for_email: 'Spoiler - selecione o conteúdo abaixo para ver:'
     preferences:
       edit:
         page_title: :thredded.nav.settings

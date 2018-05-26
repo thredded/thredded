@@ -71,3 +71,135 @@
   - |
     <pre><code>a &lt;&lt; 1 &gt; 2
     </code></pre>
+
+  spoiler with markdown and html:
+  - |
+    <spoiler>
+    *Emphasis*
+    <table><tr><th>HTML</th></tr><tr><td>table</td></tr></table>
+
+    | Markdown |
+    |---|
+    | table |
+
+    Paragraph.
+    </spoiler>
+  - |
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true">
+    <p><em>Emphasis</em></p>
+    <table>
+    <tr><th>HTML</th></tr>
+    <tr><td>table</td></tr>
+    </table>
+    <table>
+    <thead>
+    <tr>
+    <th>Markdown</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>table</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Paragraph.</p>
+    </div>
+    </div>
+
+  spoiler with markdown on a single line:
+  - |
+    <spoiler>Spoiler with **markdown**, single line</spoiler>
+  - |
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true">Spoiler with <strong>markdown</strong>, single line</div>
+    </div>
+
+  spoiler surrounded by text on a single line:
+  - |
+    A <spoiler>**spoiler**</spoiler> surrounded by text on a single line.
+  - |
+    <p>A </p><div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true"><strong>spoiler</strong></div>
+    </div><p>surrounded by text on a single line.</p>
+
+  spoiler in a quote:
+  - |
+    > <spoiler>quoted spoiler</spoiler>
+  - |
+    <blockquote>
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true">quoted spoiler</div>
+    </div>
+    </blockquote>
+
+  spoiler in a quote surrounded by text:
+  - |
+    >  A <spoiler>**spoiler**</spoiler> surrounded by text within a quote.
+    > Line 2.
+  - |
+    <blockquote>
+    <p>A </p>
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true"><strong>spoiler</strong></div>
+    </div>
+    <p>surrounded by text within a quote.<br>
+    Line 2.</p>
+    </blockquote>
+
+  spoiler block in a quote:
+  - |
+    > <spoiler>
+    > Hello
+    >
+    > World
+    > </spoiler>
+  - |
+    <blockquote>
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true">
+    <p>Hello</p>
+    <p>World</p>
+    </div>
+    </div>
+    </blockquote>
+
+  spoiler nested within another spoiler:
+  - |
+    <spoiler>
+    A spoiler that has a nested spoiler:
+    <spoiler>
+    Nested spoiler.
+    </spoiler>
+    </spoiler>
+  - |
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true">
+    <p>A spoiler that has a nested spoiler:</p>
+    <div class="thredded--post--content--spoiler" tabindex="0" role="figure" aria-expanded="false">
+    <div class="thredded--post--content--spoiler--summary" aria-hidden="false">Spoiler - click to show.</div>
+    <div class="thredded--post--content--spoiler--contents" aria-hidden="true">
+    <p>Nested spoiler.</p>
+    </div>
+    </div>
+    </div>
+    </div>
+
+  not a spoiler in a code block:
+  - |
+    ```
+    <spoiler>Not a spoiler (in a code block)</spoiler>
+    [spoiler]Not a spoiler (in a code block)[/spoiler]
+    ```
+  - |
+    <pre><code>&lt;spoiler&gt;Not a spoiler (in a code block)&lt;/spoiler&gt;
+    [spoiler]Not a spoiler (in a code block)[/spoiler]
+    </code></pre>

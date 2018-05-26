@@ -129,6 +129,8 @@ ru:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Ваш пост будет опубликован, когда будет одобрен модератором.
       quote_btn: Цитировать
+      spoiler_summary: Спойлер - нажмите, чтобы показать.
+      spoiler_summary_for_email: 'Спойлер - выделите содержимое ниже, чтобы увидеть:'
     preferences:
       edit:
         page_title: :thredded.nav.settings

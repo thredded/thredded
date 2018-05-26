@@ -44,7 +44,7 @@
   border-left: solid 5px $thredded-blockquote-border-color;
   padding: 1rem;
 
-  p:last-of-type {
+  > *:last-child {
     margin-bottom: 0;
   }
 
