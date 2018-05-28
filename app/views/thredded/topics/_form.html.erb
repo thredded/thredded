@@ -10,6 +10,7 @@
     <li class="title">
       <%= form.label :title, t('thredded.topics.form.title_label') %>
       <%= form.text_field :title, placeholder: placeholder, required: true %>
+      <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] if form.object.errors.include?(:title) %>
     </li>
 
     <% if form.object.category_options.any? %>

@@ -12,6 +12,7 @@
     <li class="title">
       <%= form.label :title, t('thredded.private_topics.form.title_label') %>
       <%= form.text_field :title, placeholder: placeholder, required: true %>
+      <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] if form.object.errors.include?(:title) %>
     </li>
     <li>
       <%= form.label :user_names, t('thredded.private_topics.form.users_label') %>

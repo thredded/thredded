@@ -15,11 +15,11 @@ defaults: &defaults
   host: <%= db_host %>
   port: <%= db_port %>
   adapter: <%= db_adapter %>
-  encoding: utf8
   min_messages: WARNING
   pool: <%= pool_size %>
   username: <%= ENV.fetch('DB_USERNAME', 'thredded').inspect %>
   password: <%= ENV.fetch('DB_PASSWORD', 'thredded').inspect %>
+  encoding: <%= db_adapter == 'mysql2' ? "utf8mb4\n  charset: utf8mb4\n  collation: utf8mb4_unicode_ci" : 'utf8' %>
 
 development:
   <<: *defaults

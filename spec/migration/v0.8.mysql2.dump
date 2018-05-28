@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `ar_internal_metadata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ar_internal_metadata` (
-  `key` varchar(255) NOT NULL,
-  `value` varchar(255) DEFAULT NULL,
+  `key` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,17 +50,17 @@ DROP TABLE IF EXISTS `friendly_id_slugs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `friendly_id_slugs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `slug` varchar(191) NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sluggable_id` int(11) NOT NULL,
-  `sluggable_type` varchar(50) DEFAULT NULL,
-  `scope` varchar(191) DEFAULT NULL,
+  `sluggable_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scope` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope` (`slug`,`sluggable_type`,`scope`),
   KEY `index_friendly_id_slugs_on_slug_and_sluggable_type` (`slug`,`sluggable_type`),
   KEY `index_friendly_id_slugs_on_sluggable_id` (`sluggable_id`),
   KEY `index_friendly_id_slugs_on_sluggable_type` (`sluggable_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,9 +81,9 @@ DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `schema_migrations` (
-  `version` varchar(255) NOT NULL,
+  `version` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,16 +106,16 @@ DROP TABLE IF EXISTS `thredded_categories`;
 CREATE TABLE `thredded_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `messageboard_id` int(11) NOT NULL,
-  `name` varchar(191) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `slug` varchar(191) NOT NULL,
+  `slug` varchar(191) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_thredded_categories_on_messageboard_id_and_slug` (`messageboard_id`,`slug`),
   KEY `index_thredded_categories_on_messageboard_id` (`messageboard_id`),
   KEY `thredded_categories_name_ci` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,12 +136,12 @@ DROP TABLE IF EXISTS `thredded_messageboard_groups`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `thredded_messageboard_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `position` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `thredded_messageboard_users` (
   KEY `fk_rails_06e42c62f5` (`thredded_user_detail_id`),
   CONSTRAINT `fk_rails_06e42c62f5` FOREIGN KEY (`thredded_user_detail_id`) REFERENCES `thredded_user_details` (`id`),
   CONSTRAINT `fk_rails_966803d714` FOREIGN KEY (`thredded_messageboard_id`) REFERENCES `thredded_messageboards` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,9 +193,9 @@ DROP TABLE IF EXISTS `thredded_messageboards`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `thredded_messageboards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) NOT NULL,
-  `slug` varchar(191) DEFAULT NULL,
-  `description` text,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `topics_count` int(11) DEFAULT '0',
   `posts_count` int(11) DEFAULT '0',
   `position` int(11) NOT NULL,
@@ -206,7 +206,7 @@ CREATE TABLE `thredded_messageboards` (
   PRIMARY KEY (`id`),
   KEY `index_thredded_messageboards_on_messageboard_group_id` (`messageboard_group_id`),
   KEY `index_thredded_messageboards_on_slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,16 +230,16 @@ CREATE TABLE `thredded_post_moderation_records` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) DEFAULT NULL,
   `messageboard_id` int(11) DEFAULT NULL,
-  `post_content` text,
+  `post_content` text COLLATE utf8mb4_unicode_ci,
   `post_user_id` int(11) DEFAULT NULL,
-  `post_user_name` text,
+  `post_user_name` text COLLATE utf8mb4_unicode_ci,
   `moderator_id` int(11) DEFAULT NULL,
   `moderation_state` int(11) NOT NULL,
   `previous_moderation_state` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_thredded_moderation_records_for_display` (`messageboard_id`,`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,14 +260,14 @@ DROP TABLE IF EXISTS `thredded_post_notifications`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `thredded_post_notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(191) NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `post_type` varchar(191) DEFAULT NULL,
+  `post_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_thredded_post_notifications_on_post` (`post_id`,`post_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,9 +289,9 @@ DROP TABLE IF EXISTS `thredded_posts`;
 CREATE TABLE `thredded_posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `content` text,
-  `ip` varchar(255) DEFAULT NULL,
-  `source` varchar(255) DEFAULT 'web',
+  `content` text COLLATE utf8mb4_unicode_ci,
+  `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `source` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'web',
   `postable_id` int(11) NOT NULL,
   `messageboard_id` int(11) NOT NULL,
   `moderation_state` int(11) NOT NULL,
@@ -303,7 +303,7 @@ CREATE TABLE `thredded_posts` (
   KEY `index_thredded_posts_on_postable_id_and_postable_type` (`postable_id`),
   KEY `index_thredded_posts_on_user_id` (`user_id`),
   FULLTEXT KEY `thredded_posts_content_fts` (`content`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -326,13 +326,13 @@ DROP TABLE IF EXISTS `thredded_private_posts`;
 CREATE TABLE `thredded_private_posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `content` text,
+  `content` text COLLATE utf8mb4_unicode_ci,
   `postable_id` int(11) NOT NULL,
-  `ip` varchar(255) DEFAULT NULL,
+  `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -356,17 +356,17 @@ CREATE TABLE `thredded_private_topics` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `last_user_id` int(11) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(191) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `posts_count` int(11) DEFAULT '0',
-  `hash_id` varchar(191) NOT NULL,
+  `hash_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_post_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_thredded_private_topics_on_hash_id` (`hash_id`),
   KEY `index_thredded_private_topics_on_slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -395,7 +395,7 @@ CREATE TABLE `thredded_private_users` (
   PRIMARY KEY (`id`),
   KEY `index_thredded_private_users_on_private_topic_id` (`private_topic_id`),
   KEY `index_thredded_private_users_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -422,7 +422,7 @@ CREATE TABLE `thredded_topic_categories` (
   PRIMARY KEY (`id`),
   KEY `index_thredded_topic_categories_on_category_id` (`category_id`),
   KEY `index_thredded_topic_categories_on_topic_id` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -445,14 +445,14 @@ CREATE TABLE `thredded_topics` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `last_user_id` int(11) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(191) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `messageboard_id` int(11) NOT NULL,
   `posts_count` int(11) NOT NULL DEFAULT '0',
   `sticky` tinyint(1) NOT NULL DEFAULT '0',
   `locked` tinyint(1) NOT NULL DEFAULT '0',
-  `hash_id` varchar(191) NOT NULL,
-  `type` varchar(191) DEFAULT NULL,
+  `hash_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `moderation_state` int(11) NOT NULL,
   `last_post_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -464,7 +464,7 @@ CREATE TABLE `thredded_topics` (
   KEY `index_thredded_topics_on_messageboard_id` (`messageboard_id`),
   KEY `index_thredded_topics_on_user_id` (`user_id`),
   FULLTEXT KEY `thredded_topics_title_fts` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,7 +499,7 @@ CREATE TABLE `thredded_user_details` (
   KEY `index_thredded_user_details_for_moderations` (`moderation_state`,`moderation_state_changed_at`),
   KEY `index_thredded_user_details_on_latest_activity_at` (`latest_activity_at`),
   KEY `index_thredded_user_details_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -529,7 +529,7 @@ CREATE TABLE `thredded_user_messageboard_preferences` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `thredded_user_messageboard_preferences_user_id_messageboard_id` (`user_id`,`messageboard_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -558,7 +558,7 @@ CREATE TABLE `thredded_user_preferences` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_thredded_user_preferences_on_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -585,7 +585,7 @@ CREATE TABLE `thredded_user_private_topic_read_states` (
   `read_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `thredded_user_private_topic_read_states_user_postable` (`user_id`,`postable_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -612,7 +612,7 @@ CREATE TABLE `thredded_user_topic_follows` (
   `reason` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `thredded_user_topic_follows_user_topic` (`user_id`,`topic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -640,7 +640,7 @@ CREATE TABLE `thredded_user_topic_read_states` (
   `read_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `thredded_user_topic_read_states_user_postable` (`user_id`,`postable_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -662,14 +662,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_users_on_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

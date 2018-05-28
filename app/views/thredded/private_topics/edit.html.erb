@@ -4,7 +4,7 @@
   <ul class="thredded--navigation-breadcrumbs">
     <li><%= link_to t('thredded.nav.all_messageboards'), messageboards_path %></li>
     <li><%= link_to t('thredded.nav.private_topics'), private_topics_path %></li>
-    <li><%= link_to @private_topic.title, topic_path(@private_topic) %></li>
+    <li><%= link_to @private_topic.title_was || @private_topic.title, topic_path(@private_topic) %></li>
     <li><%= link_to t('thredded.nav.edit_private_topic'), edit_private_topic_path(@private_topic) %></li>
   </ul>
 <% end %>
@@ -22,6 +22,7 @@
                               placeholder: t('thredded.private_topics.form.title_placeholder_new'),
                               autofocus: true,
                               required: true %>
+          <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] if form.object.errors.include?(:title) %>
         </li>
         <li>
           <button type="submit" class="thredded--form--submit"

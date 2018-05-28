@@ -79,6 +79,10 @@ Thredded.messageboards_order = :position
 # Set the layout for rendering the thredded views.
 Thredded.layout = 'thredded/application'
 
+# ==> Model configuration
+# The range of valid topic title lengths. Default:
+# Thredded.topic_title_length_range = (1..200)
+
 # ==> URLs
 # How Thredded generates URL slugs from text.
 

@@ -4,7 +4,8 @@ module Thredded
   class EditTopicForm
     include ActiveModel::Model
 
-    delegate :id, :title, :category_ids, :locked, :sticky, :messageboard, :messageboard_id, :valid?,
+    delegate :id, :title, :title_was, :category_ids, :locked, :sticky, :messageboard, :messageboard_id, :valid?,
+             :errors,
              to: :@topic
 
     # @param user [Thredded.user_class]

@@ -17,6 +17,8 @@ module Thredded
       validates :hash_id, presence: true, uniqueness: true
       validates :posts_count, numericality: true
 
+      validates :title, presence: true, length: { within: Thredded.topic_title_length_range }
+
       before_validation do
         self.hash_id = SecureRandom.hex(10) if hash_id.nil?
       end

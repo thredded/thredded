@@ -5,6 +5,7 @@ module Thredded
     include ActiveModel::Model
 
     delegate :id,
+             :title_was,
              to: :private_topic
 
     attr_accessor \
