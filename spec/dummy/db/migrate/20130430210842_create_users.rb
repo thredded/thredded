@@ -1,12 +1,15 @@
 # frozen_string_literal: true
-class CreateUsers < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
+require 'thredded/base_migration'
+
+class CreateUsers < Thredded::BaseMigration
   def change
     create_table :users do |t|
-      t.string :name, null: false
-      t.string :email
+      t.text :name, null: false
+      t.text :email
 
       t.timestamps null: false
     end
-    DbTextSearch::CaseInsensitive.add_index connection, :users, :name
+    DbTextSearch::CaseInsensitive.add_index connection, :users, :name,
+                                            **(max_key_length ? { length: max_key_length } : {})
   end
 end

@@ -12,6 +12,9 @@
 
 * Fixes a race condition when setting `last_seen_at` for the user.
   [#674](https://github.com/thredded/thredded/pull/674)
+* Moves validation of topic title lengths from the database into Rails and shows the error messages on title.
+  The valid length range is configurable via the new `Thredded.topic_title_length_range` configuration option.
+  [#703](https://github.com/thredded/thredded/pull/703)
 
 **NB: If updating to this version from 0.14.x, you **must** copy and run the upgrade migration after updating the gem:
 

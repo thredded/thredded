@@ -145,10 +145,12 @@ namespace :db do
 
   desc 'do a mini seed to generate sample data for migration tests'
   task miniseed: :environment do
+    require 'thredded/database_seeder'
     Thredded::DatabaseSeeder.run(users: 5, topics: 5, posts: 1..5)
   end
 
   task miniseed_dump: [:miniseed] do
+    require 'thredded/db_tools'
     Thredded::DbTools.dump
     system('cd spec/dummy && rails db:environment:set RAILS_ENV=development')
   end

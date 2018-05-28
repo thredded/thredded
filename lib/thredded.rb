@@ -97,6 +97,10 @@ module Thredded
   # @return [String] The name of the user class
   mattr_reader :user_class_name
 
+  # @return [Range<Integer>] The range of valid topic title lengths.
+  mattr_accessor :topic_title_length_range
+  self.topic_title_length_range = (1..200)
+
   self.active_user_threshold = 5.minutes
   self.admin_column = :admin
   self.avatar_url = ->(user) { Gravatar.src(user.email, 156, 'mm') }
