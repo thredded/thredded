@@ -16,6 +16,11 @@
   The valid length range is configurable via the new `Thredded.topic_title_length_range` configuration option.
   [#703](https://github.com/thredded/thredded/pull/703)
 
+## Changed
+
+* Post IP tracking removed from core because it requires explicit consent under GDPR.
+  [#705](https://github.com/thredded/thredded/pull/705)
+
 **NB: If updating to this version from 0.14.x, you **must** copy and run the upgrade migration after updating the gem:
 
 ```console

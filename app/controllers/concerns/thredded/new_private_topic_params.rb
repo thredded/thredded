@@ -11,7 +11,6 @@ module Thredded
         .permit(:title, :content, :user_names, user_ids: [])
         .merge(
           user: thredded_current_user,
-          ip: request.remote_ip
         ).tap { |p| adapt_user_ids! p }
     end
 
