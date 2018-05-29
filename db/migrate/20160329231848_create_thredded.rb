@@ -60,7 +60,6 @@ class CreateThredded < Thredded::BaseMigration
     create_table :thredded_posts do |t|
       t.references :user, type: user_id_type, index: false
       t.text :content, limit: 65_535
-      t.string :ip, limit: 45
       t.string :source, limit: 191, default: 'web'
       t.references :postable, null: false, index: false
       t.references :messageboard, null: false, index: false
@@ -80,7 +79,6 @@ class CreateThredded < Thredded::BaseMigration
       t.references :user, type: user_id_type, index: false
       t.text :content, limit: 65_535
       t.references :postable, null: false, index: false
-      t.string :ip, limit: 255
       t.timestamps null: false
     end
 

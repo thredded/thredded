@@ -61,6 +61,11 @@ class UpgradeThreddedV014ToV015 < Thredded::BaseMigration
                         ]
     change_column :thredded_topics, :hash_id, :string, limit: 20
     remove_column :thredded_topics, :type
+
+    # Remove IP tracking column from posts
+    # https://github.com/thredded/thredded/pull/705
+    remove_column :thredded_posts, :ip
+    remove_column :thredded_private_posts, :ip
   end
 
   private

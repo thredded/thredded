@@ -39,7 +39,6 @@ FactoryBot.define do
     postable { association :topic, user: user, last_user: user }
 
     content { FakeContent.post_content }
-    ip '127.0.0.1'
 
     after :build do |post|
       post.messageboard = post.postable.messageboard
@@ -51,7 +50,6 @@ FactoryBot.define do
     postable { association :private_topic, user: user, last_user: user }
 
     content { Faker::Hacker.say_something_smart }
-    ip '127.0.0.1'
   end
 
   factory :user_preference, class: Thredded::UserPreference do

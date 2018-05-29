@@ -12,7 +12,6 @@ module Thredded
         .merge(
           messageboard: messageboard,
           user: thredded_current_user,
-          ip: request.remote_ip,
         )
     end
   end
