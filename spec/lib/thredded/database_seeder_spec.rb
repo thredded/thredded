@@ -5,12 +5,8 @@ require 'thredded/database_seeder'
 
 describe Thredded::DatabaseSeeder do
   before { allow_any_instance_of(Thredded::DatabaseSeeder).to receive(:log) }
-  describe 'run (seed)' do
-    subject do
-      # we don't actually run run, because it causes weird knock-on effects to other tests
-      # something to do with the callbacks I think
-      Thredded::DatabaseSeeder.new.seed(users: 2, topics: 1, posts: (1..1))
-    end
+  describe 'run' do
+    subject { Thredded::DatabaseSeeder.run(users: 2, topics: 1, posts: (1..1)) }
     it 'works' do
       subject
     end
@@ -21,6 +17,7 @@ describe Thredded::DatabaseSeeder do
   end
 
   describe Thredded::DatabaseSeeder::Users do
+    around { |ex| Thredded::DatabaseSeeder.with_seeder_tweaks(&ex) }
     let(:seed_database) { Thredded::DatabaseSeeder.new }
     subject { Thredded::DatabaseSeeder::Users.new(seed_database) }
     it 'can be created' do
@@ -33,6 +30,7 @@ describe Thredded::DatabaseSeeder do
   end
 
   describe Thredded::DatabaseSeeder::Topics do
+    around { |ex| Thredded::DatabaseSeeder.with_seeder_tweaks(&ex) }
     let(:seed_database) { Thredded::DatabaseSeeder.new }
     subject { Thredded::DatabaseSeeder::Topics.new(seed_database) }
     it 'can be created' do
@@ -45,6 +43,7 @@ describe Thredded::DatabaseSeeder do
   end
 
   describe Thredded::DatabaseSeeder::Posts do
+    around { |ex| Thredded::DatabaseSeeder.with_seeder_tweaks(&ex) }
     let(:seed_database) { Thredded::DatabaseSeeder.new }
     subject { Thredded::DatabaseSeeder::Posts.new(seed_database) }
     it 'can be created' do
