@@ -36,11 +36,14 @@ module Thredded
     # View hooks for collections of public or private posts.
     class PostsCommon
       # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :before_first_unread_post
+      # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :pagination_top
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :pagination_bottom
 
       def initialize
+        @before_first_unread_post = ViewHook.new
         @pagination_top = ViewHook.new
         @pagination_bottom = ViewHook.new
       end

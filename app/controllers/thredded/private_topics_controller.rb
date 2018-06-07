@@ -34,9 +34,7 @@ module Thredded
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
 
       if thredded_signed_in?
-        Thredded::UserPrivateTopicReadState.touch!(
-          thredded_current_user.id, private_topic.id, page_scope.last, current_page
-        )
+        Thredded::UserPrivateTopicReadState.touch!(thredded_current_user.id, private_topic.id, page_scope.last)
       end
 
       @new_post = Thredded::PrivatePostForm.new(

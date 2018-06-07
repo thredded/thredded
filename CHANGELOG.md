@@ -7,6 +7,8 @@
   Spoilers are focusable and are activated on mousedown, spacebar, or enter. They can also be nested.
   Markup is configurable via `Thredded::SpoilerTagFilter.spoiler_tags`.
   [#701](https://github.com/thredded/thredded/pull/701)
+* Jump to the first unread post when navigating to a topic.
+  [#695](https://github.com/thredded/thredded/pull/695)
 
 ## Fixed
 
@@ -21,7 +23,7 @@
 * Post IP tracking removed from core because it requires explicit consent under GDPR.
   [#705](https://github.com/thredded/thredded/pull/705)
 
-**NB: If updating to this version from 0.14.x, you **must** copy and run the upgrade migration after updating the gem:
+**NB**: If updating to this version from 0.14.x, you **must** copy and run the upgrade migration after updating the gem:
 
 ```console
 cp "$(bundle show thredded)"/db/upgrade_migrations/20180110200009_upgrade_thredded_v0_14_to_v0_15.rb db/migrate

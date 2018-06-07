@@ -2,6 +2,22 @@
 
 module Thredded
   class PrivatePostPolicy
+    # The scope of readable private posts.
+    # {PrivateTopicPolicy} must be applied separately.
+    class Scope
+      # @param user [Thredded.user_class]
+      # @param scope [ActiveRecord::Relation<Thredded::Post>]
+      def initialize(user, scope)
+        @user = user
+        @scope = scope
+      end
+
+      # @return [ActiveRecord::Relation<Thredded::Post>]
+      def resolve
+        @scope
+      end
+    end
+
     # @param user [Thredded.user_class]
     # @param post [Thredded::PrivatePost]
     def initialize(user, post)
