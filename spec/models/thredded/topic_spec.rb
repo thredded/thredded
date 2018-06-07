@@ -85,7 +85,7 @@ module Thredded
 
   describe Topic, '.with_read_states' do
     let(:user) { create(:user) }
-    let!(:topic) { create(:topic) }
+    let!(:topic) { create(:topic, with_posts: 2) }
 
     context 'when unread' do
       it 'returns nulls ' do
@@ -96,7 +96,12 @@ module Thredded
     end
 
     context 'when read' do
-      let!(:read_state) { create(:user_topic_read_state, user: user, postable: topic, read_at: 1.day.ago) }
+      let!(:read_state) do
+        create(
+          :user_topic_read_state, user: user, postable: topic,
+                                  read_at: topic.posts.order_oldest_first.first.created_at
+        )
+      end
       it 'returns read states' do
         first = Topic.all.with_read_states(user).first
         expect(first[0]).to eq(topic)
@@ -107,7 +112,7 @@ module Thredded
 
   describe Topic, '.with_read_and_follow_states' do
     let(:user) { create(:user) }
-    let!(:topic) { create(:topic) }
+    let!(:topic) { create(:topic, with_posts: 2) }
 
     context 'when unread, unfollowed' do
       it 'returns nulls ' do
@@ -119,7 +124,12 @@ module Thredded
     end
 
     context 'when read' do
-      let!(:read_state) { create(:user_topic_read_state, user: user, postable: topic, read_at: 1.day.ago) }
+      let!(:read_state) do
+        create(
+          :user_topic_read_state, user: user, postable: topic,
+                                  read_at: topic.posts.order_oldest_first.first.created_at
+        )
+      end
       it 'returns read states' do
         first = Topic.all.with_read_and_follow_states(user).first
         expect(first[0]).to eq(topic)
@@ -185,7 +195,7 @@ module Thredded
     subject { Topic.unread_followed_by(user) }
 
     def create_read_state(read_at, user_id: user.id)
-      UserTopicReadState.create!(user_id: user_id, postable_id: topic.id, read_at: read_at, page: 1)
+      UserTopicReadState.create!(user_id: user_id, postable_id: topic.id, read_at: read_at)
     end
 
     context 'with following topic' do

@@ -54,8 +54,7 @@ module Thredded
 
     def mark_as_unread
       authorize post, :read?
-      page = post.page
-      post.mark_as_unread(thredded_current_user, page)
+      post.mark_as_unread(thredded_current_user)
       after_mark_as_unread # customization hook
     end
 

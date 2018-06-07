@@ -66,6 +66,19 @@ class UpgradeThreddedV014ToV015 < Thredded::BaseMigration
     # https://github.com/thredded/thredded/pull/705
     remove_column :thredded_posts, :ip
     remove_column :thredded_private_posts, :ip
+
+    # Jump to first unread post
+    # https://github.com/thredded/thredded/pull/695
+    remove_column :thredded_user_topic_read_states, :page
+    remove_column :thredded_user_private_topic_read_states, :page
+    add_index :thredded_topics, [:last_post_at], name: :index_thredded_topics_on_last_post_at
+    add_index :thredded_private_topics, [:last_post_at], name: :index_thredded_private_topics_on_last_post_at
+    add_index :thredded_posts, %i[postable_id created_at], name: :index_thredded_posts_on_postable_id_and_created_at
+    add_index :thredded_private_posts, %i[postable_id created_at],
+              name: :index_thredded_private_posts_on_postable_id_and_created_at
+
+    # Cleanup
+    remove_index :thredded_posts, name: :index_thredded_posts_on_postable_id_and_created_at
   end
 
   private

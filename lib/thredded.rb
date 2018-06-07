@@ -41,6 +41,7 @@ require 'thredded/content_formatter'
 require 'thredded/email_transformer'
 require 'thredded/base_notifier'
 
+require 'thredded/arel_compat'
 require 'thredded/collection_to_strings_with_cache_renderer'
 
 module Thredded

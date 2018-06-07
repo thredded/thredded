@@ -17,10 +17,14 @@ module Thredded
     # @param post [Thredded::PostCommon]
     # @param policy [#create? #update? #destroy? #moderate?]
     # @param topic_view [Thredded::TopicView]
-    def initialize(post, policy, topic_view: nil)
+    # @param first_in_page [Boolean]
+    # @param first_unread_in_page [Boolean]
+    def initialize(post, policy, topic_view: nil, first_in_page: false, first_unread_in_page: false)
       @post   = post
       @policy = policy
       @topic_view = topic_view
+      @first_unread_in_page = first_unread_in_page
+      @first_in_page = first_in_page
     end
 
     def can_reply?
@@ -84,6 +88,14 @@ module Thredded
       else
         POST_IS_UNREAD
       end
+    end
+
+    def first_unread_in_page?
+      @first_unread_in_page
+    end
+
+    def first_in_page?
+      @first_in_page
     end
   end
 end

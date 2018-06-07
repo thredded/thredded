@@ -11,7 +11,7 @@ module Thredded
 
     # @param user [Thredded.user_class]
     # @param topic [Topic]
-    # @param post [PrivatePost]
+    # @param post [Post]
     # @param post_params [Hash]
     def initialize(user:, topic:, post: nil, post_params: {})
       @messageboard = topic.messageboard
@@ -47,7 +47,9 @@ module Thredded
 
     def save
       return false unless @post.valid?
+      was_persisted = @post.persisted?
       @post.save!
+      Thredded::UserTopicReadState.touch!(@post.user.id, @topic.id, @post) unless was_persisted
       true
     end
   end

@@ -5,10 +5,10 @@ require 'spec_helper'
 module Thredded
   describe PrivateTopic, '.with_read_states' do
     let(:user) { create(:user) }
-    let!(:private_topic) { create(:private_topic) }
+    let!(:private_topic) { create(:private_topic, with_posts: 2) }
 
     context 'when unread' do
-      it 'returns nulls ' do
+      it 'returns nulls' do
         first = PrivateTopic.all.with_read_states(user).first
         expect(first[0]).to eq(private_topic)
         expect(first[1]).to be_an_instance_of(Thredded::NullUserTopicReadState)
@@ -17,9 +17,12 @@ module Thredded
 
     context 'when read' do
       let!(:read_state) do
-        create(:user_private_topic_read_state, user: user, postable: private_topic, read_at: 1.day.ago)
+        create(
+          :user_private_topic_read_state, user: user, postable: private_topic,
+                                          read_at: private_topic.posts.order_oldest_first.first.created_at
+        )
       end
-      it 'returns read states' do
+      it 'returns read states when there is a read post' do
         first = PrivateTopic.all.with_read_states(user).first
         expect(first[0]).to eq(private_topic)
         expect(first[1]).to eq(read_state)

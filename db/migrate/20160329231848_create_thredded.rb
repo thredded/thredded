@@ -70,7 +70,7 @@ class CreateThredded < Thredded::BaseMigration
               name:  :index_thredded_posts_for_display
       t.index [:messageboard_id], name: :index_thredded_posts_on_messageboard_id
       t.index [:postable_id], name: :index_thredded_posts_on_postable_id
-      t.index [:postable_id], name: :index_thredded_posts_on_postable_id_and_postable_type
+      t.index %i[postable_id created_at], name: :index_thredded_posts_on_postable_id_and_created_at
       t.index [:user_id], name: :index_thredded_posts_on_user_id
     end
     DbTextSearch::FullText.add_index connection, :thredded_posts, :content, name: :thredded_posts_content_fts
@@ -80,6 +80,7 @@ class CreateThredded < Thredded::BaseMigration
       t.text :content, limit: 65_535
       t.references :postable, null: false, index: false
       t.timestamps null: false
+      t.index %i[postable_id created_at], name: :index_thredded_private_posts_on_postable_id_and_created_at
     end
 
     create_table :thredded_private_topics do |t|
@@ -91,6 +92,7 @@ class CreateThredded < Thredded::BaseMigration
       t.string :hash_id, limit: 20, null: false
       t.datetime :last_post_at
       t.timestamps null: false
+      t.index [:last_post_at], name: :index_thredded_private_topics_on_last_post_at
       t.index [:hash_id], name: :index_thredded_private_topics_on_hash_id
       t.index [:slug],
               name: :index_thredded_private_topics_on_slug,
@@ -129,6 +131,7 @@ class CreateThredded < Thredded::BaseMigration
       t.index %i[moderation_state sticky updated_at],
               order: { sticky: :desc, updated_at: :desc },
               name:  :index_thredded_topics_for_display
+      t.index [:last_post_at], name: :index_thredded_topics_on_last_post_at
       t.index [:hash_id], name: :index_thredded_topics_on_hash_id
       t.index [:slug],
               name: :index_thredded_topics_on_slug,
@@ -194,7 +197,6 @@ class CreateThredded < Thredded::BaseMigration
       create_table table_name do |t|
         t.references :user, type: user_id_type, null: false, index: false
         t.references :postable, null: false, index: false
-        t.integer :page, default: 1, null: false
         t.timestamp :read_at, null: false
         t.index %i[user_id postable_id], name: :"#{table_name}_user_postable", unique: true
       end

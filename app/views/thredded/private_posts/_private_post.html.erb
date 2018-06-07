@@ -1,5 +1,6 @@
 <% private_post, content = post_and_content if local_assigns.key?(:post_and_content) %>
-<%= content_tag :article, id: dom_id(private_post), class: 'thredded--post' do %>
+<%= render 'thredded/posts_common/before_first_unread_post', post: private_post if private_post.first_unread_in_page? %>
+<%= content_tag :article, id: dom_id(private_post), class: "thredded--post thredded--#{private_post.read_state}--post" do %>
   <%= render 'thredded/posts_common/actions', post: private_post, actions: local_assigns[:actions] %>
   <%= render 'thredded/posts_common/header', post: private_post %>
   <%= content || render('thredded/private_posts/content', post: post) %>
