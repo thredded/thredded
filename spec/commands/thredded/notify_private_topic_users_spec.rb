@@ -52,7 +52,7 @@ module Thredded
         expect { command.run }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
 
-      context 'with the MockNotifier', thredded_reset: ['@@notifiers'] do
+      context 'with the MockNotifier', thredded_reset: [:@notifiers] do
         let(:mock_notifier) { MockNotifier.new }
 
         before { Thredded.notifiers = [mock_notifier] }
@@ -64,7 +64,7 @@ module Thredded
         end
       end
 
-      context 'with multiple notifiers', thredded_reset: ['@@notifiers'] do
+      context 'with multiple notifiers', thredded_reset: [:@notifiers] do
         let(:mock_notifier1) { MockNotifier.new }
         let(:mock_notifier2) { MockNotifier.new }
 

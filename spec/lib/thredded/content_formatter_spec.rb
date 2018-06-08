@@ -44,7 +44,7 @@ describe Thredded::ContentFormatter do
   context '@-mentions' do
     around do |ex|
       begin
-        user_path_was = Thredded.class_variable_get(:@@user_path)
+        user_path_was = Thredded.instance_variable_get(:@user_path)
         ex.call
       ensure
         Thredded.user_path = user_path_was

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Thredded, '.user_path', thredded_reset: [:@@user_path] do
+describe Thredded, '.user_path', thredded_reset: [:@user_path] do
   it 'returns one path' do
     me = build_stubbed(:user, name: 'joel')
     Thredded.user_path = ->(user) { "/my/name/is/#{user.name}" }
@@ -27,7 +27,7 @@ describe Thredded, '.user_path', thredded_reset: [:@@user_path] do
   end
 end
 
-describe Thredded, '.user_display_name_method', thredded_reset: %i[@@user_display_name_method @@user_name_column] do
+describe Thredded, '.user_display_name_method', thredded_reset: %i[@user_display_name_method @user_name_column] do
   it 'when nil it returns the same value as name method' do
     Thredded.user_name_column = :name
     Thredded.user_display_name_method = nil
@@ -40,7 +40,7 @@ describe Thredded, '.user_display_name_method', thredded_reset: %i[@@user_displa
   end
 end
 
-describe Thredded, '.messageboards_order', thredded_reset: [:@@messageboards_order] do
+describe Thredded, '.messageboards_order', thredded_reset: [:@messageboards_order] do
   specify 'default' do
     expect(Thredded.messageboards_order).to eq(:position)
   end
@@ -61,7 +61,7 @@ describe Thredded, '.messageboards_order', thredded_reset: [:@@messageboards_ord
   end
 end
 
-describe Thredded, '.notifiers', thredded_reset: [:@@notifiers] do
+describe Thredded, '.notifiers', thredded_reset: [:@notifiers] do
   specify 'default' do
     notifiers = Thredded.notifiers
     expect(notifiers.length).to be(1)

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe MessageboardGroupView, thredded_reset: [:@@messageboards_order] do
+  describe MessageboardGroupView, thredded_reset: [:@messageboards_order] do
     before { Thredded.messageboards_order = :position }
     describe '.groups' do
       context 'in one group' do

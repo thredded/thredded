@@ -4,8 +4,11 @@ require 'action_view/renderer/abstract_renderer'
 
 module Thredded
   class CollectionToStringsWithCacheRenderer < ActionView::AbstractRenderer
-    # The default number of threads to use for rendering.
-    mattr_accessor :render_threads
+    class << self
+      # The default number of threads to use for rendering.
+      attr_accessor :render_threads
+    end
+
     self.render_threads = 50
 
     # @param view_context

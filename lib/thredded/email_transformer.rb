@@ -12,8 +12,10 @@ module Thredded
   #     Rails.application.config.roadie.before_transformation = Thredded::EmailTransformer
   #
   module EmailTransformer
-    mattr_accessor :transformers
-    self.transformers = [Onebox, Spoiler]
+    class << self
+      attr_accessor :transformers
+    end
+    @transformers = [Onebox, Spoiler]
 
     # @param doc [Nokogiri::HTML::Document]
     def self.call(doc)

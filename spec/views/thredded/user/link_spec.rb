@@ -29,7 +29,7 @@ RSpec.describe 'partial: thredded/users/link' do
     HTML
   end
 
-  it 'with nil user path', thredded_reset: [:@@user_path] do
+  it 'with nil user path', thredded_reset: [:@user_path] do
     Thredded.user_path = ->(_user) { nil }
     render_partial build_stubbed(:user, id: 5, name: 'joel')
     expect(rendered).to eq <<-HTML.strip_heredoc
