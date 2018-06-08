@@ -51,19 +51,28 @@ Thredded.admin_column = :admin
 # Whether posts and topics pending moderation are visible to regular users.
 Thredded.content_visible_while_pending_moderation = true
 
-# Whether users that are following a topic are listed on topic page.
-Thredded.show_topic_followers = false
-
 # This model can be customized further by overriding a handful of methods on the User model.
 # For more information, see app/models/thredded/user_extender.rb.
 
-# ==> Ordering configuration
+# ==> UI configuration
 
 # How to calculate the position of messageboards in a list:
 # :position            (default) set the position manually (new messageboards go to the bottom, by creation timestamp)
 # :last_post_at_desc   most recent post first
 # :topics_count_desc   most topics first
 Thredded.messageboards_order = :position
+
+# Whether users that are following a topic are listed on the topic page.
+Thredded.show_topic_followers = false
+
+# Whether the list of users who are currently online is displayed.
+Thredded.currently_online_enabled = true
+
+# Whether private messaging functionality is enabled.
+Thredded.private_messaging_enabled = true
+
+# The layout for rendering Thredded views.
+Thredded.layout = 'thredded/application'
 
 # ==> Email Configuration
 # Email "From:" field will use the following
@@ -74,10 +83,6 @@ Thredded.messageboards_order = :position
 #
 # The parent mailer for all Thredded mailers
 # Thredded.parent_mailer = 'ActionMailer::Base'
-
-# ==> View Configuration
-# Set the layout for rendering the thredded views.
-Thredded.layout = 'thredded/application'
 
 # ==> Model configuration
 # The range of valid topic title lengths. Default:

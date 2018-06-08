@@ -2,7 +2,7 @@
   <ul class="thredded--user-navigation<%= ' thredded--user-navigation-standalone' if Thredded.standalone_layout? %>">
     <%= render 'thredded/shared/nav/moderation' %>
     <%= render 'thredded/shared/nav/notification_preferences', messageboard: messageboard_or_nil %>
-    <%= render 'thredded/shared/nav/private_topics' %>
+    <%= render 'thredded/shared/nav/private_topics' if Thredded.private_messaging_enabled %>
     <% if Thredded.standalone_layout? %>
       <%= render 'thredded/shared/nav/standalone_profile' if thredded_signed_in? %>
       <%= render 'thredded/shared/nav/standalone' %>

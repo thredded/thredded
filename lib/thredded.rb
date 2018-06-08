@@ -72,7 +72,7 @@ module Thredded
     # @return [Boolean] Whether posts that are pending moderation are visible to regular users.
     attr_accessor :content_visible_while_pending_moderation
 
-    # @return [Boolean] Whether users that are following a topic are listed on topic page.
+    # @return [Boolean] Whether users that are following a topic are listed on the topic page.
     attr_accessor :show_topic_followers
 
     # @return [Symbol] The name of the method used by Thredded to display users
@@ -95,6 +95,12 @@ module Thredded
 
     # @return [Range<Integer>] The range of valid topic title lengths.
     attr_accessor :topic_title_length_range
+
+    # @return [Boolean] Whether the list of users who are currently online is displayed.
+    attr_accessor :currently_online_enabled
+
+    # @return [Boolean] Whether the private messaging functionality is enabled.
+    attr_accessor :private_messaging_enabled
 
     # @return [Thredded::AllViewHooks] View hooks configuration.
     def view_hooks
@@ -197,4 +203,6 @@ module Thredded
   self.slugifier = ->(input) { input.parameterize }
   self.topic_title_length_range = (1..200)
   self.user_name_column = :name
+  self.private_messaging_enabled = true
+  self.currently_online_enabled = true
 end
