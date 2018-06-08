@@ -118,7 +118,7 @@ module Thredded
 
     # @param [Array] notifiers
     def notifiers=(notifiers)
-      notifiers.each { |notifier| BaseNotifier.validate_notifier(notifier) }
+      notifiers.each { |notifier| Thredded::BaseNotifier.validate_notifier(notifier) }
       @notifiers = notifiers
     end
 
@@ -172,7 +172,7 @@ module Thredded
     # @return [PostsPageView]
     def posts_page_view(scope:, current_user:)
       current_user ||= Thredded::NullUser.new
-      PostsPageView.new(
+      Thredded::PostsPageView.new(
         current_user,
         Pundit.policy_scope!(current_user, scope)
           .where(messageboard_id: Pundit.policy_scope!(current_user, Thredded::Messageboard.all).pluck(:id))
