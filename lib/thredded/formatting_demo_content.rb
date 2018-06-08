@@ -10,7 +10,7 @@ module Thredded
       <<-'MARKDOWN',
 #### Spoilers
 
-Use `<spoiler></spoiler>` or `[spoiler][/spoiler]` tags to create spoiler boxes like this one:
+Use `<spoiler></spoiler>` tags to create spoiler boxes like this one:
 
 <spoiler>
 Harry Potter books are better than the movies.

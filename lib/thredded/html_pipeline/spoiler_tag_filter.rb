@@ -22,7 +22,7 @@ module Thredded
 
         # @param [[[String, String]]] spoiler_tags
         def spoiler_tags=(spoiler_tags)
-          @spoiler_tags = spoiler_tags
+          @spoiler_tags = spoiler_tags.freeze
           @spoiler_tags_replacements = spoiler_tags.flat_map.with_index do |(open, close), i|
             [[/((?:\A|\r?\n|>)[ ]*)#{Regexp.escape(open)}(?=[ \t]*\r?(?:\n|\z))/, "\\1#{PLACEHOLDER_START_BLOCK % i}"],
              [/((?:\A|\r?\n|>)[ ]*)#{Regexp.escape(close)}(?=[ \t]*\r?(?:\n|\z))/, "\\1#{PLACEHOLDER_END_BLOCK % i}"],
@@ -40,8 +40,7 @@ module Thredded
 
       self.spoiler_tags = [
         %w[<spoiler> </spoiler>],
-        %w[[spoiler] [/spoiler]]
-      ]
+      ].freeze
 
       class BeforeMarkup < ::HTML::Pipeline::Filter
         def call

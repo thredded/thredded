@@ -2,7 +2,7 @@
 
 ## Added
 
-* Spoiler tags via `<spoiler></spoiler>` or `[spoiler][/spoiler]`.
+* Spoiler tags via `<spoiler></spoiler>` (or `[spoiler][/spoiler]` with the BBCode plugin).
   Supported out of the box for any markup processor.
   Spoilers are focusable and are activated on mousedown, spacebar, or enter. They can also be nested.
   Markup is configurable via `Thredded::SpoilerTagFilter.spoiler_tags`.
