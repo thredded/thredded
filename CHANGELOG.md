@@ -1,3 +1,9 @@
+# v0.15.1
+
+## Fixed
+
+* Regression in v0.15.0: broken `Thredded.posts_page_view`.
+
 # v0.15.0
 
 ## Added
