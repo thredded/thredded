@@ -117,6 +117,7 @@ de:
       moderation_users: Nutzer
       private_topics: Private Unterhaltungen
       settings: Benachrichtigungseinstellungen
+      unread_topics: Ungelesen
     null_user_name: Gelöschte Nutzer
     posts:
       delete: Beitrag gelöscht
@@ -242,6 +243,12 @@ de:
       unfollow: Nich mehr folgen
       unfollowed_notice: Du folgst der Diskussion nicht mehr
       updated_notice: Beitrag aktualisiert
+    unread_topics:
+      empty:
+        content: Du hast alles gelesen, was es gibt. Komm später wieder für mehr!
+        title: Alles gelesen!
+      page_title: Ungelesene Themen
+      page_title_in_messageboard: "%{messageboard}: Ungelesene Themen"
     users:
       currently_online: Zurzeit Online
       last_active_html: Zuletzt aktiv %{time_ago}

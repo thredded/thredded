@@ -1,0 +1,7 @@
+<div class="thredded--messageboards--actions">
+  <% if policy(messageboard).update? %>
+    <a class="thredded--button" href="<%= edit_messageboard_path(messageboard) %>" rel="nofollow">
+      <%= t('thredded.nav.edit_messageboard') %>
+    </a>
+  <% end %>
+</div>

@@ -118,6 +118,7 @@ pt-BR:
       moderation_users: Usuários
       private_topics: Mensagens Privadas
       settings: Configurações de Notificação
+      unread_topics: Não lida
     null_user_name: Usuário deletado
     posts:
       delete: Remover Post
@@ -243,6 +244,12 @@ pt-BR:
       unfollow: Pare de seguir
       unfollowed_notice: Você não está mais seguindo este tópico
       updated_notice: Tópico atualizado
+    unread_topics:
+      empty:
+        content: Você leu tudo o que existe. Volte mais tarde para mais!
+        title: Tudo lido!
+      page_title: Tópicos não lidos
+      page_title_in_messageboard: "%{messageboard}: Tópicos não lidos"
     users:
       currently_online: Atualmente Online
       last_active_html: Última %{time_ago} ativa

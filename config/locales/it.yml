@@ -116,6 +116,7 @@ it:
       moderation_users: Utenti
       private_topics: Messaggi Privati
       settings: Impostazioni Notifiche
+      unread_topics: Non letto
     null_user_name: Utente cancellato
     posts:
       delete: Cancella messaggio
@@ -242,6 +243,12 @@ it:
       unfollow: Non seguire più questa discussione
       unfollowed_notice: Ora non stai più seguendo questa discussione
       updated_notice: Discussione aggiornata
+    unread_topics:
+      empty:
+        content: Hai letto tutto quello che c'è. Torna più tardi per di più!
+        title: Tutto letto!
+      page_title: Argomenti non letti
+      page_title_in_messageboard: "%{messageboard}: argomenti non letti"
     users:
       currently_online: Attualmente connessi
       last_active_html: Ultima attività %{time_ago}

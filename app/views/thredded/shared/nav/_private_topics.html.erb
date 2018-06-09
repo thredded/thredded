@@ -1,6 +1,6 @@
 <% current = current_page_private_topics? %>
 <li class="thredded--user-navigation--item thredded--user-navigation--private-topics<%= ' thredded--is-current' if current %>">
-  <%= link_to (current ? messageboards_path : private_topics_path), rel: 'nofollow' do %>
+  <%= link_to current ? nav_back_path : private_topics_path, rel: 'nofollow' do %>
     <%= inline_svg 'thredded/private-messages.svg',
                    class: 'thredded--icon',
                    title: t('thredded.nav.private_topics') %>

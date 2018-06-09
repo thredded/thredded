@@ -52,6 +52,12 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  resources :topics, path: '', only: [] do
+    collection do
+      get '/unread', action: :unread, as: :unread
+    end
+  end
+
   resource :preferences, only: %i[edit update], as: :global_preferences
   resource :messageboard, path: 'messageboards', only: [:new]
   resources :messageboards, only: %i[edit update]
@@ -64,6 +70,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       collection do
         get '(page-:page)', action: :index, as: '', constraints: page_constraint
         get '/category/:category_id', action: :category, as: :categories
+        get '/unread', action: :unread, as: :unread
       end
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint

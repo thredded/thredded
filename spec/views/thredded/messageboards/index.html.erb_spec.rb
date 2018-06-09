@@ -20,6 +20,7 @@ RSpec.describe 'thredded/messageboards/index' do
         moderatable_messageboards_ids: [],
         thredded_signed_in?: true,
         unread_private_topics_count: 1,
+        unread_topics_count: 0,
       )
     )
 

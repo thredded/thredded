@@ -116,6 +116,7 @@ pl:
       moderation_users: Użytkownicy
       private_topics: Prywatne wiadomości
       settings: Ustawienia powiadomień
+      unread_topics: Nieprzeczytane
     null_user_name: Usunięci użytkownicy
     posts:
       delete: Usuń post
@@ -238,6 +239,12 @@ pl:
       unfollow: Przestań obserwować
       unfollowed_notice: Przestałeś obserwować ten temat
       updated_notice: Temat zaktualizowany
+    unread_topics:
+      empty:
+        content: Przeczytałeś wszystko, co istnieje. Przyjdź później po więcej!
+        title: Wszystko przeczytane!
+      page_title: Nieprzeczytane tematy
+      page_title_in_messageboard: "%{messageboard}: Nieprzeczytane tematy"
     users:
       currently_online: Aktualnie online
       last_active_html: Ostatnio aktywny %{time_ago}

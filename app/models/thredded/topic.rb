@@ -14,6 +14,13 @@ module Thredded
     scope :search_query, ->(query) { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
+    scope :order_followed_first, lambda { |user|
+      user_follows = UserTopicFollow.arel_table
+      joins(arel_table.join(user_follows, Arel::Nodes::OuterJoin)
+              .on(user_follows[:topic_id].eq(arel_table[:id])
+                  .and(user_follows[:user_id].eq(user.id))).join_sources)
+        .order(Arel::Nodes::Ascending.new(user_follows[:id].eq(nil)))
+    }
 
     scope :followed_by, lambda { |user|
       joins(:user_follows)

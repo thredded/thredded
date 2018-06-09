@@ -20,9 +20,20 @@ module Thredded
     end
 
     def thredded_container_classes
-      ['thredded--main-container', content_for(:thredded_page_id)].tap do |classes|
-        classes << 'thredded--is-moderator' unless moderatable_messageboards_ids.empty?
-      end
+      [
+        'thredded--main-container',
+        content_for(:thredded_page_id),
+        "thredded--global-nav-icons-#{global_nav_icons_count}",
+        ('thredded--is-moderator' unless moderatable_messageboards_ids.empty?),
+        ('thredded--private-messaging-enabled' if Thredded.private_messaging_enabled),
+      ].compact
+    end
+
+    def global_nav_icons_count
+      result = 1 # Notification Settings
+      result += 1 if Thredded.private_messaging_enabled
+      result += 1 if moderatable_messageboards_ids.present?
+      result
     end
 
     # Render the page container with the supplied block as content.
@@ -102,18 +113,6 @@ module Thredded
       else
         t('thredded.topics.not_following')
       end
-    end
-
-    def unread_private_topics_count
-      @unread_private_topics_count ||=
-        if thredded_signed_in?
-          Thredded::PrivateTopic
-            .for_user(thredded_current_user)
-            .unread(thredded_current_user)
-            .count
-        else
-          0
-        end
     end
 
     def moderatable_messageboards_ids

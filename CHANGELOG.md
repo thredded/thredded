@@ -1,3 +1,12 @@
+# v0.15.2
+
+## Added
+
+* Adds a global / messageboard-level unread page. Topics are ordered followed-first. The navigation link has a badge
+  indicating the numbers of followed unread topics. If there are no unread topics at all (including non-followed ones),
+  the link is not displayed.
+  [#709](https://github.com/thredded/thredded/pull/709)
+
 # v0.15.1
 
 ## Fixed

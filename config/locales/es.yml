@@ -118,6 +118,7 @@ es:
       moderation_users: Usuarios
       private_topics: Mensajes Privados
       settings: Ajuste de Notificaciones
+      unread_topics: No leído
     null_user_name: Usuario eliminado
     posts:
       delete: Eliminar Mensaje
@@ -242,6 +243,12 @@ es:
       unfollow: Deja de seguir
       unfollowed_notice: Has dejado de seguir este tema
       updated_notice: Tema actualizado
+    unread_topics:
+      empty:
+        content: Has leído todo lo que hay. ¡Vuelve más tarde para más!
+        title: "¡Todo leido!"
+      page_title: Temas no leídos
+      page_title_in_messageboard: "%{messageboard}: temas no leídos"
     users:
       currently_online: En línea
       last_active_html: Última vez activo hace %{time_ago}
