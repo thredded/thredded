@@ -111,6 +111,7 @@ zh-CN:
       moderation_users: 用户
       private_topics: 私人对话
       settings: 通知设置
+      unread_topics: 未读
     null_user_name: 删除用户
     posts:
       delete: 删除回复
@@ -231,6 +232,12 @@ zh-CN:
       unfollow: 取消关注
       unfollowed_notice: 你不再关注该帖子
       updated_notice: 帖子已更新
+    unread_topics:
+      empty:
+        content: 你已经读完了。稍后再回来获取更多！
+        title: 全部阅读！
+      page_title: 未读主题
+      page_title_in_messageboard: "%{messageboard}：未读主题"
     users:
       currently_online: 目前在线
       last_active_html: 最后活跃%{time_ago}

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class ApplicationController < ::ApplicationController
+  class ApplicationController < ::ApplicationController # rubocop:disable Metrics/ClassLength
     layout :thredded_layout
     include ::Thredded::UrlsHelper
     include Pundit
@@ -12,6 +12,9 @@ module Thredded
       :thredded_current_user,
       :messageboard,
       :messageboard_or_nil,
+      :unread_private_topics_count,
+      :unread_followed_topics_count,
+      :unread_topics_count,
       :preferences,
       :thredded_signed_in?
 
@@ -122,6 +125,54 @@ module Thredded
       messageboard
     rescue Thredded::Errors::MessageboardNotFound
       nil
+    end
+
+    def in_messageboard?
+      params.key?(:messageboard_id)
+    end
+
+    # @return [ActiveRecord::Relation]
+    def topics_scope
+      @topics_scope ||=
+        if in_messageboard?
+          policy_scope(messageboard.topics)
+        else
+          policy_scope(Thredded::Topic.all).joins(:messageboard).merge(policy_scope(Thredded::Messageboard.all))
+        end
+    end
+
+    def unread_private_topics_count
+      @unread_private_topics_count ||=
+        if thredded_signed_in?
+          Thredded::PrivateTopic
+            .for_user(thredded_current_user)
+            .unread(thredded_current_user)
+            .count
+        else
+          0
+        end
+    end
+
+    def unread_followed_topics_count
+      @unread_followed_topics_count ||=
+        if thredded_signed_in?
+          scope = topics_scope
+          scope = topics_scope.where(messageboard_id: messageboard.id) if in_messageboard?
+          scope.unread_followed_by(thredded_current_user).count
+        else
+          0
+        end
+    end
+
+    def unread_topics_count
+      @unread_topics_count ||=
+        if thredded_signed_in?
+          scope = topics_scope
+          scope = topics_scope.where(messageboard_id: messageboard.id) if in_messageboard?
+          scope.unread(thredded_current_user).count
+        else
+          0
+        end
     end
 
     def preferences

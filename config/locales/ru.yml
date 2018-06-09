@@ -114,6 +114,7 @@ ru:
       moderation_users: Пользователи
       private_topics: Личное
       settings: Настройки
+      unread_topics: Непрочитанные
     null_user_name: Пользователь удален
     posts:
       delete: Удалить пост
@@ -236,6 +237,12 @@ ru:
       unfollow: Не следить за темой
       unfollowed_notice: Вы не следите за темой
       updated_notice: Тема обновлена
+    unread_topics:
+      empty:
+        content: Вы все прочитали. Вернитесь позже и может будет еще что-нибудь!
+        title: Все прочитано!
+      page_title: Непрочитанные темы
+      page_title_in_messageboard: "%{messageboard}: непрочитанные темы"
     users:
       currently_online: Онлайн
       last_active_html: Последняя активность %{time_ago}

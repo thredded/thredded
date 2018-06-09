@@ -23,3 +23,7 @@
 .thredded--embed-16-by-9 {
   @extend %thredded--embed-16-by-9;
 }
+
+.thredded--spacer {
+  flex-grow: 1;
+}

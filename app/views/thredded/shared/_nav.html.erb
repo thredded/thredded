@@ -12,8 +12,13 @@
     <%= yield :thredded_main_navigation %>
   <% else %>
     <div class="thredded--main-navigation">
+      <%# Navigation scoped to the current messageboard if any. %>
       <%= yield :thredded_breadcrumbs %>
       <%= render 'thredded/search/form', messageboard: messageboard_or_nil %>
+      <div class="thredded--spacer"></div>
+      <div class="thredded--scoped-navigation">
+        <%= render 'thredded/shared/nav/unread_topics', messageboard: messageboard_or_nil %>
+      </div>
     </div>
   <% end %>
 </nav>

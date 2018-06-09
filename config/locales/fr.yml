@@ -116,6 +116,7 @@ fr:
       moderation_users: Utilisateurs
       private_topics: Messages privés
       settings: Paramètres de notifications
+      unread_topics: Non lu
     null_user_name: Utilisateur effacé
     posts:
       delete: Supprimer le commentaire
@@ -240,6 +241,12 @@ fr:
       unfollow: Arrêter de suivre
       unfollowed_notice: Vous ne suivez dorénavant plus ce sujet
       updated_notice: Sujet mis à jour
+    unread_topics:
+      empty:
+        content: Vous avez lu tout ce qu'il y a. Revenez plus tard pour plus!
+        title: Tout lire!
+      page_title: Sujets non lus
+      page_title_in_messageboard: "%{messageboard}: sujets non lus"
     users:
       currently_online: En ce moment connecté
       last_active_html: 'Actif pour la dernière fois : %{time_ago}'

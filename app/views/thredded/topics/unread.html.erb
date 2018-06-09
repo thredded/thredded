@@ -1,0 +1,33 @@
+<% content_for :thredded_page_title,
+               messageboard_or_nil ?
+                   t('thredded.unread_topics.page_title_in_messageboard', messageboard: messageboard.name) :
+                   t('thredded.unread_topics.page_title') %>
+<% content_for :thredded_page_id, 'thredded--unread-topics' %>
+<% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
+
+<%= thredded_page do %>
+  <% if @topics.present? %>
+    <div class="thredded--svg-definitions ">
+      <%= inline_svg 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
+      <%= inline_svg 'thredded/unfollow.svg', id: 'thredded-unfollow-icon' %>
+    </div>
+    <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
+      <%= render 'thredded/topics/form',
+                 topic: @new_topic,
+                 css_class: 'thredded--is-compact',
+                 placeholder: t('thredded.topics.form.title_placeholder_start') if @new_topic %>
+      <%= render partial: 'thredded/topics/topic',
+                 collection: @topics,
+                 locals: { topics: @topics } %>
+    <% end %>
+    <footer class="thredded--pagination-bottom">
+      <%= paginate @topics %>
+    </footer>
+  <% else %>
+    <div class="thredded--empty">
+      <h3 class="thredded--empty--title"><%= t 'thredded.unread_topics.empty.title' %></h3>
+      <p><%= t 'thredded.unread_topics.empty.content' %></p>
+    </div>
+  <% end %>
+  <%= render 'thredded/messageboards/messageboard_actions', messageboard: messageboard if messageboard_or_nil %>
+<% end %>

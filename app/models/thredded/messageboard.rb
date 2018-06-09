@@ -16,6 +16,7 @@ module Thredded
                     private-posts
                     private-topics
                     theme-preview
+                    unread
                   ]
                 )
 

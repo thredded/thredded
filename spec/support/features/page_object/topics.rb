@@ -70,6 +70,10 @@ module PageObject
       has_content?(topic_title)
     end
 
+    def displayed_titles
+      all('.thredded--topics--title a').map(&:text)
+    end
+
     def has_sticky_divider?
       has_css?('.thredded--topics--sticky-topics-divider')
     end

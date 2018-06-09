@@ -116,6 +116,7 @@ en:
       moderation_users: Users
       private_topics: Private Messages
       settings: Notification Settings
+      unread_topics: Unread
     null_user_name: Deleted user
     posts:
       delete: Delete Post
@@ -238,6 +239,12 @@ en:
       unfollow: Stop following
       unfollowed_notice: You are no longer following this topic
       updated_notice: Topic updated
+    unread_topics:
+      empty:
+        content: You've read all there is. Come back later for more!
+        title: All read!
+      page_title: Unread topics
+      page_title_in_messageboard: "%{messageboard}: Unread topics"
     users:
       currently_online: Currently Online
       last_active_html: Last active %{time_ago}
