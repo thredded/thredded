@@ -11,7 +11,7 @@
   <ul class="thredded--form-list on-top">
     <li class="title">
       <%= form.label :title, t('thredded.private_topics.form.title_label') %>
-      <%= form.text_field :title, placeholder: placeholder, required: true %>
+      <%= form.text_field :title, placeholder: placeholder, required: true, autocomplete: 'off' %>
       <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] if form.object.errors.include?(:title) %>
     </li>
     <li>
