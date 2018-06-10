@@ -1,3 +1,11 @@
+# v0.15.3
+
+## Fixed
+
+* Minor style issues and regressions introduced in v0.15.2.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.2...v0.15.3.
+
 # v0.15.2
 
 ## Added
@@ -7,11 +15,15 @@
   the link is not displayed.
   [#709](https://github.com/thredded/thredded/pull/709)
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.1...v0.15.2.
+
 # v0.15.1
 
 ## Fixed
 
 * Regression in v0.15.0: broken `Thredded.posts_page_view`.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.0...v0.15.1.
 
 # v0.15.0
 
@@ -44,6 +56,8 @@
 cp "$(bundle show thredded)"/db/upgrade_migrations/20180110200009_upgrade_thredded_v0_14_to_v0_15.rb db/migrate
 rake db:migrate
 ```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.5...v0.15.0.
 
 # v0.14.5
 
