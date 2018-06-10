@@ -224,6 +224,7 @@ de:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Starte eine neue Diskussion
         update_btn: Beitrag bearbeiten
+      in_messageboard_html: in %{messageboard_link}
       locked:
         label: Gesperrt
         message: Der Beitrag wurde von einem Moderator gesperrt

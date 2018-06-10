@@ -221,6 +221,7 @@ pl:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Rozpocznij nowy temat
         update_btn: Zaktualizuj temat
+      in_messageboard_html: w %{messageboard_link}
       locked:
         label: Zablokowany
         message: Ten temat został zablokowany przez moderatora.

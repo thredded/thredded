@@ -214,6 +214,7 @@ zh-CN:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: 发布新帖子
         update_btn: 更新帖子
+      in_messageboard_html: 在%{messageboard_link}
       locked:
         label: 锁定
         message: 该帖子被某个审核者锁定

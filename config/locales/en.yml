@@ -221,6 +221,7 @@ en:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Start a New Topic
         update_btn: Update Topic
+      in_messageboard_html: in %{messageboard_link}
       locked:
         label: Locked
         message: This topic has been locked by a moderator.

@@ -14,10 +14,5 @@
                  collection: [private_topic.last_user, *(private_topic.users - [private_topic.last_user])] %>
     </span>
   </cite>
-
-  <cite class="thredded--topics--started-by">
-    <%= time_ago private_topic.created_at %>
-    <%= user_link private_topic.user %>
-  </cite>
 <% end %>
 

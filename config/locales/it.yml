@@ -225,6 +225,7 @@ it:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Inizia una Nuova Discussione
         update_btn: Aggiorna Discussione
+      in_messageboard_html: in %{messageboard_link}
       locked:
         label: Bloccata
         message: Questa discussione è stata bloccata da un moderatore.

@@ -18,7 +18,10 @@
                  placeholder: t('thredded.topics.form.title_placeholder_start') if @new_topic %>
       <%= render partial: 'thredded/topics/topic',
                  collection: @topics,
-                 locals: { topics: @topics } %>
+                 locals: {
+                     topics: @topics,
+                     show_messageboard: !messageboard_or_nil
+                 } %>
     <% end %>
     <footer class="thredded--pagination-bottom">
       <%= paginate @topics %>

@@ -55,8 +55,8 @@
   }
 }
 
-.thredded--topics--started-by,
-.thredded--topics--updated-by {
+.thredded--topics--updated-by,
+.thredded--topics--messageboard {
   color: $thredded-secondary-text-color;
   font-size: $thredded-font-size-small;
   font-style: normal;
@@ -69,37 +69,11 @@
       color: $thredded-action-color;
     }
   }
-
-  abbr {
-    &::after  {
-      content: ' by ';
-    }
-  }
-}
-
-.thredded--topics--updated-by {
-  margin-right: $thredded-small-spacing;
-
-  abbr {
-    &::before {
-      content: 'updated ';
-    }
-  }
 }
 
 .thredded--topics--participants--participant {
   & + &::before {
     content: '\2022\00A0'; // • and a non-breaking space
-  }
-}
-
-.thredded--topics--started-by {
-  display: none;
-
-  abbr {
-    &::before {
-      content: 'started ';
-    }
   }
 }
 

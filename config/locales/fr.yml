@@ -222,6 +222,7 @@ fr:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Commencer un nouveau sujet
         update_btn: Mettre à jour le sujet
+      in_messageboard_html: dans %{messageboard_link}
       locked:
         label: Verrouillé
         message: Ce sujet a été verrouillé par un modérateur.

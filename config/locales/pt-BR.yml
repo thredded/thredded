@@ -226,6 +226,7 @@ pt-BR:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Iniciar um novo tópico
         update_btn: Atualizar Tópico
+      in_messageboard_html: em %{messageboard_link}
       locked:
         label: Trancado
         message: Este tópico foi bloqueado por um moderador.

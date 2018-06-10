@@ -29,10 +29,12 @@
     <%= user_link topic.last_user %>
   </cite>
 
-  <cite class="thredded--topics--started-by">
-    <%= time_ago topic.created_at %>
-    <%= user_link topic.user %>
-  </cite>
+  <% if local_assigns[:show_messageboard] %>
+    <span class="thredded--topics--messageboard">
+      <%= t 'thredded.topics.in_messageboard_html',
+            messageboard_link: link_to(topic.messageboard_name, topic.messageboard_path) %>
+    </span>
+  <% end %>
 
   <% if topic.blocked? && topic.can_moderate? %>
     <span class="thredded--topics--moderation-state thredded--alert thredded--alert-danger">

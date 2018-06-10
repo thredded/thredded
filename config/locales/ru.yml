@@ -219,6 +219,7 @@ ru:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Начать новую тему
         update_btn: Обновление темы
+      in_messageboard_html: в %{messageboard_link}
       locked:
         label: Заблокировать тему
         message: Эта тема закрыта модератором.
@@ -259,6 +260,6 @@ ru:
         many: Начато %{count} тем
         one: Начата %{count} тема
         other: Начато %{count} тем
-      user_posted_in_topic_html: "%{user_link} сделал запись в %{topic_link}"
+      user_posted_in_topic_html: "%{user_link} написал в %{topic_link}"
       user_since_html: Пользователь был %{time_ago}
       user_started_topic_html: "%{user_link} начал %{topic_link}"
