@@ -127,14 +127,10 @@ module Thredded
       nil
     end
 
-    def in_messageboard?
-      params.key?(:messageboard_id)
-    end
-
     # @return [ActiveRecord::Relation]
     def topics_scope
       @topics_scope ||=
-        if in_messageboard?
+        if messageboard_or_nil
           policy_scope(messageboard.topics)
         else
           policy_scope(Thredded::Topic.all).joins(:messageboard).merge(policy_scope(Thredded::Messageboard.all))
@@ -157,7 +153,7 @@ module Thredded
       @unread_followed_topics_count ||=
         if thredded_signed_in?
           scope = topics_scope
-          scope = topics_scope.where(messageboard_id: messageboard.id) if in_messageboard?
+          scope = topics_scope.where(messageboard_id: messageboard.id) if messageboard_or_nil
           scope.unread_followed_by(thredded_current_user).count
         else
           0
@@ -168,7 +164,7 @@ module Thredded
       @unread_topics_count ||=
         if thredded_signed_in?
           scope = topics_scope
-          scope = topics_scope.where(messageboard_id: messageboard.id) if in_messageboard?
+          scope = topics_scope.where(messageboard_id: messageboard.id) if messageboard_or_nil
           scope.unread(thredded_current_user).count
         else
           0

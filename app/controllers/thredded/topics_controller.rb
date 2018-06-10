@@ -141,6 +141,10 @@ module Thredded
 
     private
 
+    def in_messageboard?
+      params.key?(:messageboard_id)
+    end
+
     def init_new_topic
       return unless in_messageboard?
       form = Thredded::TopicForm.new(messageboard: messageboard, user: thredded_current_user)
