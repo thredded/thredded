@@ -1,6 +1,4 @@
 .thredded--navigation {
-  display: flex;
-  flex-direction: column;
   position: relative;
   .thredded--icon {
     display: none;
@@ -34,10 +32,6 @@
   .thredded--navigation {
     position: relative;
     width: 100%;
-  }
-  .thredded--main-navigation {
-    position: relative;
-    border: none;
   }
   .thredded--navigation-breadcrumbs {
     font-size: $thredded-font-size-small;

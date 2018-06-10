@@ -32,7 +32,7 @@ module Thredded
     friendly_id :slug_candidates,
                 use: %i[history reserved],
                 # Avoid route conflicts
-                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w[topics])
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w[topics unread])
 
     belongs_to :user,
                class_name: Thredded.user_class_name,

@@ -20,6 +20,7 @@
   margin-bottom: $thredded-small-spacing;
   padding: $thredded-small-spacing;
   text-decoration: none;
+  width: 100%;
 
   @include thredded-media-desktop-and-up {
     margin-bottom: $thredded-base-spacing;
