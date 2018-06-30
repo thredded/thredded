@@ -6,6 +6,7 @@
                  # TODO: only autocomplete users in this private topic
                  'data-autocomplete-url' => autocomplete_users_path,
                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
+                 'data-thredded-submit-hotkey' => true,
              } do |form| %>
 
   <ul class="thredded--form-list on-top">
@@ -17,6 +18,7 @@
     <li>
       <%= form.label :user_names, t('thredded.private_topics.form.users_label') %>
       <%= form.text_area :user_names,
+                         required: true,
                          placeholder: t('thredded.private_topics.form.users_placeholder'),
                          'data-thredded-users-select' => true,
                          'data-autocomplete-url' => autocomplete_users_path,
