@@ -90,6 +90,8 @@ module Thredded
                  on: :update,
                  if: -> { previous_changes.include?('messageboard_id') }
 
+    paginates_per Thredded.topics_per_page
+
     # Finds the topic by its slug or ID, or raises Thredded::Errors::TopicNotFound.
     # @param slug_or_id [String]
     # @return [Thredded::Topic]

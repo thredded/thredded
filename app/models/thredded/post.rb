@@ -37,6 +37,8 @@ module Thredded
 
     after_commit :auto_follow_and_notify, on: %i[create update]
 
+    paginates_per Thredded.posts_per_page
+
     # @param [Integer] per_page
     # @param [Thredded.user_class] user
     def page(per_page: self.class.default_per_page, user:)
