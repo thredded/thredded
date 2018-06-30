@@ -20,7 +20,7 @@ module Thredded
           }
         },
         transformers: (Sanitize::Config::ONEBOX[:transformers] || []) + [
-          lambda do |env|
+          ->(env) {
             next unless env[:node_name] == 'a'
             a_tag = env[:node]
             a_tag['href'] ||= '#'
@@ -30,7 +30,7 @@ module Thredded
             else
               a_tag.remove_attribute('target')
             end
-          end
+          }
         ]
       )
 

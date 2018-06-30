@@ -213,6 +213,8 @@ module Thredded
       layout.is_a?(String) && layout.start_with?('thredded/')
     end
 
+    #== Helper methods for use by main app.
+
     # Returns a view for the given posts' scope, applying read permission filters to the scope.
     # Can be used in main_app, e.g. for showing the recent user posts on the profile page.
     #

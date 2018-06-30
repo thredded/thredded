@@ -14,7 +14,7 @@ module Thredded
     scope :search_query, ->(query) { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
-    scope :order_followed_first, lambda { |user|
+    scope :order_followed_first, ->(user) {
       user_follows = UserTopicFollow.arel_table
       joins(arel_table.join(user_follows, Arel::Nodes::OuterJoin)
               .on(user_follows[:topic_id].eq(arel_table[:id])
@@ -22,7 +22,7 @@ module Thredded
         .order(Arel::Nodes::Ascending.new(user_follows[:id].eq(nil)))
     }
 
-    scope :followed_by, lambda { |user|
+    scope :followed_by, ->(user) {
       joins(:user_follows)
         .where(thredded_user_topic_follows: { user_id: user.id })
     }
@@ -89,8 +89,6 @@ module Thredded
     after_commit :handle_messageboard_change_after_commit,
                  on: :update,
                  if: -> { previous_changes.include?('messageboard_id') }
-
-    paginates_per Thredded.topics_per_page
 
     # Finds the topic by its slug or ID, or raises Thredded::Errors::TopicNotFound.
     # @param slug_or_id [String]

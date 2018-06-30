@@ -362,12 +362,12 @@ module Thredded
       log_method_time def create(count: 1)
         log "Creating #{count} private topics..."
         Array.new(count) do
-          FactoryBot.build(
-            :private_topic,
-            user: seeder.users[1..-1].sample,
-            last_user: seeder.users.sample,
-            users: [seeder.first_user, *seeder.users.sample(1 + rand(3))]
-          ).tap do |topic|
+          started_by_first_user = [true, false].sample
+          user = started_by_first_user ? seeder.first_user : seeder.users[1..-1].sample
+          users = [user]
+          users << seeder.first_user unless started_by_first_user
+          users += seeder.users.sample(rand(3) + (started_by_first_user ? 1 : 0))
+          FactoryBot.build(:private_topic, user: user, last_user: users.sample, users: users).tap do |topic|
             topic.send :set_slug
             topic.save(validate: false)
           end

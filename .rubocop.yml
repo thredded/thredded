@@ -57,6 +57,9 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
+Style/Lambda:
+  EnforcedStyle: literal
+
 Style/PredicateName:
   Exclude:
   - spec/**/*.rb

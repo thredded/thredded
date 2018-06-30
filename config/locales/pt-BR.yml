@@ -259,6 +259,7 @@ pt-BR:
         one: Postado uma vez
         other: vezes %{count} Publicado
       recent_activity: :thredded.recent_activity
+      send_private_message: Enviar mensagem privada
       started_topic_html: Começou %{topic_link}
       started_topics_count:
         one: Começou um tópico

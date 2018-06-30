@@ -9,7 +9,7 @@ module Thredded
     extend ActiveSupport::Concern
 
     included do
-      paginates_per 50
+      paginates_per Thredded.posts_per_page
 
       delegate :email, to: :user, prefix: true, allow_nil: true
 

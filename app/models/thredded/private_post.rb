@@ -21,8 +21,6 @@ module Thredded
     after_commit :update_parent_last_user_and_timestamp, on: %i[create destroy]
     after_commit :notify_users, on: [:create]
 
-    paginates_per Thredded.posts_per_page
-
     # @param [Integer] per_page
     def page(per_page: self.class.default_per_page)
       calculate_page(postable.posts, per_page)

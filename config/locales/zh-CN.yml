@@ -247,6 +247,7 @@ zh-CN:
         one: 一个回复
         other: "%{count} 个回复"
       recent_activity: :thredded.recent_activity
+      send_private_message: 发送私人讯息
       started_topic_html: 发布帖子 %{topic_link}
       started_topics_count:
         one: 发布一个帖子

@@ -254,6 +254,7 @@ en:
         one: Posted once
         other: Posted %{count} times
       recent_activity: :thredded.recent_activity
+      send_private_message: Send private message
       started_topic_html: Started %{topic_link}
       started_topics_count:
         one: Started one topic
