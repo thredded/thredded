@@ -31,6 +31,8 @@ module Thredded
       end
     end
 
+    paginates_per Thredded.posts_per_page
+
     # @param [Thredded.user_class] moderator
     # @param [Thredded::Post] post
     # @param [Symbol, String] previous_moderation_state

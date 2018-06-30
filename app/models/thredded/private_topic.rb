@@ -51,6 +51,8 @@ module Thredded
 
     before_validation :ensure_user_in_private_users
 
+    paginates_per Thredded.topics_per_page
+
     # Finds the topic by its slug or ID, or raises Thredded::Errors::PrivateTopicNotFound.
     # @param slug_or_id [String]
     # @return [Thredded::PrivateTopic]

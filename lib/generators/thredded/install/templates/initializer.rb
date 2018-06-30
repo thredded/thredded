@@ -32,13 +32,6 @@ Thredded.current_user_method = :"current_#{Thredded.user_class_name.demodulize.u
 # User avatar URL. rb-gravatar gem is used by default:
 Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 156, 'mm') }
 
-# ==> Database Configuration
-# By default, thredded uses integers for record ID route constraints.
-# For integer based IDs (default):
-# Thredded.routes_id_constraint = /[1-9]\d*/
-# For UUID based IDs (example):
-# Thredded.routes_id_constraint = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
-
 # ==> Permissions Configuration
 # By default, thredded uses a simple permission model, where all the users can post to all message boards,
 # and admins and moderators are determined by a flag on the users table.
@@ -71,6 +64,12 @@ Thredded.currently_online_enabled = true
 # Whether private messaging functionality is enabled.
 Thredded.private_messaging_enabled = true
 
+# The number of topics to display per page.
+# Thredded.topics_per_page = 50
+
+# The number of posts to display per page in a topic.
+# Thredded.posts_per_page = 25
+
 # The layout for rendering Thredded views.
 Thredded.layout = 'thredded/application'
 
@@ -88,14 +87,21 @@ Thredded.layout = 'thredded/application'
 # The range of valid topic title lengths. Default:
 # Thredded.topic_title_length_range = (1..200)
 
-# ==> URLs
-# How Thredded generates URL slugs from text.
+# ==> Routes and URLs
+# How Thredded generates URL slugs from text:
 
 # Default:
 # Thredded.slugifier = ->(input) { input.parameterize }
 
 # If your forum is in a language other than English, you might want to use the babosa gem instead
 # Thredded.slugifier = ->(input) { Babosa::Identifier.new(input).normalize.transliterate(:russian).to_s }
+
+# By default, thredded uses integers for record ID route constraints.
+# For integer based IDs (default):
+# Thredded.routes_id_constraint = /[1-9]\d*/
+#
+# For UUID based IDs (example):
+# Thredded.routes_id_constraint = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 
 # ==> Post Content Formatting
 # Customize the way Thredded handles post formatting.
