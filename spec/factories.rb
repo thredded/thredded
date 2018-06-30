@@ -127,18 +127,19 @@ FactoryBot.define do
       post_interval 1.hour
     end
     user
-    users { build_list :user, 1 }
+    users { [user] + build_list(:user, rand(3) + 1) }
     association :last_user, factory: :user
 
     title { Faker::Lorem.sentence[0..-2] }
     hash_id { generate(:topic_hash) }
 
-    after(:create) do |topic, evaluator|
+    after :create do |topic, evaluator|
       if evaluator.with_posts
         ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
-        evaluator.with_posts.times do
+        evaluator.with_posts.times do |i|
           ago += evaluator.post_interval
-          create(:private_post, postable: topic, user: topic.user, created_at: ago, updated_at: ago)
+          user = i == 0 ? topic.user : topic.users.sample
+          create(:private_post, postable: topic, user: user, created_at: ago, updated_at: ago)
         end
         topic.posts_count = evaluator.with_posts
         topic.save

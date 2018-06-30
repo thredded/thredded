@@ -1,6 +1,7 @@
 .thredded--pagination {
   border-top: $thredded-base-border;
   padding-top: $thredded-base-spacing;
+  padding-bottom: $thredded-base-spacing;
   text-align: center;
 
   > span {
@@ -27,7 +28,6 @@
 .thredded--pagination-top > .thredded--pagination {
   border-bottom: $thredded-base-border;
   margin-bottom: $thredded-base-spacing;
-  padding-bottom: $thredded-base-spacing;
 }
 
 .thredded--pagination-bottom > .thredded--pagination {

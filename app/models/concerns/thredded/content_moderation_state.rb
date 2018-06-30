@@ -13,7 +13,7 @@ module Thredded
 
       scope :moderation_state_visible_to_all, -> { where(visible_to_all_arel_node) }
 
-      scope :moderation_state_visible_to_user, (lambda do |user|
+      scope :moderation_state_visible_to_user, ->(user) {
         visible = visible_to_all_arel_node
         # @type [Arel::Table]
         table = arel_table
@@ -27,7 +27,7 @@ module Thredded
           end
         end
         where(visible)
-      end)
+      }
 
       # @return [Arel::Nodes::Node]
       # @api private

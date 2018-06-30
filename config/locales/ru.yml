@@ -254,6 +254,7 @@ ru:
         one: Сделан %{count} пост
         other: Сделано %{count} постов
       recent_activity: :thredded.recent_activity
+      send_private_message: Отправить личное сообщение
       started_topic_html: Начато %{topic_link}
       started_topics_count:
         few: Начато %{count} темы

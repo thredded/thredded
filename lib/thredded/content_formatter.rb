@@ -31,7 +31,7 @@ module Thredded
     self.whitelist = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
       elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w[abbr iframe span figure figcaption],
       transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
-        lambda do |env|
+        ->(env) {
           next unless env[:node_name] == 'a'
           a_tag = env[:node]
           a_tag['href'] ||= '#'
@@ -39,7 +39,7 @@ module Thredded
             a_tag['target'] = '_blank'
             a_tag['rel']    = 'nofollow noopener'
           end
-        end
+        }
       ],
       attributes: {
         'a'      => %w[href rel],

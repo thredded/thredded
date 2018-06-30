@@ -258,6 +258,7 @@ de:
         one: Einmalig hochgeladen
         other: "%{count} -mal hochgeladen"
       recent_activity: :thredded.recent_activity
+      send_private_message: Private Nachricht senden
       started_topic_html: "%{topic_link} gestartet"
       started_topics_count:
         one: Eine Diskussion gestartet

@@ -18,6 +18,12 @@
       <li><%= t 'thredded.users.posts_count', count: user_detail.posts_count %></li>
     <% end %>
   </ul>
+  <% if the_current_user && the_current_user != user %>
+    <a class="thredded--link"
+       href="<%= Thredded::UrlsHelper.send_private_message_path(current_user: the_current_user, to: user) %>">
+      <%= t 'thredded.users.send_private_message' %>
+    </a>
+  <% end %>
   <h2><%= t 'thredded.users.recent_activity' %></h2>
   <%= Thredded::ApplicationController.renderer.new(request.env).render(
           partial: 'thredded/users/posts',

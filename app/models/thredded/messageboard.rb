@@ -58,8 +58,6 @@ module Thredded
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
-
-    # rubocop:disable Style/Lambda
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
     scope :ordered, ->(order = Thredded.messageboards_order) {
@@ -83,7 +81,6 @@ module Thredded
     scope :ordered_by_topics_count_desc, ->() {
       order(topics_count: :desc)
     }
-    # rubocop:enable Style/Lambda
 
     # Finds the messageboard by its slug or ID, or raises Thredded::Errors::MessageboardNotFound.
     # @param slug_or_id [String]

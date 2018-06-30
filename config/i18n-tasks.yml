@@ -10,6 +10,7 @@ search:
   paths:
     - app/
     - lib/
+    - spec/dummy/app/
 data:
   yaml:
     write:

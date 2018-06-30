@@ -256,6 +256,7 @@ pl:
         one: Napisał 1 post
         other: Napisał %{count} postów
       recent_activity: :thredded.recent_activity
+      send_private_message: Wyślij Wiadomość Prywatną
       started_topic_html: Rozpoczął %{topic_link}
       started_topics_count:
         few: Rozpoczął %{count} tematy

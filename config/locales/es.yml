@@ -258,6 +258,7 @@ es:
         one: Ha escrito una vez
         other: Ha escrito %{count} veces
       recent_activity: :thredded.recent_activity
+      send_private_message: Enviar mensaje privado
       started_topic_html: Empezó %{topic_link}
       started_topics_count:
         one: Ha empezado un tema

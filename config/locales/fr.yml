@@ -256,6 +256,7 @@ fr:
         one: Commenté une seule fois
         other: Commenté %{count} fois
       recent_activity: :thredded.recent_activity
+      send_private_message: Envoyer un message privé
       started_topic_html: Démarré %{topic_link}
       started_topics_count:
         one: Démarré un sujet
