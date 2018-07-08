@@ -42,8 +42,11 @@ ru:
     errors:
       login_required: Необходимо зайти на форум.
       not_authorized: Вы не авторизованы.
+      post_not_found: Это сообщение не существует.
+      private_post_not_found: Это личное сообщение не существует.
       private_topic_create_denied: Вы не авторизованы для создания личных сообщений.
       private_topic_not_found: Личное сообщение не найдено.
+      topic_not_found: Эта тема не существует.
     form:
       create_btn_submitting: Создаю...
       preview: Обзор

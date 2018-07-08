@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>
-    <%= safe_join([yield(:thredded_page_title).presence, 'Thredded Demo'].compact, ' | ') %>
+    <%= safe_join([yield(:thredded_page_title).presence, yield(:page_title).presence, 'Thredded Demo'].compact, ' | ') %>
   </title>
   <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'application',

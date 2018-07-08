@@ -21,6 +21,14 @@ module Thredded
     after_commit :update_parent_last_user_and_timestamp, on: %i[create destroy]
     after_commit :notify_users, on: [:create]
 
+    # Finds the post by its ID, or raises {Thredded::Errors::PrivatePostNotFound}.
+    # @param id [String, Number]
+    # @return [Thredded::PrivatePost]
+    # @raise [Thredded::Errors::PrivatePostNotFound] if the post with the given ID does not exist.
+    def self.find!(id)
+      find_by(id: id) || fail(Thredded::Errors::PrivatePostNotFound)
+    end
+
     # @param [Integer] per_page
     def page(per_page: self.class.default_per_page)
       calculate_page(postable.posts, per_page)

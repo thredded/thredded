@@ -40,8 +40,11 @@ zh-CN:
     errors:
       login_required: 请先登录
       not_authorized: 你没有权限访问该页面
+      post_not_found: 这篇文章不存在。
+      private_post_not_found: 此私人消息不存在。
       private_topic_create_denied: 你没有权限创建私人对话
       private_topic_not_found: 该私人对话不存在
+      topic_not_found: 此主题不存在。
     form:
       create_btn_submitting: 创建中...
       preview: 预览

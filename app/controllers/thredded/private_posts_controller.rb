@@ -80,12 +80,11 @@ module Thredded
     def parent_topic
       Thredded::PrivateTopic
         .includes(:private_users)
-        .friendly
-        .find(params[:private_topic_id])
+        .friendly_find!(params[:private_topic_id])
     end
 
     def post
-      @post ||= Thredded::PrivatePost.find(params[:id])
+      @post ||= Thredded::PrivatePost.find!(params[:id])
     end
 
     def current_page

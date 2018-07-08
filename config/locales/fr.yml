@@ -43,8 +43,11 @@ fr:
     errors:
       login_required: Veuillez vous connecter
       not_authorized: Vous n'êtes pas autorisé à accéder à cette page.
+      post_not_found: Ce post n'existe pas.
+      private_post_not_found: Ce message privé n'existe pas.
       private_topic_create_denied: Vous n'êtes pas autorisé à créer des sujets.
       private_topic_not_found: Ce sujet privé n'existe pas.
+      topic_not_found: Ce sujet n'existe pas.
     form:
       create_btn_submitting: Création en cours...
       preview: Aperçu

@@ -81,12 +81,11 @@ module Thredded
     def parent_topic
       Thredded::Topic
         .where(messageboard: messageboard)
-        .friendly
-        .find(params[:topic_id])
+        .friendly_find!(params[:topic_id])
     end
 
     def post
-      @post ||= Thredded::Post.find(params[:id])
+      @post ||= Thredded::Post.find!(params[:id])
     end
 
     def current_page

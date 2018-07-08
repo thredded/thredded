@@ -43,8 +43,11 @@ it:
     errors:
       login_required: Per visualizzare questa pagina bisogna accedere tramite login.
       not_authorized: Non sei autorizzato a vedere questa pagina.
+      post_not_found: Questo post non esiste.
+      private_post_not_found: Questo messaggio privato non esiste.
       private_topic_create_denied: Non sei autorizzato a creare discussioni private.
       private_topic_not_found: Questa discussione privata non esiste.
+      topic_not_found: Questo argomento non esiste.
     form:
       create_btn_submitting: Creazione in corso...
       preview: Anteprima

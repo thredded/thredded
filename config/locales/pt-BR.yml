@@ -44,8 +44,11 @@ pt-BR:
     errors:
       login_required: Por favor, autentique-se primeiro.
       not_authorized: Você não está autorizado a acessar esta página.
+      post_not_found: Este post não existe.
+      private_post_not_found: Esta mensagem privada não existe.
       private_topic_create_denied: Você não está autorizado a criar tópicos privados.
       private_topic_not_found: Este tópico privado não existe.
+      topic_not_found: Este tópico não existe.
     form:
       create_btn_submitting: Criando...
       preview: Pré-visualização

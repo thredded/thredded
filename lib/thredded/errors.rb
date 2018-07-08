@@ -29,9 +29,21 @@ module Thredded
       end
     end
 
+    class PrivatePostNotFound < Thredded::Error
+      def message
+        I18n.t('thredded.errors.private_post_not_found')
+      end
+    end
+
     class TopicNotFound < Thredded::Error
       def message
-        'This topic does not exist.'
+        I18n.t('thredded.errors.topic_not_found')
+      end
+    end
+
+    class PostNotFound < Thredded::Error
+      def message
+        I18n.t('thredded.errors.post_not_found')
       end
     end
 

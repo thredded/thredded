@@ -43,8 +43,11 @@ en:
     errors:
       login_required: Please sign in first.
       not_authorized: You are not authorized to access this page.
+      post_not_found: This post does not exist.
+      private_post_not_found: This private message does not exist.
       private_topic_create_denied: You are not authorized to create private topics.
       private_topic_not_found: This private topic does not exist.
+      topic_not_found: This topic does not exist.
     form:
       create_btn_submitting: Creating...
       preview: Preview

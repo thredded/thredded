@@ -44,8 +44,11 @@ de:
     errors:
       login_required: Bitte zuerst anmelden
       not_authorized: Du hast keinen Zugriff auf diese Seite
+      post_not_found: Dieser Beitrag existiert nicht.
+      private_post_not_found: Diese private Nachricht existiert nicht.
       private_topic_create_denied: Du bist nicht autorisiert, private Unterhaltungen zu erstellen
       private_topic_not_found: Diese private Unterhaltung existiert nicht
+      topic_not_found: Dieses Thema existiert nicht.
     form:
       create_btn_submitting: Erstellen...
       preview: Vorschau

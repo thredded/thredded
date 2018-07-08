@@ -45,8 +45,11 @@ es:
     errors:
       login_required: Por favor, inicia sesión.
       not_authorized: No estás autorizado para ver esta página.
+      post_not_found: Esta publicación no existe.
+      private_post_not_found: Este mensaje privado no existe.
       private_topic_create_denied: No estás autorizado para crear temas privados.
       private_topic_not_found: Este tema privado no existe.
+      topic_not_found: Este tema no existe.
     form:
       create_btn_submitting: Creando...
       preview: Vista previa

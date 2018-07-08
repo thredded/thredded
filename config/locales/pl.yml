@@ -43,8 +43,11 @@ pl:
     errors:
       login_required: Proszę się najpierw zalogować.
       not_authorized: Nie masz uprawnień aby zobaczyć tę stronę.
+      post_not_found: Ten wpis nie istnieje.
+      private_post_not_found: Ta prywatna wiadomość nie istnieje.
       private_topic_create_denied: Nie masz uprawnień do tworzenia prywatnych tematów.
       private_topic_not_found: Ten prywatny temat nie istnieje.
+      topic_not_found: Ten temat nie istnieje.
     form:
       create_btn_submitting: Tworzenie...
       preview: Zapowiedź

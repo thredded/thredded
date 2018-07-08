@@ -20,7 +20,9 @@ module Thredded
 
     rescue_from Thredded::Errors::MessageboardNotFound,
                 Thredded::Errors::PrivateTopicNotFound,
+                Thredded::Errors::PrivatePostNotFound,
                 Thredded::Errors::TopicNotFound,
+                Thredded::Errors::PostNotFound,
                 Thredded::Errors::UserNotFound do |exception|
       @error   = exception
       @message = exception.message

@@ -13,7 +13,7 @@ module Thredded
 
     # Preview an update to an existing post
     def update
-      @post = Thredded::Post.find(params[:post_id])
+      @post = Thredded::Post.find!(params[:post_id])
       @post.assign_attributes(post_params)
       render_preview
     end
