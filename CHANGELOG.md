@@ -1,3 +1,30 @@
+# v0.15.4
+
+## Added
+
+* A new helper method to start a private thread between two users, `Thredded::UrlsHelper.send_private_message_path`.
+  If a thread already exists between the two users, returns the URL to that thread. Otherwise, returns a URL to the new
+  message form with the recipient and subject pre-filled.
+  [#716](https://github.com/thredded/thredded/pull/716)
+* Posts and topics can now be submitted with the <kbd>Ctrl</kbd>+<kbd>Return</kbd> shortcut.
+  [#717](https://github.com/thredded/thredded/pull/717)
+* The number of posts / topics per page is now configurable via `Thredded.posts_per_page` and `Thredded.topics_per_page`.
+  [#711](https://github.com/thredded/thredded/issues/711)
+* For each topic on the Unread page, we now show the topic's messageboard.
+  [ed862031](https://github.com/thredded/thredded/commit/ed862031fa1f8d65c50439aeb578d9b0a8cd7be2)
+* `Thredded::Errors::(Private)PostNotFound` is raised and handled instead of `ActiveRecord::NotFound`.
+  [#513](https://github.com/thredded/thredded/issues/513)
+
+## Changed
+
+* The default number of posts per page has been reduced to 25.
+  [#713](https://github.com/thredded/thredded/pull/713)
+* Updated bundled JavaScript dependencies:
+  `autosize` from v4.0.0 to v4.0.2
+  ([9c4db86d](https://github.com/thredded/thredded/commit/9c4db86dfbfc37ef2df8530bc4392dc3e910d169)),
+  `textcomplete` from v0.14.5 to v0.17.1
+  ([211ce25a](https://github.com/thredded/thredded/commit/211ce25a607893395f1b45e1fe6c5c8b2a7cdf27)).
+
 # v0.15.3
 
 ## Fixed
