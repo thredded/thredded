@@ -25,6 +25,8 @@
   `textcomplete` from v0.14.5 to v0.17.1
   ([211ce25a](https://github.com/thredded/thredded/commit/211ce25a607893395f1b45e1fe6c5c8b2a7cdf27)).
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.3...v0.15.4.
+
 # v0.15.3
 
 ## Fixed
