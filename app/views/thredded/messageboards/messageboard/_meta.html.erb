@@ -1,0 +1,19 @@
+<div class="thredded--messageboard--meta">
+  <% if messageboard.locked? %>
+    <span class="thredded--messageboard--meta--locked"
+          title="<%= t('thredded.messageboard.form.locked_notice') %>">
+      <svg class="thredded--messageboard--meta--icon" role="img"><use xlink:href="#thredded-lock-icon"></use></svg>
+    </span>
+  <% end %>
+  <h3 class="thredded--messageboard--meta--counts">
+    <% if messageboard.unread_topics? %>
+      <%= t 'thredded.messageboard.topics_and_unread_topics_counts',
+            topics_count: number_with_delimiter(messageboard.topics_count),
+            unread_topics_count: number_with_delimiter(messageboard.unread_topics_count) %>
+    <% else %>
+      <%= t 'thredded.messageboard.topics_and_posts_counts',
+            topics_count: number_with_delimiter(messageboard.topics_count),
+            posts_count: number_with_delimiter(messageboard.posts_count) %>
+    <% end %>
+  </h3>
+</div>

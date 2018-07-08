@@ -159,4 +159,41 @@ module Thredded
       expect(messageboard.position).to eq(12)
     end
   end
+
+  describe '.unread_topics_counts' do
+    let(:user) { create(:user) }
+
+    def follow_topic(topic)
+      create(:user_topic_follow, user: user, topic: topic)
+    end
+
+    def read_topic(topic, at: topic.last_post_at)
+      create(:user_topic_read_state, user: user, postable: topic, read_at: at)
+    end
+
+    it 'returns the counts' do
+      board_1 = create(:messageboard, name: 'Board 1').tap do |board|
+        read_topic create(:topic, title: 'Read topic b1', with_posts: 1, messageboard: board)
+        create(:topic, title: 'Unread topic b1', with_posts: 1, messageboard: board)
+        create(:topic, title: 'Unread followed topic b1', with_posts: 2, messageboard: board).tap do |topic|
+          follow_topic topic
+          read_topic topic, at: topic.first_post.created_at
+        end
+      end
+      board_2 = create(:messageboard, name: 'Board 2').tap do |board|
+        read_topic create(:topic, title: 'Read topic b2', messageboard: board)
+        create(:topic, title: 'Unread topic 1 b2', messageboard: board)
+        create(:topic, title: 'Unread topic 2 b2', messageboard: board)
+      end
+      board_3 = create(:messageboard, name: 'Board 3').tap do |board|
+        create(:topic, title: 'Unread topic 1 b3', messageboard: board)
+      end
+      create(:messageboard, name: 'Board 4')
+
+      expect(Thredded::Messageboard.unread_topics_counts(user: user))
+        .to(eq(board_1.id => 2, board_3.id => 1, board_2.id => 2))
+      expect(Thredded::Messageboard.unread_topics_counts(topics_scope: Thredded::Topic.followed_by(user), user: user))
+        .to(eq(board_1.id => 1))
+    end
+  end
 end

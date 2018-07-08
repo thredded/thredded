@@ -19,6 +19,8 @@ module Thredded
       scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
 
       before_validation :ensure_user_detail, on: :create
+
+      after_commit :update_unread_posts_count, on: %i[create destroy]
     end
 
     def avatar_url
@@ -48,22 +50,24 @@ module Thredded
     end
 
     # Marks all the posts from the given one as unread for the given user
-    # @param user [Thredded.user_class]
-    # @param page [Integer]
+    # @param [Thredded.user_class] user
     def mark_as_unread(user)
       if previous_post.nil?
         read_state = postable.user_read_states.find_by(user_id: user.id)
         read_state.destroy if read_state
       else
-        read_state = postable.user_read_states.create_with(
-          read_at: previous_post.created_at
-        ).find_or_create_by(user_id: user.id)
-        read_state.update_columns(read_at: previous_post.created_at)
+        postable.user_read_states.touch!(user.id, previous_post, overwrite_newer: true)
       end
     end
 
     def previous_post
       @previous_post ||= postable.posts.order_newest_first.find_by('created_at < ?', created_at)
+    end
+
+    protected
+
+    def update_unread_posts_count
+      postable.user_read_states.update_post_counts!
     end
 
     private

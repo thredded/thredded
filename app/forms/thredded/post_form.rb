@@ -49,7 +49,7 @@ module Thredded
       return false unless @post.valid?
       was_persisted = @post.persisted?
       @post.save!
-      Thredded::UserTopicReadState.touch!(@post.user.id, @topic.id, @post) unless was_persisted
+      Thredded::UserTopicReadState.touch!(@post.user.id, @post) unless was_persisted
       true
     end
   end

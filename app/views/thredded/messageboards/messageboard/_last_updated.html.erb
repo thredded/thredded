@@ -1,0 +1,7 @@
+<% if messageboard.last_topic %>
+  <p class="thredded--messageboard--byline">
+    <%= t 'thredded.messageboard.last_updated_by_html',
+          time_ago: time_ago(messageboard.last_topic.last_post_at),
+          user: messageboard.last_user.thredded_display_name %>
+  </p>
+<% end %>

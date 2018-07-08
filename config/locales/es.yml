@@ -70,6 +70,7 @@ es:
         page_title: Foros
       last_updated_by_html: Actualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} temas / %{posts_count} mensajes"
+      topics_and_unread_topics_counts: "%{unread_topics_count} no leídos de los temas de %{topics_count}"
       update: :thredded.form.update
       updated_notice: Foro actualizado
     messageboard_first_topic:

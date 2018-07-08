@@ -4,6 +4,24 @@ unless Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2 || Rails::VERSIO
   require 'thredded/rails_lt_5_2_arel_case_node.rb'
 end
 
+if Rails::VERSION::MAJOR == 4
+  # Make `pluck` compatible with Arel.
+  require 'active_record/relation'
+  ActiveRecord::Relation.prepend(Module.new do
+    def pluck(*column_names)
+      super(*column_names.map do |n|
+        if n.is_a?(Arel::Node)
+          Arel.sql(n.to_sql)
+        elsif n.is_a?(Arel::Attributes::Attribute)
+          n.name
+        else
+          n
+        end
+      end)
+    end
+  end)
+end
+
 module Thredded
   module ArelCompat
     module_function
@@ -17,30 +35,6 @@ module Thredded
         Arel::Nodes::InfixOperation.new('DIV', a, b)
       else
         Arel::Nodes::Division.new(a, b)
-      end
-    end
-
-    if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2 || Rails::VERSION::MAJOR > 5
-      # @param [ActiveRecord::Relation] relation
-      # @return [Arel::Nodes::Node]
-      def relation_to_arel(relation)
-        relation.arel
-      end
-    else
-      def relation_to_arel(relation)
-        Arel.sql("(#{relation.to_sql})")
-      end
-    end
-
-    if Rails::VERSION::MAJOR >= 5
-      # @param [Arel::Nodes::Node] table
-      # @return [Arel::SelectManager]
-      def new_arel_select_manager(table)
-        Arel::SelectManager.new(table)
-      end
-    else
-      def new_arel_select_manager(table)
-        Arel::SelectManager.new(ActiveRecord::Base, table)
       end
     end
 

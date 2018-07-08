@@ -67,6 +67,7 @@ ru:
         page_title: Форумы
       last_updated_by_html: Обновлено %{time_ago} <cite>пользователем %{user}</cite>
       topics_and_posts_counts: "%{topics_count} тем / %{posts_count} постов"
+      topics_and_unread_topics_counts: "%{unread_topics_count} непрочитанных из %{topics_count} тем"
       update: :thredded.form.update
       updated_notice: Форум обновлен
     messageboard_first_topic:

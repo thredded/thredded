@@ -1,0 +1,6 @@
+<% if messageboard.unread_followed_topics? %>
+  <span class="thredded--messageboard--unread-followed-topics-count">
+    <svg class="thredded--messageboard--unread-followed-icon" role="img"><use xlink:href="#thredded-follow-icon"></use></svg>
+    <%= number_with_delimiter messageboard.unread_followed_topics_count %>
+  </span>
+<% end %>

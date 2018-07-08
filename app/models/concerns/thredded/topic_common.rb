@@ -50,16 +50,12 @@ module Thredded
       # @param user [Thredded.user_class]
       # @return [ActiveRecord::Relation]
       def unread(user)
-        topics      = arel_table
+        topics = arel_table
         reads_class = reflect_on_association(:user_read_states).klass
-        reads       = reads_class.arel_table
+        reads = reads_class.arel_table
         joins(topics.join(reads, Arel::Nodes::OuterJoin)
                 .on(topics[:id].eq(reads[:postable_id]).and(reads[:user_id].eq(user.id))).join_sources)
-          .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:last_post_at]))))
-      end
-
-      def post_class
-        reflect_on_association(:posts).klass
+          .merge(reads_class.where(reads[:id].eq(nil).or(reads[:unread_posts_count].not_eq(0))))
       end
 
       private
@@ -69,7 +65,7 @@ module Thredded
       def read_states_by_postable_hash(user)
         read_states = reflect_on_association(:user_read_states).klass
           .where(user_id: user.id, postable_id: current_scope.map(&:id))
-          .with_page_info(posts_scope: Pundit.policy_scope(user, post_class.all))
+          .with_page_info
         Thredded::TopicCommon::CachingHash.from_relation(read_states)
       end
 

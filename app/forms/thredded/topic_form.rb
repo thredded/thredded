@@ -31,9 +31,10 @@ module Thredded
       return false unless valid?
 
       ActiveRecord::Base.transaction do
+        new_topic = !topic.persisted?
         topic.save!
         post.save!
-        Thredded::UserTopicReadState.read_on_first_post!(user, topic) if topic.previous_changes.include?(:id)
+        Thredded::UserTopicReadState.read_on_first_post!(user, post) if new_topic
       end
       true
     end

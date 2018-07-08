@@ -68,6 +68,7 @@ fr:
         page_title: Catégories
       last_updated_by_html: Mise à jour %{time_ago} <cite>par %{user}</cite>
       topics_and_posts_counts: "%{topics_count} sujets / %{posts_count} commentaires"
+      topics_and_unread_topics_counts: "%{unread_topics_count} non lu des sujets de %{topics_count}"
       update: :thredded.form.update
       updated_notice: La catégorie a été mise à jour
     messageboard_first_topic:

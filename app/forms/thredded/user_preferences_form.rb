@@ -50,7 +50,11 @@ module Thredded
     end
 
     def messageboard_groups
-      @messageboard_groups ||= Thredded::MessageboardGroupView.grouped(@messageboards)
+      @messageboard_groups ||= Thredded::MessageboardGroupView.grouped(
+        @messageboards,
+        user: @user,
+        with_unread_topics_counts: false
+      )
     end
 
     def notifications_for_private_topics

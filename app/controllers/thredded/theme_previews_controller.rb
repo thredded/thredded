@@ -10,7 +10,11 @@ module Thredded
               else
                 thredded_current_user
               end
-      @messageboards = Thredded::Messageboard.all
+      @messageboard_views = [
+        Thredded::MessageboardView.new(@messageboard, unread_topics_count: 3, unread_followed_topics_count: 2),
+        Thredded::MessageboardView.new(Thredded::Messageboard.first(2)[-1], unread_topics_count: 2),
+        Thredded::MessageboardView.new(Thredded::Messageboard.first(3)[-1]),
+      ]
       @topics = Thredded::TopicsPageView.new(@user, @messageboard.topics.page(1).limit(3))
       @private_topics = Thredded::PrivateTopicsPageView.new(@user, @user.thredded_private_topics.page(1).limit(3))
       topic = Thredded::Topic.new(messageboard: @messageboard, title: 'Hello', slug: 'hello', user: @user)

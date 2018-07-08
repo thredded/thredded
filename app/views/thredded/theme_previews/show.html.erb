@@ -9,9 +9,15 @@
 <%= thredded_page do %>
   <%= render 'section_title', label: 'messageboards#index', href: messageboards_path %>
   <%= content_tag :section, class: 'thredded--thredded--main-section thredded--messageboards' do %>
-    <%= render @messageboards %>
-    <div class="thredded--messageboard--create">
-      <a class="thredded--button" href="<%= new_messageboard_path %>">
+    <div class="thredded--svg-definitions">
+      <%= inline_svg 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
+      <%= inline_svg 'thredded/lock.svg', id: 'thredded-lock-icon', title: nil %>
+    </div>
+    <div class="thredded--messageboards-group">
+      <%= render partial: 'thredded/messageboards/messageboard', collection: @messageboard_views %>
+    </div>
+    <div class="thredded--messageboards--actions">
+      <a class="thredded--button" href="<%= new_messageboard_path %>" rel="nofollow">
         <%= t 'thredded.messageboard.create' %>
       </a>
     </div>
@@ -82,7 +88,7 @@
   <%= render 'section_title', label: 'private_topics#show', href: private_topic_path(@private_topic) %>
   <section class="thredded--thredded--main-section">
     <%= render 'thredded/private_topics/header', topic: @private_topic %>
-    <%= render @private_posts %>
+    <%= render partial: 'thredded/private_posts/private_post', collection: @private_posts %>
     <%= render 'thredded/private_posts/form',
                post:        @private_post_form,
                button_text: t('thredded.private_posts.form.create_btn')

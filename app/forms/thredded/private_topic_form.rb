@@ -44,8 +44,10 @@ module Thredded
       return false unless valid?
 
       ActiveRecord::Base.transaction do
+        new_topic = !private_topic.persisted?
         private_topic.save!
         post.save!
+        Thredded::UserPrivateTopicReadState.read_on_first_post!(user, post) if new_topic
       end
       true
     end

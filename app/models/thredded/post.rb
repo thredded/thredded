@@ -37,6 +37,8 @@ module Thredded
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
     after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
 
+    after_commit :update_unread_posts_count_if_moderation_state_changed, on: :update
+
     after_commit :auto_follow_and_notify, on: %i[create update]
 
     # Finds the post by its ID, or raises {Thredded::Errors::PostNotFound}.
@@ -82,6 +84,10 @@ module Thredded
 
     def update_parent_last_user_and_time_from_last_post_if_moderation_state_changed
       update_parent_last_user_and_time_from_last_post if previous_changes.include?('moderation_state')
+    end
+
+    def update_unread_posts_count_if_moderation_state_changed
+      update_unread_posts_count if previous_changes.include?('moderation_state')
     end
   end
 end

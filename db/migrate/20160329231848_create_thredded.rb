@@ -195,12 +195,17 @@ class CreateThredded < Thredded::BaseMigration
     %i[topic private_topic].each do |topics_table|
       table_name = :"thredded_user_#{topics_table}_read_states"
       create_table table_name do |t|
+        t.references :messageboard, null: false, index: true if table_name == :thredded_user_topic_read_states
         t.references :user, type: user_id_type, null: false, index: false
         t.references :postable, null: false, index: false
+        t.integer :unread_posts_count, default: 0, null: false
+        t.integer :read_posts_count, :integer, default: 0, null: false
         t.timestamp :read_at, null: false
         t.index %i[user_id postable_id], name: :"#{table_name}_user_postable", unique: true
       end
     end
+    add_index :thredded_user_topic_read_states, %i[user_id messageboard_id],
+              name: :thredded_user_topic_read_states_user_messageboard
 
     create_table :thredded_messageboard_groups do |t|
       t.string :name

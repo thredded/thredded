@@ -2,6 +2,10 @@
 <% content_for :thredded_page_id, 'thredded--messageboards-index' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 <%= thredded_page do %>
+  <div class="thredded--svg-definitions">
+    <%= inline_svg 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
+    <%= inline_svg 'thredded/lock.svg', id: 'thredded-lock-icon', title: nil %>
+  </div>
   <%= view_hooks.messageboards_index.container.render self, groups: @groups do %>
     <section class="thredded--main-section thredded--messageboards">
       <%= view_hooks.messageboards_index.list.render self, groups: @groups do %>
@@ -11,7 +15,8 @@
           <% end %>
           <div class="thredded--messageboards-group">
             <%= view_hooks.messageboards_index.group.render self, group: group do %>
-              <%= render group.messageboards %>
+              <%= render partial: 'thredded/messageboards/messageboard',
+                         collection: group.messageboards %>
             <% end %>
           </div>
         <% end %>

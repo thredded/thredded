@@ -68,6 +68,7 @@ it:
         page_title: Bacheche
       last_updated_by_html: Aggiornato %{time_ago} <cite>da %{user}</cite>
       topics_and_posts_counts: "%{topics_count} discussioni / %{posts_count} messaggi"
+      topics_and_unread_topics_counts: "%{unread_topics_count} non letto di argomenti %{topics_count}"
       update: :thredded.form.update
       updated_notice: La bacheca è stata aggiornata
     messageboard_first_topic:

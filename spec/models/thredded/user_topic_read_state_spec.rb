@@ -41,12 +41,42 @@ module Thredded
       expect(UserTopicReadState.with_page_info(posts_per_page: 3).to_a)
         .to(contain_exactly(have_attributes(first_unread_post_page: nil, last_read_post_page: 2)))
     end
+  end
 
-    it 'respects the given posts_scope' do
-      create(:user_topic_read_state, postable: topic, read_at: posts[0].created_at)
-      posts_scope = Thredded::Post.where.not(id: posts[1].id)
-      expect(UserTopicReadState.with_page_info(posts_per_page: 1, posts_scope: posts_scope).to_a)
-        .to(contain_exactly(have_attributes(first_unread_post_page: 2, last_read_post_page: 1)))
+  describe UserTopicReadState, '.touch!' do
+    let(:user) { create(:user) }
+    let(:messageboard) { create(:messageboard) }
+
+    it 'creates a new state if none exists' do
+      topic = create(:topic, with_posts: 3, messageboard: messageboard)
+      expect { UserTopicReadState.touch!(user.id, topic.posts[1]) }.to(change(UserTopicReadState, :count).by(1))
+      expect(UserTopicReadState.last).to(
+        have_attributes(
+          user_id: user.id,
+          postable_id: topic.id,
+          messageboard_id: messageboard.id,
+          read_at: topic.posts[1].created_at,
+          read_posts_count: 2,
+          unread_posts_count: 1,
+        )
+      )
+    end
+
+    it 'updates the existing state if it already exists' do
+      topic = create(:topic, with_posts: 3, messageboard: messageboard)
+      UserTopicReadState.touch!(user.id, topic.posts[0])
+      expect { UserTopicReadState.touch!(user.id, topic.posts[1]) }.not_to(change(UserTopicReadState, :count))
+      expect(UserTopicReadState.last).to(
+        have_attributes(
+          id: UserTopicReadState.last.id,
+          user_id: user.id,
+          postable_id: topic.id,
+          messageboard_id: messageboard.id,
+          read_at: topic.posts[1].created_at,
+          read_posts_count: 2,
+          unread_posts_count: 1,
+        )
+      )
     end
   end
 

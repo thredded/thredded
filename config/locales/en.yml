@@ -67,7 +67,8 @@ en:
       index:
         page_title: Messageboards
       last_updated_by_html: Updated %{time_ago} <cite>by %{user}</cite>
-      topics_and_posts_counts: "%{topics_count} topics / %{posts_count} posts"
+      topics_and_posts_counts: "%{posts_count} posts in %{topics_count} topics"
+      topics_and_unread_topics_counts: "%{unread_topics_count} unread of %{topics_count} topics"
       update: :thredded.form.update
       updated_notice: Messageboard has been updated
     messageboard_first_topic:

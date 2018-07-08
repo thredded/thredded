@@ -8,7 +8,10 @@ module Thredded
     after_action :verify_policy_scoped, except: %i[new create edit update]
 
     def index
-      @groups = Thredded::MessageboardGroupView.grouped(policy_scope(Thredded::Messageboard.all))
+      @groups = Thredded::MessageboardGroupView.grouped(
+        policy_scope(Thredded::Messageboard.all),
+        user: thredded_current_user
+      )
     end
 
     def new

@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Thredded
+  # Marks all private topics as read for the given user.
   class MarkAllRead
     def self.run(user)
-      unread_topics = Thredded::PrivateTopic.unread(user)
-      return if unread_topics.empty?
-
-      unread_topics.each do |topic|
-        last_post = topic.posts.order_oldest_first.last
-
-        Thredded::UserPrivateTopicReadState.touch!(user.id, topic.id, last_post)
+      Thredded::PrivateTopic.unread(user).each do |topic|
+        Thredded::UserPrivateTopicReadState.touch!(user.id, topic.last_post)
       end
     end
   end
