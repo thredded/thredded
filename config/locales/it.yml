@@ -127,6 +127,8 @@ it:
       moderation_users: Utenti
       private_topics: Messaggi Privati
       settings: Impostazioni Notifiche
+      sign_in: Entra
+      sign_out: Esci
       unread_topics: Non letto
     null_user_name: Utente cancellato
     posts:
