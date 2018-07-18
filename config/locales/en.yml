@@ -119,6 +119,8 @@ en:
       moderation_users: Users
       private_topics: Private Messages
       settings: Notification Settings
+      sign_in: Sign In / Register
+      sign_out: Sign Out
       unread_topics: Unread
     null_user_name: Deleted user
     posts:
