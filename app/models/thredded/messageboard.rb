@@ -20,7 +20,7 @@ module Thredded
                   ]
                 )
 
-    validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
+    validates :name, uniqueness: true, length: { within: Thredded.messageboard_name_length_range }, presence: true
     validates :topics_count, numericality: true
     validates :position, presence: true, on: :update
     before_save :ensure_position, on: :create

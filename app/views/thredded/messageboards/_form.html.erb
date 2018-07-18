@@ -3,6 +3,7 @@
       <li>
         <%= f.label t('thredded.messageboard.form.title_label') %>
         <%= f.text_field :name, required: true %>
+        <%= render 'thredded/shared/field_errors', messages: f.object.errors[:name] %>
       </li>
       <li>
         <%= f.label t('thredded.messageboard.form.description_label') %>

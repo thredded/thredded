@@ -250,7 +250,7 @@ ru:
     users:
       currently_online: Онлайн
       last_active_html: Последняя активность %{time_ago}
-      posted_in_topic_html: Сделан пост в %{topic_link}
+      posted_in_topic_html: Написал в %{topic_link}
       posts_count:
         few: Сделано %{count} поста
         many: Сделано %{count} постов

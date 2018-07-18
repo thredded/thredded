@@ -22,7 +22,7 @@
                               placeholder: t('thredded.private_topics.form.title_placeholder_new'),
                               autofocus: true,
                               required: true %>
-          <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] if form.object.errors.include?(:title) %>
+          <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] %>
         </li>
         <li>
           <button type="submit" class="thredded--form--submit"

@@ -22,7 +22,7 @@
                               placeholder: t('thredded.topics.form.title_placeholder'),
                               autofocus: true,
                               required: true %>
-          <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] if form.object.errors.include?(:title) %>
+          <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] %>
         </li>
 
         <% if form.object.category_options.any? %>

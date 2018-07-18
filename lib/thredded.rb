@@ -44,7 +44,7 @@ require 'thredded/base_notifier'
 require 'thredded/arel_compat'
 require 'thredded/collection_to_strings_with_cache_renderer'
 
-module Thredded
+module Thredded # rubocop:disable Metrics/ModuleLength
   class << self
     #== User
 
@@ -157,6 +157,9 @@ module Thredded
 
     #== Misc
 
+    # @return [Range<Integer>] The range of valid messageboard name lengths.
+    attr_accessor :messageboard_name_length_range
+
     # @return [Range<Integer>] The range of valid topic title lengths.
     attr_accessor :topic_title_length_range
 
@@ -267,5 +270,6 @@ module Thredded
   self.slugifier = ->(input) { input.parameterize }
   self.routes_id_constraint = /[1-9]\d*/
 
+  self.messageboard_name_length_range = (1..60)
   self.topic_title_length_range = (1..200)
 end
