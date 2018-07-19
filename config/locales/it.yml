@@ -118,6 +118,8 @@ it:
       moderation_pending: Da fare (pending)
       moderation_users: Utenti
       private_topics: Messaggi Privati
+      sign_in: Entra
+      sign_out: Esci
       settings: Impostazioni Notifiche
       unread_topics: Non letto
     null_user_name: Utente cancellato
