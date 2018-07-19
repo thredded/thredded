@@ -12,14 +12,14 @@ module Thredded
     after_action :verify_authorized
 
     def new
-      @post_form = PrivatePostForm.new(
+      @post_form = Thredded::PrivatePostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_private_post_params
       )
       authorize_creating @post_form.post
     end
 
     def create
-      @post_form = PrivatePostForm.new(
+      @post_form = Thredded::PrivatePostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_private_post_params
       )
       authorize_creating @post_form.post
@@ -31,7 +31,7 @@ module Thredded
     end
 
     def edit
-      @post_form = PrivatePostForm.for_persisted(post)
+      @post_form = Thredded::PrivatePostForm.for_persisted(post)
       authorize @post_form.post, :update?
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       render
@@ -39,7 +39,7 @@ module Thredded
 
     def update
       authorize post, :update?
-      post.update_attributes(post_params.except(:user, :ip))
+      post.update(new_private_post_params)
 
       redirect_to post_path(post, user: thredded_current_user)
     end
@@ -54,8 +54,7 @@ module Thredded
 
     def mark_as_unread
       authorize post, :read?
-      page = post.page
-      post.mark_as_unread(thredded_current_user, page)
+      post.mark_as_unread(thredded_current_user)
       after_mark_as_unread # customization hook
     end
 
@@ -79,14 +78,13 @@ module Thredded
     end
 
     def parent_topic
-      PrivateTopic
+      Thredded::PrivateTopic
         .includes(:private_users)
-        .friendly
-        .find(params[:private_topic_id])
+        .friendly_find!(params[:private_topic_id])
     end
 
     def post
-      @post ||= Thredded::PrivatePost.find(params[:id])
+      @post ||= Thredded::PrivatePost.find!(params[:id])
     end
 
     def current_page

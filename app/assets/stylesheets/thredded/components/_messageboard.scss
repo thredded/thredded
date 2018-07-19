@@ -49,11 +49,20 @@
   font-size: 0.875em;
 }
 
-.thredded--messageboard--meta {
+.thredded--messageboard--meta--icon {
+  @extend %thredded--icon;
+  opacity: 0.8;
+  width: 1rem;
+  height: 1rem;
+}
+
+.thredded--messageboard--meta--counts {
   @extend %thredded--heading;
   color: $thredded-secondary-text-color;
   display: inline-block;
+  font-size: inherit;
   font-weight: normal;
+  margin-bottom: 0;
   vertical-align: baseline;
 }
 

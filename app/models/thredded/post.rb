@@ -37,6 +37,14 @@ module Thredded
 
     after_commit :auto_follow_and_notify, on: %i[create update]
 
+    # Finds the post by its ID, or raises {Thredded::Errors::PostNotFound}.
+    # @param id [String, Number]
+    # @return [Thredded::Post]
+    # @raise [Thredded::Errors::PostNotFound] if the post with the given ID does not exist.
+    def self.find!(id)
+      find_by(id: id) || fail(Thredded::Errors::PostNotFound)
+    end
+
     # @param [Integer] per_page
     # @param [Thredded.user_class] user
     def page(per_page: self.class.default_per_page, user:)

@@ -27,6 +27,14 @@ module Thredded
       ]
     )
 
+    USER_NAV_UNREAD_TOPICS = Set.new(
+      %w[thredded--unread-topics]
+    )
+
+    def current_page_unread_topics?
+      USER_NAV_UNREAD_TOPICS.include?(content_for(:thredded_page_id))
+    end
+
     def current_page_preferences?
       USER_NAV_PREFERENCES_PAGES.include?(content_for(:thredded_page_id))
     end
@@ -37,6 +45,10 @@ module Thredded
 
     def current_page_private_topics?
       USER_NAV_PRIVATE_TOPICS_PAGES.include?(content_for(:thredded_page_id))
+    end
+
+    def nav_back_path(messageboard = nil)
+      messageboard ? messageboard_topics_path(messageboard) : messageboards_path
     end
   end
 end

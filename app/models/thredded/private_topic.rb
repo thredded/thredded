@@ -38,6 +38,20 @@ module Thredded
              inverse_of: :postable,
              dependent: :destroy
 
+    # Private topics with that have exactly the given participants.
+    scope :has_exact_participants, ->(users) {
+      private_users = Thredded::PrivateUser.arel_table
+      joins(:private_users)
+        .group(arel_table[:id])
+        .having(
+          Arel::Nodes::And.new(
+            users.map do |user|
+              Arel::Nodes::Count.new([private_users[:user_id].eq(user.id).or(Arel.sql('NULL'))]).eq(1)
+            end
+          ).and(Arel::Nodes::Count.new([private_users[:user_id].not_in(users.map(&:id)).or(Arel.sql('NULL'))]).eq(0))
+        )
+    }
+
     validates_each :users do |model, _attr, users|
       # Must include the creator + at least one other user
       if users.length < 2

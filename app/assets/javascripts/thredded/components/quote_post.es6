@@ -1,5 +1,9 @@
+//= require thredded/core/on_page_load
+
 (function() {
-  window.Thredded.onPageLoad(() => {
+  const Thredded = window.Thredded;
+
+  Thredded.onPageLoad(() => {
     Array.prototype.forEach.call(document.querySelectorAll('[data-thredded-quote-post]'), (el) => {
       el.addEventListener('click', onClick);
     });

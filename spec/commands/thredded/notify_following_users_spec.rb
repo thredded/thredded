@@ -52,7 +52,7 @@ module Thredded
         end
 
         context 'with the MockNotifier' do
-          let(:notifier) { MockNotifier.new.resetted }
+          let(:notifier) { MockNotifier.new }
           it 'does include that user' do
             expect(subject).to include(follower)
           end
@@ -76,7 +76,7 @@ module Thredded
         end
 
         context 'with the MockNotifier' do
-          let(:notifier) { MockNotifier.new.resetted }
+          let(:notifier) { MockNotifier.new }
           it "doesn't include that user" do
             expect(subject).not_to include(follower)
           end
@@ -99,7 +99,7 @@ module Thredded
         end
 
         context 'with the MockNotifier' do
-          let(:notifier) { MockNotifier.new.resetted }
+          let(:notifier) { MockNotifier.new }
           it "doesn't include that user" do
             expect(subject).not_to include(follower)
           end
@@ -119,14 +119,36 @@ module Thredded
         # see EmailNotifier spec for more detailed specs
       end
 
-      context 'with the MockNotifier', thredded_reset: ['@@notifiers'] do
-        before { Thredded.notifiers = [MockNotifier.new.resetted] }
+      context 'with the MockNotifier', thredded_reset: [:@notifiers] do
+        let(:mock_notifier) { MockNotifier.new }
+
+        before { Thredded.notifiers = [mock_notifier] }
         it "doesn't send any emails" do
           expect { command.run }.not_to change { ActionMailer::Base.deliveries.count }
         end
         it 'notifies exactly once' do
-          expect { command.run }.to change { MockNotifier.users_notified_of_new_post }
-          expect { command.run }.to_not change { MockNotifier.users_notified_of_new_post }
+          expect { command.run }.to change { mock_notifier.users_notified_of_new_post }
+          expect { command.run }.to_not change { mock_notifier.users_notified_of_new_post }
+        end
+      end
+
+      context 'with multiple notifiers', thredded_reset: [:@notifiers] do
+        let(:mock_notifier1) { MockNotifier.new }
+        let(:mock_notifier2) { MockNotifier.new }
+
+        before { Thredded.notifiers = [mock_notifier1, mock_notifier2] }
+
+        def count_users_for_each_notifier
+          [mock_notifier1.users_notified_of_new_post.length, mock_notifier2.users_notified_of_new_post.length]
+        end
+        it 'notifies via all notifiers' do
+          expect { command.run }
+            .to change { count_users_for_each_notifier }.from([0, 0]).to([1, 1])
+        end
+        it "second run doesn't notify" do
+          command.run
+          expect { command.run }
+            .to_not change { count_users_for_each_notifier }
         end
       end
     end

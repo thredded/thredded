@@ -1,18 +1,6 @@
 <% if (users = active_users).present? %>
   <aside data-thredded-currently-online class="thredded--currently-online">
-    <header>
-      <h3 class="thredded--currently-online--title open">
-        <%= t "thredded.users.currently_online" %>
-      </h3>
-    </header>
-
-    <ul class="thredded--currently-online--users">
-      <% users.each do |user| %>
-        <li class="thredded--currently-online--user">
-          <img class="thredded--currently-online--avatar" src="<%= Thredded.avatar_url.call(user) %>" alt=""/>
-          <%= user.thredded_display_name %>
-        </li>
-      <% end %>
-    </ul>
+    <%= render 'thredded/shared/currently_online/header', users: users %>
+    <%= render 'thredded/shared/currently_online/user_list', users: users %>
   </aside>
 <% end %>

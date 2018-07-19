@@ -4,7 +4,7 @@ _Thredded_ is a Rails 4.2+ forum/messageboard engine. Its goal is to be as simpl
 
 Some of the features currently in Thredded:
 
-* Markdown (default) or BBCode post formatting.
+* Markdown (default) and / or BBCode post formatting, with [onebox] and `<spoiler>` / `[spoiler]` tag support.
 * (Un)read posts tracking.
 * Email notifications, topic subscriptions, @-mentions, per-messageboard notification settings.
 * Private group messaging.
@@ -14,10 +14,6 @@ Some of the features currently in Thredded:
 * Flexible permissions system.
 * Basic moderation.
 * Lightweight default theme configurable via Sass.
-
-<a href='https://pledgie.com/campaigns/27480'><img alt='Click here to lend your support to: Thredded and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27480.png?skin_name=chrome' border='0' ></a>
-
-<img src="http://emoji.fileformat.info/gemoji/point_up.png" width="24"> If you are so inclined, donating to the project will help aid in its development
 
 | ![Messageboards (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338810/1fbc4240-abd1-11e6-9cba-4ae2e654c4d4.png) |  ![Topics (Thredded v0.8.2)](https://cloud.githubusercontent.com/assets/216339/20338809/1fbb7dc4-abd1-11e6-9bc3-207b94018931.png) |
 |:---:|:---:|
@@ -32,6 +28,7 @@ If you're looking for variations on a theme - see [Discourse]. However, It is a 
 application and not an engine like Thredded.
 
 [Discourse]: http://www.discourse.org/
+[onebox]: https://github.com/discourse/onebox
 
 Table of Contents
 =================
@@ -47,7 +44,6 @@ Table of Contents
     * [Reference your paths so that Thredded can find them](#reference-your-paths-so-that-thredded-can-find-them)
     * [Add Thredded styles](#add-thredded-styles)
     * [Add Thredded JavaScripts](#add-thredded-javascripts)
-      * [jQuery version](#jquery-version)
   * [User profile page](#user-profile-page)
   * [Customizing views](#customizing-views)
     * [View hooks](#view-hooks)
@@ -99,7 +95,7 @@ Then, see the rest of this Readme for more information about using and customizi
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.12.3'
+gem 'thredded', '~> 0.15.4'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
@@ -230,15 +226,44 @@ Include thredded JavaScripts in your `application.js`:
 
 Thredded is fully compatible with deferred and async script loading.
 
-##### jQuery version
+##### Alternative JavaScript dependencies
 
-To use thredded with your application layout, you also need to ensure that your layout and thredded don't load different
-versions of jQuery. By default, Thredded loads jQuery v3 (via `//= require jquery3` from [jquery-rails]),
-but if you want to use jQuery v1 or v2, then you need to create a file at
-`app/assets/javascripts/thredded/dependencies/jquery.js` which contains just `//= require jquery`
-or `// require jquery2`. If you are not loading jQuery in your app, or if you are already using jQuery v3, then you don't need to do do this (You also don't need to worry about this if you are using the default ["Standalone" layout](#standalone-layout))
+<details><summary><b>Rails UJS version</b></summary>
 
-[jquery-rails]: https://github.com/rails/jquery-rails
+By default, thredded loads `rails-ujs`. If you're using Rails before v5.1, you need to add `rails-ujs` to
+your Gemfile.
+
+If you'd like it to use `jquery_ujs` instead, run this command from your app directory:
+
+```bash
+mkdir -p app/assets/javascripts/thredded/dependencies/
+printf '//= require jquery3\n//= require jquery_ujs\n' > app/assets/javascripts/thredded/dependencies/ujs.js
+```
+</details>
+
+<details><summary><b>Timeago version</b></summary>
+
+By default, thredded loads `timeago.js`.
+
+If you'd like to use `jquery.timeago` or `rails-timeago` instead, run this command from your app directory:
+
+```bash
+mkdir -p app/assets/javascripts/thredded/dependencies/
+echo '//= require jquery.timeago' > app/assets/javascripts/thredded/dependencies/timeago.js
+```
+
+You will also need to adjust the `//= require` statements for timeago locales if your site is translated into multiple
+languages. For `jquery.timeago`, these need to be require after `thredded/dependencies` but before `thredded/thredded`.
+E.g. for Brazilian Portuguese with jquery.timeago:
+
+ ```js
+ //= require thredded/dependencies
+ //= require locales/jquery.timeago.pt-br
+ //= require thredded/thredded
+ ```
+</details>
+
+#### Thredded page title and ID
 
 Thredded views also provide two `content_tag`s available to yield - `:thredded_page_title` and `:thredded_page_id`.
 The views within Thredded pass those up through to your layout if you would like to use them.
@@ -320,21 +345,11 @@ $thredded-brand: #9c27b0;
 @import "thredded";
 ```
 
-The `@import "thredded"` directive above will import thredded styles and the [dependencies][thredded-scss-dependencies]
-(currently just "select2" from [select2-rails]). If you already include your own styles for any of thredded
-dependencies, you can import just the thredded styles alone like this:
-
-```scss
-// application.scss
-@import "thredded/thredded";
-```
-
 If you are writing a Thredded plugin, import the [`thredded/base`][thredded-scss-base] Sass package instead.
 The `base` package only defines variables, mixins, and %-placeholders, so it can be imported safely without producing
 any duplicate CSS.
 
 [thredded-scss-dependencies]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_dependencies.scss
-[select2-rails]: https://github.com/argerim/select2-rails
 [thredded-scss-base]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_base.scss
 
 ### Email and other notifications
@@ -362,22 +377,23 @@ change_column_default :thredded_user_preferences, :auto_follow_topics, 1
 
 ## I18n
 
-Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Polish, Russian,
-and Spanish.
+Thredded is mostly internationalized. It is currently available in English, Brazilian Portuguese, Chinese (Simplified),
+German, Polish, Italian, Russian, French, and Spanish.
 We welcome PRs adding support for new languages.
 
 Here are the steps to ensure the best support for your language if it isn't English:
 
 1. Add `rails-i18n` and `kaminari-i18n` to your Gemfile.
 
-2. Require the translations for rails-timeago in your JavaScript before `thredded` but after `jquery.timeago`
-   (included in `thredded/dependencies`). E.g. for Brazilian Portuguese:
+2. Require the translations for timeago.js in your JavaScript. E.g. for Brazilian Portuguese:
 
    ```js
-   //= require thredded/dependencies
-   //= require locales/jquery.timeago.pt-br
-   //= require thredded/thredded
+   //= require thredded/dependencies/timeago
+   //= require timeago/locales/pt_BR
+   //= require thredded
    ```
+
+   Note that it is important that timeago and its locales are required *before* `//= require thredded`.
 
 3. To generate URL slugs for messageboards, categories, and topics with support for more language than English,
    you can use a gem like [babosa](https://github.com/norman/babosa).
@@ -414,19 +430,11 @@ The methods used by Thredded for determining the permissions are described below
 
 #### Posting to messageboards
 
-1. A list of messageboards that a given user can post in.
+A list of messageboards that a given user can post in.
 
   ```ruby
   # @return [ActiveRecord::Relation<Thredded::Messageboard>] messageboards that the user can post in
   thredded_can_write_messageboards
-  ```
-
-2. A list of users that can post to a given list of messageboards.
-
-  ```ruby
-  # @param messageboards [Array<Thredded::Messageboard>]
-  # @return [ActiveRecord::Relation<User>] users that can post to the given messageboards
-  self.thredded_messageboards_writers(messageboards)
   ```
 
 #### Messaging other users (posting to private topics)
@@ -440,18 +448,11 @@ thredded_can_message_users
 
 #### Moderating messageboards
 
-1. A list of messageboards that a given user can moderate:
+A list of messageboards that a given user can moderate:
 
   ```ruby
   # @return [ActiveRecord::Relation<Thredded::Messageboard>] messageboards that the user can moderate
   thredded_can_moderate_messageboards
-  ```
-2. A list of users that can moderate a given list of messageboards:
-
-  ```ruby
-  # @param messageboards [Array<Thredded::Messageboard>]
-  # @return [ActiveRecord::Relation<User>] users that can moderate the given messageboards
-  self.thredded_messageboards_moderators(messageboards)
   ```
 
 #### Admin permissions
@@ -554,6 +555,28 @@ To disable moderation, e.g. if you run internal forums that do not need moderati
 change_column_default :thredded_user_details, :moderation_state, 1 # approved
 ```
 
+### Requiring authentication to access Thredded
+
+To require users to be authenticated to access any part of Thredded, add the following to your initializer:
+
+```ruby
+# config/initializers/thredded.rb
+Rails.application.config.to_prepare do
+  Thredded::ApplicationController.module_eval do
+    # Require authentication to access the forums:
+    before_action :thredded_require_login!
+
+    # You may also want to render a login form after the
+    # "Please sign in first" message:
+    rescue_from Thredded::Errors::LoginRequired do |exception|
+      # Place the code for rendering the login form here, for example:
+      @message = exception.message
+      render template: 'sessions/new', status: :forbidden
+    end
+  end
+end
+```
+
 ## Plugins
 
 The following official plugins are available for Thredded:
@@ -592,9 +615,20 @@ run tasks that maintain the test database.
 By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, MySQL,
 and all the supported Rails versions.
 
-The test suite requires [PhantomJS](http://phantomjs.org) to be present in the path.
-To install it, run `sudo apt-get install phantomjs` on Ubuntu or Debian, or `brew install phantomjs` on Mac.
-For other operating systems, refer to the [PhantomJS documentation](http://phantomjs.org/download.html).
+The test suite requires Chromium v59+ and its WebDriver installed:
+
+On Ubuntu, run:
+
+```bash
+sudo apt-get install chromium-chromedriver
+```
+
+On Mac, run:
+
+```bash
+brew cask install chromium
+brew install chromedriver
+```
 
 ### Ruby
 
@@ -626,8 +660,8 @@ To achieve the above, all the Thredded code must register onload via
 
 ```js
 window.Thredded.onPageLoad(() => {
-  // Initialize widgets:
-  $('[data-thredded-select2]').select2();
+  // Initialize widgets
+  autosize('textarea');
 });
 ```
 
@@ -643,8 +677,8 @@ e.g.:
 
 ```js
 document.addEventListener('turbolinks:before-cache', () => {
-  // Destroy widgets:
-  $('[data-thredded-select2]').select2('destroy');
+  // Destroy widgets
+  autosize.destroy('textarea');
 });
 ```
 

@@ -1,0 +1,8 @@
+<%#
+# This partial is deprecated. Add a view hook to the initializer instead, for example:
+
+Thredded.view_hooks.post_form.content_text_area.config.after do
+  # This is rendered in the Thredded view context, so all Thredded helpers and URLs are accessible here directly.
+  render partial: 'my_partial'
+end
+%>

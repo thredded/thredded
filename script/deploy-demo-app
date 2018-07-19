@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-set -ex
+set -eou pipefail
 
-gem install heroku --no-document
+if ! which heroku; then cat >&2 <<'INSTALL_HEROKU'; exit 1; fi
+Install Heroku CLI from:
+https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+INSTALL_HEROKU
+
 BUNDLE_GEMFILE=heroku.gemfile bundle update
 
 if git diff-index --name-only HEAD | grep -q heroku.gemfile.lock; then
@@ -11,6 +15,6 @@ fi
 
 heroku maintenance:on
 heroku pg:reset DATABASE --confirm thredded-demo
-git push heroku master
+git push -f heroku master
 heroku run rake db:migrate db:seed
 heroku maintenance:off

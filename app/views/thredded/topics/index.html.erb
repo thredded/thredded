@@ -3,7 +3,7 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <div class="thredded--svg-definitions ">
+  <div class="thredded--svg-definitions">
     <%= inline_svg 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
     <%= inline_svg 'thredded/unfollow.svg', id: 'thredded-unfollow-icon' %>
   </div>
@@ -13,18 +13,17 @@
                topic: @new_topic,
                css_class: 'thredded--is-compact',
                placeholder: t('thredded.topics.form.title_placeholder_start') if @new_topic %>
-    <%= render partial: 'thredded/topics/topic', collection: @topics, locals: {topics: @topics} %>
+    <%= render partial: 'thredded/topics/topic',
+               collection: @topics,
+               locals: {
+                 sticky_topics_divider: true,
+                 topics: @topics
+               } %>
   <% end %>
 
   <footer class="thredded--pagination-bottom">
     <%= paginate @topics %>
   </footer>
 
-  <div class="thredded--messageboards--actions">
-    <% if policy(messageboard).update? %>
-      <a class="thredded--button" href="<%= edit_messageboard_path(messageboard) %>" rel="nofollow">
-        <%= t('thredded.nav.edit_messageboard') %>
-      </a>
-    <% end %>
-  </div>
+  <%= render 'thredded/messageboards/messageboard_actions', messageboard: messageboard %>
 <% end %>

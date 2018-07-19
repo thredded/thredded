@@ -12,12 +12,16 @@ module Thredded
     after_action :verify_authorized
 
     def new
-      @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
+      @post_form = Thredded::PostForm.new(
+        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
+      )
       authorize_creating @post_form.post
     end
 
     def create
-      @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
+      @post_form = Thredded::PostForm.new(
+        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
+      )
       authorize_creating @post_form.post
 
       if @post_form.save
@@ -28,7 +32,7 @@ module Thredded
     end
 
     def edit
-      @post_form = PostForm.for_persisted(post)
+      @post_form = Thredded::PostForm.for_persisted(post)
       authorize @post_form.post, :update?
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       render
@@ -36,7 +40,7 @@ module Thredded
 
     def update
       authorize post, :update?
-      post.update_attributes(new_post_params)
+      post.update(new_post_params)
 
       redirect_to post_path(post, user: thredded_current_user)
     end
@@ -51,8 +55,7 @@ module Thredded
 
     def mark_as_unread
       authorize post, :read?
-      page = post.page(user: thredded_current_user)
-      post.mark_as_unread(thredded_current_user, page)
+      post.mark_as_unread(thredded_current_user)
       after_mark_as_unread # customization hook
     end
 
@@ -76,14 +79,13 @@ module Thredded
     end
 
     def parent_topic
-      Topic
+      Thredded::Topic
         .where(messageboard: messageboard)
-        .friendly
-        .find(params[:topic_id])
+        .friendly_find!(params[:topic_id])
     end
 
     def post
-      @post ||= Thredded::Post.find(params[:id])
+      @post ||= Thredded::Post.find!(params[:id])
     end
 
     def current_page

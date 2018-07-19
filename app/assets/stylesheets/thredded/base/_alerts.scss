@@ -17,9 +17,11 @@
 %thredded--alert {
   border: solid 1px;
   border-radius: 3px;
+  box-sizing: border-box;
   margin-bottom: $thredded-small-spacing;
   padding: $thredded-small-spacing;
   text-decoration: none;
+  width: 100%;
 
   @include thredded-media-desktop-and-up {
     margin-bottom: $thredded-base-spacing;

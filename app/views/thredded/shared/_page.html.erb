@@ -2,7 +2,7 @@
   <%= render 'thredded/shared/header' %>
   <%= render 'thredded/shared/flash_messages' %>
   <%= yield :thredded_page_content %>
-  <%= render 'thredded/shared/currently_online' %>
+  <%= render 'thredded/shared/currently_online' if Thredded.currently_online_enabled %>
 <%- end %>
 
 <%# If thredded JS is loaded via an [async] script, the JS may

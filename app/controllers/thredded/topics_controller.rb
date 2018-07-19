@@ -6,32 +6,49 @@ module Thredded
     include Thredded::NewPostParams
 
     before_action :thredded_require_login!,
-                  only: %i[edit new update create destroy follow unfollow]
+                  only: %i[edit new update create destroy follow unfollow unread]
+
+    before_action :verify_messageboard,
+                  only: %i[index search unread]
 
     before_action :use_topic_messageboard,
                   only: %i[show edit update destroy follow unfollow]
 
     after_action :update_user_activity
 
-    after_action :verify_authorized, except: %i[search]
+    after_action :verify_authorized, except: %i[search unread]
     after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow]
 
     def index
-      authorize_reading messageboard
-      unless params_match?(canonical_messageboard_params)
-        skip_policy_scope
-        return redirect_to(canonical_messageboard_params)
-      end
+      page_scope = policy_scope(messageboard.topics)
+        .order_sticky_first.order_recently_posted_first
+        .includes(:categories, :last_user, :user)
+        .page(current_page)
+      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
+      @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
+      @new_topic = init_new_topic
+    end
 
-      @topics = Thredded::TopicsPageView.new(
-        thredded_current_user,
-        policy_scope(messageboard.topics)
-          .order_sticky_first.order_recently_posted_first
-          .page(current_page)
-      )
-      Thredded::TopicForm.new(messageboard: messageboard, user: thredded_current_user).tap do |form|
-        @new_topic = form if policy(form.topic).create?
-      end
+    def unread
+      page_scope = topics_scope
+        .unread(thredded_current_user)
+        .order_followed_first(thredded_current_user).order_recently_posted_first
+        .includes(:categories, :last_user, :user)
+        .page(current_page)
+      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
+      @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
+      @new_topic = init_new_topic
+    end
+
+    def search
+      @query = params[:q].to_s
+      page_scope = topics_scope
+        .search_query(@query)
+        .order_recently_posted_first
+        .includes(:categories, :last_user, :user)
+        .page(current_page)
+      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
+      @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
     end
 
     def show
@@ -41,42 +58,10 @@ module Thredded
         .order_oldest_first
         .includes(:user, :messageboard, :postable)
         .page(current_page)
+      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-
-      if thredded_signed_in?
-        Thredded::UserTopicReadState.touch!(
-          thredded_current_user.id, topic.id, page_scope.last, current_page
-        )
-      end
-
+      Thredded::UserTopicReadState.touch!(thredded_current_user.id, topic.id, page_scope.last) if thredded_signed_in?
       @new_post = Thredded::PostForm.new(user: thredded_current_user, topic: topic, post_params: new_post_params)
-    end
-
-    def search
-      in_messageboard = params.key?(:messageboard_id)
-      if in_messageboard
-        authorize_reading messageboard
-        unless params_match?(canonical_messageboard_params)
-          skip_policy_scope
-          return redirect_to(canonical_messageboard_params)
-        end
-      end
-      @query = params[:q].to_s
-      topics_scope = policy_scope(
-        if in_messageboard
-          messageboard.topics
-        else
-          Thredded::Topic.where(messageboard_id: policy_scope(Thredded::Messageboard.all).pluck(:id))
-        end
-      )
-      @topics = Thredded::TopicsPageView.new(
-        thredded_current_user,
-        topics_scope
-          .search_query(@query)
-          .order_recently_posted_first
-          .includes(:categories, :last_user, :user)
-          .page(current_page)
-      )
     end
 
     def new
@@ -155,6 +140,24 @@ module Thredded
     end
 
     private
+
+    def in_messageboard?
+      params.key?(:messageboard_id)
+    end
+
+    def init_new_topic
+      return unless in_messageboard?
+      form = Thredded::TopicForm.new(messageboard: messageboard, user: thredded_current_user)
+      form if policy(form.topic).create?
+    end
+
+    def verify_messageboard
+      return unless in_messageboard?
+      authorize_reading messageboard
+      return if params_match?(canonical_messageboard_params)
+      skip_policy_scope
+      redirect_to(canonical_messageboard_params)
+    end
 
     def canonical_messageboard_params
       { messageboard_id: messageboard.slug }

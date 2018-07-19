@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>
-    <%= safe_join([yield(:thredded_page_title).presence, 'Thredded Demo'].compact, ' | ') %>
+    <%= safe_join([yield(:thredded_page_title).presence, yield(:page_title).presence, 'Thredded Demo'].compact, ' | ') %>
   </title>
   <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'application',
@@ -35,13 +35,6 @@
       <%= render 'shared/header' %>
       <% unless content_for?(:thredded_page_id) %>
         <%= render 'shared/flash_messages' %>
-        <%# In the demo app we have non-Thredded (demo-only) JS using Thredded.onPageLoad for locale/theme toggles.
-            Add the Thredded.DOMContentLoadedFired activation required by Thredded.onPageLoad: %>
-        <script data-turbolinks-eval="false">
-          document.addEventListener('DOMContentLoaded', function() {
-            (window.Thredded = window.Thredded || {}).DOMContentLoadedFired = true;
-          });
-        </script>
       <% end %>
       <div class="app-content-container" id="app-content"><%= yield %></div>
     </div>

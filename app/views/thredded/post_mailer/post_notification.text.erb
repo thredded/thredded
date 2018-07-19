@@ -1,10 +1,14 @@
+<%= t 'thredded.emails.post_notification.text.post_lead',
+      user: @post.user.thredded_display_name,
+      topic_title: @post.postable.title %>
+
 <%= @post.content %>
 
 ---
 
-This email was sent to you because you are following this topic
-"<%= @post.postable.title %>". Go here to view the conversation:
-<%= post_permalink_url @post %>
+<%= t 'thredded.emails.post_notification.text.email_sent_reason',
+      topic_title: @post.postable.title,
+      post_url: post_permalink_url(@post.id) %>
 
-To unsubscribe from these emails, update your preferences here:
-  <%= edit_messageboard_preferences_url @post.messageboard %>
+<%= t 'thredded.emails.post_notification.text.unsubscribe_instructions',
+      unsubscribe_url: edit_messageboard_preferences_url(@post.messageboard) %>

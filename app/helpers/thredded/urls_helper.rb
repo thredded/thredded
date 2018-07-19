@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  module UrlsHelper
+  module UrlsHelper # rubocop:disable Metrics/ModuleLength
     class << self
       include Thredded::Engine.routes.url_helpers
       include Thredded::UrlsHelper
@@ -95,6 +95,17 @@ module Thredded
       edit_preferences_url(messageboard, params.merge(only_path: true))
     end
 
+    # @param [Thredded::Messageboard, nil] messageboard
+    # @param [Hash] params additional params
+    def unread_topics_path(messageboard: nil, **params)
+      params[:only_path] = true
+      if messageboard
+        unread_messageboard_topics_url(messageboard, params)
+      else
+        unread_topics_url(params)
+      end
+    end
+
     # @param messageboard [Thredded::Messageboard, nil]
     # @return [String] the path to the global or messageboard search.
     def search_path(messageboard = nil)
@@ -128,6 +139,33 @@ module Thredded
         private_post_permalink_path(post)
       else
         post_permalink_path(post)
+      end
+    end
+
+    # @param [Thredded.user_class] current_user
+    # @param [Thredded.user_class] to
+    # @param [Boolean] use_existing Whether to use the existing thread if any.
+    # @return [String] a path to a new or existing private message thread for the given users.
+    def send_private_message_path(current_user:, to:, use_existing: true)
+      existing_topic = use_existing &&
+                       Thredded::PrivateTopic.has_exact_participants([current_user, to])
+                         .order_recently_posted_first.first
+      if existing_topic
+        page = 1 + (existing_topic.posts_count - 1) / Thredded::PrivatePost.default_per_page
+        Thredded::UrlsHelper.private_topic_path(
+          existing_topic,
+          page: (page if page > 1),
+          autofocus_new_post_content: true,
+          anchor: 'post_content'
+        )
+      else
+        Thredded::UrlsHelper.new_private_topic_path(
+          private_topic: {
+            user_names: to.send(Thredded.user_name_column),
+            title: [current_user, to].map(&Thredded.user_display_name_method).join(' • ')
+          },
+          autofocus_new_post_content: true,
+        )
       end
     end
   end

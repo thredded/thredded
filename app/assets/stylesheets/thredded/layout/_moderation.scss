@@ -3,14 +3,15 @@
   @include thredded-media-desktop-and-up {
     margin-bottom: $thredded-base-spacing;
   }
+}
 
-  &--items {
-    @extend %thredded--nav-tabs;
-    margin-bottom: $thredded-small-spacing;
-  }
-  &--item {
-    @extend %thredded--nav-tabs--item;
-  }
+.thredded--moderation-navigation--items {
+  @extend %thredded--nav-tabs;
+  margin-bottom: $thredded-small-spacing;
+}
+
+.thredded--moderation-navigation--item {
+  @extend %thredded--nav-tabs--item;
 }
 
 .thredded--pending-moderation .thredded--moderation-navigation--pending,

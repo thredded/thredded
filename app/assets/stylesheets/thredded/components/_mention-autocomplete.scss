@@ -11,11 +11,11 @@ ul.thredded--textcomplete-dropdown {
 ul.thredded--textcomplete-dropdown {
 
   background: $thredded-form-background;
-  padding: 4px;
+  list-style: none;
   margin: 0;
+  padding: 4px;
 
   li.textcomplete-item {
-    list-style: none;
     a {
       color: $thredded-text-color;
     }
@@ -33,3 +33,25 @@ ul.thredded--textcomplete-dropdown {
 }
 
 
+.thredded--textcomplete-user-result {
+  &__avatar {
+    width: 2rem;
+    min-height: 2rem;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &__name {
+    display: inline-block;
+    margin-left: 0.6rem
+  }
+  &__display_name {
+    display: inline-block;
+    margin-left: 0.4rem;
+
+    color: $thredded-secondary-text-color;
+    .textcomplete-item.active & {
+      color: invert($thredded-secondary-text-color);
+    }
+  }
+}

@@ -3,6 +3,19 @@ language: ruby
 rvm:
   - 2.3
 
+addons:
+  apt:
+    packages:
+    - chromium-browser
+    # TODO: Use chromedriver from apt once it's been updated to v2.37+.
+    # - chromium-chromedriver
+
+# For now, download chromedriver directly:
+before_script:
+  - >
+      wget -q https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip &&
+      unzip chromedriver_linux64.zip
+
 cache:
   bundler: true
   directories:
@@ -17,6 +30,7 @@ gemfile:
   - spec/gemfiles/rails_4_2.gemfile
   - spec/gemfiles/rails_5_0.gemfile
   - spec/gemfiles/rails_5_1.gemfile
+  - spec/gemfiles/rails_5_2.gemfile
 
 env:
   matrix:
@@ -27,13 +41,15 @@ env:
   global:
   - COVERAGE=1
   - TRAVIS=1
+  - CHROMEDRIVER_PATH=$PWD/chromedriver
 
 # Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
 script:
-- bundle exec rspec --format d
+- bundle exec rspec --force-color --format d --tag=~js
+- bundle exec rspec --force-color --format d --tag=js
 - bundle exec rubocop
 - bundle exec codeclimate-test-reporter
-- MIGRATION_SPEC=1 bundle exec rspec spec/migration
+- MIGRATION_SPEC=1 bundle exec rspec spec/migration --force-color --format d
 
 notifications:
   slack:

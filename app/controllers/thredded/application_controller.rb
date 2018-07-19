@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class ApplicationController < ::ApplicationController
+  class ApplicationController < ::ApplicationController # rubocop:disable Metrics/ClassLength
     layout :thredded_layout
     include ::Thredded::UrlsHelper
     include Pundit
@@ -12,12 +12,17 @@ module Thredded
       :thredded_current_user,
       :messageboard,
       :messageboard_or_nil,
+      :unread_private_topics_count,
+      :unread_followed_topics_count,
+      :unread_topics_count,
       :preferences,
       :thredded_signed_in?
 
     rescue_from Thredded::Errors::MessageboardNotFound,
                 Thredded::Errors::PrivateTopicNotFound,
+                Thredded::Errors::PrivatePostNotFound,
                 Thredded::Errors::TopicNotFound,
+                Thredded::Errors::PostNotFound,
                 Thredded::Errors::UserNotFound do |exception|
       @error   = exception
       @message = exception.message
@@ -67,6 +72,16 @@ module Thredded
       given.all? { |k, v| v == params[k] }
     end
 
+    # Returns true if the current page is beyond the end of the collection
+    def page_beyond_last?(page_scope)
+      page_scope.to_a.empty? && page_scope.current_page != 1
+    end
+
+    # Returns URL parameters for the last page of the given page scope.
+    def last_page_params(page_scope)
+      { page: page_scope.total_pages }
+    end
+
     private
 
     def thredded_layout
@@ -105,13 +120,57 @@ module Thredded
     # @return [Thredded::Messageboard]
     # @raise [Thredded::Errors::MessageboardNotFound] if the messageboard with the given slug does not exist.
     def messageboard
-      @messageboard ||= Messageboard.friendly_find!(params[:messageboard_id])
+      @messageboard ||= Thredded::Messageboard.friendly_find!(params[:messageboard_id])
     end
 
     def messageboard_or_nil
       messageboard
     rescue Thredded::Errors::MessageboardNotFound
       nil
+    end
+
+    # @return [ActiveRecord::Relation]
+    def topics_scope
+      @topics_scope ||=
+        if messageboard_or_nil
+          policy_scope(messageboard.topics)
+        else
+          policy_scope(Thredded::Topic.all).joins(:messageboard).merge(policy_scope(Thredded::Messageboard.all))
+        end
+    end
+
+    def unread_private_topics_count
+      @unread_private_topics_count ||=
+        if thredded_signed_in?
+          Thredded::PrivateTopic
+            .for_user(thredded_current_user)
+            .unread(thredded_current_user)
+            .count
+        else
+          0
+        end
+    end
+
+    def unread_followed_topics_count
+      @unread_followed_topics_count ||=
+        if thredded_signed_in?
+          scope = topics_scope
+          scope = topics_scope.where(messageboard_id: messageboard.id) if messageboard_or_nil
+          scope.unread_followed_by(thredded_current_user).count
+        else
+          0
+        end
+    end
+
+    def unread_topics_count
+      @unread_topics_count ||=
+        if thredded_signed_in?
+          scope = topics_scope
+          scope = topics_scope.where(messageboard_id: messageboard.id) if messageboard_or_nil
+          scope.unread(thredded_current_user).count
+        else
+          0
+        end
     end
 
     def preferences

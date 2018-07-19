@@ -19,23 +19,18 @@ Thredded.user_name_column = :name
 # The path (or URL) you will use to link to your users' profiles.
 # When linking to a user, Thredded will use this lambda to spit out
 # the path or url to your user. This lambda is evaluated in the view context.
-Thredded.user_path = lambda do |user|
-  user_path = :"#{Thredded.user_class_name.underscore}_path"
+# If the lambda returns nil, a span element is returned instead of a link; so
+# setting this to always return nil effectively disables all user links.
+Thredded.user_path = ->(user) {
+  user_path = :"#{Thredded.user_class_name.demodulize.underscore}_path"
   main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
-end
+}
 
 # This method is used by Thredded controllers and views to fetch the currently signed-in user
-Thredded.current_user_method = :"current_#{Thredded.user_class_name.underscore}"
+Thredded.current_user_method = :"current_#{Thredded.user_class_name.demodulize.underscore}"
 
 # User avatar URL. rb-gravatar gem is used by default:
-Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 128, 'mm') }
-
-# ==> Database Configuration
-# By default, thredded uses integers for record ID route constraints.
-# For integer based IDs (default):
-# Thredded.routes_id_constraint = /[1-9]\d*/
-# For UUID based IDs (example):
-# Thredded.routes_id_constraint = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 156, 'mm') }
 
 # ==> Permissions Configuration
 # By default, thredded uses a simple permission model, where all the users can post to all message boards,
@@ -49,19 +44,34 @@ Thredded.admin_column = :admin
 # Whether posts and topics pending moderation are visible to regular users.
 Thredded.content_visible_while_pending_moderation = true
 
-# Whether users that are following a topic are listed on topic page.
-Thredded.show_topic_followers = false
-
 # This model can be customized further by overriding a handful of methods on the User model.
 # For more information, see app/models/thredded/user_extender.rb.
 
-# ==> Ordering configuration
+# ==> UI configuration
 
 # How to calculate the position of messageboards in a list:
 # :position            (default) set the position manually (new messageboards go to the bottom, by creation timestamp)
 # :last_post_at_desc   most recent post first
 # :topics_count_desc   most topics first
 Thredded.messageboards_order = :position
+
+# Whether users that are following a topic are listed on the topic page.
+Thredded.show_topic_followers = false
+
+# Whether the list of users who are currently online is displayed.
+Thredded.currently_online_enabled = true
+
+# Whether private messaging functionality is enabled.
+Thredded.private_messaging_enabled = true
+
+# The number of topics to display per page.
+# Thredded.topics_per_page = 50
+
+# The number of posts to display per page in a topic.
+# Thredded.posts_per_page = 25
+
+# The layout for rendering Thredded views.
+Thredded.layout = 'thredded/application'
 
 # ==> Email Configuration
 # Email "From:" field will use the following
@@ -73,18 +83,28 @@ Thredded.messageboards_order = :position
 # The parent mailer for all Thredded mailers
 # Thredded.parent_mailer = 'ActionMailer::Base'
 
-# ==> View Configuration
-# Set the layout for rendering the thredded views.
-Thredded.layout = 'thredded/application'
+# ==> Model configuration
+# The range of valid messageboard name lengths. Default:
+# Thredded.messageboard_name_length_range = (1..60)
+#
+# The range of valid topic title lengths. Default:
+# Thredded.topic_title_length_range = (1..200)
 
-# ==> URLs
-# How Thredded generates URL slugs from text.
+# ==> Routes and URLs
+# How Thredded generates URL slugs from text:
 
 # Default:
 # Thredded.slugifier = ->(input) { input.parameterize }
 
 # If your forum is in a language other than English, you might want to use the babosa gem instead
 # Thredded.slugifier = ->(input) { Babosa::Identifier.new(input).normalize.transliterate(:russian).to_s }
+
+# By default, thredded uses integers for record ID route constraints.
+# For integer based IDs (default):
+# Thredded.routes_id_constraint = /[1-9]\d*/
+#
+# For UUID based IDs (example):
+# Thredded.routes_id_constraint = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 
 # ==> Post Content Formatting
 # Customize the way Thredded handles post formatting.

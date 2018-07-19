@@ -1,0 +1,7 @@
+<div class="thredded--before-first-unread-post<%= ' unread--before-first-unread-post--first-in-page' if post.first_in_page? %>">
+  <%= view_hooks.posts_common.before_first_unread_post.render(self, post: post) do %>
+    <% unless post.first_in_page? %>
+      <span id="unread"></span>
+    <% end %>
+  <% end %>
+</div>

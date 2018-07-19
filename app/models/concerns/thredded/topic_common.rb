@@ -4,7 +4,7 @@ module Thredded
   module TopicCommon
     extend ActiveSupport::Concern
     included do
-      paginates_per 50 if respond_to?(:paginates_per)
+      paginates_per Thredded.topics_per_page if respond_to?(:paginates_per)
 
       belongs_to :last_user,
                  class_name: Thredded.user_class_name,
@@ -16,6 +16,8 @@ module Thredded
 
       validates :hash_id, presence: true, uniqueness: true
       validates :posts_count, numericality: true
+
+      validates :title, presence: true, length: { within: Thredded.topic_title_length_range }
 
       before_validation do
         self.hash_id = SecureRandom.hex(10) if hash_id.nil?
@@ -56,6 +58,10 @@ module Thredded
           .merge(reads_class.where(reads[:id].eq(nil).or(reads[:read_at].lt(topics[:last_post_at]))))
       end
 
+      def post_class
+        reflect_on_association(:posts).klass
+      end
+
       private
 
       # @param user [Thredded.user_class]
@@ -63,6 +69,7 @@ module Thredded
       def read_states_by_postable_hash(user)
         read_states = reflect_on_association(:user_read_states).klass
           .where(user_id: user.id, postable_id: current_scope.map(&:id))
+          .with_page_info(posts_scope: Pundit.policy_scope(user, post_class.all))
         Thredded::TopicCommon::CachingHash.from_relation(read_states)
       end
 

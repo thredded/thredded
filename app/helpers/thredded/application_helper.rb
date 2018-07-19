@@ -13,15 +13,27 @@ module Thredded
 
     def thredded_container_data
       {
+        'thredded-locale' => I18n.locale,
         'thredded-page-id' => content_for(:thredded_page_id),
         'thredded-root-url' => thredded.root_path
       }
     end
 
     def thredded_container_classes
-      ['thredded--main-container', content_for(:thredded_page_id)].tap do |classes|
-        classes << 'thredded--is-moderator' unless moderatable_messageboards_ids.empty?
-      end
+      [
+        'thredded--main-container',
+        content_for(:thredded_page_id),
+        "thredded--global-nav-icons-#{global_nav_icons_count}",
+        ('thredded--is-moderator' unless moderatable_messageboards_ids.empty?),
+        ('thredded--private-messaging-enabled' if Thredded.private_messaging_enabled),
+      ].compact
+    end
+
+    def global_nav_icons_count
+      result = 1 # Notification Settings
+      result += 1 if Thredded.private_messaging_enabled
+      result += 1 if moderatable_messageboards_ids.present?
+      result
     end
 
     # Render the page container with the supplied block as content.
@@ -52,22 +64,19 @@ module Thredded
     # @param datetime [DateTime]
     # @param default [String] a string to return if time is nil.
     # @return [String] html_safe datetime presentation
-    def time_ago(datetime, default: '-')
-      timeago_tag datetime,
-                  lang: I18n.locale.to_s.downcase,
-                  format: ->(t, _opts) { t.year == Time.current.year ? :short : :long },
-                  nojs: true,
-                  date_only: false,
-                  default: default
-    end
-
-    # Override the default timeago_tag_content from rails-timeago
-    def timeago_tag_content(time, time_options = {})
-      if time_options[:nojs] && (time_options[:limit].nil? || time_options[:limit] < time)
-        t 'thredded.time_ago', time: time_ago_in_words(time)
+    def time_ago(datetime, default: '-', html_options: {})
+      return content_tag :time, default if datetime.nil?
+      html_options = html_options.dup
+      is_current_year = datetime.year == Time.current.year
+      if datetime > 4.days.ago
+        content = t 'thredded.time_ago', time: time_ago_in_words(datetime)
+        html_options['data-time-ago'] = true unless html_options.key?('data-time-ago')
       else
-        I18n.l time.to_date, format: time_options[:format]
+        content = I18n.l(datetime.to_date,
+                         format: (is_current_year ? :short : :long))
       end
+      html_options[:title] = I18n.l(datetime) unless html_options.key?(:title)
+      time_tag datetime, content, html_options
     end
 
     # @param posts [Thredded::PostsPageView, Array<Thredded::PostView>]
@@ -104,18 +113,6 @@ module Thredded
       else
         t('thredded.topics.not_following')
       end
-    end
-
-    def unread_private_topics_count
-      @unread_private_topics_count ||=
-        if thredded_signed_in?
-          Thredded::PrivateTopic
-            .for_user(thredded_current_user)
-            .unread(thredded_current_user)
-            .count
-        else
-          0
-        end
     end
 
     def moderatable_messageboards_ids

@@ -6,14 +6,14 @@ module Thredded
 
     # Preview a new post
     def preview
-      @post = Post.new(post_params)
-      @post.postable = Topic.friendly_find!(params[:topic_id])
+      @post = Thredded::Post.new(post_params)
+      @post.postable = Thredded::Topic.friendly_find!(params[:topic_id])
       render_preview
     end
 
     # Preview an update to an existing post
     def update
-      @post = Post.find(params[:post_id])
+      @post = Thredded::Post.find!(params[:post_id])
       @post.assign_attributes(post_params)
       render_preview
     end

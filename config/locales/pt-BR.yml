@@ -6,11 +6,49 @@ pt-BR:
       content_blocked_notice_with_record_html: Bloqueados por %{moderator} %{time_ago}
     email_notifier:
       by_email: de e-mail
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Este e-mail foi enviado para você porque %{user} incluiu você em um tópico privado, "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: 'Uma nova mensagem de %{user} em <a href="%{post_url}">"%{topic_title}"</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Uma nova mensagem de %{user} em "%{topic_title}"
+        text:
+          email_sent_reason: |-
+            Este e-mail foi enviado para você porque %{user} incluiu você em
+            o tópico privado "%{topic_title}".
+
+            Vá aqui para ver a conversa:
+            %{post_url}
+          post_lead: 'Uma nova mensagem de %{user} em "%{topic_title}":'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Este e-mail foi enviado para você porque você está seguindo este tópico: "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: '%{user} <a href="%{post_url}">disse em "%{topic_title}"</a>:'
+          unsubscribe_instructions_html: Para cancelar a inscrição desses e-mails, atualize suas <a href="%{preferences_url}">preferências</a>.
+        subject: Uma nova postagem em "%{topic_title}"
+        text:
+          email_sent_reason: |-
+            Este e-mail foi enviado para você porque você está seguindo
+            o tópico "%{topic_title}".
+
+            Vá aqui para ver a conversa:
+            %{post_url}
+          post_lead: '%{user} disse em "%{topic_title}":'
+          unsubscribe_instructions: |-
+            Para cancelar a inscrição desses e-mails, atualize suas preferências aqui:
+            %{unsubscribe_url}
     errors:
       login_required: Por favor, autentique-se primeiro.
       not_authorized: Você não está autorizado a acessar esta página.
+      post_not_found: Este post não existe.
+      private_post_not_found: Esta mensagem privada não existe.
       private_topic_create_denied: Você não está autorizado a criar tópicos privados.
       private_topic_not_found: Este tópico privado não existe.
+      topic_not_found: Este tópico não existe.
     form:
       create_btn_submitting: Criando...
       preview: Pré-visualização
@@ -21,6 +59,9 @@ pt-BR:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Descrição
+        locked_label: Trancado
+        locked_notice: Este quadro de mensagens está bloqueado. Somente os moderadores podem criar novos tópicos
+          aqui.
         messageboard_group_id_label: grupo messageboard
         no_group: Sem Grupo
         title_label: Nome
@@ -31,6 +72,14 @@ pt-BR:
       topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
       update: :thredded.form.update
       updated_notice: Fórum de mensagem foi atualizado
+    messageboard_first_topic:
+      content: |-
+        There's not a whole lot here for now.
+
+        These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+        Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+      title: Welcome to your messageboard's very first thread
     messageboard_group:
       create: Criar um novo grupo de mensagens
       form:
@@ -39,6 +88,8 @@ pt-BR:
     moderation:
       approve_btn: Aprovar
       block_btn: Quadra
+      moderation_state:
+        name: Estado de moderação
       pending:
         empty:
           content: Todas as mensagens têm sido moderadas.
@@ -54,6 +105,8 @@ pt-BR:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: Nenhum usuário com o nome começando com %{query}
         results_message: Os usuários com nomes começando com %{query}
+      user:
+        name: Usuário
     nav:
       all_messageboards: Todos os Fóruns de Mensagens
       edit_messageboard: Editar Fórum de Mensagem
@@ -68,6 +121,7 @@ pt-BR:
       moderation_users: Usuários
       private_topics: Mensagens Privadas
       settings: Configurações de Notificação
+      unread_topics: Não lida
     null_user_name: Usuário deletado
     posts:
       delete: Remover Post
@@ -83,6 +137,8 @@ pt-BR:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: O envio da mensagem será publicada quando foi revisado por um moderador.
       quote_btn: Citar
+      spoiler_summary: Spoiler - clique para mostrar.
+      spoiler_summary_for_email: 'Spoiler - selecione o conteúdo abaixo para ver:'
     preferences:
       edit:
         page_title: :thredded.nav.settings
@@ -123,6 +179,7 @@ pt-BR:
         create_btn_submitting: Enviando...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Editar
       errors:
         user_ids_length: Por favor, especifique pelo menos mais um usuário.
@@ -149,6 +206,7 @@ pt-BR:
         placeholder: Buscar Tópicos e Posts
     time_ago: há %{time}
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Você tem certeza que deseja remover este tópico? Isto não pode ser desfeito.
       delete_topic: Remover Tópico
       deleted_notice: Tópico removido
@@ -171,8 +229,10 @@ pt-BR:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Iniciar um novo tópico
         update_btn: Atualizar Tópico
+      in_messageboard_html: em %{messageboard_link}
       locked:
         label: Trancado
+        message: Este tópico foi bloqueado por um moderador.
       mark_as_unread: Marca não lida a partir daqui
       not_following: Você não está seguindo este tema.
       search:
@@ -188,6 +248,12 @@ pt-BR:
       unfollow: Pare de seguir
       unfollowed_notice: Você não está mais seguindo este tópico
       updated_notice: Tópico atualizado
+    unread_topics:
+      empty:
+        content: Você leu tudo o que existe. Volte mais tarde para mais!
+        title: Tudo lido!
+      page_title: Tópicos não lidos
+      page_title_in_messageboard: "%{messageboard}: Tópicos não lidos"
     users:
       currently_online: Atualmente Online
       last_active_html: Última %{time_ago} ativa
@@ -196,6 +262,7 @@ pt-BR:
         one: Postado uma vez
         other: vezes %{count} Publicado
       recent_activity: :thredded.recent_activity
+      send_private_message: Enviar mensagem privada
       started_topic_html: Começou %{topic_link}
       started_topics_count:
         one: Começou um tópico

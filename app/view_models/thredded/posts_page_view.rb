@@ -19,7 +19,7 @@ module Thredded
     # @param paginated_scope [ActiveRecord::Relation<Thredded::PostCommon>]
     def initialize(user, paginated_scope, topic_view: nil)
       @paginated_scope = paginated_scope
-      @post_views      = paginated_scope.map do |post|
+      @post_views = paginated_scope.map do |post|
         Thredded::PostView.new(post, Pundit.policy!(user, post), topic_view: topic_view)
       end
     end

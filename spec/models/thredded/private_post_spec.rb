@@ -82,7 +82,7 @@ module Thredded
     context 'when first post' do
       it 'removes the read state' do
         expect do
-          first_post.mark_as_unread(user, page)
+          first_post.mark_as_unread(user)
         end.to change { private_topic.reload.user_read_states.count }.by(-1)
       end
     end
@@ -90,7 +90,7 @@ module Thredded
     context 'when third (say) post' do
       it 'changes the read state to the previous post' do
         expect do
-          third_post.mark_as_unread(user, page)
+          third_post.mark_as_unread(user)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at
       end
     end
@@ -99,12 +99,12 @@ module Thredded
       let(:read_state) { nil }
       it 'marking first post as unread does nothing' do
         expect do
-          first_post.mark_as_unread(user, page)
+          first_post.mark_as_unread(user)
         end.to_not change { private_topic.reload.user_read_states.count }
       end
       it 'marking third post as unread creates read state' do
         expect do
-          third_post.mark_as_unread(user, page)
+          third_post.mark_as_unread(user)
         end.to change { private_topic.reload.user_read_states.count }
       end
     end
@@ -119,7 +119,7 @@ module Thredded
 
       it 'marking the third post as unread changes read state to second post' do
         expect do
-          third_post.mark_as_unread(user, page)
+          third_post.mark_as_unread(user)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at
       end
     end

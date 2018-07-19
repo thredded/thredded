@@ -9,8 +9,8 @@
 
 .thredded--main-navigation {
   @extend %thredded--list-unstyled;
-  @include thredded--clearfix;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .thredded--navigation-breadcrumbs {

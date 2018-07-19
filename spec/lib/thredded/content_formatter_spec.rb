@@ -44,7 +44,7 @@ describe Thredded::ContentFormatter do
   context '@-mentions' do
     around do |ex|
       begin
-        user_path_was = Thredded.class_variable_get(:@@user_path)
+        user_path_was = Thredded.instance_variable_get(:@user_path)
         ex.call
       ensure
         Thredded.user_path = user_path_was
@@ -105,6 +105,29 @@ describe Thredded::ContentFormatter do
       end
       it 'with text after on its line' do
         expect(format_content("Hello #{xkcd_url}")).to_not include('onebox')
+      end
+    end
+
+    context 'with no onebox caching' do
+      around do |example|
+        onebox_views_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache
+        onebox_data_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache
+        Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache = ActiveSupport::Cache::MemoryStore.new
+        Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache = ActiveSupport::Cache::MemoryStore.new
+        example.run
+        Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache = onebox_views_cache
+        Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache = onebox_data_cache
+      end
+
+      context 'if onebox throws an error' do
+        subject { format_content(xkcd_url) }
+
+        it 'renders just the url without error' do
+          allow(Onebox).to receive(:preview).and_raise('Onebox internal error')
+          expect(subject).not_to include('onebox')
+          expect(subject).to include(xkcd_url)
+          expect(subject).to match(/href=["']#{xkcd_url}/)
+        end
       end
     end
 

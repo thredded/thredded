@@ -5,6 +5,26 @@ module Thredded
     class << self
       MIGRATION_SPEC_SOURCE_VERSION = 'v0.8'
 
+      # Runs the migrations in the given paths.
+      def migrate(paths:, quiet:, &filter)
+        verbose_was = ActiveRecord::Migration.verbose
+        ActiveRecord::Migration.verbose = !quiet
+        migrate = -> {
+          if Rails::VERSION::STRING >= '5.2'
+            ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter)
+          else
+            ActiveRecord::Migrator.migrate(paths, &filter)
+          end
+        }
+        if quiet
+          silence_active_record(&migrate)
+        else
+          migrate.call
+        end
+      ensure
+        ActiveRecord::Migration.verbose = verbose_was
+      end
+
       def dump_file
         File.expand_path("../../../spec/migration/#{MIGRATION_SPEC_SOURCE_VERSION}.#{adapter}.dump", __FILE__)
       end

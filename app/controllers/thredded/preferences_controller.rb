@@ -19,10 +19,10 @@ module Thredded
     private
 
     def init_preferences
-      @preferences = UserPreferencesForm.new(
+      @preferences = Thredded::UserPreferencesForm.new(
         user:         thredded_current_user,
         messageboard: messageboard_or_nil,
-        messageboards: policy_scope(Messageboard.all),
+        messageboards: policy_scope(Thredded::Messageboard.all),
         params: preferences_params
       )
     end

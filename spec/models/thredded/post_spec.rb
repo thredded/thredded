@@ -81,7 +81,7 @@ module Thredded
     end
 
     context 'when Thredded.auto_follow_when_creating_topic is false',
-            thredded_reset: %i[@@auto_follow_when_creating_topic] do
+            thredded_reset: %i[@auto_follow_when_creating_topic] do
       before { Thredded.auto_follow_when_creating_topic = false }
       it 'does not create a follow for the creator of the first post' do
         user = create(:user)
@@ -97,7 +97,7 @@ module Thredded
     end
 
     context 'when Thredded.auto_follow_when_posting_in_topic is false',
-            thredded_reset: %i[@@auto_follow_when_posting_in_topic] do
+            thredded_reset: %i[@auto_follow_when_posting_in_topic] do
       before { Thredded.auto_follow_when_posting_in_topic = false }
       it 'does not create a follow for the creator of the non-first post' do
         user = create(:user)
@@ -300,7 +300,7 @@ module Thredded
     context 'when first post' do
       it 'removes the read state' do
         expect do
-          first_post.mark_as_unread(user, page)
+          first_post.mark_as_unread(user)
         end.to change { topic.reload.user_read_states.count }.by(-1)
       end
     end
@@ -308,13 +308,8 @@ module Thredded
     context 'when third (say) post' do
       it 'changes the read state to the previous post' do
         expect do
-          third_post.mark_as_unread(user, page)
+          third_post.mark_as_unread(user)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at
-      end
-
-      it 'changes the page to the previous posts' do
-        third_post.mark_as_unread(user, a_different_page)
-        expect(read_state.reload.page).to eq(a_different_page)
       end
     end
 
@@ -322,18 +317,14 @@ module Thredded
       let(:read_state) { nil }
       it 'marking first post as unread does nothing' do
         expect do
-          first_post.mark_as_unread(user, page)
+          first_post.mark_as_unread(user)
         end.to_not change { topic.reload.user_read_states.count }
       end
       it 'marking third post as unread creates read state for second post' do
         expect do
-          third_post.mark_as_unread(user, page)
+          third_post.mark_as_unread(user)
         end.to change { topic.reload.user_read_states.count }.by(page)
         expect(topic.user_read_states.last.read_at).to eq(second_post.created_at)
-      end
-      it 'uses given page' do
-        third_post.mark_as_unread(user, a_different_page)
-        expect(topic.user_read_states.last.page).to eq(a_different_page)
       end
     end
 
@@ -342,7 +333,7 @@ module Thredded
 
       it 'marking the third post as unread changes read state to second post' do
         expect do
-          third_post.mark_as_unread(user, page)
+          third_post.mark_as_unread(user)
         end.to change { read_state.reload.read_at }.to eq second_post.created_at
       end
     end

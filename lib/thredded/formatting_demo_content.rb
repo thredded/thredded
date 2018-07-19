@@ -8,6 +8,18 @@ module Thredded
     end
     self.parts = [
       <<-'MARKDOWN',
+#### Spoilers
+
+Use `<spoiler></spoiler>` tags to create spoiler boxes like this one:
+
+<spoiler>
+Harry Potter books are better than the movies.
+
+![nyancat](https://storage.googleapis.com/glebm-stuff/nyancat.gif)
+
+https://www.youtube.com/watch?v=5lBBUPVuusM
+</spoiler>
+
 #### Oneboxes
 
 URLs of supported resources are replaced with boxes like these:

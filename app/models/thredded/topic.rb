@@ -14,8 +14,15 @@ module Thredded
     scope :search_query, ->(query) { ::Thredded::TopicsSearch.new(query, self).search }
 
     scope :order_sticky_first, -> { order(sticky: :desc) }
+    scope :order_followed_first, ->(user) {
+      user_follows = UserTopicFollow.arel_table
+      joins(arel_table.join(user_follows, Arel::Nodes::OuterJoin)
+              .on(user_follows[:topic_id].eq(arel_table[:id])
+                  .and(user_follows[:user_id].eq(user.id))).join_sources)
+        .order(Arel::Nodes::Ascending.new(user_follows[:id].eq(nil)))
+    }
 
-    scope :followed_by, lambda { |user|
+    scope :followed_by, ->(user) {
       joins(:user_follows)
         .where(thredded_user_topic_follows: { user_id: user.id })
     }
@@ -25,7 +32,7 @@ module Thredded
     friendly_id :slug_candidates,
                 use: %i[history reserved],
                 # Avoid route conflicts
-                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w[topics])
+                reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(%w[topics unread])
 
     belongs_to :user,
                class_name: Thredded.user_class_name,
@@ -172,7 +179,7 @@ module Thredded
       # Update the associated messageboard metadata that Rails does not update them automatically.
       previous_changes['messageboard_id'].each do |messageboard_id|
         Thredded::Messageboard.reset_counters(messageboard_id, :topics, :posts)
-        Messageboard.find(messageboard_id).update_last_topic!
+        Thredded::Messageboard.find(messageboard_id).update_last_topic!
       end
     end
   end

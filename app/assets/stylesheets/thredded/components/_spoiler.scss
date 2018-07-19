@@ -1,0 +1,41 @@
+.thredded--post--content--spoiler {
+  background-color: $thredded-spoiler-background-color;
+  cursor: pointer;
+  margin: 0 0 $thredded-small-spacing;
+  padding: $thredded-small-spacing;
+  position: relative;
+
+  &--contents {
+    visibility: hidden;
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &--summary {
+    @extend %thredded--link;
+    position: absolute;
+    visibility: visible;
+  }
+
+  .thredded--post--content--spoiler {
+    visibility: visible;
+  }
+
+  table {
+    td, th {
+      border-color: $thredded-dark-gray;
+    }
+  }
+
+  &.thredded--post--content--spoiler--is-open {
+    > .thredded--post--content--spoiler--contents {
+      visibility: visible;
+    }
+
+    > .thredded--post--content--spoiler--summary {
+      display: none;
+    }
+  }
+}

@@ -70,24 +70,20 @@ module PageObject
       has_content?(topic_title)
     end
 
+    def displayed_titles
+      all('.thredded--topics--title a').map(&:text)
+    end
+
     def has_sticky_divider?
       has_css?('.thredded--topics--sticky-topics-divider')
     end
 
     def preview_html
+      # TODO: replace these sleeps with driver calls
       # Wait for debounced preview to trigger
-      Timeout.timeout(1) do
-        loop do
-          break if page.evaluate_script('jQuery.active') > 0
-        end
-      end
+      sleep 2
       # Wait for the response from the preview handler
-      Timeout.timeout(Capybara.default_max_wait_time) do
-        loop do
-          active = page.evaluate_script('jQuery.active')
-          break if active == 0
-        end
-      end
+      sleep 2
       page.evaluate_script <<-JS
         document.querySelectorAll('[data-thredded-preview-area-post]')[0].innerHTML
       JS

@@ -8,7 +8,10 @@ module Thredded
       expect(email.from).to eq(['no-reply@example.com'])
       expect(email.to).to eq(['no-reply@example.com'])
       expect(email.bcc).to eq(%w[john@email.com sam@email.com])
-      expect(email.subject).to eq('[Thredded] A title')
+      expect(email.subject).to eq([Thredded.email_outgoing_prefix,
+                                   I18n.t('thredded.emails.post_notification.subject',
+                                          user: 'joel',
+                                          topic_title: 'A title')].join)
     end
 
     it 'renders the body' do

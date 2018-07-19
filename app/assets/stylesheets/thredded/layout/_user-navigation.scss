@@ -1,6 +1,7 @@
 .thredded--user-navigation {
   @extend %thredded--nav-tabs;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
   @media print {
     display: none;
   }
@@ -15,6 +16,7 @@
 }
 
 .thredded--user-navigation--private-topics--unread,
-.thredded--user-navigation--moderation--pending-count {
+.thredded--user-navigation--moderation--pending-count,
+.thredded--user-navigation--unread-topics--followed-count {
   @extend %thredded--nav-tabs--item--badge;
 }

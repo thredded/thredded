@@ -1,4 +1,16 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
-eval_gemfile './shared.gemfile'
+eval_gemfile '../../shared.gemfile'
 gem 'rails', '~> 4.2.5'
+gem 'rails-ujs'
+
+# On Rails < 5.2, only pg < v1 is supported. See:
+# https://github.com/rails/rails/pull/31671
+# https://bitbucket.org/ged/ruby-pg/issues/270/pg-100-x64-mingw32-rails-server-not-start
+gem 'pg', '~> 0.21'
+
+
+# https://github.com/rails/rails/blob/v4.2.10/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L3
+gem 'mysql2', '>= 0.3.13', '< 0.5'
+
+gem 'backport_new_renderer'

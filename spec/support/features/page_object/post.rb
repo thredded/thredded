@@ -49,7 +49,17 @@ module PageObject
 
     def open_post_actions
       within css_selector do
-        find('.thredded--post--dropdown').click
+        toggle = find('.thredded--post--dropdown')
+        if Capybara.current_driver == :rack_test
+          # hover is not supported with non-JS drivers
+          toggle.click
+        else
+          # Using click here would be a race condition, because
+          # in most JS drivers `click` is performed by moving
+          # the mouse towards an element, then clicking.
+          # The click could then be performed on a dropdown action.
+          toggle.hover
+        end
       end
     end
 

@@ -5,7 +5,7 @@ module Thredded
     before_action :thredded_require_login!
 
     def update
-      MarkAllRead.run(thredded_current_user) if thredded_signed_in?
+      Thredded::MarkAllRead.run(thredded_current_user) if thredded_signed_in?
 
       redirect_to request.referer
     end

@@ -1,0 +1,5 @@
+.thredded--scoped-navigation {
+  @extend %thredded--nav-tabs;
+  border-bottom: 0;
+  display: flex;
+}

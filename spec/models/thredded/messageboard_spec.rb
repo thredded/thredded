@@ -69,7 +69,7 @@ module Thredded
     end
   end
 
-  describe '#update_last_topic!', thredded_reset: [:@@messageboards_order] do
+  describe '#update_last_topic!', thredded_reset: [:@messageboards_order] do
     let(:messageboard) { create(:messageboard) }
     let(:new_topic) { create(:topic, messageboard: messageboard) }
     let(:the_last_topic) { create(:topic, messageboard: messageboard) }
@@ -91,7 +91,7 @@ module Thredded
     end
   end
 
-  describe '.ordered', thredded_reset: [:@@messageboards_order] do
+  describe '.ordered', thredded_reset: [:@messageboards_order] do
     let(:messageboard1) { create(:messageboard, position: 1) }
     let(:messageboard2) { create(:messageboard, position: 2) }
     let(:messageboard3) { create(:messageboard, position: 3) }

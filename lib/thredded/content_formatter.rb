@@ -3,13 +3,35 @@
 module Thredded
   # Generates HTML from content source.
   class ContentFormatter
-    # Sanitization whitelist options.
-    mattr_accessor :whitelist
+    class << self
+      # Sanitization whitelist options.
+      attr_accessor :whitelist
+
+      # Filters that run before processing the markup.
+      # input: markup, output: markup.
+      attr_accessor :before_markup_filters
+
+      # Markup filters, such as BBCode, Markdown, Autolink, etc.
+      # input: markup, output: html.
+      attr_accessor :markup_filters
+
+      # Filters that run after processing the markup.
+      # input: html, output: html.
+      attr_accessor :after_markup_filters
+
+      # Filters that sanitize the resulting HTML.
+      # input: html, output: sanitized html.
+      attr_accessor :sanitization_filters
+
+      # Filters that run after sanitization
+      # input: sanitized html, output: html
+      attr_accessor :after_sanitization_filters
+    end
 
     self.whitelist = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
       elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w[abbr iframe span figure figcaption],
       transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
-        lambda do |env|
+        ->(env) {
           next unless env[:node_name] == 'a'
           a_tag = env[:node]
           a_tag['href'] ||= '#'
@@ -17,7 +39,7 @@ module Thredded
             a_tag['target'] = '_blank'
             a_tag['rel']    = 'nofollow noopener'
           end
-        end
+        }
       ],
       attributes: {
         'a'      => %w[href rel],
@@ -25,44 +47,31 @@ module Thredded
         'span'   => %w[class],
         'div'    => %w[class],
         :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
-          %w[aria-label aria-labelledby aria-hidden],
+          %w[aria-expanded aria-label aria-labelledby aria-live aria-hidden aria-pressed role],
       }
     )
 
-    # Filters that run before processing the markup.
-    # input: markup, output: markup.
-    mattr_accessor :before_markup_filters
     self.before_markup_filters = [
+      Thredded::HtmlPipeline::SpoilerTagFilter::BeforeMarkup
     ]
 
-    # Markup filters, such as BBCode, Markdown, Autolink, etc.
-    # input: markup, output: html.
-    mattr_accessor :markup_filters
     self.markup_filters = [
       Thredded::HtmlPipeline::KramdownFilter,
     ]
 
-    # Filters that run after processing the markup.
-    # input: html, output: html.
-    mattr_accessor :after_markup_filters
     self.after_markup_filters = [
       # AutolinkFilter is required because Kramdown does not autolink by default.
       # https://github.com/gettalong/kramdown/issues/306
       Thredded::HtmlPipeline::AutolinkFilter,
       HTML::Pipeline::EmojiFilter,
       Thredded::HtmlPipeline::AtMentionFilter,
+      Thredded::HtmlPipeline::SpoilerTagFilter::AfterMarkup,
     ]
 
-    # Filters that sanitize the resulting HTML.
-    # input: html, output: sanitized html.
-    mattr_accessor :sanitization_filters
     self.sanitization_filters = [
       HTML::Pipeline::SanitizationFilter,
     ]
 
-    # Filters that run after sanitization
-    # input: sanitized html, output: html
-    mattr_accessor :after_sanitization_filters
     self.after_sanitization_filters = [
       Thredded::HtmlPipeline::OneboxFilter,
       Thredded::HtmlPipeline::WrapIframesFilter,

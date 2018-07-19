@@ -3,12 +3,12 @@
 module Thredded
   class MessageboardGroupsController < Thredded::ApplicationController
     def new
-      @messageboard_group = MessageboardGroup.new
+      @messageboard_group = Thredded::MessageboardGroup.new
       authorize @messageboard_group, :create?
     end
 
     def create
-      @messageboard_group = MessageboardGroup.new(messageboard_group_params)
+      @messageboard_group = Thredded::MessageboardGroup.new(messageboard_group_params)
       authorize @messageboard_group, :create?
 
       if @messageboard_group.save

@@ -11,7 +11,9 @@
   <%= content_tag :section, class: 'thredded--thredded--main-section thredded--messageboards' do %>
     <%= render @messageboards %>
     <div class="thredded--messageboard--create">
-      <a class="thredded--button" href="<%= new_messageboard_path %>">Create a New Messageboard</a>
+      <a class="thredded--button" href="<%= new_messageboard_path %>">
+        <%= t 'thredded.messageboard.create' %>
+      </a>
     </div>
   <% end %>
 
@@ -21,7 +23,7 @@
     <%= render 'thredded/topics/form',
                topic:        @new_topic,
                css_class:    'thredded--is-compact',
-               placeholder:  'Start a New Topic' %>
+               placeholder:  t('thredded.topics.form.title_placeholder_start') %>
     <%= render @topics %>
   <% end %>
   <footer>
@@ -43,11 +45,11 @@
   <%= render 'section_title', label: 'topics#new', href: new_messageboard_topic_path(@messageboard) %>
   <%= render 'thredded/topics/form',
              topic:        @new_topic,
-             placeholder:  'Start a New Topic' %>
+             placeholder:  t('thredded.topics.form.title_placeholder_start') %>
 
   <%= render 'section_title', label: 'posts#edit', href: edit_messageboard_topic_post_path(@messageboard, @post.postable, @post) %>
   <%= content_tag :section, class: 'thredded--thredded--main-section posts-form' do %>
-    <h3 class="thredded--post-form--title">Edit Post</h3>
+    <h3 class="thredded--post-form--title"><%= t 'thredded.posts.edit' %></h3>
 
     <%= render 'thredded/posts/form',
                post:         @post_form,

@@ -7,9 +7,9 @@
   <div class="thredded--topics--follow-info" title="<%= topic_follow_reason_text topic.follow_reason %>">
     <svg class="thredded--topics--follow-icon" viewBox="0 0 116 121" role="img">
       <% if topic.followed? %>
-        <use xlink:href="#thredded-follow-icon"/>
+        <use xlink:href="#thredded-follow-icon"></use>
       <% else %>
-        <use xlink:href="#thredded-unfollow-icon"/>
+        <use xlink:href="#thredded-unfollow-icon"></use>
       <% end %>
     </svg>
   </div>
@@ -29,10 +29,12 @@
     <%= user_link topic.last_user %>
   </cite>
 
-  <cite class="thredded--topics--started-by">
-    <%= time_ago topic.created_at %>
-    <%= user_link topic.user %>
-  </cite>
+  <% if local_assigns[:show_messageboard] %>
+    <span class="thredded--topics--messageboard">
+      <%= t 'thredded.topics.in_messageboard_html',
+            messageboard_link: link_to(topic.messageboard_name, topic.messageboard_path) %>
+    </span>
+  <% end %>
 
   <% if topic.blocked? && topic.can_moderate? %>
     <span class="thredded--topics--moderation-state thredded--alert thredded--alert-danger">
@@ -41,6 +43,7 @@
   <% end %>
 <% end %>
 
-<% if !topic_iteration.last? && topic.sticky? && !topics[topic_counter + 1].sticky? %>
+<% if local_assigns[:sticky_topics_divider] &&
+    !topic_iteration.last? && topic.sticky? && !topics[topic_counter + 1].sticky? %>
   <%= render 'thredded/topics/sticky_topics_divider' %>
 <% end %>

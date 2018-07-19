@@ -16,10 +16,11 @@ module Thredded
                     private-posts
                     private-topics
                     theme-preview
+                    unread
                   ]
                 )
 
-    validates :name, uniqueness: true, length: { maximum: 60 }, presence: true
+    validates :name, uniqueness: true, length: { within: Thredded.messageboard_name_length_range }, presence: true
     validates :topics_count, numericality: true
     validates :position, presence: true, on: :update
     before_save :ensure_position, on: :create
@@ -57,8 +58,6 @@ module Thredded
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
-
-    # rubocop:disable Style/Lambda
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
     scope :ordered, ->(order = Thredded.messageboards_order) {
@@ -77,12 +76,11 @@ module Thredded
     scope :ordered_by_created_at_asc, ->() { order(created_at: :asc) }
     scope :ordered_by_last_post_at_desc, ->() {
       joins('LEFT JOIN thredded_topics AS last_topics ON thredded_messageboards.last_topic_id = last_topics.id')
-        .order('COALESCE(last_topics.last_post_at, thredded_messageboards.created_at) DESC')
+        .order(Arel.sql('COALESCE(last_topics.last_post_at, thredded_messageboards.created_at) DESC'))
     }
     scope :ordered_by_topics_count_desc, ->() {
       order(topics_count: :desc)
     }
-    # rubocop:enable Style/Lambda
 
     # Finds the messageboard by its slug or ID, or raises Thredded::Errors::MessageboardNotFound.
     # @param slug_or_id [String]

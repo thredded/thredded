@@ -37,7 +37,9 @@ module Thredded
     end
 
     def post?
-      @user.thredded_admin? || @user.thredded_can_write_messageboards.include?(@messageboard)
+      @user.thredded_admin? ||
+        (!@messageboard.locked? || moderate?) &&
+          @user.thredded_can_write_messageboards.include?(@messageboard)
     end
 
     def moderate?

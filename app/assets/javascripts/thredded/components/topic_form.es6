@@ -1,69 +1,94 @@
-(($, autosize) => {
+//= require thredded/dependencies/autosize
+//= require thredded/core/on_page_load
+//= require thredded/components/mention_autocompletion
+//= require thredded/components/preview_area
+
+(() => {
+  const Thredded = window.Thredded;
+  const ThreddedMentionAutocompletion = window.ThreddedMentionAutocompletion;
+  const ThreddedPreviewArea = window.ThreddedPreviewArea;
+  const autosize = window.autosize;
+
   const COMPONENT_SELECTOR = '[data-thredded-topic-form]';
-  class ThreddedTopicForm {
-    constructor() {
-      this.titleSelector = '[name$="topic[title]"]';
-      this.textareaSelector = 'textarea';
-      this.compactSelector = 'form.thredded--is-compact';
-      this.expandedSelector = 'form.thredded--is-expanded';
-      this.escapeElements = 'input, textarea';
-      this.escapeKeyCode = 27;
+  const TITLE_SELECTOR = '[name$="topic[title]"]';
+  const CONTENT_TEXTAREA_SELECTOR = 'textarea[name$="[content]"]';
+  const COMPACT_CLASS = 'thredded--is-compact';
+  const EXPANDED_CLASS = 'thredded--is-expanded';
+  const ESCAPE_KEY_CODE = 27;
+
+  const initTopicForm = (form) => {
+    const textarea = form.querySelector(CONTENT_TEXTAREA_SELECTOR);
+    if (!textarea) {
+      return;
+    }
+    autosize(textarea);
+    new ThreddedPreviewArea(form, textarea);
+    ThreddedMentionAutocompletion.init(form, textarea);
+
+    if (!form.classList.contains(COMPACT_CLASS)) {
+      return;
     }
 
-    toggleExpanded(child, expanded) {
-      jQuery(child).closest(expanded ? this.compactSelector : this.expandedSelector).toggleClass('thredded--is-compact thredded--is-expanded');
-    }
+    const title = form.querySelector(TITLE_SELECTOR);
+    title.addEventListener('focus', () => {
+      toggleExpanded(form, true);
+    });
 
-    init($nodes) {
-      autosize($nodes.find(this.textareaSelector));
-      $nodes.each(function() {
-        new ThreddedPreviewArea($(this));
+    [title, textarea].forEach((node) => {
+      // Un-expand on Escape key.
+      node.addEventListener('keydown', (evt) => {
+        if (evt.keyCode === ESCAPE_KEY_CODE) {
+          evt.target.blur();
+          toggleExpanded(form, false);
+        }
       });
-      new ThreddedMentionAutocompletion($).init($nodes);
-      $nodes.filter(this.compactSelector).
-        on('focus', this.titleSelector, e => {
-          this.toggleExpanded(e.target, true);
-        }).
-        on('keydown', this.escapeElements, e => {
-          if (e.keyCode == this.escapeKeyCode) {
-            this.toggleExpanded(e.target, false);
-            e.target.blur();
+
+      // Un-expand on blur if the new focus element is outside of the same form and
+      // all the form inputs are empty.
+      node.addEventListener('blur', () => {
+        // This listener will be fired right after the blur event has finished.
+        const listener = (evt) => {
+          if (!form.contains(evt.target) && !title.value && !textarea.value) {
+            toggleExpanded(form, false);
           }
-        }).
-        on('blur', this.escapeElements, e => {
-          var blurredEl = e.target;
-          $(document.body).one('mouseup touchend', e => {
-            var $blurredElForm = $(blurredEl).closest('form');
-            // Un-expand if the new focus element is outside of the same form and
-            // all the input elements are empty.
-            if (!$(e.target).closest('form').is($blurredElForm) &&
-              $blurredElForm.find(this.escapeElements).is(function() {
-                return !this.value;
-              })) {
-              this.toggleExpanded(blurredEl, false);
-            }
-          })
-        });
-    }
+          document.body.removeEventListener('touchend', listener);
+          document.body.removeEventListener('mouseup', listener);
+        };
+        document.body.addEventListener('mouseup', listener);
+        document.body.addEventListener('touchend', listener);
+      })
+    });
+  };
 
-    destroy($nodes) {
-      autosize.destroy($nodes.find(this.textareaSelector));
+  const toggleExpanded = (form, expand) => {
+    if (expand) {
+      form.classList.remove(COMPACT_CLASS);
+      form.classList.add(EXPANDED_CLASS);
+    } else {
+      form.classList.remove(EXPANDED_CLASS);
+      form.classList.add(COMPACT_CLASS);
     }
-  }
+  };
 
-  window.Thredded.onPageLoad(() => {
-    const $nodes = $(COMPONENT_SELECTOR);
-    if ($nodes.length) {
-      new ThreddedTopicForm().init($nodes);
+  const destroyTopicForm = (form) => {
+    const textarea = form.querySelector(CONTENT_TEXTAREA_SELECTOR);
+    if (!textarea) {
+      return;
     }
+    autosize.destroy(textarea);
+  };
+
+  Thredded.onPageLoad(() => {
+    Array.prototype.forEach.call(document.querySelectorAll(COMPONENT_SELECTOR), (node) => {
+      initTopicForm(node);
+    });
   });
 
   document.addEventListener('turbolinks:before-cache', () => {
-    const $nodes = $(COMPONENT_SELECTOR);
-    if ($nodes.length) {
-      new ThreddedTopicForm().destroy($nodes);
-    }
+    Array.prototype.forEach.call(document.querySelectorAll(COMPONENT_SELECTOR), (node) => {
+      destroyTopicForm(node);
+    });
   });
-})(jQuery, window.autosize);
+})();
 
 

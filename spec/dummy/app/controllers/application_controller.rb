@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
+require_dependency 'errors'
+
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
   include SetLocale
   include StoreLocationFullpath
   helper_method :the_current_user
+
+  rescue_from ::Errors::UserNotFound do |exception|
+    @message = exception.message
+    render template: 'shared/not_found', status: :not_found
+  end
 
   protected
 

@@ -1,0 +1,6 @@
+<li class="thredded--currently-online--user">
+  <a class="thredded--link" href="<%= user_path(user) %>">
+    <img class="thredded--currently-online--avatar" src="<%= Thredded.avatar_url.call(user) %>" alt=""/>
+    <%= user.thredded_display_name %>
+  </a>
+</li>

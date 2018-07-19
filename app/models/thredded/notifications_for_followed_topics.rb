@@ -5,7 +5,9 @@ module Thredded
     belongs_to :user,
                class_name: Thredded.user_class_name,
                inverse_of: :thredded_notifications_for_followed_topics
-    belongs_to :messageboard # or is global
+    belongs_to :messageboard,
+               # If messageboard is `nil`, these are the global preferences.
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
     belongs_to :user_preference,
                primary_key: :user_id,
                foreign_key: :user_id,

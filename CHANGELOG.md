@@ -1,3 +1,319 @@
+# v0.15.4
+
+## Added
+
+* A new helper method to start a private thread between two users, `Thredded::UrlsHelper.send_private_message_path`.
+  If a thread already exists between the two users, returns the URL to that thread. Otherwise, returns a URL to the new
+  message form with the recipient and subject pre-filled.
+  [#716](https://github.com/thredded/thredded/pull/716)
+* Posts and topics can now be submitted with the <kbd>Ctrl</kbd>+<kbd>Return</kbd> shortcut.
+  [#717](https://github.com/thredded/thredded/pull/717)
+* The number of posts / topics per page is now configurable via `Thredded.posts_per_page` and `Thredded.topics_per_page`.
+  [#711](https://github.com/thredded/thredded/issues/711)
+* For each topic on the Unread page, we now show the topic's messageboard.
+  [ed862031](https://github.com/thredded/thredded/commit/ed862031fa1f8d65c50439aeb578d9b0a8cd7be2)
+* `Thredded::Errors::(Private)PostNotFound` is raised and handled instead of `ActiveRecord::NotFound`.
+  [#513](https://github.com/thredded/thredded/issues/513)
+
+## Changed
+
+* The default number of posts per page has been reduced to 25.
+  [#713](https://github.com/thredded/thredded/pull/713)
+* Updated bundled JavaScript dependencies:
+  `autosize` from v4.0.0 to v4.0.2
+  ([9c4db86d](https://github.com/thredded/thredded/commit/9c4db86dfbfc37ef2df8530bc4392dc3e910d169)),
+  `textcomplete` from v0.14.5 to v0.17.1
+  ([211ce25a](https://github.com/thredded/thredded/commit/211ce25a607893395f1b45e1fe6c5c8b2a7cdf27)).
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.3...v0.15.4.
+
+# v0.15.3
+
+## Fixed
+
+* Minor style issues and regressions introduced in v0.15.2.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.2...v0.15.3.
+
+# v0.15.2
+
+## Added
+
+* Adds a global / messageboard-level unread page. Topics are ordered followed-first. The navigation link has a badge
+  indicating the numbers of followed unread topics. If there are no unread topics at all (including non-followed ones),
+  the link is not displayed.
+  [#709](https://github.com/thredded/thredded/pull/709)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.1...v0.15.2.
+
+# v0.15.1
+
+## Fixed
+
+* Regression in v0.15.0: broken `Thredded.posts_page_view`.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.0...v0.15.1.
+
+# v0.15.0
+
+## Added
+
+* Spoiler tags via `<spoiler></spoiler>` (or `[spoiler][/spoiler]` with the BBCode plugin).
+  Supported out of the box for any markup processor.
+  Spoilers are focusable and are activated on mousedown, spacebar, or enter. They can also be nested.
+  Markup is configurable via `Thredded::SpoilerTagFilter.spoiler_tags`.
+  [#701](https://github.com/thredded/thredded/pull/701)
+* Jump to the first unread post when navigating to a topic.
+  [#695](https://github.com/thredded/thredded/pull/695)
+
+## Fixed
+
+* Fixes a race condition when setting `last_seen_at` for the user.
+  [#674](https://github.com/thredded/thredded/pull/674)
+* Moves validation of topic title lengths from the database into Rails and shows the error messages on title.
+  The valid length range is configurable via the new `Thredded.topic_title_length_range` configuration option.
+  [#703](https://github.com/thredded/thredded/pull/703)
+
+## Changed
+
+* Post IP tracking removed from core because it requires explicit consent under GDPR.
+  [#705](https://github.com/thredded/thredded/pull/705)
+
+**NB**: If updating to this version from 0.14.x, you **must** copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20180110200009_upgrade_thredded_v0_14_to_v0_15.rb db/migrate
+rake db:migrate
+```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.5...v0.15.0.
+
+# v0.14.5
+
+## Added
+
+* Improved performance of rendering threads with multiple onebox by rendering the posts concurrently.
+  [#696](https://github.com/thredded/thredded/pull/696)
+* Private topic parameters can now be pre-filled from URL.
+  [#b107e65c](https://github.com/thredded/thredded/commit/b107e65c404b52fd31fe91e90137417047929066)
+
+  A "Send private message" link can now be generated like this:
+
+  ```ruby
+  new_private_topic_path(private_topic: { user_names: 'glebm' })
+  ```
+
+## Fixed
+
+* Now handles pages beyond the last one by issuing a redirect to the last page.
+  [#4a43b1e3](https://github.com/thredded/thredded/commit/4a43b1e3be854480fcbba1e9a110786d49e4ddbd)
+
+# v0.14.4
+
+## Added
+
+* Usernames in the "Currently Online" list are now links leading to the users' profiles.
+
+## Fixed
+
+* Fixes an error when saving global notification preferences.
+  [#9bc0e815](https://github.com/thredded/thredded/commit/9bc0e81566a54534214ddf5a8713aafae7b017d9)
+
+# v0.14.3
+
+## Fixed
+
+* Accidental N+1 query in `AutofollowUsers` job.
+  [#690](https://github.com/thredded/thredded/pull/690)
+
+* Some French translations.
+  [#681](https://github.com/thredded/thredded/pull/681)
+
+* Onebox errors resulting in 500 response.
+  [#683](https://github.com/thredded/thredded/pull/683)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.2...v0.14.3.
+
+# v0.14.2
+
+## Added
+
+* Rails 5.2 support.
+* User's display name (via `Thredded.user_display_name_method`) is now displayed in autocomplete results
+  if it is different from the user name (`Thredded.user_name_column`).
+  [#680](https://github.com/thredded/thredded/pull/680)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.1...v0.14.2.
+
+# v0.14.1
+
+## Added
+
+* Italian localization. 🇮🇹
+  [#669](https://github.com/thredded/thredded/pull/669)
+* Allow disabling user links.
+  [#673](https://github.com/thredded/thredded/pull/673)
+* Allow customizing first messageboard post.
+  [#670](https://github.com/thredded/thredded/pull/670)
+
+## Fixed
+
+* A minor JavaScript error on the topic edit form.
+  [#be45f262](https://github.com/thredded/thredded/commit/be45f2627ca37c76165d33fad0118a87139f291b)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.14.0...v0.14.1.
+
+# v0.14.0
+
+## Added
+
+* Messageboard locking. By default, only moderators can create new topics in locked messageboards.
+  Posting to the existing topics is not affected.
+  [#635](https://github.com/thredded/thredded/pull/635)
+
+* German localization. 🇩🇪
+  [#666](https://github.com/thredded/thredded/pull/666)
+
+## Fixed
+
+* `thredded_user_details` and `thredded_user_preferences` now use unique `user_id` indices.
+  [#609](https://github.com/thredded/thredded/pull/609)
+* Mention completion now works in IE11.
+  [yuku-t/textcomplete#125](https://github.com/yuku-t/textcomplete/pull/125)
+
+
+**NB:** If updating to this version from 0.13.x, you must copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20170811090735_upgrade_thredded_v0_13_to_v_014.rb db/migrate
+rake db:migrate
+```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.8...v0.14.0.
+
+# v0.13.8
+
+## Fixed
+
+* Made @-mention dropdown work properly with usernames with no spaces.
+  [#645](https://github.com/thredded/thredded/pull/645)
+* Other @-mention dropdown improvements (update to latest textcomplete)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.7...v0.13.8.
+
+# v0.13.7
+
+## Added
+
+* Simplified Chinese localization. 🇨🇳
+  [#632](https://github.com/thredded/thredded/pull/632)
+
+# v0.13.6
+
+## Fixed
+
+* Private posts can be edited again.
+
+## Added
+
+* Locked topics have a different badge color in the topics list.
+  Locked topics also display a message saying that they are locked.
+  [#629](https://github.com/thredded/thredded/pull/629)
+
+# v0.13.5
+
+## Fixed
+
+* timeago.js with locales that contain a hyphen (e.g. `zh-CN`).
+  [#626](https://github.com/thredded/thredded/issues/626)
+
+## Changed
+
+* Post notification email subject no longer contains the post's author name.
+  Notification emails for the same topic now stay in the same thread in the email client.
+  [#90c6f5ff](https://github.com/thredded/thredded/commit/90c6f5fffd42ec1001c39dceb5ab5e875a71869d)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.4...v0.13.5.
+
+# v0.13.4
+
+## Added
+
+* CSS classes for targeting specific preference list items.
+  [#614](https://github.com/thredded/thredded/pull/614)
+
+## Fixed
+
+* Sticky topics in search results no longer break search results.
+  [#611](https://github.com/thredded/thredded/issues/611)
+* If a user was subscribed to a topic via more than one notifier,
+  they would only be notified via one of them.
+  [#540](https://github.com/thredded/thredded/issues/540)
+
+# v0.13.3
+
+## Added
+
+* French localization :fr:.
+  [#605](https://github.com/thredded/thredded/pull/605)
+* Email templates now use i18n throughout. The copy has been improved.
+  [#607](https://github.com/thredded/thredded/pull/607)
+
+## Changed
+
+* Avatars are now larger on large screens.
+  [#565](https://github.com/thredded/thredded/issues/565)
+
+# v0.13.2
+
+This release updates the bundled JavaScript dependencies, [autosize] and [textcomplete], to their latest versions.
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.13.1...v0.13.2.
+
+# v0.13.1
+
+This is a minor bugfix release.
+
+## Fixed
+
+* Maps onebox display for onebox v1.8.4+ and bumps the minimum required onebox version to v1.8.13.
+  [#198dbeeb](https://github.com/thredded/thredded/commit/198dbeebf32c509db0afb65c33293394581defd9)
+* Autoloading conflicts when the parent app defines constants with the same name as Thredded constants.
+  [#e2ebb1e4](https://github.com/thredded/thredded/commit/e2ebb1e418894c65f8b884821e2d7be085af3715)
+
+# v0.13.0
+
+This release removes jQuery dependency from Thredded JavaScripts, reducing the size of the Thredded JavaScript bundle
+from 67 KiB to 22 KiB gzipped.
+
+## Changed
+
+* rails-ujs is used instead of jquery_ujs by default. [#592](https://github.com/thredded/thredded/pull/592)
+  See the [README](https://github.com/thredded/thredded/#rails-ujs-version) for more information.
+* select2 -> [textcomplete], split by commas.
+  [#597](https://github.com/thredded/thredded/pull/597)
+* [jquery.textcomplete] -> [textcomplete] [#596](https://github.com/thredded/thredded/pull/596)
+* jquery.timeago -> timeago.js [#591](https://github.com/thredded/thredded/pull/591)
+
+[jquery.textcomplete]: https://github.com/yuku-t/jquery-textcomplete
+[textcomplete]: https://github.com/yuku-t/textcomplete
+
+# v0.12.4
+
+This release adds the ability to tell Thredded with version of Rails UJS to use.
+Since Rails v5.1, the default is `rails-ujs` but Thredded for now still uses `jquery_ujs` by default.
+This will change in Thredded v0.13.
+
+If you'd like to tell Thredded to use `rails-ujs` now, update to this release and run the following command
+from your app directory:
+
+```bash
+mkdir -p app/assets/javascripts/thredded/dependencies/
+echo '//= require rails-ujs' > app/assets/javascripts/thredded/dependencies/ujs.js
+```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.12.3...v0.12.4.
+
 # v0.12.3
 
 This release adds a minor fix for Rails 5.1 compatibility.

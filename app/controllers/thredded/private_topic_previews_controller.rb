@@ -6,7 +6,7 @@ module Thredded
     include Thredded::RenderPreview
 
     def preview
-      form = PrivateTopicForm.new(new_private_topic_params)
+      form = Thredded::PrivateTopicForm.new(new_private_topic_params)
       @private_post = form.post
       @private_post.postable = form.private_topic
       render_preview

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module Thredded
-  class PrivateTopicForm
+  class PrivateTopicForm # rubocop:disable Metrics/ClassLength
     include ActiveModel::Model
 
     delegate :id,
+             :title_was,
              to: :private_topic
 
     attr_accessor \
@@ -17,6 +18,7 @@ module Thredded
       :private_topic
 
     attr_reader :user, :params
+    attr_writer :user_names
 
     validate :validate_children
 
@@ -29,6 +31,7 @@ module Thredded
       @locked = params[:locked]
       @sticky = params[:sticky]
       @content = params[:content]
+      @user_names = params[:user_names]
     end
 
     def self.model_name
@@ -36,6 +39,9 @@ module Thredded
     end
 
     def save
+      @user_ids ||= []
+      @user_ids += Thredded.user_class.where(Thredded.user_name_column => parse_names(user_names)).pluck(:id)
+
       return false unless valid?
 
       ActiveRecord::Base.transaction do
@@ -69,12 +75,22 @@ module Thredded
       Thredded::UrlsHelper.preview_new_private_topic_path
     end
 
+    def user_names
+      @user_names ||= Thredded.user_class.where(id: user_ids).pluck(Thredded.user_name_column).map do |name|
+        if name.include?(',')
+          "\"#{name}\""
+        else
+          name
+        end
+      end.join(', ')
+    end
+
     private
 
     def topic_categories
       if category_ids
         ids = category_ids.reject(&:empty?)
-        Category.where(id: ids)
+        Thredded::Category.where(id: ids)
       else
         []
       end
@@ -90,8 +106,8 @@ module Thredded
 
     def normalized_user_ids
       user_ids
-        .reject(&:empty?)
         .map(&:to_s)
+        .reject(&:empty?)
         .push(user.id.to_s)
         .uniq
     end
@@ -111,6 +127,35 @@ module Thredded
       child_errors.each do |attribute, message|
         errors.add(attribute, message)
       end
+    end
+
+    def parse_names(text) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
+      result = []
+      current = String.new
+      in_name = in_quoted = false
+      text.each_char do |char|
+        case char
+        when '"'
+          in_quoted = !in_quoted
+        when ' '
+          current << char if in_name
+        when ','
+          if in_quoted
+            current << char
+          else
+            in_name = false
+            unless current.empty?
+              result << current.dup
+              current.clear
+            end
+          end
+        else
+          in_name = true
+          current << char
+        end
+      end
+      result << current unless current.empty?
+      result
     end
   end
 end

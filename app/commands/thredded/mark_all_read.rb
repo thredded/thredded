@@ -8,14 +8,8 @@ module Thredded
 
       unread_topics.each do |topic|
         last_post = topic.posts.order_oldest_first.last
-        total_pages = topic.posts.page(1).total_pages
 
-        UserPrivateTopicReadState.touch!(
-          user.id,
-          topic.id,
-          last_post,
-          total_pages
-        )
+        Thredded::UserPrivateTopicReadState.touch!(user.id, topic.id, last_post)
       end
     end
   end

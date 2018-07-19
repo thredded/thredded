@@ -5,11 +5,13 @@
                  'data-thredded-topic-form' => true,
                  'data-autocomplete-url' => autocomplete_users_path,
                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
+                 'data-thredded-submit-hotkey' => true,
              } do |form| %>
   <ul class="thredded--form-list on-top">
     <li class="title">
       <%= form.label :title, t('thredded.topics.form.title_label') %>
-      <%= form.text_field :title, placeholder: placeholder, required: true %>
+      <%= form.text_field :title, placeholder: placeholder, required: true, autocomplete: 'off' %>
+      <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] %>
     </li>
 
     <% if form.object.category_options.any? %>

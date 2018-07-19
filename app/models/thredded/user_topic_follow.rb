@@ -21,8 +21,10 @@ module Thredded
     #
     # @return [Thredded::UserTopicFollow]
     def self.create_unless_exists(user_id, topic_id, reason = :manual)
-      transaction(requires_new: true) do
-        create_with(reason: reason).find_or_create_by(user_id: user_id, topic_id: topic_id)
+      uncached do
+        transaction(requires_new: true) do
+          create_with(reason: reason).find_or_create_by(user_id: user_id, topic_id: topic_id)
+        end
       end
     rescue ActiveRecord::RecordNotUnique
       # The record has been created from another connection, retry to find it.

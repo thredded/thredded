@@ -39,7 +39,7 @@ module Thredded
 
         # Update all of the messageboards' auto_follow_topics if the global preference has changed.
         if user_preference.previous_changes.include?('auto_follow_topics')
-          UserMessageboardPreference.where(user: @user)
+          Thredded::UserMessageboardPreference.where(user: @user)
             .update_all(auto_follow_topics: user_preference.auto_follow_topics)
           user_messageboard_preference.auto_follow_topics_will_change! if messageboard
         end
@@ -50,7 +50,7 @@ module Thredded
     end
 
     def messageboard_groups
-      @messageboard_groups ||= MessageboardGroupView.grouped(@messageboards)
+      @messageboard_groups ||= Thredded::MessageboardGroupView.grouped(@messageboards)
     end
 
     def notifications_for_private_topics

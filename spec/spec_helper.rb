@@ -23,22 +23,14 @@ elsif !ENV['TRAVIS']
 end
 
 # Re-create the test database and run the migrations
-system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS']
+system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS'] || ENV['DOCKER']
 ActiveRecord::Tasks::DatabaseTasks.drop_current
 ActiveRecord::Tasks::DatabaseTasks.create_current
 require File.expand_path('../../lib/thredded/db_tools', __FILE__)
 if ENV['MIGRATION_SPEC']
   Thredded::DbTools.restore
 else
-  begin
-    verbose_was = ActiveRecord::Migration.verbose
-    ActiveRecord::Migration.verbose = false
-    Thredded::DbTools.silence_active_record do
-      ActiveRecord::Migrator.migrate(['db/migrate/', Rails.root.join('db', 'migrate')])
-    end
-  ensure
-    ActiveRecord::Migration.verbose = verbose_was
-  end
+  Thredded::DbTools.migrate(paths: ['db/migrate/', Rails.root.join('db', 'migrate')], quiet: true)
 end
 
 require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)
@@ -46,7 +38,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'
 require 'webmock/rspec'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
@@ -95,7 +87,7 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
     config.filter_run_excluding migration_spec: true
   end
   config.infer_spec_type_from_file_location!
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
 
   if ENV['MIGRATION_SPEC']
@@ -148,14 +140,33 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
       DatabaseCleaner.start
     end
 
-    config.after(:each) do
+    config.append_after(:each) do
       DatabaseCleaner.clean
     end
   end
 end
 
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+require 'selenium-webdriver'
+
+Selenium::WebDriver::Chrome.path = ENV['CHROMIUM_BIN'] || %w[
+  /usr/bin/chromium-browser
+  /Applications/Chromium.app/Contents/MacOS/Chromium
+  /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+].find { |path| File.executable?(path) }
+Selenium::WebDriver::Chrome.driver_path = ENV['CHROMEDRIVER_PATH'] || %w[
+  /usr/bin/chromedriver
+  /usr/lib/chromium-browser/chromedriver
+  /usr/local/bin/chromedriver
+].find { |path| File.executable?(path) }
+
+Capybara.register_driver :headless_chromium do |app|
+  options = ::Selenium::WebDriver::Chrome::Options.new
+  options.add_argument 'headless'
+  options.add_argument 'disable-gpu'
+  options.add_argument 'window-size=1280,1024'
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+Capybara.javascript_driver = :headless_chromium
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
   config.default_max_wait_time = 5

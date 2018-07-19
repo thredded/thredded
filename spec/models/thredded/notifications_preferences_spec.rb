@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 module Thredded
-  describe 'Notifications preferences', thredded_reset: ['@@notifiers'] do
+  describe 'Notifications preferences', thredded_reset: [:@notifiers] do
     let(:user_preferences) { create(:user_preferences) }
     let(:notifier) { MockNotifier.new }
     before do

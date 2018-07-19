@@ -6,11 +6,47 @@ ru:
       content_blocked_notice_with_record_html: Блокировано %{moderator} %{time_ago}
     email_notifier:
       by_email: email
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Это письмо было отправлено вам, потому что %{user} добавил вас в приватную тему «<a href="%{post_url}">%{topic_title}</a>».
+          post_lead_html: 'Новое сообщение от %{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Новое сообщение от %{user} в «%{topic_title}»
+        text:
+          email_sent_reason: |-
+            Это письмо было отправлено вам, потому что %{user} добавил вас в
+            приватную тему «%{topic_title}».
+
+            Перейдите сюда, чтобы просмотреть разговор:
+            %{post_url}
+          post_lead: 'Новое сообщение от %{user} в «%{topic_title}»:'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: 'Это письмо было отправлено вам, потому что вы подписаны на тему: «<a href="%{post_url}">%{topic_title}</a>».'
+          post_lead_html: '%{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
+          unsubscribe_instructions_html: Чтобы отписаться от этих писем, обновите свои <a href="%{preferences_url}">настройки</a>.
+        subject: Новое сообщение в «%{topic_title}»
+        text:
+          email_sent_reason: |-
+            Это письмо было отправлено вам, потому что вы подписаны на тему «%{topic_title}».
+
+            Перейдите сюда, чтобы просмотреть разговор:
+            %{post_url}
+          post_lead: "%{user} указан в «%{topic_title}»:"
+          unsubscribe_instructions: |-
+            Чтобы отписаться от этих писем, обновите свои настройки здесь:
+            %{unsubscribe_url}
     errors:
       login_required: Необходимо зайти на форум.
       not_authorized: Вы не авторизованы.
+      post_not_found: Это сообщение не существует.
+      private_post_not_found: Это личное сообщение не существует.
       private_topic_create_denied: Вы не авторизованы для создания личных сообщений.
       private_topic_not_found: Личное сообщение не найдено.
+      topic_not_found: Эта тема не существует.
     form:
       create_btn_submitting: Создаю...
       preview: Обзор
@@ -21,6 +57,8 @@ ru:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Описание
+        locked_label: Заблокировать
+        locked_notice: Этот форум заблокирован. Только модераторы могут создавать новые темы здесь.
         messageboard_group_id_label: Выбрать группу
         no_group: Не группировать
         title_label: Название форума
@@ -31,6 +69,14 @@ ru:
       topics_and_posts_counts: "%{topics_count} тем / %{posts_count} постов"
       update: :thredded.form.update
       updated_notice: Форум обновлен
+    messageboard_first_topic:
+      content: |-
+        There's not a whole lot here for now.
+
+        These forums are powered by [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        You can contact the Thredded team via the [Thredded chat room](https://gitter.im/thredded/thredded).
+        Please let us know that you are using Thredded by tweeting [@thredded](https://twitter.com/thredded)!
+      title: Welcome to your messageboard's very first thread
     messageboard_group:
       create: Создать группу форумов
       form:
@@ -39,6 +85,8 @@ ru:
     moderation:
       approve_btn: Одобрить
       block_btn: Заблокировать
+      moderation_state:
+        name: Состояние модерации
       pending:
         empty:
           content: Все посты промодерированы.
@@ -53,6 +101,8 @@ ru:
         form_placeholder: :thredded.moderation.search_users.form_label
         no_results_message: Не найдено пользователей %{query}
         results_message: Пользователи, начинающиеся с ... %{query}
+      user:
+        name: Пользователь
     nav:
       all_messageboards: Все форумы
       edit_messageboard: Редактировать форум
@@ -67,6 +117,7 @@ ru:
       moderation_users: Пользователи
       private_topics: Личное
       settings: Настройки
+      unread_topics: Непрочитанные
     null_user_name: Пользователь удален
     posts:
       delete: Удалить пост
@@ -82,6 +133,8 @@ ru:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Ваш пост будет опубликован, когда будет одобрен модератором.
       quote_btn: Цитировать
+      spoiler_summary: Спойлер - нажмите, чтобы показать.
+      spoiler_summary_for_email: 'Спойлер - выделите содержимое ниже, чтобы увидеть:'
     preferences:
       edit:
         page_title: :thredded.nav.settings
@@ -114,11 +167,12 @@ ru:
       updated_notice: Ваши настройки были обновлены.
     private_posts:
       form:
-        content_label: Сообшение
+        content_label: Сообщение
         create_btn: Послать сообщение
         create_btn_submitting: Посылаю...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
+      create: :thredded.private_topics.form.create_btn
       edit: Редактировать
       errors:
         user_ids_length: Выберите хотя-бы одного пользователя.
@@ -145,6 +199,7 @@ ru:
         placeholder: Поиск тем или записей
     time_ago: "%{time} назад"
     topics:
+      create: :thredded.topics.form.create_btn
       delete_confirm: Вы уверены что хотите удалить эту тему? Это безвозвратно.
       delete_topic: Удалить тему
       deleted_notice: Тема "удалена"
@@ -167,8 +222,10 @@ ru:
         title_placeholder: :thredded.topics.form.title_label
         title_placeholder_start: Начать новую тему
         update_btn: Обновление темы
+      in_messageboard_html: в %{messageboard_link}
       locked:
         label: Заблокировать тему
+        message: Эта тема закрыта модератором.
       mark_as_unread: Пометить как непрочитанное
       not_following: не отслеживаю
       search:
@@ -184,22 +241,29 @@ ru:
       unfollow: Не следить за темой
       unfollowed_notice: Вы не следите за темой
       updated_notice: Тема обновлена
+    unread_topics:
+      empty:
+        content: Вы все прочитали. Вернитесь позже и может будет еще что-нибудь!
+        title: Все прочитано!
+      page_title: Непрочитанные темы
+      page_title_in_messageboard: "%{messageboard}: непрочитанные темы"
     users:
       currently_online: Онлайн
       last_active_html: Последняя активность %{time_ago}
-      posted_in_topic_html: Сделан пост в %{topic_link}
+      posted_in_topic_html: Написал в %{topic_link}
       posts_count:
         few: Сделано %{count} поста
         many: Сделано %{count} постов
         one: Сделан %{count} пост
         other: Сделано %{count} постов
       recent_activity: :thredded.recent_activity
+      send_private_message: Отправить личное сообщение
       started_topic_html: Начато %{topic_link}
       started_topics_count:
         few: Начато %{count} темы
         many: Начато %{count} тем
         one: Начата %{count} тема
         other: Начато %{count} тем
-      user_posted_in_topic_html: "%{user_link} сделал запись в %{topic_link}"
+      user_posted_in_topic_html: "%{user_link} написал в %{topic_link}"
       user_since_html: Пользователь был %{time_ago}
       user_started_topic_html: "%{user_link} начал %{topic_link}"

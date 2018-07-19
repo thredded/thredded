@@ -9,7 +9,7 @@ module Thredded
     extend ActiveSupport::Concern
 
     included do
-      paginates_per 50
+      paginates_per Thredded.posts_per_page
 
       delegate :email, to: :user, prefix: true, allow_nil: true
 
@@ -50,16 +50,15 @@ module Thredded
     # Marks all the posts from the given one as unread for the given user
     # @param user [Thredded.user_class]
     # @param page [Integer]
-    def mark_as_unread(user, page)
+    def mark_as_unread(user)
       if previous_post.nil?
         read_state = postable.user_read_states.find_by(user_id: user.id)
         read_state.destroy if read_state
       else
         read_state = postable.user_read_states.create_with(
-          read_at: previous_post.created_at,
-          page: page
+          read_at: previous_post.created_at
         ).find_or_create_by(user_id: user.id)
-        read_state.update_columns(read_at: previous_post.created_at, page: page)
+        read_state.update_columns(read_at: previous_post.created_at)
       end
     end
 

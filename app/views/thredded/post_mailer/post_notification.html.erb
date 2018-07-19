@@ -1,7 +1,10 @@
 <div class="thredded--email">
   <figure class="thredded--email-post">
     <figcaption class="thredded--email-post--author">
-      <%= @post.user.thredded_display_name %> <%= link_to 'said', post_permalink_url(@post) %>:
+      <%= t 'thredded.emails.post_notification.html.post_lead_html',
+            user: @post.user.thredded_display_name,
+            post_url: post_permalink_url(@post.id),
+            topic_title: @post.postable.title %>
     </figcaption>
     <% cache [@post, 'content-onebox-placeholders'] do %>
       <%= render partial: 'thredded/posts/content',
@@ -11,13 +14,13 @@
   <hr/>
 
   <p>
-    This email was sent to you because you are following this topic
-    "<%= link_to @post.postable.title, post_permalink_url(@post.id) %>".
-    <%= link_to 'View the conversation here', topic_url(@post.postable) %>.
+    <%= t 'thredded.emails.post_notification.html.email_sent_reason_html',
+          post_url: post_permalink_url(@post.id),
+          topic_title: @post.postable.title %>
   </p>
 
   <p>
-    To unsubscribe from these emails, update your
-    <%= link_to 'preferences', edit_messageboard_preferences_url(@post.messageboard) %>.
+    <%= t 'thredded.emails.post_notification.html.unsubscribe_instructions_html',
+          preferences_url: edit_messageboard_preferences_url(@post.messageboard) %>
   </p>
 </div>
