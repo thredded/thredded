@@ -119,6 +119,8 @@ pl:
       moderation_users: Użytkownicy
       private_topics: Prywatne wiadomości
       settings: Ustawienia powiadomień
+      sign_in: Zaloguj
+      sign_out: Wyloguj się
       unread_topics: Nieprzeczytane
     null_user_name: Usunięci użytkownicy
     posts:
