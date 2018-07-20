@@ -120,6 +120,8 @@ de:
       moderation_users: Nutzer
       private_topics: Private Unterhaltungen
       settings: Benachrichtigungseinstellungen
+      sign_in: Anmelden
+      sign_out: Ausloggen
       unread_topics: Ungelesen
     null_user_name: Gelöschte Nutzer
     posts:
