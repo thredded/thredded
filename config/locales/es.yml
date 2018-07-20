@@ -129,6 +129,8 @@ es:
       moderation_users: Usuarios
       private_topics: Mensajes Privados
       settings: Ajuste de Notificaciones
+      sign_it: Registrarse
+      sign_out: Desconectar
       unread_topics: No leído
     null_user_name: Usuario eliminado
     posts:
