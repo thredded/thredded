@@ -119,6 +119,8 @@ fr:
       moderation_users: Utilisateurs
       private_topics: Messages privés
       settings: Paramètres de notifications
+      sign_in: Se connecter
+      sign_out: Déconnexion
       unread_topics: Non lu
     null_user_name: Utilisateur effacé
     posts:
