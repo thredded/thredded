@@ -31,7 +31,7 @@ module Thredded
 
     has_many :categories, dependent: :destroy
     has_many :user_messageboard_preferences, dependent: :destroy
-    has_many :posts, dependent: :destroy
+    has_many :posts, dependent: :destroy, inverse_of: :messageboard
     has_many :topics, dependent: :destroy, inverse_of: :messageboard
 
     belongs_to :last_topic, class_name: 'Thredded::Topic', **(Thredded.rails_gte_51? ? { optional: true } : {})

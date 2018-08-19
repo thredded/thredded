@@ -13,7 +13,12 @@ module Thredded
 
       # @return [ActiveRecord::Relation<Thredded::Messageboards>]
       def resolve
-        @scope.merge(@user.thredded_can_read_messageboards)
+        readable = @user.thredded_can_read_messageboards
+        if readable == Thredded::Messageboard.all
+          @scope
+        else
+          @scope.merge(readable)
+        end
       end
     end
 
@@ -29,7 +34,7 @@ module Thredded
     end
 
     def read?
-      @user.thredded_admin? || @user.thredded_can_read_messageboards.include?(@messageboard)
+      @user.thredded_admin? || @user.thredded_can_read_messageboard?(@messageboard)
     end
 
     def update?
@@ -43,7 +48,7 @@ module Thredded
     end
 
     def moderate?
-      @user.thredded_admin? || @user.thredded_can_moderate_messageboards.include?(@messageboard)
+      @user.thredded_admin? || @user.thredded_can_moderate_messageboard?(@messageboard)
     end
   end
 end

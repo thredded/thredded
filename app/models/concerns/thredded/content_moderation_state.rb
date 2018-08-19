@@ -11,35 +11,35 @@ module Thredded
     included do
       before_validation :set_default_moderation_state, on: :create
 
-      scope :moderation_state_visible_to_all, -> { where(visible_to_all_arel_node) }
-
-      scope :moderation_state_visible_to_user, ->(user) {
-        visible = visible_to_all_arel_node
-        # @type [Arel::Table]
-        table = arel_table
-        if user && !user.thredded_anonymous?
-          # Own content
-          visible = visible.or(table[:user_id].eq(user.id))
-          # Content that one can moderate
-          moderatable_messageboard_ids = user.thredded_can_moderate_messageboards.map(&:id)
-          if moderatable_messageboard_ids.present?
-            visible = visible.or(table[:messageboard_id].in(moderatable_messageboard_ids))
-          end
-        end
-        where(visible)
-      }
-
-      # @return [Arel::Nodes::Node]
-      # @api private
-      def self.visible_to_all_arel_node
+      scope :moderation_state_visible_to_all, -> do
         if Thredded.content_visible_while_pending_moderation
           # All non-blocked content
-          arel_table[:moderation_state].not_eq(moderation_states[:blocked])
+          where.not(moderation_state: moderation_states[:blocked])
         else
           # Only approved content
-          arel_table[:moderation_state].eq(moderation_states[:approved])
+          where(moderation_state: moderation_states[:approved])
         end
       end
+
+      scope :moderation_state_visible_to_user, ->(user) {
+        moderatable_messageboards = user.thredded_can_moderate_messageboards
+        if moderatable_messageboards == Thredded::Messageboard.all
+          # If the user can moderate all messageboards, they can see all the content.
+          result = all
+        else
+          # Visible to all.
+          result = moderation_state_visible_to_all
+
+          # Own content.
+          result = result.or(where(user_id: user.id)) if user && !user.thredded_anonymous?
+
+          # Content that the user can moderate.
+          if moderatable_messageboards != Thredded::Messageboard.none
+            result = result.or(messageboard_id: moderatable_messageboards)
+          end
+        end
+        result
+      }
     end
 
     # Whether this is visible to anyone based on the moderation state.
@@ -55,7 +55,7 @@ module Thredded
     def moderation_state_visible_to_user?(user)
       moderation_state_visible_to_all? ||
         (!user.thredded_anonymous? &&
-          (user_id == user.id || user.thredded_can_moderate_messageboards.map(&:id).include?(messageboard_id)))
+          (user_id == user.id || user.thredded_can_moderate_messageboard?(messageboard)))
     end
 
     private

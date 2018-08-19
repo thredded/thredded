@@ -56,7 +56,7 @@ module Thredded
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
-        .includes(:user, :messageboard, :postable)
+        .includes(:user, :messageboard)
         .page(current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
