@@ -35,12 +35,20 @@ module Thredded
     end
 
     def moderate_post
-      return head(:bad_request) unless Thredded::Post.moderation_states.include?(params[:moderation_state])
-      flash[:last_moderated_record_id] = Thredded::ModeratePost.run!(
-        post: moderatable_posts.find(params[:id]),
-        moderation_state: params[:moderation_state],
-        moderator: thredded_current_user,
-      ).id
+      moderation_state = params[:moderation_state].to_s
+      return head(:bad_request) unless Thredded::Post.moderation_states.include?(moderation_state)
+      post = moderatable_posts.find(params[:id].to_s)
+      if post.moderation_state != moderation_state
+        flash[:last_moderated_record_id] = Thredded::ModeratePost.run!(
+          post: post,
+          moderation_state: moderation_state,
+          moderator: thredded_current_user,
+        ).id
+      else
+        flash[:alert] = "Post was already #{moderation_state}:"
+        flash[:last_moderated_record_id] =
+          Thredded::PostModerationRecord.order_newest_first.find_by(post_id: post.id)&.id
+      end
       redirect_back fallback_location: pending_moderation_path
     end
 
