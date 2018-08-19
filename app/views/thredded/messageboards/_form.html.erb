@@ -21,9 +21,9 @@
       </li>
 
       <li>
-        <%= f.submit @messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
+        <%= f.submit messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
                      class: 'thredded--form--submit',
-                     'data-disable-with' => @messageboard.persisted? ?
+                     'data-disable-with' => messageboard.persisted? ?
                          t('thredded.messageboard.form.update_btn_submitting') :
                          t('thredded.messageboard.form.create_btn_submitting') %>
       </li>

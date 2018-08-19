@@ -3,7 +3,7 @@
 module Thredded
   class ModerationController < Thredded::ApplicationController
     before_action :thredded_require_login!
-    before_action :load_moderatable_messageboards
+    before_action :thredded_require_moderator!
 
     def pending
       @posts = Thredded::PostsPageView.new(
@@ -87,19 +87,23 @@ module Thredded
     end
 
     def moderatable_posts
-      Thredded::Post.where(messageboard_id: @moderatable_messageboards)
+      if moderatable_messageboards == Thredded::Messageboard.all
+        Thredded::Post.all
+      else
+        Thredded::Post.where(messageboard_id: moderatable_messageboards)
+      end
     end
 
     def accessible_post_moderation_records
-      Thredded::PostModerationRecord
-        .where(messageboard_id: @moderatable_messageboards)
+      if moderatable_messageboards == Thredded::Messageboard.all
+        Thredded::PostModerationRecord.all
+      else
+        Thredded::PostModerationRecord.where(messageboard_id: moderatable_messageboards)
+      end
     end
 
-    def load_moderatable_messageboards
-      @moderatable_messageboards = thredded_current_user.thredded_can_moderate_messageboards.to_a
-      if @moderatable_messageboards.empty? # rubocop:disable Style/GuardClause
-        fail Pundit::NotAuthorizedError, 'You are not authorized to perform this action.'
-      end
+    def moderatable_messageboards
+      @moderatable_messageboards ||= thredded_current_user.thredded_can_moderate_messageboards
     end
 
     def current_page

@@ -24,7 +24,7 @@ module Thredded
         'thredded--main-container',
         content_for(:thredded_page_id),
         "thredded--global-nav-icons-#{global_nav_icons_count}",
-        ('thredded--is-moderator' unless moderatable_messageboards_ids.empty?),
+        ('thredded--is-moderator' if thredded_moderator?),
         ('thredded--private-messaging-enabled' if Thredded.private_messaging_enabled),
       ].compact
     end
@@ -32,7 +32,7 @@ module Thredded
     def global_nav_icons_count
       result = 1 # Notification Settings
       result += 1 if Thredded.private_messaging_enabled
-      result += 1 if moderatable_messageboards_ids.present?
+      result += 1 if thredded_moderator?
       result
     end
 
@@ -115,14 +115,15 @@ module Thredded
       end
     end
 
-    def moderatable_messageboards_ids
-      @moderatable_messageboards_ids ||=
-        thredded_current_user.thredded_can_moderate_messageboards.pluck(:id)
-    end
-
     def posts_pending_moderation_count
-      @posts_pending_moderation_count ||=
-        Thredded::Post.where(messageboard_id: moderatable_messageboards_ids).pending_moderation.count
+      @posts_pending_moderation_count ||= begin
+        scope = Thredded::Post.pending_moderation
+        moderatable_messageboards = thredded_current_user.thredded_can_moderate_messageboards
+        unless moderatable_messageboards == Thredded::Messageboard.all
+          scope = scope.where(messageboard_id: moderatable_messageboards.pluck(:id))
+        end
+        scope.count
+      end
     end
   end
 end

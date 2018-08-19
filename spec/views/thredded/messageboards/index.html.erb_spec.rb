@@ -17,7 +17,7 @@ RSpec.describe 'thredded/messageboards/index' do
       receive_messages(
         active_users: [],
         messageboard_or_nil: nil,
-        moderatable_messageboards_ids: [],
+        thredded_moderator?: false,
         thredded_signed_in?: true,
         unread_private_topics_count: 1,
         unread_topics_count: 0,

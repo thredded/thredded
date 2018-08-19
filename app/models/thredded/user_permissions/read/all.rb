@@ -12,6 +12,13 @@ module Thredded
           Thredded::Messageboard.all
         end
 
+        # @param [Thredded::Messageboard] messageboard
+        # @return [Boolean] Whether the user can read the given messageboard.
+        def thredded_can_read_messageboard?(messageboard)
+          scope = thredded_can_read_messageboards
+          scope == Thredded::Messageboard.all || scope.include?(messageboard)
+        end
+
         module ClassMethods
           # Users that can read some of the given messageboards.
           #

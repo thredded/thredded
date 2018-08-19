@@ -1,4 +1,4 @@
-<% if moderatable_messageboards_ids.present? %>
+<% if thredded_moderator? %>
   <% current = current_page_moderation? %>
   <li class="thredded--user-navigation--item thredded--user-navigation--moderation<%= ' thredded--is-current' if current %>">
     <%= link_to current ? nav_back_path : pending_moderation_path, rel: 'nofollow' do %>

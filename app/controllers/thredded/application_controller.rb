@@ -16,7 +16,8 @@ module Thredded
       :unread_followed_topics_count,
       :unread_topics_count,
       :preferences,
-      :thredded_signed_in?
+      :thredded_signed_in?,
+      :thredded_moderator?
 
     rescue_from Thredded::Errors::MessageboardNotFound,
                 Thredded::Errors::PrivateTopicNotFound,
@@ -55,6 +56,11 @@ module Thredded
 
     def thredded_signed_in?
       !thredded_current_user.thredded_anonymous?
+    end
+
+    def thredded_moderator?
+      return @is_thredded_moderator unless @is_thredded_moderator.nil?
+      @is_thredded_moderator = !thredded_current_user.thredded_can_moderate_messageboards.empty?
     end
 
     if Rails::VERSION::MAJOR < 5
@@ -154,9 +160,7 @@ module Thredded
     def unread_followed_topics_count
       @unread_followed_topics_count ||=
         if thredded_signed_in?
-          scope = topics_scope
-          scope = topics_scope.where(messageboard_id: messageboard.id) if messageboard_or_nil
-          scope.unread_followed_by(thredded_current_user).count
+          topics_scope.unread_followed_by(thredded_current_user).count
         else
           0
         end
@@ -165,9 +169,7 @@ module Thredded
     def unread_topics_count
       @unread_topics_count ||=
         if thredded_signed_in?
-          scope = topics_scope
-          scope = topics_scope.where(messageboard_id: messageboard.id) if messageboard_or_nil
-          scope.unread(thredded_current_user).count
+          topics_scope.unread(thredded_current_user).count
         else
           0
         end
@@ -189,6 +191,11 @@ module Thredded
 
     def thredded_require_login!
       fail Thredded::Errors::LoginRequired if thredded_current_user.thredded_anonymous?
+    end
+
+    def thredded_require_moderator!
+      return if thredded_moderator?
+      fail Pundit::NotAuthorizedError, 'You are not authorized to perform this action.'
     end
   end
 end

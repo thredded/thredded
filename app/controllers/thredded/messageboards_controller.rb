@@ -12,15 +12,14 @@ module Thredded
     end
 
     def new
-      @messageboard = Thredded::Messageboard.new
-      @messageboard_group = Thredded::MessageboardGroup.all
-      authorize_creating @messageboard
+      @new_messageboard = Thredded::Messageboard.new
+      authorize_creating @new_messageboard
     end
 
     def create
-      @messageboard = Thredded::Messageboard.new(messageboard_params)
-      authorize_creating @messageboard
-      if Thredded::CreateMessageboard.new(@messageboard, thredded_current_user).run
+      @new_messageboard = Thredded::Messageboard.new(messageboard_params)
+      authorize_creating @new_messageboard
+      if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
         redirect_to root_path
       else
         render :new
