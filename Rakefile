@@ -6,7 +6,7 @@ rescue LoadError
   puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
 
-APP_RAKEFILE = File.expand_path('../spec/dummy/Rakefile', __FILE__)
+APP_RAKEFILE = File.expand_path('spec/dummy/Rakefile', __dir__)
 load 'rails/tasks/engine.rake'
 
 # Common methods for the test_all_dbs, test_all_gemfiles, and test_all Rake tasks.

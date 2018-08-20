@@ -8,7 +8,7 @@ class SettingsController < ApplicationController
     if I18n.available_locales.map(&:to_s).include?(locale)
       cookies.permanent['locale'] = locale
       set_locale
-      redirect_to redirect_url, status: 303
+      redirect_to redirect_url, status: :see_other
     else
       head :bad_request
     end
@@ -18,7 +18,7 @@ class SettingsController < ApplicationController
     theme = params[:theme].to_s
     if Themes::VALID_THEMES.include?(theme)
       cookies.permanent['app-theme'] = theme
-      redirect_to redirect_url, status: 303
+      redirect_to redirect_url, status: :see_other
     else
       head :bad_request
     end

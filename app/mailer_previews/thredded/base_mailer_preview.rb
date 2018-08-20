@@ -31,7 +31,7 @@ Additionally, Markdown is extended to support the following:
           last_user:    mock_user,
           locked:       [false, true].sample,
           messageboard: mock_messageboard,
-          posts_count:  1 + rand(42),
+          posts_count:  rand(1..42),
           sticky:       [false, true].sample,
           updated_at:   Time.zone.now,
           user:         mock_user,
@@ -45,7 +45,7 @@ Additionally, Markdown is extended to support the following:
         attr.reverse_merge(
           content:      'A test post',
           created_at:   Time.zone.now,
-          id:           1 + rand(1334),
+          id:           rand(1..1334),
           messageboard: topic.messageboard,
           postable:     topic,
           updated_at:   Time.zone.now,
@@ -62,7 +62,7 @@ Additionally, Markdown is extended to support the following:
           slug:        'a-test-private-topic',
           created_at:  3.days.ago,
           last_user:   mock_user,
-          posts_count: 1 + rand(42),
+          posts_count: rand(1..42),
           updated_at:  Time.zone.now,
           user:        mock_user,
         )
@@ -75,7 +75,7 @@ Additionally, Markdown is extended to support the following:
         attr.reverse_merge(
           content:    'A test private post',
           created_at: Time.zone.now,
-          id:         1 + rand(1334),
+          id:         rand(1..1334),
           postable:   private_topic,
           updated_at: Time.zone.now,
           user:       private_topic.last_user,

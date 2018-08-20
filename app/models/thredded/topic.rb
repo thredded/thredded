@@ -58,14 +58,16 @@ module Thredded
              foreign_key: :postable_id,
              inverse_of:  :postable,
              dependent:   :destroy
-    has_one :first_post, -> { order_oldest_first },
-            class_name:  'Thredded::Post',
+    has_one :first_post, # rubocop:disable Rails/InverseOf
+            -> { order_oldest_first },
+            class_name: 'Thredded::Post',
             foreign_key: :postable_id
-    has_one :last_post, -> { order_newest_first },
+    has_one :last_post, # rubocop:disable Rails/InverseOf
+            -> { order_newest_first },
             class_name:  'Thredded::Post',
             foreign_key: :postable_id
 
-    has_many :topic_categories, dependent: :destroy
+    has_many :topic_categories, inverse_of: :topic, dependent: :delete_all
     has_many :categories, through: :topic_categories
     has_many :user_read_states,
              class_name: 'Thredded::UserTopicReadState',

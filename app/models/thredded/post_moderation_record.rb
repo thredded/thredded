@@ -4,9 +4,7 @@ module Thredded
   class PostModerationRecord < ActiveRecord::Base
     include Thredded::ModerationState
     # Rails 4 doesn't support enum _prefix
-    if Rails::VERSION::MAJOR >= 5
-      enum previous_moderation_state: moderation_states, _prefix: :previous
-    end
+    enum previous_moderation_state: moderation_states, _prefix: :previous if Rails::VERSION::MAJOR >= 5
     validates :previous_moderation_state, presence: true
 
     scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
@@ -26,9 +24,7 @@ module Thredded
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
     validates_each :moderation_state do |record, attr, value|
-      if record.previous_moderation_state == value
-        record.errors.add attr, "Post moderation_state is already #{value}"
-      end
+      record.errors.add attr, "Post moderation_state is already #{value}" if record.previous_moderation_state == value
     end
 
     paginates_per Thredded.posts_per_page
@@ -40,9 +36,7 @@ module Thredded
     # @return [Thredded::PostModerationRecord] the newly created persisted record
     def self.record!(moderator:, post:, previous_moderation_state:, moderation_state:)
       # Rails 4 doesn't support enum _prefix
-      if Rails::VERSION::MAJOR < 5
-        previous_moderation_state = moderation_states[previous_moderation_state.to_s]
-      end
+      previous_moderation_state = moderation_states[previous_moderation_state.to_s] if Rails::VERSION::MAJOR < 5
       create!(
         previous_moderation_state: previous_moderation_state,
         moderation_state:          moderation_state,

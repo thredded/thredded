@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 gem 'test_after_commit', group: :test
 
-if ENV['TRAVIS']
-  gem 'codeclimate-test-reporter', group: :test, require: false
-end
+gem 'codeclimate-test-reporter', group: :test, require: false if ENV['TRAVIS']
 
 gem 'sassc', '>= 1.12.1'
 

@@ -27,10 +27,13 @@ module Thredded
              foreign_key: :postable_id,
              inverse_of:  :postable,
              dependent:   :destroy
-    has_one :first_post, -> { order_oldest_first },
+    has_one :first_post, # rubocop:disable Rails/InverseOf
+            -> { order_oldest_first },
             class_name:  'Thredded::PrivatePost',
             foreign_key: :postable_id
-    has_many :private_users, inverse_of: :private_topic
+    has_many :private_users,
+             inverse_of: :private_topic,
+             dependent: :delete_all
     has_many :users, through: :private_users
     has_many :user_read_states,
              class_name: 'Thredded::UserPrivateTopicReadState',
@@ -54,9 +57,7 @@ module Thredded
 
     validates_each :users do |model, _attr, users|
       # Must include the creator + at least one other user
-      if users.length < 2
-        model.errors.add(:user_ids, I18n.t('thredded.private_topics.errors.user_ids_length'))
-      end
+      model.errors.add(:user_ids, I18n.t('thredded.private_topics.errors.user_ids_length')) if users.length < 2
       unless users.include?(model.user)
         # This never happens in the UI, so we don't need to i18n the message.
         model.errors.add(:user_ids, 'must include in user_ids')

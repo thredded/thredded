@@ -4,6 +4,9 @@ AllCops:
   - 'spec/dummy/db/**/*'
   - 'vendor/**/*'
 
+Bundler/OrderedGems:
+  Enabled: false
+
 Style/SafeNavigation:
   # Disable because we still support Ruby ~>2.1.
   # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
@@ -17,12 +20,6 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 Lint/AmbiguousBlockAssociation:
-  Enabled: false
-
-Rails/ApplicationRecord:
-  Enabled: false
-
-Rails/SkipsModelValidations:
   Enabled: false
 
 Metrics/AbcSize:
@@ -51,6 +48,28 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Naming/PredicateName:
+  Exclude:
+  - spec/**/*.rb
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
 Style/CollectionMethods:
   Enabled: true
 
@@ -60,21 +79,20 @@ Style/Documentation:
 Style/Lambda:
   EnforcedStyle: literal
 
-Style/PredicateName:
-  Exclude:
-  - spec/**/*.rb
+Style/StderrPuts:
+  Enabled: false
 
 Style/SignalException:
   EnforcedStyle: semantic
 
-Style/TrailingCommaInLiteral:
-  Enabled: false
-
 Style/TrailingCommaInArguments:
   Enabled: false
 
-Style/VariableNumber:
-  EnforcedStyle: snake_case
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
 
 Rails:
   Enabled: true

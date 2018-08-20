@@ -5,9 +5,7 @@ require_relative '../../spec/support/features/fake_content'
 
 # rubocop:disable HandleExceptions
 begin
-  if FactoryBot.factories.instance_variable_get(:@items).none?
-    require_relative '../../spec/factories'
-  end
+  require_relative '../../spec/factories' if FactoryBot.factories.instance_variable_get(:@items).none?
 rescue NameError
 end
 # rubocop:enable HandleExceptions
@@ -165,7 +163,7 @@ module Thredded
       log "Creating #{additional_messageboards.length} additional messageboards...\n"
       additional_messageboards.each do |(name, description, group_id)|
         messageboard = Messageboard.create!(name: name, description: description, messageboard_group_id: group_id)
-        topics = Topics.new(self).create(count: 1 + rand(3), messageboard: messageboard)
+        topics = Topics.new(self).create(count: rand(1..3), messageboard: messageboard)
         Posts.new(self).create(count: (1..2), topics: topics)
       end
     end
@@ -441,4 +439,3 @@ module Thredded
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

@@ -361,12 +361,12 @@ module Thredded
       before { travel_to(1.month.ago) { @post = create(:post, postable: topic) } }
 
       it 'does not change updated_at' do
-        expect { @post.update_attributes(content: 'hi there') }
+        expect { @post.update(content: 'hi there') }
           .not_to change { @post.postable.reload.updated_at }
       end
 
       it 'does not change updated_at' do
-        expect { @post.update_attributes(content: 'hi there') }
+        expect { @post.update(content: 'hi there') }
           .not_to change { @post.postable.reload.last_post_at }
       end
     end

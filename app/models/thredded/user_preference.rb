@@ -5,15 +5,15 @@ module Thredded
     belongs_to :user, class_name: Thredded.user_class_name, inverse_of: :thredded_user_preference
 
     with_options(inverse_of: :user_preference, primary_key: :user_id, foreign_key: :user_id,
-                 dependent: :destroy) do |opt|
-      opt.has_many :messageboard_preferences,
-                   class_name: 'Thredded::UserMessageboardPreference'
-      opt.has_many :messageboard_notifications_for_followed_topics,
-                   class_name: 'Thredded::MessageboardNotificationsForFollowedTopics'
-      opt.has_many :notifications_for_followed_topics,
-                   class_name: 'Thredded::NotificationsForFollowedTopics'
-      opt.has_many :notifications_for_private_topics,
-                   class_name: 'Thredded::NotificationsForPrivateTopics'
+                 dependent: :destroy) do
+      has_many :messageboard_preferences,
+               class_name: 'Thredded::UserMessageboardPreference'
+      has_many :messageboard_notifications_for_followed_topics,
+               class_name: 'Thredded::MessageboardNotificationsForFollowedTopics'
+      has_many :notifications_for_followed_topics,
+               class_name: 'Thredded::NotificationsForFollowedTopics'
+      has_many :notifications_for_private_topics,
+               class_name: 'Thredded::NotificationsForPrivateTopics'
     end
     validates :user_id, presence: true
 

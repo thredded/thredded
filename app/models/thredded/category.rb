@@ -4,7 +4,7 @@ module Thredded
   class Category < ActiveRecord::Base
     extend FriendlyId
     belongs_to :messageboard
-    has_many :topic_categories
+    has_many :topic_categories, inverse_of: :category, dependent: :delete_all
     has_many :topics, through: :topic_categories
     friendly_id :name, use: %i[history scoped], scope: :messageboard
 

@@ -4,7 +4,7 @@ require 'support/features/page_object/base'
 
 module PageObject
   class Posts < Base
-    attr_accessor :posts, :reply_content
+    attr_accessor :reply_content
 
     def initialize(posts)
       @posts = posts

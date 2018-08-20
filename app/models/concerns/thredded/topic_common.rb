@@ -6,7 +6,7 @@ module Thredded
     included do
       paginates_per Thredded.topics_per_page if respond_to?(:paginates_per)
 
-      belongs_to :last_user,
+      belongs_to :last_user, # rubocop:disable Rails/InverseOf
                  class_name: Thredded.user_class_name,
                  foreign_key: 'last_user_id',
                  **(Thredded.rails_gte_51? ? { optional: true } : {})

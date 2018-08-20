@@ -14,8 +14,7 @@ module Thredded
       :user_ids,
       :locked,
       :sticky,
-      :content,
-      :private_topic
+      :content
 
     attr_reader :user, :params
     attr_writer :user_names
@@ -131,7 +130,7 @@ module Thredded
 
     def parse_names(text) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
       result = []
-      current = String.new
+      current = +''
       in_name = in_quoted = false
       text.each_char do |char|
         case char

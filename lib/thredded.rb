@@ -110,7 +110,7 @@ module Thredded # rubocop:disable Metrics/ModuleLength
     # :last_post_at_desc   most recent post first
     # :topics_count_desc   most topics first
     # @return [:position, :last_post_at_desc, :topics_count_desc]
-    attr_accessor :messageboards_order
+    attr_reader :messageboards_order
 
     # @return [Number] The number of topics to display per page.
     attr_accessor :topics_per_page

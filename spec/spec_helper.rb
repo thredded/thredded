@@ -8,7 +8,7 @@ if ENV['COVERAGE'] && !%w[rbx jruby].include?(RUBY_ENGINE) && !ENV['MIGRATION_SP
   SimpleCov.command_name 'RSpec'
 end
 
-require File.expand_path('../dummy/config/environment', __FILE__)
+require File.expand_path('dummy/config/environment', __dir__)
 
 FileUtils.mkdir('log') unless File.directory?('log')
 
@@ -26,14 +26,14 @@ end
 system({ 'DB' => db }, 'script/create-db-users') unless ENV['TRAVIS'] || ENV['DOCKER']
 ActiveRecord::Tasks::DatabaseTasks.drop_current
 ActiveRecord::Tasks::DatabaseTasks.create_current
-require File.expand_path('../../lib/thredded/db_tools', __FILE__)
+require File.expand_path('../lib/thredded/db_tools', __dir__)
 if ENV['MIGRATION_SPEC']
   Thredded::DbTools.restore
 else
   Thredded::DbTools.migrate(paths: ['db/migrate/', Rails.root.join('db', 'migrate')], quiet: true)
 end
 
-require File.expand_path('../../spec/support/features/page_object/authentication', __FILE__)
+require File.expand_path('../spec/support/features/page_object/authentication', __dir__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'

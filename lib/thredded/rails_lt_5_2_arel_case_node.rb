@@ -64,7 +64,7 @@ module Arel
     class DepthFirst < Arel::Visitors::Visitor
       alias visit_Arel_Nodes_Else unary
 
-      def visit_Arel_Nodes_Case(o) # rubocop:disable Style/MethodName
+      def visit_Arel_Nodes_Case(o) # rubocop:disable Naming/MethodName
         visit o.case
         visit o.conditions
         visit o.default
@@ -86,7 +86,7 @@ end
 module Arel
   module Visitors
     class ToSql < Arel::Visitors::Reduce
-      def visit_Arel_Nodes_Case(o, collector) # rubocop:disable Style/MethodName
+      def visit_Arel_Nodes_Case(o, collector) # rubocop:disable Naming/MethodName
         collector << 'CASE '
         if o.case
           visit o.case, collector
@@ -103,14 +103,14 @@ module Arel
         collector << 'END'
       end
 
-      def visit_Arel_Nodes_When(o, collector) # rubocop:disable Style/MethodName
+      def visit_Arel_Nodes_When(o, collector) # rubocop:disable Naming/MethodName
         collector << 'WHEN '
         visit o.left, collector
         collector << ' THEN '
         visit o.right, collector
       end
 
-      def visit_Arel_Nodes_Else(o, collector) # rubocop:disable Style/MethodName
+      def visit_Arel_Nodes_Else(o, collector) # rubocop:disable Naming/MethodName
         collector << 'ELSE '
         visit o.expr, collector
       end

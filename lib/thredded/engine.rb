@@ -12,9 +12,7 @@ module Thredded
 
     config.to_prepare do
       Thredded::AllViewHooks.reset_instance!
-      if Thredded.user_class
-        Thredded.user_class.send(:include, Thredded::UserExtender)
-      end
+      Thredded.user_class.send(:include, Thredded::UserExtender) if Thredded.user_class
     end
 
     initializer 'thredded.setup_assets' do

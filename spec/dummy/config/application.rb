@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path('../boot', __FILE__)
+require File.expand_path('boot', __dir__)
 
 require 'active_record/railtie'
 require 'action_controller/railtie'
@@ -68,9 +68,7 @@ module Dummy
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    if Rails::VERSION::MAJOR < 5
-      config.active_record.raise_in_transactional_callbacks = true
-    end
+    config.active_record.raise_in_transactional_callbacks = true if Rails::VERSION::MAJOR < 5
 
     if Rails.gem_version >= Gem::Version.new('5.2.0.beta2')
       config.active_record.sqlite3.represent_boolean_as_integer = true

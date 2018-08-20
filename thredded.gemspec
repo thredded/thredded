@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('lib', __dir__)
 
 require 'thredded/version'
 
@@ -18,24 +18,24 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
 
   s.files = Dir['{app,bin,config,db,lib,vendor}/**/*'] + %w[MIT-LICENSE README.md]
 
-  s.required_ruby_version = '~> 2.1'
+  s.required_ruby_version = '~> 2.3'
 
   # backend
-  s.add_dependency 'pundit', '>= 1.1.0'
   s.add_dependency 'active_record_union', '>= 1.3.0'
   s.add_dependency 'db_text_search', '~> 0.2.0'
   s.add_dependency 'friendly_id'
   s.add_dependency 'htmlentities'
+  s.add_dependency 'inline_svg'
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
+  s.add_dependency 'pundit', '>= 1.1.0'
   s.add_dependency 'rails', '>= 4.2.10'
   s.add_dependency 'rb-gravatar'
-  s.add_dependency 'inline_svg'
 
   # post rendering
+  s.add_dependency 'html-pipeline'
   s.add_dependency 'kramdown', '>= 1.17.0'
   s.add_dependency 'onebox', '~> 1.8', '>= 1.8.48'
-  s.add_dependency 'html-pipeline'
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
   # for the AutolinkFilter
   s.add_dependency 'rinku'
@@ -46,34 +46,35 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'sanitize'
 
   # frontend
-  s.add_dependency 'sass', '>= 3.4.21'
   s.add_dependency 'autoprefixer-rails'
-  s.add_dependency 'timeago_js'
+  s.add_dependency 'sass', '>= 3.4.21'
   s.add_dependency 'sprockets-es6'
+  s.add_dependency 'timeago_js'
 
   # test dependencies
   s.add_development_dependency 'capybara', '~> 2.4'
-  s.add_development_dependency 'selenium-webdriver', '>= 3.5.0'
-  s.add_development_dependency 'webmock'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'faker', '>= 1.6.2'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails', '>= 3.5.0'
+  s.add_development_dependency 'rubocop', '= 0.58.2'
+  s.add_development_dependency 'rubocop-rspec'
+  s.add_development_dependency 'selenium-webdriver', '>= 3.5.0'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'rubocop', '= 0.49.1'
+  s.add_development_dependency 'webmock'
 
   # dummy app dependencies
-  s.add_development_dependency 'rails-i18n'
-  s.add_development_dependency 'kaminari-i18n'
   s.add_development_dependency 'http_accept_language'
+  s.add_development_dependency 'i18n-tasks', '>= 0.9.18'
+  s.add_development_dependency 'kaminari-i18n'
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'pg'
-  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'puma'
+  s.add_development_dependency 'rails-i18n'
   s.add_development_dependency 'rails_email_preview', '>= 2.0.1'
   s.add_development_dependency 'roadie-rails'
-  s.add_development_dependency 'i18n-tasks', '>= 0.9.18'
+  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'web-console'
 
   # add some plugins to the dummy app demo

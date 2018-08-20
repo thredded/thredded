@@ -95,7 +95,7 @@ describe Thredded::ContentFormatter do
         expect(format_content(<<~MARKDOWN)).to include('onebox')
           1. Hello
              #{xkcd_url}
-      MARKDOWN
+        MARKDOWN
       end
     end
 

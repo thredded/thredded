@@ -5,8 +5,8 @@ module Thredded
     class InstallGenerator < Rails::Generators::Base
       def set_source_paths
         @source_paths = [
-          File.expand_path('../templates', __FILE__),
-          File.expand_path('../../../../..', __FILE__),
+          File.expand_path('templates', __dir__),
+          File.expand_path('../../../..', __dir__),
         ]
       end
 

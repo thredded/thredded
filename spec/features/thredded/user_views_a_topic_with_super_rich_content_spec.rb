@@ -11,4 +11,3 @@ describe 'View a topic with super-rich content (smoke test)', type: :feature do
     topic.visit_topic
   end
 end
-# rubocop:enable Style/Semicolon
