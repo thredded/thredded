@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'View a topic with super-rich content (smoke test)', type: :feature do
+RSpec.feature 'View a topic with super-rich content (smoke test)', type: :feature do
   let(:topic) { PageObject::Topic.new(post.postable) }
   let!(:post) { create(:post, content: FakeContent.post_content(with_everything: true)) }
   let(:user) { create(:user) }

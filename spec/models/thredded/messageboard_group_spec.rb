@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Thredded::Messageboard' do
+describe Thredded::MessageboardGroup do
   it 'has a default position of the created at' do
     messageboard_group = create(:messageboard_group)
     expect(messageboard_group.position).to be_within(10).of(messageboard_group.created_at.to_i)
@@ -20,7 +20,7 @@ describe 'Thredded::Messageboard' do
 
     it 'by position' do
       messageboard_group2 && messageboard_group1 && messageboard_group3
-      expect(Thredded::MessageboardGroup.ordered).to eq([messageboard_group1, messageboard_group2, messageboard_group3])
+      expect(described_class.ordered).to eq([messageboard_group1, messageboard_group2, messageboard_group3])
     end
   end
 end

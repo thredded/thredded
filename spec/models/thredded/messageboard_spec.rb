@@ -4,7 +4,7 @@ require 'spec_helper'
 
 module Thredded
   describe Messageboard do
-    before(:each) do
+    before do
       @messageboard = create(:messageboard, topics_count: 10)
     end
 
@@ -74,11 +74,13 @@ module Thredded
     let(:new_topic) { create(:topic, messageboard: messageboard) }
     let(:the_last_topic) { create(:topic, messageboard: messageboard) }
     let!(:an_hour_ago) { 1.hour.ago }
+
     before do
       Thredded.messageboards_order = :position
       travel_to(an_hour_ago) { messageboard.reload.update!(last_topic: the_last_topic) }
       expect(messageboard.updated_at).to be_within(10.seconds).of(an_hour_ago)
     end
+
     it 'when last topic changes, updated_at changes' do
       expect do
         create(:post, postable: new_topic)
@@ -95,15 +97,18 @@ module Thredded
     let(:messageboard1) { create(:messageboard, position: 1) }
     let(:messageboard2) { create(:messageboard, position: 2) }
     let(:messageboard3) { create(:messageboard, position: 3) }
+
     context 'when messageboards_order :position' do
       before do
         Thredded.messageboards_order = :position
         expect(messageboard1.position).to eq(1)
       end
+
       it 'orders according to position' do
         expect(Messageboard.ordered).to eq([messageboard1, messageboard2, messageboard3])
       end
     end
+
     context 'when messageboards_order :last_post_at_desc' do
       let(:messageboard1) { create(:messageboard, name: 'one', created_at: 1.month.ago) }
       let(:messageboard2) { create(:messageboard, name: 'two', created_at: 1.year.ago) }
@@ -113,6 +118,7 @@ module Thredded
       let(:one_hour_ago) { 1.hour.ago }
       let(:topic2) { create(:topic, last_post_at: one_day_ago, messageboard: messageboard2) }
       let(:topic1) { create(:topic, last_post_at: one_hour_ago, messageboard: messageboard1) }
+
       before do
         Thredded.messageboards_order = :last_post_at_desc
         messageboard3 && messageboard2 && messageboard1
@@ -130,17 +136,13 @@ module Thredded
 
     context 'when messageboards_order :topics_count_desc' do
       before { Thredded.messageboards_order = :topics_count_desc }
-      let(:messageboard1) { create(:messageboard, topics_count: 100).tap { |m| m.update_column(:position, 0) } }
-      let(:messageboard2) { create(:messageboard, topics_count: 10).tap { |m| m.update_column(:position, 0) } }
-      let(:messageboard3) { create(:messageboard, topics_count: 1).tap { |m| m.update_column(:position, 0) } }
 
-      before do
-        Thredded.messageboards_order = :topics_count_desc
-        messageboard2 && messageboard3 && messageboard1
-        expect(messageboard1.position).to eq(0)
-      end
+      let!(:messageboard1) { create(:messageboard, topics_count: 100).tap { |m| m.update_column(:position, 0) } }
+      let!(:messageboard2) { create(:messageboard, topics_count: 10).tap { |m| m.update_column(:position, 0) } }
+      let!(:messageboard3) { create(:messageboard, topics_count: 1).tap { |m| m.update_column(:position, 0) } }
 
       it 'orders according to topics_count_desc' do
+        expect(messageboard1.position).to eq(0)
         expect(Messageboard.ordered).to eq([messageboard1, messageboard2, messageboard3])
       end
     end

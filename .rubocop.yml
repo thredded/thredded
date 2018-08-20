@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
@@ -6,6 +8,10 @@ AllCops:
 
 Bundler/OrderedGems:
   Enabled: false
+
+Capybara/FeatureMethods:
+  EnabledMethods:
+  - feature
 
 Style/SafeNavigation:
   # Disable because we still support Ruby ~>2.1.
@@ -106,3 +112,34 @@ Rails/FindBy:
   - app/commands/**/*.rb
   - app/models/**/*.rb
   - app/view_models/**/*.rb
+
+RSpec/BeforeAfterAll:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Exclude:
+  - spec/views/**/*.rb
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false

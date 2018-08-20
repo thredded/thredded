@@ -2,15 +2,15 @@
 
 require 'spec_helper'
 
-feature 'User viewing topics' do
-  scenario 'sees a list of topics' do
+RSpec.feature 'User viewing topics' do
+  it 'sees a list of topics' do
     topics = three_topics
     topics.visit_index
 
     expect(topics.normal_topics.size).to eq(3)
   end
 
-  scenario 'sees a locked topic' do
+  it 'sees a locked topic' do
     topics = one_locked_two_regular_topics
     topics.visit_index
 
@@ -18,7 +18,7 @@ feature 'User viewing topics' do
     expect(topics.normal_topics.size).to eq(2)
   end
 
-  scenario 'sees a sticky topic' do
+  it 'sees a sticky topic' do
     topics = one_stuck_two_regular_topics
     topics.visit_index
 

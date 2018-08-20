@@ -22,6 +22,7 @@ module Thredded
                                           read_at: private_topic.posts.order_oldest_first.first.created_at
         )
       end
+
       it 'returns read states when there is a read post' do
         first = PrivateTopic.all.with_read_states(user).first
         expect(first[0]).to eq(private_topic)
@@ -48,6 +49,7 @@ module Thredded
     context 'when a post is deleted' do
       let(:first_post) { create(:private_post, postable: private_topic) }
       let(:second_post) { create(:private_post, postable: private_topic) }
+
       before do
         travel_to(1.month.ago) { first_post }
         travel_to(1.hour.ago) { second_post }
@@ -69,12 +71,10 @@ module Thredded
 
       it 'does not change updated_at' do
         expect { @post.update(content: 'hi there') }
-          .not_to change { @post.postable.reload.updated_at }
-      end
-
-      it 'does not change updated_at' do
-        expect { @post.update(content: 'hi there') }
-          .not_to change { @post.postable.reload.last_post_at }
+          .not_to change {
+            @post.postable.reload
+            { updated_at: @post.postable.updated_at, lastr_post_at: @post.postable.last_post_at }
+          }
       end
     end
   end

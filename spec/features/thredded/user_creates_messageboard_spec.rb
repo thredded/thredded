@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'Creating a messageboard' do
-  scenario 'admin bootstraps the app' do
+RSpec.feature 'Creating a messageboard' do
+  it 'admin bootstraps the app' do
     user = an_admin
     user.log_in
 
@@ -16,7 +16,7 @@ feature 'Creating a messageboard' do
     expect(user).to be_logged_in
   end
 
-  scenario 'regular user does not see the new messageboard link' do
+  it 'regular user does not see the new messageboard link' do
     user = regular_user
     user.log_in
     expect(user).to be_logged_in
@@ -27,7 +27,7 @@ feature 'Creating a messageboard' do
     expect(create_board).not_to have_a_new_messageboard_link
   end
 
-  scenario 'regular user is shown an Unauthorized message if trying to directly access form' do
+  it 'regular user is shown an Unauthorized message if trying to directly access form' do
     user = regular_user
     user.log_in
     expect(user).to be_logged_in

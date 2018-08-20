@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'User editing topics' do
-  scenario 'can edit their own topic' do
+RSpec.feature 'User editing topics' do
+  it 'can edit their own topic' do
     user.log_in
     topic = users_topic
     topic.visit_topic_edit
@@ -11,7 +11,7 @@ feature 'User editing topics' do
     expect(topic).to be_editable
   end
 
-  scenario 'updates topic title' do
+  it 'updates topic title' do
     user.log_in
     topic = users_topic
     topic.visit_topic_edit
@@ -21,7 +21,7 @@ feature 'User editing topics' do
     expect(topic).to be_saved.and have_content('this is changed')
   end
 
-  scenario 'updates topic messageboard' do
+  it 'updates topic messageboard' do
     user.log_in
     create(:messageboard, name: 'Another Messageboard')
     topic = users_topic
@@ -32,7 +32,7 @@ feature 'User editing topics' do
     expect(topic).to be_saved.and have_content('Another Messageboard')
   end
 
-  scenario "cannot edit someone else's topic" do
+  it "cannot edit someone else's topic" do
     user.log_in
     topic = someone_elses_topic
     topic.visit_topic_edit
@@ -41,7 +41,7 @@ feature 'User editing topics' do
   end
 
   context 'as an admin' do
-    scenario "can edit someone else's topic" do
+    it "can edit someone else's topic" do
       user = admin
       user.log_in
       topic = someone_elses_topic

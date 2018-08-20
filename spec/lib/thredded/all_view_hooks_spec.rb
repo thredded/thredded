@@ -24,7 +24,7 @@ describe Thredded::AllViewHooks do
   end
 
   it 'works' do
-    view_hooks = Thredded::AllViewHooks.new
+    view_hooks = described_class.new
 
     sections = view_hooks.public_methods(false).reduce({}) do |h, section_name|
       h.update(section_name => view_hooks.send(section_name).public_methods(false))

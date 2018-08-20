@@ -6,9 +6,9 @@ module Thredded
   describe ReadStatesController, type: :controller do
     routes { Thredded::Engine.routes }
 
-    let(:user) { create(:user) }
+    subject(:do_update) { put :update }
 
-    subject { put :update }
+    let(:user) { create(:user) }
 
     before do
       allow(controller).to receive_messages(thredded_current_user: user)
@@ -18,30 +18,30 @@ module Thredded
     describe 'PUT update' do
       context 'user is signed in' do
         before do
-          allow(controller).to receive(:thredded_signed_in?) { true }
+          allow(controller).to receive(:thredded_signed_in?).and_return(true)
         end
 
         it 'calls MarkAllRead service' do
           expect(MarkAllRead).to receive(:run).with(user)
 
-          subject
+          do_update
         end
       end
 
       context 'user is not signed in' do
         before do
-          allow(controller).to receive(:thredded_signed_in?) { false }
+          allow(controller).to receive(:thredded_signed_in?).and_return(false)
         end
 
         it 'does not call MarkAllRead service' do
           expect(MarkAllRead).not_to receive(:run)
 
-          subject
+          do_update
         end
       end
 
       it 'redirects to referer' do
-        expect(subject).to redirect_to(root_path)
+        expect(do_update).to redirect_to(root_path)
       end
     end
   end

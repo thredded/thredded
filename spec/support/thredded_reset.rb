@@ -2,7 +2,7 @@
 
 RSpec.configure do |c|
   # always reset notifiers -- it's easier this way
-  c.around(:example) do |example|
+  c.around do |example|
     example.run
     Thredded.instance_variable_set(:@notifiers, nil)
   end

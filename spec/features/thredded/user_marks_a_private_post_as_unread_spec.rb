@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'Logged in user' do
+RSpec.feature 'Logged in user' do
   let(:user) { create(:user, name: 'sally') }
   let(:other_user) { create(:user, name: 'jane') }
   let(:messageboard) { create(:messageboard) }
@@ -17,11 +17,11 @@ feature 'Logged in user' do
     page_user
   end
 
-  scenario 'can mark a post as unread' do
+  it 'can mark a post as unread' do
     member_signs_in
 
     visit thredded.private_topic_path(private_topic)
     private_topic_page.mark_unread_from_here
-    expect(page.current_path).to eq thredded.private_topics_path
+    expect(page).to have_current_path(thredded.private_topics_path)
   end
 end

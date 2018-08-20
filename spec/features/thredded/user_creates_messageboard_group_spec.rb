@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'Creating a messageboard group' do
-  scenario 'admin creates a unique messageboard group' do
+RSpec.feature 'Creating a messageboard group' do
+  it 'admin creates a unique messageboard group' do
     user = an_admin
     user.log_in
 
@@ -14,7 +14,7 @@ feature 'Creating a messageboard group' do
     expect(group).to be_created
   end
 
-  scenario 'admin creates non unique messageboard group' do
+  it 'admin creates non unique messageboard group' do
     user = an_admin
     user.log_in
 

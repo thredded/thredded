@@ -3,20 +3,20 @@
 require 'spec_helper'
 require 'support/features/page_object/notification_preferences'
 
-feature 'User updating preferences globally' do
-  scenario 'Allows @ notifications by default' do
+RSpec.feature 'User updating preferences globally' do
+  it 'Allows @ notifications by default' do
     preferences = default_user_preferences
 
     expect(preferences).to have_at_mention_notifications
   end
 
-  scenario 'Allows private topic notifications by default' do
+  it 'Allows private topic notifications by default' do
     preferences = default_user_preferences
 
     expect(preferences).to have_notifications_for_private_topics_by_email
   end
 
-  scenario 'Does not allow private topic notifications' do
+  it 'Does not allow private topic notifications' do
     preferences = default_user_preferences
     preferences.disable_notifications_for_private_topics_by_email
 
@@ -24,12 +24,12 @@ feature 'User updating preferences globally' do
     expect(preferences).not_to have_notifications_for_private_topics_by_email
   end
 
-  scenario 'Allows email on post in followed topic by default' do
+  it 'Allows email on post in followed topic by default' do
     preferences = default_user_preferences
     expect(preferences).to have_notifications_for_followed_topics_by_email
   end
 
-  scenario 'Does not allow followed topic notifications' do
+  it 'Does not allow followed topic notifications' do
     preferences = default_user_preferences
     preferences.disable_notifications_for_followed_topics_by_email
 
@@ -46,7 +46,7 @@ feature 'User updating preferences globally' do
   end
 
   context 'with no notifiers', thredded_reset: [:@notifiers] do
-    scenario 'shows no notifier preferences' do
+    it 'shows no notifier preferences' do
       Thredded.notifiers = []
       preferences = default_user_preferences
       expect(preferences).not_to have_any_notification_heading_texts
@@ -54,14 +54,14 @@ feature 'User updating preferences globally' do
   end
 end
 
-feature 'User updating preferences for messageboard' do
-  scenario 'Allows @ notifications by default' do
+RSpec.feature 'User updating preferences for messageboard' do
+  it 'Allows @ notifications by default' do
     preferences = default_user_preferences
 
     expect(preferences).to have_messageboard_at_mention_notifications
   end
 
-  scenario 'Does not allow @ notifications' do
+  it 'Does not allow @ notifications' do
     preferences = default_user_preferences
     preferences.disable_messageboard_at_mention_notifications
 
@@ -69,12 +69,12 @@ feature 'User updating preferences for messageboard' do
     expect(preferences).not_to have_messageboard_at_mention_notifications
   end
 
-  scenario 'Allows followed topic notifications by default' do
+  it 'Allows followed topic notifications by default' do
     preferences = default_user_preferences
     expect(preferences).to have_messageboard_notifications_for_followed_topics_by_email
   end
 
-  scenario 'Does not allow followed topic notifications' do
+  it 'Does not allow followed topic notifications' do
     preferences = default_user_preferences
     preferences.disable_messageboard_notifications_for_followed_topics_by_email
 
@@ -83,10 +83,10 @@ feature 'User updating preferences for messageboard' do
   end
 
   context 'with no notifiers', thredded_reset: [:@notifiers] do
-    scenario 'shows no notifier preferences' do
+    it 'shows no notifier preferences' do
       Thredded.notifiers = []
       preferences = default_user_preferences
-      expect(preferences).to_not have_any_notification_heading_texts
+      expect(preferences).not_to have_any_notification_heading_texts
     end
   end
 

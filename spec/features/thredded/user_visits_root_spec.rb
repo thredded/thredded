@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'User visits root' do
+RSpec.feature 'User visits root' do
   [
     ['Application layout', 'application'],
     ['Standalone layout', 'thredded/application']
@@ -18,12 +18,12 @@ feature 'User visits root' do
         end
       end
 
-      scenario 'sees a page when anonymous' do
+      it 'sees a page when anonymous' do
         visit thredded.root_path
         expect(page).to have_content(I18n.t('thredded.nav.all_messageboards'))
       end
 
-      scenario 'sees a page when signed in' do
+      it 'sees a page when signed in' do
         PageObject::User.new(create(:user)).log_in
         visit thredded.root_path
         expect(page).to have_content(I18n.t('thredded.nav.all_messageboards'))

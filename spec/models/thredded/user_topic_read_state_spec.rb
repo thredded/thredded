@@ -8,17 +8,17 @@ module Thredded
 
     it 'is true when post.created_at > read_at' do
       post = create(:post, created_at: 2.days.ago)
-      expect(read_state.post_read?(post)).to be_truthy
+      expect(read_state).to be_post_read(post)
     end
 
     it 'is true when post.created_at = read_at' do
       post = create(:post, created_at: read_state.read_at)
-      expect(read_state.post_read?(post)).to be_truthy
+      expect(read_state).to be_post_read(post)
     end
 
     it 'is false when post.created_at < read_at' do
       post = create(:post, created_at: 1.minute.ago)
-      expect(read_state.post_read?(post)).to be_falsey
+      expect(read_state).not_to be_post_read(post)
     end
   end
 
@@ -54,7 +54,7 @@ module Thredded
     it 'is false' do
       post = create(:post)
       null_user_topic_read_state = NullUserTopicReadState.new
-      expect(null_user_topic_read_state.post_read?(post)).to be_falsey
+      expect(null_user_topic_read_state).not_to be_post_read(post)
     end
   end
 end

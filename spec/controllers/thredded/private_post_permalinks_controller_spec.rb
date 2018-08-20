@@ -7,6 +7,7 @@ module Thredded
     routes { Thredded::Engine.routes }
 
     let(:user) { create(:user) }
+
     before { allow(controller).to receive_messages(thredded_current_user: user) }
 
     it 'redirects if the user can read the private post' do

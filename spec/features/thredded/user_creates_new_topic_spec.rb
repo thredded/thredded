@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'User creates new topic' do
-  scenario 'with title and content', js: true do
+RSpec.feature 'User creates new topic' do
+  it 'with title and content', js: true do
     topic = new_topic
 
     topic.fill_topic_form('Hello *world*!')
@@ -17,21 +17,21 @@ feature 'User creates new topic' do
     expect(topic).to be_displayed
   end
 
-  scenario 'and sees no categories in the form when none exist' do
+  it 'and sees no categories in the form when none exist' do
     topic_form = new_topic
     topic_form.visit_form
 
     expect(topic_form).not_to have_category_input
   end
 
-  scenario 'with a category' do
+  it 'with a category' do
     topic_form = new_topic_with_categories
     topic_form.visit_form
 
     expect(topic_form).to have_category_input
   end
 
-  scenario 'and sees no locked or sticky checkboxes' do
+  it 'and sees no locked or sticky checkboxes' do
     topic_form = new_topic
     topic_form.visit_form
 
@@ -40,7 +40,7 @@ feature 'User creates new topic' do
   end
 
   context 'as an admin' do
-    scenario 'and can make it locked or sticky' do
+    it 'and can make it locked or sticky' do
       topic_form = new_topic_as_an_admin
       topic_form.visit_form
 
@@ -48,7 +48,7 @@ feature 'User creates new topic' do
       expect(topic_form).to have_a_sticky_checkbox
     end
 
-    scenario 'and confirms new topic is locked and sticky' do
+    it 'and confirms new topic is locked and sticky' do
       topic = new_topic_as_an_admin
       topic.visit_form
       topic.with_title('I have an opinion!')

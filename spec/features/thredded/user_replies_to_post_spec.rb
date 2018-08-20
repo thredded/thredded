@@ -2,28 +2,29 @@
 
 require 'spec_helper'
 
-feature 'User replying to topic' do
+RSpec.feature 'User replying to topic' do
   let!(:posts) { posts_exist_in_a_topic }
   let(:post) { posts.first_post }
+
   def login_and_visit_posts
     user.log_in
     posts.visit_posts
   end
 
-  scenario 'adds a new reply' do
+  it 'adds a new reply' do
     login_and_visit_posts
     expect { posts.submit_reply }.to change { posts.posts.size }.by(1)
     expect(posts).to have_new_reply
   end
 
-  scenario 'starts a quote-reply (no js)' do
+  it 'starts a quote-reply (no js)' do
     login_and_visit_posts
     post.start_quote
     expect(page).to have_current_path(posts.quote_page_for_first_post)
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
   end
 
-  scenario 'starts a quote-reply (js)', js: true do
+  it 'starts a quote-reply (js)', js: true do
     login_and_visit_posts
     post.start_quote
     # Expect current path to not change because the JS magic takes place
@@ -35,9 +36,9 @@ feature 'User replying to topic' do
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
   end
 
-  describe 'using dropdown', js: true do
+  context 'using dropdown', js: true do
     shared_examples_for 'user can be mentioned' do
-      scenario 'can be mentioned' do
+      it 'can be mentioned' do
         login_and_visit_posts
         expect(page).not_to have_css('.thredded--textcomplete-dropdown')
         posts.start_reply("Hey @#{other_user.name[0..2]}")

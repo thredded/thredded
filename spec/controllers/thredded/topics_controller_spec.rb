@@ -7,15 +7,16 @@ module Thredded
     routes { Thredded::Engine.routes }
 
     let(:user) { create(:user) }
+
     before do
       @messageboard = create(:messageboard)
-      @topic        = create(:topic, messageboard: @messageboard, title: 'hi')
-      @post         = create(:post, postable: @topic, content: 'hi')
+      @topic = create(:topic, messageboard: @messageboard, title: 'hi')
+      @post = create(:post, postable: @topic, content: 'hi')
       allow(controller).to receive_messages(
-        topics:        [@topic],
-        cannot?:       false,
-        the_current_user:  user,
-        messageboard:  @messageboard
+        topics: [@topic],
+        cannot?: false,
+        the_current_user: user,
+        messageboard: @messageboard
       )
     end
 
@@ -94,30 +95,43 @@ module Thredded
     end
 
     describe 'POST follow' do
-      subject { post :follow, params: { messageboard_id: @messageboard.id, id: @topic.id } }
+      subject(:do_follow) { post :follow, params: { messageboard_id: @messageboard.id, id: @topic.id } }
+
       it 'follows' do
-        expect { subject }.to change { @topic.reload.followers.reload.count }.by(1)
+        expect { do_follow }.to change { @topic.reload.followers.reload.count }.by(1)
       end
       context 'json format' do
-        subject { post :follow, params: { messageboard_id: @messageboard.id, id: @topic.id, format: :json } }
-        it 'it returns changed status' do
-          subject
+        subject(:do_follow) do
+          post :follow, params: { messageboard_id: @messageboard.id, id: @topic.id, format: :json }
+        end
+
+        it 'returns changed status' do
+          do_follow
           expect(JSON.parse(response.body)).to include('follow' => true)
         end
       end
     end
 
     describe 'POST unfollow' do
-      before { UserTopicFollow.create_unless_exists(user.id, @topic.id) }
-      subject { post :unfollow, params: { messageboard_id: @messageboard.id, id: @topic.id } }
-      it 'unfollows' do
-        expect { subject }.to change { @topic.reload.followers.reload.count }.by(-1)
+      subject(:do_unfollow) do
+        post :unfollow, params: { messageboard_id: @messageboard.id, id: @topic.id }
       end
-      context 'json format'
-      subject { post :unfollow, params: { messageboard_id: @messageboard.id, id: @topic.id, format: :json } }
-      it 'it returns changed status' do
-        subject
-        expect(JSON.parse(response.body)).to include('follow' => false)
+
+      before { UserTopicFollow.create_unless_exists(user.id, @topic.id) }
+
+      it 'unfollows' do
+        expect { do_unfollow }.to change { @topic.reload.followers.reload.count }.by(-1)
+      end
+
+      context 'json format' do
+        subject(:do_unfollow) do
+          post :unfollow, params: { messageboard_id: @messageboard.id, id: @topic.id, format: :json }
+        end
+
+        it 'returns changed status' do
+          do_unfollow
+          expect(JSON.parse(response.body)).to include('follow' => false)
+        end
       end
     end
   end

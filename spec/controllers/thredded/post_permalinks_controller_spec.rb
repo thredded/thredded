@@ -12,7 +12,7 @@ module Thredded
     end
 
     it 'responds with forbidden if the user cannot read the post' do
-      allow_any_instance_of(PostPolicy).to receive_messages(read?: false)
+      allow_any_instance_of(PostPolicy).to receive_messages(read?: false) # rubocop:disable RSpec/AnyInstance
       get :show, params: { id: create(:post).id }
       expect(response).to be_forbidden
     end

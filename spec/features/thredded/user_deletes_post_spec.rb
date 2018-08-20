@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'User deleting posts' do
-  scenario 'can delete their own post' do
+RSpec.feature 'User deleting posts' do
+  it 'can delete their own post' do
     user.log_in
     topic = users_topic
     topic.visit_topic
@@ -17,7 +17,7 @@ feature 'User deleting posts' do
     expect(last_post).not_to be_listed
   end
 
-  scenario 'cannot delete the first post of their own topic' do
+  it 'cannot delete the first post of their own topic' do
     user.log_in
     topic = users_topic
     topic.visit_topic
@@ -25,7 +25,7 @@ feature 'User deleting posts' do
     expect(topic.first_post).not_to be_deletable
   end
 
-  scenario "cannot delete someone else's post" do
+  it "cannot delete someone else's post" do
     user.log_in
     topic = someone_elses_topic
     topic.visit_topic
@@ -36,7 +36,7 @@ feature 'User deleting posts' do
   end
 
   context 'as an admin' do
-    scenario "can delete someone else's post" do
+    it "can delete someone else's post" do
       admin.log_in
       topic = someone_elses_topic
       topic.visit_topic
@@ -50,7 +50,7 @@ feature 'User deleting posts' do
       expect(last_post).not_to be_listed
     end
 
-    scenario 'cannot delete the first post of a topic' do
+    it 'cannot delete the first post of a topic' do
       admin.log_in
       topic = someone_elses_topic
       topic.visit_topic

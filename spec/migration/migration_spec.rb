@@ -4,7 +4,7 @@ require 'spec_helper'
 Rails.env = 'test'
 # To run the migration tests, run:
 # MIGRATION_SPEC=1 rspec spec/migration/migration_spec.rb
-describe 'Migrations', migration_spec: true, order: :defined do
+RSpec.describe 'Migrations', migration_spec: true, order: :defined do # rubocop:disable RSpec/DescribeClass
   def migrate(migration_file)
     Thredded::DbTools.migrate paths: 'db/upgrade_migrations', quiet: true do |m|
       m.filename >= 'db/upgrade_migrations/20161113161801_upgrade_v0_8_to_v0_9.rb' && m.filename <= migration_file

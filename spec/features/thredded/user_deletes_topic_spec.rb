@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'User deleting topics' do
-  scenario 'cannot delete their own topic' do
+RSpec.feature 'User deleting topics' do
+  it 'cannot delete their own topic' do
     user.log_in
     topic = users_topic
     topic.visit_topic
@@ -12,7 +12,7 @@ feature 'User deleting topics' do
   end
 
   context 'as an admin' do
-    scenario "can delete someone else's topic" do
+    it "can delete someone else's topic" do
       admin.log_in
       topic = someone_elses_topic
       topic.visit_topic

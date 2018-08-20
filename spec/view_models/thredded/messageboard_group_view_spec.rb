@@ -5,12 +5,14 @@ require 'spec_helper'
 module Thredded
   describe MessageboardGroupView, thredded_reset: [:@messageboards_order] do
     before { Thredded.messageboards_order = :position }
+
     describe '.groups' do
       context 'in one group' do
         let(:group) { create(:messageboard_group) }
         let(:messageboard1) { create(:messageboard, name: 'one', position: 1, group: group) }
         let(:messageboard2) { create(:messageboard, name: 'two', position: 2, group: group) }
         let(:messageboard3) { create(:messageboard, name: 'three', position: 3, group: group) }
+
         before do
           messageboard1 && messageboard3 && messageboard1
         end
@@ -52,7 +54,9 @@ module Thredded
 
           context 'with messageboard with no group' do
             let(:messageboard_with_no_group) { create(:messageboard, group: nil, name: 'with no group') }
+
             before { messageboard_with_no_group }
+
             it 'has messageboards with no group first' do
               expected_groups = [nil, group1, group2, group3]
               expect(MessageboardGroupView.grouped(Messageboard.all).map(&:group).map { |mg| mg.try(:name) })

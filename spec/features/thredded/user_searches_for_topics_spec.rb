@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'User searching topics' do
+RSpec.feature 'User searching topics' do
   title = 'Rando thread'
 
   # On MySQL, a transaction has to complete before the full text search index is updated
@@ -17,7 +17,7 @@ feature 'User searching topics' do
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  scenario 'in a messageboard' do
+  it 'in a messageboard' do
     @topics.visit_style_guide
     @topics.search_for(title)
     expect(page.source).to(
@@ -28,7 +28,7 @@ feature 'User searching topics' do
     expect(@topics).to have_topic_titled(title)
   end
 
-  scenario 'globally' do
+  it 'globally' do
     visit thredded.root_path
     @topics.search_for(title)
     expect(page.source).to include(I18n.t('thredded.topics.search.results_message_html', query: title))

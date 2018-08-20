@@ -118,7 +118,7 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
       ActiveJob::Base.queue_adapter = :inline
     end
 
-    config.before(:each) do
+    config.before do
       DatabaseCleaner.strategy = :transaction
     end
 
@@ -135,12 +135,12 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
       end
     end
 
-    config.before(:each) do
+    config.before do
       Time.zone = 'UTC'
       DatabaseCleaner.start
     end
 
-    config.append_after(:each) do
+    config.append_after do
       DatabaseCleaner.clean
     end
   end

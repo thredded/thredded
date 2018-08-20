@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'User views a topic' do
+RSpec.feature 'User views a topic' do
   let(:user) { create(:user, name: 'Not a Faker username') }
   let(:messageboard) { create(:messageboard) }
 
@@ -24,7 +24,7 @@ feature 'User views a topic' do
         PageObject::Topic.new(topic)
       end
 
-      scenario 'can see list of users following topic' do
+      it 'can see list of users following topic' do
         a_followed_topic.visit_topic
         within '.thredded--topic-header' do
           expect(page).to have_content(user.name)
@@ -38,7 +38,7 @@ feature 'User views a topic' do
         PageObject::Topic.new(topic)
       end
 
-      scenario 'can see that no one is following' do
+      it 'can see that no one is following' do
         a_unfollowed_topic.visit_topic
         within '.thredded--topic-header' do
           expect(page).to have_content('No one is following this topic')
@@ -65,10 +65,10 @@ feature 'User views a topic' do
         PageObject::Topic.new(topic)
       end
 
-      scenario 'can not see list of users following topic' do
+      it 'can not see list of users following topic' do
         a_followed_topic.visit_topic
         within '.thredded--topic-header' do
-          expect(page).to_not have_content(user.name)
+          expect(page).not_to have_content(user.name)
         end
       end
     end
@@ -79,16 +79,16 @@ feature 'User views a topic' do
         PageObject::Topic.new(topic)
       end
 
-      scenario 'can not see that no one is following' do
+      it 'can not see that no one is following' do
         a_unfollowed_topic.visit_topic
         within '.thredded--topic-header' do
-          expect(page).to_not have_content('No one is following this topic')
+          expect(page).not_to have_content('No one is following this topic')
         end
       end
     end
   end
 
-  describe 'view for topic in differing read states' do
+  context 'view for topic in differing read states' do
     let(:topic) { create(:topic, messageboard: messageboard) }
     let(:topic_page) { PageObject::Topic.new(topic) }
     let(:first_post) { create(:post, postable: topic) }
@@ -110,15 +110,15 @@ feature 'User views a topic' do
     end
 
     context 'when unlogged in' do
-      scenario "posts don't have class of read or unread" do
+      it "posts don't have class of read or unread" do
         topic_page.visit_topic
         expect(page).not_to have_selector('article.thredded--read--post')
         expect(page).not_to have_selector('article.thredded--unread--post')
       end
 
-      scenario "the toggle doen't display" do
+      it "the toggle doen't display" do
         topic_page.visit_topic
-        expect(page).to_not have_selector('.thredded--post--dropdown--toggle')
+        expect(page).not_to have_selector('.thredded--post--dropdown--toggle')
       end
     end
 
@@ -128,7 +128,7 @@ feature 'User views a topic' do
       end
 
       context 'when viewing an unread topic' do
-        scenario 'the post has a class of unread' do
+        it 'the post has a class of unread' do
           topic_page.visit_topic
           expect(page).to have_selector('article.thredded--unread--post', count: 3)
         end
@@ -136,7 +136,8 @@ feature 'User views a topic' do
 
       context 'when viewing a fully read topic' do
         let(:read_state) { create(:user_topic_read_state, postable: topic, user: user, read_at: third_post.created_at) }
-        scenario 'each post has a class of read' do
+
+        it 'each post has a class of read' do
           topic_page.visit_topic
           expect(page).to have_selector('article.thredded--read--post', count: 3)
         end
@@ -146,7 +147,8 @@ feature 'User views a topic' do
         let(:read_state) do
           create(:user_topic_read_state, postable: topic, user: user, read_at: second_post.created_at)
         end
-        scenario 'each post has a class of read' do
+
+        it 'each post has a class of read' do
           topic_page.visit_topic
           expect(page).to have_selector('article.thredded--read--post', count: 2)
           expect(page).to have_selector('article.thredded--unread--post', count: 1)

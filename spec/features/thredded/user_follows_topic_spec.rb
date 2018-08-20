@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature 'Logged in user' do
+RSpec.feature 'Logged in user' do
   let(:user) { PageObject::User.new(create(:user)) }
   let(:messageboard) { create(:messageboard) }
   let(:an_unfollowed_topic) do
@@ -17,20 +17,20 @@ feature 'Logged in user' do
 
   before { user.log_in }
 
-  scenario 'can follow a topic' do
+  it 'can follow a topic' do
     an_unfollowed_topic.visit_topic
     expect(an_unfollowed_topic).to have_follow_button
     an_unfollowed_topic.follow
-    expect(an_unfollowed_topic).to_not have_follow_button
+    expect(an_unfollowed_topic).not_to have_follow_button
     expect(an_unfollowed_topic).to have_unfollow_button
   end
 
-  scenario 'can unfollow a topic' do
+  it 'can unfollow a topic' do
     a_followed_topic.visit_topic
     expect(a_followed_topic).to have_unfollow_button
     a_followed_topic.unfollow
     expect(an_unfollowed_topic).to have_follow_button
-    expect(an_unfollowed_topic).to_not have_unfollow_button
+    expect(an_unfollowed_topic).not_to have_unfollow_button
   end
 
   context 'with topics' do
@@ -44,7 +44,7 @@ feature 'Logged in user' do
     end
     let(:topics_page) { PageObject::Topics.new(messageboard) }
 
-    scenario 'can see follow status in list of topics' do
+    it 'can see follow status in list of topics' do
       topics_page.visit_index
       expect(find("#topic_#{an_unfollowed_topic.id}")['class']).to include('thredded--topic-notfollowing')
       expect(find("#topic_#{a_followed_topic.id}")['class']).to include('thredded--topic-following')

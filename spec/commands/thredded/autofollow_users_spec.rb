@@ -55,14 +55,14 @@ module Thredded
         @sara = create(:user, name: 'sara', email: 'sara@example.com')
         create(:user_preference, user: @sara, auto_follow_topics: true)
         create(:user_messageboard_preference, user: @sara, auto_follow_topics: false, messageboard: @messageboard)
-        expect(AutofollowUsers.new(@post).new_followers).to_not include(@sara)
+        expect(AutofollowUsers.new(@post).new_followers).not_to include(@sara)
       end
 
       it 'does not include users who have both global and messageboard auto-follow disabled' do
         @sara = create(:user, name: 'sara', email: 'sara@example.com')
         create(:user_preference, user: @sara, auto_follow_topics: false)
         create(:user_messageboard_preference, user: @sara, auto_follow_topics: false, messageboard: @messageboard)
-        expect(AutofollowUsers.new(@post).new_followers).to_not include(@sara)
+        expect(AutofollowUsers.new(@post).new_followers).not_to include(@sara)
       end
     end
   end

@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'Editing a messageboard' do
-  scenario 'succeeds' do
+RSpec.feature 'Editing a messageboard' do
+  it 'succeeds' do
     messageboard = create(:messageboard)
     user = an_admin
     user.log_in
@@ -16,7 +16,7 @@ feature 'Editing a messageboard' do
     expect(page).to have_content(new_name)
   end
 
-  scenario 'admin locks a messageboard' do
+  it 'admin locks a messageboard' do
     messageboard = create(:messageboard)
     user = an_admin
     user.log_in

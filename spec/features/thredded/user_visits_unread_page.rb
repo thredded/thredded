@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-feature 'User viewing unread topics' do
+RSpec.feature 'User viewing unread topics' do
   let(:user) { create(:user) }
   let(:messageboard) { create(:messageboard) }
 
-  scenario 'sees unread topics, sorted followed-first' do
+  it 'sees unread topics, sorted followed-first' do
     create_topic(title: 'Read topic', read: true)
     create_topic(title: 'Read followed topic', read: true, followed: true)
     unread_topic = create_topic(title: 'Unread topic')

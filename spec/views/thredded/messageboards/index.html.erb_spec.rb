@@ -25,11 +25,11 @@ RSpec.describe 'thredded/messageboards/index' do
     )
 
     # Stub the policy, so we can test the view given different permissions
-    allow(view).to receive(:policy).and_return(double(Thredded::MessageboardPolicy))
+    allow(view).to receive(:policy).and_return(instance_double(Thredded::MessageboardPolicy))
   end
 
   it 'shows the Create button when permitted to create a messageboard' do
-    expect(view.policy).to receive(:create?).and_return(true).exactly(2).times
+    expect(view.policy).to receive(:create?).and_return(true).twice
 
     render
 
@@ -38,7 +38,7 @@ RSpec.describe 'thredded/messageboards/index' do
   end
 
   it 'does not show the Create button when not permitted to create a messageboard' do
-    expect(view.policy).to receive(:create?).and_return(false).exactly(2).times
+    expect(view.policy).to receive(:create?).and_return(false).twice
 
     render
 

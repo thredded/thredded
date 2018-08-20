@@ -9,6 +9,7 @@ FactoryBot.define do
     to { 'email-token' }
     from { 'user@email.com' }
     subject { 'email subject' }
+
     body { 'Hello!' }
   end
 

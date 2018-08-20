@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'User editing a private topic' do
-  scenario 'can edit a topic they started' do
+RSpec.feature 'User editing a private topic' do
+  it 'can edit a topic they started' do
     user.log_in
     topic = private_topic
     topic.visit_topic_edit
@@ -11,7 +11,7 @@ feature 'User editing a private topic' do
     expect(topic).to be_editable
   end
 
-  scenario 'updates topic title' do
+  it 'updates topic title' do
     user.log_in
     topic = private_topic
     topic.visit_topic_edit

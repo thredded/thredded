@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature 'User sends a new private topic' do
-  scenario 'with title, recipient and content' do
+RSpec.feature 'User sends a new private topic' do
+  it 'with title, recipient and content' do
     PageObject::User.new(create(:user, name: 'joel')).log_in
     messageboard = create(:messageboard)
     private_topic = PageObject::PrivateTopics.new(messageboard)
