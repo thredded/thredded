@@ -1,3 +1,22 @@
+# v0.15.5
+
+## Changed
+
+* Performance improvement: Avoid redundant permission queries.
+[#725](https://github.com/thredded/thredded/pull/725)
+
+## Fixed
+
+* Navigate to the correct page for read topics.
+  [f5237960](https://github.com/thredded/thredded/commit/f5237960911d647171c8f362fcca3f53896a1778)
+* Fix an error when approving / blocking a post that was already approved / blocked.
+  [#723](https://github.com/thredded/thredded/issues/723)
+* When creating a messageboard, show an error message if the name is too long. Also makes the valid name length range
+  configurable.
+  [#720](https://github.com/thredded/thredded/issues/720)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.4...v0.15.5.
+
 # v0.15.4
 
 ## Added
