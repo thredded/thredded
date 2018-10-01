@@ -41,7 +41,7 @@ module Thredded
       # Adds `first_unread_post_page` and `last_read_post_page` columns onto the scope.
       # Skips the records that have no read posts.
       def with_page_info( # rubocop:disable Metrics/MethodLength
-        posts_per_page: topic_class.default_per_page, posts_scope: post_class.all
+        posts_per_page: post_class.default_per_page, posts_scope: post_class.all
       )
         states = arel_table
         self_relation = is_a?(ActiveRecord::Relation) ? self : all
