@@ -7,7 +7,7 @@ $thredded-grid-breakpoint-max-widths: (mobile: 34rem, tablet: 48rem) !default;
 $thredded-content-breakout-min-width: 4rem !default;
 
 // Typography
-$thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif !default;
+$thredded-base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $thredded-base-font-size: 1rem !default; // 16px
 $thredded-font-size-small: 0.875rem !default; // 14px
 $thredded-base-line-height: 1.5 !default;
