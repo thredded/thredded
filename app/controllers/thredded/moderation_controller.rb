@@ -55,7 +55,12 @@ module Thredded
     def users
       @users = Thredded.user_class
         .eager_load(:thredded_user_detail)
-        .merge(Thredded::UserDetail.order(moderation_state_changed_at: :desc))
+        .merge(
+          Thredded::UserDetail.order(
+            Arel.sql('COALESCE(thredded_user_details.moderation_state, 0) ASC,'\
+                     'thredded_user_details.moderation_state_changed_at DESC')
+          )
+        )
       @query = params[:q].to_s
       @users = DbTextSearch::CaseInsensitive.new(@users, Thredded.user_name_column).prefix(@query) if @query.present?
       @users = @users.page(current_page)
