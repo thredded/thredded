@@ -1,3 +1,36 @@
+# v0.16.0
+
+## Added
+
+* Unread and unread followed topics are now indicated on the messageboards page like this:
+
+  ![thredded-messageboards-unread](https://user-images.githubusercontent.com/216339/46279971-898d3600-c562-11e8-8366-7112569b849a.png)
+
+  [#735](https://github.com/thredded/thredded/pull/735)
+
+## Changed
+
+* Thredded no longer provides emoji functionality such as `:smile:` by default, and also
+  no longer depends on the `gemoji` gem. It is easy to add `gemoji` back in if you want to:
+
+  1. Follow the installation instructions at https://github.com/github/gemoji.
+  2. Add the following line to `config/initializers/thredded.rb`:
+
+     ```ruby
+     Thredded::ContentFormatter.after_markup_filters.insert(1, HTML::Pipeline::EmojiFilter)
+     ```
+
+  [#739](https://github.com/thredded/thredded/pull/739)
+
+**NB**: If updating to this version from 0.15.x, you **must** copy and run the upgrade migration after updating the gem:
+
+```console
+cp "$(bundle show thredded)"/db/upgrade_migrations/20180930063614_upgrade_thredded_v0_15_to_v0_16.rb db/migrate
+bin/rails db:migrate
+```
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.15.5...v0.16.0.
+
 # v0.15.5
 
 ## Changed
