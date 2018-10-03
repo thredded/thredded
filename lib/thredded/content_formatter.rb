@@ -63,7 +63,6 @@ module Thredded
       # AutolinkFilter is required because Kramdown does not autolink by default.
       # https://github.com/gettalong/kramdown/issues/306
       Thredded::HtmlPipeline::AutolinkFilter,
-      HTML::Pipeline::EmojiFilter,
       Thredded::HtmlPipeline::AtMentionFilter,
       Thredded::HtmlPipeline::SpoilerTagFilter::AfterMarkup,
     ]

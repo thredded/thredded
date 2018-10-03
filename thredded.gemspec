@@ -40,9 +40,6 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   # for the AutolinkFilter
   s.add_dependency 'rinku'
 
-  # gemoji v3 removes most of the emoji from the gem, so lock to v2 until we find another solution.
-  s.add_dependency 'gemoji', '~> 2.1.0'
-
   s.add_dependency 'sanitize'
 
   # frontend
@@ -65,6 +62,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'webmock'
 
   # dummy app dependencies
+  s.add_development_dependency 'gemoji', '~> 3.0'
   s.add_development_dependency 'http_accept_language'
   s.add_development_dependency 'i18n-tasks', '>= 0.9.18'
   s.add_development_dependency 'kaminari-i18n'
