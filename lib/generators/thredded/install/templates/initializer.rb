@@ -109,10 +109,10 @@ Thredded.layout = 'thredded/application'
 # ==> Post Content Formatting
 # Customize the way Thredded handles post formatting.
 
-# Change the default html-pipeline filters used by thredded.
-# E.g. to replace default emoji filter with your own:
-# Thredded::ContentFormatter.after_markup_filters[
-#   Thredded::ContentFormatter.after_markup_filters.index(HTML::Pipeline::EmojiFilter)] = MyEmojiFilter
+# ===> Emoji using the 'gemoji' gem
+# 1. Install `gemoji` following instruction at https://github.com/github/gemoji.
+# 2. Uncomment the following line:
+# Thredded::ContentFormatter.after_markup_filters.insert(1, HTML::Pipeline::EmojiFilter)
 
 # Change the HTML sanitization settings used by Thredded.
 # See the Sanitize docs for more information on the underlying library: https://github.com/rgrove/sanitize/#readme

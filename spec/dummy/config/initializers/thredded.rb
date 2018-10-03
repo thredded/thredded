@@ -12,6 +12,7 @@ Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
 Thredded.parent_mailer = 'ApplicationMailer'
+Thredded::ContentFormatter.after_markup_filters.insert(1, HTML::Pipeline::EmojiFilter)
 
 Rails.application.config.to_prepare do
   # Thredded.notifiers = [Thredded::EmailNotifier.new]

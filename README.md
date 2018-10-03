@@ -104,12 +104,6 @@ Add the Thredded [initializer] to your parent app by running the install generat
 rails generate thredded:install
 ```
 
-Copy emoji images to your `public/emoji` directory.
-
-```console
-rake thredded:install:emoji
-```
-
 Thredded needs to know the base application User model name and certain columns on it. Configure
 these in the initializer installed with the command above.
 
