@@ -54,7 +54,7 @@ module Thredded
 
     def users
       @users = Thredded.user_class
-        .left_join_thredded_user_details
+        .eager_load(:thredded_user_detail)
         .merge(Thredded::UserDetail.order(moderation_state_changed_at: :desc))
       @query = params[:q].to_s
       @users = DbTextSearch::CaseInsensitive.new(@users, Thredded.user_name_column).prefix(@query) if @query.present?
