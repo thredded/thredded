@@ -60,7 +60,7 @@ module Thredded
         .page(current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      Thredded::UserTopicReadState.touch!(thredded_current_user.id, topic.id, page_scope.last) if thredded_signed_in?
+      Thredded::UserTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
       @new_post = Thredded::PostForm.new(user: thredded_current_user, topic: topic, post_params: new_post_params)
     end
 

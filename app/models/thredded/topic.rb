@@ -64,7 +64,7 @@ module Thredded
             foreign_key: :postable_id
     has_one :last_post, # rubocop:disable Rails/InverseOf
             -> { order_newest_first },
-            class_name:  'Thredded::Post',
+            class_name: 'Thredded::Post',
             foreign_key: :postable_id
 
     has_many :topic_categories, inverse_of: :topic, dependent: :delete_all
@@ -73,7 +73,7 @@ module Thredded
              class_name: 'Thredded::UserTopicReadState',
              foreign_key: :postable_id,
              inverse_of: :postable,
-             dependent: :destroy
+             dependent: :delete_all
     has_many :user_follows,
              class_name: 'Thredded::UserTopicFollow',
              inverse_of: :topic,
@@ -114,6 +114,10 @@ module Thredded
       end
 
       public
+
+      def post_class
+        Thredded::Post
+      end
 
       # @param user [Thredded.user_class]
       # @return [Array<[TopicCommon, UserTopicReadStateCommon, UserTopicFollow]>]
@@ -174,9 +178,10 @@ module Thredded
     end
 
     def handle_messageboard_change_after_commit
-      # Update the `posts.messageboard_id` column. The column is just a performance optimization,
+      # Update `messageboard_id` columns. These columns are a performance optimization,
       # so use update_all to avoid validitaing, triggering callbacks, and updating the timestamps:
       posts.update_all(messageboard_id: messageboard_id)
+      user_read_states.update_all(messageboard_id: messageboard_id)
 
       # Update the associated messageboard metadata that Rails does not update them automatically.
       previous_changes['messageboard_id'].each do |messageboard_id|

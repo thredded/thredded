@@ -29,7 +29,11 @@ module Thredded
              dependent:   :destroy
     has_one :first_post, # rubocop:disable Rails/InverseOf
             -> { order_oldest_first },
-            class_name:  'Thredded::PrivatePost',
+            class_name: 'Thredded::PrivatePost',
+            foreign_key: :postable_id
+    has_one :last_post, # rubocop:disable Rails/InverseOf
+            -> { order_newest_first },
+            class_name: 'Thredded::PrivatePost',
             foreign_key: :postable_id
     has_many :private_users,
              inverse_of: :private_topic,
@@ -39,7 +43,7 @@ module Thredded
              class_name: 'Thredded::UserPrivateTopicReadState',
              foreign_key: :postable_id,
              inverse_of: :postable,
-             dependent: :destroy
+             dependent: :delete_all
 
     # Private topics with that have exactly the given participants.
     scope :has_exact_participants, ->(users) {
@@ -99,6 +103,12 @@ module Thredded
 
     def ensure_user_in_private_users
       users << user if user.present? && !users.include?(user)
+    end
+
+    class << self
+      def post_class
+        Thredded::PrivatePost
+      end
     end
   end
 end

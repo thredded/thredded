@@ -128,4 +128,12 @@ RSpec.describe 'Migrations', migration_spec: true, order: :defined do # rubocop:
       migrate(migration_file)
     end
   end
+
+  context 'v0.15 to v0.16' do
+    let(:migration_file) { 'db/upgrade_migrations/20180930063614_upgrade_thredded_v0_15_to_v0_16.rb' }
+
+    it 'smoke test' do
+      migrate(migration_file)
+    end
+  end
 end

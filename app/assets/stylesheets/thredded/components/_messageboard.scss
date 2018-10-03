@@ -33,7 +33,6 @@
   float: left;
   font-size: 1.125rem; // 18px
   line-height: 1.2;
-  margin-right: $thredded-small-spacing;
   vertical-align: baseline;
 }
 
@@ -66,6 +65,19 @@
   vertical-align: baseline;
 }
 
+.thredded--messageboard--unread-followed-topics-count {
+  @extend %thredded--nav-tabs--item--badge;
+  align-self: baseline;
+  line-height: inherit;
+  display: flex;
+}
+
+.thredded--messageboard--unread-followed-icon {
+  fill: currentColor;
+  width: 1rem;
+  height: 1rem;
+}
+
 .thredded--messageboard--description {
   @extend %thredded--paragraph;
   clear: both;
@@ -96,7 +108,9 @@
     &--header {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      > .thredded--flex-spacer {
+        margin-right: $thredded-small-spacing;
+      }
     }
     &--meta {
       text-align: right;
@@ -149,7 +163,6 @@
         margin-bottom: $margin-y;
         padding: $thredded-messageboards-grid-item-padding-y $thredded-messageboards-grid-item-padding-x;
       }
-
     }
   }
 }

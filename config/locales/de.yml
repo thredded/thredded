@@ -69,6 +69,7 @@ de:
         page_title: Forum
       last_updated_by_html: Letzter Beitrag %{time_ago} <cite>von %{user}</cite>
       topics_and_posts_counts: "%{topics_count} Diskussionen / %{posts_count} Beiträge"
+      topics_and_unread_topics_counts: "%{unread_topics_count} ungelesen von %{topics_count} Themen"
       update: :thredded.form.update
       updated_notice: Das Forum wurde aktualisiert
     messageboard_first_topic:

@@ -65,6 +65,7 @@ zh-CN:
         page_title: 板块
       last_updated_by_html: 最近由 <span>%{user}</span> 在%{time_ago}更新
       topics_and_posts_counts: "%{topics_count} 帖子 / %{posts_count} 回复"
+      topics_and_unread_topics_counts: "%{unread_topics_count} 未读取 %{topics_count} 主题"
       update: :thredded.form.update
       updated_notice: 板块已更新
     messageboard_first_topic:

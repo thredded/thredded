@@ -70,6 +70,7 @@ pt-BR:
         page_title: Fóruns de Mensagens
       last_updated_by_html: Atualizado %{time_ago} <cite>por %{user}</cite>
       topics_and_posts_counts: "%{topics_count} tópicos / %{posts_count} posts"
+      topics_and_unread_topics_counts: "%{unread_topics_count} não lida de %{topics_count} topics"
       update: :thredded.form.update
       updated_notice: Fórum de mensagem foi atualizado
     messageboard_first_topic:

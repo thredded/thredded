@@ -32,11 +32,7 @@ module Thredded
         .page(current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
-
-      if thredded_signed_in?
-        Thredded::UserPrivateTopicReadState.touch!(thredded_current_user.id, private_topic.id, page_scope.last)
-      end
-
+      Thredded::UserPrivateTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
       @new_post = Thredded::PrivatePostForm.new(
         user: thredded_current_user, topic: private_topic, post_params: new_private_post_params
       )

@@ -4,7 +4,7 @@ module Thredded
   class Messageboard < ActiveRecord::Base
     extend FriendlyId
     friendly_id :slug_candidates,
-                use:            %i[slugged reserved],
+                use: %i[slugged reserved],
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
                   %w[
@@ -50,6 +50,11 @@ module Thredded
              class_name: Thredded.user_class_name,
              through:    :recently_active_user_details,
              source:     :user
+
+    has_many :user_topic_read_states,
+             class_name: 'Thredded::UserTopicReadState',
+             inverse_of: :messageboard,
+             dependent: :delete_all
 
     belongs_to :group,
                inverse_of: :messageboards,
@@ -113,6 +118,27 @@ module Thredded
         :name,
         [:name, '-board']
       ]
+    end
+
+    class << self
+      # @param [Thredded.user_class] user
+      # @param [ActiveRecord::Relation<Thredded::Topic>] topics_scope
+      def unread_topics_counts(user:, topics_scope: Thredded::Topic.all)
+        messageboards = arel_table
+        read_states = Thredded::UserTopicReadState.arel_table
+        topics = topics_scope.arel_table
+        joins(:topics).merge(topics_scope).joins(
+          messageboards.outer_join(read_states).on(
+            messageboards[:id].eq(read_states[:messageboard_id])
+              .and(read_states[:postable_id].eq(topics[:id]))
+              .and(read_states[:user_id].eq(user.id))
+              .and(read_states[:unread_posts_count].eq(0))
+          ).join_sources
+        ).group(messageboards[:id]).pluck(
+          :id,
+          Arel::Nodes::Subtraction.new(topics[:id].count, read_states[:id].count)
+        ).to_h
+      end
     end
   end
 end

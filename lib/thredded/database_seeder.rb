@@ -229,12 +229,13 @@ module Thredded
     end
 
     def read_topic(topic, user_id)
-      read_state = Thredded::UserTopicReadState.find_or_initialize_by(user_id: user_id, postable_id: topic.id)
-      if rand(2).zero?
-        read_state.update!(read_at: topic.updated_at)
-      else
-        read_state.update!(read_at: topic.posts.order_newest_first.first(2).last.created_at)
-      end
+      last_read_post =
+        if rand(2).zero?
+          topic.posts.order_newest_first.first(2).last
+        else
+          topic.posts.order_newest_first.first
+        end
+      Thredded::UserTopicReadState.touch!(user_id, last_read_post)
     end
 
     class BaseSeedData

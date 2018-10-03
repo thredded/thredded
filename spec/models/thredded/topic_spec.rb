@@ -202,7 +202,10 @@ module Thredded
     end
 
     def create_read_state(read_at, user_id: user.id)
-      UserTopicReadState.create!(user_id: user_id, postable_id: topic.id, read_at: read_at)
+      read_state = UserTopicReadState.new(
+        user_id: user_id, messageboard_id: topic.messageboard_id, postable_id: topic.id, read_at: read_at
+      )
+      read_state.update!(read_state.calculate_post_counts)
     end
 
     context 'with following topic' do

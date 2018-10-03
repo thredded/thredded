@@ -188,11 +188,20 @@ FactoryBot.define do
   factory :user_topic_read_state, class: Thredded::UserTopicReadState do
     user
     association :postable, factory: :topic
+    read_at { Time.now.utc }
+    after :build do |read_state|
+      read_state.messageboard = read_state.postable.messageboard
+      read_state.assign_attributes(read_state.calculate_post_counts)
+    end
   end
+
   factory :user_private_topic_read_state, class: Thredded::UserPrivateTopicReadState do
     user
     association :postable, factory: :private_topic
     read_at { Time.now.utc }
+    after :build do |read_state|
+      read_state.assign_attributes(read_state.calculate_post_counts)
+    end
   end
 
   factory :user_topic_follow, class: Thredded::UserTopicFollow do

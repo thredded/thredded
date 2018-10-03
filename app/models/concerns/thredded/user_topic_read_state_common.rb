@@ -21,79 +21,73 @@ module Thredded
       post.created_at <= read_at
     end
 
-    module ClassMethods
-      # @param user_id [Integer]
-      # @param topic_id [Integer]
-      # @param post [Thredded::PostCommon]
-      def touch!(user_id, topic_id, post)
-        # TODO: Switch to upsert once Travis supports PostgreSQL 9.5.
-        # Travis issue: https://github.com/travis-ci/travis-ci/issues/4264
-        # Upsert gem: https://github.com/seamusabshere/upsert
-        state = find_or_initialize_by(user_id: user_id, postable_id: topic_id)
-        return unless !state.read_at? || state.read_at < post.created_at
-        state.update!(read_at: post.created_at)
-      end
+    def calculate_post_counts
+      unread_posts_count, read_posts_count =
+        self.class.visible_posts_scope(user)
+          .where(postable_id: postable_id)
+          .pluck(*self.class.post_counts_arel(read_at))[0]
+      { unread_posts_count: unread_posts_count || 0, read_posts_count: read_posts_count || 0 }
+    end
 
-      def read_on_first_post!(user, topic)
-        create!(user: user, postable: topic, read_at: Time.zone.now)
-      end
+    module ClassMethods
+      delegate :post_class, to: :topic_class
 
       # Adds `first_unread_post_page` and `last_read_post_page` columns onto the scope.
       # Skips the records that have no read posts.
-      def with_page_info( # rubocop:disable Metrics/MethodLength
-        posts_per_page: post_class.default_per_page, posts_scope: post_class.all
-      )
+      def with_page_info(posts_per_page: post_class.default_per_page)
         states = arel_table
-        self_relation = is_a?(ActiveRecord::Relation) ? self : all
-        if self_relation == unscoped
-          states_select_manager = states
-        else
-          # Using the relation here is redundant but massively improves performance.
-          states_select_manager = Thredded::ArelCompat.new_arel_select_manager(
-            Arel::Nodes::TableAlias.new(Thredded::ArelCompat.relation_to_arel(self_relation), table_name)
-          )
-        end
-        read = if posts_scope == post_class.unscoped
-                 post_class.arel_table
-               else
-                 posts_subquery = Thredded::ArelCompat.relation_to_arel(posts_scope)
-                 Arel::Nodes::TableAlias.new(posts_subquery, 'read_posts')
-               end
-        unread_topics = topic_class.arel_table
-        page_info =
-          states_select_manager
-            .project(
-              states[:id],
-              Arel::Nodes::Case.new(unread_topics[:id].not_eq(nil))
-                .when(Thredded::ArelCompat.true_value(self)).then(
-                  Arel::Nodes::Addition.new(
-                    Thredded::ArelCompat.integer_division(self, read[:id].count, posts_per_page), 1
-                  )
-                ).else(nil)
-                .as('first_unread_post_page'),
+        selects = []
+        selects << states[Arel.star] if !is_a?(ActiveRecord::Relation) || select_values.empty?
+        selects += [
+          Arel::Nodes::Case.new(states[:unread_posts_count].not_eq(0))
+            .when(Thredded::ArelCompat.true_value(self)).then(
               Arel::Nodes::Addition.new(
-                Thredded::ArelCompat.integer_division(self, read[:id].count, posts_per_page),
-                Arel::Nodes::Case.new(Arel::Nodes::InfixOperation.new(:%, read[:id].count, posts_per_page))
-                  .when(0).then(0).else(1)
-              ).as('last_read_post_page')
-            )
-            .join(read)
-            .on(read[:postable_id].eq(states[:postable_id]).and(read[:created_at].lteq(states[:read_at])))
-            .outer_join(unread_topics)
-            .on(states[:postable_id].eq(unread_topics[:id]).and(unread_topics[:last_post_at].gt(states[:read_at])))
-            .group(states[:id], unread_topics[:id])
-            .as('id_and_page_info')
-
-        # We use a subquery because selected fields must appear in the GROUP BY or be used in an aggregate function.
-        select(states[Arel.star], page_info[:first_unread_post_page], page_info[:last_read_post_page])
-          .joins(states.join(page_info).on(states[:id].eq(page_info[:id])).join_sources)
+                Thredded::ArelCompat.integer_division(self, states[:read_posts_count], posts_per_page), 1
+              )
+            ).else(nil).as('first_unread_post_page'),
+          Arel::Nodes::Addition.new(
+            Thredded::ArelCompat.integer_division(self, states[:read_posts_count], posts_per_page),
+            Arel::Nodes::Case.new(Arel::Nodes::InfixOperation.new(:%, states[:read_posts_count], posts_per_page))
+              .when(0).then(0).else(1)
+          ).as('last_read_post_page')
+        ]
+        select(selects)
       end
 
-      def topic_class
-        reflect_on_association(:postable).klass
+      # Calculates and saves the `unread_posts_count` and `read_posts_count` columns.
+      def update_post_counts!
+        id_counts = calculate_post_counts_for_users(Thredded.user_class.where(id: distinct.select(:user_id)))
+        transaction do
+          id_counts.each do |(id, unread_posts_count, read_posts_count)|
+            where(id: id).update_all(unread_posts_count: unread_posts_count, read_posts_count: read_posts_count)
+          end
+        end
       end
 
-      delegate :post_class, to: :topic_class
+      # @param [DateTime, Arel::Node] read_at
+      # @param [Arel::Table] posts
+      # @return [[Arel::Node, Arel::Node]] `unread_posts_count` and `read_posts_count` nodes.
+      def post_counts_arel(read_at, posts: post_class.arel_table)
+        [
+          Arel::Nodes::Sum.new(
+            [Arel::Nodes::Case.new(posts[:created_at].gt(read_at))
+               .when(Thredded::ArelCompat.true_value(self)).then(1).else(0)]
+          ).as('unread_posts_count'),
+          Arel::Nodes::Sum.new(
+            [Arel::Nodes::Case.new(posts[:created_at].gt(read_at))
+               .when(Thredded::ArelCompat.true_value(self)).then(0).else(1)]
+          ).as('read_posts_count')
+        ]
+      end
+
+      # @return [Array<[id, unread_posts_count, read_posts_count]>]
+      def calculate_post_counts
+        states = arel_table
+        posts = post_class.arel_table
+        joins(states.join(posts).on(states[:postable_id].eq(posts[:postable_id])).join_sources)
+          .group(states[:id])
+          .pluck(states[:id], *post_counts_arel(states[:read_at], posts: posts))
+      end
     end
   end
 end
