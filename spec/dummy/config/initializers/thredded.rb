@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'html_pipeline_twemoji'
+
 Thredded.user_class = 'User'
 Thredded.user_name_column = :name
 Thredded.user_path = ->(user) { main_app.user_path(user.id) }
@@ -12,7 +14,7 @@ Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
 Thredded.parent_mailer = 'ApplicationMailer'
-Thredded::ContentFormatter.after_markup_filters.insert(1, HTML::Pipeline::EmojiFilter)
+Thredded::ContentFormatter.after_markup_filters.insert(1, HTMLPipelineTwemoji)
 
 Rails.application.config.to_prepare do
   # Thredded.notifiers = [Thredded::EmailNotifier.new]

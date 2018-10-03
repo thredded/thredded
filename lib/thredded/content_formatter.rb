@@ -46,6 +46,7 @@ module Thredded
         'abbr'   => %w[title],
         'span'   => %w[class],
         'div'    => %w[class],
+        'img'    => %w[src longdesc class],
         :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
           %w[aria-expanded aria-label aria-labelledby aria-live aria-hidden aria-pressed role],
       }

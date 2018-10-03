@@ -62,7 +62,6 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'webmock'
 
   # dummy app dependencies
-  s.add_development_dependency 'gemoji', '~> 3.0'
   s.add_development_dependency 'http_accept_language'
   s.add_development_dependency 'i18n-tasks', '>= 0.9.18'
   s.add_development_dependency 'kaminari-i18n'
@@ -73,6 +72,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'rails_email_preview', '>= 2.0.1'
   s.add_development_dependency 'roadie-rails'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'twemoji'
   s.add_development_dependency 'web-console'
 
   # add some plugins to the dummy app demo

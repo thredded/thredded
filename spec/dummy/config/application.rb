@@ -12,12 +12,13 @@ require 'kaminari-i18n'
 require 'turbolinks'
 require 'rails_email_preview'
 require 'roadie-rails'
+require 'twemoji'
+require 'twemoji/svg'
 require 'thredded'
 require 'thredded/markdown_coderay'
 require 'thredded/markdown_katex'
 require 'rails-ujs' unless Thredded.rails_gte_51?
 require 'backport_new_renderer' if Rails::VERSION::MAJOR < 5
-require 'gemoji'
 
 if ENV['HEROKU']
   require 'tunemygc'
