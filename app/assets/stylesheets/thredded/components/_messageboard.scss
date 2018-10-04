@@ -29,9 +29,9 @@
 
 .thredded--messageboard--title {
   @extend %thredded--heading;
+  font-size: $thredded-messageboard-title-font-size;
   display: inline-block;
   float: left;
-  font-size: 1.125rem; // 18px
   line-height: 1.2;
   margin-right: $thredded-small-spacing;
   vertical-align: baseline;
