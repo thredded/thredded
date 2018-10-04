@@ -10,11 +10,11 @@
 
 .thredded--topic-header--title {
   @extend %thredded--heading;
-  font-size: 1.25rem;
+  font-size: $thredded-topic-header-font-size;
   line-height: 1.2;
   margin-bottom: $thredded-small-spacing / 2;
   @include thredded-media-tablet-and-up {
-    font-size: 1.5rem;
+    font-size: $thredded-topic-header-font-size-tablet-and-up;
   }
 }
 
