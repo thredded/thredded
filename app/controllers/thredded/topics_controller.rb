@@ -23,7 +23,7 @@ module Thredded
       page_scope = policy_scope(messageboard.topics)
         .order_sticky_first.order_recently_posted_first
         .includes(:categories, :last_user, :user)
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
       @new_topic = init_new_topic
@@ -34,7 +34,7 @@ module Thredded
         .unread(thredded_current_user)
         .order_followed_first(thredded_current_user).order_recently_posted_first
         .includes(:categories, :last_user, :user)
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
       @new_topic = init_new_topic
@@ -46,7 +46,7 @@ module Thredded
         .search_query(@query)
         .order_recently_posted_first
         .includes(:categories, :last_user, :user)
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
     end
@@ -57,7 +57,7 @@ module Thredded
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard)
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
       Thredded::UserTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
@@ -79,7 +79,7 @@ module Thredded
         policy_scope(@category.topics)
           .unstuck
           .order_recently_posted_first
-          .page(current_page)
+          .send(Kaminari.config.page_method_name, current_page)
       )
       render :index
     end

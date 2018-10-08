@@ -12,7 +12,7 @@ module Thredded
           .pending_moderation
           .order_oldest_first
           .preload(:user, :postable)
-          .page(current_page)
+          .send(Kaminari.config.page_method_name, current_page)
       )
       maybe_set_last_moderated_record_flash
     end
@@ -20,7 +20,7 @@ module Thredded
     def history
       @post_moderation_records = accessible_post_moderation_records
         .order(created_at: :desc)
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
     end
 
     def activity
@@ -29,7 +29,7 @@ module Thredded
         moderatable_posts
           .order_newest_first
           .preload(:user, :postable, :messageboard)
-          .page(current_page)
+          .send(Kaminari.config.page_method_name, current_page)
       )
       maybe_set_last_moderated_record_flash
     end
@@ -63,7 +63,7 @@ module Thredded
         )
       @query = params[:q].to_s
       @users = DbTextSearch::CaseInsensitive.new(@users, Thredded.user_name_column).prefix(@query) if @query.present?
-      @users = @users.page(current_page)
+      @users = @users.send(Kaminari.config.page_method_name, current_page)
     end
 
     def user
@@ -73,7 +73,7 @@ module Thredded
         .where(messageboard_id: policy_scope(Messageboard.all).pluck(:id))
         .order_newest_first
         .includes(:postable)
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope)
     end
 

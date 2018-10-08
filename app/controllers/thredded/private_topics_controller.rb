@@ -12,7 +12,7 @@ module Thredded
         .distinct
         .for_user(thredded_current_user)
         .order_recently_posted_first
-        .page(params[:page])
+        .send(Kaminari.config.page_method_name, params[:page])
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @private_topics = Thredded::PrivateTopicsPageView.new(thredded_current_user, page_scope)
 
@@ -29,7 +29,7 @@ module Thredded
         .posts
         .includes(:user)
         .order_oldest_first
-        .page(current_page)
+        .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
       Thredded::UserPrivateTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
