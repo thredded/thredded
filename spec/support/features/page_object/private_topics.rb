@@ -52,8 +52,6 @@ module PageObject
       has_css? 'article h1 a', text: private_title
     end
 
-    private
-
     attr_reader :private_title
   end
 end
