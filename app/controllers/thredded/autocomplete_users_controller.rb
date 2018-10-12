@@ -30,6 +30,7 @@ module Thredded
       if query.length >= Thredded.autocomplete_min_length
         DbTextSearch::CaseInsensitive.new(users_scope, Thredded.user_name_column).prefix(query)
           .where.not(id: thredded_current_user.id)
+          .order(Thredded.user_class.arel_table[Thredded.user_name_column].lower.asc)
           .limit(MAX_RESULTS)
       else
         []
