@@ -63,6 +63,9 @@
         maxCount: Thredded.UsersSelect.DROPDOWN_MAX_COUNT,
       },
     });
+    textarea.addEventListener('blur', (evt) => {
+      textcomplete.hide();
+    });
 
     const searchFn = Thredded.UserTextcomplete.searchFn({
       url: textarea.getAttribute('data-autocomplete-url'),
