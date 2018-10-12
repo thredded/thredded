@@ -54,6 +54,6 @@ module PageObject
 
     private
 
-    attr_reader :messageboard, :private_title
+    attr_reader :private_title
   end
 end
