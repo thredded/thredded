@@ -44,7 +44,7 @@
           current.push(char);
       }
     }
-    if (current.length) result.push({name: current.join(''), index: currentIndex});
+    if (current.length) result.current = {name: current.join(''), index: currentIndex};
     return result;
   }
 
@@ -77,8 +77,8 @@
       index: 0,
       match: (text) => {
         const names = parseNames(text);
-        if (names.length) {
-          const {name, index} = names[names.length - 1];
+        if (names.current) {
+          const {name, index} = names.current;
           const matchData = [name];
           matchData.index = index;
           return matchData;
