@@ -3,10 +3,7 @@
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 
 <%= thredded_page do %>
-  <div class="thredded--svg-definitions">
-    <%= inline_svg_once 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
-    <%= inline_svg_once 'thredded/unfollow.svg', id: 'thredded-unfollow-icon' %>
-  </div>
+  <%= define_svg_icons('thredded/follow.svg', 'thredded/unfollow.svg') %>
 
   <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
     <%= render 'thredded/topics/form',
