@@ -10,8 +10,8 @@
   <%= render 'section_title', label: 'messageboards#index', href: messageboards_path %>
   <%= content_tag :section, class: 'thredded--thredded--main-section thredded--messageboards' do %>
     <div class="thredded--svg-definitions">
-      <%= inline_svg 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
-      <%= inline_svg 'thredded/lock.svg', id: 'thredded-lock-icon', title: nil %>
+      <%= inline_svg_once 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
+      <%= inline_svg_once 'thredded/lock.svg', id: 'thredded-lock-icon', title: nil %>
     </div>
     <div class="thredded--messageboards-group">
       <%= render partial: 'thredded/messageboards/messageboard', collection: @messageboard_views %>

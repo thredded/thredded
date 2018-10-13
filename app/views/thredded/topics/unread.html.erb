@@ -8,8 +8,8 @@
 <%= thredded_page do %>
   <% if @topics.present? %>
     <div class="thredded--svg-definitions">
-      <%= inline_svg 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
-      <%= inline_svg 'thredded/unfollow.svg', id: 'thredded-unfollow-icon' %>
+      <%= inline_svg_once 'thredded/follow.svg', id: 'thredded-follow-icon', title: nil %>
+      <%= inline_svg_once 'thredded/unfollow.svg', id: 'thredded-unfollow-icon' %>
     </div>
     <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
       <%= render 'thredded/topics/form',
