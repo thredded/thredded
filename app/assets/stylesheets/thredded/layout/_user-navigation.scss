@@ -20,3 +20,10 @@
 .thredded--user-navigation--unread-topics--followed-count {
   @extend %thredded--nav-tabs--item--badge;
 }
+.thredded--unread-topics--followed-icon {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  top: 0.1em;
+  position: relative;
+}

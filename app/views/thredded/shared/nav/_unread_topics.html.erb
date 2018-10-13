@@ -2,10 +2,11 @@
 <% if unread_topics_count > 0 || current %>
   <li class="thredded--user-navigation--unread-topics thredded--user-navigation--item<%= ' thredded--is-current' if current %>">
     <%= link_to current ? nav_back_path(messageboard) : unread_topics_path(messageboard: messageboard), rel: 'nofollow' do %>
-      <%= inline_svg 'thredded/follow.svg', class: 'thredded--icon' %>
       <span class="thredded--nav-text"><%= t('thredded.nav.unread_topics') %></span>
       <% if unread_followed_topics_count > 0 -%>
-        <span class="thredded--user-navigation--unread-topics--followed-count"><%= unread_followed_topics_count %></span>
+        <%= define_svg_icons 'thredded/follow.svg' %>
+        <span class="thredded--user-navigation--unread-topics--followed-count"><svg class="thredded--unread-topics--followed-icon" role="img"><use xlink:href="#thredded-follow-icon"></use></svg>
+            <%= unread_followed_topics_count %></span>
       <% end -%>
     <% end %>
   </li>
