@@ -17,11 +17,6 @@ module Thredded
           .to eq(settings_svg)
       end
 
-      it "blows up if doesn't have an id attr" do
-        expect(self).not_to receive(:inline_svg)
-        expect { inline_svg_once('thredded/settings.svg') }.to raise_error(/\binline_svg_once.*id\b/)
-      end
-
       it 'only inlines once' do
         expect(self).to receive(:inline_svg).once.and_return(settings_svg)
         expect(inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon')).to eq(settings_svg)

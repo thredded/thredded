@@ -22,12 +22,10 @@ module Thredded
       content_tag :div, safe_join(sb), class: 'thredded--svg-definitions'
     end
 
-    def inline_svg_once(filename, transform_params = {})
-      id = transform_params[:id]
-      fail 'Must call inline_svg_once with an id.' unless id
+    def inline_svg_once(filename, id:, **transform_params)
       return if @already_inlined_svg_ids&.include?(id)
       record_already_inlined_svg(filename, id)
-      inline_svg(filename, transform_params)
+      inline_svg(filename, id: id, **transform_params)
     end
 
     private
