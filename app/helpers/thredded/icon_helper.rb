@@ -2,6 +2,17 @@
 
 module Thredded
   module IconHelper
+    def shared_inline_svg(filename, **args)
+      svg = content_tag :svg, **args do
+        content_tag :use, '', 'xlink:href' => "##{thredded_icon_id(filename)}"
+      end
+      if (definition = define_svg_icons(filename))
+        definition + svg
+      else
+        svg
+      end
+    end
+
     def define_svg_icons(*filenames)
       return if filenames.blank?
       sb = filenames.map do |filename|
