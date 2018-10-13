@@ -94,6 +94,53 @@ module Thredded
       end
     end
 
+    describe 'POST create' do
+      let(:topic_params) { { title: 'one', content: 'something' } }
+
+      it 'creates' do
+        expect do
+          post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params }
+        end.to change(Topic, :count).by(1)
+      end
+
+      it 'redirects with no explicit next_page' do
+        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params }
+        expect(response).to redirect_to(messageboard_topics_path(messageboard_id: @messageboard.slug))
+      end
+
+      it 'redirects with blank next_page' do
+        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: '' }
+        expect(response).to redirect_to(messageboard_topics_path(messageboard_id: @messageboard.slug))
+      end
+
+      it 'next_page=messageboard works redirects the same' do
+        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: 'messageboard' }
+        expect(response).to redirect_to(messageboard_topics_path(messageboard_id: @messageboard.slug))
+      end
+      it 'respects next_page=topic' do
+        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: 'topic' }
+        topic = Topic.last
+        expect(response).to redirect_to(messageboard_topic_path(@messageboard.slug, topic))
+      end
+      it 'respects next_page=path' do
+        next_page_path = '/u/1'
+        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: next_page_path }
+        expect(response).to redirect_to(next_page_path)
+      end
+      it "won't redirect to other hosts via scheme" do
+        next_page_url = 'http://example.com/somewhere-naughty'
+        expect do
+          post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: next_page_url }
+        end.to raise_error(/#{next_page_url}/)
+      end
+      it "won't redirect to other hosts via protocol relative" do
+        next_page_url = '//example.com/somewhere-naughty'
+        expect do
+          post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: next_page_url }
+        end.to raise_error(/#{next_page_url}/)
+      end
+    end
+
     describe 'POST follow' do
       subject(:do_follow) { post :follow, params: { messageboard_id: @messageboard.id, id: @topic.id } }
 

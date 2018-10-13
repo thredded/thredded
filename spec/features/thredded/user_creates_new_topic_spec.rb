@@ -39,6 +39,15 @@ RSpec.feature 'User creates new topic' do
     expect(topic_form).not_to have_a_sticky_checkbox
   end
 
+  it 'redirects to a specific next_page (topic)' do
+    topic = new_topic
+    topic.visit_form(next_page: 'topic')
+    topic.with_title('Sample thread title')
+    topic.with_content('Hello *world*!')
+    topic.submit
+    expect(page).to have_current_path(topic.latest_topic_path)
+  end
+
   context 'as an admin' do
     it 'and can make it locked or sticky' do
       topic_form = new_topic_as_an_admin
