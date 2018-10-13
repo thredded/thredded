@@ -166,7 +166,7 @@ Capybara.register_driver :headless_chromium do |app|
   options.add_argument 'window-size=1280,1024'
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
-Capybara.javascript_driver = :headless_chromium
+Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER']&.to_sym || :headless_chromium
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
   config.default_max_wait_time = 5
