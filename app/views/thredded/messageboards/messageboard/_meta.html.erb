@@ -2,7 +2,7 @@
   <% if messageboard.locked? %>
     <span class="thredded--messageboard--meta--locked"
           title="<%= t('thredded.messageboard.form.locked_notice') %>">
-      <svg class="thredded--messageboard--meta--icon" role="img"><use xlink:href="#thredded-lock-icon"></use></svg>
+      <%= shared_inline_svg "thredded/lock.svg", class:"thredded--messageboard--meta--icon", role: "img"%>
     </span>
   <% end %>
   <h3 class="thredded--messageboard--meta--counts">
