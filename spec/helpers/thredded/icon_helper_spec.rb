@@ -97,23 +97,23 @@ module Thredded
       end
     end
 
-    describe '#svg_icon' do
+    describe '#shared_inline_svg' do
       before do
         allow(self).to receive(:inline_svg).and_return(settings_svg)
       end
 
       it 'outputs definition' do
-        html = svg_icon('thredded/settings.svg')
+        html = shared_inline_svg('thredded/settings.svg')
         expect(html).to include('<div class="thredded--svg-definitions">')
         expect(html).to include('id="thredded-settings-icon"')
         expect(html).to include(settings_svg)
       end
       it 'outputs use' do
-        expect(svg_icon('thredded/settings.svg'))
+        expect(shared_inline_svg('thredded/settings.svg'))
           .to include('<svg><use xlink:href="#thredded-settings-icon"></use></svg>')
       end
       it 'passes through args' do
-        html = svg_icon('thredded/settings.svg', class: 'flong')
+        html = shared_inline_svg('thredded/settings.svg', class: 'flong')
         expect(html).to include('<svg class="flong">')
       end
     end

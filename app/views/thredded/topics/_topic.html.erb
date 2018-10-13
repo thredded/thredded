@@ -6,9 +6,9 @@
 
   <div class="thredded--topics--follow-info" title="<%= topic_follow_reason_text topic.follow_reason %>">
     <% if topic.followed? %>
-      <%= svg_icon "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
+      <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
     <% else %>
-      <%= svg_icon "thredded/unfollow.svg", class: "thredded--topics--follow-icon", role: "img" %>
+      <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--topics--follow-icon", role: "img" %>
     <% end %>
   </div>
 
