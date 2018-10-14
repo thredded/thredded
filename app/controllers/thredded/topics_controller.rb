@@ -88,7 +88,7 @@ module Thredded
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        redirect_to messageboard_topics_path(messageboard)
+        redirect_to next_page_after_create(params[:next_page])
       else
         render :new
       end
@@ -140,6 +140,19 @@ module Thredded
     end
 
     private
+
+    def next_page_after_create(next_page)
+      case next_page
+      when 'messageboard', '', nil
+        return messageboard_topics_path(messageboard)
+      when 'topic'
+        messageboard_topic_path(messageboard, @new_topic.topic)
+      when %r{\A/[^/]\S+\z}
+        next_page
+      else
+        fail "Unexpected value for next page: #{next_page.inspect}"
+      end
+    end
 
     def in_messageboard?
       params.key?(:messageboard_id)

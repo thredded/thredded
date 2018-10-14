@@ -50,12 +50,16 @@ module PageObject
       visit messageboard_topics_path(messageboard)
     end
 
-    def visit_form
-      visit new_messageboard_topic_path(messageboard)
+    def visit_form(next_page: nil)
+      visit new_messageboard_topic_path(messageboard, next_page: next_page)
     end
 
     def visit_latest_topic
-      visit messageboard_topic_path(messageboard, Thredded::Topic.last)
+      visit latest_topic_path
+    end
+
+    def latest_topic_path
+      messageboard_topic_path(messageboard, Thredded::Topic.last)
     end
 
     def visit_topic_edit

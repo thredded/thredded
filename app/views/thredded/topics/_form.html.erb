@@ -7,6 +7,8 @@
                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
                  'data-thredded-submit-hotkey' => true,
              } do |form| %>
+  <%= hidden_field_tag("next_page", params[:next_page]) %>
+
   <ul class="thredded--form-list on-top">
     <li class="title">
       <%= form.label :title, t('thredded.topics.form.title_label') %>
