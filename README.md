@@ -564,8 +564,13 @@ Rails.application.config.to_prepare do
     # "Please sign in first" message:
     rescue_from Thredded::Errors::LoginRequired do |exception|
       # Place the code for rendering the login form here, for example:
-      @message = exception.message
-      render template: 'sessions/new', status: :forbidden
+      flash.now[:notice] = exception.message
+      controller = Users::SessionsController.new
+      controller.request = request
+      controller.request.env['devise.mapping'] = Devise.mappings[:user]
+      controller.response = response
+      controller.response_options = { status: :forbidden }
+      controller.process(:new)
     end
   end
 end
