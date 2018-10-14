@@ -147,7 +147,7 @@ module Thredded
         return messageboard_topics_path(messageboard)
       when 'topic'
         messageboard_topic_path(messageboard, @new_topic.topic)
-      when %r{\A/[^/]\S+\Z}
+      when %r{\A/[^/]\S+\z}
         next_page
       else
         fail "Unexpected value for next page: #{next_page.inspect}"
