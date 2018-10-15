@@ -3,7 +3,7 @@
 class User < ActiveRecord::Base
   validates :name, presence: true
 
-  # Finds the post by its ID, or raises {Errors::UserNotFound}.
+  # Finds the user by their ID or raises {Errors::UserNotFound}.
   # @param id [String, Number]
   # @return [User]
   # @raise [Errors::UserNotFound] if the user with the given ID does not exist.
