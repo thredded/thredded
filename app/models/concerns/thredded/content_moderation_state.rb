@@ -35,7 +35,7 @@ module Thredded
 
           # Content that the user can moderate.
           if moderatable_messageboards != Thredded::Messageboard.none
-            result = result.or(messageboard_id: moderatable_messageboards)
+            result = result.or(where(messageboard_id: moderatable_messageboards))
           end
         end
         result
