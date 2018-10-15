@@ -157,6 +157,11 @@
         }
       }
 
+      // A helper class for sizing incomplete rows with more than two missing items.
+      .thredded--grid-sizer {
+        @extend %thredded--messageboards-cell-flex;
+      }
+
       .thredded--messageboard {
         @extend %thredded--messageboards-cell-flex;
         margin-top: $margin-y;
