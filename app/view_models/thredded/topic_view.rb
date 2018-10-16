@@ -34,7 +34,7 @@ module Thredded
 
     # @return [Boolean] whether the topic is followed by the current user.
     def followed?
-      @follow
+      !!@follow # rubocop:disable Style/DoubleNegation
     end
 
     def follow_reason
