@@ -7,8 +7,11 @@
 
 <%= thredded_page do %>
   <% if @topics.present? %>
-    <%= define_svg_icons('thredded/follow.svg', 'thredded/unfollow.svg')%>
-    <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
+    <%= define_svg_icons('thredded/follow.svg', 'thredded/unfollow.svg') %>
+    <%= content_tag :section,
+                    class: 'thredded--main-section thredded--topics',
+                    'data-thredded-topics' => true,
+                    'data-thredded-topic-posts-per-page' => Thredded.posts_per_page do %>
       <%= render 'thredded/topics/form',
                  topic: @new_topic,
                  css_class: 'thredded--is-compact',

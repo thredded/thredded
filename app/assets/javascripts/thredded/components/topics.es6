@@ -10,15 +10,14 @@
   const TOPIC_UNREAD_CLASS = 'thredded--topic-unread';
   const TOPIC_READ_CLASS = 'thredded--topic-read';
   const POSTS_COUNT_SELECTOR = '.thredded--topics--posts-count';
-  const POSTS_PER_PAGE = 50;
 
   function pageNumber(url) {
     const match = url.match(/\/page-(\d)$/);
     return match ? +match[1] : 1;
   }
 
-  function totalPages(numPosts) {
-    return Math.ceil(numPosts / POSTS_PER_PAGE);
+  function totalPages(numPosts, postsPerPage) {
+    return Math.ceil(numPosts / postsPerPage);
   }
 
   function getTopicNode(node) {
@@ -29,11 +28,12 @@
   }
 
   function initTopicsList(topicsList) {
+    const postsPerPage = +topicsList.getAttribute('data-thredded-topic-posts-per-page') || 25;
     topicsList.addEventListener('click', (evt) => {
       const link = evt.target;
       if (link.tagName !== 'A' || link.parentNode.tagName !== 'H1') return;
       const topic = getTopicNode(link);
-      if (pageNumber(link.href) === totalPages(+topic.querySelector(POSTS_COUNT_SELECTOR).textContent)) {
+      if (pageNumber(link.href) === totalPages(+topic.querySelector(POSTS_COUNT_SELECTOR).textContent, postsPerPage)) {
         topic.classList.add(TOPIC_READ_CLASS);
         topic.classList.remove(TOPIC_UNREAD_CLASS);
       }
