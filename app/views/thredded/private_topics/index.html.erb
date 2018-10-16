@@ -5,7 +5,7 @@
 <%= thredded_page do %>
   <%= content_tag :section,
                   class: 'thredded--main-section thredded--private-topics',
-                  'data-thredded-topics' => true,
+                  'data-thredded-topics' => 'private',
                   'data-thredded-topic-posts-per-page' => Thredded.posts_per_page do %>
 
     <% if @private_topics.empty? -%>

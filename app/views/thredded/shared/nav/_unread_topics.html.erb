@@ -6,7 +6,7 @@
       <% if unread_followed_topics_count > 0 -%>
         <%= define_svg_icons 'thredded/follow.svg' %>
         <span class="thredded--user-navigation--unread-topics--followed-count"><%=shared_inline_svg "thredded/follow.svg", class: "thredded--unread-topics--followed-icon", role:"img" %>
-            <%= unread_followed_topics_count %></span>
+          <span data-unread-followed-count><%= unread_followed_topics_count %></span></span>
       <% end -%>
     <% end %>
   </li>
