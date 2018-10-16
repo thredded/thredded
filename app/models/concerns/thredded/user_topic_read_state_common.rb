@@ -21,6 +21,11 @@ module Thredded
       post.created_at <= read_at
     end
 
+    # @return [Number]
+    def posts_count
+      read_posts_count + unread_posts_count
+    end
+
     def calculate_post_counts
       unread_posts_count, read_posts_count =
         self.class.visible_posts_scope(user)

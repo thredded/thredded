@@ -69,17 +69,12 @@ module Thredded
         Thredded::TopicCommon::CachingHash.from_relation(read_states)
       end
 
-      public
-
-      # @param user [Thredded.user_class]
-      # @return [Array<[TopicCommon, UserTopicReadStateCommon]>]
-      def with_read_states(user)
-        null_read_state = Thredded::NullUserTopicReadState.new
-        return current_scope.zip([null_read_state]) if user.thredded_anonymous?
-        read_states_by_postable = read_states_by_postable_hash(user)
-        current_scope.map do |postable|
-          [postable, read_states_by_postable[postable] || null_read_state]
-        end
+      # @param [Thredded.user_class] user
+      # @param [Array<Number>] topic_ids
+      # @return [Hash{topic ID => posts count}] Counts of posts visible to the given user in the given topics.
+      def post_counts_for_user_and_topics(user, topic_ids)
+        return {} if topic_ids.empty?
+        Pundit.policy_scope!(user, post_class.all).where(postable_id: topic_ids).group(:postable_id).count
       end
     end
 

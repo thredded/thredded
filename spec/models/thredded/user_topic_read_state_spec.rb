@@ -83,7 +83,7 @@ module Thredded
   describe NullUserTopicReadState, '#post_read?(post)' do
     it 'is false' do
       post = create(:post)
-      null_user_topic_read_state = NullUserTopicReadState.new
+      null_user_topic_read_state = NullUserTopicReadState.new(posts_count: 1)
       expect(null_user_topic_read_state).not_to be_post_read(post)
     end
   end
