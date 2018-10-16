@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Thredded
+  # A Thredded::NullUser stands in place of a real (mainapp supplied) User when:
+  #
+  # * user is not logged in (ie. the thredded_current_user)
+  # * a user that was hard-deleted
+  #   (e.g. if a post was made by a user, and then that user is destroyed, the post's user ID is nullified).
   class NullUser
     include ::Thredded::UserPermissions::Read::All
     include ::Thredded::UserPermissions::Write::None
