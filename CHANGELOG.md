@@ -1,3 +1,34 @@
+# v0.16.1
+
+## Added
+
+* The unread icon now has the notifications bell.
+  [#750](https://github.com/thredded/thredded/issues/750)
+* You can now specify which page the user is redirected to after posting a topic.
+  [#619](https://github.com/thredded/thredded/issues/619)
+* Sass variables to customize messageboard title font size and topic header font size.
+  [#740](https://github.com/thredded/thredded/pull/740)
+* Topics and posts count now account for topic/post visibility. Please report performance issues.
+  [#758](https://github.com/thredded/thredded/pull/758)
+
+## Fixed
+
+* Various issues with the recipients dropdown in Private Messages.
+  [#722](https://github.com/thredded/thredded/issues/722)
+  [#745](https://github.com/thredded/thredded/issues/745)
+* User autocompletion now sorts correctly (case-insensitive lexicographic).
+  [#744](https://github.com/thredded/thredded/issues/744)
+* Fixed last post by displaying as "deleted user" when user primary key is a UUID.
+  [#692](https://github.com/thredded/thredded/issues/692)
+* The JavaScript code that eagerly marks topics as read for better Turbolinks back button experience now respects
+  `Thredded.posts_per_page`. The unread+followed counter now also gets updated.
+  [#755](https://github.com/thredded/thredded/issues/755)
+  [#759](https://github.com/thredded/thredded/pull/759)
+* No longer breaks if `main_app` ovverides `Kaminar.config.page_method_name`.
+  [#741](https://github.com/thredded/thredded/issues/741)
+* Messageboard grid now correctly sizes cells in incomplete rows up to 6 cells.
+  [#754](https://github.com/thredded/thredded/pull/754)
+
 # v0.16.0
 
 ## Added
