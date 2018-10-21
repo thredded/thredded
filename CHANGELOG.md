@@ -29,6 +29,8 @@
 * Messageboard grid now correctly sizes cells in incomplete rows up to 6 cells.
   [#754](https://github.com/thredded/thredded/pull/754)
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.16.0...v0.16.1.
+
 # v0.16.0
 
 ## Added
