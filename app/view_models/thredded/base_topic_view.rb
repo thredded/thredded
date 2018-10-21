@@ -4,7 +4,6 @@ module Thredded
   # A view model for TopicCommon.
   class BaseTopicView
     delegate :title,
-             :posts_count,
              :last_post_at,
              :created_at,
              :user,
@@ -12,16 +11,16 @@ module Thredded
              :to_model,
              to: :@topic
 
-    delegate :read?, :post_read?,
+    delegate :read?, :post_read?, :posts_count,
              to: :@read_state
 
-    # @param topic [TopicCommon]
-    # @param read_state [UserTopicReadStateCommon, nil]
-    # @param policy [#destroy?]
+    # @param [TopicCommon] topic
+    # @param [UserTopicReadStateCommon, NullUserTopicReadState, nil] read_state
+    # @param [#destroy?] policy
     def initialize(topic, read_state, policy)
-      @read_state = read_state || Thredded::NullUserTopicReadState.new
-      @topic      = topic
-      @policy     = policy
+      @topic = topic
+      @read_state = read_state || Thredded::NullUserTopicReadState.new(posts_count: @topic.posts_count)
+      @policy = policy
     end
 
     def states

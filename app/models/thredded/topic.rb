@@ -122,12 +122,26 @@ module Thredded
       # @param user [Thredded.user_class]
       # @return [Array<[TopicCommon, UserTopicReadStateCommon, UserTopicFollow]>]
       def with_read_and_follow_states(user)
-        null_read_state = Thredded::NullUserTopicReadState.new
-        return current_scope.zip([null_read_state, nil]) if user.thredded_anonymous?
-        read_states_by_topic = read_states_by_postable_hash(user)
-        follows_by_topic = follows_by_topic_hash(user)
-        current_scope.map do |topic|
-          [topic, read_states_by_topic[topic] || null_read_state, follows_by_topic[topic]]
+        topics = current_scope.to_a
+        if user.thredded_anonymous?
+          post_counts = post_counts_for_user_and_topics(user, topics.map(&:id))
+          topics.map do |topic|
+            [topic, Thredded::NullUserTopicReadState.new(posts_count: post_counts[topic.id] || 0), nil]
+          end
+        else
+          read_states_by_topic = read_states_by_postable_hash(user)
+          post_counts = post_counts_for_user_and_topics(
+            user, topics.reject { |topic| read_states_by_topic.key?(topic) }.map(&:id)
+          )
+          follows_by_topic = follows_by_topic_hash(user)
+          current_scope.map do |topic|
+            [
+              topic,
+              read_states_by_topic[topic] ||
+                Thredded::NullUserTopicReadState.new(posts_count: post_counts[topic.id] || 0),
+              follows_by_topic[topic]
+            ]
+          end
         end
       end
     end

@@ -109,6 +109,24 @@ module Thredded
       def post_class
         Thredded::PrivatePost
       end
+
+      # @param [Thredded.user_class] user
+      # @return [Array<[PrivateTopic, PrivateUserTopicReadState]>]
+      def with_read_states(user)
+        if user.thredded_anonymous?
+          current_scope.map do |topic|
+            [topic, Thredded::NullUserTopicReadState.new(posts_count: topic.posts_count)]
+          end
+        else
+          read_states_by_postable = read_states_by_postable_hash(user)
+          current_scope.map do |topic|
+            [
+              topic,
+              read_states_by_postable[topic] || Thredded::NullUserTopicReadState.new(posts_count: topic.posts_count)
+            ]
+          end
+        end
+      end
     end
   end
 end

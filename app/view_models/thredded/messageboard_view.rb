@@ -6,11 +6,15 @@ module Thredded
     delegate :name,
              :description,
              :locked?,
-             :topics_count,
-             :posts_count,
              :last_topic,
              :last_user,
              to: :@messageboard
+
+    # @return [Integer]
+    attr_reader :topics_count
+
+    # @return [Integer]
+    attr_reader :posts_count
 
     # @return [Integer]
     attr_reader :unread_topics_count
@@ -19,10 +23,20 @@ module Thredded
     attr_reader :unread_followed_topics_count
 
     # @param [Thredded::Messageboard] messageboard
+    # @param [Integer] topics_count
+    # @param [Integer] posts_count
     # @param [Integer] unread_topics_count
     # @param [Integer] unread_followed_topics_count
-    def initialize(messageboard, unread_topics_count: 0, unread_followed_topics_count: 0)
+    def initialize(
+      messageboard,
+      topics_count: messageboard.topics_count,
+      posts_count: messageboard.posts_count,
+      unread_topics_count: 0,
+      unread_followed_topics_count: 0
+    )
       @messageboard = messageboard
+      @topics_count = topics_count
+      @posts_count = posts_count
       @unread_topics_count = unread_topics_count
       @unread_followed_topics_count = unread_followed_topics_count
     end

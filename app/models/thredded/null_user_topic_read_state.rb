@@ -2,6 +2,12 @@
 
 module Thredded
   class NullUserTopicReadState
+    attr_reader :posts_count
+
+    def initialize(posts_count:)
+      @posts_count = posts_count
+    end
+
     def page
       1
     end
