@@ -84,9 +84,17 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         resource :preview, only: [:update], controller: 'post_previews'
         member do
           get 'quote'
-          post 'mark_as_unread'
+          post 'mark_as_unread' # deprecated
         end
       end
+    end
+  end
+
+  # flat urls for anything which is non-visible to users & search engines
+  resources :posts, only: %i[] do
+    member do
+      post 'mark_as_read'
+      post 'mark_as_unread'
     end
   end
 
