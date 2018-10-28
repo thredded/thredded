@@ -26,7 +26,7 @@ module Thredded
       end
       context 'json format' do
         subject(:do_post_request) do
-          post :mark_as_read, params: { messageboard_id: messageboard.id, id: topic.id, format: :json }
+          post :mark_as_read, params: { id: the_post.id, format: :json }
         end
 
         it 'returns changed status' do
