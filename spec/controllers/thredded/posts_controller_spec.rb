@@ -24,6 +24,12 @@ module Thredded
         expect(UserTopicReadState).to receive(:touch!).with(user.id, the_post)
         do_post_request
       end
+
+      it 'sets the messageboard correctly' do
+        do_post_request
+        expect(assigns(:messageboard)).to eq(messageboard)
+      end
+
       context 'json format' do
         subject(:do_post_request) do
           post :mark_as_read, params: { id: the_post.id, format: :json }
@@ -45,6 +51,11 @@ module Thredded
       it 'marks as unread' do
         UserTopicReadState.touch!(user.id, the_post)
         expect { do_post_request }.to change(UserTopicReadState, :count).by(-1)
+      end
+
+      it 'sets the messageboard correctly' do
+        do_post_request
+        expect(assigns(:messageboard)).to eq(messageboard)
       end
 
       context 'json format' do

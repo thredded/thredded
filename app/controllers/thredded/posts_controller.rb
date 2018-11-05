@@ -7,6 +7,7 @@ module Thredded
     include Thredded::NewPostParams
 
     helper_method :topic
+    before_action :assign_messageboard_for_actions, only: %i[mark_as_read mark_as_unread]
     after_action :update_user_activity
 
     after_action :verify_authorized
@@ -94,6 +95,10 @@ module Thredded
       Thredded::Topic
         .where(messageboard: messageboard)
         .friendly_find!(params[:topic_id])
+    end
+
+    def assign_messageboard_for_actions
+      @messageboard = post.postable.messageboard
     end
 
     def post
