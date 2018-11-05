@@ -171,3 +171,5 @@ Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
   config.default_max_wait_time = 5
 end
+
+Capybara.asset_host = ENV['CAPYBARA_ASSET_HOST'] if ENV['CAPYBARA_ASSET_HOST']
