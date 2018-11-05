@@ -15,7 +15,7 @@ module Thredded
     end
 
     it 'has prevents some slugs which would be collisions with routes' do
-      ['admin', 'action'].each do |collision|
+      %w[admin action].each do |collision|
         messageboard = build(:messageboard, name: collision)
         expect(messageboard).to be_valid
         expect(messageboard.slug).not_to be_blank
