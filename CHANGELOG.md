@@ -32,7 +32,7 @@ Due to a new /action route, if you have a Messageboard called "Action" you may n
   `Thredded.posts_per_page`. The unread+followed counter now also gets updated.
   [#755](https://github.com/thredded/thredded/issues/755)
   [#759](https://github.com/thredded/thredded/pull/759)
-* No longer breaks if `main_app` ovverides `Kaminar.config.page_method_name`.
+* No longer breaks if `main_app` ovverides `Kaminari.config.page_method_name`.
   [#741](https://github.com/thredded/thredded/issues/741)
 * Messageboard grid now correctly sizes cells in incomplete rows up to 6 cells.
   [#754](https://github.com/thredded/thredded/pull/754)
