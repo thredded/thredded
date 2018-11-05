@@ -7,7 +7,6 @@ module Thredded
     include NewPrivatePostParams
 
     helper_method :topic
-    after_action :update_user_activity
 
     after_action :verify_authorized
 
