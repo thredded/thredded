@@ -126,7 +126,7 @@ module Thredded
 
     def mark_unread_path(post, _params = {})
       if post.private_topic_post?
-        mark_as_unread_private_topic_private_post_path(post.postable, post)
+        mark_as_unread_private_post_path(post)
       else
         mark_as_unread_post_path(post)
       end

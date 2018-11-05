@@ -1,5 +1,9 @@
 # (unreleased)
 
+## Added
+
+* There are new actions (starting ./action ) for extending Thredded with ajax such as POST .../action/posts/ID/mark_as_read.json. 
+
 ## Changed
 
 Due to a new /action route, if you have a Messageboard called "Action" you may need to change its slug:

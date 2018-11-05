@@ -51,10 +51,22 @@ module Thredded
                     notice: I18n.t('thredded.posts.deleted_notice')
     end
 
+    def mark_as_read
+      authorize post, :read?
+      UserPrivateTopicReadState.touch!(thredded_current_user.id, post)
+      respond_to do |format|
+        format.html { redirect_to request.referer || post_path(post, user: thredded_current_user) }
+        format.json { render(json: { read: true }) }
+      end
+    end
+
     def mark_as_unread
       authorize post, :read?
       post.mark_as_unread(thredded_current_user)
-      after_mark_as_unread # customization hook
+      respond_to do |format|
+        format.html { after_mark_as_unread } # customization hook
+        format.json { render(json: { read: false }) }
+      end
     end
 
     def quote
