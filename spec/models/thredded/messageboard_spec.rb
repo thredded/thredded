@@ -14,6 +14,15 @@ module Thredded
       expect(messageboard.slug).to eq 'super-friends'
     end
 
+    it 'has prevents some slugs which would be collisions with routes' do
+      ['admin', 'action'].each do |collision|
+        messageboard = build(:messageboard, name: collision)
+        expect(messageboard).to be_valid
+        expect(messageboard.slug).not_to be_blank
+        expect(messageboard.slug).not_to eq collision
+      end
+    end
+
     describe '#recently_active_users' do
       it 'returns users active for a messageboard' do
         messageboard   = create(:messageboard)

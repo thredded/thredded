@@ -8,6 +8,7 @@ module Thredded
                 # Avoid route conflicts
                 reserved_words: ::Thredded::FriendlyIdReservedWordsAndPagination.new(
                   %w[
+                    action
                     admin
                     autocomplete-users
                     messageboards

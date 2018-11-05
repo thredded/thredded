@@ -1,3 +1,11 @@
+# (unreleased)
+
+## Changed
+
+Due to a new /action route, if you have a Messageboard called "Action" you may need to change its slug:
+
+```Thredded::Messageboard.where(slug: 'action').each{|m| m.update(slug: 'action-messageboard')}```
+
 # v0.16.1
 
 ## Added

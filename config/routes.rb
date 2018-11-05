@@ -89,11 +89,13 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  # flat urls for anything which is non-visible to users & search engines
-  resources :posts, only: %i[] do
-    member do
-      post 'mark_as_read'
-      post 'mark_as_unread'
+  scope path: 'action' do
+    # flat urls under here for anything which is non-visible to users & search engines (typically json actions)
+    resources :posts, only: %i[] do
+      member do
+        post 'mark_as_read'
+        post 'mark_as_unread'
+      end
     end
   end
 
