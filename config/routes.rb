@@ -19,7 +19,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         resource :preview, only: [:update], controller: 'private_post_previews'
         member do
           get 'quote'
-          post 'mark_as_unread'
         end
       end
     end
@@ -84,8 +83,24 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         resource :preview, only: [:update], controller: 'post_previews'
         member do
           get 'quote'
-          post 'mark_as_unread'
         end
+      end
+    end
+  end
+
+  scope path: 'action' do
+    # flat urls under here for anything which is non-visible to users & search engines (typically json actions)
+    resources :posts, only: %i[] do
+      member do
+        post 'mark_as_read'
+        post 'mark_as_unread'
+      end
+    end
+
+    resources :private_posts, only: %i[] do
+      member do
+        post 'mark_as_read'
+        post 'mark_as_unread'
       end
     end
   end

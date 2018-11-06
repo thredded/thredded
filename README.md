@@ -631,6 +631,10 @@ brew cask install chromium
 brew install chromedriver
 ```
 
+To get better page saves (`page.save_and_open_page`) from local capybara specs ensure you are running the server locally 
+and set `export CAPYBARA_ASSET_HOST=http://localhost:3000` (or whatever host/port your server is on) before running your 
+test suite.  
+
 ### Ruby
 
 Thredded Ruby code formatting is ensured by [Rubocop](https://github.com/bbatsov/rubocop). Run `rubocop -a` to ensure a
