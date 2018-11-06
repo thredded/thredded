@@ -55,7 +55,7 @@ module Thredded
       authorize post, :read?
       UserPrivateTopicReadState.touch!(thredded_current_user.id, post)
       respond_to do |format|
-        format.html { redirect_to request.referer || post_path(post, user: thredded_current_user) }
+        format.html { redirect_back fallback_location: post_path(post, user: thredded_current_user) }
         format.json { render(json: { read: true }) }
       end
     end
