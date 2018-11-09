@@ -28,6 +28,7 @@ require 'thredded/html_pipeline/spoiler_tag_filter'
 require 'autoprefixer-rails'
 require 'timeago_js'
 require 'sprockets/es6'
+require 'sassc-rails'
 
 require 'thredded/version'
 require 'thredded/engine'

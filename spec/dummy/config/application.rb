@@ -27,7 +27,6 @@ if ENV['HEROKU']
   require 'dalli'
 end
 
-require 'sassc' unless Rails.env.production?
 require 'web-console' if Rails.env.development?
 
 module Dummy
