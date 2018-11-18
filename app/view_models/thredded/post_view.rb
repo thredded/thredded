@@ -12,6 +12,8 @@ module Thredded
              :approved?,
              :blocked?,
              :last_moderation_record,
+             :cache_key,
+             :cache_key_with_version,
              to: :@post
 
     # @param post [Thredded::PostCommon]
@@ -69,11 +71,6 @@ module Thredded
 
     def permalink_path
       Thredded::UrlsHelper.permalink_path(@post)
-    end
-
-    # This cache key is used only for caching the content.
-    def cache_key
-      @post.cache_key
     end
 
     POST_IS_READ = :read
