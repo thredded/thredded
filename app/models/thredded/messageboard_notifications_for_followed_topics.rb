@@ -8,7 +8,7 @@ module Thredded
                inverse_of: :messageboard_notifications_for_followed_topics
     belongs_to :user,
                class_name: Thredded.user_class_name,
-               inverse_of: :thredded_user_messageboard_preferences
+               inverse_of: :thredded_messageboard_notifications_for_followed_topics
     belongs_to :messageboard
     scope :for_messageboard, ->(messageboard) { where(messageboard_id: messageboard.id) }
 

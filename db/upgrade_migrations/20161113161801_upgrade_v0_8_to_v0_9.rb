@@ -29,12 +29,13 @@ class UpgradeV08ToV09 < Thredded::BaseMigration
     end
 
     Thredded::UserPreference.all.each do |pref|
-      pref.notifications_for_private_topics.create(notifier_key: 'email', enabled: pref.notify_on_message)
-      pref.notifications_for_followed_topics.create(notifier_key: 'email', enabled: pref.followed_topic_emails)
+      pref.notifications_for_private_topics.create!(notifier_key: 'email', enabled: pref.notify_on_message)
+      pref.notifications_for_followed_topics.create!(notifier_key: 'email', enabled: pref.followed_topic_emails)
     end
     Thredded::UserMessageboardPreference.pluck(:user_id, :messageboard_id, :followed_topic_emails)
       .each do |user_id, messageboard_id, emails|
-      Thredded::MessageboardNotificationsForFollowedTopics.create(
+      Thredded::UserPreference.find_or_create_by!(user_id: user_id)
+      Thredded::MessageboardNotificationsForFollowedTopics.create!(
         user_id: user_id,
         messageboard_id: messageboard_id,
         notifier_key: 'email',
