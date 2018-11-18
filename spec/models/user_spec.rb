@@ -51,11 +51,17 @@ RSpec.describe User do
   context 'on deletion' do
     let!(:user) { create(:user) }
     let!(:user_preference) { create(:user_preference, user: user) }
-    let!(:user_messageboard_preference) { create(:user_messageboard_preference, user: user) }
-    let!(:notifications_for_followed_topics) { create(:notifications_for_followed_topics, user: user) }
-    let!(:notifications_for_private_topics) { create(:notifications_for_private_topics, user: user) }
+    let!(:user_messageboard_preference) do
+      create(:user_messageboard_preference, user_preference: user_preference, user: user)
+    end
+    let!(:notifications_for_followed_topics) do
+      create(:notifications_for_followed_topics, user_preference: user_preference, user: user)
+    end
+    let!(:notifications_for_private_topics) do
+      create(:notifications_for_private_topics, user_preference: user_preference, user: user)
+    end
     let!(:messageboard_notifications_for_followed_topics) do
-      create(:messageboard_notifications_for_followed_topics, user: user)
+      create(:messageboard_notifications_for_followed_topics, user_preference: user_preference, user: user)
     end
 
     it 'cascades' do

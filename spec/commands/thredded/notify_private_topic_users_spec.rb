@@ -24,10 +24,6 @@ module Thredded
 
       context 'when preferences say not to notify on email' do
         it "doesn't include them" do
-          create(
-            :user_preference,
-            user: @joel,
-          )
           create(:notifications_for_private_topics, notifier_key: 'email', user: @joel, enabled: false)
           recipients = NotifyPrivateTopicUsers.new(post).targeted_users(notifier)
           expect(recipients).not_to include(@joel)

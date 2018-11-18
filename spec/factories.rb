@@ -63,15 +63,18 @@ FactoryBot.define do
   factory :messageboard_notifications_for_followed_topics,
           class: Thredded::MessageboardNotificationsForFollowedTopics do
     user
+    user_preference { build(:user_preference, user: user) }
     messageboard
     notifier_key { 'email' }
   end
   factory :notifications_for_followed_topics, class: Thredded::NotificationsForFollowedTopics do
     user
+    user_preference { build(:user_preference, user: user) }
     notifier_key { 'email' }
   end
   factory :notifications_for_private_topics, class: Thredded::NotificationsForPrivateTopics do
     user
+    user_preference { build(:user_preference, user: user) }
     notifier_key { 'email' }
   end
 
