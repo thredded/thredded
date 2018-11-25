@@ -12,6 +12,8 @@ module Thredded
     attr_reader :messageboards_index
     # @return [ModerationUserPage]
     attr_reader :moderation_user_page
+    # @return [TopicPage]
+    attr_reader :topic_page
 
     @instance = nil
     class << self
@@ -31,6 +33,7 @@ module Thredded
       @post_form = PostForm.new
       @moderation_user_page = ModerationUserPage.new
       @messageboards_index = MessageboardsIndex.new
+      @topic_page = TopicPage.new
     end
 
     # View hooks for collections of public or private posts.
@@ -107,6 +110,15 @@ module Thredded
         @user_info = ViewHook.new
         @user_info_list_items = ViewHook.new
         @user_moderation_actions = ViewHook.new
+      end
+    end
+
+    class TopicPage
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :title
+
+      def initialize
+        @title = ViewHook.new
       end
     end
 
