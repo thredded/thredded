@@ -1,5 +1,7 @@
 <header class="thredded--topic-header">
-  <h1 class="thredded--topic-header--title"><%= topic.title %></h1>
+  <%= view_hooks.topic_page.title.render self, topic: topic do %>
+    <h1 class="thredded--topic-header--title"><%= topic.title %></h1>
+  <% end %>
   <cite class="thredded--topic-header--started-by">
     <%= t 'thredded.topics.started_by_html',
           time_ago: time_ago(topic.created_at),
