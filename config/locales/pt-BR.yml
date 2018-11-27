@@ -3,7 +3,7 @@ pt-BR:
   thredded:
     content_moderation_states:
       content_blocked_notice: Bloqueado
-      content_blocked_notice_with_record_html: Bloqueados por %{moderator} %{time_ago}
+      content_blocked_notice_with_record_html: Bloqueado por %{moderator} %{time_ago}
     email_notifier:
       by_email: de e-mail
     emails:
@@ -17,9 +17,9 @@ pt-BR:
         text:
           email_sent_reason: |-
             Este e-mail foi enviado para você porque %{user} incluiu você em
-            o tópico privado "%{topic_title}".
+            um tópico privado "%{topic_title}".
 
-            Vá aqui para ver a conversa:
+            Clique aqui para ver a conversa:
             %{post_url}
           post_lead: 'Uma nova mensagem de %{user} em "%{topic_title}":'
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
@@ -59,7 +59,7 @@ pt-BR:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
         description_label: Descrição
-        locked_label: Trancado
+        locked_label: Bloqueado
         locked_notice: Este quadro de mensagens está bloqueado. Somente os moderadores podem criar novos tópicos
           aqui.
         messageboard_group_id_label: grupo messageboard
@@ -85,22 +85,22 @@ pt-BR:
       create: Criar um novo grupo de mensagens
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
-      saved: Groupo de mensagens %{name} salvou
+      saved: Grupo de mensagens %{name} criado
     moderation:
       approve_btn: Aprovar
-      block_btn: Quadra
+      block_btn: Bloquear
       moderation_state:
         name: Estado de moderação
       pending:
         empty:
-          content: Todas as mensagens têm sido moderadas.
+          content: Todas as mensagens foram moderadas.
           title: Bom trabalho!
-      post_approved_html: Pós aprovado por %{moderator} %{time_ago}.
-      post_blocked_html: Pós bloqueado por %{moderator} %{time_ago}.
+      post_approved_html: Post aprovado por %{moderator} %{time_ago}.
+      post_blocked_html: Post bloqueado por %{moderator} %{time_ago}.
       post_deleted_notice: Este post foi apagado.
       posts_content_changed_since_moderation_html: >-
-        O <a href="%{post_url}">de pós</a> alteração de conteúdo, uma vez que foi moderado. Abaixo está o conteúdo
-        no momento em que foi moderado.
+        O conteúdo do <a href="%{post_url}">post</a> foi alterado após a moderação. Abaixo está o conteúdo no momento
+        em que foi moderado.
       search_users:
         form_label: Buscar usuários
         form_placeholder: :thredded.moderation.search_users.form_label
@@ -117,7 +117,7 @@ pt-BR:
       mark_all_read: Marcar Como Lido
       moderation: Moderação
       moderation_activity: Atividade
-      moderation_history: História
+      moderation_history: Histórico
       moderation_pending: Pendente
       moderation_users: Usuários
       private_topics: Mensagens Privadas
@@ -136,7 +136,7 @@ pt-BR:
         title_label: Adicionar um post
         update_btn: Atualizar Post
         update_btn_submitting: :thredded.form.update_btn_submitting
-      pending_moderation_notice: O envio da mensagem será publicada quando foi revisado por um moderador.
+      pending_moderation_notice: O seu post será publicado quando for revisado por um moderador.
       quote_btn: Citar
       spoiler_summary: Spoiler - clique para mostrar.
       spoiler_summary_for_email: 'Spoiler - selecione o conteúdo abaixo para ver:'
@@ -164,7 +164,7 @@ pt-BR:
         messageboard_notifications_for_followed_topics:
           label: :thredded.preferences.form.notifications_for_followed_topics.label
         notifications_for_followed_topics:
-          label: Notificações para tópicos seguido
+          label: Notificações para tópicos seguidos
         notifications_for_private_topics:
           label: Notificações de mensagens privadas
         submit_btn: Atualizar Configurações
@@ -232,20 +232,20 @@ pt-BR:
         update_btn: Atualizar Tópico
       in_messageboard_html: em %{messageboard_link}
       locked:
-        label: Trancado
+        label: Bloqueado
         message: Este tópico foi bloqueado por um moderador.
-      mark_as_unread: Marca não lida a partir daqui
+      mark_as_unread: Marcar como não lida a partir daqui
       not_following: Você não está seguindo este tema.
       search:
         no_results_in_messageboard_message_html: Não há resultados para sua busca <q>%{query}</q> em %{messageboard}
         no_results_message_html: Nenhum resultado encontrado para sua busca <q>%{query}</q>
         page_title: Tópicos dos Resultados da Busca
-        results_in_messageboard_message_html: Resultados da pesquisa para <q>%{query}</q> em %{messageboard}
-        results_message_html: Resultados de busca para <q>%{query}</q>
+        results_in_messageboard_message_html: Resultados da busca para <q>%{query}</q> em %{messageboard}
+        results_message_html: Resultados da busca para <q>%{query}</q>
         search_in_all_messageboards_btn: Buscar em todos os lugares
       started_by_html: Iniciado %{time_ago} por %{user}
       sticky:
-        label: Pegajoso
+        label: Fixo
       unfollow: Pare de seguir
       unfollowed_notice: Você não está mais seguindo este tópico
       updated_notice: Tópico atualizado
@@ -257,11 +257,11 @@ pt-BR:
       page_title_in_messageboard: "%{messageboard}: Tópicos não lidos"
     users:
       currently_online: Atualmente Online
-      last_active_html: Última %{time_ago} ativa
+      last_active_html: Última atividade %{time_ago}
       posted_in_topic_html: Postou em %{topic_link}
       posts_count:
         one: Postado uma vez
-        other: vezes %{count} Publicado
+        other: Postado %{count} vezes
       recent_activity: :thredded.recent_activity
       send_private_message: Enviar mensagem privada
       started_topic_html: Começou %{topic_link}
@@ -269,5 +269,5 @@ pt-BR:
         one: Começou um tópico
         other: tópicos iniciados %{count}
       user_posted_in_topic_html: "%{user_link} postou em %{topic_link}"
-      user_since_html: Utilizador desde %{time_ago}
+      user_since_html: Usuário desde %{time_ago}
       user_started_topic_html: "%{user_link} começou %{topic_link}"
