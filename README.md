@@ -359,6 +359,8 @@ If you use [Rails Email Preview], you can include Thredded emails into the list 
 You can also turn off the email notifier totally, or add other notifiers (e.g. Pushover, possibly Slack) by adjusting
 the `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
 
+You must configure the address the email appears to be from (`Thredded.email_from`). This address is also used as the "To" address for both email notifcations, as all the recipients are on bcc.
+ 
 ### Enabling auto-follow
 
 In some cases, you'll want all users to auto-follow new messageboard topics by default. This might be useful

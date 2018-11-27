@@ -75,6 +75,7 @@ Thredded.layout = 'thredded/application'
 
 # ==> Email Configuration
 # Email "From:" field will use the following
+# (this is also used as the "To" address for both email notifcations, as all the recipients are on bcc)
 # Thredded.email_from = 'no-reply@example.com'
 
 # Emails going out will prefix the "Subject:" with the following string
