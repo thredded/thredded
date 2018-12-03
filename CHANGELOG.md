@@ -1,14 +1,44 @@
-# (unreleased)
+# v0.16.2 (unreleased)
 
 ## Added
 
-* There are new actions (starting ./action ) for extending Thredded with ajax such as POST .../action/posts/ID/mark_as_read.json. 
+* `mark_as_read` and `mark_as_unread` endpoints can now also respond to JSON.
+  This is intended for plugins and user extensions.
+  [#763](https://github.com/thredded/thredded/pull/763)
+
+* A view hook for customizing topic title on `topics#show`.
+  [#775](https://github.com/thredded/thredded/pull/775)
 
 ## Changed
 
-Due to a new /action route, if you have a Messageboard called "Action" you may need to change its slug:
+* `mark_as_read` and `mark_as_unread` are now the `/action/` route path scope (and so will all the future actions).
+  [#763](https://github.com/thredded/thredded/pull/763)
 
-```Thredded::Messageboard.where(slug: 'action').each{|m| m.update(slug: 'action-messageboard')}```
+  Due to the new `/action` scope, if you have a Messageboard called "Action" you may need to change its slug:
+
+  ```ruby
+  Thredded::Messageboard.where(slug: 'action').each{|m| m.update(slug: 'action-messageboard')}
+  ```
+
+* Thredded now depends on [`sassc-rails`] instead of [`sass-rails`].
+  [`sassc-rails`] uses [`sassc`], which is a wrapper for [`libsass`], a C++ implementation of Sass.
+  This change was made because the Ruby implementation of Sass is now deprecated.
+  [#736](https://github.com/thredded/thredded/pull/736)
+
+* Improved pt-BR translation. Thanks @wenderjean! [#766](https://github.com/thredded/thredded/pull/766)
+
+[`sassc-rails`]: https://github.com/sass/sassc-rails
+[`sass-rails`]: https://github.com/rails/sass-rails
+[`sassc`]: https://github.com/sass/sassc
+[`libsass`]: https://github.com/sass/libsass
+
+## Fixed
+
+* Preview controller 500 error if the user was not signed in.
+  [#780](https://github.com/thredded/thredded/pull/780) [#779](https://github.com/thredded/thredded/issues/779)
+
+* Broken post content caching with Rails 5.2 framework defaults.
+  [#769](https://github.com/thredded/thredded/pull/769) [#712](https://github.com/thredded/thredded/issues/712)
 
 # v0.16.1
 
