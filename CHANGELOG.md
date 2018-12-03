@@ -1,4 +1,4 @@
-# v0.16.2 (unreleased)
+# v0.16.2
 
 ## Added
 
@@ -26,6 +26,8 @@
   [#736](https://github.com/thredded/thredded/pull/736)
 
 * Improved pt-BR translation. Thanks @wenderjean! [#766](https://github.com/thredded/thredded/pull/766)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.16.1...v0.16.2.
 
 [`sassc-rails`]: https://github.com/sass/sassc-rails
 [`sass-rails`]: https://github.com/rails/sass-rails
