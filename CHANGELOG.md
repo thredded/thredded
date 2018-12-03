@@ -27,8 +27,6 @@
 
 * Improved pt-BR translation. Thanks @wenderjean! [#766](https://github.com/thredded/thredded/pull/766)
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v0.16.1...v0.16.2.
-
 [`sassc-rails`]: https://github.com/sass/sassc-rails
 [`sass-rails`]: https://github.com/rails/sass-rails
 [`sassc`]: https://github.com/sass/sassc
@@ -41,6 +39,8 @@ See the full list of changes here: https://github.com/thredded/thredded/compare/
 
 * Broken post content caching with Rails 5.2 framework defaults.
   [#769](https://github.com/thredded/thredded/pull/769) [#712](https://github.com/thredded/thredded/issues/712)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.16.1...v0.16.2.
 
 # v0.16.1
 
