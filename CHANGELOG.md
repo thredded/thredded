@@ -1,3 +1,7 @@
+# v0.16.3
+
+Fixes private topic form preview (regression in v0.16.2).
+
 # v0.16.2
 
 ## Added
