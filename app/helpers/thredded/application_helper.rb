@@ -85,7 +85,8 @@ module Thredded
     # @param content_partial [String]
     def render_posts(posts, partial: 'thredded/posts/post', content_partial: 'thredded/posts/content', locals: {})
       posts_with_contents = render_collection_to_strings_with_cache(
-        partial: content_partial, collection: posts, as: :post, expires_in: 1.week
+        partial: content_partial, collection: posts, as: :post, expires_in: 1.week,
+        locals: { options: { users_provider: ::Thredded::UsersProviderWithCache.new } }
       )
       render partial: partial, collection: posts_with_contents, as: :post_and_content, locals: locals
     end

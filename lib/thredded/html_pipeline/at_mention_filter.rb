@@ -10,6 +10,7 @@ module Thredded
       def initialize(doc, context = nil, result = nil)
         super doc, context, result
         @users_provider = context[:users_provider]
+        @users_provider_scope = context[:users_provider_scope]
         @view_context = context[:view_context]
       end
 
@@ -30,7 +31,7 @@ module Thredded
         names = []
         process_text_nodes! { |node| names.concat mentioned_names(node.to_html) }
         names.uniq!
-        @users_provider.call(names)
+        @users_provider.call(names, @users_provider_scope)
       end
 
       private
@@ -43,8 +44,8 @@ module Thredded
 
       def highlight!(text_node_html)
         names = mentioned_names(text_node_html)
-        return if names.blank?
-        @users_provider.call(names).each do |user|
+        return if names.blank? || @users_provider.nil?
+        @users_provider.call(names, @users_provider_scope).each do |user|
           name = user.thredded_display_name
           maybe_quoted_name = name =~ /[., ()]/ ? %("#{name}") : name
           url = Thredded.user_path(@view_context, user)

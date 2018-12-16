@@ -23,6 +23,7 @@ require 'thredded/html_pipeline/kramdown_filter'
 require 'thredded/html_pipeline/onebox_filter'
 require 'thredded/html_pipeline/wrap_iframes_filter'
 require 'thredded/html_pipeline/spoiler_tag_filter'
+require 'thredded/users_provider'
 
 # Asset compilation
 require 'autoprefixer-rails'

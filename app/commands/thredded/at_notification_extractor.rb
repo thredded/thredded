@@ -16,7 +16,8 @@ module Thredded
       Thredded::HtmlPipeline::AtMentionFilter.new(
         html,
         view_context: view_context,
-        users_provider: ->(user_names) { @post.readers_from_user_names(user_names).to_a }
+        users_provider: ::Thredded::UsersProvider,
+        users_provider_scope: @post.readers
       ).mentioned_users
     end
   end

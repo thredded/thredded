@@ -10,7 +10,8 @@ describe Thredded::ContentFormatter do
   def format_post_content(post)
     Thredded::ContentFormatter.new(
       ViewContextStub,
-      users_provider: ->(names) { post.readers_from_user_names(names) }
+      users_provider: ::Thredded::UsersProvider,
+      users_provider_scope: post.readers
     ).format_content(post.content)
   end
 
@@ -61,8 +62,8 @@ describe Thredded::ContentFormatter do
 '<a href="mailto:email@jane.com">email@jane.com</a>, <a href="mailto:email@joe.com">email@joe.com</a>,'\
 ' <code>@joe</code>.</p>'
 
-      expect(post).to receive(:readers_from_user_names)
-        .with(['sam 1', 'joe', 'unknown'])
+      expect(::Thredded::UsersProvider).to receive(:call)
+        .with(['sam 1', 'joe', 'unknown'], kind_of(ActiveRecord::Relation))
         .and_return([sam, joe])
 
       expect(format_post_content(post)).to eq expected_html
