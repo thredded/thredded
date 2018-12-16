@@ -33,20 +33,14 @@ module Thredded
 
     # @param view_context [Object] the context of the rendering view.
     # @return [String] formatted and sanitized html-safe post content.
-    def filtered_content(view_context, users_provider: ->(names) { readers_from_user_names(names) }, **options)
-      Thredded::ContentFormatter.new(view_context, users_provider: users_provider, **options).format_content(content)
+    def filtered_content(view_context, users_provider: ::Thredded::UsersProvider, **options)
+      Thredded::ContentFormatter.new(
+        view_context, users_provider: users_provider, users_provider_scope: readers, **options
+      ).format_content(content)
     end
 
     def first_post_in_topic?
       postable.first_post == self
-    end
-
-    # @return [ActiveRecord::Relation<Thredded.user_class>] users from the list of user names that can read this post.
-    # @api private
-    def readers_from_user_names(user_names)
-      DbTextSearch::CaseInsensitive
-        .new(readers, Thredded.user_name_column)
-        .in(user_names)
     end
 
     # Marks all the posts from the given one as unread for the given user
