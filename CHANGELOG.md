@@ -1,3 +1,16 @@
+# v0.16.4 (unreleased)
+
+## Changed
+
+* Previously, Thredded issued a separate database query for @-mentions within each post when rendering a topic
+  (at most 1 query per topic). Since posts are rendered in multiple threads by default, this wasn't as slow as
+  you might expect. However, it still required a larger connection pool and could still be slow for topics with
+  lots of @-mentions. Now, Thredded caches the @-mentioned users and the database query is under a mutex.
+  This means Thredded no longer needs a large database connection pool and queries for repeated @-mentions across posts
+  are avoided.
+
+  [#771](https://github.com/thredded/thredded/issues/771)
+
 # v0.16.3
 
 Fixes private topic form preview (regression in v0.16.2).
