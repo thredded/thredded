@@ -1,4 +1,4 @@
-# v0.16.4 (unreleased)
+# v0.16.4
 
 ## Changed
 
@@ -6,8 +6,8 @@
   (at most 1 query per topic). Since posts are rendered in multiple threads by default, this wasn't as slow as
   you might expect. However, it still required a larger connection pool and could still be slow for topics with
   lots of @-mentions. Now, Thredded caches the @-mentioned users and the database query is under a mutex.
-  This means Thredded no longer needs a large database connection pool and queries for repeated @-mentions across posts
-  are avoided.
+  This means Thredded no longer needs a large database connection pool ([#770](https://github.com/thredded/thredded/issues/770))
+  and queries for repeated @-mentions across posts are avoided.
 
   [#771](https://github.com/thredded/thredded/issues/771)
 
