@@ -2,8 +2,6 @@
 
 gem 'test_after_commit', group: :test
 
-gem 'codeclimate-test-reporter', group: :test, require: false if ENV['TRAVIS']
-
 group :debug do
   gem 'derailed'
   gem 'pry-rails'
