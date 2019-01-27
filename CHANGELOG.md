@@ -1,3 +1,10 @@
+# v0.16.5
+
+## Fixed
+
+* Kramdown v2.0 support.
+  [#786](https://github.com/thredded/thredded/issues/786)
+
 # v0.16.4
 
 ## Changed
