@@ -3,7 +3,7 @@
 ENV['RAILS_ENV'] = 'test'
 db = ENV.fetch('DB', 'sqlite3')
 
-if ENV['COVERAGE'] && !%w[rbx jruby].include?(RUBY_ENGINE) && !ENV['MIGRATION_SPEC']
+if ENV['COVERAGE'] && !%w[rbx jruby].include?(RUBY_ENGINE)
   require 'simplecov'
   SimpleCov.command_name ENV['SIMPLECOV_NAME'] || 'RSpec'
 end
