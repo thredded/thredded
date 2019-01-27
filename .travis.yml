@@ -1,7 +1,8 @@
 language: ruby
-
+dist: xenial
+sudo: false
 rvm:
-  - 2.3
+- 2.3.8
 
 addons:
   apt:
@@ -14,7 +15,8 @@ before_install:
   # Rails 4.x requires bundler version < 2.0.
   - >
     if [[ $BUNDLE_GEMFILE == "${PWD}/spec/gemfiles/rails_4_2.gemfile" ]]; then
-      rvm use @global && gem uninstall bundler -x && gem install bundler --version='~> 1.17'
+      "find /home/travis/.rvm/rubies -wholename '*default/bundler-*.gemspec' -delete"
+      gem install bundler --version='~> 1.17'
       bundler --version
     fi
 
@@ -33,7 +35,6 @@ gemfile:
   - spec/gemfiles/rails_5_0.gemfile
   - spec/gemfiles/rails_5_1.gemfile
   - spec/gemfiles/rails_5_2.gemfile
-
 env:
   matrix:
   # Username and password from http://docs.travis-ci.com/user/database-setup/
@@ -44,6 +45,9 @@ env:
   - COVERAGE=1
   - TRAVIS=1
   - CHROMEDRIVER_PATH=$PWD/chromedriver
+services:
+- postgresql
+- mysql
 
 before_script:
 - >
@@ -63,6 +67,3 @@ after_script:
 notifications:
   slack:
     secure: bnoj7Q/2yA3gtJ2IR/YtXrWCGvN7ukHKnhg1oNYJsOYNk0oEMMgjmGnIRrcdxO4peyOid6aKlcMmP7zrOzPEJsN3qAA4UUCRGq0TgZ2RDMX1sRZ8NN/xCyt84WU9aEtTF0V1hUyG/OaQ7G65XN/XuwJGzw6VDSZE54FSdR/5/eQ=
-
-dist: trusty
-sudo: required
