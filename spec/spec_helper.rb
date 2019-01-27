@@ -5,7 +5,7 @@ db = ENV.fetch('DB', 'sqlite3')
 
 if ENV['COVERAGE'] && !%w[rbx jruby].include?(RUBY_ENGINE) && !ENV['MIGRATION_SPEC']
   require 'simplecov'
-  SimpleCov.command_name 'RSpec'
+  SimpleCov.command_name ENV['SIMPLECOV_NAME'] || 'RSpec'
 end
 
 require File.expand_path('dummy/config/environment', __dir__)

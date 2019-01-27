@@ -57,10 +57,10 @@ before_script:
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build
 script:
-- bundle exec rspec --force-color --format d --tag=~js
-- bundle exec rspec --force-color --format d --tag=js
+- bundle exec rspec --force-color --format d --tag=~js SIMPLECOV_NAME="test:nojs"
+- bundle exec rspec --force-color --format d --tag=js SIMPLECOV_NAME="test:js"
 - bundle exec rubocop
-- MIGRATION_SPEC=1 bundle exec rspec spec/migration --force-color --format d
+- MIGRATION_SPEC=1 bundle exec rspec spec/migration --force-color --format d SIMPLECOV_NAME="test:migrations"
 after_script:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
