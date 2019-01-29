@@ -59,7 +59,6 @@ module PageObject
           # the mouse towards an element, then clicking.
           # The click could then be performed on a dropdown action.
           toggle.hover
-          sleep(0.2) # wait a bit for animation
         end
       end
     end

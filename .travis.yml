@@ -8,6 +8,8 @@ addons:
   apt:
     packages:
     - chromium-browser
+    # TODO: Use chromedriver from apt once it's been updated to v2.37+.
+    # - chromium-chromedriver
 
 before_install:
   # Rails 4.x requires bundler version < 2.0.
@@ -42,11 +44,15 @@ env:
   global:
   - COVERAGE=1
   - TRAVIS=1
+  - CHROMEDRIVER_PATH=$PWD/chromedriver
 services:
 - postgresql
 - mysql
 
 before_script:
+- >
+  wget -q https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip &&
+  unzip chromedriver_linux64.zip
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build

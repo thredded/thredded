@@ -30,11 +30,8 @@ RSpec.feature 'User replying to topic' do
     # Expect current path to not change because the JS magic takes place
     expect(page).to have_current_path(current_path)
     # Wait for the async quote content fetch completion
-    Timeout.timeout(2) do
-      loop do
-        break if posts.post_form.content != '...' && !posts.post_form.content.empty?
-        sleep(0.2)
-      end
+    Timeout.timeout(1) do
+      loop { break if posts.post_form.content != '...' }
     end
     expect(posts.post_form.content).to(start_with('>').and(end_with("\n\n")))
   end

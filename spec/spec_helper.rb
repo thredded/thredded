@@ -146,22 +146,27 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   end
 end
 
-require 'capybara/cuprite'
+require 'selenium-webdriver'
 
-browser_path = ENV['CHROMIUM_BIN'] || %w[
+Selenium::WebDriver::Chrome.path = ENV['CHROMIUM_BIN'] || %w[
   /usr/bin/chromium-browser
   /Applications/Chromium.app/Contents/MacOS/Chromium
   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 ].find { |path| File.executable?(path) }
+Selenium::WebDriver::Chrome.driver_path = ENV['CHROMEDRIVER_PATH'] || %w[
+  /usr/bin/chromedriver
+  /usr/lib/chromium-browser/chromedriver
+  /usr/local/bin/chromedriver
+].find { |path| File.executable?(path) }
 
-Capybara.register_driver :cuprite do |app|
-  browser_options = {
-    window_size: [1280, 1024]
-  }
-  browser_options[:path] = browser_path if browser_path
-  Capybara::Cuprite::Driver.new(app, browser_options)
+Capybara.register_driver :headless_chromium do |app|
+  options = ::Selenium::WebDriver::Chrome::Options.new
+  options.add_argument 'headless'
+  options.add_argument 'disable-gpu'
+  options.add_argument 'window-size=1280,1024'
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
-Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER']&.to_sym || :cuprite
+Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER']&.to_sym || :headless_chromium
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
   config.default_max_wait_time = 5
