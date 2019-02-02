@@ -28,13 +28,13 @@ RSpec.feature 'User sends a new private topic' do
       find(:css, '[name="private_topic[user_names]"]').hover
       find(:css, '[name="private_topic[user_names]"]').click
       find(:css, '[name="private_topic[user_names]"]').send_keys('Bar')
-      expect(page).to have_css('ul.thredded--textcomplete-dropdown li', count: 3)
+      expect(page).to have_css('ul.thredded--textcomplete-dropdown li.textcomplete-item', count: 3)
       find(:css, '[name="private_topic[user_names]"]').send_keys('b')
-      expect(page).to have_css('ul.thredded--textcomplete-dropdown li', count: 3)
+      expect(page).to have_css('ul.thredded--textcomplete-dropdown li.textcomplete-item', count: 3)
       find(:css, '[name="private_topic[user_names]"]').send_keys('ara')
-      expect(page).to have_css('ul.thredded--textcomplete-dropdown li', count: 2)
+      expect(page).to have_css('ul.thredded--textcomplete-dropdown li.textcomplete-item', count: 2)
       find(:css, '[name="private_topic[user_names]"]').send_keys(' Fleis')
-      expect(page).to have_css('ul.thredded--textcomplete-dropdown li', count: 1)
+      expect(page).to have_css('ul.thredded--textcomplete-dropdown li.textcomplete-item', count: 1)
       find(:css, '[name="private_topic[user_names]"]').send_keys("\n")
       expect(find(:css, '[name="private_topic[user_names]"]').value).to eq('Barbara Fleischman, ')
     end
