@@ -18,6 +18,18 @@ module Thredded
       scope :order_oldest_first, -> { order(created_at: :asc, id: :asc) }
       scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
 
+      scope :preload_first_topic_post, -> {
+        posts_table_name = quoted_table_name
+        ActiveRecord::Associations::Preloader.new.preload(
+          map(&:postable), :first_post,
+          Thredded::Post.where(<<~SQL.delete("\n"))
+          #{posts_table_name}.created_at = (
+          SELECT MAX(p2.created_at) from #{posts_table_name} p2 WHERE p2.postable_id = #{posts_table_name}.postable_id)
+        SQL
+        )
+        self
+      }
+
       before_validation :ensure_user_detail, on: :create
 
       after_commit :update_unread_posts_count, on: %i[create destroy]
