@@ -1,3 +1,13 @@
+# v0.16.6
+
+## Fixed
+
+* N+1 queries moderation pending & activity.
+
+  This also fixes ActiveRecord pool exhaustion caused by trying to obtain multiple database connections
+  from the render threads.
+  [#788](https://github.com/thredded/thredded/issues/788)
+
 # v0.16.5
 
 ## Fixed
