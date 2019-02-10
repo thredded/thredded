@@ -8,7 +8,7 @@ module Thredded
     def pending
       @posts = Thredded::PostsPageView.new(
         thredded_current_user,
-        preload_posts_for_moderation(moderatable_posts.pending_moderation).order_newest_first
+        preload_posts_for_moderation(moderatable_posts.pending_moderation).order_oldest_first
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
@@ -24,7 +24,7 @@ module Thredded
     def activity
       @posts = Thredded::PostsPageView.new(
         thredded_current_user,
-        preload_posts_for_moderation(moderatable_posts).order_oldest_first
+        preload_posts_for_moderation(moderatable_posts).order_newest_first
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
