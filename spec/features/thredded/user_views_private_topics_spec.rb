@@ -71,7 +71,7 @@ RSpec.feature 'User viewing private topics' do
       :private_topic,
       user: me,
       users: [me, them],
-      posts: build_list(:private_post, 1)
+      with_posts: 1,
     )
     PageObject::PrivateTopics.new(private_topic.title)
   end

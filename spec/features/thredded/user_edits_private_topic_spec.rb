@@ -27,7 +27,7 @@ RSpec.feature 'User editing a private topic' do
   end
 
   def private_topic
-    topic = create(:private_topic, posts: FactoryBot.build_list(:private_post, 3), user: @user)
+    topic = create(:private_topic, with_posts: 3, user: @user)
     PageObject::PrivateTopic.new(topic)
   end
 end

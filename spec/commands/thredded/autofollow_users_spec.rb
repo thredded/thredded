@@ -8,8 +8,11 @@ module Thredded
       @sam = create(:user, name: 'sam')
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
       @john = create(:user, name: 'john', email: 'john@example.com')
-      @post = build(:post, user: @sam, content: 'hey @joel and @john. - @sam')
-      @messageboard = @post.messageboard
+      @messageboard = create(:messageboard)
+      @topic = create(:topic, messageboard: @messageboard)
+      @post = build(
+        :post, postable: @topic, messageboard: @messageboard, user: @sam, content: 'hey @joel and @john. - @sam'
+      )
     end
 
     context '@-mention' do
@@ -87,7 +90,8 @@ module Thredded
 
     def build_post_by(user)
       messageboard = create(:messageboard)
-      build(:post, user: user, content: 'hi @john', messageboard: messageboard)
+      topic = create(:topic)
+      build(:post, user: user, content: 'hi @john', messageboard: messageboard, postable: topic)
     end
   end
 end
