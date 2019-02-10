@@ -1,3 +1,10 @@
+# v0.16.7
+
+## Fixed
+
+* Fix post order for moderation pending & activity (a regression introduced in v0.16.6).
+  [cec880d8](https://github.com/thredded/thredded/commit/cec880d898ed0e35dda2e94de2e0e1bd09a1ce6d)
+
 # v0.16.6
 
 ## Fixed
