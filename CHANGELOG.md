@@ -1,3 +1,11 @@
+# v0.16.8
+
+## Fixed
+
+* Unread followed topics navigation icon now correctly displays on mobile.
+  [#791](https://github.com/thredded/thredded/issues/791)
+  [8dc4e1a2](https://github.com/thredded/thredded/commit/8dc4e1a2dbb5697d91351d1bd586767e010104c0)
+
 # v0.16.7
 
 ## Fixed
