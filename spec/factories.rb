@@ -90,7 +90,6 @@ FactoryBot.define do
 
     user
     messageboard
-    association :last_user, factory: :user
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
@@ -100,7 +99,7 @@ FactoryBot.define do
           create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
                         updated_at: ago, moderation_state: topic.moderation_state)
         end
-
+        topic.last_user = topic.user
         topic.posts_count = evaluator.with_posts
         topic.save
       end
@@ -130,7 +129,6 @@ FactoryBot.define do
     end
     user
     users { [user] + build_list(:user, rand(1..3)) }
-    association :last_user, factory: :user
 
     title { Faker::Lorem.sentence[0..-2] }
     hash_id { generate(:topic_hash) }
@@ -138,11 +136,14 @@ FactoryBot.define do
     after :create do |topic, evaluator|
       if evaluator.with_posts
         ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
+        last_user = nil
         evaluator.with_posts.times do |i|
           ago += evaluator.post_interval
           user = i == 0 ? topic.user : topic.users.sample
+          last_user = user
           create(:private_post, postable: topic, user: user, created_at: ago, updated_at: ago)
         end
+        topic.last_user = last_user
         topic.posts_count = evaluator.with_posts
         topic.save
       end

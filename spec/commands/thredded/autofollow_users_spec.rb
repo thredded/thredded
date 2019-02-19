@@ -9,10 +9,11 @@ module Thredded
       @joel = create(:user, name: 'joel', email: 'joel@example.com')
       @john = create(:user, name: 'john', email: 'john@example.com')
       @messageboard = create(:messageboard)
-      @topic = create(:topic, messageboard: @messageboard)
+      @topic = build(:topic, messageboard: @messageboard, user: @sam, last_user: @sam)
       @post = build(
         :post, postable: @topic, messageboard: @messageboard, user: @sam, content: 'hey @joel and @john. - @sam'
       )
+      expect(User.count).to eq(3)
     end
 
     context '@-mention' do
