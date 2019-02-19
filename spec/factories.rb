@@ -85,7 +85,7 @@ FactoryBot.define do
       with_categories { 0 }
     end
 
-    title { Faker::StarWars.quote }
+    title { Faker::Movies::StarWars.quote }
     hash_id { generate(:topic_hash) }
 
     user

@@ -53,7 +53,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot_rails', '>= 5.0.1'
-  s.add_development_dependency 'faker', '>= 1.6.2'
+  s.add_development_dependency 'faker', '>= 1.9.3'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails', '>= 3.5.0'
   s.add_development_dependency 'rubocop', '= 0.58.2'
