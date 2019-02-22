@@ -136,6 +136,8 @@ en:
         update_btn_submitting: :thredded.form.update_btn_submitting
       pending_moderation_notice: Your post will be published when it has been reviewed by a moderator.
       quote_btn: Quote
+      report: Report Post
+      reported_post: This post has been reported to moderation for review.
       spoiler_summary: Spoiler - click to show.
       spoiler_summary_for_email: 'Spoiler - select the contents below to see:'
     preferences:

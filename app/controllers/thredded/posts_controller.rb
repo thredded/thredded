@@ -7,7 +7,7 @@ module Thredded
     include Thredded::NewPostParams
 
     helper_method :topic
-    before_action :assign_messageboard_for_actions, only: %i[mark_as_read mark_as_unread]
+    before_action :assign_messageboard_for_actions, only: %i[mark_as_read mark_as_unread report]
     after_action :update_user_activity
 
     after_action :verify_authorized
@@ -75,6 +75,18 @@ module Thredded
     def quote
       authorize_reading post
       render plain: Thredded::ContentFormatter.quote_content(post.content)
+    end
+
+    def report
+      authorize_reading post
+      post.update(moderation_state: 'pending_moderation')
+      respond_to do |format|
+        format.html {
+          redirect_back fallback_location: post_path(post, user: thredded_current_user),
+                        notice: I18n.t('thredded.posts.reported_post')
+        }
+        format.json { render(json: { reported: true }) }
+      end
     end
 
     private

@@ -65,6 +65,10 @@ module Thredded
       Thredded::UrlsHelper.mark_unread_path(@post)
     end
 
+    def report_path
+      Thredded::UrlsHelper.report_post_path(@post)
+    end
+
     def destroy_path
       Thredded::UrlsHelper.delete_post_path(@post)
     end

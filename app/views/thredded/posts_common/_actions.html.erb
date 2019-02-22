@@ -10,6 +10,10 @@
     <% if post.can_destroy? %>
       <%= render 'thredded/posts_common/actions/delete', post: post %>
     <% end %>
+    <%# TODO: if user_signed_in? %>
+    <% if true %>
+      <%= render 'thredded/posts_common/actions/report', post: post %>
+    <% end %>
     <% if post.read_state %>
       <%= view_hooks.post_common.mark_as_unread.render self, post: post do %>
         <%= render 'thredded/posts_common/actions/mark_as_unread', post: post %>
