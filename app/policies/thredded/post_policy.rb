@@ -47,7 +47,7 @@ module Thredded
 
     def report?
       # Only allow logged-in users to report posts
-      !(@user.is_a?(Thredded::NullUser))
+      !(@user.is_a? Thredded::NullUser)
     end
 
     def anonymous?

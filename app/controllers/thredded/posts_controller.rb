@@ -81,10 +81,10 @@ module Thredded
       authorize_reading post
       post.update(moderation_state: 'pending_moderation')
       respond_to do |format|
-        format.html {
+        format.html do
           redirect_back fallback_location: post_path(post, user: thredded_current_user),
                         notice: I18n.t('thredded.posts.reported_post')
-        }
+        end
         format.json { render(json: { reported: true }) }
       end
     end
