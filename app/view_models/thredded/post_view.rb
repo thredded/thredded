@@ -45,6 +45,10 @@ module Thredded
       @can_moderate ||= @policy.moderate?
     end
 
+    def can_report?
+      @can_report ||= @policy.report?
+    end
+
     def quote_url_params
       if @post.private_topic_post?
         { post: { quote_private_post_id: @post.id } }

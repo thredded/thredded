@@ -10,7 +10,7 @@
     <% if post.can_destroy? %>
       <%= render 'thredded/posts_common/actions/delete', post: post %>
     <% end %>
-    <% if thredded_signed_in? %>
+    <% if post.can_report? %>
       <%= render 'thredded/posts_common/actions/report', post: post %>
     <% end %>
     <% if post.read_state %>

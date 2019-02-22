@@ -45,6 +45,11 @@ module Thredded
       !@post.first_post_in_topic? && update?
     end
 
+    def report?
+      # Only allow logged-in users to report posts
+      !(@user.is_a?(Thredded::NullUser))
+    end
+
     def anonymous?
       @user.thredded_anonymous?
     end
