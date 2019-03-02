@@ -1,3 +1,13 @@
+# v0.16.9
+
+## Fixed
+
+* Moderation > Pending now works again in Rails 4.
+  [#794](https://github.com/thredded/thredded/issues/794)
+
+* `@`-mentions are now parsed and highlighted using `Thredded.user_name_column` instead of `user.thredded_display_name`.
+  [#790](https://github.com/thredded/thredded/issues/794)
+
 # v0.16.8
 
 ## Fixed
