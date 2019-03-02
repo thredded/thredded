@@ -20,14 +20,15 @@ module Thredded
 
       scope :preload_first_topic_post, -> {
         posts_table_name = quoted_table_name
+        result = all
         ActiveRecord::Associations::Preloader.new.preload(
-          map(&:postable), :first_post,
+          result.map(&:postable), :first_post,
           Thredded::Post.where(<<~SQL.delete("\n"))
           #{posts_table_name}.created_at = (
           SELECT MAX(p2.created_at) from #{posts_table_name} p2 WHERE p2.postable_id = #{posts_table_name}.postable_id)
         SQL
         )
-        self
+        result
       }
 
       before_validation :ensure_user_detail, on: :create
