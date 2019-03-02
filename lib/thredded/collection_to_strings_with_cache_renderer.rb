@@ -24,7 +24,7 @@ module Thredded
     )
       template = @lookup_context.find_template(partial, [], true, locals, {})
       collection = collection.to_a
-      instrument(:collection, count: collection.size) do |instrumentation_payload|
+      instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
         return [] if collection.blank?
         keyed_collection = collection.each_with_object({}) do |item, hash|
           key = ActiveSupport::Cache.expand_cache_key(
