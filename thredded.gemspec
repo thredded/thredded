@@ -70,7 +70,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'pg'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'rails-i18n'
-  s.add_development_dependency 'rails_email_preview', '>= 2.1.0'
+  s.add_development_dependency 'rails_email_preview', '>= 2.2.1'
   s.add_development_dependency 'roadie-rails'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'twemoji'

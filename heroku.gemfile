@@ -15,7 +15,7 @@ gem 'uglifier'
 # Make these gems available in production
 gem 'puma'
 gem 'pg'
-gem 'rails_email_preview', '>= 1.0.3'
+gem 'rails_email_preview', '>= 2.2.1'
 gem 'roadie-rails'
 gem 'turbolinks'
 gem 'rails-i18n'
