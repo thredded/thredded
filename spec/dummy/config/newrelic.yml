@@ -47,3 +47,6 @@ staging:
 
 production:
   <<: *default_settings
+  # Disable browser monitoring, as NewRelic does not support Rails CSP yet.
+  browser_monitoring:
+    auto_instrument: false

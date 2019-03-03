@@ -1,3 +1,9 @@
+# v0.16.10
+
+## Added
+
+* Thredded now adds the CSP nonce to inline script tags if CSP is enabled on Rails v5.2+.
+
 # v0.16.9
 
 ## Fixed
@@ -6,7 +12,7 @@
   [#794](https://github.com/thredded/thredded/issues/794)
 
 * `@`-mentions are now parsed and highlighted using `Thredded.user_name_column` instead of `user.thredded_display_name`.
-  [#790](https://github.com/thredded/thredded/issues/794)
+  [#790](https://github.com/thredded/thredded/issues/790)
 
 # v0.16.8
 
