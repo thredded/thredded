@@ -24,7 +24,7 @@ module Thredded
     validates :name, uniqueness: true, length: { within: Thredded.messageboard_name_length_range }, presence: true
     validates :topics_count, numericality: true
     validates :position, presence: true, on: :update
-    before_save :ensure_position, on: :create
+    before_save :ensure_position
 
     def ensure_position
       self.position ||= (created_at || Time.zone.now).to_i

@@ -10,7 +10,7 @@ module Thredded
     scope :ordered, -> { order(position: :asc, id: :asc) }
     validates :name, presence: true, uniqueness: true
     validates :position, presence: true, on: :update
-    before_save :ensure_position, on: :create
+    before_save :ensure_position
 
     def ensure_position
       self.position ||= Time.zone.now.to_i
