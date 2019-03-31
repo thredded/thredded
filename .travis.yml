@@ -21,6 +21,16 @@ matrix:
       addons:
         apt:
           packages: []
+    - name: I18n Tasks
+      gemfile: spec/gemfiles/i18n-tasks.gemfile
+      rvm: 2.5.3
+      script: bundle exec i18n-tasks health
+      before_install:
+      before_script:
+      after_script:
+      addons:
+        apt:
+          packages: []
     - gemfile: spec/gemfiles/rails_4_2.gemfile
       rvm: 2.3.8
       env: DB=sqlite3
@@ -97,7 +107,7 @@ before_script:
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build
 script:
-- SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js
+- SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
 - SIMPLECOV_NAME="test:js" bundle exec rspec --force-color --format d --tag=js
 - MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
 after_script:

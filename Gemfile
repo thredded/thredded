@@ -23,3 +23,4 @@ gemspec
 
 eval_gemfile File.expand_path('shared.gemfile', __dir__)
 eval_gemfile File.expand_path('rubocop.gemfile', __dir__)
+eval_gemfile File.expand_path('i18n-tasks.gemfile', __dir__)

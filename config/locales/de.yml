@@ -259,13 +259,13 @@ de:
       last_active_html: Zuletzt aktiv %{time_ago}
       posted_in_topic_html: Hochgeladen in %{topic_link}
       posts_count:
-        one: Einmalig hochgeladen
-        other: "%{count} -mal hochgeladen"
+        one: "%{count}-mal hochgeladen"
+        other: "%{count}-mal hochgeladen"
       recent_activity: :thredded.recent_activity
       send_private_message: Private Nachricht senden
       started_topic_html: "%{topic_link} gestartet"
       started_topics_count:
-        one: Eine Diskussion gestartet
+        one: "%{count} Diskussion gestartet"
         other: "%{count} Diskussionen gestartet"
       user_posted_in_topic_html: "%{user_link} hochgeladen in %{topic_link}"
       user_since_html: Nutzer seit %{time_ago}
