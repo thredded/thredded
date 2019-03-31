@@ -62,7 +62,6 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
 
   # dummy app dependencies
   s.add_development_dependency 'http_accept_language'
-  s.add_development_dependency 'i18n-tasks', '>= 0.9.18'
   s.add_development_dependency 'kaminari-i18n'
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'pg'
