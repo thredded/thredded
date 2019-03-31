@@ -1,22 +1,71 @@
 language: ruby
 dist: xenial
 sudo: false
-rvm:
-- 2.3.8
-
 addons:
   apt:
     packages:
     - chromium-browser
 
 before_install:
-  # Rails 4.x requires bundler version < 2.0.
-  - >
-    if [[ $BUNDLE_GEMFILE == "${PWD}/spec/gemfiles/rails_4_2.gemfile" ]]; then
-      "find /home/travis/.rvm/rubies -wholename '*default/bundler-*.gemspec' -delete"
-      gem install bundler --version='~> 1.17'
-      bundler --version
-    fi
+  - script/travis-downgrade-bundler-on-old-rails.sh
+
+matrix:
+  include:
+    - gemfile: spec/gemfiles/rails_4_2.gemfile
+      rvm: 2.3.8
+      env: DB=sqlite3
+    - gemfile: spec/gemfiles/rails_4_2.gemfile
+      rvm: 2.3.8
+      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
+      services: mysql
+    - gemfile: spec/gemfiles/rails_4_2.gemfile
+      rvm: 2.3.8
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
+    - gemfile: spec/gemfiles/rails_5_0.gemfile
+      rvm: 2.3.8
+      env: DB=sqlite3
+    - gemfile: spec/gemfiles/rails_5_0.gemfile
+      rvm: 2.3.8
+      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
+      services: mysql
+    - gemfile: spec/gemfiles/rails_5_0.gemfile
+      rvm: 2.3.8
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
+    - gemfile: spec/gemfiles/rails_5_1.gemfile
+      rvm: 2.3.8
+      env: DB=sqlite3
+    - gemfile: spec/gemfiles/rails_5_1.gemfile
+      rvm: 2.3.8
+      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
+      services: mysql
+    - gemfile: spec/gemfiles/rails_5_1.gemfile
+      rvm: 2.3.8
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
+    - gemfile: spec/gemfiles/rails_5_2.gemfile
+      rvm: 2.3.8
+      env: DB=sqlite3
+    - gemfile: spec/gemfiles/rails_5_2.gemfile
+      rvm: 2.3.8
+      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
+      services: mysql
+    - gemfile: spec/gemfiles/rails_5_2.gemfile
+      rvm: 2.3.8
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
+    - gemfile: spec/gemfiles/rails_6_0.gemfile
+      rvm: 2.5.5
+      env: DB=sqlite3
+    - gemfile: spec/gemfiles/rails_6_0.gemfile
+      rvm: 2.5.5
+      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
+      services: mysql
+    - gemfile: spec/gemfiles/rails_6_0.gemfile
+      rvm: 2.5.5
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
 
 cache:
   bundler: true
@@ -28,23 +77,10 @@ cache:
   - spec/dummy/tmp/cache/onebox-views
 
 bundler_args: --path ../../vendor/bundle --without debug
-gemfile:
-  - spec/gemfiles/rails_4_2.gemfile
-  - spec/gemfiles/rails_5_0.gemfile
-  - spec/gemfiles/rails_5_1.gemfile
-  - spec/gemfiles/rails_5_2.gemfile
 env:
-  matrix:
-  # Username and password from http://docs.travis-ci.com/user/database-setup/
-  - DB=sqlite3
-  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
-  - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
   global:
   - COVERAGE=1
   - TRAVIS=1
-services:
-- postgresql
-- mysql
 
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

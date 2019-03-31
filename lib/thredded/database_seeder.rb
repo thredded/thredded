@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'factory_bot_rails'
+require 'factory_bot'
 require_relative '../../spec/support/features/fake_content'
 
 # rubocop:disable HandleExceptions

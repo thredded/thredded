@@ -38,7 +38,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'
 require 'webmock/rspec'
-require 'factory_bot_rails'
+require 'factory_bot'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
@@ -89,6 +89,9 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   config.infer_spec_type_from_file_location!
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
+  config.before(:suite) do
+    require_relative './factories'
+  end
 
   if ENV['MIGRATION_SPEC']
     config.before(:each, migration_spec: true) do

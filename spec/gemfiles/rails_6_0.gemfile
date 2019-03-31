@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+gemspec path: '../../'
+eval_gemfile '../../shared.gemfile'
 
 gem 'rails', '~> 6.0.0.beta3'
 gem 'rails-i18n', '~> 6.0.0.beta1'
@@ -18,7 +20,3 @@ group :test do
   gem 'rspec-support', git: 'https://github.com/rspec/rspec-support'
   gem 'rspec-expectations', git: 'https://github.com/rspec/rspec-expectations'
 end
-
-gemspec
-
-eval_gemfile File.expand_path('shared.gemfile', File.dirname(__FILE__))
