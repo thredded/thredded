@@ -11,6 +11,16 @@ before_install:
 
 matrix:
   include:
+    - name: Rubocop
+      gemfile: spec/gemfiles/rubocop.gemfile
+      rvm: 2.5.3
+      script: bundle exec rubocop
+      before_install:
+      before_script:
+      after_script:
+      addons:
+        apt:
+          packages: []
     - gemfile: spec/gemfiles/rails_4_2.gemfile
       rvm: 2.3.8
       env: DB=sqlite3
@@ -56,14 +66,14 @@ matrix:
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.5
+      rvm: 2.5.3
       env: DB=sqlite3
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.5
+      rvm: 2.5.3
       env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
       services: mysql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.5
+      rvm: 2.5.3
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
 
@@ -89,7 +99,6 @@ before_script:
 script:
 - SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js
 - SIMPLECOV_NAME="test:js" bundle exec rspec --force-color --format d --tag=js
-- bundle exec rubocop
 - MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
 after_script:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
