@@ -83,7 +83,17 @@ module Thredded
     # @return [Array<String>]
     def render_partials_serial(view_context, collection, opts)
       partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
-      collection.map { |object| partial_renderer.render(view_context, opts.merge(object: object), nil) }
+      collection.map { |object| render_partial(partial_renderer, view_context, opts.merge(object: object)) }
+    end
+
+    if Rails::VERSION::MAJOR >= 6
+      def render_partial(partial_renderer, view_context, opts)
+        partial_renderer.render(view_context, opts, nil).body
+      end
+    else
+      def render_partial(partial_renderer, view_context, opts)
+        partial_renderer.render(view_context, opts, nil)
+      end
     end
   end
 end

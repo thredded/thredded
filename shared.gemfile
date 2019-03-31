@@ -14,7 +14,10 @@ group :debug do
   end
 end
 
-if ENV['TRAVIS']
-  # The roadie-rails gem v2.0+ requires Ruby v2.5+ but on CI we test with Ruby v2.3.
-  gem 'roadie-rails', '~> 1.3.0'
+if (RUBY_VERSION.split('.').map(&:to_i) <=> [2, 5, 0]) >= 0
+  # https://github.com/Mange/roadie-rails/pull/88
+  gem 'roadie-rails', git: 'https://github.com/glebm/roadie-rails', branch: 'patch-2'
+else
+  # roadie-rails 2 requires Ruby v2.5+.
+  gem 'roadie-rails', '~> 1.3.0' # rubocop:disable Bundler/DuplicatedGem
 end

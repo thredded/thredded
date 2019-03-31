@@ -23,7 +23,7 @@ module Thredded
         result = all
         ActiveRecord::Associations::Preloader.new.preload(
           result.map(&:postable), :first_post,
-          Thredded::Post.where(<<~SQL.delete("\n"))
+          unscoped.where(<<~SQL.delete("\n"))
           #{posts_table_name}.created_at = (
           SELECT MAX(p2.created_at) from #{posts_table_name} p2 WHERE p2.postable_id = #{posts_table_name}.postable_id)
         SQL
