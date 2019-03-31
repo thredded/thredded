@@ -2,7 +2,10 @@
 
 ## Added
 
+* Rails 6 beta support.
+  [#802](https://github.com/thredded/thredded/pull/802) [#800](https://github.com/thredded/thredded/pull/800)
 * Thredded now adds the CSP nonce to inline script tags if CSP is enabled on Rails v5.2+.
+  [#797](https://github.com/thredded/thredded/pull/797)
 
 # v0.16.9
 
