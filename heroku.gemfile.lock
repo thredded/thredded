@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    thredded (0.16.9)
+    thredded (0.16.10)
       active_record_union (>= 1.3.0)
       autoprefixer-rails
       db_text_search (~> 0.3.0)
