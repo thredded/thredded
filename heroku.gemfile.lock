@@ -267,7 +267,7 @@ GEM
     thredded-markdown_coderay (0.2.0)
       coderay
       kramdown-syntax-coderay
-    thredded-markdown_katex (0.4.0)
+    thredded-markdown_katex (0.4.1)
       katex (>= 0.4.3)
       kramdown-math-katex
     tilt (2.0.9)
