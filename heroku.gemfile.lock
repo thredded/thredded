@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/glebm/roadie-rails
-  revision: bd7f0db505ccf35ba671fbc81952ac6d8da041b9
-  branch: patch-2
-  specs:
-    roadie-rails (2.0.0)
-      railties (>= 5.1, < 6.1)
-      roadie (~> 3.1)
-
 PATH
   remote: .
   specs:
@@ -93,7 +84,7 @@ GEM
       zeitwerk (~> 1.3, >= 1.3.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    autoprefixer-rails (9.5.0)
+    autoprefixer-rails (9.5.1)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -119,7 +110,7 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    html-pipeline (2.10.0)
+    html-pipeline (2.11.0)
       activesupport (>= 2)
       nokogiri (>= 1.4)
     htmlentities (4.3.4)
@@ -144,7 +135,7 @@ GEM
     kaminari-i18n (0.5.0)
       kaminari
       rails
-    katex (0.5.0)
+    katex (0.5.1)
       execjs (~> 2.7)
     kramdown (2.1.0)
     kramdown-math-katex (1.0.1)
@@ -167,7 +158,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    moneta (1.1.0)
+    moneta (1.1.1)
     multi_json (1.13.1)
     mustache (1.1.0)
     newrelic_rpm (6.2.0.354)
@@ -176,7 +167,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.1)
       nokogiri (~> 1.8, >= 1.8.4)
-    onebox (1.8.82)
+    onebox (1.8.85)
       htmlentities (~> 4.3)
       moneta (~> 1.0)
       multi_json (~> 1.11)
@@ -188,7 +179,7 @@ GEM
     puma (3.12.1)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
-    rack (2.0.6)
+    rack (2.0.7)
     rack-canonical-host (0.2.3)
       addressable (> 0, < 3)
       rack (>= 1.0.0, < 3)
@@ -236,6 +227,9 @@ GEM
     roadie (3.4.0)
       css_parser (~> 1.4)
       nokogiri (~> 1.5)
+    roadie-rails (2.1.0)
+      railties (>= 5.1, < 6.1)
+      roadie (~> 3.1)
     rollbar (2.19.3)
       multi_json
     sanitize (5.0.0)
@@ -267,7 +261,7 @@ GEM
     thredded-markdown_coderay (0.2.0)
       coderay
       kramdown-syntax-coderay
-    thredded-markdown_katex (0.4.1)
+    thredded-markdown_katex (0.4.2)
       katex (>= 0.4.3)
       kramdown-math-katex
     tilt (2.0.9)
@@ -305,7 +299,7 @@ DEPENDENCIES
   rails (~> 6.0.0.beta3)
   rails-i18n (~> 6.0.0.beta1)
   rails_email_preview (>= 2.2.1)
-  roadie-rails!
+  roadie-rails
   rollbar
   thredded!
   thredded-markdown_coderay
