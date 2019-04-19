@@ -655,7 +655,7 @@ before updating this to full Babel.
 All Thredded JavaScript is compatible with the following Turbolinks options:
 
 * No Turbolinks.
-* Tubrolinks 5.
+* Turbolinks 5.
 * Turbolinks Classic.
 * Turbolinks Classic + jquery-turbolinks.
 
