@@ -5,7 +5,7 @@ de:
       content_blocked_notice: Blockiert
       content_blocked_notice_with_record_html: Blockiert von %{moderator} %{time_ago}
     email_notifier:
-      by_email: Per E-mail
+      by_email: Per E-Mail
     emails:
       message_notification:
         html:
@@ -124,7 +124,7 @@ de:
       unread_topics: Ungelesen
     null_user_name: Gelöschte Nutzer
     posts:
-      delete: Beitrag gelöscht
+      delete: Beitrag löschen
       delete_confirm: Bist du sicher, dass du diesen Beitrag löschen willst?
       deleted_notice: Dein Beitrag wurde gelöscht
       edit: :thredded.nav.edit_post
@@ -172,7 +172,7 @@ de:
     private_posts:
       form:
         content_label: Nachricht
-        create_btn: Nchricht senden
+        create_btn: Nachricht senden
         create_btn_submitting: Senden...
         update_btn_submitting: :thredded.form.update_btn_submitting
     private_topics:
@@ -212,7 +212,7 @@ de:
       edit: Diskussion bearbeiten
       follow: Folge dieser Diskussion
       followed_by: 'gefolgt von:'
-      followed_by_noone: Die Diskussion wird von Niemandem verfolgt
+      followed_by_noone: Die Diskussion wird von niemandem verfolgt
       followed_notice: Du folgst der Diskussion
       following:
         auto: Du folgst dieser Diskussion, da automatisches Folgen aktiviert ist
@@ -245,7 +245,7 @@ de:
       started_by_html: Gestartet %{time_ago} von %{user}
       sticky:
         label: Angepinnt
-      unfollow: Nich mehr folgen
+      unfollow: Nicht mehr folgen
       unfollowed_notice: Du folgst der Diskussion nicht mehr
       updated_notice: Beitrag aktualisiert
     unread_topics:
@@ -255,7 +255,7 @@ de:
       page_title: Ungelesene Themen
       page_title_in_messageboard: "%{messageboard}: Ungelesene Themen"
     users:
-      currently_online: Zurzeit Online
+      currently_online: Zurzeit online
       last_active_html: Zuletzt aktiv %{time_ago}
       posted_in_topic_html: Hochgeladen in %{topic_link}
       posts_count:
