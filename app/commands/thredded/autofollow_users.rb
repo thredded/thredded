@@ -31,24 +31,33 @@ module Thredded
     attr_reader :post
 
     # Returns the users that have:
-    #   UserMessageboardPreference#auto_follow_topics? && UserPreference#auto_follow_topics?
-    # If the `user_preference` for a given does not exist, its default value is used.
+    #
+    #    COALESCE(
+    #      `user_messageboard_preferences`.`auto_follow_topics`,
+    #      `user_preferences`.`auto_follow_topics`,
+    #      default for `user_preferences`.`auto_follow_topics`
+    #    ) = true
+    #
     # @return [Enumerable<Thredded.user_class>]
     def auto_followers
-      user_board_prefs = post.messageboard.user_messageboard_preferences.each_with_object({}) do |ump, h|
-        h[ump.user_id] = ump
-      end
-      Thredded.user_class.includes(:thredded_user_preference)
+      u = Thredded.user_class.arel_table
+      u_pkey = u[Thredded.user_class.primary_key]
+      up = Thredded::UserPreference.arel_table
+      ump = Thredded::UserMessageboardPreference.arel_table
+      coalesce = [
+        ump[:auto_follow_topics],
+        up[:auto_follow_topics],
+      ]
+      coalesce << Arel::Nodes::Quoted.new(true) if Thredded::UserPreference.column_defaults['auto_follow_topics']
+      Thredded.user_class
         .select(Thredded.user_class.primary_key)
-        .find_each(batch_size: 50_000).select do |user|
-
-        result = user_board_prefs[user.id]
-        result ||= Thredded::UserMessageboardPreference.new(
-          messageboard: post.messageboard,
-          user_preference: user.thredded_user_preference
-        )
-        result.auto_follow_topics?
-      end
+        .joins(
+          u.join(up, Arel::Nodes::OuterJoin)
+            .on(up[:user_id].eq(u_pkey))
+            .join(ump, Arel::Nodes::OuterJoin)
+            .on(ump[:user_id].eq(u_pkey).and(ump[:messageboard_id].eq(post.messageboard_id)))
+            .join_sources
+        ).where(Arel::Nodes::NamedFunction.new('COALESCE', coalesce).eq(true))
     end
 
     # @return [Enumerable<Thredded.user_class>]
