@@ -368,7 +368,7 @@ for a team messageboard or a company announcements board, for example. To enable
 run the following migration(s):
 
 ```ruby
-change_column_default :thredded_user_preferences, :auto_follow_topics, 1
+change_column_default :thredded_user_preferences, :auto_follow_topics, true
 ```
 
 ## I18n
