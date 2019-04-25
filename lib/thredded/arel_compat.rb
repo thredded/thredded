@@ -37,5 +37,15 @@ module Thredded
         Arel::Nodes::Division.new(a, b)
       end
     end
+
+    if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2 || Rails::VERSION::MAJOR > 5
+      def true_value(_engine)
+        true
+      end
+    else
+      def true_value(engine)
+        engine.connection.adapter_name =~ /sqlite|mysql|mariadb/i ? 1 : true
+      end
+    end
   end
 end

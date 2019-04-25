@@ -45,7 +45,7 @@ module Thredded
         selects << states[Arel.star] if !is_a?(ActiveRecord::Relation) || select_values.empty?
         selects += [
           Arel::Nodes::Case.new(states[:unread_posts_count].not_eq(0))
-            .when(Arel::Nodes::True.new).then(
+            .when(Thredded::ArelCompat.true_value(self)).then(
               Arel::Nodes::Addition.new(
                 Thredded::ArelCompat.integer_division(self, states[:read_posts_count], posts_per_page), 1
               )
@@ -76,11 +76,11 @@ module Thredded
         [
           Arel::Nodes::Sum.new(
             [Arel::Nodes::Case.new(posts[:created_at].gt(read_at))
-               .when(Arel::Nodes::True.new).then(1).else(0)]
+               .when(Thredded::ArelCompat.true_value(self)).then(1).else(0)]
           ).as('unread_posts_count'),
           Arel::Nodes::Sum.new(
             [Arel::Nodes::Case.new(posts[:created_at].gt(read_at))
-               .when(Arel::Nodes::True.new).then(0).else(1)]
+               .when(Thredded::ArelCompat.true_value(self)).then(0).else(1)]
           ).as('read_posts_count')
         ]
       end
