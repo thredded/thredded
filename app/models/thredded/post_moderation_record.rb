@@ -29,6 +29,11 @@ module Thredded
 
     paginates_per Thredded.posts_per_page
 
+    # @return [ActiveRecord::Relation<Thredded.user_class>] users that can read the moderated post.
+    def post_readers
+      Thredded.user_class.thredded_messageboards_readers([messageboard])
+    end
+
     # @param [Thredded.user_class] moderator
     # @param [Thredded::Post] post
     # @param [Symbol, String] previous_moderation_state

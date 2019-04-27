@@ -1,5 +1,9 @@
 <%
-  record = post_moderation_record
+  if local_assigns.key?(:record_and_post_content)
+    record, post_content = record_and_post_content
+  else
+    record = post_moderation_record
+  end
   post = record.post
   if post
     post_view = Thredded::PostView.new(post, policy(post))
@@ -39,7 +43,8 @@
       <header><h2 class="thredded--post--user"><%= post_user_link %></h2></header>
     <% end %>
     <div class="thredded--post--content">
-      <%= Thredded::ContentFormatter.new(self).format_content(record.post_content) %>
+      <%= post_content ||
+              render('thredded/moderation/post_moderation_record_content', post_moderation_record: record) %>
     </div>
   </article>
   <%= render 'post_moderation_actions', post: post if post %>
