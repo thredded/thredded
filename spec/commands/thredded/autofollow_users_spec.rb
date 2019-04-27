@@ -72,11 +72,14 @@ module Thredded
 
     context 'with thredded_user_preferences.auto_follow_topics default true' do
       around(:all) do |ex|
+        verbose_was = ActiveRecord::Migration.verbose
+        ActiveRecord::Migration.verbose = false
         ActiveRecord::Migration.change_column_default :thredded_user_preferences, :auto_follow_topics, true
         Thredded::UserPreference.reset_column_information
         ex.run
         ActiveRecord::Migration.change_column_default :thredded_user_preferences, :auto_follow_topics, false
         Thredded::UserPreference.reset_column_information
+        ActiveRecord::Migration.verbose = verbose_was
       end
 
       it 'respects the default column value' do
