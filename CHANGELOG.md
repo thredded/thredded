@@ -1,3 +1,12 @@
+# v0.16.11
+
+## Fixed
+
+* Table column alignment now works.
+  [#804](https://github.com/thredded/thredded/issues/804)
+* Improved `AutofollowUsers` performance.
+  [#807](https://github.com/thredded/thredded/issues/807) [#808](https://github.com/thredded/thredded/pull/808)
+
 # v0.16.10
 
 ## Added
