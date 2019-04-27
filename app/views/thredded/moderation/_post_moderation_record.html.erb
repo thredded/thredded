@@ -38,7 +38,8 @@
       <% end %>
     <% end %>
     <% if post %>
-      <%= render 'thredded/posts_common/header_with_user_and_topic', post: post_view, post_user_link: post_user_link %>
+      <%= render 'thredded/posts_common/header_with_user_and_topic',
+                 post: post_view, user: record.post_user, post_user_link: post_user_link %>
     <% else %>
       <header><h2 class="thredded--post--user"><%= post_user_link %></h2></header>
     <% end %>
