@@ -19,6 +19,8 @@ module Thredded
       @post_moderation_records = accessible_post_moderation_records
         .order(created_at: :desc)
         .send(Kaminari.config.page_method_name, current_page)
+        .preload(:messageboard, :post_user, :moderator, post: :postable)
+        .preload_first_topic_post
     end
 
     def activity

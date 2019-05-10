@@ -257,13 +257,13 @@ fr:
       last_active_html: 'Actif pour la dernière fois : %{time_ago}'
       posted_in_topic_html: Commenté dans %{topic_link}
       posts_count:
-        one: Commenté une seule fois
+        one: Commenté %{count} fois
         other: Commenté %{count} fois
       recent_activity: :thredded.recent_activity
       send_private_message: Envoyer un message privé
       started_topic_html: Démarré %{topic_link}
       started_topics_count:
-        one: Démarré un sujet
+        one: Démarré %{count} sujet
         other: Démarré %{count} sujets
       user_posted_in_topic_html: "%{user_link} a commenté dans %{topic_link}"
       user_since_html: Utilisateur depuis %{time_ago}

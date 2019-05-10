@@ -5,11 +5,12 @@
     <%= safe_join([yield(:thredded_page_title).presence, yield(:page_title).presence, 'Thredded Demo'].compact, ' | ') %>
   </title>
   <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag if Thredded.rails_supports_csp_nonce? %>
   <%= javascript_include_tag 'application',
                              async: !Rails.application.config.assets.debug,
                              defer: true,
                              'data-turbolinks-track': 'reload' %>
-  <%= csrf_meta_tags %>
   <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
   <%= favicon_link_tag %>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -17,18 +18,18 @@
 </head>
 <body class="app<%= ' app-layout' unless content_for?(:no_app_layout) %>">
 <% if ENV['GA_TRACKING_ID'] -%>
-    <script data-turbolinks-eval="false">
+    <%= javascript_tag 'data-turbolinks-eval': 'false', **(Thredded.rails_supports_csp_nonce? ? {nonce: true} : {}) do %>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', '<%= ENV['GA_TRACKING_ID'] %>', 'auto');
       ga('require', 'linkid', {levels: 10});
-    </script>
-    <script>
+    <% end %>
+    <%= javascript_tag **(Thredded.rails_supports_csp_nonce? ? {nonce: true} : {}) do %>
       ga('set', 'location', location.href.split('#')[0]);
       ga('send', 'pageview', {"title": document.title});
-    </script>
+    <% end %>
 <% end -%>
 <% unless content_for?(:no_app_layout) %>
     <div class="app-container" id="app">

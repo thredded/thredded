@@ -6,7 +6,7 @@
 <%= thredded_page do %>
   <section class="thredded--main-section">
     <% if @post_moderation_records.present? %>
-      <%= render partial: 'post_moderation_record', collection: @post_moderation_records %>
+      <%= render_post_moderation_records @post_moderation_records %>
       <%= paginate @post_moderation_records %>
     <% end %>
   </section>

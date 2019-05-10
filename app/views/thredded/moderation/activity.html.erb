@@ -7,7 +7,7 @@
     <h1><%= t 'thredded.recent_activity' %></h1>
     <% if @last_moderated_record %>
       <div class="thredded--moderated-notice">
-        <%= render 'post_moderation_record', post_moderation_record: @last_moderated_record %>
+        <%= render_post_moderation_records([@last_moderated_record]) %>
       </div>
     <% end %>
     <% if @posts.present? %>

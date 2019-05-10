@@ -257,13 +257,13 @@ en:
       last_active_html: Last active %{time_ago}
       posted_in_topic_html: Posted in %{topic_link}
       posts_count:
-        one: Posted once
+        one: Posted %{count} time
         other: Posted %{count} times
       recent_activity: :thredded.recent_activity
       send_private_message: Send private message
       started_topic_html: Started %{topic_link}
       started_topics_count:
-        one: Started one topic
+        one: Started %{count} topic
         other: Started %{count} topics
       user_posted_in_topic_html: "%{user_link} posted in %{topic_link}"
       user_since_html: User since %{time_ago}

@@ -95,7 +95,7 @@ Then, see the rest of this Readme for more information about using and customizi
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 0.16.8'
+gem 'thredded', '~> 0.16.11'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
@@ -368,7 +368,7 @@ for a team messageboard or a company announcements board, for example. To enable
 run the following migration(s):
 
 ```ruby
-change_column_default :thredded_user_preferences, :auto_follow_topics, 1
+change_column_default :thredded_user_preferences, :auto_follow_topics, true
 ```
 
 ## I18n
@@ -655,7 +655,7 @@ before updating this to full Babel.
 All Thredded JavaScript is compatible with the following Turbolinks options:
 
 * No Turbolinks.
-* Tubrolinks 5.
+* Turbolinks 5.
 * Turbolinks Classic.
 * Turbolinks Classic + jquery-turbolinks.
 

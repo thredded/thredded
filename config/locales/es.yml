@@ -259,13 +259,13 @@ es:
       last_active_html: Última vez activo hace %{time_ago}
       posted_in_topic_html: Escribió en %{topic_link}
       posts_count:
-        one: Ha escrito una vez
+        one: Ha escrito %{count} vez
         other: Ha escrito %{count} veces
       recent_activity: :thredded.recent_activity
       send_private_message: Enviar mensaje privado
       started_topic_html: Empezó %{topic_link}
       started_topics_count:
-        one: Ha empezado un tema
+        one: Ha empezado %{count} tema
         other: Ha empezado %{count} temas
       user_posted_in_topic_html: "%{user_link} escribió en %{topic_link}"
       user_since_html: Usuario desde %{time_ago}

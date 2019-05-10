@@ -250,6 +250,12 @@ module Thredded # rubocop:disable Metrics/ModuleLength
       @rails_gte_51 = (Rails.gem_version >= Gem::Version.new('5.1.0')) if @rails_gte_51.nil?
       @rails_gte_51
     end
+
+    # @api private
+    def rails_supports_csp_nonce?
+      @rails_supports_csp_nonce = (Rails.gem_version >= Gem::Version.new('5.2.0')) if @rails_supports_csp_nonce.nil?
+      @rails_supports_csp_nonce
+    end
   end
 
   self.user_name_column = :name

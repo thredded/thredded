@@ -20,14 +20,21 @@ module Thredded
 
       scope :preload_first_topic_post, -> {
         posts_table_name = quoted_table_name
-        ActiveRecord::Associations::Preloader.new.preload(
-          map(&:postable), :first_post,
-          Thredded::Post.where(<<~SQL.delete("\n"))
+        result = all
+        owners_by_id = result.each_with_object({}) { |r, h| h[r.postable_id] = r.postable }
+        preloader = ActiveRecord::Associations::Preloader.new.preload(
+          owners_by_id.values, :first_post,
+          unscoped.where(<<~SQL.delete("\n"))
           #{posts_table_name}.created_at = (
           SELECT MAX(p2.created_at) from #{posts_table_name} p2 WHERE p2.postable_id = #{posts_table_name}.postable_id)
         SQL
         )
-        self
+        preloader[0].preloaded_records.each do |post|
+          topic = owners_by_id.delete(post.postable_id)
+          next unless topic
+          topic.association(:first_post).target = post
+        end
+        result
       }
 
       before_validation :ensure_user_detail, on: :create
