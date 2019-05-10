@@ -1,0 +1,3 @@
+<%= Thredded::ContentFormatter.
+    new(self, (local_assigns[:options] || {}).update(users_provider_scope: post_moderation_record.post_readers)).
+    format_content(post_moderation_record.post_content) %>

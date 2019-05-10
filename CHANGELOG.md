@@ -1,3 +1,31 @@
+# v0.16.11
+
+## Fixed
+
+* Table column alignment now works.
+  [#804](https://github.com/thredded/thredded/issues/804)
+* Improved `AutofollowUsers` performance.
+  [#807](https://github.com/thredded/thredded/issues/807) [#808](https://github.com/thredded/thredded/pull/808)
+
+# v0.16.10
+
+## Added
+
+* Rails 6 beta support.
+  [#802](https://github.com/thredded/thredded/pull/802) [#800](https://github.com/thredded/thredded/pull/800)
+* Thredded now adds the CSP nonce to inline script tags if CSP is enabled on Rails v5.2+.
+  [#797](https://github.com/thredded/thredded/pull/797)
+
+# v0.16.9
+
+## Fixed
+
+* Moderation > Pending now works again in Rails 4.
+  [#794](https://github.com/thredded/thredded/issues/794)
+
+* `@`-mentions are now parsed and highlighted using `Thredded.user_name_column` instead of `user.thredded_display_name`.
+  [#790](https://github.com/thredded/thredded/issues/790)
+
 # v0.16.8
 
 ## Fixed

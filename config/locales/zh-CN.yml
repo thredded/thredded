@@ -248,13 +248,13 @@ zh-CN:
       last_active_html: 最后活跃%{time_ago}
       posted_in_topic_html: 在%{topic_link}中回复到：
       posts_count:
-        one: 一个回复
+        one: "%{count} 个回复"
         other: "%{count} 个回复"
       recent_activity: :thredded.recent_activity
       send_private_message: 发送私人讯息
       started_topic_html: 发布帖子 %{topic_link}
       started_topics_count:
-        one: 发布一个帖子
+        one: 发布 %{count} 个帖子
         other: 发布 %{count} 个帖子
       user_posted_in_topic_html: "%{user_link} 回复在 %{topic_link}"
       user_since_html: 用户自%{time_ago}

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.5.3'
+ruby '2.5.5'
 
 gem 'thredded', path: File.dirname(__FILE__)
 
 gem 'mustache'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0.rc1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
@@ -15,13 +15,13 @@ gem 'uglifier'
 # Make these gems available in production
 gem 'puma'
 gem 'pg'
-gem 'rails_email_preview', '>= 1.0.3'
+gem 'rails_email_preview', '>= 2.2.1'
 gem 'roadie-rails'
 gem 'turbolinks'
-gem 'rails-i18n'
+gem 'rails-i18n', '~> 6.0.0.beta1'
 gem 'kaminari-i18n'
 gem 'http_accept_language'
-gem 'factory_bot_rails'
+gem 'factory_bot'
 gem 'faker', '>= 1.6.2'
 gem 'twemoji'
 

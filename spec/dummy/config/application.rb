@@ -71,7 +71,7 @@ module Dummy
 
     config.active_record.raise_in_transactional_callbacks = true if Rails::VERSION::MAJOR < 5
 
-    if Rails.gem_version >= Gem::Version.new('5.2.0.beta2')
+    if Rails.gem_version >= Gem::Version.new('5.2.0.beta2') && Rails::VERSION::MAJOR < 6
       config.active_record.sqlite3.represent_boolean_as_integer = true
     end
 

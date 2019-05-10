@@ -257,7 +257,7 @@ pl:
       posts_count:
         few: Napisał %{count} postów
         many: Napisał %{count} postów
-        one: Napisał 1 post
+        one: Napisał %{count} post
         other: Napisał %{count} postów
       recent_activity: :thredded.recent_activity
       send_private_message: Wyślij Wiadomość Prywatną
@@ -265,7 +265,7 @@ pl:
       started_topics_count:
         few: Rozpoczął %{count} tematy
         many: Rozpoczął %{count} tematów
-        one: Rozpoczął 1 temat
+        one: Rozpoczął %{count} temat
         other: Rozpoczął %{count} tematów
       user_posted_in_topic_html: "%{user_link} napisał w %{topic_link}"
       user_since_html: Zarejestrowany od %{time_ago}

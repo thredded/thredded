@@ -260,14 +260,14 @@ pt-BR:
       last_active_html: Última atividade %{time_ago}
       posted_in_topic_html: Postou em %{topic_link}
       posts_count:
-        one: Postado uma vez
+        one: Postado %{count} vez
         other: Postado %{count} vezes
       recent_activity: :thredded.recent_activity
       send_private_message: Enviar mensagem privada
       started_topic_html: Começou %{topic_link}
       started_topics_count:
-        one: Começou um tópico
-        other: tópicos iniciados %{count}
+        one: Começou %{count} tópico
+        other: Começou %{count} tópicos
       user_posted_in_topic_html: "%{user_link} postou em %{topic_link}"
       user_since_html: Usuário desde %{time_ago}
       user_started_topic_html: "%{user_link} começou %{topic_link}"

@@ -47,8 +47,13 @@ module Thredded
         'span'   => %w[class],
         'div'    => %w[class],
         'img'    => %w[src longdesc class],
+        'th'     => %w[style],
+        'td'     => %w[style],
         :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
           %w[aria-expanded aria-label aria-labelledby aria-live aria-hidden aria-pressed role],
+      },
+      css: {
+        properties: %w[text-align],
       }
     )
 
