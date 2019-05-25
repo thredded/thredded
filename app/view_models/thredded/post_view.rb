@@ -53,6 +53,10 @@ module Thredded
       end.update(anchor: 'post_content')
     end
 
+    def quote_url
+      Thredded::UrlsHelper.topic_path(@post.postable, quote_url_params)
+    end
+
     def quote_path
       Thredded::UrlsHelper.quote_post_path(@post)
     end
