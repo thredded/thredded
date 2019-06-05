@@ -1,5 +1,5 @@
 db:
-  image: onjin/alpine-postgres:9.6
+  image: postgres:12-alpine
   ports:
     - "5434:5432"
   environment:
@@ -7,6 +7,8 @@ db:
 web:
   build: .
   volumes:
+    - ./.rubocop.yml:/thredded/.rubocop.yml
+    - ./.rspec:/thredded/.rspec
     - ./Rakefile:/thredded/Rakefile
     - ./config.ru:/thredded/config.ru
     - ./app:/thredded/app
@@ -28,7 +30,7 @@ web:
     bash -c 'script/wait-for-tcp $$DB_1_PORT_5432_TCP_ADDR $$DB_1_PORT_5432_TCP_PORT &&
              bundle exec rake db:drop db:create db:migrate &&
              bundle exec rake db:seed &&
-             bundle exec rake dev:server'
+             bin/rails server --port 9292'
   ports:
     - "9292:9292"
   links:
