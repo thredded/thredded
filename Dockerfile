@@ -4,7 +4,7 @@ FROM alpine:edge
 
 RUN apk add --no-cache \
     # Runtime deps
-    ruby ruby-bundler ruby-bigdecimal ruby-io-console tzdata nodejs bash \
+    ruby ruby-bundler ruby-bigdecimal ruby-io-console tzdata nodejs bash git \
     # Bundle install deps
     build-base ruby-dev libc-dev libffi-dev linux-headers gmp-dev libressl-dev libxml2-dev libxslt-dev \
     mariadb-dev postgresql-dev sqlite-dev \
@@ -21,7 +21,7 @@ RUN mkdir -p $APP_HOME
 
 # Copy Gemfile and run bundle install first to allow for caching
 COPY ./lib/thredded/version.rb $APP_HOME/lib/thredded/
-COPY thredded.gemspec shared.gemfile Gemfile $APP_HOME/
+COPY thredded.gemspec shared.gemfile i18n-tasks.gemfile rubocop.gemfile Gemfile $APP_HOME/
 RUN bundle --path=$BUNDLE_PATH
 
 COPY Rakefile config.ru app/ bin/ config/ db/ lib/ script/ spec/ $APP_HOME/

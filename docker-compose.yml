@@ -20,6 +20,7 @@ web:
     DB_PASSWORD:
   command: >
     bash -c 'script/wait-for-tcp $$DB_1_PORT_5432_TCP_ADDR $$DB_1_PORT_5432_TCP_PORT &&
+             bundle install &&
              bundle exec rake db:drop db:create db:migrate db:seed &&
              bundle exec rake dev:server'
   ports:
