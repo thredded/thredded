@@ -7,11 +7,17 @@ db:
 web:
   build: .
   volumes:
-    - .:/thredded
-    # Ignore these directories
-    - /thredded/.bundle
-    - /thredded/tmp/cache
-    - /thredded/tmp/pids
+    - ./Rakefile:/thredded/Rakefile
+    - ./config.ru:/thredded/config.ru
+    - ./app:/thredded/app
+    - ./bin:/thredded/bin
+    - ./config:/thredded/config
+    - ./db:/thredded/db
+    - ./lib:/thredded/lib
+    - ./script:/thredded/script
+    - ./spec:/thredded/spec
+    - ./vendor:/thredded/vendor
+    # Ignore these paths
     - /thredded/spec/dummy/tmp/
   working_dir: /thredded
   environment:
@@ -20,7 +26,8 @@ web:
     DB_PASSWORD:
   command: >
     bash -c 'script/wait-for-tcp $$DB_1_PORT_5432_TCP_ADDR $$DB_1_PORT_5432_TCP_PORT &&
-             bundle exec rake db:drop db:create db:migrate db:seed &&
+             bundle exec rake db:drop db:create db:migrate &&
+             bundle exec rake db:seed &&
              bundle exec rake dev:server'
   ports:
     - "9292:9292"
