@@ -35,4 +35,9 @@ Dummy::Application.configure do
   config.action_mailer.default_url_options = {
     host: 'localhost:9292'
   }
+
+  if File.file?('/.dockerenv')
+    docker_host_ip = `/sbin/ip route|awk '/default/ { print $3 }'`.strip
+    config.web_console.permissions = docker_host_ip
+  end
 end
