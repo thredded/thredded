@@ -30,7 +30,7 @@ web:
     bash -c 'script/wait-for-tcp $$DB_1_PORT_5432_TCP_ADDR $$DB_1_PORT_5432_TCP_PORT &&
              bundle exec rake db:drop db:create db:migrate &&
              bundle exec rake db:seed &&
-             bin/rails server --port 9292'
+             bin/rails server --port 9292 --binding 0.0.0.0'
   ports:
     - "9292:9292"
   links:
