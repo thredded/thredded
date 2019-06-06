@@ -31,6 +31,7 @@ module Thredded
       posts_table_name = Thredded::Post.quoted_table_name
       result = all
       owners_by_id = result.each_with_object({}) { |r, h| h[r.post.postable_id] = r.post.postable }
+      next result if owners_by_id.empty?
       preloader = ActiveRecord::Associations::Preloader.new.preload(
         owners_by_id.values, :first_post,
         Thredded::Post.unscoped.where(<<~SQL.delete("\n"))
