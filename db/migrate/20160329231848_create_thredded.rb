@@ -225,9 +225,9 @@ class CreateThredded < Thredded::BaseMigration
       t.references :post, index: false
       t.references :messageboard, index: false
       t.text :post_content, limit: 65_535
-      t.references :post_user, index: false
+      t.references :post_user, index: false, type: user_id_type
       t.text :post_user_name
-      t.references :moderator, index: false
+      t.references :moderator, index: false, type: user_id_type
       t.integer :moderation_state, null: false
       t.integer :previous_moderation_state, null: false
       t.timestamp :created_at, null: false
