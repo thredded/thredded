@@ -14,7 +14,9 @@ module Thredded
       scope :order_recently_posted_first, -> { order(last_post_at: :desc, id: :desc) }
       scope :on_page, ->(page_num) { page(page_num) }
 
-      validates :hash_id, presence: true, uniqueness: true
+      validates :hash_id,
+                presence: true,
+                uniqueness: { case_sensitive: true }
       validates :posts_count, numericality: true
 
       validates :title, presence: true, length: { within: Thredded.topic_title_length_range }
