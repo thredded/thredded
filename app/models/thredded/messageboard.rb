@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class Messageboard < ActiveRecord::Base
+  class Messageboard < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     extend FriendlyId
     friendly_id :slug_candidates,
                 use: %i[slugged reserved],
@@ -128,14 +128,28 @@ module Thredded
         messageboards = arel_table
         read_states = Thredded::UserTopicReadState.arel_table
         topics = topics_scope.arel_table
-        joins(:topics).merge(topics_scope).joins(
-          messageboards.outer_join(read_states).on(
-            messageboards[:id].eq(read_states[:messageboard_id])
-              .and(read_states[:postable_id].eq(topics[:id]))
-              .and(read_states[:user_id].eq(user.id))
-              .and(read_states[:unread_posts_count].eq(0))
-          ).join_sources
-        ).group(messageboards[:id]).pluck(
+
+        read_states_join_cond =
+          messageboards[:id].eq(read_states[:messageboard_id])
+            .and(read_states[:postable_id].eq(topics[:id]))
+            .and(read_states[:user_id].eq(user.id))
+            .and(read_states[:unread_posts_count].eq(0))
+
+        scope =
+          # Work around https://github.com/rails/rails/issues/36761
+          if Thredded.rails_gte_600_rc_2?
+            merge(topics_scope).joins(
+              messageboards.join(topics)
+                .on(topics[:messageboard_id].eq(messageboards[:id]))
+                .outer_join(read_states).on(read_states_join_cond).join_sources
+            )
+          else
+            joins(:topics).merge(topics_scope).joins(
+              messageboards.outer_join(read_states).on(read_states_join_cond).join_sources
+            )
+          end
+
+        scope.group(messageboards[:id]).pluck(
           :id,
           Arel::Nodes::Subtraction.new(topics[:id].count, read_states[:id].count)
         ).to_h

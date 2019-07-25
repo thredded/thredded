@@ -9,13 +9,14 @@ module Thredded
       def migrate(paths:, quiet:, &filter)
         verbose_was = ActiveRecord::Migration.verbose
         ActiveRecord::Migration.verbose = !quiet
-        migrate = -> {
-          if Rails::VERSION::STRING >= '5.2'
-            ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter)
+        migrate =
+          if Rails.gem_version >= Gem::Version.new('6.0.0.rc2')
+            -> { ActiveRecord::MigrationContext.new(paths, ActiveRecord::SchemaMigration).migrate(nil, &filter) }
+          elsif Rails::VERSION::STRING >= '5.2'
+            -> { ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter) }
           else
-            ActiveRecord::Migrator.migrate(paths, &filter)
+            -> { ActiveRecord::Migrator.migrate(paths, &filter) }
           end
-        }
         if quiet
           silence_active_record(&migrate)
         else
