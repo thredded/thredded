@@ -29,7 +29,7 @@ RSpec.feature 'User tracking what they have and have not already read' do
 
     topic.view_read_topic
 
-    travel_to 1.minute.from_now do
+    travel_to 1.day.from_now do
       topic.someone_updates_topic
     end
     topic.visit_index
