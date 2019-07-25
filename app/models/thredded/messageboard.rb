@@ -128,16 +128,19 @@ module Thredded
         messageboards = arel_table
         read_states = Thredded::UserTopicReadState.arel_table
         topics = topics_scope.arel_table
+        topics_ids = topics_scope.pluck(:id)
+
         joins(
           messageboards.join(topics).on(
             messageboards[:id].eq(topics[:messageboard_id])
+              .and(topics[:id].in(topics_ids))
           ).outer_join(read_states).on(
             messageboards[:id].eq(read_states[:messageboard_id])
               .and(read_states[:postable_id].eq(topics[:id]))
               .and(read_states[:user_id].eq(user.id))
               .and(read_states[:unread_posts_count].eq(0))
           ).join_sources
-        ).merge(topics_scope).group(messageboards[:id]).pluck(
+        ).group(messageboards[:id]).pluck(
           :id,
           Arel::Nodes::Subtraction.new(topics[:id].count, read_states[:id].count)
         ).to_h
