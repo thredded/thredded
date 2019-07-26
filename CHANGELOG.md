@@ -1,3 +1,13 @@
+# v0.16.12
+
+## Added
+
+* Rails 6.0.0.rc2 support.
+  [#824](https://github.com/thredded/thredded/pull/824)
+* Improved moderation history performance.
+  [a48a4726](https://github.com/thredded/thredded/commit/a48a47267cdc4ad099a372fdb7feea96d8195258)
+  [f1874fba](https://github.com/thredded/thredded/commit/f1874fba333444255979c0789ba17f8dc24a4d6f)
+
 # v0.16.11
 
 ## Fixed
