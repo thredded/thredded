@@ -94,6 +94,10 @@
   margin-bottom: 0;
 }
 
+.thredded--messageboard--delete {
+  background-color: red;
+}
+
 .thredded--messageboards--actions {
   @extend %thredded--buttons-list;
   @media print {

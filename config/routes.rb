@@ -59,7 +59,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   resource :preferences, only: %i[edit update], as: :global_preferences
   resource :messageboard, path: 'messageboards', only: [:new]
-  resources :messageboards, only: %i[edit update]
+  resources :messageboards, only: %i[edit update destroy]
   resources :messageboards, only: %i[index create], path: '' do
     resource :preferences, only: %i[edit update]
     resource :topic, path: 'topics', only: [:new] do

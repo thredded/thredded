@@ -29,3 +29,8 @@
       </li>
     </ul>
 <% end %>
+
+<%= button_to "Delete", messageboard_path(messageboard), :method => 'delete',
+:class => "thredded--messageboard--delete", :form_class => "thredded--form",
+:data => {:confirm => "This will remove the messageboard \"#{messageboard.name}\" and all of its posts. "\
+                      "You will not be able to recover it. Are you sure you want to do this?"} if messageboard.persisted? %>

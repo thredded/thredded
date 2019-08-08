@@ -50,7 +50,7 @@ module Thredded
     def unread_followed_topics?
       !@unread_followed_topics_count.zero?
     end
-
+    
     # @return [String]
     def path
       Thredded::UrlsHelper.messageboard_topics_path(@messageboard)
