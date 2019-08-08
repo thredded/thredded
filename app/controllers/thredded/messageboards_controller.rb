@@ -46,9 +46,9 @@ module Thredded
 
     def destroy
       @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
-      authorize @messageboard, :destroy? 
+      authorize @messageboard, :destroy?
       @messageboard.destroy!
-      redirect_to root_path, notice: "Messageboard deleted"
+      redirect_to root_path, notice: 'Messageboard deleted'
     end
 
     private

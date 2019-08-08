@@ -15,11 +15,11 @@ module PageObject
     end
 
     def deletable?
-      has_button? "Delete"
+      has_button? 'Delete'
     end
 
     def delete
-      click_button "Delete"
+      click_button 'Delete'
     end
 
     def visit_messageboard_edit
