@@ -55,6 +55,9 @@ Thredded.content_visible_while_pending_moderation = true
 # :topics_count_desc   most topics first
 Thredded.messageboards_order = :position
 
+# Whether admin users see button to delete entire messageboards on the messageboard edit page.
+Thredded.show_messageboard_delete_button = false
+
 # Whether users that are following a topic are listed on the topic page.
 Thredded.show_topic_followers = false
 

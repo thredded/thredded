@@ -19,7 +19,9 @@ module PageObject
     end
 
     def delete
-      click_button I18n.t('thredded.messageboard.form.delete')
+      accept_confirm do
+        click_button I18n.t('thredded.messageboard.form.delete')
+      end
     end
 
     def visit_messageboard_edit

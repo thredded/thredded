@@ -3,17 +3,38 @@
 require 'spec_helper'
 
 RSpec.feature 'Deleting a messageboard' do
-  it 'succeeds' do
-    messageboard = a_messageboard
-    user = an_admin
-    user.log_in
-    messageboard.visit_messageboard_edit
-    expect(messageboard).to be_deletable
+  describe 'with show_messageboard_delete_button set to true', js: true do
+    around do |example|
+      with_thredded_setting(:show_messageboard_delete_button, true, &example)
+    end
 
-    messageboard.delete
+    it 'succeeds' do
+      messageboard = a_messageboard
+      user = an_admin
+      user.log_in
+      messageboard.visit_messageboard_edit
+      expect(messageboard).to be_deletable
 
-    expect(messageboard).to have_redirected_after_delete
-    expect(messageboard).not_to be_listed
+      messageboard.delete
+
+      expect(messageboard).to have_redirected_after_delete
+      expect(messageboard).not_to be_listed
+    end
+  end
+
+  describe 'with show_messageboard_delete_button set to false' do
+    around do |example|
+      with_thredded_setting(:show_messageboard_delete_button, false, &example)
+    end
+
+    it 'does not have delete button' do
+      messageboard = a_messageboard
+      user = an_admin
+      user.log_in
+      messageboard.visit_messageboard_edit
+
+      expect(messageboard).not_to be_deletable
+    end
   end
 
   def an_admin
