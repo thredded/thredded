@@ -15,11 +15,11 @@ module PageObject
     end
 
     def deletable?
-      has_button? 'Delete'
+      has_button? I18n.t('thredded.messageboard.form.delete')
     end
 
     def delete
-      click_button 'Delete'
+      click_button I18n.t('thredded.messageboard.form.delete')
     end
 
     def visit_messageboard_edit
@@ -27,7 +27,7 @@ module PageObject
     end
 
     def has_redirected_after_delete?
-      has_content?('Messageboard deleted')
+      has_content?(I18n.t('thredded.messageboard.deleted_notice'))
     end
   end
 end

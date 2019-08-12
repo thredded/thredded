@@ -55,8 +55,13 @@ pl:
       update_btn_submitting: Aktualizowanie...
     messageboard:
       create: Stwórz nową tablicę
+      deleted_notice: Tablica ogłoszeń została usunięta
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Usuń tablicę wiadomości
+        delete_confirm: >-
+          Spowoduje to usunięcie tablicy %{messageboard_name} i wszystkich jej postów. Nie będziesz w stanie go
+          odzyskać. Czy na pewno chcesz to zrobić?
         description_label: Opis
         locked_label: Zablokowany
         locked_notice: Ta wiadomość jest zablokowana. Tylko moderatorzy mogą tworzyć nowe tematy tutaj.

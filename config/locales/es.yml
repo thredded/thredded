@@ -57,8 +57,13 @@ es:
       update_btn_submitting: Actualizando...
     messageboard:
       create: Crear un nuevo foro
+      deleted_notice: Tablero de mensajes eliminado
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Eliminar tablero de mensajes
+        delete_confirm: >-
+          Esto eliminará el tablero de mensajes %{messageboard_name} y todas sus publicaciones. No podrás recuperarlo.
+          ¿Seguro que quieres hacer esto?
         description_label: Descripción
         locked_label: Bloqueado
         locked_notice: Este mensaje está bloqueado. Solo los moderadores pueden crear nuevos temas aquí.

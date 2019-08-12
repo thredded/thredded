@@ -56,8 +56,13 @@ de:
       update_btn_submitting: Änderungen übernehmen...
     messageboard:
       create: Erstelle ein neues Forum
+      deleted_notice: Messageboard gelöscht
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Messageboard löschen
+        delete_confirm: >-
+          Dadurch werden das Messageboard %{messageboard_name} und alle zugehörigen Posts entfernt. Sie können es
+          nicht wiederherstellen. Möchten Sie das wirklich tun?
         description_label: Beschreibung
         locked_label: Geschlossen
         locked_notice: Dieses Forum ist geschlossen. Nur Moderatoren können hier neue Beiträge erstellen.
