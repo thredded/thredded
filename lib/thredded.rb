@@ -274,6 +274,7 @@ module Thredded # rubocop:disable Metrics/ModuleLength
 
   self.content_visible_while_pending_moderation = true
   self.moderator_column = :admin
+  self.show_messageboard_delete_button = false
 
   self.layout = 'thredded/application'
 
