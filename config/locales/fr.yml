@@ -55,8 +55,13 @@ fr:
       update_btn_submitting: Mise à jour en cours...
     messageboard:
       create: Créer une nouvelle catégorie
+      deleted_notice: Messageboard supprimé
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Supprimer le babillard
+        delete_confirm: >-
+          Cela supprimera le panneau de messages %{messageboard_name} et tous ses messages. Vous ne pourrez pas
+          le récupérer. Es-tu sûr de vouloir faire ça?
         description_label: Description
         locked_label: Verrouillé
         locked_notice: Ce message est verrouillé. Seuls les modérateurs peuvent créer de nouveaux sujets ici.

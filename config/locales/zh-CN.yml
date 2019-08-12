@@ -52,8 +52,11 @@ zh-CN:
       update_btn_submitting: 更新中...
     messageboard:
       create: 创建一个新板块
+      deleted_notice: 留言板已删除
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: 删除留言板
+        delete_confirm: 这将删除留言板%{messageboard_name}及其所有帖子。你将无法恢复它。你确定你要这么做吗？
         description_label: 描述
         locked_label: 锁定
         locked_notice: 这个消息板被锁定。只有版主可以在这里创建新的主题。

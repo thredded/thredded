@@ -55,8 +55,13 @@ it:
       update_btn_submitting: Aggiornamento in corso...
     messageboard:
       create: Crea una nuova bacheca
+      deleted_notice: Messageboard cancellato
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Elimina bacheca
+        delete_confirm: >-
+          Ciò rimuoverà la bacheca %{messageboard_name} e tutti i suoi post. Non sarai in grado di recuperarlo.
+          Sei sicuro di volerlo fare?
         description_label: Descrizione
         locked_label: Bloccato
         locked_notice: Questa bacheca è bloccata. Solo i moderatori possono creare nuove discussioni qui.

@@ -13,6 +13,7 @@ Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 156, 'retro') }
 Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
+Thredded.show_messageboard_delete_button = false
 Thredded.parent_mailer = 'ApplicationMailer'
 Thredded::ContentFormatter.after_markup_filters.insert(1, HTMLPipelineTwemoji)
 

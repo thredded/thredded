@@ -29,3 +29,11 @@
       </li>
     </ul>
 <% end %>
+<% if messageboard.persisted? and Thredded.show_messageboard_delete_button %>
+  <%= button_to t('thredded.messageboard.form.delete'),
+                messageboard_path(messageboard),
+                method: 'delete',
+                class: 'thredded--messageboard--delete',
+                form_class: 'thredded--form',
+                data: {confirm: t('thredded.messageboard.form.delete_confirm', messageboard_name: messageboard.name)}%>
+<% end %>

@@ -55,8 +55,13 @@ en:
       update_btn_submitting: Updating...
     messageboard:
       create: Create a New Messageboard
+      deleted_notice: Messageboard deleted
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Delete Messageboard
+        delete_confirm: >-
+          This will remove the messageboard %{messageboard_name} and all of its posts. You will not be able to recover
+          it. Are you sure you want to do this?
         description_label: Description
         locked_label: Locked
         locked_notice: This messageboard is locked. Only moderators can create new topics here.

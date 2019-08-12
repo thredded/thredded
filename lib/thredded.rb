@@ -88,6 +88,9 @@ module Thredded # rubocop:disable Metrics/ModuleLength
     # @return [Symbol] The name of the moderator flag column on the users table for the default permissions model
     attr_accessor :moderator_column
 
+    # @return [Boolean] Whether admin users see button to delete entire messageboards on the messageboard edit page.
+    attr_accessor :show_messageboard_delete_button
+
     #== UI
 
     # @return [String] The layout to use for rendering Thredded views.
@@ -271,6 +274,7 @@ module Thredded # rubocop:disable Metrics/ModuleLength
 
   self.content_visible_while_pending_moderation = true
   self.moderator_column = :admin
+  self.show_messageboard_delete_button = false
 
   self.layout = 'thredded/application'
 

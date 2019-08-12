@@ -56,8 +56,13 @@ pt-BR:
       update_btn_submitting: Atualizando...
     messageboard:
       create: Criar um novo Fórum de Mensagem
+      deleted_notice: Messageboard excluído
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Excluir Messageboard
+        delete_confirm: >-
+          Isto irá remover o messageboard %{messageboard_name} e todos os seus posts. Você não poderá recuperá-lo.
+          Você tem certeza de que quer fazer isso?
         description_label: Descrição
         locked_label: Bloqueado
         locked_notice: Este quadro de mensagens está bloqueado. Somente os moderadores podem criar novos tópicos

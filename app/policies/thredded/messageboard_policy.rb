@@ -41,6 +41,10 @@ module Thredded
       @user.thredded_admin?
     end
 
+    def destroy?
+      @user.thredded_admin?
+    end
+
     def post?
       @user.thredded_admin? ||
         (!@messageboard.locked? || moderate?) &&
