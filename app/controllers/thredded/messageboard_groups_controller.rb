@@ -20,6 +20,13 @@ module Thredded
       end
     end
 
+    def show
+      @groups = Thredded::MessageboardGroupView.grouped(
+        policy_scope(Thredded::Messageboard.where( group: params[:id] )),
+        user: thredded_current_user
+      )
+    end
+
     private
 
     def messageboard_group_params

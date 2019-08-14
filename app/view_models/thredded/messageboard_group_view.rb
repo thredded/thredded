@@ -3,7 +3,7 @@
 module Thredded
   # A view model for a page of MessageboardGroupViews.
   class MessageboardGroupView
-    delegate :name, to: :@group, allow_nil: true
+    delegate :name, :id, to: :@group, allow_nil: true
     attr_reader :group, :messageboards
 
     # @param [ActiveRecord::Relation<Thredded::Messageboard>] messageboards_scope

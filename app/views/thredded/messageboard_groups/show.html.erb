@@ -9,8 +9,8 @@
         <% @groups.each do |group| %>
           <% if group.name.present? %>
             <h3 class="thredded--messageboards-group--title">
-              <%= link_to group.name,
-                          show_messageboard_group_path(group.id) %>
+                <%= link_to group.name,
+                            show_messageboard_group_path(group.id) %>
             </h3>
           <% end %>
           <div class="thredded--messageboards-group">
