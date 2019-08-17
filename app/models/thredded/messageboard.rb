@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class Messageboard < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
+  class Messageboard < ActiveRecord::Base
     extend FriendlyId
     friendly_id :slug_candidates,
                 use: %i[slugged reserved],
@@ -138,21 +138,9 @@ module Thredded
             .and(read_states[:user_id].eq(user.id))
             .and(read_states[:unread_posts_count].eq(0))
 
-        scope =
-          # Work around https://github.com/rails/rails/issues/36761
-          if Thredded.rails_gte_600_rc_2?
-            merge(topics_scope).joins(
-              messageboards.join(topics)
-                .on(topics[:messageboard_id].eq(messageboards[:id]))
-                .outer_join(read_states).on(read_states_join_cond).join_sources
-            )
-          else
-            joins(:topics).merge(topics_scope).joins(
-              messageboards.outer_join(read_states).on(read_states_join_cond).join_sources
-            )
-          end
-
-        scope.group(messageboards[:id]).pluck(
+        joins(:topics).merge(topics_scope).joins(
+          messageboards.outer_join(read_states).on(read_states_join_cond).join_sources
+        ).group(messageboards[:id]).pluck(
           :id,
           Arel::Nodes::Subtraction.new(topics[:id].count, read_states[:id].count)
         ).to_h

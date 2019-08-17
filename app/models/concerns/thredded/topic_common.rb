@@ -62,12 +62,7 @@ module Thredded
 
         unread_scope = reads_class.where(reads[:id].eq(nil).or(reads[:unread_posts_count].not_eq(0)))
 
-        # Work around https://github.com/rails/rails/issues/36761
-        if Thredded.rails_gte_600_rc_2?
-          merge(unread_scope).joins(joins_reads)
-        else
-          joins(joins_reads).merge(unread_scope)
-        end
+        joins(joins_reads).merge(unread_scope)
       end
 
       private

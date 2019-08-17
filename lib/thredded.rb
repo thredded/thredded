@@ -255,13 +255,6 @@ module Thredded # rubocop:disable Metrics/ModuleLength
     end
 
     # @api private
-    # Mainly to work around https://github.com/rails/rails/issues/36761
-    def rails_gte_600_rc_2?
-      @rails_gte_600_rc_2 = (Rails.gem_version >= Gem::Version.new('6.0.0.rc2')) if @rails_gte_600_rc_2.nil?
-      @rails_gte_600_rc_2
-    end
-
-    # @api private
     def rails_supports_csp_nonce?
       @rails_supports_csp_nonce = (Rails.gem_version >= Gem::Version.new('5.2.0')) if @rails_supports_csp_nonce.nil?
       @rails_supports_csp_nonce
