@@ -1,3 +1,16 @@
+# v0.16.13
+
+## Added
+
+* Rails 6.0.0 support (6.0.0.rc2 no longer supported).
+* Destroy Messageboard button in the UI for admins. Disabled by default.
+  [#826](https://github.com/thredded/thredded/pull/826)
+
+## Fixed
+
+* Fixed `post_moderation_records` user reference type when using UUID.
+  [#819](https://github.com/thredded/thredded/pull/819)
+
 # v0.16.12
 
 ## Added
