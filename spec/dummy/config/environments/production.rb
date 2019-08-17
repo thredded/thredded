@@ -100,5 +100,8 @@ Dummy::Application.configure do
         SecureRandom.base64(16)
       end
     }
+    if config.respond_to?(:content_security_policy_nonce_directives=)
+      config.content_security_policy_nonce_directives = %w[script-src]
+    end
   end
 end
