@@ -7,7 +7,7 @@ gem 'thredded', path: File.dirname(__FILE__)
 
 gem 'mustache'
 
-gem 'rails', '~> 6.0.0.rc2'
+gem 'rails', '~> 6.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
@@ -18,7 +18,7 @@ gem 'pg'
 gem 'rails_email_preview', '>= 2.2.1'
 gem 'roadie-rails'
 gem 'turbolinks'
-gem 'rails-i18n', '~> 6.0.0.beta1'
+gem 'rails-i18n', '~> 6.0.0'
 gem 'kaminari-i18n'
 gem 'http_accept_language'
 gem 'factory_bot'
