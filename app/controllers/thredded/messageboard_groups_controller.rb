@@ -25,6 +25,7 @@ module Thredded
         policy_scope(Thredded::Messageboard.where(group: params[:id])),
         user: thredded_current_user
       )
+      render :template => 'thredded/messageboards/index'
     end
 
     private
