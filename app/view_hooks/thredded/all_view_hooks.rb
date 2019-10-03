@@ -10,6 +10,8 @@ module Thredded
     attr_reader :post_form
     # @return [MessageboardsIndex]
     attr_reader :messageboards_index
+    # @return [MessageboardGroupShow]
+    attr_reader :messageboard_group_show
     # @return [ModerationUserPage]
     attr_reader :moderation_user_page
     # @return [TopicPage]
@@ -33,6 +35,7 @@ module Thredded
       @post_form = PostForm.new
       @moderation_user_page = ModerationUserPage.new
       @messageboards_index = MessageboardsIndex.new
+      @messageboard_group_show = MessageboardGroupShow.new
       @topic_page = TopicPage.new
     end
 
@@ -78,6 +81,24 @@ module Thredded
     end
 
     class MessageboardsIndex
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :container
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :list
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :group
+      # @return [Thredded::AllViewHooks::ViewHook]
+      attr_reader :messageboard
+
+      def initialize
+        @container = ViewHook.new
+        @list = ViewHook.new
+        @group = ViewHook.new
+        @messageboard = ViewHook.new
+      end
+    end
+
+    class MessageboardGroupShow
       # @return [Thredded::AllViewHooks::ViewHook]
       attr_reader :container
       # @return [Thredded::AllViewHooks::ViewHook]
