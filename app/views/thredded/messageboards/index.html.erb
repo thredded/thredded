@@ -11,9 +11,7 @@
             <h3 class="thredded--messageboards-group--title">
               <%= link_to_if Thredded.show_messageboard_group_page,
                             group.name,
-                            show_messageboard_group_path(group.id) do 
-                              group.name
-                            end%>
+                            show_messageboard_group_path(group.id) %>
             </h3>
           <% end %>
           <div class="thredded--messageboards-group">
