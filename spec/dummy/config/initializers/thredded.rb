@@ -14,6 +14,7 @@ Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
 Thredded.show_messageboard_delete_button = false
+Thredded.show_messageboard_group_page = true
 Thredded.parent_mailer = 'ApplicationMailer'
 Thredded::ContentFormatter.after_markup_filters.insert(1, HTMLPipelineTwemoji)
 

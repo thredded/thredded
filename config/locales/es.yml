@@ -91,6 +91,8 @@ es:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Sección %{name} creada
+      show:
+        page_title: 'Grupo de tablero de mensajes: %{name}'
     moderation:
       approve_btn: Aprobar
       block_btn: Rechazar

@@ -90,6 +90,8 @@ de:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Die Gruppe %{name} wurde erstellt
+      show:
+        page_title: 'Messageboard-Gruppe: %{name}'
     moderation:
       approve_btn: Erlauben
       block_btn: Blockieren

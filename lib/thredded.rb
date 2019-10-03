@@ -132,6 +132,9 @@ module Thredded # rubocop:disable Metrics/ModuleLength
     # @return [Number] Minimum length to trigger username auto-completion for @-mentions and private message recipients.
     attr_accessor :autocomplete_min_length
 
+    # @return [Boolean] Whether MessageboardGroup show page is enabled.
+    attr_accessor :show_messageboard_group_page
+
     # @return [Thredded::AllViewHooks] View hooks configuration.
     def view_hooks
       Thredded::AllViewHooks.instance ||
@@ -289,6 +292,7 @@ module Thredded # rubocop:disable Metrics/ModuleLength
   self.messageboards_order = :position
   self.topics_per_page = 50
   self.autocomplete_min_length = 2
+  self.show_messageboard_group_page = true
 
   self.auto_follow_when_creating_topic = true
   self.auto_follow_when_posting_in_topic = true

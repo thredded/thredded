@@ -91,6 +91,8 @@ pt-BR:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Grupo de mensagens %{name} criado
+      show:
+        page_title: 'Grupo de Messageboard: %{name}'
     moderation:
       approve_btn: Aprovar
       block_btn: Bloquear

@@ -89,6 +89,8 @@ fr:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Le Groupe %{name} a été créé
+      show:
+        page_title: 'Groupe de babillard: %{name}'
     moderation:
       approve_btn: Approuver
       block_btn: Bloqué

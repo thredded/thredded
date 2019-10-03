@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 RSpec.feature 'Creating a messageboard group' do
-  it 'admin can visit particular groups' do
-    user = an_admin
+  it 'user can visit particular groups' do
+    user = a_user
     user.log_in
     group_1 = create_a_messageboard_group('FirstGroup')
     group_2 = create_a_messageboard_group('SecondGroup')
@@ -24,7 +24,7 @@ RSpec.feature 'Creating a messageboard group' do
     PageObject::MessageboardGroup.new(name)
   end
 
-  def an_admin
-    PageObject::User.new(create(:user, name: 'joe-admin', admin: true))
+  def a_user
+    PageObject::User.new(create(:user, name: 'joe-user'))
   end
 end

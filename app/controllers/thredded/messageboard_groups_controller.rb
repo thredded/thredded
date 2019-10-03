@@ -21,11 +21,12 @@ module Thredded
     end
 
     def show
+      @group = Thredded::MessageboardGroup.where(id: params[:id])
       @groups = Thredded::MessageboardGroupView.grouped(
         policy_scope(Thredded::Messageboard.where(group: params[:id])),
         user: thredded_current_user
       )
-      render :show 
+      render :show
     end
 
     private

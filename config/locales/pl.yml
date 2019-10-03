@@ -89,6 +89,8 @@ pl:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Grupa %{name} została utworzona
+      show:
+        page_title: 'Grupa forów: %{name}'
     moderation:
       approve_btn: Zaakceptuj
       block_btn: Zablokuj
