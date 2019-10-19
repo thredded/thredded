@@ -1,0 +1,5 @@
+<% timeago_root = File.join(Gem.loaded_specs['timeago_js'].full_gem_path, 'assets', 'javascripts') %>
+import "<%= File.join(timeago_root, 'timeago.js') %>";
+<%= %w[de es fr it pl pt_BR ru].map { |locale| %(import "#{File.join(timeago_root, "timeago/locales/#{locale}.js")}";) } * "\n" %>
+
+<%= Thredded::WebpackAssets.javascripts %>

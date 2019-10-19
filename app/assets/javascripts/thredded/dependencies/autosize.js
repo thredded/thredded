@@ -1,1 +1,1 @@
-//= require autosize.min
+//= require autosize

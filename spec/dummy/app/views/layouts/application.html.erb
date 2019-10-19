@@ -7,10 +7,17 @@
   <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if Thredded.rails_supports_csp_nonce? %>
+<% if Dummy::Application.thredded_testapp_webpack? %>
+  <%= javascript_pack_tag 'application',
+                             async: true,
+                             defer: true,
+                             'data-turbolinks-track': 'reload' %>
+<% else %>
   <%= javascript_include_tag 'application',
                              async: !Rails.application.config.assets.debug,
                              defer: true,
                              'data-turbolinks-track': 'reload' %>
+<% end %>
   <%== Gravatar.prefetch_dns if content_for?(:thredded) %>
   <%= favicon_link_tag %>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">

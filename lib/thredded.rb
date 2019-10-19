@@ -46,6 +46,8 @@ require 'thredded/base_notifier'
 require 'thredded/arel_compat'
 require 'thredded/collection_to_strings_with_cache_renderer'
 
+require 'thredded/webpack_assets'
+
 if Rails::VERSION::MAJOR < 5
   begin
     require 'where-or'
