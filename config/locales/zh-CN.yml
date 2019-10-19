@@ -84,6 +84,8 @@ zh-CN:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: 板块分组 %{name} 已创建
+      show:
+        page_title: 留言板组：%{name}
     moderation:
       approve_btn: 通过
       block_btn: 锁定

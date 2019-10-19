@@ -89,6 +89,8 @@ it:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Creato il gruppo di bacheche %{name}
+      show:
+        page_title: 'Gruppo di messaggi: %{name}'
     moderation:
       approve_btn: Approva
       block_btn: Blocca

@@ -88,6 +88,8 @@ ru:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Группа форумов %{name} создана
+      show:
+        page_title: 'Группа досок объявлений: %{name}'
     moderation:
       approve_btn: Одобрить
       block_btn: Заблокировать

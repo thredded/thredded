@@ -89,6 +89,8 @@ en:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Messageboard Group %{name} created
+      show:
+        page_title: 'Messageboard Group: %{name}'
     moderation:
       approve_btn: Approve
       block_btn: Block

@@ -12,6 +12,7 @@ module Thredded
                     admin
                     autocomplete-users
                     messageboards
+                    messageboard-groups
                     posts
                     preferences
                     private-posts

@@ -1,21 +1,20 @@
-<% content_for :thredded_page_title, t('thredded.messageboard.index.page_title') %>
-<% content_for :thredded_page_id, 'thredded--messageboards-index' %>
+<% content_for :thredded_page_title, t('thredded.messageboard_group.show.page_title', name: @group.name) %>
+<% content_for :thredded_page_id, 'thredded--messageboard-groups--index' %>
 <% content_for :thredded_breadcrumbs, render('thredded/shared/breadcrumbs') %>
 <%= thredded_page do %>
   <%= define_svg_icons('thredded/follow.svg', 'thredded/lock.svg') %>
-  <%= view_hooks.messageboards_index.container.render self, groups: @groups do %>
+  <%= view_hooks.messageboard_group_show.container.render self, groups: @groups do %>
     <section class="thredded--main-section thredded--messageboards">
-      <%= view_hooks.messageboards_index.list.render self, groups: @groups do %>
+      <%= view_hooks.messageboard_group_show.list.render self, groups: @groups do %>
         <% @groups.each do |group| %>
           <% if group.name.present? %>
             <h3 class="thredded--messageboards-group--title">
-              <%= link_to_if Thredded.show_messageboard_group_page,
-                            group.name,
-                            show_messageboard_group_path(group.id) %>
+              <%= link_to group.name,
+                          show_messageboard_group_path(group.id) %>
             </h3>
           <% end %>
           <div class="thredded--messageboards-group">
-            <%= view_hooks.messageboards_index.group.render self, group: group do %>
+            <%= view_hooks.messageboard_group_show.group.render self, group: group do %>
               <%= render partial: 'thredded/messageboards/messageboard',
                          collection: group.messageboards %>
             <% end %>
