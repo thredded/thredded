@@ -1,3 +1,9 @@
+# Unreleased
+
+## Added
+
+* Sprockets 4.0.0 support
+
 # v0.16.13
 
 ## Added

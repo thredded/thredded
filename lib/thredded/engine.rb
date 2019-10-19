@@ -17,9 +17,7 @@ module Thredded
 
     initializer 'thredded.setup_assets' do
       Thredded::Engine.config.assets.precompile += %w[
-        thredded.js
-        thredded.css
-        thredded/*.svg
+        thredded_manifest.js
       ]
     end
   end
