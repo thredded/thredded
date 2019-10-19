@@ -77,6 +77,9 @@ matrix:
       services: postgresql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
+      env: DB=sqlite3 THREDDED_TESTAPP_SPROCKETS_JS=1
+    - gemfile: spec/gemfiles/rails_6_0.gemfile
+      rvm: 2.5.3
       env: DB=sqlite3
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
@@ -103,6 +106,10 @@ env:
   - TRAVIS=1
 
 before_script:
+- >
+  if [[ $BUNDLE_GEMFILE == "${PWD}/spec/gemfiles/rails_6_0.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
+    cd spec/dummy && yarn && cd -
+  fi
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
 - ./cc-test-reporter before-build

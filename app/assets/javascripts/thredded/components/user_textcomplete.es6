@@ -1,5 +1,6 @@
 //= require thredded/core/thredded
 //= require thredded/core/escape_html
+//= require thredded/dependencies/textcomplete
 
 (() => {
   const Thredded = window.Thredded;

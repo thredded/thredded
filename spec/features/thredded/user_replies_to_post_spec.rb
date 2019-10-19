@@ -44,7 +44,9 @@ RSpec.feature 'User replying to topic' do
       it 'can be mentioned' do
         login_and_visit_posts
         expect(page).not_to have_css('.thredded--textcomplete-dropdown')
+        sleep(0.2)
         posts.start_reply("Hey @#{other_user.name[0..2]}")
+        sleep(0.2)
         expect(page).to have_css('.thredded--textcomplete-dropdown')
         find('.thredded--textcomplete-dropdown .textcomplete-item.active').click
         expect(find_field('Content').value).to include(other_user_mention)
