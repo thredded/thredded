@@ -639,6 +639,12 @@ bundle
 bin/rails db:create db:migrate db:seed
 ```
 
+Install NPM dependencies for the dummy app:
+
+```bash
+cd spec/dummy && yarn && cd -
+```
+
 Then, start the dummy app server:
 
 ```bash
