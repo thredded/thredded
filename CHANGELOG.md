@@ -2,7 +2,9 @@
 
 ## Added
 
-* Sprockets 4.0.0 support
+* Sprockets 4.0.0 support.
+* Messageboard group page. Can be disabled by setting `Thredded.show_messageboard_group_page = false`.
+  [#829](https://github.com/thredded/thredded/pull/829)
 
 # v0.16.13
 
