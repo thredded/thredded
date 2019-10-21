@@ -1,3 +1,4 @@
+//= require thredded/core/thredded
 (function() {
   const Thredded = window.Thredded;
   Thredded.isSubmitHotkey = (evt) => {

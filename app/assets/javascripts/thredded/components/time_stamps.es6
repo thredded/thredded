@@ -1,3 +1,4 @@
+//= require thredded/core/thredded
 (() => {
   const COMPONENT_SELECTOR = '#thredded--container [data-time-ago]';
   const Thredded = window.Thredded;

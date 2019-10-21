@@ -1,3 +1,4 @@
+//= require thredded/core/thredded
 //= require thredded/core/on_page_load
 //= require thredded/components/user_textcomplete
 //= require thredded/dependencies/autosize

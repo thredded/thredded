@@ -1,3 +1,5 @@
+//= require thredded/core/thredded
+//= require thredded/core/debounce
 //= require thredded/core/serialize_form
 //= require thredded/components/spoilers
 

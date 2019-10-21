@@ -1,3 +1,4 @@
+//= require thredded/core/thredded
 //= require thredded/core/on_page_load
 //= require thredded/core/serialize_form
 
@@ -5,13 +6,6 @@
 (() => {
   const Thredded = window.Thredded;
   const Turbolinks = window.Turbolinks;
-
-  Thredded.onPageLoad(() => {
-    if (!Turbolinks || !Turbolinks.supported) return;
-    Array.prototype.forEach.call(document.querySelectorAll('[data-thredded-turboform]'), (form) => {
-      form.addEventListener('submit', handleSubmit);
-    });
-  });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -22,4 +16,11 @@
     // Turbolinks. Hide it:
     Thredded.hideSoftKeyboard();
   };
+
+  Thredded.onPageLoad(() => {
+    if (!Turbolinks || !Turbolinks.supported) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-thredded-turboform]'), (form) => {
+      form.addEventListener('submit', handleSubmit);
+    });
+  });
 })();
