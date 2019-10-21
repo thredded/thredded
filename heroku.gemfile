@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.5.5'
+ruby '2.6.5'
 
 gem 'thredded', path: File.dirname(__FILE__)
 
 gem 'mustache'
 
 gem 'rails', '~> 6.0.0'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+gem 'webpacker', '~> 4.0'
 
 # Make these gems available in production
 gem 'puma'

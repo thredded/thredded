@@ -8,6 +8,25 @@ end
 
 APP_RAKEFILE = File.expand_path('spec/dummy/Rakefile', __dir__)
 load 'rails/tasks/engine.rake'
+namespace :webpacker do
+  desc 'Install test app deps with yarn'
+  task :yarn_install do
+    Dir.chdir(File.join(__dir__, 'spec/dummy')) do
+      system 'yarn install --no-progress --production'
+    end
+  end
+
+  desc 'Compile test app JavaScript packs using webpack for production with digests'
+  task compile: %i[yarn_install load_app] do
+    Dir.chdir(File.join(__dir__, 'spec/dummy')) do
+      Webpacker.with_node_env('production') do
+        ensure_log_goes_to_stdout do
+          exit! unless ::Webpacker.instance.commands.compile
+        end
+      end
+    end
+  end
+end
 
 # Common methods for the test_all_dbs, test_all_gemfiles, and test_all Rake tasks.
 module TestTasks
