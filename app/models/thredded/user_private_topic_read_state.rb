@@ -27,6 +27,9 @@ module Thredded
         return if !overwrite_newer && state.read_at? && state.read_at >= post.created_at
         state.read_at = post.created_at
         state.update!(state.calculate_post_counts)
+      rescue ActiveRecord::RecordNotUnique
+        # The record has been created from another connection, retry to find it.
+        retry
       end
 
       # @param [Thredded.user_class] user
