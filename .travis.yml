@@ -80,13 +80,16 @@ matrix:
       env: DB=sqlite3 THREDDED_TESTAPP_SPROCKETS_JS=1
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
+      node_js: 10
       env: DB=sqlite3
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
+      node_js: 10
       env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
       services: mysql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
+      node_js: 10
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
 
