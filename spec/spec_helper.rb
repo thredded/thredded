@@ -153,6 +153,7 @@ require 'capybara/cuprite'
 
 browser_path = ENV['CHROMIUM_BIN'] || %w[
   /usr/bin/chromium-browser
+  /snap/bin/chromium
   /Applications/Chromium.app/Contents/MacOS/Chromium
   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 ].find { |path| File.executable?(path) }
