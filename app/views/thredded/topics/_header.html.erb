@@ -20,7 +20,7 @@
         </span>
         <%= button_to topic.unfollow_path, form: {class: 'thredded--topic-header--follow-info--unfollow'} do %>
           <%= t('thredded.topics.unfollow') %>
-          <%= inline_svg 'thredded/follow.svg', class: 'thredded--topic-header--follow-icon' %>
+          <%= inline_svg_tag 'thredded/follow.svg', class: 'thredded--topic-header--follow-icon' %>
         <% end %>
       </div>
     <% else %>

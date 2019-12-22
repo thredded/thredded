@@ -25,7 +25,7 @@ module Thredded
     def inline_svg_once(filename, id:, **transform_params)
       return if @already_inlined_svg_ids&.include?(id)
       record_already_inlined_svg(filename, id)
-      inline_svg(filename, id: id, **transform_params)
+      inline_svg_tag(filename, id: id, **transform_params)
     end
 
     private

@@ -12,13 +12,13 @@ module Thredded
 
     describe '#inline_svg_once' do
       it 'calls inline_svg' do
-        expect(self).to receive(:inline_svg).and_return settings_svg
+        expect(self).to receive(:inline_svg_tag).and_return settings_svg
         expect(inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon'))
           .to eq(settings_svg)
       end
 
       it 'only inlines once' do
-        expect(self).to receive(:inline_svg).once.and_return(settings_svg)
+        expect(self).to receive(:inline_svg_tag).once.and_return(settings_svg)
         expect(inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon')).to eq(settings_svg)
         expect(inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon')).to be_nil
       end
@@ -37,14 +37,14 @@ module Thredded
         subject(:html) { define_svg_icons('thredded/settings.svg') }
 
         it 'wraps with definitions' do
-          expect(self).to receive(:inline_svg).with('thredded/settings.svg', any_args).and_return settings_svg
+          expect(self).to receive(:inline_svg_tag).with('thredded/settings.svg', any_args).and_return settings_svg
           expect(html).to start_with('<div class="thredded--svg-definitions">')
           expect(html).to end_with('</div>')
           expect(html).to include(settings_svg)
         end
         context 'when already included' do
           before do
-            allow(self).to receive(:inline_svg).and_return(settings_svg)
+            allow(self).to receive(:inline_svg_tag).and_return(settings_svg)
             inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon')
           end
 
@@ -58,8 +58,8 @@ module Thredded
         subject(:html) { define_svg_icons('thredded/settings.svg', 'thredded/follow.svg') }
 
         it 'wraps with definitions' do
-          expect(self).to receive(:inline_svg).with('thredded/settings.svg', any_args).and_return settings_svg
-          expect(self).to receive(:inline_svg).with('thredded/follow.svg', any_args).and_return follow_svg
+          expect(self).to receive(:inline_svg_tag).with('thredded/settings.svg', any_args).and_return settings_svg
+          expect(self).to receive(:inline_svg_tag).with('thredded/follow.svg', any_args).and_return follow_svg
           expect(html).to start_with('<div class="thredded--svg-definitions">')
           expect(html).to end_with('</div>')
           expect(html).to include(settings_svg)
@@ -67,12 +67,12 @@ module Thredded
         end
         context 'when one already included' do
           before do
-            allow(self).to receive(:inline_svg).once.and_return(settings_svg)
+            allow(self).to receive(:inline_svg_tag).once.and_return(settings_svg)
             inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon')
           end
 
           it 'has the other one' do
-            expect(self).to receive(:inline_svg).with('thredded/follow.svg', any_args).and_return follow_svg
+            expect(self).to receive(:inline_svg_tag).with('thredded/follow.svg', any_args).and_return follow_svg
             expect(html).not_to include(settings_svg)
             expect(html).to include(follow_svg)
           end
@@ -80,7 +80,7 @@ module Thredded
 
         context 'when both already included' do
           before do
-            allow(self).to receive(:inline_svg).and_return(settings_svg)
+            allow(self).to receive(:inline_svg_tag).and_return(settings_svg)
             inline_svg_once('thredded/settings.svg', id: 'thredded-settings-icon')
             inline_svg_once('thredded/follow.svg', id: 'thredded-follow-icon')
           end
@@ -94,7 +94,7 @@ module Thredded
 
     describe '#shared_inline_svg' do
       before do
-        allow(self).to receive(:inline_svg).and_return(settings_svg)
+        allow(self).to receive(:inline_svg_tag).and_return(settings_svg)
       end
 
       it 'outputs definition' do

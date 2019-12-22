@@ -20,7 +20,7 @@
           <% else -%>
             <%= button_to main_app.update_theme_path(theme) do %>
               <span class="app-nav-text"><%= theme.humanize %></span>
-              <span class="app-nav-icon"><%= inline_svg 'brightness.svg' %></span>
+              <span class="app-nav-icon"><%= inline_svg_tag 'brightness.svg' %></span>
             <% end %>
           <% end -%>
         <% end -%>
