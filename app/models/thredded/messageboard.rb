@@ -139,9 +139,11 @@ module Thredded
             .and(read_states[:user_id].eq(user.id))
             .and(read_states[:unread_posts_count].eq(0))
 
-        joins(:topics).merge(topics_scope).joins(
+        relation = joins(:topics).merge(topics_scope).joins(
           messageboards.outer_join(read_states).on(read_states_join_cond).join_sources
-        ).group(messageboards[:id]).pluck(
+        ).group(messageboards[:id])
+        Thredded::ArelCompat.pluck(
+          relation,
           :id,
           Arel::Nodes::Subtraction.new(topics[:id].count, read_states[:id].count)
         ).to_h
