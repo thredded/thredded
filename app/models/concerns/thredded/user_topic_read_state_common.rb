@@ -27,10 +27,9 @@ module Thredded
     end
 
     def calculate_post_counts
+      relation = self.class.visible_posts_scope(user).where(postable_id: postable_id)
       unread_posts_count, read_posts_count =
-        self.class.visible_posts_scope(user)
-          .where(postable_id: postable_id)
-          .pluck(*self.class.post_counts_arel(read_at))[0]
+        Thredded::ArelCompat.pluck(relation, *self.class.post_counts_arel(read_at))[0]
       { unread_posts_count: unread_posts_count || 0, read_posts_count: read_posts_count || 0 }
     end
 
@@ -89,9 +88,9 @@ module Thredded
       def calculate_post_counts
         states = arel_table
         posts = post_class.arel_table
-        joins(states.join(posts).on(states[:postable_id].eq(posts[:postable_id])).join_sources)
+        relation = joins(states.join(posts).on(states[:postable_id].eq(posts[:postable_id])).join_sources)
           .group(states[:id])
-          .pluck(states[:id], *post_counts_arel(states[:read_at], posts: posts))
+        Thredded::ArelCompat.pluck(relation, states[:id], *post_counts_arel(states[:read_at], posts: posts))
       end
     end
   end
