@@ -20,7 +20,7 @@ namespace :webpacker do
   task compile: %i[yarn_install load_app] do
     Dir.chdir(File.join(__dir__, 'spec/dummy')) do
       Webpacker.with_node_env('production') do
-        ensure_log_goes_to_stdout do
+        Webpacker.ensure_log_goes_to_stdout do
           exit! unless ::Webpacker.instance.commands.compile
         end
       end

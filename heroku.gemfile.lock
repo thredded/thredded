@@ -13,7 +13,7 @@ PATH
       kramdown (>= 2.0.0)
       kramdown-parser-gfm
       nokogiri
-      onebox (~> 1.9, >= 1.9.24)
+      onebox (~> 1.8, >= 1.8.99)
       pundit (>= 1.1.0)
       rails (>= 4.2.10, != 6.0.0.rc2)
       rb-gravatar
@@ -309,7 +309,7 @@ DEPENDENCIES
   tunemygc
   turbolinks
   twemoji
-  webpacker (~> 4.0)
+  webpacker (~> 4.2)
 
 RUBY VERSION
    ruby 2.6.5p114
