@@ -1,3 +1,16 @@
+# v0.16.15
+
+## Fixed
+
+* Fixed race condition in `User(Private)TopicReadState` update.
+  [#845](https://github.com/thredded/thredded/issues/845) [#846](https://github.com/thredded/thredded/pull/846)
+* Fixed compatibility with NewRelic in Rails 4.
+  [#842](https://github.com/thredded/thredded/issues/842) [#848](https://github.com/thredded/thredded/pull/848)
+* Fixed deprecation warnings from `inline_svg`.
+  [cae5ae88](https://github.com/thredded/thredded/commit/cae5ae88fe85a616b538ee6b42dcfdaa40073040)
+* Fixed deprecation warnings from `onebox`.
+  [c4ae525b](https://github.com/thredded/thredded/commit/c4ae525b89790ea0b1b3e46c6d478416393248b6)
+
 # v0.16.14
 
 ## Added
