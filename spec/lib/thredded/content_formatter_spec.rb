@@ -114,12 +114,9 @@ describe Thredded::ContentFormatter do
     context 'with no onebox caching' do
       around do |example|
         onebox_views_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache
-        onebox_data_cache = Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache
         Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache = ActiveSupport::Cache::MemoryStore.new
-        Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache = ActiveSupport::Cache::MemoryStore.new
         example.run
         Thredded::HtmlPipeline::OneboxFilter.onebox_views_cache = onebox_views_cache
-        Thredded::HtmlPipeline::OneboxFilter.onebox_data_cache = onebox_data_cache
       end
 
       context 'if onebox throws an error' do
