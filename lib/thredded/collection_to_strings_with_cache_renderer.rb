@@ -26,13 +26,12 @@ module Thredded
       collection = collection.to_a
       instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
         return [] if collection.blank?
-        keyed_collection = collection.each_with_object({}) do |item, hash|
-          key = ActiveSupport::Cache.expand_cache_key(
-            view_context.cache_fragment_name(item, virtual_path: template.virtual_path), :views
-          )
-          # #read_multi & #write may require key mutability, Dalli 2.6.0.
-          hash[key.frozen? ? key.dup : key] = item
-        end
+
+        # Result is a hash with the key represents the
+        # key used for cache lookup and the value is the item
+        # on which the partial is being rendered
+        keyed_collection, ordered_keys = collection_by_cache_keys(collection, view_context, template)
+
         cache = collection_cache
         cached_partials = cache.read_multi(*keyed_collection.keys)
         instrumentation_payload[:cache_hits] = cached_partials.size if instrumentation_payload
@@ -44,9 +43,9 @@ module Thredded
           partial: partial, locals: locals, **opts
         ).each
 
-        keyed_collection.map do |cache_key, item|
-          [item, cached_partials[cache_key] || rendered_partials.next.tap do |rendered|
-            cache.write(cache_key, rendered, expires_in: expires_in)
+        ordered_keys.map do |cache_key|
+          [keyed_collection[cache_key], cached_partials[cache_key] || rendered_partials.next.tap do |rendered|
+            cached_partials[cache_key] = cache.write(cache_key, rendered, expires_in: expires_in)
           end]
         end
       end
@@ -54,14 +53,22 @@ module Thredded
 
     private
 
-    def collection_cache
-      if ActionView::PartialRenderer.respond_to?(:collection_cache)
-        # Rails 5.0+
-        ActionView::PartialRenderer.collection_cache
-      else
-        # Rails 4.2.x
-        Rails.application.config.action_controller.cache_store
+    def collection_by_cache_keys(collection, view, template)
+      digest_path = digest_path_from_template(view, template)
+
+      collection.each_with_object([{}, []]) do |item, (hash, ordered_keys)|
+        key = expanded_cache_key(item, view, template, digest_path)
+        ordered_keys << key
+        hash[key] = item
       end
+    end
+
+    def expanded_cache_key(key, view, template, digest_path)
+      key = combined_fragment_cache_key(
+        view,
+        cache_fragment_name(view, key, virtual_path: template.virtual_path, digest_path: digest_path)
+      )
+      key.frozen? ? key.dup : key # #read_multi & #write may require mutability, Dalli 2.6.0.
     end
 
     # @return [Array<String>]
@@ -86,11 +93,59 @@ module Thredded
       collection.map { |object| render_partial(partial_renderer, view_context, opts.merge(object: object)) }
     end
 
+    if Rails::VERSION::MAJOR >= 5
+      def collection_cache
+        ActionView::PartialRenderer.collection_cache
+      end
+    else
+      def collection_cache
+        Rails.application.config.action_controller.cache_store
+      end
+    end
+
+    if Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2)
+      def combined_fragment_cache_key(view, key)
+        view.combined_fragment_cache_key(key)
+      end
+    elsif Rails::VERSION::MAJOR >= 5
+      def combined_fragment_cache_key(view, key)
+        view.fragment_cache_key(key)
+      end
+    else
+      def combined_fragment_cache_key(view, key)
+        view.controller.fragment_cache_key(key)
+      end
+    end
+
     if Rails::VERSION::MAJOR >= 6
+      def cache_fragment_name(view, key, virtual_path:, digest_path:)
+        view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+      end
+
+      def digest_path_from_template(view, template)
+        view.digest_path_from_template(template)
+      end
+
       def render_partial(partial_renderer, view_context, opts)
         partial_renderer.render(view_context, opts, nil).body
       end
     else
+      def cache_fragment_name(_view, key, virtual_path:, digest_path:)
+        if digest_path
+          ["#{virtual_path}:#{digest_path}", key]
+        else
+          [virtual_path, key]
+        end
+      end
+
+      def digest_path_from_template(view, template)
+        ActionView::Digestor.digest(
+          name: template.virtual_path,
+          finder: @lookup_context,
+          dependencies: view.view_cache_dependencies
+        ).presence
+      end
+
       def render_partial(partial_renderer, view_context, opts)
         partial_renderer.render(view_context, opts, nil)
       end
