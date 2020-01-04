@@ -13,6 +13,7 @@ module Thredded
              :blocked?,
              :last_moderation_record,
              :cache_key,
+             :cache_version,
              :cache_key_with_version,
              to: :@post
 
