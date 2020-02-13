@@ -79,7 +79,13 @@ module Thredded
         render_partials_serial(view_context, collection, opts)
       else
         collection.each_slice(collection.size / num_threads).map do |slice|
-          Thread.start { render_partials_serial(view_context.dup, slice, opts) }
+          Thread.start do
+            # `ActionView::PartialRenderer` mutates the contents of `opts[:locals]`, `opts[:locals][:as]` in particular:
+            # https://github.com/rails/rails/blob/v6.0.2.1/actionview/lib/action_view/renderer/partial_renderer.rb#L379
+            # https://github.com/rails/rails/blob/v6.0.2.1/actionview/lib/action_view/renderer/partial_renderer.rb#L348-L356
+            opts[:locals] = opts[:locals].dup if opts[:locals]
+            render_partials_serial(view_context.dup, slice, opts)
+          end
         end.flat_map(&:value)
       end
     end
