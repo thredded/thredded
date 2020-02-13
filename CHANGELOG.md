@@ -1,3 +1,10 @@
+# v0.16.16
+
+## Fixed
+
+* Fixed a post caching bug where post contents could be replaced by contents of another post on the same page.
+  [#839](https://github.com/thredded/thredded/issues/839) [#854](https://github.com/thredded/thredded/pull/854)
+
 # v0.16.15
 
 ## Fixed
