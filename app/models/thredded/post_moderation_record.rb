@@ -31,9 +31,7 @@ module Thredded
       posts_table_name = Thredded::Post.quoted_table_name
       result = all
       owners_by_id = result.each_with_object({}) do |r, h|
-        if r.post
-          h[r.post.postable_id] = r.post.postable
-        end
+        h[r.post.postable_id] = r.post.postable if r.post
       end
       next result if owners_by_id.empty?
       preloader = ActiveRecord::Associations::Preloader.new.preload(
