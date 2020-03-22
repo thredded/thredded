@@ -40,4 +40,11 @@ Dummy::Application.configure do
     docker_host_ip = `/sbin/ip route|awk '/default/ { print $3 }'`.strip
     config.web_console.permissions = docker_host_ip
   end
+
+  # Allow webpack-dev-server
+  if Rails.gem_version >= Gem::Version.new('6.0.0')
+    Rails.application.config.content_security_policy do |policy|
+      policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+    end
+  end
 end
