@@ -1,0 +1,2 @@
+web: bin/rails server --port 9292 --binding 0.0.0.0
+webpack-dev-server: spec/dummy/bin/webpack-dev-server

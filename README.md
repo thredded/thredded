@@ -777,7 +777,7 @@ start the included docker-compose.yml file with:
 
 ```console
 docker-compose build
-docker-compose up -d
+docker-compose up
 ```
 
 The above will build and run everything, daemonized, resulting in a running

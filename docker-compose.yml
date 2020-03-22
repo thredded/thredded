@@ -1,14 +1,25 @@
-db:
-  image: postgres:12-alpine
-  ports:
-    - "5434:5432"
-  environment:
-    POSTGRES_USER: root
-web:
-  build: .
-  volumes:
+version: "3.6"
+networks:
+  frontend:
+  backend:
+services:
+  db:
+    image: postgres:12-alpine
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: thredded-db-password
+    networks:
+      - backend
+  web:
+    build: .
+    # We want to avoid mapping Gemfile.lock, yarn.lock, etc but there is no way to exclude
+    # files using `volumes`.
+    volumes:
     - ./.rubocop.yml:/thredded/.rubocop.yml
     - ./.rspec:/thredded/.rspec
+    - ./Procfile.docker.dev:/thredded/Procfile.docker.dev
     - ./Rakefile:/thredded/Rakefile
     - ./config.ru:/thredded/config.ru
     - ./app:/thredded/app
@@ -17,21 +28,50 @@ web:
     - ./db:/thredded/db
     - ./lib:/thredded/lib
     - ./script:/thredded/script
-    - ./spec:/thredded/spec
     - ./vendor:/thredded/vendor
-    # Ignore these paths
-    - /thredded/spec/dummy/tmp/
-  working_dir: /thredded
-  environment:
-    DB: postgresql
-    DB_USERNAME: root
-    DB_PASSWORD:
-  command: >
-    bash -c 'script/wait-for-tcp $$DB_1_PORT_5432_TCP_ADDR $$DB_1_PORT_5432_TCP_PORT &&
-             bundle exec rake db:drop db:create db:migrate &&
-             bundle exec rake db:seed &&
-             bin/rails server --port 9292 --binding 0.0.0.0'
-  ports:
-    - "9292:9292"
-  links:
-    - db
+    - ./spec/commands:/thredded/spec/commands
+    - ./spec/controllers:/thredded/spec/controllers
+    - ./spec/dummy/app:/thredded/spec/dummy/app
+    - ./spec/dummy/babel.config.js:/thredded/spec/dummy/babel.config.js
+    - ./spec/dummy/bin:/thredded/spec/dummy/bin
+    - ./spec/dummy/config:/thredded/spec/dummy/config
+    - ./spec/dummy/config.ru:/thredded/spec/dummy/config.ru
+    - ./spec/dummy/db:/thredded/spec/dummy/db
+    - ./spec/dummy/lib:/thredded/spec/dummy/lib
+    - ./spec/dummy/public:/thredded/spec/dummy/public
+    - ./spec/dummy/Rakefile:/thredded/spec/dummy/Rakefile
+    - ./spec/features:/thredded/spec/features
+    - ./spec/fixtures:/thredded/spec/fixtures
+    - ./spec/forms:/thredded/spec/forms
+    - ./spec/gemfiles:/thredded/spec/gemfiles
+    - ./spec/helpers:/thredded/spec/helpers
+    - ./spec/jobs:/thredded/spec/jobs
+    - ./spec/lib:/thredded/spec/lib
+    - ./spec/mailers:/thredded/spec/mailers
+    - ./spec/migration:/thredded/spec/migration
+    - ./spec/models:/thredded/spec/models
+    - ./spec/policies:/thredded/spec/policies
+    - ./spec/support:/thredded/spec/support
+    - ./spec/view_models:/thredded/spec/view_models
+    - ./spec/views:/thredded/spec/views
+    - ./spec/factories.rb:/thredded/spec/factories.rb
+    - ./spec/i18n_spec.rb:/thredded/spec/i18n_spec.rb
+    - ./spec/spec_helper.rb:/thredded/spec/spec_helper.rb
+    working_dir: /thredded
+    environment:
+      DB: postgresql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: root
+      DB_PASSWORD: thredded-db-password
+      BUNDLE_GEMFILE: /thredded/Gemfile
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    command: script/docker-dev-start-web.sh
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "9292:9292"
+      - "3035:3035"
+    depends_on:
+      - db
