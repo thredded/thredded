@@ -81,7 +81,7 @@ module Thredded
     protected
 
     def update_unread_posts_count
-      postable.user_read_states.update_post_counts!
+      postable&.user_read_states&.update_post_counts!
     end
 
     private
