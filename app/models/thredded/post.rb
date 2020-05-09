@@ -78,7 +78,7 @@ module Thredded
     end
 
     def update_parent_last_user_and_time_from_last_post
-      postable.update_last_user_and_time_from_last_post!
+      postable&.update_last_user_and_time_from_last_post!
       messageboard.update_last_topic!
     end
 
