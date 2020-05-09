@@ -40,7 +40,8 @@ module Thredded
 
       before_validation :ensure_user_detail, on: :create
 
-      after_commit :update_unread_posts_count, on: %i[create destroy]
+      # postable won't exist when destroying a messageboard because topics are destroyed before the posts
+      after_commit :update_unread_posts_count, on: %i[create destroy], if: :postable
     end
 
     def avatar_url
@@ -81,7 +82,7 @@ module Thredded
     protected
 
     def update_unread_posts_count
-      postable&.user_read_states&.update_post_counts!
+      postable.user_read_states.update_post_counts!
     end
 
     private
