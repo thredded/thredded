@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'partial: thredded/users/link' do
+RSpec.describe 'thredded/users/link' do
   def render_partial(user)
     render partial: 'thredded/users/link', locals: { user: user }
   end
