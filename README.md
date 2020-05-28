@@ -660,7 +660,12 @@ THREDDED_TESTAPP_WEBPACK=1 bin/rails s
 
 ### Testing
 
-To run the tests, just run `rspec`. The test suite will re-create the test database on every run, so there is no need to
+In order to run the tests locally, you will need to be running webpack-dev-server (or do a manual compilation):
+
+    cd spec/dummy && yarn && cd -
+    BUNDLE_GEMFILE=$(realpath)/Gemfile spec/dummy/bin/webpack-dev-server
+
+Then to run the tests, just run `rspec`. The test suite will re-create the test database on every run, so there is no need to
 run tasks that maintain the test database.
 
 By default, SQLite is used in development and test. On Travis, the tests will run using SQLite, PostgreSQL, MySQL,
