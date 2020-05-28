@@ -15,4 +15,14 @@ RSpec.describe Thredded::ModerationController do
     expect(response).to be_successful
     expect(assigns(:posts).to_a.length).to eq(1)
   end
+
+  it 'GET #history' do
+    create(:topic, with_posts: 1)
+    get :history
+  end
+
+  it 'GET #activity' do
+    create(:topic, with_posts: 1)
+    get :activity
+  end
 end
