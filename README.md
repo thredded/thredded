@@ -663,7 +663,7 @@ THREDDED_TESTAPP_WEBPACK=1 bin/rails s
 In order to run the tests locally, you will need to be running webpack-dev-server (or do a manual compilation):
 
     cd spec/dummy && yarn && cd -
-    BUNDLE_GEMFILE=$(realpath)/Gemfile spec/dummy/bin/webpack-dev-server
+    BUNDLE_GEMFILE="${PWD}/Gemfile" spec/dummy/bin/webpack-dev-server
 
 Then to run the tests, just run `rspec`. The test suite will re-create the test database on every run, so there is no need to
 run tasks that maintain the test database.
