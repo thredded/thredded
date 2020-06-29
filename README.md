@@ -174,7 +174,7 @@ mkdir -p app/views/thredded/shared/nav && cp "$(bundle show thredded)/$_/_standa
 
 ### Application layout
 
-You can also use Thredded with your application (or other) layout by by setting `Thredded.layout` in the initializer.
+You can also use Thredded with your application (or other) layout by setting `Thredded.layout` in the initializer.
 
 In this case, you will need to reference your paths/routes carefully and pull in thredded assets (styles and javascript):
 
