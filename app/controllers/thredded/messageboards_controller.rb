@@ -12,6 +12,7 @@ module Thredded
         policy_scope(Thredded::Messageboard.all),
         user: thredded_current_user
       )
+      render json: MessageboardsSerializer.new(@groups).serialized_json, status: :ok
     end
 
     def new

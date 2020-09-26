@@ -5,6 +5,7 @@
   <%= define_svg_icons('thredded/follow.svg', 'thredded/lock.svg') %>
   <%= view_hooks.messageboards_index.container.render self, groups: @groups do %>
     <section class="thredded--main-section thredded--messageboards">
+      <%= debug(@groups) %>
       <%= view_hooks.messageboards_index.list.render self, groups: @groups do %>
         <% @groups.each do |group| %>
           <% if group.name.present? %>
