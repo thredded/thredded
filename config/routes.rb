@@ -66,7 +66,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     resource :topic, path: 'topics', only: [:new] do
       post :preview, on: :new, controller: 'topic_previews'
     end
-    resources :topics, path: '', except: %i[index new show] do
+    resources :topics, path: 'topics', except: %i[index new show] do
       collection do
         get '(page-:page)', action: :index, as: '', constraints: page_constraint
         get '/category/:category_id', action: :category, as: :categories
