@@ -1,6 +1,5 @@
 <%= content_tag(:div, id: 'thredded--container', class: thredded_container_classes, data: thredded_container_data) do %>
   <%= render 'thredded/shared/header' %>
-  <%= render 'thredded/shared/flash_messages' %>
   <%= yield :thredded_page_content %>
   <%= render 'thredded/shared/currently_online' if Thredded.currently_online_enabled %>
 <%- end %>
