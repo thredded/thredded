@@ -27,6 +27,7 @@ module Thredded
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
       @new_topic = init_new_topic
+      render json: TopicSerializer.new(@new_topic).serialized_json, status: 200
     end
 
     def unread
@@ -88,9 +89,9 @@ module Thredded
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        redirect_to next_page_after_create(params[:next_page])
+        render json: TopicSerializer.new(@new_topic).serialized_json, status: 201
       else
-        render :new
+        render json: {errors: @new_topic.errors }, message: 422
       end
     end
 
