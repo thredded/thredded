@@ -4,7 +4,7 @@ module Thredded
   # A view model for a page of PostViews of a Topic.
   class TopicPostsPageView < Thredded::PostsPageView
     # @return [Thredded::BaseTopicView]
-    attr_reader :topic
+    attr_reader :topic, :id, :post_views
 
     # @param user [Thredded.user_class] the user who is viewing the posts page
     # @param topic [Thredded::TopicCommon]
@@ -13,6 +13,7 @@ module Thredded
       @paginated_scope = paginated_scope
       @topic = "#{paginated_scope.reflect_on_association(:postable).klass}View".constantize.from_user(topic, user)
       prev_read = false
+      @id = nil
       @post_views = paginated_scope.map.with_index do |post, i|
         post_read = @topic.post_read?(post)
         post_view = Thredded::PostView.new(

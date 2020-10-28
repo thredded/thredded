@@ -24,10 +24,8 @@ module Thredded
         .order_sticky_first.order_recently_posted_first
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
-      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      @new_topic = init_new_topic
-      render json: TopicSerializer.new(@new_topic).serialized_json, status: 200
+      render json: TopicspageviewSerializer.new(@topics).serialized_json, status: 200
     end
 
     def unread
@@ -54,15 +52,12 @@ module Thredded
 
     def show
       authorize topic, :read?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
-      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      Thredded::UserTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
-      @new_post = Thredded::PostForm.new(user: thredded_current_user, topic: topic, post_params: new_post_params)
+      render json: TopicpostspageviewSerializer.new(@posts).serialized_json, status: 200
     end
 
     def new
@@ -89,7 +84,7 @@ module Thredded
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        render json: TopicSerializer.new(@new_topic).serialized_json, status: 201
+        render json: TopicpostspageviewSerializer.new(@new_topic).serialized_json, status: 201
       else
         render json: {errors: @new_topic.errors }, message: 422
       end
