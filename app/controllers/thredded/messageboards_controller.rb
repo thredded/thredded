@@ -19,9 +19,6 @@ module Thredded
       begin
         @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       rescue ActiveRecord::RecordNotFound
-        render json: {errors: @messageboard.errors }, status: 404
-        return
-      rescue Exception
         raise
       end
       render json: MessageboardSerializer.new(@messageboard).serialized_json, status: 200
@@ -57,16 +54,10 @@ module Thredded
         @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
         authorize @messageboard, :destroy?
         @messageboard.destroy!
-      rescue ActiveRecord::RecordNotFound
-        render json: {errors: @messageboard.errors }, status: 404
-        return
-      rescue ActiveRecord::InvalidForeignKey
-        render json: {errors: @messageboard.errors }, status: 403
-        return
       rescue Exception
         raise
       end
-      render json: :no_content, status: 204
+      head 204
     end
 
     private

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class ApplicationController < ::ApplicationController # rubocop:disable Metrics/ClassLength
-    layout :thredded_layout
+  class ApplicationController < ActionController::API # rubocop:disable Metrics/ClassLength
     include ::Thredded::UrlsHelper
     include Pundit
 
