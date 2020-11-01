@@ -51,13 +51,17 @@ module Thredded
     end
 
     def show
+      begin
       authorize topic, :read?
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      render json: TopicpostspageviewSerializer.new(@posts).serialized_json, status: 200
+      rescue ActiveRecord::RecordNotFound
+        raise
+      end
+        render json: TopicpostspageviewSerializer.new(@posts).serialized_json, status: 200
     end
 
     def new
@@ -90,12 +94,6 @@ module Thredded
       end
     end
 
-    def edit
-      authorize topic, :update?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-      @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
-    end
-
     def update
       topic.assign_attributes(topic_params_for_update)
       authorize topic, :update?
@@ -109,18 +107,20 @@ module Thredded
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
       if @edit_topic.save
-        redirect_to messageboard_topic_url(topic.messageboard, topic),
-                    notice: t('thredded.topics.updated_notice')
+        render json: TopicspageviewSerializer.new(@edit_topic).serialized_json, status: 200
       else
-        render :edit
+        render json: {errors: @edit_topic.errors }, status: 422
       end
     end
 
     def destroy
-      authorize topic, :destroy?
-      topic.destroy!
-      redirect_to messageboard_topics_path(messageboard),
-                  notice: t('thredded.topics.deleted_notice')
+      begin
+        authorize topic, :destroy?
+        topic.destroy!
+      rescue Exception
+        raise
+      end
+      head 204
     end
 
     def follow
