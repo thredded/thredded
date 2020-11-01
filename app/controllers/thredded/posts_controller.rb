@@ -12,13 +12,6 @@ module Thredded
 
     after_action :verify_authorized
 
-    def new
-      @post_form = Thredded::PostForm.new(
-        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
-      )
-      authorize_creating @post_form.post
-    end
-
     def create
       @post_form = Thredded::PostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_post_params
@@ -26,7 +19,7 @@ module Thredded
       authorize_creating @post_form.post
 
       if @post_form.save
-        render json: PostSerializer.new(@post_form).serialized_json, status: 201
+        render json: PostformSerializer.new(@post_form).serialized_json, status: 201
       else
         render json: {errors: @post_form.errors }, status: 422
       end
@@ -36,27 +29,22 @@ module Thredded
       authorize post, :update?
 
       if post.update(new_post_params)
-        render json: PostSerializer.new(post).serialized_json, status: 200
+        render json: PostformSerializer.new(post).serialized_json, status: 200
       else
         render json: {errors: post.errors }, status: 422
       end
     end
 
     def destroy
-    begin
+      begin
         authorize post, :destroy?
         post.destroy!
-      rescue ActiveRecord::RecordNotFound
-        render json: {errors: post.errors }, status: 404
-        return
-      rescue ActiveRecord::InvalidForeignKey
-        render json: {errors: post.errors }, status: 403
-        return
       rescue Exception
         raise
       end
-      render json: :no_content, status: 204
+        head 204
     end
+
 
     def mark_as_read
       authorize post, :read?

@@ -2,7 +2,7 @@
 
 module Thredded
   class PostForm
-    attr_reader :post, :topic
+    attr_reader :post, :topic, :source, :messageboard_id, :moderation_state, :t
     delegate :id,
              :persisted?,
              :content,

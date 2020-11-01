@@ -2,5 +2,5 @@
 
 class TopicspageviewSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :id , :topic_views
+  attributes :topic_views
 end
