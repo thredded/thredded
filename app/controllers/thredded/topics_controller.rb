@@ -24,9 +24,8 @@ module Thredded
         .order_sticky_first.order_recently_posted_first
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
-      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      @new_topic = init_new_topic
+      render json: TopicspageviewSerializer.new(@topics).serialized_json, status: 200
     end
 
     def unread
@@ -52,16 +51,17 @@ module Thredded
     end
 
     def show
+      begin
       authorize topic, :read?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
-      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      Thredded::UserTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
-      @new_post = Thredded::PostForm.new(user: thredded_current_user, topic: topic, post_params: new_post_params)
+      rescue ActiveRecord::RecordNotFound
+        raise
+      end
+        render json: TopicpostspageviewSerializer.new(@posts).serialized_json, status: 200
     end
 
     def new
@@ -88,16 +88,10 @@ module Thredded
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        redirect_to next_page_after_create(params[:next_page])
+        render json: TopicpostspageviewSerializer.new(@new_topic).serialized_json, status: 201
       else
-        render :new
+        render json: {errors: @new_topic.errors }, message: 422
       end
-    end
-
-    def edit
-      authorize topic, :update?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-      @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
     end
 
     def update
@@ -113,18 +107,20 @@ module Thredded
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
       if @edit_topic.save
-        redirect_to messageboard_topic_url(topic.messageboard, topic),
-                    notice: t('thredded.topics.updated_notice')
+        render json: TopicspageviewSerializer.new(@edit_topic).serialized_json, status: 200
       else
-        render :edit
+        render json: {errors: @edit_topic.errors }, status: 422
       end
     end
 
     def destroy
-      authorize topic, :destroy?
-      topic.destroy!
-      redirect_to messageboard_topics_path(messageboard),
-                  notice: t('thredded.topics.deleted_notice')
+      begin
+        authorize topic, :destroy?
+        topic.destroy!
+      rescue Exception
+        raise
+      end
+      head 204
     end
 
     def follow

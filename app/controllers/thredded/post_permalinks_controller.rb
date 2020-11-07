@@ -3,9 +3,16 @@
 module Thredded
   class PostPermalinksController < Thredded::ApplicationController
     def show
+    begin
       post = Thredded::Post.find!(params[:id])
       authorize post, :read?
-      redirect_to post_url(post, user: thredded_current_user), status: :found
+    rescue ActiveRecord::RecordNotFound
+      render json: {errors: post.errors }, status: 404
+      return
+    rescue Exception
+      raise
+    end
+    render json: PostPermalinkSerializer.new(post).serialized_json, status: 200
     end
   end
 end

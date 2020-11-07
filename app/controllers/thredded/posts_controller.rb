@@ -12,13 +12,6 @@ module Thredded
 
     after_action :verify_authorized
 
-    def new
-      @post_form = Thredded::PostForm.new(
-        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
-      )
-      authorize_creating @post_form.post
-    end
-
     def create
       @post_form = Thredded::PostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_post_params
@@ -26,39 +19,37 @@ module Thredded
       authorize_creating @post_form.post
 
       if @post_form.save
-        redirect_to post_path(@post_form.post, user: thredded_current_user)
+        render json: PostformSerializer.new(@post_form).serialized_json, status: 201
       else
-        render :new
+        render json: {errors: @post_form.errors }, status: 422
       end
-    end
-
-    def edit
-      @post_form = Thredded::PostForm.for_persisted(post)
-      authorize @post_form.post, :update?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-      render
     end
 
     def update
       authorize post, :update?
-      post.update(new_post_params)
 
-      redirect_to post_path(post, user: thredded_current_user)
+      if post.update(new_post_params)
+        render json: PostformSerializer.new(post).serialized_json, status: 200
+      else
+        render json: {errors: post.errors }, status: 422
+      end
     end
 
     def destroy
-      authorize post, :destroy?
-      post.destroy!
-
-      redirect_back fallback_location: topic_url(topic),
-                    notice: I18n.t('thredded.posts.deleted_notice')
+      begin
+        authorize post, :destroy?
+        post.destroy!
+      rescue Exception
+        raise
+      end
+        head 204
     end
+
 
     def mark_as_read
       authorize post, :read?
       UserTopicReadState.touch!(thredded_current_user.id, post)
       respond_to do |format|
-        format.html { redirect_back fallback_location: post_path(post, user: thredded_current_user) }
         format.json { render(json: { read: true }) }
       end
     end
@@ -67,7 +58,6 @@ module Thredded
       authorize post, :read?
       post.mark_as_unread(thredded_current_user)
       respond_to do |format|
-        format.html { after_mark_as_unread } # customization hook
         format.json { render(json: { read: false }) }
       end
     end

@@ -3,6 +3,7 @@
 module Thredded
   # A view model for a page of BaseTopicViews.
   class TopicsPageView
+    attr_reader :id, :topic_views
     delegate :to_a,
              :to_ary,
              :blank?,
@@ -18,6 +19,7 @@ module Thredded
     # @param topics_page_scope [ActiveRecord::Relation<Thredded::Topic>]
     # @param topic_view_class [Class] view_model for topic instances
     def initialize(user, topics_page_scope, topic_view_class: TopicView)
+      @id = nil
       @topics_page_scope = refine_scope(topics_page_scope)
       @topic_views = @topics_page_scope.with_read_and_follow_states(user).map do |(topic, read_state, follow)|
         topic_view_class.new(topic, read_state, follow, Pundit.policy!(user, topic))

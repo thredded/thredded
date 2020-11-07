@@ -5,7 +5,7 @@ module Thredded
     include ActiveModel::Model
 
     attr_accessor :title, :category_ids, :locked, :sticky, :content
-    attr_reader :user, :messageboard
+    attr_reader :user, :messageboard, :id, :post_views
 
     validate :validate_children
 
