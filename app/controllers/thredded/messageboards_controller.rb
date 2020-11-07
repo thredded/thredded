@@ -16,11 +16,7 @@ module Thredded
     end
 
     def show
-      begin
-        @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        raise
-      end
+      @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       render json: MessageboardSerializer.new(@messageboard).serialized_json, status: 200
     end
 

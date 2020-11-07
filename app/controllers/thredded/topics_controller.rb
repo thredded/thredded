@@ -51,16 +51,12 @@ module Thredded
     end
 
     def show
-      begin
       authorize topic, :read?
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      rescue ActiveRecord::RecordNotFound
-        raise
-      end
         render json: TopicpostspageviewSerializer.new(@posts).serialized_json, status: 200
     end
 

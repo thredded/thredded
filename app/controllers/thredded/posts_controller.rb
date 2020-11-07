@@ -36,13 +36,9 @@ module Thredded
     end
 
     def destroy
-      begin
-        authorize post, :destroy?
-        post.destroy!
-      rescue Exception
-        raise
-      end
-        head 204
+      authorize post, :destroy?
+      post.destroy!
+      head 204
     end
 
 

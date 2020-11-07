@@ -26,7 +26,7 @@ module Thredded
                 Thredded::Errors::UserNotFound do |exception|
       @error   = exception
       @message = exception.message
-      render template: 'thredded/error_pages/not_found', status: :not_found
+      render json: {errors: @message }, status: 404
     end
 
     rescue_from Pundit::NotAuthorizedError,
@@ -37,11 +37,11 @@ module Thredded
                 Thredded::Errors::MessageboardReadDenied do |exception|
       @error   = exception
       @message = if @error.is_a?(Pundit::NotAuthorizedError)
-                   t('thredded.errors.not_authorized')
+                   I18n.t('thredded.errors.not_authorized')
                  else
                    exception.message
                  end
-      render template: 'thredded/error_pages/forbidden', status: :forbidden
+      render json: {errors: @message }, status: 403
     end
 
     protected
