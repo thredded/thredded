@@ -9,7 +9,7 @@ module Thredded
 
     def update
       if @preferences.save
-        flash[:notice] = t('thredded.preferences.updated_notice')
+        flash[:notice] = I18n.t('thredded.preferences.updated_notice')
         redirect_back fallback_location: edit_preferences_url(@preferences.messageboard)
       else
         render :edit

@@ -62,7 +62,7 @@ module Thredded
       authorize private_topic, :update?
       if private_topic.update(private_topic_params)
         redirect_to private_topic_url(private_topic),
-                    notice: t('thredded.private_topics.updated_notice')
+                    notice: I18n.t('thredded.private_topics.updated_notice')
       else
         render :edit
       end
