@@ -32,8 +32,8 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
 
   constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
-    get '/' => 'topics#search', as: :messageboards_search
-    get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
+    get '/messageboards' => 'topics#search', as: :messageboards_search
+    get '/messageboards/:messageboard_id' => 'topics#search', as: :messageboard_search
   end
 
   scope path: 'admin' do
