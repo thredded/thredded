@@ -36,7 +36,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      @new_topic = init_new_topic
+      render json: TopicspageviewSerializer.new(@topics).serialized_json, status: 200
     end
 
     def search
