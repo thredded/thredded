@@ -17,9 +17,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :private_posts, path: '', except: %i[index show] do
         post :preview, on: :new, controller: 'private_post_previews'
         resource :preview, only: [:update], controller: 'private_post_previews'
-        member do
-          get 'quote'
-        end
       end
     end
   end
@@ -82,9 +79,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :posts, except: %i[index show], path: '' do
         post :preview, on: :new, controller: 'post_previews'
         resource :preview, only: [:update], controller: 'post_previews'
-        member do
-          get 'quote'
-        end
       end
     end
   end

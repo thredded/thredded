@@ -58,11 +58,6 @@ module Thredded
       end
     end
 
-    def quote
-      authorize_reading post
-      render plain: Thredded::ContentFormatter.quote_content(post.content)
-    end
-
     private
 
     def canonical_topic_params
