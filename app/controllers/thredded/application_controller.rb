@@ -46,6 +46,12 @@ module Thredded
 
     protected
 
+    def find_user(id)
+      Thredded.user_class.find(id)
+      rescue ActiveRecord::RecordNotFound
+        raise Thredded::Errors::UserNotFound
+    end
+
     # The `current_user` and `signed_in?` methods are prefixed with `thredded_`
     # to avoid conflicts with methods from the parent controller.
 
