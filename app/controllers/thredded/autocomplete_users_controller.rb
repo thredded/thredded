@@ -6,7 +6,7 @@ module Thredded
 
     def index
       authorize_creating Thredded::PrivateTopicForm.new(user: thredded_current_user).private_topic
-      users = params.key?(:q) ? users_by_prefix : users_by_ids
+      users = users_by_prefix
       render json: {
         results: users.map { |user| user_to_autocomplete_result(user) }
       }
@@ -33,15 +33,6 @@ module Thredded
           .where.not(id: thredded_current_user.id)
           .order(case_insensitive.column_for_order(:asc))
           .limit(MAX_RESULTS)
-      else
-        []
-      end
-    end
-
-    def users_by_ids
-      ids = params[:ids].to_s.split(',')
-      if ids.present?
-        users_scope.where(id: ids)
       else
         []
       end

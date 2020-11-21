@@ -17,9 +17,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :private_posts, path: '', except: %i[index show] do
         post :preview, on: :new, controller: 'private_post_previews'
         resource :preview, only: [:update], controller: 'private_post_previews'
-        member do
-          get 'quote'
-        end
       end
     end
   end
@@ -32,8 +29,8 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
 
   constraints(->(req) { req.env['QUERY_STRING'].include? 'q=' }) do
-    get '/' => 'topics#search', as: :messageboards_search
-    get '/:messageboard_id(.:format)' => 'topics#search', as: :messageboard_search
+    get '/messageboards' => 'topics#search', as: :messageboards_search
+    get '/messageboards/:messageboard_id' => 'topics#search', as: :messageboard_search
   end
 
   scope path: 'admin' do
@@ -82,9 +79,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :posts, except: %i[index show], path: '' do
         post :preview, on: :new, controller: 'post_previews'
         resource :preview, only: [:update], controller: 'post_previews'
-        member do
-          get 'quote'
-        end
       end
     end
   end

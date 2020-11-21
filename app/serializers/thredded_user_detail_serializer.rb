@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PostPermalinkSerializer
+class ThreddedUserDetailSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :messageboards, :group
+  attributes :moderation_state
 end

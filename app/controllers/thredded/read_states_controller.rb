@@ -6,8 +6,7 @@ module Thredded
 
     def update
       Thredded::MarkAllRead.run(thredded_current_user) if thredded_signed_in?
-
-      redirect_to request.referer
+      head 204
     end
   end
 end

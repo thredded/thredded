@@ -54,24 +54,13 @@ module Thredded
     def mark_as_read
       authorize post, :read?
       UserPrivateTopicReadState.touch!(thredded_current_user.id, post)
-      respond_to do |format|
-        format.html { redirect_back fallback_location: post_path(post, user: thredded_current_user) }
-        format.json { render(json: { read: true }) }
-      end
+      head 204
     end
 
     def mark_as_unread
       authorize post, :read?
       post.mark_as_unread(thredded_current_user)
-      respond_to do |format|
-        format.html { after_mark_as_unread } # customization hook
-        format.json { render(json: { read: false }) }
-      end
-    end
-
-    def quote
-      authorize_reading post
-      render plain: Thredded::ContentFormatter.quote_content(post.content)
+      head 204
     end
 
     private
