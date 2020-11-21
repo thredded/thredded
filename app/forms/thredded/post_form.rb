@@ -19,10 +19,6 @@ module Thredded
       @post = post || topic.posts.build
       user ||= Thredded::NullUser.new
 
-      if post_params.include?(:quote_post)
-        post_params[:content] =
-          Thredded::ContentFormatter.quote_content(post_params.delete(:quote_post).content)
-      end
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
         messageboard: topic.messageboard

@@ -36,7 +36,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      @new_topic = init_new_topic
+      render json: TopicspageviewSerializer.new(@topics).serialized_json, status: 200
     end
 
     def search
@@ -46,8 +46,8 @@ module Thredded
         .order_recently_posted_first
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
-      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
+      render json: TopicspageviewSerializer.new(@topics).serialized_json, status: 200
     end
 
     def show
@@ -161,7 +161,7 @@ module Thredded
       authorize_reading messageboard
       return if params_match?(canonical_messageboard_params)
       skip_policy_scope
-      redirect_to(canonical_messageboard_params)
+      redirect_to(canonical_messageboard_params.merge({q: params[:q]}))
     end
 
     def canonical_messageboard_params

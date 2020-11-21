@@ -12,7 +12,7 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      maybe_set_last_moderated_record_flash
+      render json: PostsPageViewSerializer.new(@posts).serialized_json, status: 200
     end
 
     def history
@@ -21,6 +21,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
         .preload(:messageboard, :post_user, :moderator, post: :postable)
         .preload_first_topic_post
+      render json: PostmoderationrecordSerializer.new(@post_moderation_records).serialized_json, status: 200
     end
 
     def activity
@@ -30,25 +31,23 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      maybe_set_last_moderated_record_flash
+      render json: PostsPageViewSerializer.new(@posts).serialized_json, status: 200
     end
 
     def moderate_post
       moderation_state = params[:moderation_state].to_s
       return head(:bad_request) unless Thredded::Post.moderation_states.include?(moderation_state)
-      post = moderatable_posts.find(params[:id].to_s)
-      if post.moderation_state != moderation_state
-        flash[:last_moderated_record_id] = Thredded::ModeratePost.run!(
+      post = Post.find!(params[:id].to_s)
+      if post.moderation_state != moderation_state and moderatable_posts.find(params[:id].to_s)
+        Thredded::ModeratePost.run!(
           post: post,
           moderation_state: moderation_state,
           moderator: thredded_current_user,
-        ).id
+        )
+        head 204
       else
-        flash[:alert] = "Post was already #{moderation_state}:"
-        flash[:last_moderated_record_id] =
-          Thredded::PostModerationRecord.order_newest_first.find_by(post_id: post.id)&.id
+        render json: {errors: "Post was already #{moderation_state}" }, status: 422
       end
-      redirect_back fallback_location: pending_moderation_path
     end
 
     def users
@@ -63,32 +62,34 @@ module Thredded
       @query = params[:q].to_s
       @users = DbTextSearch::CaseInsensitive.new(@users, Thredded.user_name_column).prefix(@query) if @query.present?
       @users = @users.send(Kaminari.config.page_method_name, current_page)
+      render json: UserSerializer.new(@users, include: [:thredded_user_detail]).serialized_json, status: 200
     end
 
     def user
-      @user = Thredded.user_class.find(params[:id])
+      @user = find_user(params[:id])
       # Do not apply policy_scope here, as we want to show blocked posts as well.
       posts_scope = @user.thredded_posts
         .where(messageboard_id: policy_scope(Messageboard.all).pluck(:id))
         .order_newest_first
         .includes(:postable)
         .send(Kaminari.config.page_method_name, current_page)
-      @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope)
+      @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope, author: @user)
+      render json: PostsPageViewSerializer.new(@posts).serialized_json, status: 200
     end
 
     def moderate_user
-      return head(:bad_request) unless Thredded::UserDetail.moderation_states.include?(params[:moderation_state])
-      user = Thredded.user_class.find(params[:id])
-      user.thredded_user_detail.update!(moderation_state: params[:moderation_state])
-      redirect_back fallback_location: user_moderation_path(user.id)
+      moderation_state = params[:moderation_state].to_s
+      return head(:bad_request) unless Thredded::UserDetail.moderation_states.include?(moderation_state)
+      user = find_user(params[:id])
+      if user.thredded_user_detail.moderation_state != moderation_state
+        user.thredded_user_detail.update!(moderation_state: params[:moderation_state])
+        head 204
+      else
+        render json: {errors: "User was already #{moderation_state}" }, status: 422
+      end
     end
 
     private
-
-    def maybe_set_last_moderated_record_flash
-      return unless flash[:last_moderated_record_id]
-      @last_moderated_record = accessible_post_moderation_records.find(flash[:last_moderated_record_id].to_s)
-    end
 
     def moderatable_posts
       if moderatable_messageboards == Thredded::Messageboard.all

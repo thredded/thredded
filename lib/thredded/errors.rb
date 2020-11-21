@@ -19,7 +19,7 @@ module Thredded
 
     class UserNotFound < Thredded::Error
       def message
-        'This user could not be found. Is their name misspelled?'
+        'This user could not be found'
       end
     end
 
