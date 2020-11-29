@@ -1,14 +1,1 @@
-<%= content_tag(:div, id: 'thredded--container', class: thredded_container_classes, data: thredded_container_data) do %>
-  <%= render 'thredded/shared/header' %>
-  <%= yield :thredded_page_content %>
-  <%= render 'thredded/shared/currently_online' if Thredded.currently_online_enabled %>
-<%- end %>
 
-<%# If thredded JS is loaded via an [async] script, the JS may
-run before or after DOMContentLoaded. Expose a flag to Thredded
-so it can initialize correctly. %>
-<%= javascript_tag 'data-turbolinks-eval': 'false', **(Thredded.rails_supports_csp_nonce? ? {nonce: true} : {}) do %>
-  document.addEventListener('DOMContentLoaded', function() {
-    (window.Thredded = window.Thredded || {}).DOMContentLoadedFired = true;
-  });
-<% end %>
