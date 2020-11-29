@@ -46,9 +46,9 @@ module Thredded
     def create
       @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
-        redirect_to @private_topic.private_topic
+        render json: PrivateTopicsSerializer.new(@private_topic).serialized_json, status: 201
       else
-        render :new
+        render json: {errors: @private_topic.errors }, status: 422
       end
     end
 
@@ -58,15 +58,25 @@ module Thredded
       render
     end
 
-    def update
-      authorize private_topic, :update?
-      if private_topic.update(private_topic_params)
-        redirect_to private_topic_url(private_topic),
-                    notice: I18n.t('thredded.private_topics.updated_notice')
-      else
-        render :edit
+    def destroy
+      begin
+        @private_topic = Thredded::PrivateTopic.friendly_find!(params[:id])
+        authorize @private_topic, :destroy?
+        @private_topic.destroy!
+      rescue Exception
+        raise
       end
+      head 204
     end
+
+    # def update
+    #   authorize private_topic, :update?
+    #   if private_topic.update(private_topic_params)
+    #     render json: PrivateTopicsSerializer.new(private_topic).serialized_json, status: 200
+    #   else
+    #     render json: {errors: private_topic.errors }, status: 422
+    #   end
+    # end
 
     private
 
