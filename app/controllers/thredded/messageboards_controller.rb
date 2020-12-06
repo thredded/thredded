@@ -12,7 +12,7 @@ module Thredded
         policy_scope(Thredded::Messageboard.all),
         user: thredded_current_user
       )
-      render json: MessageboardgroupviewSerializer.new(@groups).serialized_json, status: 200
+      render json: MessageboardGroupViewSerializer.new(@groups).serialized_json, status: 200
     end
 
     def show
