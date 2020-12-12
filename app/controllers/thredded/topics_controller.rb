@@ -122,13 +122,13 @@ module Thredded
     def follow
       authorize topic, :read?
       Thredded::UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
-      follow_change_response(following: true)
+      head 204
     end
 
     def unfollow
       authorize topic, :read?
       Thredded::UserTopicFollow.find_by(topic_id: topic.id, user_id: thredded_current_user.id).try(:destroy)
-      follow_change_response(following: false)
+      head 204
     end
 
     private
@@ -170,14 +170,6 @@ module Thredded
 
     def canonical_topic_params
       { messageboard_id: messageboard.slug, id: topic.slug }
-    end
-
-    def follow_change_response(following:)
-      notice = following ? t('thredded.topics.followed_notice') : t('thredded.topics.unfollowed_notice')
-      respond_to do |format|
-        format.html { redirect_to messageboard_topic_url(messageboard, topic), notice: notice }
-        format.json { render(json: { follow: following }) }
-      end
     end
 
     # Returns the `@topic` instance variable.
