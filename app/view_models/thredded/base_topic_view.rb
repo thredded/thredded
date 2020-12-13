@@ -3,7 +3,7 @@
 module Thredded
   # A view model for TopicCommon.
   class BaseTopicView
-    attr_reader :topic
+    attr_reader :topic, :read_state
     delegate :title,
              :last_post_at,
              :created_at,
