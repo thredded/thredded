@@ -17,6 +17,8 @@ module Thredded
              :cache_key_with_version,
              to: :@post
 
+    attr_reader :id, :post, :first_unread_in_page, :first_in_page
+
     # @param post [Thredded::PostCommon]
     # @param policy [#create? #update? #destroy? #moderate?]
     # @param topic_view [Thredded::TopicView]
@@ -28,6 +30,7 @@ module Thredded
       @topic_view = topic_view
       @first_unread_in_page = first_unread_in_page
       @first_in_page = first_in_page
+      @id = nil
     end
 
     def can_reply?
