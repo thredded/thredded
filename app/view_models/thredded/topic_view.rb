@@ -3,6 +3,7 @@
 module Thredded
   # A view model for Topic.
   class TopicView < Thredded::BaseTopicView
+    attr_reader :follow
     delegate :sticky?, :locked?, :categories, :id, :blocked?, :last_moderation_record, :followers,
              :last_post, :messageboard_id, :messageboard_name,
              to: :@topic
