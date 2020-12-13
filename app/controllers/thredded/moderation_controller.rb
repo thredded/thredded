@@ -21,7 +21,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
         .preload(:messageboard, :post_user, :moderator, post: :postable)
         .preload_first_topic_post
-      render json: PostmoderationrecordSerializer.new(@post_moderation_records).serialized_json, status: 200
+      render json: PostModerationRecordSerializer.new(@post_moderation_records, include: [:post, :messageboard, :moderator, :post_user]).serialized_json, status: 200
     end
 
     def activity

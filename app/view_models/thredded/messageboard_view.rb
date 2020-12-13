@@ -22,6 +22,12 @@ module Thredded
     # @return [Integer]
     attr_reader :unread_followed_topics_count
 
+    # @return [Integer]
+    attr_reader :id
+
+    # @return [Thredded::Messageboard]
+    attr_reader :messageboard
+
     # @param [Thredded::Messageboard] messageboard
     # @param [Integer] topics_count
     # @param [Integer] posts_count
@@ -39,6 +45,7 @@ module Thredded
       @posts_count = posts_count
       @unread_topics_count = unread_topics_count
       @unread_followed_topics_count = unread_followed_topics_count
+      @id = nil
     end
 
     # @return [Boolean]

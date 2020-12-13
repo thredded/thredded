@@ -2,5 +2,10 @@
 
 class PostsPageViewSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :author, :post_views
+  attribute :author do |author|
+    UserSerializer.new(author.author)
+  end
+  attribute :post_views do |post_views|
+    PostViewSerializer.new(post_views.post_views)
+  end
 end

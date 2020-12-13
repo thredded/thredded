@@ -2,5 +2,7 @@
 
 class MessageboardGroupViewSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :messageboards, :group
+  attribute :messageboards do |messageboards|
+    MessageboardViewSerializer.new(messageboards.messageboards)
+  end
 end
