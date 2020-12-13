@@ -3,7 +3,7 @@
 module Thredded
   class EditTopicForm
     include ActiveModel::Model
-    attr_reader :topic_views
+    attr_reader :topic_views, :topic
 
     delegate :id, :title, :title_was, :category_ids, :locked, :sticky, :messageboard, :messageboard_id, :valid?,
              :errors,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MessageboardgroupviewSerializer
+class TopicPostsPageViewSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :messageboards, :group
+  attributes :id, :post_views, :topic
 end

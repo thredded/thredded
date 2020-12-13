@@ -23,9 +23,9 @@ module Thredded
       )
       authorize_creating @post_form.post
       if @post_form.save
-        redirect_to post_path(@post_form.post, user: thredded_current_user)
+        render json: PrivatePostSerializer.new(@post_form).serialized_json, status: 201
       else
-        render :new
+        render json: {errors: @post_form.errors }, status: 422
       end
     end
 

@@ -67,6 +67,8 @@ module Thredded
                class_name: 'Thredded::MessageboardGroup',
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
+    alias_attribute :messageboard_group, :group
+
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }
