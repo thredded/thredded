@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostsPageViewSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attribute :author do |author|
     UserSerializer.new(author.author)
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class MessageboardGroupSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attributes :id, :name, :position, :created_at, :updated_at
 end

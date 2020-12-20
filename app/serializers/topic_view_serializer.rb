@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TopicViewSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attribute :topic do |topic|
     TopicSerializer.new(topic.topic, include: [:messageboard, :user, :last_user])
   end

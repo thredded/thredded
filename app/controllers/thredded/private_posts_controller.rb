@@ -23,7 +23,7 @@ module Thredded
       )
       authorize_creating @post_form.post
       if @post_form.save
-        render json: PrivatePostSerializer.new(@post_form).serialized_json, status: 201
+        render json: PrivatePostSerializer.new(@post_form).serializable_hash.to_json, status: 201
       else
         render json: {errors: @post_form.errors }, status: 422
       end

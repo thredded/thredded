@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class ThreddedUserDetailSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attributes :moderation_state
 end

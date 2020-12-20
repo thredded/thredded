@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TopicPostsPageViewSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attribute :topic do |topic|
     TopicViewSerializer.new(topic.topic)
   end

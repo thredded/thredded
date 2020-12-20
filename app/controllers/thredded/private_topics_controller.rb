@@ -46,7 +46,7 @@ module Thredded
     def create
       @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
-        render json: PrivateTopicsSerializer.new(@private_topic).serialized_json, status: 201
+        render json: PrivateTopicsSerializer.new(@private_topic).serializable_hash.to_json, status: 201
       else
         render json: {errors: @private_topic.errors }, status: 422
       end
@@ -72,7 +72,7 @@ module Thredded
     # def update
     #   authorize private_topic, :update?
     #   if private_topic.update(private_topic_params)
-    #     render json: PrivateTopicsSerializer.new(private_topic).serialized_json, status: 200
+    #     render json: PrivateTopicsSerializer.new(private_topic).serializable_hash.to_json, status: 200
     #   else
     #     render json: {errors: private_topic.errors }, status: 422
     #   end

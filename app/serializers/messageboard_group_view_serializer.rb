@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MessageboardGroupViewSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attribute :messageboards do |messageboards|
     MessageboardViewSerializer.new(messageboards.messageboards)
   end

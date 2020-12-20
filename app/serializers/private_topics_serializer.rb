@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class PrivateTopicsSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attributes :id, :title, :user_names, :content
 end
