@@ -108,6 +108,10 @@ module Thredded
       last_topic.try(:last_user)
     end
 
+    def last_user_id
+      last_user.try(:id)
+    end
+
     def update_last_topic!
       return if destroyed?
       self.last_topic = topics.order_recently_posted_first.moderation_state_visible_to_all.first

@@ -12,7 +12,7 @@ module Thredded
       @messageboard_group = Thredded::MessageboardGroup.new(messageboard_group_params)
       authorize @messageboard_group, :create?
       if @messageboard_group.save
-        render json: MessageboardGroupSerializer.new(@messageboard_group).serialized_json, status: 201
+        render json: MessageboardGroupSerializer.new(@messageboard_group).serializable_hash.to_json, status: 201
       else
         render json: {errors: @messageboard_group.errors }, status: 422
       end
@@ -24,7 +24,7 @@ module Thredded
         policy_scope(Thredded::Messageboard.where(group: params[:id])),
         user: thredded_current_user
       )
-      render json: MessageboardGroupSerializer.new(@group).serialized_json, status: 200
+      render json: MessageboardGroupSerializer.new(@group).serializable_hash.to_json, status: 200
     end
 
     private

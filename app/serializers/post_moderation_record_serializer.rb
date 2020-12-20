@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostModerationRecordSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   set_type :post_moderation_record
   attributes :id, :previous_moderation_state, :moderation_state
   belongs_to :messageboard

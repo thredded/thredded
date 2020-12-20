@@ -12,7 +12,7 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      render json: PostsPageViewSerializer.new(@posts).serialized_json, status: 200
+      render json: PostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
     end
 
     def history
@@ -21,7 +21,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
         .preload(:messageboard, :post_user, :moderator, post: :postable)
         .preload_first_topic_post
-      render json: PostModerationRecordSerializer.new(@post_moderation_records, include: [:post, :messageboard, :moderator, :post_user]).serialized_json, status: 200
+      render json: PostModerationRecordSerializer.new(@post_moderation_records, include: [:post, :messageboard, :moderator, :post_user]).serializable_hash.to_json, status: 200
     end
 
     def activity
@@ -31,7 +31,7 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      render json: PostsPageViewSerializer.new(@posts).serialized_json, status: 200
+      render json: PostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
     end
 
     def moderate_post
@@ -62,7 +62,7 @@ module Thredded
       @query = params[:q].to_s
       @users = DbTextSearch::CaseInsensitive.new(@users, Thredded.user_name_column).prefix(@query) if @query.present?
       @users = @users.send(Kaminari.config.page_method_name, current_page)
-      render json: UserSerializer.new(@users, include: [:thredded_user_detail]).serialized_json, status: 200
+      render json: UserSerializer.new(@users, include: [:thredded_user_detail]).serializable_hash.to_json, status: 200
     end
 
     def user
@@ -74,7 +74,7 @@ module Thredded
         .includes(:postable)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope, author: @user)
-      render json: PostsPageViewSerializer.new(@posts).serialized_json, status: 200
+      render json: PostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
     end
 
     def moderate_user
