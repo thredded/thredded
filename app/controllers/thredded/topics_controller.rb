@@ -84,7 +84,7 @@ module Thredded
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        render json: TopicSerializer.new(@new_topic.topic, include: [:messageboard, :user]).serialized_json, status: 201
+        render json: TopicSerializer.new(@new_topic.topic, include: [:messageboard, :user, :last_user]).serialized_json, status: 201
       else
         render json: {errors: @new_topic.errors }, message: 422
       end
@@ -103,7 +103,7 @@ module Thredded
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
       if @edit_topic.save
-        render json: TopicSerializer.new(@edit_topic.topic, include: [:messageboard, :user]).serialized_json, status: 200
+        render json: TopicSerializer.new(@edit_topic.topic, include: [:messageboard, :user, :last_user]).serialized_json, status: 200
       else
         render json: {errors: @edit_topic.errors }, status: 422
       end
