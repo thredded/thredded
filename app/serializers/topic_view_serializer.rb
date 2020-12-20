@@ -3,7 +3,7 @@
 class TopicViewSerializer
   include FastJsonapi::ObjectSerializer
   attribute :topic do |topic|
-    TopicSerializer.new(topic.topic, include: [:messageboard, :user])
+    TopicSerializer.new(topic.topic, include: [:messageboard, :user, :last_user])
   end
   attribute :follow do |follow|
     if follow.follow.is_a?(Thredded::UserTopicFollow)
