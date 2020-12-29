@@ -20,11 +20,12 @@ module Thredded
 
     def show
       @group = Thredded::MessageboardGroup.where(id: params[:id])
-      @groups = Thredded::MessageboardGroupView.grouped(
-        policy_scope(Thredded::Messageboard.where(group: params[:id])),
-        user: thredded_current_user
-      )
-      render json: MessageboardGroupSerializer.new(@group).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupSerializer.new(@group, include: [:messageboards]).serializable_hash.to_json, status: 200
+    end
+
+    def index
+      @groups = Thredded::MessageboardGroup.all
+      render json: MessageboardGroupSerializer.new(@groups, include: [:messageboards]).serializable_hash.to_json, status: 200
     end
 
     private
