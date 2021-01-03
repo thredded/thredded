@@ -3,6 +3,7 @@
 module Thredded
   # A view model for PrivateTopic.
   class PrivateTopicView < Thredded::BaseTopicView
+    attr_reader :id, :user_names, :content
     delegate :users, to: :@topic
 
     def edit_path
