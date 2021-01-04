@@ -2,8 +2,10 @@
 
 module Thredded
   class PrivatePostForm
-    attr_reader :post, :topic
+    attr_reader :post, :topic, :postable, :user
     delegate :id,
+             :postable_id,
+             :user_id,
              :persisted?,
              :content,
              :content=,

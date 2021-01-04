@@ -23,7 +23,7 @@ module Thredded
       )
       authorize_creating @post_form.post
       if @post_form.save
-        render json: PrivatePostSerializer.new(@post_form).serializable_hash.to_json, status: 201
+        render json: PrivatePostSerializer.new(@post_form, include: [:postable, :user]).serializable_hash.to_json, status: 201
       else
         render json: {errors: @post_form.errors }, status: 422
       end
@@ -36,19 +36,20 @@ module Thredded
       render
     end
 
+    #include of postable & user is missing
     def update
       authorize post, :update?
-      post.update(new_private_post_params)
-
-      redirect_to post_path(post, user: thredded_current_user)
+      if post.update(new_private_post_params)
+        render json: PrivatePostSerializer.new(post).serializable_hash.to_json, status: 200
+      else
+        render json: {errors: post.errors }, status: 422
+      end
     end
 
     def destroy
       authorize post, :destroy?
       post.destroy!
-
-      redirect_back fallback_location: topic_url(topic),
-                    notice: I18n.t('thredded.posts.deleted_notice')
+      head 204
     end
 
     def mark_as_read
