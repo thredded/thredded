@@ -23,6 +23,7 @@ module Thredded
     describe 'GET index' do
       it 'renders' do
         get :index, params: { messageboard_id: @messageboard.slug }
+        expect(response).to match_response_schema(:topic_view)
         expect(response).to have_http_status(200)
       end
 

@@ -13,6 +13,7 @@ gem 'sqlite3', '~> 1.3', '>= 1.3.6'
 
 group :test do
   gem 'rails-controller-testing'
+  gem 'json-schema'
 
   # https://github.com/rspec/rspec-rails/issues/2103
   gem 'rspec-rails', '>= 4.0.0.beta2'

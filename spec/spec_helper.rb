@@ -41,6 +41,7 @@ require 'factory_bot'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
+require "json-schema"
 
 # Driver makes web requests to localhost, configure WebMock to let them through
 WebMock.allow_net_connect!
@@ -144,6 +145,16 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
 
     config.append_after do
       DatabaseCleaner.clean
+    end
+  end
+end
+
+RSpec.configure do |config|
+  RSpec::Matchers.define :match_response_schema do |schema|
+    match do |response|
+      schema_directory = "#{Dir.pwd}/spec/support/api/schemas"
+      schema_path = "#{schema_directory}/#{schema}.json"
+      JSON::Validator.validate!(schema_path, response.body, strict: true)
     end
   end
 end
