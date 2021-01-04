@@ -23,9 +23,7 @@ module Thredded
     describe 'GET index' do
       it 'renders' do
         get :index, params: { messageboard_id: @messageboard.slug }
-
-        expect(response).to be_successful
-        expect(response).to render_template('index')
+        expect(response).to have_http_status(200)
       end
 
       it 'performs canonical redirect' do
@@ -39,15 +37,14 @@ module Thredded
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))
         get :search, params: { messageboard_id: @messageboard.slug, q: 'hi' }
 
-        expect(response).to be_successful
-        expect(response).to render_template('search')
+        expect(response).to have_http_status(200)
       end
 
       it 'is successful with spaces around search term(s)' do
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))
         get :search, params: { messageboard_id: @messageboard.slug, q: '  hi  ' }
 
-        expect(response).to be_successful
+        expect(response).to have_http_status(200)
       end
 
       it 'performs canonical redirect' do
@@ -61,10 +58,7 @@ module Thredded
           allow(Topic).to receive_messages(search_query: Topic.none)
           get :search, params: { messageboard_id: @messageboard.slug, q: 'hi' }
 
-          expect(response.body).to(
-            include(I18n.t('thredded.topics.search.no_results_in_messageboard_message_html',
-                           query: 'hi', messageboard: @messageboard.name))
-          )
+          expect(JSON.parse(response.body)['data']['attributes']['topic_views'].size).to eq(0)
         end
       end
     end
@@ -103,41 +97,9 @@ module Thredded
         end.to change(Topic, :count).by(1)
       end
 
-      it 'redirects with no explicit next_page' do
+      it 'returns status code 201 when created' do
         post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params }
-        expect(response).to redirect_to(messageboard_topics_path(messageboard_id: @messageboard.slug))
-      end
-
-      it 'redirects with blank next_page' do
-        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: '' }
-        expect(response).to redirect_to(messageboard_topics_path(messageboard_id: @messageboard.slug))
-      end
-
-      it 'next_page=messageboard works redirects the same' do
-        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: 'messageboard' }
-        expect(response).to redirect_to(messageboard_topics_path(messageboard_id: @messageboard.slug))
-      end
-      it 'respects next_page=topic' do
-        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: 'topic' }
-        topic = Topic.last
-        expect(response).to redirect_to(messageboard_topic_path(@messageboard.slug, topic))
-      end
-      it 'respects next_page=path' do
-        next_page_path = '/u/1'
-        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: next_page_path }
-        expect(response).to redirect_to(next_page_path)
-      end
-      it "won't redirect to other hosts via scheme" do
-        next_page_url = 'http://example.com/somewhere-naughty'
-        expect do
-          post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: next_page_url }
-        end.to raise_error(/#{next_page_url}/)
-      end
-      it "won't redirect to other hosts via protocol relative" do
-        next_page_url = '//example.com/somewhere-naughty'
-        expect do
-          post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params, next_page: next_page_url }
-        end.to raise_error(/#{next_page_url}/)
+        expect(response).to have_http_status(201)
       end
     end
 
@@ -154,7 +116,7 @@ module Thredded
 
         it 'returns changed status' do
           do_follow
-          expect(JSON.parse(response.body)).to include('follow' => true)
+          expect(response).to have_http_status(204)
         end
       end
     end
@@ -177,7 +139,7 @@ module Thredded
 
         it 'returns changed status' do
           do_unfollow
-          expect(JSON.parse(response.body)).to include('follow' => false)
+          expect(response).to have_http_status(204)
         end
       end
     end

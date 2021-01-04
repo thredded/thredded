@@ -5,8 +5,12 @@ module Thredded
     before_action :thredded_require_login!
 
     def update
-      Thredded::MarkAllRead.run(thredded_current_user) if thredded_signed_in?
-      head 204
+      if thredded_signed_in?
+        Thredded::MarkAllRead.run(thredded_current_user)
+        head 204
+      else
+        render json: {error: {message: 'Invalid email or password'} }, status: 401
+      end
     end
   end
 end
