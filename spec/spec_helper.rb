@@ -1,4 +1,15 @@
 # frozen_string_literal: true
+def require_rel(*paths)
+  # Handle passing an array as an argument
+  paths.flatten!
+  return false if paths.empty?
+
+  source_directory = File.dirname caller.first.sub(/:\d+$/, '')
+  paths.each do |path|
+    require_all File.join(source_directory, path)
+  end
+end
+
 
 ENV['RAILS_ENV'] = 'test'
 db = ENV.fetch('DB', 'sqlite3')
@@ -41,9 +52,10 @@ require 'factory_bot'
 require 'database_cleaner'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
-require "json-schema"
+require 'dry-validation'
+require 'require_all'
+require_rel './support/views/schemas'
 
-# Driver makes web requests to localhost, configure WebMock to let them through
 WebMock.allow_net_connect!
 
 if Rails::VERSION::MAJOR >= 5
@@ -149,12 +161,3 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   end
 end
 
-RSpec.configure do |config|
-  RSpec::Matchers.define :match_response_schema do |schema|
-    match do |response|
-      schema_directory = "#{Dir.pwd}/spec/support/api/schemas"
-      schema_path = "#{schema_directory}/#{schema}.json"
-      JSON::Validator.validate!(schema_path, response.body, strict: true)
-    end
-  end
-end
