@@ -38,7 +38,7 @@ module Thredded
         it 'returns changed status' do
           expect(UserTopicReadState).to receive(:touch!).with(user.id, the_post)
           do_post_request
-          expect(JSON.parse(response.body)).to include('read' => true)
+          expect(response).to have_http_status(204)
         end
       end
     end
@@ -65,7 +65,7 @@ module Thredded
 
         it 'returns changed status' do
           do_post_request
-          expect(JSON.parse(response.body)).to include('read' => false)
+          expect(response).to have_http_status(204)
         end
       end
     end

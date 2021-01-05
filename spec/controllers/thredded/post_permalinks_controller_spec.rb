@@ -6,15 +6,15 @@ module Thredded
   describe PostPermalinksController do
     routes { Thredded::Engine.routes }
 
-    it 'redirects if the user can read the post' do
+    it 'returns status code 200 if the user can read the post' do
       get :show, params: { id: create(:post).id }
-      expect(response).to be_redirect
+      expect(response).to have_http_status(200)
     end
 
-    it 'responds with forbidden if the user cannot read the post' do
+    it 'returns status code 403 if the user cannot read the post' do
       allow_any_instance_of(PostPolicy).to receive_messages(read?: false) # rubocop:disable RSpec/AnyInstance
       get :show, params: { id: create(:post).id }
-      expect(response).to be_forbidden
+      expect(response).to have_http_status(403)
     end
   end
 end

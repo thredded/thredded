@@ -19,6 +19,7 @@ require 'thredded/markdown_coderay'
 require 'thredded/markdown_katex'
 require 'rails-ujs' unless Thredded.rails_gte_51?
 require 'backport_new_renderer' if Rails::VERSION::MAJOR < 5
+require 'jsonapi/serializer'
 
 if ENV['HEROKU']
   require 'tunemygc'

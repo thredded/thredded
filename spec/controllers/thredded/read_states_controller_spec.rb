@@ -39,10 +39,6 @@ module Thredded
           do_update
         end
       end
-
-      it 'redirects to referer' do
-        expect(do_update).to redirect_to(root_path)
-      end
     end
   end
 end
