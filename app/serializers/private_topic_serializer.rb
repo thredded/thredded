@@ -2,5 +2,5 @@
 
 class PrivateTopicSerializer
   include JSONAPI::Serializer
-  attributes :id, :title, :user_names, :content
+  attributes :id, :title, :content
 end

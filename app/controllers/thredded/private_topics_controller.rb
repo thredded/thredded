@@ -22,21 +22,20 @@ module Thredded
       render json: PrivateTopicSerializer.new(@private_topics.topic_views).serializable_hash.to_json, status: 200
     end
 
-    def show
+    def show  
       authorize private_topic, :read?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-
       page_scope = private_topic
         .posts
         .includes(:user)
         .order_oldest_first
         .send(Kaminari.config.page_method_name, current_page)
-      return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
       Thredded::UserPrivateTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
-      @new_post = Thredded::PrivatePostForm.new(
-        user: thredded_current_user, topic: private_topic, post_params: new_private_post_params
-      )
+      # nötig?
+      #@new_post = Thredded::PrivatePostForm.new(
+      #  user: thredded_current_user, topic: private_topic, post_params: new_private_post_params
+      #)
+      render json: PrivateTopicPostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
     end
 
     def new

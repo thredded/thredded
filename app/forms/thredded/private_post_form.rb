@@ -2,7 +2,7 @@
 
 module Thredded
   class PrivatePostForm
-    attr_reader :post, :topic, :postable, :user
+    attr_reader :post, :topic, :postable, :user, :topic_id, :content
     delegate :id,
              :postable_id,
              :user_id,
@@ -20,7 +20,10 @@ module Thredded
       @post = post || topic.posts.build
       user ||= Thredded::NullUser.new
 
-      @post.attributes = post_params.merge(user: (user unless user.thredded_anonymous?))
+      @post.attributes = post_params.merge(
+          user: (user unless user.thredded_anonymous?),
+      #topic: topic
+      )
     end
 
     def self.for_persisted(post)
