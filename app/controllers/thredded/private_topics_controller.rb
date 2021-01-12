@@ -19,7 +19,7 @@ module Thredded
       Thredded::PrivateTopicForm.new(user: thredded_current_user).tap do |form|
         @new_private_topic = form if policy(form.private_topic).create?
       end
-      render json: PrivateTopicSerializer.new(@private_topics.topic_views).serializable_hash.to_json, status: 200
+      render json: PrivateTopicViewSerializer.new(@private_topics.topic_views).serializable_hash.to_json, status: 200
     end
 
     def show  
@@ -30,12 +30,7 @@ module Thredded
         .order_oldest_first
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
-      Thredded::UserPrivateTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
-      # nötig?
-      #@new_post = Thredded::PrivatePostForm.new(
-      #  user: thredded_current_user, topic: private_topic, post_params: new_private_post_params
-      #)
-      render json: PrivateTopicPostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
+      render json: TopicPostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
     end
 
     def new
@@ -46,7 +41,7 @@ module Thredded
     def create
       @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
-        render json: PrivateTopicSerializer.new(@private_topic).serializable_hash.to_json, status: 201
+        render json: PrivateTopicSerializer.new(@private_topic, include: [:user, :users]).serializable_hash.to_json, status: 201
       else
         render json: {errors: @private_topic.errors }, status: 422
       end
@@ -72,7 +67,7 @@ module Thredded
     def update
       authorize private_topic, :update?
       if private_topic.update(private_topic_params)
-        render json: PrivateTopicUpdateSerializer.new(private_topic).serializable_hash.to_json, status: 200
+        render json: PrivateTopicSerializer.new(private_topic, include: [:user, :users]).serializable_hash.to_json, status: 200
       else
         render json: {errors: private_topic.errors }, status: 422
       end

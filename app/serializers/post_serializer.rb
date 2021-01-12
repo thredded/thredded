@@ -6,4 +6,5 @@ class PostSerializer
   attributes :user_id, :content, :source, :postable_id, :messageboard_id, :moderation_state, :created_at, :updated_at
   belongs_to :user
   belongs_to :messageboard
+  belongs_to :postable, serializer: TopicSerializer
 end

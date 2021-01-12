@@ -2,8 +2,7 @@
 
 class PrivatePostSerializer
   include JSONAPI::Serializer
-  set_type :private_post
-  attributes :user_id, :content, :postable_id
-  belongs_to :user, serializer: UserSerializer, record_type: :user
-  #belongs_to :topic, serializer: PrivateTopicSerializer, record_type: :private_topics
+  attributes :user_id, :content, :created_at, :updated_at
+  belongs_to :user, serializer: UserSerializer
+  belongs_to :postable, serializer: PrivateTopicSerializer
 end

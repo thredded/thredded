@@ -12,7 +12,7 @@ class TopicViewSerializer
   end
   attribute :read_state do |read_state|
     if read_state.read_state.is_a?(Thredded::UserTopicReadState)
-      UserReadStatesSerializer.new(read_state.read_state)
+      UserTopicReadStateSerializer.new(read_state.read_state)
     end
   end
 end

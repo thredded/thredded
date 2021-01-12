@@ -2,8 +2,12 @@
 
 class TopicPostsPageViewSerializer
   include JSONAPI::Serializer
-  attribute :topic do |topic|
-    TopicViewSerializer.new(topic.topic)
+  attribute :topic do |topic_posts_page_view|
+    if topic_posts_page_view.topic.is_a?(Thredded::PrivateTopicView)
+      PrivateTopicViewSerializer.new(topic_posts_page_view.topic)
+    else
+      TopicViewSerializer.new(topic_posts_page_view.topic)
+    end
   end
   attribute :post_views do |post_view|
     PostViewSerializer.new(post_view.post_views)
