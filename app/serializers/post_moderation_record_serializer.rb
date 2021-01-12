@@ -3,7 +3,7 @@
 class PostModerationRecordSerializer
   include JSONAPI::Serializer
   set_type :post_moderation_record
-  attributes :id, :previous_moderation_state, :moderation_state
+  attributes :previous_moderation_state, :moderation_state, :created_at
   belongs_to :messageboard
   belongs_to :post
   belongs_to :moderator, serializer: UserSerializer, record_type: :user

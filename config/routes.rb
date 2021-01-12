@@ -19,7 +19,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         resource :preview, only: [:update], controller: 'private_post_previews'
       end
     end
-    delete '/private-topics/:id', action: :delete, controller: 'private_topics', as: :destroy_private_topics
   end
 
   scope only: [:show], constraints: { id: Thredded.routes_id_constraint } do

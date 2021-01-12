@@ -23,7 +23,7 @@ module Thredded
       )
       authorize_creating @post_form.post
       if @post_form.save
-        render json: PrivatePostSerializer.new(@post_form, include: [:postable, :user]).serializable_hash.to_json, status: 201
+        render json: PrivatePostSerializer.new(@post_form.post, include: [:user, :postable]).serializable_hash.to_json, status: 201
       else
         render json: {errors: @post_form.errors }, status: 422
       end
@@ -40,7 +40,7 @@ module Thredded
     def update
       authorize post, :update?
       if post.update(new_private_post_params)
-        render json: PrivatePostSerializer.new(post).serializable_hash.to_json, status: 200
+        render json: PrivatePostSerializer.new(post, include: [:user, :postable]).serializable_hash.to_json, status: 200
       else
         render json: {errors: post.errors }, status: 422
       end
