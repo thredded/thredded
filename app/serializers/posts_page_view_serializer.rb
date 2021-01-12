@@ -2,10 +2,10 @@
 
 class PostsPageViewSerializer
   include JSONAPI::Serializer
-  attribute :author do |author|
-    UserSerializer.new(author.author)
+  attribute :author do |posts_page_view|
+    UserSerializer.new(posts_page_view.author)
   end
-  attribute :post_views do |post_views|
-    PostViewSerializer.new(post_views.post_views)
+  attribute :post_views do |posts_page_view|
+    PostViewSerializer.new(posts_page_view.post_views)
   end
 end

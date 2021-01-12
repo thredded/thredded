@@ -9,7 +9,7 @@ class TopicPostsPageViewSerializer
       TopicViewSerializer.new(topic_posts_page_view.topic)
     end
   end
-  attribute :post_views do |post_view|
-    PostViewSerializer.new(post_view.post_views)
+  attribute :post_views do |topic_posts_page_view|
+    PostViewSerializer.new(topic_posts_page_view.post_views)
   end
 end

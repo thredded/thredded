@@ -2,9 +2,8 @@
 
 class TopicsPageViewSerializer
   include JSONAPI::Serializer
-  attributes :topic_views
-  attribute :topic_views do |topic_views|
-    topic_views.topic_views.map do |topic_view|
+  attribute :topic_views do |topic_page_view|
+    topic_page_view.topic_views.map do |topic_view|
       TopicViewSerializer.new(topic_view)
     end
   end
