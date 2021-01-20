@@ -24,7 +24,7 @@ module Thredded
     )
       template = @lookup_context.find_template(partial, [], true, locals, {})
       collection = collection.to_a
-      instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
+      ActiveSupport::Notifications.instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
         return [] if collection.blank?
 
         # Result is a hash with the key represents the
@@ -99,17 +99,21 @@ module Thredded
       collection.map { |object| render_partial(partial_renderer, view_context, opts.merge(object: object)) }
     end
 
-    def collection_cache
-      ActionView::PartialRenderer.collection_cache
+      def collection_cache
+        ActionView::PartialRenderer.collection_cache
     end
 
-    def combined_fragment_cache_key(view, key)
+      def combined_fragment_cache_key(view, key)
       view.combined_fragment_cache_key(key)
     end
 
     if Rails::VERSION::MAJOR >= 6
       def cache_fragment_name(view, key, virtual_path:, digest_path:)
-        view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+        if Rails::VERSION::MINOR >= 1
+          view.cache_fragment_name(key, digest_path: digest_path)
+        else
+          view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+        end
       end
 
       def digest_path_from_template(view, template)
