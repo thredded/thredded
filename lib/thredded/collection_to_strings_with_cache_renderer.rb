@@ -24,7 +24,7 @@ module Thredded
     )
       template = @lookup_context.find_template(partial, [], true, locals, {})
       collection = collection.to_a
-      instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
+      ActiveSupport::Notifications.instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
         return [] if collection.blank?
 
         # Result is a hash with the key represents the
@@ -95,10 +95,11 @@ module Thredded
     # @param view_context
     # @return [Array<String>]
     def render_partials_serial(view_context, collection, opts)
-      partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
-      collection.map { |object| render_partial(partial_renderer, view_context, opts.merge(object: object)) }
+      collection.map do |object|
+        partial_renderer = ActionView::PartialRenderer.new(@lookup_context, locals: { post: object })
+        partial_renderer.render(opts[:partial], view_context, nil).body
+      end
     end
-
     if Rails::VERSION::MAJOR >= 5
       def collection_cache
         ActionView::PartialRenderer.collection_cache
@@ -125,7 +126,11 @@ module Thredded
 
     if Rails::VERSION::MAJOR >= 6
       def cache_fragment_name(view, key, virtual_path:, digest_path:)
-        view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+        if Rails::VERSION::MINOR >= 1
+          view.cache_fragment_name(key, digest_path: digest_path)
+        else
+          view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+        end
       end
 
       def digest_path_from_template(view, template)

@@ -8,10 +8,12 @@ module Thredded
              :blank?,
              :empty?,
              :[],
+             :each,
              to: :@topic_views
     delegate :total_pages,
              :current_page,
              :limit_value,
+             :size,
              to: :@topics_page_scope
 
     # @param user [Thredded.user_class] the user who is viewing the posts page
