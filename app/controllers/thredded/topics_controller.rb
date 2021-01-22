@@ -25,7 +25,7 @@ module Thredded
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
       @topicsPageView = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(@topicsPageView.topic_views).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topicsPageView.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
     end
 
     def unread
