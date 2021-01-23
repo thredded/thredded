@@ -12,7 +12,7 @@ module Thredded
         policy_scope(Thredded::Messageboard.all),
         user: thredded_current_user
       )
-      render json: MessageboardGroupViewSerializer.new(@groups, include: [:messageboards, :'messageboards.messageboard']).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupViewSerializer.new(@groups, include: [:messageboards, :group, :'messageboards.messageboard']).serializable_hash.to_json, status: 200
     end
 
     def show
