@@ -20,7 +20,7 @@ module Thredded
 
     def show
       @group = Thredded::MessageboardGroup.where(id: params[:id])
-      render json: MessageboardGroupSerializer.new(@group, include: [:messageboards]).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupSerializer.new(@group, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
     end
 
     def index

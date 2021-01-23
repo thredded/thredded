@@ -6,7 +6,7 @@ module Thredded
     def show
       private_post = Thredded::PrivatePost.find!(params[:id].to_s)
       authorize private_post, :read?
-      render json: PrivatePostSerializer.new(private_post, include: [:user]).serializable_hash.to_json, status: 200
+      render json: PrivatePostSerializer.new(private_post).serializable_hash.to_json, status: 200
     end
   end
 end

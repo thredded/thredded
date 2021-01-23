@@ -10,37 +10,23 @@ module Thredded
 
     after_action :verify_authorized
 
-    def new
-      @post_form = Thredded::PrivatePostForm.new(
-        user: thredded_current_user, topic: parent_topic, post_params: new_private_post_params
-      )
-      authorize_creating @post_form.post
-    end
-
     def create
       @post_form = Thredded::PrivatePostForm.new(
         user: thredded_current_user, topic: parent_topic, post_params: new_private_post_params
       )
       authorize_creating @post_form.post
       if @post_form.save
-        render json: PrivatePostSerializer.new(@post_form.post, include: [:user, :postable]).serializable_hash.to_json, status: 201
+        render json: PrivatePostSerializer.new(@post_form.post).serializable_hash.to_json, status: 201
       else
         render json: {errors: @post_form.errors }, status: 422
       end
-    end
-
-    def edit
-      @post_form = Thredded::PrivatePostForm.for_persisted(post)
-      authorize @post_form.post, :update?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-      render
     end
 
     #include of postable & user is missing
     def update
       authorize post, :update?
       if post.update(new_private_post_params)
-        render json: PrivatePostSerializer.new(post, include: [:user, :postable]).serializable_hash.to_json, status: 200
+        render json: PrivatePostSerializer.new(post).serializable_hash.to_json, status: 200
       else
         render json: {errors: post.errors }, status: 422
       end

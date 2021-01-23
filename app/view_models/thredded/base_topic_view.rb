@@ -3,7 +3,7 @@
 module Thredded
   # A view model for TopicCommon.
   class BaseTopicView
-    attr_reader :topic_id, :topic, :read_state, :read_state_id
+    attr_reader :topic_id, :topic, :read_state, :read_state_id, :id
     delegate :title,
              :last_post_at,
              :created_at,
@@ -20,7 +20,7 @@ module Thredded
     # @param [#destroy?] policy
     def initialize(topic, read_state, policy)
       @topic = topic
-      @topic_id = topic&.id
+      @topic_id = @id = topic&.id
       @read_state = read_state || Thredded::NullUserTopicReadState.new(posts_count: @topic.posts_count)
       @read_state_id = @read_state.try(:id)
       @policy = policy

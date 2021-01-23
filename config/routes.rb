@@ -1,23 +1,16 @@
 # frozen_string_literal: true
 
 Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
-  resource :theme_preview, only: [:show], path: 'theme-preview' if %w[development test].include? Rails.env
-
   page_constraint = { page: /[1-9]\d*/ }
 
   scope path: 'private-topics' do
     resource :read_state, only: [:update], as: :mark_all_private_topics_read
-    resource :private_topic, only: [:new], path: '' do
-      post :preview, on: :new, controller: 'private_topic_previews'
-    end
+    resources :private_topic, only: [:new], path: ''
     resources :private_topics, except: %i[new show], path: '' do
       member do
         get '(page-:page)', action: :show, as: '', constraints: page_constraint
       end
-      resources :private_posts, path: '', except: %i[index show] do
-        post :preview, on: :new, controller: 'private_post_previews'
-        resource :preview, only: [:update], controller: 'private_post_previews'
-      end
+      resources :private_posts, path: '', except: %i[index show]
     end
   end
 
@@ -61,9 +54,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :messageboards, only: %i[show update destroy index create]
   resources :messageboards, only: %i[], path: '' do
     resource :preferences, only: %i[edit update]
-    resource :topic, path: 'topics', only: [:new] do
-      post :preview, on: :new, controller: 'topic_previews'
-    end
+    resources :topic, path: 'topics', only: [:new]
     resources :topics, path: 'topics', except: %i[index new show] do
       collection do
         get '(page-:page)', action: :index, as: '', constraints: page_constraint
@@ -77,10 +68,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         match 'follow', via: %i[post get]
         match 'unfollow', via: %i[post get]
       end
-      resources :posts, except: %i[index show], path: '' do
-        post :preview, on: :new, controller: 'post_previews'
-        resource :preview, only: [:update], controller: 'post_previews'
-      end
+      resources :posts, except: %i[index show], path: ''
     end
   end
 

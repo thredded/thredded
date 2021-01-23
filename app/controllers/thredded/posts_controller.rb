@@ -19,7 +19,7 @@ module Thredded
       authorize_creating @post_form.post
 
       if @post_form.save
-        render json: PostSerializer.new(@post_form.post, include: [:user, :messageboard]).serializable_hash.to_json, status: 201
+        render json: PostSerializer.new(@post_form.post).serializable_hash.to_json, status: 201
       else
         render json: {errors: @post_form.errors }, status: 422
       end
@@ -29,7 +29,7 @@ module Thredded
       authorize post, :update?
 
       if post.update(new_post_params)
-        render json: PostSerializer.new(post, include: [:user, :messageboard]).serializable_hash.to_json, status: 200
+        render json: PostSerializer.new(post).serializable_hash.to_json, status: 200
       else
         render json: {errors: post.errors }, status: 422
       end
