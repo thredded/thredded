@@ -1,6 +1,0 @@
-<% if messageboard.unread_followed_topics? %>
-  <span class="thredded--messageboard--unread-followed-topics-count">
-    <%= shared_inline_svg "thredded/follow.svg", class: "thredded--messageboard--unread-followed-icon", role: "img"%>
-    <%= number_with_delimiter messageboard.unread_followed_topics_count %>
-  </span>
-<% end %>

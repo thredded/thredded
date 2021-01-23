@@ -25,7 +25,7 @@ module Thredded
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
       @topicsPageView = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(@topicsPageView.topic_views).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topicsPageView.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
     end
 
     def unread
@@ -36,7 +36,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicsPageViewSerializer.new(@topics).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topics.topic_views, include: [:topic, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
     end
 
     def search
@@ -47,7 +47,7 @@ module Thredded
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicsPageViewSerializer.new(@topics).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topics.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
     end
 
     def show
@@ -57,14 +57,7 @@ module Thredded
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-        render json: TopicPostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
-    end
-
-    def new
-      @new_topic = Thredded::TopicForm.new(new_topic_params)
-      authorize_creating @new_topic.topic
-      return redirect_to(canonical_messageboard_params) unless params_match?(canonical_messageboard_params)
-      render
+      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic']).serializable_hash.to_json, status: 200
     end
 
     def category
@@ -77,14 +70,14 @@ module Thredded
           .order_recently_posted_first
           .send(Kaminari.config.page_method_name, current_page)
       )
-      render :index
+      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic']).serializable_hash.to_json, status: 200
     end
 
     def create
       @new_topic = Thredded::TopicForm.new(new_topic_params)
       authorize_creating @new_topic.topic
       if @new_topic.save
-        render json: TopicSerializer.new(@new_topic.topic, include: [:messageboard, :user, :last_user]).serializable_hash.to_json, status: 201
+        render json: TopicSerializer.new(@new_topic.topic, include: [:user, :last_user]).serializable_hash.to_json, status: 201
       else
         render json: {errors: @new_topic.errors }, message: 422
       end
@@ -103,7 +96,7 @@ module Thredded
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
       if @edit_topic.save
-        render json: TopicSerializer.new(@edit_topic.topic, include: [:messageboard, :user, :last_user]).serializable_hash.to_json, status: 200
+        render json: TopicSerializer.new(@edit_topic.topic, include: [:user, :last_user]).serializable_hash.to_json, status: 200
       else
         render json: {errors: @edit_topic.errors }, status: 422
       end

@@ -12,7 +12,7 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      render json: PostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
+      render json: PostViewSerializer.new(@posts.post_views, include: [:post, :'post.user']).serializable_hash.to_json, status: 200
     end
 
     def history
@@ -31,7 +31,7 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      render json: PostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
+      render json: PostViewSerializer.new(@posts.post_views, include: [:post, :'post.user']).serializable_hash.to_json, status: 200
     end
 
     def moderate_post
@@ -74,7 +74,7 @@ module Thredded
         .includes(:postable)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope, author: @user)
-      render json: PostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
+      render json: PostViewSerializer.new(@posts.post_views, include: [:post, :'post.user']).serializable_hash.to_json, status: 200
     end
 
     def moderate_user

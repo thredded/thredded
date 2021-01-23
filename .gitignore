@@ -31,3 +31,4 @@ tmp/
 .rbenv-version
 .rbenv-vars
 .rbfu-version
+node_modules/

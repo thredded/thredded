@@ -1,7 +1,0 @@
-<%#
-  This partial can be called from the parent app to render the user's posts.
-  The parent view context that renders this partial must include Thredded::ApplicationHelper.
-  TODO: Use a Cell instead. https://github.com/apotonick/cells
-%>
-<%# @param posts [Thredded::PostsPageView] %>
-<%= render_posts posts, partial: 'thredded/users/post', content_partial: 'thredded/posts/content' %>

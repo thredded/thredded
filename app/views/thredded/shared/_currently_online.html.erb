@@ -1,6 +1,0 @@
-<% if (users = active_users).present? %>
-  <aside data-thredded-currently-online class="thredded--currently-online">
-    <%= render 'thredded/shared/currently_online/header', users: users %>
-    <%= render 'thredded/shared/currently_online/user_list', users: users %>
-  </aside>
-<% end %>

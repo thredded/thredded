@@ -3,7 +3,7 @@
 module Thredded
   # A view model for Topic.
   class TopicView < Thredded::BaseTopicView
-    attr_reader :follow
+    attr_reader :follow, :follow_id
     delegate :sticky?, :locked?, :categories, :id, :blocked?, :last_moderation_record, :followers,
              :last_post, :messageboard_id, :messageboard_name,
              to: :@topic
@@ -14,6 +14,7 @@ module Thredded
     def initialize(topic, read_state, follow, policy)
       super(topic, read_state, policy)
       @follow = follow
+      @follow_id = follow&.id
     end
 
     def self.from_user(topic, user)

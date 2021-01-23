@@ -2,17 +2,7 @@
 
 class TopicViewSerializer
   include JSONAPI::Serializer
-  attribute :topic do |topic_view|
-    TopicSerializer.new(topic_view.topic, include: [:messageboard, :user, :last_user])
-  end
-  attribute :follow do |topic_view|
-    if topic_view.follow.is_a?(Thredded::UserTopicFollow)
-      UserTopicFollowSerializer.new(topic_view.follow)
-    end
-  end
-  attribute :read_state do |topic_view|
-    if topic_view.read_state.is_a?(Thredded::UserTopicReadState)
-      UserTopicReadStateSerializer.new(topic_view.read_state)
-    end
-  end
+  has_one :topic
+  has_one :read_state, serializer: UserTopicReadStateSerializer, if: Proc.new { |topic_view| topic_view.read_state.is_a?(Thredded::UserTopicReadState) }
+  has_one :follow, serializer: UserTopicFollowSerializer, if: Proc.new { |topic_view| topic_view.follow.is_a?(Thredded::UserTopicFollow) }
 end

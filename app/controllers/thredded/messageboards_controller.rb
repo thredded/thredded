@@ -12,12 +12,12 @@ module Thredded
         policy_scope(Thredded::Messageboard.all),
         user: thredded_current_user
       )
-      render json: MessageboardGroupViewSerializer.new(@groups).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupViewSerializer.new(@groups, include: [:messageboards, :group, :'messageboards.messageboard']).serializable_hash.to_json, status: 200
     end
 
     def show
       @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
-      render json: MessageboardSerializer.new(@messageboard, include: [:messageboard_group, :last_user, :last_topic]).serializable_hash.to_json, status: 200
+      render json: MessageboardSerializer.new(@messageboard).serializable_hash.to_json, status: 200
     end
 
     def new
@@ -29,7 +29,7 @@ module Thredded
       @new_messageboard = Thredded::Messageboard.new(messageboard_params)
       authorize_creating @new_messageboard
       if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
-        render json: MessageboardSerializer.new(@new_messageboard, include: [:messageboard_group, :last_user, :last_topic]).serializable_hash.to_json, status: 201
+        render json: MessageboardSerializer.new(@new_messageboard).serializable_hash.to_json, status: 201
       else
         render json: {errors: @new_messageboard.errors }, status: 422
       end
@@ -39,7 +39,7 @@ module Thredded
       @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       authorize @messageboard, :update?
       if @messageboard.update(messageboard_params)
-        render json: MessageboardSerializer.new(@messageboard, include: [:messageboard_group, :last_user, :last_topic]).serializable_hash.to_json, status: 200
+        render json: MessageboardSerializer.new(@messageboard).serializable_hash.to_json, status: 200
       else
         render json: {errors: @messageboard.errors }, status: 422
       end

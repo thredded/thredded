@@ -4,7 +4,7 @@ module Thredded
   # A view model for a page of MessageboardGroupViews.
   class MessageboardGroupView
     delegate :name, :id, to: :@group, allow_nil: true
-    attr_reader :group, :messageboards
+    attr_reader :group, :group_id, :messageboards, :messageboard_ids
 
     # @param [ActiveRecord::Relation<Thredded::Messageboard>] messageboards_scope
     # @param [Thredded.user_class] user The user viewing the messageboards.
@@ -45,7 +45,9 @@ module Thredded
     # @param [Array<Thredded::MessageboardView>] messageboards
     def initialize(group, messageboards)
       @group = group
+      @group_id = group&.id
       @messageboards = messageboards
+      @messageboard_ids = messageboards.map { |messageboard| messageboard.messageboard.id }
     end
   end
 end

@@ -2,7 +2,6 @@
 
 class MessageboardGroupViewSerializer
   include JSONAPI::Serializer
-  attribute :messageboards do |messageboards|
-    MessageboardViewSerializer.new(messageboards.messageboards)
-  end
+  has_one :group, serializer: MessageboardGroupSerializer
+  has_many :messageboards, serializer: MessageboardViewSerializer
 end

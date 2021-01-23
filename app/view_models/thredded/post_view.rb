@@ -30,7 +30,7 @@ module Thredded
       @topic_view = topic_view
       @first_unread_in_page = first_unread_in_page
       @first_in_page = first_in_page
-      @id = nil
+      @id = post&.id
     end
 
     def can_reply?

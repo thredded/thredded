@@ -19,7 +19,7 @@ module Thredded
       Thredded::PrivateTopicForm.new(user: thredded_current_user).tap do |form|
         @new_private_topic = form if policy(form.private_topic).create?
       end
-      render json: PrivateTopicViewSerializer.new(@private_topics.topic_views).serializable_hash.to_json, status: 200
+      render json: PrivateTopicViewSerializer.new(@private_topics.topic_views, include: [:topic, :read_state, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
     end
 
     def show  
@@ -30,27 +30,16 @@ module Thredded
         .order_oldest_first
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
-      render json: TopicPostsPageViewSerializer.new(@posts).serializable_hash.to_json, status: 200
-    end
-
-    def new
-      @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
-      authorize_creating @private_topic.private_topic
+      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic']).serializable_hash.to_json, status: 200
     end
 
     def create
       @private_topic = Thredded::PrivateTopicForm.new(new_private_topic_params)
       if @private_topic.save
-        render json: PrivateTopicSerializer.new(@private_topic, include: [:user, :users]).serializable_hash.to_json, status: 201
+        render json: PrivateTopicSerializer.new(@private_topic.private_topic, include: [:users]).serializable_hash.to_json, status: 201
       else
         render json: {errors: @private_topic.errors }, status: 422
       end
-    end
-
-    def edit
-      authorize private_topic, :update?
-      return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-      render
     end
 
     def destroy
@@ -67,7 +56,7 @@ module Thredded
     def update
       authorize private_topic, :update?
       if private_topic.update(private_topic_params)
-        render json: PrivateTopicSerializer.new(private_topic, include: [:user, :users]).serializable_hash.to_json, status: 200
+        render json: PrivateTopicSerializer.new(private_topic, include: [:users]).serializable_hash.to_json, status: 200
       else
         render json: {errors: private_topic.errors }, status: 422
       end
