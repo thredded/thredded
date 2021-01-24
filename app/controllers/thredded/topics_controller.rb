@@ -25,7 +25,7 @@ module Thredded
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
       @topicsPageView = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(@topicsPageView.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topicsPageView.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user', :'topic.messageboard']).serializable_hash.to_json, status: 200
     end
 
     def unread
@@ -57,7 +57,7 @@ module Thredded
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic']).serializable_hash.to_json, status: 200
+      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic', :'post_views.post.user', :'post_views.post.user.thredded_user_detail']).serializable_hash.to_json, status: 200
     end
 
     def category
