@@ -3,6 +3,7 @@
 module Thredded
   class MessageboardGroup < ActiveRecord::Base
     has_many :messageboards,
+             -> { ordered_by_position },
              inverse_of: :group,
              foreign_key: :messageboard_group_id,
              dependent: :nullify
