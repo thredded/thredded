@@ -75,11 +75,17 @@ module Thredded
 
     def create
       @new_topic = Thredded::TopicForm.new(new_topic_params)
-      authorize_creating @new_topic.topic
+      begin
+        authorize_creating @new_topic.topic
+      rescue ActiveRecord::SubclassNotFound
+        skip_authorization
+        render json: {errors: "Dieses Topic hat einen ungültigen Typ." }, status: 422
+        return
+      end
       if @new_topic.save
         render json: TopicSerializer.new(@new_topic.topic, include: [:user, :last_user]).serializable_hash.to_json, status: 201
       else
-        render json: {errors: @new_topic.errors }, message: 422
+        render json: {errors: @new_topic.errors }, status: 422
       end
     end
 
@@ -189,7 +195,7 @@ module Thredded
     def topic_params_for_update
       params
         .require(:topic)
-        .permit(:title, :locked, :sticky, :messageboard_id, category_ids: [])
+        .permit(:title, :locked, :sticky, :messageboard_id, :video_url, movie_categories: [], category_ids: [])
     end
 
     def current_page

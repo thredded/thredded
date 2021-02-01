@@ -4,8 +4,8 @@ module Thredded
   class TopicForm
     include ActiveModel::Model
 
-    attr_accessor :title, :category_ids, :locked, :sticky, :content
-    attr_reader :user, :messageboard, :id, :post_views
+    attr_accessor :title, :category_ids, :locked, :sticky, :content, :video_url, :movie_categories
+    attr_reader :user, :messageboard, :id, :post_views, :type
 
     validate :validate_children
 
@@ -17,6 +17,9 @@ module Thredded
       @content = params[:content]
       @user = params[:user] || fail('user is required')
       @messageboard = params[:messageboard]
+      @type = params[:type]
+      @video_url = params[:video_url]
+      @movie_categories = params[:movie_categories]
     end
 
     def self.model_name
@@ -46,6 +49,9 @@ module Thredded
         sticky: sticky,
         user: non_null_user,
         categories: topic_categories,
+        type: type,
+        video_url: video_url,
+        movie_categories: movie_categories
       )
     end
 
