@@ -6,7 +6,7 @@ module Thredded
     include Thredded::NewPostParams
 
     before_action :thredded_require_login!,
-                  only: %i[edit new update create destroy follow unfollow unread mark_as_read]
+                  only: %i[edit new update create destroy follow unfollow unread mark_as_read mark_all_as_read]
 
     before_action :verify_messageboard,
                   only: %i[index search unread]
@@ -16,8 +16,8 @@ module Thredded
 
     after_action :update_user_activity
 
-    after_action :verify_authorized, except: %i[search unread]
-    after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow increment mark_as_read]
+    after_action :verify_authorized, except: %i[search unread mark_all_as_read]
+    after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow increment mark_as_read mark_all_as_read]
 
     def index
       page_scope = policy_scope(messageboard.topics)
@@ -139,6 +139,11 @@ module Thredded
     def mark_as_read
       authorize topic, :read?
       Thredded::MarkAllReadTopic.run(thredded_current_user, topic)
+      head 204
+    end
+
+    def mark_all_as_read
+      Thredded::MarkAllReadAllTopics.run(thredded_current_user)
       head 204
     end
 
