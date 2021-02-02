@@ -5,9 +5,11 @@ module Thredded
   class PostsController < Thredded::ApplicationController
     include ActionView::RecordIdentifier
     include Thredded::NewPostParams
+    before_action :thredded_require_login!, only: %i[update create destroy mark_as_read mark_as_unread]
 
     helper_method :topic
     before_action :assign_messageboard_for_actions, only: %i[mark_as_read mark_as_unread]
+
     after_action :update_user_activity
 
     after_action :verify_authorized
