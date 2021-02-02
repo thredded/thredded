@@ -8,7 +8,9 @@ module Thredded
     after_action :verify_authorized
 
     def update
-      @userDetails = Thredded::UserDetail.find!(params[:id])
+      now = Time.current
+      @userDetails = Thredded::UserDetail.find_or_initialize_by(user_id: thredded_current_user.id)
+      @userDetails.update!(last_seen_at: now)
       authorize @userDetails, :update?
       if @userDetails.update(user_details_params)
         @userDetails.profile_banner.attach(params[:profile_banner])
