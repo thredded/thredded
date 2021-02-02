@@ -9,8 +9,9 @@ module Thredded
 
     def update
       now = Time.current
-      @userDetails = Thredded::UserDetail.find_or_initialize_by(user_id: thredded_current_user.id)
-      @userDetails.update!(last_seen_at: now)
+      user_details = Thredded::UserDetail.find_or_initialize_by(user_id: thredded_current_user.id)
+      user_details.update!(last_seen_at: now)
+      @userDetails ||= Thredded::UserDetail.find!(params[:id])
       authorize @userDetails, :update?
       if @userDetails.update(user_details_params)
         @userDetails.profile_banner.attach(params[:profile_banner])
