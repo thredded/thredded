@@ -22,11 +22,19 @@ module Thredded
              inverse_of: :user_detail,
              dependent: :delete_all
 
+    has_one_attached :profile_banner
+
     scope :recently_active, -> { where(arel_table[:last_seen_at].gt(Thredded.active_user_threshold.ago)) }
 
     before_save :set_moderation_state_changed_at
 
+    serialize :interests, Array
+
     private
+
+    def self.find!(id)
+      find_by(id: id) || fail(Thredded::Errors::UserDetailsNotFound)
+    end
 
     def set_moderation_state_changed_at
       self.moderation_state_changed_at = Time.current if moderation_state_changed?

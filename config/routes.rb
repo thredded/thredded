@@ -41,6 +41,8 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  resources :user_details, path: 'user-details', only: [:update]
+
   resources :topics, path: '', only: [] do
     collection do
       get '/unread', action: :unread, as: :unread

@@ -23,6 +23,12 @@ module Thredded
       end
     end
 
+    class UserDetailsNotFound < Thredded::Error
+      def message
+        'User Details could not be found'
+      end
+    end
+
     class PrivateTopicNotFound < Thredded::Error
       def message
         I18n.t('thredded.errors.private_topic_not_found')
