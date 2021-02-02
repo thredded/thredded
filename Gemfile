@@ -18,6 +18,7 @@ group :test do
 
   # https://github.com/rspec/rspec-rails/issues/2103
   gem 'rspec-rails', '>= 4.0.0.beta2'
+  gem 'activestorage'
 end
 
 gemspec
