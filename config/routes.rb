@@ -69,6 +69,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         # match (un)follow via get as well so that redirecting back to it after sign in works.
         match 'follow', via: %i[post get]
         match 'unfollow', via: %i[post get]
+        post 'increment', action: :increment
       end
       resources :posts, except: %i[index show], path: ''
     end
