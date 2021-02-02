@@ -15,4 +15,5 @@ Dummy::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.active_support.deprecation = :stderr
   config.action_controller.action_on_unpermitted_parameters = :raise
+  config.active_storage.service = :test
 end
