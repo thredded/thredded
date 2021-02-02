@@ -83,6 +83,14 @@ module Thredded
       user = find_user(params[:id])
       if user.thredded_user_detail.moderation_state != moderation_state
         user.thredded_user_detail.update!(moderation_state: params[:moderation_state])
+        posts_scope = user.thredded_posts
+          .where(messageboard_id: policy_scope(Messageboard.all).pluck(:id))
+          .where(moderation_state: :pending_moderation)
+        Thredded::ModerateAllPosts.run!(
+          posts_scope: posts_scope,
+          moderation_state: moderation_state,
+          moderator: thredded_current_user,
+          )
         head 204
       else
         render json: {errors: "User was already #{moderation_state}" }, status: 422
