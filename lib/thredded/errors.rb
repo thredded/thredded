@@ -13,73 +13,73 @@ module Thredded
 
     class LoginRequired < Thredded::Error
       def message
-        I18n.t('thredded.errors.login_required')
+        'Für diese Aktion musst du eingeloggt sein!'
       end
     end
 
     class UserNotFound < Thredded::Error
       def message
-        'This user could not be found'
+        'Dieser User konnte nicht gefunden werden!'
       end
     end
 
     class UserDetailsNotFound < Thredded::Error
       def message
-        'User Details could not be found'
+        'Die User Details konnten nicht gefunden werden!'
       end
     end
 
     class PrivateTopicNotFound < Thredded::Error
       def message
-        I18n.t('thredded.errors.private_topic_not_found')
+        'Die gewünschte Nachricht konnte nicht gefunden werden!'
       end
     end
 
     class PrivatePostNotFound < Thredded::Error
       def message
-        I18n.t('thredded.errors.private_post_not_found')
+        'Die gewünschte Nachricht konnte nicht gefunden werden!'
       end
     end
 
     class TopicNotFound < Thredded::Error
       def message
-        I18n.t('thredded.errors.topic_not_found')
+        'Das gewünschte Thema konnte nicht gefunden werden!'
       end
     end
 
     class PostNotFound < Thredded::Error
       def message
-        I18n.t('thredded.errors.post_not_found')
+        'Die gewünschte Nachricht konnte nicht gefunden werden!'
       end
     end
 
     class MessageboardNotFound < Thredded::Error
       def message
-        'This messageboard does not exist.'
+        'Das Subforum konnte nicht gefunden werden!'
       end
     end
 
     class MessageboardReadDenied < Thredded::Error
       def message
-        'You are not authorized access to this messageboard.'
+        'Tut uns Leid - leider hast du hier keinen Zugriff!'
       end
     end
 
     class MessageboardCreateDenied < Thredded::Error
       def message
-        'You are not authorized to create a new messageboard.'
+        'Tut uns Leid - leider darfst du kein Subforum erstellen!'
       end
     end
 
     class TopicCreateDenied < Thredded::Error
       def message
-        'You are not authorized to post in this messageboard.'
+        'Tut uns Leid - leider darfst du kein Thema erstellen!'
       end
     end
 
     class PrivateTopicCreateDenied < Thredded::Error
       def message
-        I18n.t('thredded.errors.private_topic_create_denied')
+        'Tut uns Leid - leider kannst du keine Privatnachricht erstellen!'
       end
     end
   end

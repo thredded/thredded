@@ -210,7 +210,7 @@ module Thredded
     def topic_params_for_update
       params
         .require(:topic)
-        .permit(:title, :locked, :sticky, :messageboard_id, :video_url, movie_categories: [], category_ids: [])
+        .permit(:title, :locked, :sticky)
     end
 
     def current_page
