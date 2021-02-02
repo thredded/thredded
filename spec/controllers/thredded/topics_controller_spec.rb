@@ -65,7 +65,7 @@ module Thredded
     end
 
     describe 'POST create' do
-      let(:topic_params) { { title: 'one', content: 'something', type: 'Thredded::TopicDefault' } }
+      let(:topic_params) { { title: 'one', content: 'something' } }
 
       it 'creates' do
         expect do

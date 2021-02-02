@@ -397,5 +397,12 @@ module Thredded
       expect(topic.categories.size).to eq 1
       expect(topic.categories.first).to eq category
     end
+
+    it 'finds the movie' do
+      topic = create(:topic, title: 'My movie', type: 'Thredded::TopicMovie')
+
+      expect(Topic.friendly_find!('my-movie').id).to eq topic.id
+      expect(Topic.friendly_find!('my-movie').type).to eq topic.type
+    end
   end
 end

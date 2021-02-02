@@ -69,6 +69,8 @@ module Thredded
 
     alias_attribute :messageboard_group, :group
 
+    serialize :topic_types, Array
+
     has_many :post_moderation_records, inverse_of: :messageboard, dependent: :delete_all
     scope :top_level_messageboards, -> { where(group: nil) }
     scope :by_messageboard_group, ->(group) { where(group: group.id) }

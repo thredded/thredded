@@ -204,5 +204,17 @@ module Thredded
       expect(Thredded::Messageboard.unread_topics_counts(topics_scope: Thredded::Topic.followed_by(user), user: user))
         .to(eq(board_1.id => 1))
     end
+
+    it 'allows a topic with the same type' do
+      create(:messageboard, topic_types: ['Thredded::TopicDefault']).tap do |messageboard|
+        expect { create(:topic, type: 'Thredded::TopicDefault', messageboard: messageboard) }.not_to raise_error
+      end
+    end
+
+    it 'wont allow a topic with a different type' do
+      create(:messageboard, topic_types: ['Thredded::TopicMovie']).tap do |messageboard|
+        expect { create(:topic, type: 'Thredded::TopicDefault', messageboard: messageboard) }.to raise_error
+      end
+    end
   end
 end

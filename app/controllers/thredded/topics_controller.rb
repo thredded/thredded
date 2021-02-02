@@ -187,9 +187,7 @@ module Thredded
     end
 
     def topic_params
-      params
-        .require(:topic)
-        .permit(:title, :locked, :sticky, category_ids: [])
+      new_topic_params
     end
 
     def topic_params_for_update
