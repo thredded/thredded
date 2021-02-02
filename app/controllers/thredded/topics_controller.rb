@@ -12,12 +12,12 @@ module Thredded
                   only: %i[index search unread]
 
     before_action :use_topic_messageboard,
-                  only: %i[show edit update destroy follow unfollow]
+                  only: %i[show edit update destroy follow unfollow increment]
 
     after_action :update_user_activity
 
     after_action :verify_authorized, except: %i[search unread]
-    after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow]
+    after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow increment]
 
     def index
       page_scope = policy_scope(messageboard.topics)
@@ -127,6 +127,12 @@ module Thredded
     def unfollow
       authorize topic, :read?
       Thredded::UserTopicFollow.find_by(topic_id: topic.id, user_id: thredded_current_user.id).try(:destroy)
+      head 204
+    end
+
+    def increment
+      authorize topic, :read?
+      topic.increment!(:view_count)
       head 204
     end
 

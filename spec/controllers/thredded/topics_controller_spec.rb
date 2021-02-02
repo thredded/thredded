@@ -119,5 +119,20 @@ module Thredded
         end
       end
     end
+
+    describe 'POST increment' do
+      subject(:do_increment) do
+        post :increment, params: { messageboard_id: @messageboard.id, id: @topic.id }
+      end
+
+      it 'increments' do
+        expect { do_increment }.to change { Topic.find(@topic.id).view_count }.by(1)
+      end
+
+      it 'returns status code 204 when incremented' do
+        do_increment
+        expect(response).to have_http_status(204)
+      end
+    end
   end
 end
