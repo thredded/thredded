@@ -17,7 +17,8 @@ module Thredded
         topic = Thredded::Topic.create!(
           messageboard: @messageboard,
           user: @user,
-          title: first_topic_title
+          title: first_topic_title,
+          type: @messageboard.topic_types ? @messageboard.topic_types.first : 'Thredded::TopicDefault'
         )
         Thredded::Post.create!(
           messageboard: @messageboard,

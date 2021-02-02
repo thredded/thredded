@@ -26,12 +26,16 @@ module Thredded
     end
 
     def create
-      @new_messageboard = Thredded::Messageboard.new(messageboard_params)
+      @new_messageboard = Thredded::Messageboard.new(new_messageboard_params)
       authorize_creating @new_messageboard
-      if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
-        render json: MessageboardSerializer.new(@new_messageboard).serializable_hash.to_json, status: 201
-      else
-        render json: {errors: @new_messageboard.errors }, status: 422
+      begin
+        if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
+          render json: MessageboardSerializer.new(@new_messageboard).serializable_hash.to_json, status: 201
+        else
+          render json: {errors: @new_messageboard.errors }, status: 422
+        end
+      rescue ActiveRecord::SubclassNotFound
+        render json: {errors: "Dieses Messageboard hat einen ungültigen Topic-Typ." }, status: 422
       end
     end
 
@@ -62,6 +66,12 @@ module Thredded
       params
         .require(:messageboard)
         .permit(:name, :description, :messageboard_group_id, :locked)
+    end
+
+    def new_messageboard_params
+      params
+        .require(:messageboard)
+        .permit(:name, :description, :messageboard_group_id, :locked, topic_types: [])
     end
   end
 end

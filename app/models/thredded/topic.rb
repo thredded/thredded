@@ -4,6 +4,7 @@ module Thredded
   class Topic < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     include Thredded::TopicCommon
     include Thredded::ContentModerationState
+    include ActiveModel::Validations
 
     scope :for_messageboard, ->(messageboard) { where(messageboard_id: messageboard.id) }
 
@@ -84,6 +85,10 @@ module Thredded
              through: :user_follows
 
     delegate :name, to: :messageboard, prefix: true
+
+    validates_with TopicValidator
+
+    serialize :movie_categories, Array
 
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_commit :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
