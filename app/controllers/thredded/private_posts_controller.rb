@@ -8,6 +8,8 @@ module Thredded
 
     helper_method :topic
 
+    before_action :thredded_require_login!, only: %i[update create destroy mark_as_read mark_as_unread]
+
     after_action :verify_authorized
 
     def create
