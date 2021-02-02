@@ -134,5 +134,27 @@ module Thredded
         expect(response).to have_http_status(204)
       end
     end
+
+    describe 'POST mark_as_read' do
+      subject(:mark_as_read) do
+        post :mark_as_read, params: { messageboard_id: @messageboard.id, id: @topic.id }
+      end
+
+      before do
+        @user = create(:user)
+        @post2 = create(:post, postable: @topic, content: 'hi')
+        @post3 = create(:post, postable: @topic, content: 'hi')
+        @read_state = UserTopicReadState.touch!(user.id, @post)
+      end
+
+      it 'marks all posts as read' do
+        expect { mark_as_read }.to change { Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic.id).read_posts_count }.by(2)
+      end
+
+      it 'returns status code 204 when marked as read' do
+        mark_as_read
+        expect(response).to have_http_status(204)
+      end
+    end
   end
 end
