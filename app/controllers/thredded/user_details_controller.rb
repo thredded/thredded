@@ -11,13 +11,12 @@ module Thredded
       now = Time.current
       user_details = Thredded::UserDetail.find_or_initialize_by(user_id: thredded_current_user.id)
       user_details.update!(last_seen_at: now)
-      @userDetails ||= Thredded::UserDetail.find!(params[:id])
-      authorize @userDetails, :update?
-      if @userDetails.update(user_details_params)
-        @userDetails.profile_banner.attach(params[:profile_banner])
-        render json: ThreddedUserShowDetailSerializer.new(@userDetails).serializable_hash.to_json, status: 200
+      @user_details ||= Thredded::UserDetail.find!(params[:id])
+      authorize @user_details, :update?
+      if @user_details.update!(user_details_params)
+        render json: ThreddedUserShowDetailSerializer.new(@user_details).serializable_hash.to_json, status: 200
       else
-        render json: {errors: @userDetails.errors }, status: 422
+        render json: {errors: @user_details.errors }, status: 422
       end
     end
 
@@ -26,7 +25,7 @@ module Thredded
     def user_details_params
       params
         .require(:user_details)
-        .permit(:profile_description, :occupation, :date_of_registration, :location, :camera, :cutting_program, :sound, :lighting, :website_url, :youtube_url, :facebook_url, :twitter_url, interests:[])
+        .permit(:profile_description, :occupation, :date_of_registration, :location, :camera, :cutting_program, :sound, :lighting, :website_url, :youtube_url, :facebook_url, :twitter_url, :profile_banner, interests:[])
     end
   end
 end
