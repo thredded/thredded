@@ -10,6 +10,7 @@ gem 'jsonapi-serializer'
 
 # https://github.com/rails/rails/blob/v6.0.0.rc1/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L12
 gem 'sqlite3', '~> 1.3', '>= 1.3.6'
+gem 'file_validators'
 
 group :test do
   gem 'rails-controller-testing'

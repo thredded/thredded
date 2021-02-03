@@ -88,8 +88,6 @@ module Thredded
 
     validates_with TopicValidator
 
-    serialize :movie_categories, Array
-
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_commit :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
