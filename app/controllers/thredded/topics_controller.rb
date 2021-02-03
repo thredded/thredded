@@ -17,7 +17,7 @@ module Thredded
     after_action :update_user_activity
 
     after_action :verify_authorized, except: %i[search unread mark_all_as_read]
-    after_action :verify_policy_scoped, except: %i[show create update destroy follow unfollow increment mark_as_read mark_all_as_read]
+    after_action :verify_policy_scoped, except: %i[show create update destroy unfollow increment mark_as_read mark_all_as_read]
 
     def index
       page_scope = policy_scope(messageboard.topics)
@@ -108,13 +108,13 @@ module Thredded
     def follow
       authorize topic, :read?
       Thredded::UserTopicFollow.create_unless_exists(thredded_current_user.id, topic.id)
-      head 204
+      render_topic_view(topic)
     end
 
     def unfollow
       authorize topic, :read?
       Thredded::UserTopicFollow.find_by(topic_id: topic.id, user_id: thredded_current_user.id).try(:destroy)
-      head 204
+      render_topic_view(topic)
     end
 
     def increment
@@ -157,6 +157,12 @@ module Thredded
       return unless in_messageboard?
       form = Thredded::TopicForm.new(messageboard: messageboard, user: thredded_current_user)
       form if policy(form.topic).create?
+    end
+
+    def render_topic_view(topic)
+      page_scope = topics_scope.where(id: topic.id)
+      topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
+      render json: TopicViewSerializer.new(topics.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
     end
 
     def verify_messageboard
