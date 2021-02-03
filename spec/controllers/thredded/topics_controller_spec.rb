@@ -92,7 +92,7 @@ module Thredded
 
         it 'returns changed status' do
           do_follow
-          expect(response).to have_http_status(204)
+          expect(response).to have_http_status(200)
         end
       end
     end
@@ -115,7 +115,7 @@ module Thredded
 
         it 'returns changed status' do
           do_unfollow
-          expect(response).to have_http_status(204)
+          expect(response).to have_http_status(200)
         end
       end
     end

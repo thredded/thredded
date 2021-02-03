@@ -10,6 +10,3 @@
       user: @post.postable.user.thredded_display_name,
       topic_title: @post.postable.title,
       post_url: private_post_permalink_url(@post.id) %>
-
-<%= t 'thredded.emails.message_notification.text.unsubscribe_instructions',
-      unsubscribe_url: edit_preferences_url %>

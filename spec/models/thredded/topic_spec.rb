@@ -23,7 +23,7 @@ module Thredded
     before :all do
       @messageboard = create(:messageboard)
       @user = create(:user, name: 'glebm')
-      @category = create(:category, name: 'anime', messageboard: @messageboard)
+      @category = create(:category, name: 'anime')
       _not_a_result = create(:topic)
       # On MySQL, if text is present in over 50% of the rows it won't be found. Create some dummy entries to avoid this.
       3.times { _not_a_result = create(:topic, messageboard: @messageboard) }
@@ -307,8 +307,8 @@ module Thredded
     end
 
     it 'handles category ids' do
-      cat_1 = create(:category, messageboard: @messageboard)
-      cat_2 = create(:category, :beer, messageboard: @messageboard)
+      cat_1 = create(:category)
+      cat_2 = create(:category, :beer)
       topic = create(:topic, category_ids: ['', cat_1.id, cat_2.id])
       expect(topic.valid?).to eq true
     end

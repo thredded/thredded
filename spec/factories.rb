@@ -16,7 +16,6 @@ FactoryBot.define do
   factory :category, class: Thredded::Category do
     sequence(:name) { |n| "category#{n}" }
     sequence(:description) { |n| "Category #{n}" }
-    messageboard
 
     trait :beer do
       name { 'beer' }
