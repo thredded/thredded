@@ -48,6 +48,11 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
       get '/unread', action: :unread, as: :unread
     end
   end
+  resources :topics, path: 'topics', only: [] do
+    collection do
+      post 'mark_as_read', action: :mark_all_as_read
+    end
+  end
 
   resource :preferences, only: %i[edit update], as: :global_preferences
   resource :messageboard, path: 'messageboards', only: [:new]
