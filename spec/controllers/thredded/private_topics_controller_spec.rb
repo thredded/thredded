@@ -8,7 +8,12 @@ module Thredded
 
     let(:user) { create(:user) }
 
-    before { allow(controller).to receive_messages(thredded_current_user: user) }
+    before do
+      allow(controller).to receive_messages(thredded_current_user: user)
+      request.env['HTTP_REFERER'] = root_path
+    end
+
+    subject(:do_mark_all_as_read) { post :mark_all_as_read }
 
     shared_examples 'private topic creation' do
       it 'creates one' do
@@ -41,6 +46,18 @@ module Thredded
       end
 
       include_examples 'private topic creation'
+    end
+
+    describe 'mark all as read' do
+      before do
+        allow(controller).to receive(:thredded_signed_in?).and_return(true)
+      end
+
+      it 'calls MarkAllRead service' do
+        expect(MarkAllRead).to receive(:run).with(user)
+
+        do_mark_all_as_read
+      end
     end
   end
 end

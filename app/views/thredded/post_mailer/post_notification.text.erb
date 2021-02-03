@@ -9,6 +9,3 @@
 <%= t 'thredded.emails.post_notification.text.email_sent_reason',
       topic_title: @post.postable.title,
       post_url: post_permalink_url(@post.id) %>
-
-<%= t 'thredded.emails.post_notification.text.unsubscribe_instructions',
-      unsubscribe_url: edit_messageboard_preferences_url(@post.messageboard) %>

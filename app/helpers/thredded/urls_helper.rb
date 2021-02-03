@@ -77,24 +77,6 @@ module Thredded
       end
     end
 
-    # @param messageboard [Thredded::Messageboard, nil]
-    # @param params [Hash] additional params
-    # @return [String] the URL to the global or messageboard edit preferences page.
-    def edit_preferences_url(messageboard = nil, params = {})
-      if messageboard.try(:persisted?)
-        edit_messageboard_preferences_url(messageboard, params)
-      else
-        edit_global_preferences_url(params)
-      end
-    end
-
-    # @param messageboard [Thredded::Messageboard, nil]
-    # @param params [Hash] additional params
-    # @return [String] the path to the global or messageboard edit preferences page.
-    def edit_preferences_path(messageboard = nil, params = {})
-      edit_preferences_url(messageboard, params.merge(only_path: true))
-    end
-
     # @param [Thredded::Messageboard, nil] messageboard
     # @param [Hash] params additional params
     def unread_topics_path(messageboard: nil, **params)

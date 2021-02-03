@@ -1,5 +1,3 @@
-<h2>Hallo <%= @user.display_name %></h2>
-
 <div class="thredded--email">
   <figure class="thredded--email-post">
     <figcaption class="thredded--email-post--author">
@@ -19,10 +17,5 @@
     <%= t 'thredded.emails.post_notification.html.email_sent_reason_html',
           post_url: post_permalink_url(@post.id),
           topic_title: @post.postable.title %>
-  </p>
-
-  <p>
-    <%= t 'thredded.emails.post_notification.html.unsubscribe_instructions_html',
-          preferences_url: edit_messageboard_preferences_url(@post.messageboard) %>
   </p>
 </div>
