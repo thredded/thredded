@@ -144,7 +144,7 @@ module Thredded
         @user = create(:user)
         @post2 = create(:post, postable: @topic, content: 'hi')
         @post3 = create(:post, postable: @topic, content: 'hi')
-        @read_state = UserTopicReadState.touch!(user.id, @post)
+        UserTopicReadState.touch!(user.id, @post)
       end
 
       it 'marks all posts as read' do
@@ -153,6 +153,29 @@ module Thredded
 
       it 'returns status code 204 when marked as read' do
         mark_as_read
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    describe 'POST mark_all_as_read' do
+      subject(:mark_all_as_read) do
+        post :mark_all_as_read
+      end
+
+      before do
+        @topic1 = create(:topic, with_posts: 2)
+        @topic2 = create(:topic, with_posts: 2)
+        UserTopicReadState.touch!(user.id, @topic1.first_post)
+        UserTopicReadState.touch!(user.id, @topic2.first_post)
+        # now, 2 out of 4 posts are read
+      end
+
+      it 'marks all posts of all topics as read' do
+        expect { mark_all_as_read }.to change { Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic1.id).read_posts_count + Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic2.id).read_posts_count}.by(2)
+      end
+
+      it 'returns status code 204 when marked as read' do
+        mark_all_as_read
         expect(response).to have_http_status(204)
       end
     end
