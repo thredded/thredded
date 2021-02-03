@@ -10,8 +10,8 @@ module Thredded
 
     has_one_attached :category_icon
 
-    validates :category_icon, file_size: { less_than_or_equal_to: 500.kilobytes },
-             file_content_type: { allow: %w[image/jpeg image/jpg] }
+    #validates :category_icon, file_size: { less_than_or_equal_to: 500.kilobytes },
+    #         file_content_type: { allow: %w[image/jpeg image/jpg] }
 
   end
 end
