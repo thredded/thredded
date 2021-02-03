@@ -30,6 +30,8 @@ module Thredded
 
     before_save :set_moderation_state_changed_at
 
+    after_update :notify_user
+
     serialize :interests, Array
 
     private
@@ -40,6 +42,10 @@ module Thredded
 
     def set_moderation_state_changed_at
       self.moderation_state_changed_at = Time.current if moderation_state_changed?
+    end
+
+    def notify_user
+      Thredded::NotifyModeratedUserJob.perform_later(id) if (saved_change_to_moderation_state?)
     end
   end
 end
