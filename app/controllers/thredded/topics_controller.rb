@@ -6,18 +6,18 @@ module Thredded
     include Thredded::NewPostParams
 
     before_action :thredded_require_login!,
-                  only: %i[edit new update create destroy follow unfollow unread mark_as_read mark_all_as_read]
+                  only: %i[update create destroy follow unfollow unread mark_as_read mark_all_as_read]
 
     before_action :verify_messageboard,
                   only: %i[index search unread]
 
     before_action :use_topic_messageboard,
-                  only: %i[show edit update destroy follow unfollow increment mark_as_read]
+                  only: %i[show update destroy follow unfollow increment mark_as_read]
 
     after_action :update_user_activity
 
     after_action :verify_authorized, except: %i[search unread mark_all_as_read]
-    after_action :verify_policy_scoped, except: %i[show new create edit update destroy follow unfollow increment mark_as_read mark_all_as_read]
+    after_action :verify_policy_scoped, except: %i[show create update destroy follow unfollow increment mark_as_read mark_all_as_read]
 
     def index
       page_scope = policy_scope(messageboard.topics)
@@ -58,19 +58,6 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
       render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic', :'post_views.post.user', :'post_views.post.user.thredded_user_detail']).serializable_hash.to_json, status: 200
-    end
-
-    def category
-      authorize_reading messageboard
-      @category = messageboard.categories.friendly.find(params[:category_id])
-      @topics = Thredded::TopicsPageView.new(
-        thredded_current_user,
-        policy_scope(@category.topics)
-          .unstuck
-          .order_recently_posted_first
-          .send(Kaminari.config.page_method_name, current_page)
-      )
-      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic']).serializable_hash.to_json, status: 200
     end
 
     def create

@@ -3,21 +3,21 @@
 Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   page_constraint = { page: /[1-9]\d*/ }
 
-  scope path: 'private-topics' do
-    resource :read_state, only: [:update], as: :mark_all_private_topics_read
-    resources :private_topic, only: [:new], path: ''
-    resources :private_topics, except: %i[new show], path: '' do
-      member do
-        get '(page-:page)', action: :show, as: '', constraints: page_constraint
-      end
-      resources :private_posts, path: '', except: %i[index show]
+  resources :private_topics, except: %i[new show edit], path: 'private-topics' do
+    member do
+      get '(page-:page)', action: :show, as: '', constraints: page_constraint
     end
   end
+
+  resources :private_posts, except: %i[index show new edit], path: 'private-posts'
+  resources :messageboard_groups, only: [:create], path: 'messageboard-groups'
 
   scope only: [:show], constraints: { id: Thredded.routes_id_constraint } do
     resources :private_post_permalinks, path: 'private-posts'
     resources :post_permalinks, path: 'posts'
   end
+
+  resources :posts, only: %i[destroy update]
 
   resources :autocomplete_users, only: [:index], path: 'autocomplete-users'
 
@@ -27,7 +27,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   scope path: 'admin' do
-    resources :messageboard_groups, only: %i[new create]
     scope controller: :moderation, path: 'moderation' do
       scope constraints: page_constraint do
         get '(/page-:page)', action: :pending, as: :pending_moderation
@@ -41,60 +40,64 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
+  scope path: 'action' do
+    # flat urls under here for anything which is non-visible to users & search engines (typically json actions)
+    resources :posts, only: [] do
+      member do
+        post 'mark_as_read'
+        post 'mark_as_unread'
+      end
+    end
+
+    resources :private_posts, path: 'private-posts', only: [] do
+      member do
+        post 'mark_as_read'
+        post 'mark_as_unread'
+      end
+    end
+
+    resources :private_topics, path: 'private-topics', only: [] do
+      collection do
+        post 'mark_as_read', action: :mark_all_as_read
+      end
+    end
+
+    resources :topics, only: [] do
+      collection do
+        post 'mark_as_read', action: :mark_all_as_read
+      end
+      member do
+        post 'mark_as_read', action: :mark_as_read
+      end
+    end
+  end
+
   resources :user_details, path: 'user-details', only: [:update]
 
-  resources :topics, path: '', only: [] do
+  resources :topics, only: %i[update destroy create] do
     collection do
-      get '/unread', action: :unread, as: :unread
+      get 'unread', action: :unread, as: :unread
     end
-  end
-  resources :topics, path: 'topics', only: [] do
-    collection do
-      post 'mark_as_read', action: :mark_all_as_read
+    member do
+      get '(page-:page)', action: :show, as: '', constraints: page_constraint
+      post 'follow', action: :follow
+      post 'unfollow', action: :unfollow
+      post 'increment', action: :increment
     end
   end
 
-  resource :preferences, only: %i[edit update], as: :global_preferences
-  resource :messageboard, path: 'messageboards', only: [:new]
+  resource :preferences, only: %i[update], as: :global_preferences
   get '/messageboard-groups/:id', action: :show, controller: 'messageboard_groups', as: :show_messageboard_group
   get '/messageboard-groups', action: :index, controller: 'messageboard_groups', as: :index_messageboard_group
   resources :messageboards, only: %i[show update destroy index create]
   resources :messageboards, only: %i[], path: '' do
-    resource :preferences, only: %i[edit update]
-    resources :topic, path: 'topics', only: [:new]
-    resources :topics, path: 'topics', except: %i[index new show] do
+    resource :preferences, only: %i[update]
+    resources :topics, path: 'topics', only: [:create] do
       collection do
         get '(page-:page)', action: :index, as: '', constraints: page_constraint
-        get '/category/:category_id', action: :category, as: :categories
         get '/unread', action: :unread, as: :unread
       end
-      member do
-        get '(page-:page)', action: :show, as: '', constraints: page_constraint
-
-        # match (un)follow via get as well so that redirecting back to it after sign in works.
-        match 'follow', via: %i[post get]
-        match 'unfollow', via: %i[post get]
-        post 'increment', action: :increment
-        post 'mark_as_read', action: :mark_as_read
-      end
-      resources :posts, except: %i[index show], path: ''
-    end
-  end
-
-  scope path: 'action' do
-    # flat urls under here for anything which is non-visible to users & search engines (typically json actions)
-    resources :posts, only: %i[] do
-      member do
-        post 'mark_as_read'
-        post 'mark_as_unread'
-      end
-    end
-
-    resources :private_posts, only: %i[] do
-      member do
-        post 'mark_as_read'
-        post 'mark_as_unread'
-      end
+      resources :posts, only: %i[create], path: ''
     end
   end
 

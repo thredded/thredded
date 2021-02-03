@@ -2,10 +2,10 @@
 
 module Thredded
   class MessageboardsController < Thredded::ApplicationController
-    before_action :thredded_require_login!, only: %i[new create update destroy]
+    before_action :thredded_require_login!, only: %i[create update destroy]
 
     after_action :verify_authorized, except: %i[index show]
-    after_action :verify_policy_scoped, except: %i[new create update destroy show]
+    after_action :verify_policy_scoped, except: %i[create update destroy show]
 
     def index
       @groups = Thredded::MessageboardGroupView.grouped(
@@ -18,11 +18,6 @@ module Thredded
     def show
       @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       render json: MessageboardSerializer.new(@messageboard).serializable_hash.to_json, status: 200
-    end
-
-    def new
-      @new_messageboard = Thredded::Messageboard.new
-      authorize_creating @new_messageboard
     end
 
     def create

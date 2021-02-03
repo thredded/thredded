@@ -62,6 +62,11 @@ module Thredded
       end
     end
 
+    def mark_all_as_read
+      Thredded::MarkAllRead.run(thredded_current_user)
+      head 204
+    end
+
     private
 
     def canonical_topic_params
