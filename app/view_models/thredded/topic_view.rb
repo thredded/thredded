@@ -5,7 +5,7 @@ module Thredded
   class TopicView < Thredded::BaseTopicView
     attr_reader :follow, :follow_id
     delegate :sticky?, :locked?, :categories, :id, :blocked?, :last_moderation_record, :followers,
-             :last_post, :messageboard_id, :messageboard_name,
+             :last_post, :messageboard_id, :messageboard_name, :category_ids,
              to: :@topic
 
     # @param [Topic] topic

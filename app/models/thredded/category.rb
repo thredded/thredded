@@ -2,17 +2,16 @@
 
 module Thredded
   class Category < ActiveRecord::Base
-    extend FriendlyId
-    belongs_to :messageboard
+    #extend FriendlyId
     has_many :topic_categories, inverse_of: :category, dependent: :delete_all
-    has_many :topics, through: :topic_categories
-    friendly_id :name, use: %i[history scoped], scope: :messageboard
+    has_many :topics, -> { order('created_at DESC') }, through: :topic_categories
 
-    validates :name, presence: true
-    validates :messageboard_id, presence: true
+    validates :name, presence: true, uniqueness: true
 
-    def normalize_friendly_id(input)
-      Thredded.slugifier.call(input.to_s)
-    end
+    has_one_attached :category_icon
+
+    validates :category_icon, file_size: { less_than_or_equal_to: 500.kilobytes },
+             file_content_type: { allow: %w[image/jpeg image/jpg] }
+
   end
 end
