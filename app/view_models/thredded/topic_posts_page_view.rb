@@ -4,7 +4,7 @@ module Thredded
   # A view model for a page of PostViews of a Topic.
   class TopicPostsPageView < Thredded::PostsPageView
     # @return [Thredded::BaseTopicView]
-    attr_reader :topic, :id, :post_views, :post_view_ids, :topic_id
+    attr_reader :topic, :id, :post_views, :post_view_ids, :topic_id, :category_ids
 
     # @param user [Thredded.user_class] the user who is viewing the posts page
     # @param topic [Thredded::TopicCommon]

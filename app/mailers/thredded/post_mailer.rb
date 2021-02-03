@@ -12,7 +12,7 @@ module Thredded
            bcc: emails,
            subject: [
              Thredded.email_outgoing_prefix,
-             t('thredded.emails.post_notification.subject',
+             t('Ein neuer Post in: ',
                user: @post.user.thredded_display_name,
                topic_title: @post.postable.title)
            ].compact.join

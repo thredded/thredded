@@ -15,7 +15,7 @@ module Thredded
     end
 
     def new_post(post, users)
-      Thredded::PostMailer.post_notification(post.id, users.map(&:email)).deliver_now
+      Thredded::PostMailer.post_notification(post.id, users).deliver_now
     end
 
     def new_private_post(post, users)
