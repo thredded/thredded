@@ -91,7 +91,7 @@ module Thredded
           moderation_state: moderation_state,
           moderator: thredded_current_user,
           )
-        head 204
+        render json: UserSerializer.new(user, include: [:thredded_user_detail]).serializable_hash.to_json, status: 200
       else
         render json: {errors: "User was already #{moderation_state}" }, status: 422
       end
