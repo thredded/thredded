@@ -23,7 +23,7 @@ module Thredded
       if @post_form.save
         render json: PostSerializer.new(@post_form.post).serializable_hash.to_json, status: 201
       else
-        render json: {errors: @post_form.errors }, status: 422
+        render json: { errors: @post_form.errors }, status: 422
       end
     end
 
@@ -33,7 +33,7 @@ module Thredded
       if post.update(new_post_params)
         render json: PostSerializer.new(post).serializable_hash.to_json, status: 200
       else
-        render json: {errors: post.errors }, status: 422
+        render json: { errors: post.errors }, status: 422
       end
     end
 
@@ -42,7 +42,6 @@ module Thredded
       post.destroy!
       head 204
     end
-
 
     def mark_as_read
       authorize post, :read?
