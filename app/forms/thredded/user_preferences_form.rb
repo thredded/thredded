@@ -5,7 +5,7 @@ module Thredded
     include ActiveModel::Model
 
     # @return [Thredded::Messageboard, nil]
-    attr_reader :messageboard
+    attr_reader :messageboard, :id
 
     validate :validate_children
 

@@ -5,14 +5,20 @@ module Thredded
     before_action :thredded_require_login!,
                   :init_preferences
 
-    def edit; end
-
     def update
       if @preferences.save
-        flash[:notice] = I18n.t('thredded.preferences.updated_notice')
-        redirect_back fallback_location: edit_preferences_url(@preferences.messageboard)
+        render json: PreferencesSerializer.new(@preferences).serializable_hash.to_json, status: 201
       else
-        render :edit
+        render json: {errors: @preferences.errors }, status: 422
+      end
+    end
+
+    def show
+      UserPreference.find()
+      if @preferences.save
+        render json: PreferencesSerializer.new(@preferences).serializable_hash.to_json, status: 201
+      else
+        render json: {errors: @preferences.errors }, status: 422
       end
     end
 
