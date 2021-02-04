@@ -54,6 +54,7 @@ require 'fileutils'
 require 'active_support/testing/time_helpers'
 require 'dry-validation'
 require 'require_all'
+require 'file_validators'
 require_rel './support/views/schemas'
 
 WebMock.allow_net_connect!

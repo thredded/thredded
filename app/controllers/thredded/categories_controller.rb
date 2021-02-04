@@ -12,8 +12,7 @@ module Thredded
     end
 
     def show
-      @category = Category.find(params[:id])
-      render json: CategorySerializer.new(@category, include: [:topics]).serializable_hash.to_json, status: 200
+      render json: CategorySerializer.new(category, include: [:topics]).serializable_hash.to_json, status: 200
     end
 
     def create
@@ -28,20 +27,18 @@ module Thredded
     end
 
     def update
-      @category = Category.find(params[:id])
-      authorize @category, :update?
-      if @category.update(category_params)
-        render json: CategorySerializer.new(@category).serializable_hash.to_json, status: 200
+      authorize category, :update?
+      if category.update(category_params)
+        render json: CategorySerializer.new(category).serializable_hash.to_json, status: 200
       else
-        render json: {errors: @category.errors }, status: 422
+        render json: {errors: category.errors }, status: 422
       end
     end
 
     def destroy
       begin
-        @category = Category.find(params[:id])
-        authorize @category, :destroy?
-        @category.destroy!
+        authorize category, :destroy?
+        category.destroy!
       rescue Exception
         raise
       end
@@ -54,6 +51,10 @@ module Thredded
       params
         .require(:category)
         .permit(:name, :description, :locked, :position, :category_icon)
+    end
+
+    def category
+      @category ||= Thredded::Category.find(params[:id])
     end
 
   end

@@ -23,8 +23,8 @@ module Thredded
              dependent: :delete_all
 
     has_one_attached :profile_banner
-    #validates :profile_banner, file_size: { less_than_or_equal_to: 500.kilobytes },
-    #          file_content_type: { allow: %w[image/jpeg image/jpg] }
+    validates :profile_banner, file_size: { less_than_or_equal_to: 500.kilobytes },
+              file_content_type: { allow: %w[image/jpeg image/jpg] }
 
     scope :recently_active, -> { where(arel_table[:last_seen_at].gt(Thredded.active_user_threshold.ago)) }
 
