@@ -82,5 +82,18 @@ module Thredded
         'Tut uns Leid - leider kannst du keine Privatnachricht erstellen!'
       end
     end
+
+    class CategoryNotFound < Thredded::Error
+      def message
+        'Die Kategorie konnte nicht gefunden werden!'
+      end
+    end
+
+    class MessageboardGroupNotFound < Thredded::Error
+      def message
+        'Die Forumsgruppe konnte nicht gefunden werden!'
+      end
+    end
+
   end
 end

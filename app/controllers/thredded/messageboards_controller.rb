@@ -23,6 +23,7 @@ module Thredded
     def create
       @new_messageboard = Thredded::Messageboard.new(new_messageboard_params)
       authorize_creating @new_messageboard
+      MessageboardGroup.find!(new_messageboard_params[:messageboard_group_id])
       begin
         if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
           render json: MessageboardSerializer.new(@new_messageboard).serializable_hash.to_json, status: 201
@@ -56,6 +57,11 @@ module Thredded
     end
 
     private
+
+    def find_messageboardgroup
+      puts params[:messageboard_group_id]
+      MessageboardGroup.find(params[:messageboard_group_id]) || fail(Thredded::Errors::RecordNotFound)
+    end
 
     def messageboard_params
       params

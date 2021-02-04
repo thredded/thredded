@@ -18,5 +18,11 @@ module Thredded
     def ensure_position
       self.position ||= Time.zone.now.to_i
     end
+
+    def self.find!(slug_or_id)
+      find(slug_or_id)
+    rescue ActiveRecord::RecordNotFound
+      raise Thredded::Errors::MessageboardGroupNotFound
+    end
   end
 end

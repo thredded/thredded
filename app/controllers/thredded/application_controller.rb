@@ -23,7 +23,9 @@ module Thredded
                 Thredded::Errors::PrivatePostNotFound,
                 Thredded::Errors::TopicNotFound,
                 Thredded::Errors::PostNotFound,
-                Thredded::Errors::UserNotFound do |exception|
+                Thredded::Errors::UserNotFound,
+                Thredded::Errors::CategoryNotFound,
+                Thredded::Errors::MessageboardGroupNotFound do |exception|
       @error   = exception
       @message = exception.message
       render json: {errors: @message }, status: 404
