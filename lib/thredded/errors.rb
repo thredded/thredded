@@ -83,16 +83,11 @@ module Thredded
       end
     end
 
-    class RecordNotFound < Thredded::Error
+    class CategoryNotFound < Thredded::Error
       def message
-        'Der Eintrag konnte nicht gefunden werden!'
+        'Die Kategorie konnte nicht gefunden werden!'
       end
     end
 
-    class CategoryNotFound < Thredded::Error
-      def message
-        'Der Kategorie konnte nicht gefunden werden!'
-      end
-    end
   end
 end

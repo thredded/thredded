@@ -54,7 +54,7 @@ module Thredded
     end
 
     def category
-      @category ||= Thredded::Category.find(params[:id])
+      @category ||= Thredded::Category.find!(params[:id])
     end
 
   end
