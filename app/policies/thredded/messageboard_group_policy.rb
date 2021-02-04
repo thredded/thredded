@@ -12,5 +12,13 @@ module Thredded
     def create?
       @user.thredded_admin?
     end
+
+    def update?
+      @user.thredded_admin?
+    end
+
+    def destroy?
+      @user.thredded_admin?
+    end
   end
 end

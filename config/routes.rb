@@ -10,7 +10,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   resources :private_posts, except: %i[index show new edit], path: 'private-posts'
-  resources :messageboard_groups, only: [:create], path: 'messageboard-groups'
+  resources :messageboard_groups, only: %i[create show index update destroy], path: 'messageboard-groups'
 
   scope only: [:show], constraints: { id: Thredded.routes_id_constraint } do
     resources :private_post_permalinks, path: 'private-posts'
@@ -87,8 +87,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   resource :preferences, only: %i[update], as: :global_preferences
-  get '/messageboard-groups/:id', action: :show, controller: 'messageboard_groups', as: :show_messageboard_group
-  get '/messageboard-groups', action: :index, controller: 'messageboard_groups', as: :index_messageboard_group
   resources :messageboards, only: %i[show update destroy index create]
   resources :messageboards, only: %i[], path: '' do
     resource :preferences, only: %i[update]
