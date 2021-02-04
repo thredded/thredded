@@ -24,7 +24,8 @@ module Thredded
                 Thredded::Errors::TopicNotFound,
                 Thredded::Errors::PostNotFound,
                 Thredded::Errors::UserNotFound,
-                Thredded::Errors::CategoryNotFound do |exception|
+                Thredded::Errors::CategoryNotFound,
+                Thredded::Errors::MessageboardGroupNotFound do |exception|
       @error   = exception
       @message = exception.message
       render json: {errors: @message }, status: 404
