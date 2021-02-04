@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 TopicSchema = Dry::Schema.JSON do
   required(:data).schema do
     required(:id).filled(:string)
@@ -25,4 +27,3 @@ TopicSchema = Dry::Schema.JSON do
     end
   end
 end
-

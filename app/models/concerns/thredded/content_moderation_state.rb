@@ -34,9 +34,7 @@ module Thredded
           result = result.or(where(user_id: user.id)) if user && !user.thredded_anonymous?
 
           # Content that the user can moderate.
-          if moderatable_messageboards != Thredded::Messageboard.none
-            result = result.or(where(messageboard_id: moderatable_messageboards))
-          end
+          result = result.or(where(messageboard_id: moderatable_messageboards)) if moderatable_messageboards != Thredded::Messageboard.none
         end
         result
       }

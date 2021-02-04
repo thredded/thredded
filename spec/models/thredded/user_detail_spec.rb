@@ -3,13 +3,12 @@
 require 'spec_helper'
 
 module Thredded
-
   describe UserDetail do
     it 'not raises Thredded::Errors::UserDetailNotFound error' do
       user = create(:user)
       user_details = create(:user_detail, user: user)
       expect { UserDetail.find!(user_details.id) }
-          .to_not raise_error(Thredded::Errors::UserDetailsNotFound)
+        .not_to raise_error(Thredded::Errors::UserDetailsNotFound)
     end
   end
 
@@ -20,8 +19,8 @@ module Thredded
       user_details = create(:user_detail, user: user)
       user_details.profile_banner.attach(file)
 
-      #puts user_details.profile_banner
-      #puts ActiveStorage::Blob.order(created_at: :desc).first.attachments.inspect
+      # puts user_details.profile_banner
+      # puts ActiveStorage::Blob.order(created_at: :desc).first.attachments.inspect
       expect(user_details.profile_banner).to be_attached
     end
   end
@@ -37,8 +36,7 @@ module Thredded
     it 'bumps the movies count when a new movie is created' do
       user = create(:user)
       user_details = create(:user_detail, user: user)
-      movie_messageboard = create(:messageboard, topic_types: ['Thredded::TopicMovie'])
-      movie = create(:movie, messageboard: movie_messageboard, user: user)
+      create(:movie, user: user)
 
       expect(user_details.reload.movies_count).to eq(1)
     end

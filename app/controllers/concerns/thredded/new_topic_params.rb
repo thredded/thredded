@@ -6,7 +6,7 @@ module Thredded
     protected
 
     def new_topic_params
-      params[:topic][:type] ||= "Thredded::TopicDefault"
+      params[:topic][:type] ||= 'Thredded::TopicDefault'
       params
         .fetch(:topic, {})
         .permit(:title, :locked, :sticky, :content, :video_url, :type, category_ids: [])

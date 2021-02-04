@@ -110,9 +110,7 @@ module Thredded
       @posts_pending_moderation_count ||= begin
         scope = Thredded::Post.pending_moderation
         moderatable_messageboards = thredded_current_user.thredded_can_moderate_messageboards
-        unless moderatable_messageboards == Thredded::Messageboard.all
-          scope = scope.where(messageboard_id: moderatable_messageboards.pluck(:id))
-        end
+        scope = scope.where(messageboard_id: moderatable_messageboards.pluck(:id)) unless moderatable_messageboards == Thredded::Messageboard.all
         scope.count
       end
     end

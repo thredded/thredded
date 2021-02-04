@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 6.0.0'
 gem 'rails-i18n', '~> 6.0.0'
 gem 'webpacker', '~> 4.2'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'jsonapi-serializer'
 
 # https://github.com/rails/rails/blob/v6.0.0.rc1/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L12

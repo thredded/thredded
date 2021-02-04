@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFieldToUserDetails < ActiveRecord::Migration[6.0]
   def change
     add_column :thredded_user_details, :profile_description, :text

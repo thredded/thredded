@@ -12,12 +12,12 @@ module Thredded
 
     it 'returns status code 200 if the user can read the private post' do
       get :show, params: { id: create(:private_post, user: user).id }
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
 
     it 'returns status code 403 if the user cannot read the private post' do
       get :show, params: { id: create(:private_post).id }
-      expect(response).to have_http_status(403)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end

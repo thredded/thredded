@@ -41,9 +41,7 @@ module Thredded
         attr_accessor :onebox_views_cache
       end
 
-      if Rails.env.development? || Rails.env.test?
-        self.onebox_views_cache = ActiveSupport::Cache::FileStore.new('tmp/cache/onebox-views')
-      end
+      self.onebox_views_cache = ActiveSupport::Cache::FileStore.new('tmp/cache/onebox-views') if Rails.env.development? || Rails.env.test?
 
       def call
         doc.css('a').each do |element|
