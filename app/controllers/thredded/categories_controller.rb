@@ -31,17 +31,17 @@ module Thredded
       @category = Category.find(params[:id])
       authorize @category, :update?
       if @category.update(category_params)
-        render json: CategSerializer.new(@messageboard).serializable_hash.to_json, status: 200
+        render json: CategorySerializer.new(@category).serializable_hash.to_json, status: 200
       else
-        render json: {errors: @messageboard.errors }, status: 422
+        render json: {errors: @category.errors }, status: 422
       end
     end
 
     def destroy
       begin
-        @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
-        authorize @messageboard, :destroy?
-        @messageboard.destroy!
+        @category = Category.find(params[:id])
+        authorize @category, :destroy?
+        @category.destroy!
       rescue Exception
         raise
       end
