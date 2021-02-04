@@ -34,12 +34,21 @@ module Thredded
       expect(user_details.reload.posts_count).to eq(1)
     end
 
-    it 'bumps the topics count when a new topic is created' do
+    it 'bumps the movies count when a new movie is created' do
+      user = create(:user)
+      user_details = create(:user_detail, user: user)
+      movie_messageboard = create(:messageboard, topic_types: ['Thredded::TopicMovie'])
+      movie = create(:movie, messageboard: movie_messageboard, user: user)
+
+      expect(user_details.reload.movies_count).to eq(1)
+    end
+
+    it 'doesnt bump the movies count when a new topic is created' do
       user = create(:user)
       user_details = create(:user_detail, user: user)
       create(:topic, user: user)
 
-      expect(user_details.reload.topics_count).to eq(1)
+      expect(user_details.reload.movies_count).to eq(0)
     end
   end
 end

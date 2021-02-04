@@ -77,7 +77,7 @@ FactoryBot.define do
     notifier_key { 'email' }
   end
 
-  factory :topic, class: Thredded::Topic do
+  factory :topic, class: Thredded::TopicDefault do
     transient do
       with_posts { 0 }
       post_interval { 1.hour }
@@ -89,6 +89,50 @@ FactoryBot.define do
 
     user
     messageboard
+
+    after(:create) do |topic, evaluator|
+      if evaluator.with_posts
+        ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
+        evaluator.with_posts.times do
+          ago += evaluator.post_interval
+          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
+                 updated_at: ago, moderation_state: topic.moderation_state)
+        end
+        topic.last_user = topic.user
+        topic.posts_count = evaluator.with_posts
+        topic.save
+      end
+
+      evaluator.with_categories.times do
+        topic.categories << create(:category)
+      end
+    end
+
+    trait :locked do
+      locked { true }
+    end
+
+    trait :pinned do
+      sticky { true }
+    end
+
+    trait :sticky do
+      sticky { true }
+    end
+  end
+
+  factory :movie, class: Thredded::TopicMovie do
+    transient do
+      with_posts { 0 }
+      post_interval { 1.hour }
+      with_categories { 0 }
+    end
+
+    title { Faker::Movies::StarWars.quote }
+    hash_id { generate(:topic_hash) }
+
+    user
+    messageboard { association :messageboard, topic_types: ['Thredded::TopicMovie'] }
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
