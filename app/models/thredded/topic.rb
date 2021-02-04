@@ -46,13 +46,6 @@ module Thredded
                inverse_of: :topics
     validates :messageboard_id, presence: true
 
-    belongs_to :user_detail,
-               primary_key:   :user_id,
-               foreign_key:   :user_id,
-               inverse_of:    :topics,
-               counter_cache: :topics_count,
-               **(Thredded.rails_gte_51? ? { optional: true } : {})
-
     has_many :posts,
              autosave: true,
              class_name:  'Thredded::Post',
