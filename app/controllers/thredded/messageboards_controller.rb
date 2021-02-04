@@ -23,7 +23,9 @@ module Thredded
     def create
       @new_messageboard = Thredded::Messageboard.new(new_messageboard_params)
       authorize_creating @new_messageboard
+      if new_messageboard_params[:messageboard_group_id].present?
       MessageboardGroup.find!(new_messageboard_params[:messageboard_group_id])
+      end
       begin
         if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
           render json: MessageboardSerializer.new(@new_messageboard).serializable_hash.to_json, status: 201
