@@ -103,9 +103,13 @@ Additionally, Markdown is extended to support the following:
       Thredded.user_class.new(
         attr.reverse_merge(
           Thredded.user_name_column => name,
-          email:                    "#{name.downcase}@test.com",
+          email:                    "#{name.downcase}@test.com"
         )
       )
+    end
+
+    def mock_user_detail
+      mock_user.thredded_user_detail
     end
 
     def mock_post_cache_key!(post)

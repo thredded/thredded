@@ -4,7 +4,7 @@ module Thredded
   class ModerationStateMailer < Thredded::BaseMailer
     def moderation_state_notification(user_detail_id, email)
       @user_detail = find_record Thredded::UserDetail, user_detail_id
-      @user = @user_detail.user
+      @name = @user_detail.user.send(Thredded.user_name_column)
       email_details = Thredded::ModerationStateEmailView.new(@user_detail)
       headers['X-SMTPAPI'] = email_details.smtp_api_tag('moderation_state_mailer')
 
@@ -12,7 +12,7 @@ module Thredded
            to: email,
            subject: [
              Thredded.email_outgoing_prefix,
-             "Willkommen!"
+             'Willkommen!'
            ].compact.join
     end
   end
