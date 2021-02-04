@@ -31,7 +31,7 @@ module Thredded
       if @group.update(messageboard_group_params)
         render json: MessageboardGroupSerializer.new(@group, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
       else
-        render json: {errors: @messageboard.errors }, status: 422
+        render json: {errors: @group.errors }, status: 422
       end
     end
 
