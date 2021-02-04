@@ -2,6 +2,8 @@
 
 module Thredded
   class MessageboardGroupsController < Thredded::ApplicationController
+    before_action :thredded_require_login!, only: %i[create update destroy]
+    after_action :verify_authorized, except: %i[index show]
 
     def create
       @messageboard_group = Thredded::MessageboardGroup.new(messageboard_group_params)
@@ -14,13 +16,34 @@ module Thredded
     end
 
     def show
-      @group = Thredded::MessageboardGroup.where(id: params[:id])
+      @group = Thredded::MessageboardGroup.find!(params[:id])
       render json: MessageboardGroupSerializer.new(@group, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
     end
 
     def index
       @groups = Thredded::MessageboardGroup.ordered.all
       render json: MessageboardGroupSerializer.new(@groups, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
+    end
+
+    def update
+      @group = Thredded::MessageboardGroup.find!(params[:id])
+      authorize @group, :update?
+      if @group.update(messageboard_group_params)
+        render json: MessageboardGroupSerializer.new(@group, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
+      else
+        render json: {errors: @messageboard.errors }, status: 422
+      end
+    end
+
+    def destroy
+      begin
+        @group = Thredded::MessageboardGroup.find!(params[:id])
+        authorize @group, :destroy?
+        @group.destroy!
+      rescue Exception
+        raise
+      end
+      head 204
     end
 
     private
