@@ -5,7 +5,7 @@ module Thredded
     include ActiveModel::Model
 
     # @return [Thredded::Messageboard, nil]
-    attr_reader :messageboard
+    attr_reader :messageboard, :id, :user_preferences, :messageboard_preference_ids, :messageboard_preferences
 
     validate :validate_children
 
@@ -26,6 +26,8 @@ module Thredded
     # @param messageboards [ActiveRecord::Relation<Thredded::Messageboard>]
     def initialize(user:, messageboard: nil, messageboards: nil, params: {})
       @user = user
+      @user_preferences = user_preference
+      @messageboard_preference = user_messageboard_preference
       @messageboard = messageboard
       @messageboards = messageboards
       super(params)
