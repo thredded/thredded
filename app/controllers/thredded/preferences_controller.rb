@@ -3,23 +3,19 @@
 module Thredded
   class PreferencesController < Thredded::ApplicationController
     before_action :thredded_require_login!,
-                  :init_preferences
+                  :init_preferences, only: %i[update]
 
     def update
       if @preferences.save
-        render json: PreferencesSerializer.new(@preferences).serializable_hash.to_json, status: 201
+        render json: UserPreferencesSerializer.new(@preferences.user_preferences, include: [:messageboard_preferences]).serializable_hash.to_json, status: 201
       else
-        render json: {errors: @preferences.errors }, status: 422
+        render json: { errors: @preferences.errors }, status: 422
       end
     end
 
     def show
-      UserPreference.find()
-      if @preferences.save
-        render json: PreferencesSerializer.new(@preferences).serializable_hash.to_json, status: 201
-      else
-        render json: {errors: @preferences.errors }, status: 422
-      end
+      user_preferences = thredded_current_user.thredded_user_preference
+      render json: UserPreferencesSerializer.new(user_preferences, include: [:messageboard_preferences]).serializable_hash.to_json, status: 201
     end
 
     private
