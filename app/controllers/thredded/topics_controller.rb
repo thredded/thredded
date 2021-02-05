@@ -24,8 +24,10 @@ module Thredded
         .order_sticky_first.order_recently_posted_first
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
-      @topicsPageView = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(@topicsPageView.topic_views, include: [:topic, :categories, :read_state, :follow, :'topic.user', :'topic.last_user', :'topic.messageboard']).serializable_hash.to_json, status: 200
+      @topics_page_view = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
+      render json: TopicViewSerializer.new(@topics_page_view.topic_views,
+                                           include: %i[topic categories read_state follow topic.user topic.last_user topic.messageboard])
+        .serializable_hash.to_json, status: 200
     end
 
     def unread
@@ -36,7 +38,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(@topics.topic_views, include: [:topic, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topics.topic_views, include: %i[topic follow topic.user topic.last_user]).serializable_hash.to_json, status: 200
     end
 
     def search
@@ -47,7 +49,9 @@ module Thredded
         .includes(:categories, :last_user, :user)
         .send(Kaminari.config.page_method_name, current_page)
       @topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(@topics.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(@topics.topic_views,
+                                           include: %i[topic read_state follow topic.user topic.last_user])
+        .serializable_hash.to_json, status: 200
     end
 
     def show
@@ -57,7 +61,10 @@ module Thredded
         .includes(:user, :messageboard)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
-      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic', :'topic.categories', :'post_views.post.user', :'post_views.post.user.thredded_user_detail']).serializable_hash.to_json, status: 200
+      render json: TopicPostsPageViewSerializer.new(@posts,
+                                                    include: %i[post_views topic post_views.post topic.topic topic.categories
+                                                                post_views.post.user post_views.post.user.thredded_user_detail])
+        .serializable_hash.to_json, status: 200
     end
 
     def create
@@ -65,18 +72,14 @@ module Thredded
       begin
         authorize_creating @new_topic.topic
       rescue ActiveRecord::SubclassNotFound
-        skip_authorization
-        render json: {errors: "Dieses Topic hat einen ungültigen Typ." }, status: 422
-        return
+        raise Thredded::Errors::TopicSubclassNotFound
       rescue ActiveRecord::RecordNotFound
-        skip_authorization
-        render json: {errors: "Diese Kategorie existiert nicht." }, status: 422
-        return
+        raise Thredded::Errors::CategoryNotFound
       end
       if @new_topic.save
-        render json: TopicSerializer.new(@new_topic.topic, include: [:user, :last_user, :categories]).serializable_hash.to_json, status: 201
+        render json: TopicSerializer.new(@new_topic.topic, include: %i[user last_user categories]).serializable_hash.to_json, status: 201
       else
-        render json: {errors: @new_topic.errors }, status: 422
+        render json: { errors: @new_topic.errors }, status: 422
       end
     end
 
@@ -93,19 +96,15 @@ module Thredded
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
       if @edit_topic.save
-        render json: TopicSerializer.new(@edit_topic.topic, include: [:user, :last_user, :categories]).serializable_hash.to_json, status: 200
+        render json: TopicSerializer.new(@edit_topic.topic, include: %i[user last_user categories]).serializable_hash.to_json, status: 200
       else
-        render json: {errors: @edit_topic.errors }, status: 422
+        render json: { errors: @edit_topic.errors }, status: 422
       end
     end
 
     def destroy
-      begin
-        authorize topic, :destroy?
-        topic.destroy!
-      rescue Exception
-        raise
-      end
+      authorize topic, :destroy?
+      topic.destroy!
       head 204
     end
 
@@ -166,7 +165,9 @@ module Thredded
     def render_topic_view(topic)
       page_scope = topics_scope.where(id: topic.id)
       topics = Thredded::TopicsPageView.new(thredded_current_user, page_scope)
-      render json: TopicViewSerializer.new(topics.topic_views, include: [:topic, :read_state, :follow, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
+      render json: TopicViewSerializer.new(topics.topic_views,
+                                           include: %i[topic read_state follow topic.user topic.last_user])
+        .serializable_hash.to_json, status: 200
     end
 
     def verify_messageboard
@@ -174,7 +175,7 @@ module Thredded
       authorize_reading messageboard
       return if params_match?(canonical_messageboard_params)
       skip_policy_scope
-      redirect_to(canonical_messageboard_params.merge({q: params[:q]}))
+      redirect_to(canonical_messageboard_params.merge(q: params[:q]))
     end
 
     def canonical_messageboard_params
@@ -207,7 +208,7 @@ module Thredded
     def topic_params_for_update
       params
         .require(:topic)
-        .permit(:title, :locked, :sticky, category_ids:[])
+        .permit(:title, :locked, :sticky, category_ids: [])
     end
 
     def current_page

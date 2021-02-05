@@ -206,13 +206,13 @@ module Thredded
     end
 
     it 'allows a topic with the same type' do
-      create(:messageboard, topic_types: ['Thredded::TopicDefault']).tap do |messageboard|
-        expect { create(:topic, messageboard: messageboard) }.not_to raise_error
+      create(:messageboard, :for_movies).tap do |messageboard|
+        expect { create(:movie, messageboard: messageboard) }.not_to raise_error
       end
     end
 
     it 'wont allow a topic with a different type' do
-      create(:messageboard, topic_types: ['Thredded::TopicMovie']).tap do |messageboard|
+      create(:messageboard, :for_movies).tap do |messageboard|
         expect { create(:topic, messageboard: messageboard) }.to raise_error
       end
     end

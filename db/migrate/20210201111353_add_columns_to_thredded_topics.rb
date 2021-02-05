@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToThreddedTopics < ActiveRecord::Migration[6.0]
   def change
     add_column :thredded_topics, :video_url, :string

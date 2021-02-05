@@ -95,5 +95,10 @@ module Thredded
       end
     end
 
+    class TopicSubclassNotFound < Thredded::Error
+      def message
+        'Ungültiger Topic-Typ!'
+      end
+    end
   end
 end

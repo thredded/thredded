@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategorySerializer
   include JSONAPI::Serializer
   attributes :name, :description, :locked, :position, :created_at, :updated_at
@@ -7,5 +9,4 @@ class CategorySerializer
   end
 
   has_many :topics
-
 end

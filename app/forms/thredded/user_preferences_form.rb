@@ -100,9 +100,7 @@ module Thredded
 
     def validate_children
       promote_errors(user_preference.errors) if user_preference.invalid?
-      if messageboard && user_messageboard_preference.invalid? # rubocop:disable Style/GuardClause
-        promote_errors(user_messageboard_preference.errors, :messageboard)
-      end
+      promote_errors(user_messageboard_preference.errors, :messageboard) if messageboard && user_messageboard_preference.invalid?
     end
 
     def promote_errors(child_errors, prefix = nil)

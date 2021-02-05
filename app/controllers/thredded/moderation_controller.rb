@@ -12,7 +12,7 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      render json: PostViewSerializer.new(@posts.post_views, include: [:post, :'post.user']).serializable_hash.to_json, status: 200
+      render json: PostViewSerializer.new(@posts.post_views, include: %i[post post.user]).serializable_hash.to_json, status: 200
     end
 
     def history
@@ -21,7 +21,9 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
         .preload(:messageboard, :post_user, :moderator, post: :postable)
         .preload_first_topic_post
-      render json: PostModerationRecordSerializer.new(@post_moderation_records, include: [:post, :messageboard, :moderator, :post_user]).serializable_hash.to_json, status: 200
+      render json: PostModerationRecordSerializer.new(@post_moderation_records,
+                                                      include: %i[post messageboard moderator post_user])
+        .serializable_hash.to_json, status: 200
     end
 
     def activity
@@ -31,14 +33,14 @@ module Thredded
           .send(Kaminari.config.page_method_name, current_page)
           .preload_first_topic_post
       )
-      render json: PostViewSerializer.new(@posts.post_views, include: [:post, :'post.user']).serializable_hash.to_json, status: 200
+      render json: PostViewSerializer.new(@posts.post_views, include: %i[post post.user]).serializable_hash.to_json, status: 200
     end
 
     def moderate_post
       moderation_state = params[:moderation_state].to_s
       return head(:bad_request) unless Thredded::Post.moderation_states.include?(moderation_state)
       post = Post.find!(params[:id].to_s)
-      if post.moderation_state != moderation_state and moderatable_posts.find(params[:id].to_s)
+      if (post.moderation_state != moderation_state) && moderatable_posts.find(params[:id].to_s)
         Thredded::ModeratePost.run!(
           post: post,
           moderation_state: moderation_state,
@@ -46,7 +48,7 @@ module Thredded
         )
         head 204
       else
-        render json: {errors: "Post was already #{moderation_state}" }, status: 422
+        render json: { error: "Post was already #{moderation_state}" }, status: 422
       end
     end
 
@@ -74,7 +76,7 @@ module Thredded
         .includes(:postable)
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::PostsPageView.new(thredded_current_user, posts_scope, author: @user)
-      render json: PostViewSerializer.new(@posts.post_views, include: [:post, :'post.user']).serializable_hash.to_json, status: 200
+      render json: PostViewSerializer.new(@posts.post_views, include: %i[post post.user]).serializable_hash.to_json, status: 200
     end
 
     def moderate_user
@@ -90,10 +92,10 @@ module Thredded
           posts_scope: posts_scope,
           moderation_state: moderation_state,
           moderator: thredded_current_user,
-          )
+        )
         render json: UserSerializer.new(user, include: [:thredded_user_detail]).serializable_hash.to_json, status: 200
       else
-        render json: {errors: "User was already #{moderation_state}" }, status: 422
+        render json: { error: "User was already #{moderation_state}" }, status: 422
       end
     end
 

@@ -16,9 +16,7 @@ module Thredded
           previous_moderation_state: post.moderation_state,
           moderation_state: moderation_state,
         )
-        if post.user_id && post.user_detail.pending_moderation?
-          update_without_timestamping!(post.user_detail, moderation_state: moderation_state)
-        end
+        update_without_timestamping!(post.user_detail, moderation_state: moderation_state) if post.user_id && post.user_detail.pending_moderation?
         if post.postable.first_post == post
           update_without_timestamping!(post.postable, moderation_state: moderation_state)
           if moderation_state == :blocked

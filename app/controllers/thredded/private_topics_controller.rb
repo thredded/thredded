@@ -19,10 +19,12 @@ module Thredded
       Thredded::PrivateTopicForm.new(user: thredded_current_user).tap do |form|
         @new_private_topic = form if policy(form.private_topic).create?
       end
-      render json: PrivateTopicViewSerializer.new(@private_topics.topic_views, include: [:topic, :read_state, :'topic.user', :'topic.last_user']).serializable_hash.to_json, status: 200
+      render json: PrivateTopicViewSerializer.new(@private_topics.topic_views,
+                                                  include: %i[topic read_state topic.user topic.last_user])
+        .serializable_hash.to_json, status: 200
     end
 
-    def show  
+    def show
       authorize private_topic, :read?
       page_scope = private_topic
         .posts
@@ -30,7 +32,7 @@ module Thredded
         .order_oldest_first
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, private_topic, page_scope)
-      render json: TopicPostsPageViewSerializer.new(@posts, include: [:post_views, :topic, :'post_views.post', :'topic.topic']).serializable_hash.to_json, status: 200
+      render json: TopicPostsPageViewSerializer.new(@posts, include: %i[post_views topic post_views.post topic.topic]).serializable_hash.to_json, status: 200
     end
 
     def create
@@ -38,18 +40,14 @@ module Thredded
       if @private_topic.save
         render json: PrivateTopicSerializer.new(@private_topic.private_topic, include: [:users]).serializable_hash.to_json, status: 201
       else
-        render json: {errors: @private_topic.errors }, status: 422
+        render json: { errors: @private_topic.errors }, status: 422
       end
     end
 
     def destroy
-      begin
-        @private_topic = Thredded::PrivateTopic.friendly_find!(params[:id])
-        authorize @private_topic, :destroy?
-        @private_topic.destroy!
-      rescue Exception
-        raise
-      end
+      @private_topic = Thredded::PrivateTopic.friendly_find!(params[:id])
+      authorize @private_topic, :destroy?
+      @private_topic.destroy!
       head 204
     end
 
@@ -58,7 +56,7 @@ module Thredded
       if private_topic.update(private_topic_params)
         render json: PrivateTopicSerializer.new(private_topic, include: [:users]).serializable_hash.to_json, status: 200
       else
-        render json: {errors: private_topic.errors }, status: 422
+        render json: { errors: private_topic.errors }, status: 422
       end
     end
 

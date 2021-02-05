@@ -41,10 +41,10 @@ Metrics/BlockLength:
   - spec/factories.rb
 
 Metrics/ClassLength:
-  Max: 125
+  Max: 130
 
 Metrics/LineLength:
-  Max: 120
+  Max: 160
 
 Metrics/MethodLength:
   Max: 25

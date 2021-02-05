@@ -210,9 +210,7 @@ module Thredded # rubocop:disable Metrics/ModuleLength
 
     # @param user_class_name [String]
     def user_class=(user_class_name)
-      unless user_class_name.is_a?(String)
-        fail "Thredded.user_class must be set to a String, got #{user_class_name.inspect}"
-      end
+      fail "Thredded.user_class must be set to a String, got #{user_class_name.inspect}" unless user_class_name.is_a?(String)
       @user_class_name = user_class_name
     end
 

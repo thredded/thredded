@@ -399,8 +399,7 @@ module Thredded
     end
 
     it 'finds the movie' do
-      movie_messageboard = create(:messageboard, topic_types: ['Thredded::TopicMovie'])
-      topic = create(:movie, title: 'My movie', messageboard: movie_messageboard)
+      topic = create(:movie, title: 'My movie')
 
       expect(Topic.friendly_find!('my-movie').id).to eq topic.id
       expect(Topic.friendly_find!('my-movie').type).to eq topic.type

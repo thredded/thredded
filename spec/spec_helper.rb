@@ -1,15 +1,15 @@
 # frozen_string_literal: true
+
 def require_rel(*paths)
   # Handle passing an array as an argument
   paths.flatten!
   return false if paths.empty?
 
-  source_directory = File.dirname caller.first.sub(/:\d+$/, '')
+  source_directory = File.dirname caller(1..1).first.sub(/:\d+$/, '')
   paths.each do |path|
     require_all File.join(source_directory, path)
   end
 end
-
 
 ENV['RAILS_ENV'] = 'test'
 db = ENV.fetch('DB', 'sqlite3')
@@ -161,4 +161,3 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
     end
   end
 end
-

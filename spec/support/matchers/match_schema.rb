@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/support/matchers/match_schema.rb
 RSpec::Matchers.define :match_schema do |schema|
   match do |response|

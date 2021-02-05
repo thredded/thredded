@@ -2,5 +2,5 @@
 
 class ThreddedUserDetailSerializer
   include JSONAPI::Serializer
-  attributes   :moderation_state
+  attributes :moderation_state
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-unless Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2 || Rails::VERSION::MAJOR > 5
-  require 'thredded/rails_lt_5_2_arel_case_node.rb'
-end
+require 'thredded/rails_lt_5_2_arel_case_node.rb' unless Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2 || Rails::VERSION::MAJOR > 5
 
 module Thredded
   module ArelCompat

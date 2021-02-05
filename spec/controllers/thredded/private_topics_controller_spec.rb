@@ -6,14 +6,14 @@ module Thredded
   describe PrivateTopicsController, type: :controller do
     routes { Thredded::Engine.routes }
 
+    subject(:do_mark_all_as_read) { post :mark_all_as_read }
+
     let(:user) { create(:user) }
 
     before do
       allow(controller).to receive_messages(thredded_current_user: user)
       request.env['HTTP_REFERER'] = root_path
     end
-
-    subject(:do_mark_all_as_read) { post :mark_all_as_read }
 
     shared_examples 'private topic creation' do
       it 'creates one' do
