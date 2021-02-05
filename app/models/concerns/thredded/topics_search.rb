@@ -11,9 +11,7 @@ module Thredded
 
     # @return [ActiveRecord::Relation<Thredded::Topic>]
     def search
-      if categories.present?
-        @scope = @scope.joins(:topic_categories).merge(Thredded::TopicCategory.where(category_id: categories))
-      end
+      @scope = @scope.joins(:topic_categories).merge(Thredded::TopicCategory.where(category_id: categories)) if categories.present?
       if text.present? || users.present?
         [search_topics, search_posts].compact.reduce(:union)
       else

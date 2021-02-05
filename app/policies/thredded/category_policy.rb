@@ -36,6 +36,5 @@ module Thredded
     def destroy?
       @user.thredded_admin?
     end
-
   end
 end

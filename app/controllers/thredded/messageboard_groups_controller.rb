@@ -11,38 +11,40 @@ module Thredded
       if @messageboard_group.save
         render json: MessageboardGroupSerializer.new(@messageboard_group).serializable_hash.to_json, status: 201
       else
-        render json: {errors: @messageboard_group.errors }, status: 422
+        render json: { errors: @messageboard_group.errors }, status: 422
       end
     end
 
     def show
       @group = Thredded::MessageboardGroup.find!(params[:id])
-      render json: MessageboardGroupSerializer.new(@group, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupSerializer.new(@group,
+                                                   include: %i[messageboards messageboards.last_user messageboards.last_topic])
+        .serializable_hash.to_json, status: 200
     end
 
     def index
       @groups = Thredded::MessageboardGroup.ordered.all
-      render json: MessageboardGroupSerializer.new(@groups, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupSerializer.new(@groups,
+                                                   include: %i[messageboards messageboards.last_user messageboards.last_topic])
+        .serializable_hash.to_json, status: 200
     end
 
     def update
       @group = Thredded::MessageboardGroup.find!(params[:id])
       authorize @group, :update?
       if @group.update(messageboard_group_params)
-        render json: MessageboardGroupSerializer.new(@group, include: [:messageboards, :'messageboards.last_user', :'messageboards.last_topic']).serializable_hash.to_json, status: 200
+        render json: MessageboardGroupSerializer.new(@group,
+                                                     include: %i[messageboards messageboards.last_user messageboards.last_topic])
+          .serializable_hash.to_json, status: 200
       else
-        render json: {errors: @group.errors }, status: 422
+        render json: { errors: @group.errors }, status: 422
       end
     end
 
     def destroy
-      begin
-        @group = Thredded::MessageboardGroup.find!(params[:id])
-        authorize @group, :destroy?
-        @group.destroy!
-      rescue Exception
-        raise
-      end
+      @group = Thredded::MessageboardGroup.find!(params[:id])
+      authorize @group, :destroy?
+      @group.destroy!
       head 204
     end
 

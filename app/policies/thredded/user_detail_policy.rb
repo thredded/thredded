@@ -27,6 +27,5 @@ module Thredded
     def update?
       @user_details.user.id == @user.id
     end
-
   end
 end

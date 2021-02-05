@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateTopicCategories < ActiveRecord::Migration[6.0]
   def change
     remove_column :thredded_categories, :messageboard_id, :integer

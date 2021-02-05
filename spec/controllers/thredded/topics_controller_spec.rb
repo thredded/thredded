@@ -24,7 +24,7 @@ module Thredded
       it 'renders' do
         get :index, params: { messageboard_id: @messageboard.slug }
         expect(response).to match_schema(TopicViewSchema)
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'performs canonical redirect' do
@@ -38,14 +38,14 @@ module Thredded
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))
         get :search, params: { messageboard_id: @messageboard.slug, q: 'hi' }
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'is successful with spaces around search term(s)' do
         allow(Topic).to receive_messages(search_query: Topic.where(id: @topic.id))
         get :search, params: { messageboard_id: @messageboard.slug, q: '  hi  ' }
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
 
       it 'performs canonical redirect' do
@@ -75,7 +75,7 @@ module Thredded
 
       it 'returns status code 201 when created' do
         post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params }
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(:created)
       end
     end
 
@@ -92,7 +92,7 @@ module Thredded
 
         it 'returns changed status' do
           do_follow
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
@@ -115,7 +115,7 @@ module Thredded
 
         it 'returns changed status' do
           do_unfollow
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
@@ -131,7 +131,7 @@ module Thredded
 
       it 'returns status code 204 when incremented' do
         do_increment
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(:no_content)
       end
     end
 
@@ -142,8 +142,8 @@ module Thredded
 
       before do
         @user = create(:user)
-        @post2 = create(:post, postable: @topic, content: 'hi')
-        @post3 = create(:post, postable: @topic, content: 'hi')
+        create(:post, postable: @topic, content: 'hi')
+        create(:post, postable: @topic, content: 'hi')
         UserTopicReadState.touch!(user.id, @post)
       end
 
@@ -153,7 +153,7 @@ module Thredded
 
       it 'returns status code 204 when marked as read' do
         mark_as_read
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(:no_content)
       end
     end
 
@@ -163,20 +163,22 @@ module Thredded
       end
 
       before do
-        @topic1 = create(:topic, with_posts: 2)
-        @topic2 = create(:topic, with_posts: 2)
-        UserTopicReadState.touch!(user.id, @topic1.first_post)
-        UserTopicReadState.touch!(user.id, @topic2.first_post)
+        @topic_one = create(:topic, with_posts: 2)
+        @topic_two = create(:topic, with_posts: 2)
+        UserTopicReadState.touch!(user.id, @topic_one.first_post)
+        UserTopicReadState.touch!(user.id, @topic_two.first_post)
         # now, 2 out of 4 posts are read
       end
 
+      # rubocop:disable Metrics/LineLength
       it 'marks all posts of all topics as read' do
-        expect { mark_all_as_read }.to change { Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic1.id).read_posts_count + Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic2.id).read_posts_count}.by(2)
+        expect { mark_all_as_read }.to change { Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic_one.id).read_posts_count + Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: @topic_two.id).read_posts_count }.by(2)
       end
+      # rubocop:enable Metrics/LineLength
 
       it 'returns status code 204 when marked as read' do
         mark_all_as_read
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(:no_content)
       end
     end
   end

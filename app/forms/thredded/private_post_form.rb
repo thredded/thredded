@@ -21,8 +21,8 @@ module Thredded
       user ||= Thredded::NullUser.new
 
       @post.attributes = post_params.merge(
-          user: (user unless user.thredded_anonymous?),
-      #topic: topic
+        user: (user unless user.thredded_anonymous?),
+        # topic: topic
       )
     end
 

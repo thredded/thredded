@@ -12,7 +12,9 @@ module Thredded
         policy_scope(Thredded::Messageboard.all),
         user: thredded_current_user
       )
-      render json: MessageboardGroupViewSerializer.new(@groups, include: [:messageboards, :group, :'messageboards.messageboard']).serializable_hash.to_json, status: 200
+      render json: MessageboardGroupViewSerializer.new(@groups,
+                                                       include: %i[messageboards group messageboards.messageboard])
+        .serializable_hash.to_json, status: 200
     end
 
     def show
@@ -23,17 +25,15 @@ module Thredded
     def create
       @new_messageboard = Thredded::Messageboard.new(new_messageboard_params)
       authorize_creating @new_messageboard
-      if new_messageboard_params[:messageboard_group_id].present?
-      MessageboardGroup.find!(new_messageboard_params[:messageboard_group_id])
-      end
+      MessageboardGroup.find!(new_messageboard_params[:messageboard_group_id]) if new_messageboard_params[:messageboard_group_id].present?
       begin
         if Thredded::CreateMessageboard.new(@new_messageboard, thredded_current_user).run
           render json: MessageboardSerializer.new(@new_messageboard).serializable_hash.to_json, status: 201
         else
-          render json: {errors: @new_messageboard.errors }, status: 422
+          render json: { errors: @new_messageboard.errors }, status: 422
         end
       rescue ActiveRecord::SubclassNotFound
-        render json: {errors: "Dieses Messageboard hat einen ungültigen Topic-Typ." }, status: 422
+        raise Thredded::Errors::TopicSubclassNotFound
       end
     end
 
@@ -43,27 +43,18 @@ module Thredded
       if @messageboard.update(messageboard_params)
         render json: MessageboardSerializer.new(@messageboard).serializable_hash.to_json, status: 200
       else
-        render json: {errors: @messageboard.errors }, status: 422
+        render json: { error: @messageboard.errors }, status: 422
       end
     end
 
     def destroy
-      begin
-        @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
-        authorize @messageboard, :destroy?
-        @messageboard.destroy!
-      rescue Exception
-        raise
-      end
+      @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
+      authorize @messageboard, :destroy?
+      @messageboard.destroy!
       head 204
     end
 
     private
-
-    def find_messageboardgroup
-      puts params[:messageboard_group_id]
-      MessageboardGroup.find(params[:messageboard_group_id]) || fail(Thredded::Errors::RecordNotFound)
-    end
 
     def messageboard_params
       params

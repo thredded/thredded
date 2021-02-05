@@ -24,7 +24,7 @@ module Thredded
 
     has_one_attached :profile_banner
     validates :profile_banner, file_size: { less_than_or_equal_to: 500.kilobytes },
-              file_content_type: { allow: %w[image/jpeg image/jpg] }
+                               file_content_type: { allow: %w[image/jpeg image/jpg] }
 
     scope :recently_active, -> { where(arel_table[:last_seen_at].gt(Thredded.active_user_threshold.ago)) }
 
@@ -34,18 +34,18 @@ module Thredded
 
     serialize :interests, Array
 
-    private
-
     def self.find!(id)
       find_by(id: id) || fail(Thredded::Errors::UserDetailsNotFound)
     end
+
+    private
 
     def set_moderation_state_changed_at
       self.moderation_state_changed_at = Time.current if moderation_state_changed?
     end
 
     def notify_user
-      Thredded::NotifyModeratedUserJob.perform_later(id) if (saved_change_to_moderation_state?)
+      Thredded::NotifyModeratedUserJob.perform_later(id) if saved_change_to_moderation_state?
     end
   end
 end

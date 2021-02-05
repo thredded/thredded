@@ -25,10 +25,11 @@ module Thredded
                 Thredded::Errors::PostNotFound,
                 Thredded::Errors::UserNotFound,
                 Thredded::Errors::CategoryNotFound,
+                Thredded::Errors::TopicSubclassNotFound,
                 Thredded::Errors::MessageboardGroupNotFound do |exception|
       @error   = exception
       @message = exception.message
-      render json: {errors: @message }, status: 404
+      render json: { error: @message }, status: 404
     end
 
     rescue_from Pundit::NotAuthorizedError,
@@ -43,15 +44,15 @@ module Thredded
                  else
                    exception.message
                  end
-      render json: {errors: @message }, status: 403
+      render json: { error: @message }, status: 403
     end
 
     protected
 
     def find_user(id)
       Thredded.user_class.find(id)
-      rescue ActiveRecord::RecordNotFound
-        raise Thredded::Errors::UserNotFound
+    rescue ActiveRecord::RecordNotFound
+      raise Thredded::Errors::UserNotFound
     end
 
     # The `current_user` and `signed_in?` methods are prefixed with `thredded_`

@@ -26,6 +26,10 @@ FactoryBot.define do
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     description { 'This is a description of the messageboard' }
+
+    trait :for_movies do
+      topic_types { ['Thredded::TopicMovie'] }
+    end
   end
 
   factory :messageboard_group, class: Thredded::MessageboardGroup do
@@ -96,7 +100,7 @@ FactoryBot.define do
         evaluator.with_posts.times do
           ago += evaluator.post_interval
           create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
-                 updated_at: ago, moderation_state: topic.moderation_state)
+                        updated_at: ago, moderation_state: topic.moderation_state)
         end
         topic.last_user = topic.user
         topic.posts_count = evaluator.with_posts
@@ -132,7 +136,7 @@ FactoryBot.define do
     hash_id { generate(:topic_hash) }
 
     user
-    messageboard { association :messageboard, topic_types: ['Thredded::TopicMovie'] }
+    association :messageboard, :for_movies
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts

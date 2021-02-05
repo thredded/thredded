@@ -20,7 +20,7 @@ require 'thredded/markdown_katex'
 require 'rails-ujs' unless Thredded.rails_gte_51?
 require 'backport_new_renderer' if Rails::VERSION::MAJOR < 5
 require 'jsonapi/serializer'
-require "active_storage/engine"
+require 'active_storage/engine'
 
 if ENV['HEROKU']
   require 'tunemygc'
@@ -75,9 +75,7 @@ module Dummy
 
     config.active_record.raise_in_transactional_callbacks = true if Rails::VERSION::MAJOR < 5
 
-    if Rails.gem_version >= Gem::Version.new('5.2.0.beta2') && Rails::VERSION::MAJOR < 6
-      config.active_record.sqlite3.represent_boolean_as_integer = true
-    end
+    config.active_record.sqlite3.represent_boolean_as_integer = true if Rails.gem_version >= Gem::Version.new('5.2.0.beta2') && Rails::VERSION::MAJOR < 6
 
     # Enable the asset pipeline
     config.assets.enabled = true
