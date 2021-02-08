@@ -16,7 +16,7 @@ module Thredded
 
     after_action :update_user_activity
 
-    after_action :verify_authorized, except: %i[search unread mark_all_as_read]
+    after_action :verify_authorized, except: %i[show search unread mark_all_as_read]
     after_action :verify_policy_scoped, except: %i[show create update destroy unfollow increment mark_as_read mark_all_as_read]
 
     def index
@@ -55,7 +55,6 @@ module Thredded
     end
 
     def show
-      authorize topic, :read?
       page_scope = policy_scope(topic.posts)
         .order_oldest_first
         .includes(:user, :messageboard)
