@@ -132,7 +132,7 @@ module Thredded
     end
 
     def mark_all_as_read
-      Thredded::MarkAllReadAllTopics.run(thredded_current_user)
+      Thredded::MarkAllReadAllTopics.run(thredded_current_user, messageboard_or_nil)
       head 204
     end
 

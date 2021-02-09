@@ -70,6 +70,13 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
         post 'mark_as_read', action: :mark_as_read
       end
     end
+    resources :messageboards, only: %i[], path: '' do
+      resources :topics, only: [] do
+        collection do
+          post 'mark_as_read', action: :mark_all_as_read
+        end
+      end
+    end
   end
 
   resources :user_details, path: 'user-details', only: [:update]
