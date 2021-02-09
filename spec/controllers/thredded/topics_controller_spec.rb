@@ -163,8 +163,8 @@ module Thredded
       end
 
       before do
-        @topic_one = create(:topic, with_posts: 2)
-        @topic_two = create(:topic, with_posts: 2)
+        @topic_one = create(:topic, with_posts: 2, messageboard: @messageboard)
+        @topic_two = create(:topic, with_posts: 2, messageboard: @messageboard)
         UserTopicReadState.touch!(user.id, @topic_one.first_post)
         UserTopicReadState.touch!(user.id, @topic_two.first_post)
         # now, 2 out of 4 posts are read

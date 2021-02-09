@@ -50,8 +50,9 @@ module Thredded
 
     module ClassMethods
       # @param user [Thredded.user_class]
+      # @param messageboard [Thredded::Messageboard]
       # @return [ActiveRecord::Relation]
-      def unread(user)
+      def unread(user, messageboard = nil)
         topics = arel_table
         reads_class = reflect_on_association(:user_read_states).klass
         reads = reads_class.arel_table
@@ -62,7 +63,10 @@ module Thredded
 
         unread_scope = reads_class.where(reads[:id].eq(nil).or(reads[:unread_posts_count].not_eq(0)))
 
-        joins(joins_reads).merge(unread_scope)
+        result = joins(joins_reads).merge(unread_scope)
+        return result.where(topics[:messageboard_id].eq(messageboard.id)) if messageboard
+
+        result
       end
 
       private
