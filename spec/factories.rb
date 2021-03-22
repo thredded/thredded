@@ -263,4 +263,13 @@ FactoryBot.define do
     user
     topic
   end
+
+  factory :badge, class: Thredded::Badge do
+    sequence(:title) { |n| "badge#{n}" }
+    description { 'This is a description of the badge' }
+
+    trait :secret do
+      secret { true }
+    end
+  end
 end

@@ -108,6 +108,13 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   resources :categories, except: %i[new edit]
   resources :news
+  resources :badges, except: %i[new edit] do
+    member do
+      put 'main', action: :main
+      put 'users/:user_ids', action: :assign
+      delete 'users/:user_ids', action: :remove
+    end
+  end
 
   root to: 'messageboards#index'
 end

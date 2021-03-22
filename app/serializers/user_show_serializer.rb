@@ -10,4 +10,6 @@ class UserShowSerializer
 
   has_one :thredded_user_detail, serializer: ThreddedUserShowDetailSerializer
   has_many :thredded_topics, serializer: TopicSerializer
+  has_many :thredded_badges, serializer: BadgeSerializer
+  belongs_to :thredded_main_badge, serializer: BadgeSerializer
 end
