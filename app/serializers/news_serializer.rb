@@ -2,7 +2,7 @@
 
 class NewsSerializer
   include JSONAPI::Serializer
-  attributes :title, :description, :short_description, :url, :topic_id, :created_at, :updated_at
+  attributes :title, :description, :short_description, :url, :topic_url, :created_at, :updated_at
   belongs_to :user
 
   attribute :news_banner do |banner|

@@ -107,7 +107,11 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   resources :categories, except: %i[new edit]
-  resources :news
+  resources :news, path: 'news'do
+    collection do
+      get '(page-:page)', action: :index, as: '', constraints: page_constraint
+    end
+  end
 
   root to: 'messageboards#index'
 end
