@@ -107,6 +107,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   resources :categories, except: %i[new edit]
+  resources :news
 
   root to: 'messageboards#index'
 end
