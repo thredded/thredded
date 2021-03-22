@@ -23,6 +23,10 @@ FactoryBot.define do
     end
   end
 
+  factory :news, class: Thredded::News do
+    sequence(:title) { |n| "title#{n}" }
+  end
+
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     description { 'This is a description of the messageboard' }
