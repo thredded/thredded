@@ -17,7 +17,7 @@ module Thredded
     def self.find!(slug_or_id)
       find(slug_or_id)
     rescue ActiveRecord::RecordNotFound
-      raise Thredded::Errors::CategoryNotFound
+      raise Thredded::Errors::NewsNotFound
     end
   end
 end

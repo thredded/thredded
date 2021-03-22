@@ -8,11 +8,11 @@ module Thredded
 
     def index
       @news = News.all
-      render json: NewsSerializer.new(@news).serializable_hash.to_json, status: 200
+      render json: NewsSerializer.new(@news, include: %i[user]).serializable_hash.to_json, status: 200
     end
 
     def show
-      render json: NewsSerializer.new(news).serializable_hash.to_json, status: 200
+      render json: NewsSerializer.new(news, include: %i[user]).serializable_hash.to_json, status: 200
     end
 
     def create
@@ -29,7 +29,7 @@ module Thredded
     def update
       authorize news, :update?
       if news.update(news_params)
-        render json: NewsSerializer.new(news).serializable_hash.to_json, status: 200
+        render json: NewsSerializer.new(news, include: %i[user]).serializable_hash.to_json, status: 200
       else
         render json: { errors: news.errors }, status: 422
       end
@@ -47,7 +47,10 @@ module Thredded
       params
         .require(:news)
         .permit(:title, :description, :short_description, :url, :topic_id, :news_banner)
-      end
+      .merge(
+           user: thredded_current_user
+      )
+    end
 
     def news
       @news ||= Thredded::News.find!(params[:id])
