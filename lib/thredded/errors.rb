@@ -89,6 +89,12 @@ module Thredded
       end
     end
 
+    class NewsNotFound < Thredded::Error
+      def message
+        'Diese News konnten nicht gefunden werden!'
+      end
+    end
+
     class MessageboardGroupNotFound < Thredded::Error
       def message
         'Die Forumsgruppe konnte nicht gefunden werden!'
