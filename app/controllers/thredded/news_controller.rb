@@ -7,7 +7,8 @@ module Thredded
     after_action :verify_authorized, except: %i[index show]
 
     def index
-      @news = News.all
+      @news = News.order_by_created_date.page params[:page]
+
       render json: NewsSerializer.new(@news, include: %i[user]).serializable_hash.to_json, status: 200
     end
 
@@ -46,7 +47,7 @@ module Thredded
     def news_params
       params
         .require(:news)
-        .permit(:title, :description, :short_description, :url, :topic_id, :news_banner)
+        .permit(:title, :description, :short_description, :url, :topic_url, :news_banner)
       .merge(
            user: thredded_current_user
       )
@@ -55,5 +56,6 @@ module Thredded
     def news
       @news ||= Thredded::News.find!(params[:id])
     end
+
   end
 end

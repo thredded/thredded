@@ -11,6 +11,9 @@ module Thredded
 
     has_one_attached :news_banner
 
+    scope :order_by_created_date, -> { order(created_at: :desc) }
+    paginates_per 10
+
     validates :news_banner, file_size: { less_than_or_equal_to: 500.kilobytes },
                               file_content_type: { allow: %w[image/jpeg image/jpg] }
 
