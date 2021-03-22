@@ -9,5 +9,5 @@ class UserShowSerializer
   end
 
   has_one :thredded_user_detail, serializer: ThreddedUserShowDetailSerializer
-  has_many :thredded_topics, serializer: MovieSerializer
+  has_many :thredded_topics, serializer: TopicSerializer
 end
