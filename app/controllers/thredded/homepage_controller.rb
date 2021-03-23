@@ -4,7 +4,7 @@ module Thredded
   class HomepageController < Thredded::ApplicationController
 
     def index
-      render json:{user_count: user_count, topic_count: topic_count, movie_count: movie_count,
+      render json: {user_count: user_count, topic_count: topic_count, movie_count: movie_count,
                    random_users: UserShowSerializer.new(random_users, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
                    random_movies: TopicSerializer.new(random_movies, include: %i[user categories]).serializable_hash,
                    latest_user: UserShowSerializer.new(latest_user, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
@@ -20,11 +20,11 @@ module Thredded
     end
 
     def random_topics
-      Topic.where(type: "Thredded::TopicDefault").sample(params[:desired_objects].to_i)
+      Topic.where(type: "Thredded::TopicDefault", moderation_state: "approved" ).sample(params[:desired_objects].to_i)
     end
 
     def random_movies
-      Topic.where(type: "Thredded::TopicMovie").sample(params[:desired_objects].to_i)
+      Topic.where(type: "Thredded::TopicMovie", moderation_state: "approved").sample(params[:desired_objects].to_i)
     end
 
     def latest_user
@@ -32,7 +32,7 @@ module Thredded
     end
 
     def latest_topic
-      Topic.last
+      Topic.where(moderation_state: "approved").last
     end
 
     def latest_news
@@ -44,11 +44,17 @@ module Thredded
     end
 
     def topic_count
-      Topic.where(type: "Thredded::TopicDefault").size
+      counter = 0
+      Messageboard.all.each do |messageboard|
+        counter += messageboard.topics_count
+      end
     end
 
     def movie_count
-      Topic.where(type: "Thredded::TopicMovie").size
+      counter = 0
+      Messageboard.all.each do |messageboard|
+        counter += messageboard.movies_count
+      end
     end
 
   end
