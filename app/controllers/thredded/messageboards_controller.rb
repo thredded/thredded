@@ -24,6 +24,11 @@ module Thredded
 
     def create
       @new_messageboard = Thredded::Messageboard.new(new_messageboard_params)
+
+      if @new_messageboard.badge_id
+        Thredded::Badge.find!(@new_messageboard.badge_id)
+      end
+
       authorize_creating @new_messageboard
       MessageboardGroup.find!(new_messageboard_params[:messageboard_group_id]) if new_messageboard_params[:messageboard_group_id].present?
       begin
@@ -40,7 +45,17 @@ module Thredded
     def update
       @messageboard = Thredded::Messageboard.friendly_find!(params[:id])
       authorize @messageboard, :update?
-      if @messageboard.update(messageboard_params)
+      messageboard = messageboard_params
+
+      if messageboard[:badge_id]
+        if messageboard[:badge_id] == 0
+          messageboard[:badge_id] = nil
+        else
+          Thredded::Badge.find!(messageboard[:badge_id])
+        end
+      end
+
+      if  @messageboard.update(messageboard)
         render json: MessageboardSerializer.new(@messageboard).serializable_hash.to_json, status: 200
       else
         render json: { error: @messageboard.errors }, status: 422
@@ -59,13 +74,13 @@ module Thredded
     def messageboard_params
       params
         .require(:messageboard)
-        .permit(:name, :description, :messageboard_group_id, :locked)
+        .permit(:name, :description, :messageboard_group_id, :badge_id, :locked)
     end
 
     def new_messageboard_params
       params
         .require(:messageboard)
-        .permit(:name, :description, :messageboard_group_id, :locked, topic_types: [])
+        .permit(:name, :description, :messageboard_group_id, :locked, :badge_id, topic_types: [])
     end
   end
 end

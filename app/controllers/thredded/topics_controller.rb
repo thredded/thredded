@@ -62,7 +62,7 @@ module Thredded
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
       render json: TopicPostsPageViewSerializer.new(@posts,
                                                     include: %i[post_views topic post_views.post topic.topic topic.categories
-                                                                post_views.post.user post_views.post.user.thredded_user_detail])
+                                                                post_views.post.user post_views.post.user.thredded_user_detail post_views.post.user.thredded_main_badge])
         .serializable_hash.to_json, status: 200
     end
 
@@ -84,6 +84,15 @@ module Thredded
 
     def update
       topic.assign_attributes(topic_params_for_update)
+
+      if topic.badge_id
+        if topic.badge_id == 0
+          topic.badge_id = nil
+        else
+          Thredded::Badge.find!(topic.badge_id)
+        end
+      end
+
       authorize topic, :update?
       if topic.messageboard_id_changed?
         # Work around the association not being reset.
@@ -207,7 +216,7 @@ module Thredded
     def topic_params_for_update
       params
         .require(:topic)
-        .permit(:title, :locked, :sticky, category_ids: [])
+        .permit(:title, :locked, :sticky, :badge_id, category_ids: [])
     end
 
     def current_page

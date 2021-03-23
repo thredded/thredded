@@ -4,7 +4,7 @@ module Thredded
   class TopicForm
     include ActiveModel::Model
 
-    attr_accessor :title, :category_ids, :locked, :sticky, :content, :video_url
+    attr_accessor :title, :category_ids, :locked, :sticky, :content, :video_url, :badge_id
     attr_reader :user, :messageboard, :id, :post_views, :type
 
     validate :validate_children
@@ -18,6 +18,7 @@ module Thredded
       @user = params[:user] || fail('user is required')
       @messageboard = params[:messageboard]
       @type = params[:type]
+      @badge_id = params[:badge_id]
       @video_url = params[:video_url]
     end
 
@@ -42,6 +43,9 @@ module Thredded
     end
 
     def topic
+      if badge_id
+        Thredded::Badge.find!(badge_id)
+      end
       @topic ||= messageboard.topics.build(
         title: title,
         locked: locked,
@@ -50,6 +54,7 @@ module Thredded
         category_ids: category_ids,
         type: type,
         video_url: video_url,
+        badge_id: badge_id,
       )
     end
 
