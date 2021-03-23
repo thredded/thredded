@@ -4,6 +4,7 @@ module Thredded
   module UserExtender
     extend ActiveSupport::Concern
 
+    include ActiveModel::Validations
     include ::Thredded::UserPermissions::Read::All
     include ::Thredded::UserPermissions::Write::All
     include ::Thredded::UserPermissions::Message::ReadersOfWriteableBoards
@@ -43,6 +44,11 @@ module Thredded
                through:    :thredded_private_users,
                class_name: 'Thredded::PrivateTopic',
                source:     :private_topic
+
+      has_many :thredded_user_badges, class_name: 'Thredded::UserBadge', inverse_of: :user
+      has_many :thredded_badges, :class_name => 'Thredded::Badge', through: :thredded_user_badges, source: :badge
+      belongs_to :thredded_main_badge, class_name: 'Thredded::Badge', optional: true
+      validates_with MainBadgeValidator
 
       with_options dependent: :nullify, class_name: 'Thredded::PostModerationRecord' do
         has_many :thredded_post_moderation_records, foreign_key: 'post_user_id', inverse_of: :post_user

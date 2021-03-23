@@ -107,6 +107,13 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
   resources :categories, except: %i[new edit]
+  resources :badges, except: %i[new edit] do
+    member do
+      put 'main', action: :main
+      put 'users/:user_ids', action: :assign
+      delete 'users/:user_ids', action: :remove
+    end
+  end
   resources :news, path: 'news'do
     collection do
       get '(page-:page)', action: :index, as: '', constraints: page_constraint

@@ -106,5 +106,11 @@ module Thredded
         'Ungültiger Topic-Typ!'
       end
     end
+
+    class BadgeNotFound < Thredded::Error
+      def message
+        'Das Badge konnte nicht gefunden werden!'
+      end
+    end
   end
 end

@@ -5,7 +5,7 @@ module Thredded
     def show
       post = Thredded::Post.find!(params[:id].to_s)
       authorize post, :read?
-      render json: PostSerializer.new(post, include: %i[user messageboard]).serializable_hash.to_json, status: 200
+      render json: PostSerializer.new(post, include: %i[user messageboard user.thredded_main_badge]).serializable_hash.to_json, status: 200
     end
   end
 end
