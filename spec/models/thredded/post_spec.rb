@@ -142,6 +142,81 @@ module Thredded
       notified_emails = @post.user_notifications.map { |notification| notification.user.email }
       expect(notified_emails).to eq(['joel@example.com'])
     end
+
+    context 'when the messageboard has a badge' do
+      it 'does assign the badge to the user' do
+        messageboard = create(:messageboard, :with_badge)
+        topic = create(:topic, :with_badge)
+        topic.messageboard = messageboard
+        user = create(:user)
+        expect { create(:post, user: user, postable: topic) }
+          .to change { messageboard.badge.users.count }.by(1)
+      end
+
+      it 'does not assign the badge to the user already has badge' do
+        messageboard = create(:messageboard, :with_badge)
+        topic = create(:topic)
+        topic.messageboard = messageboard
+        user = create(:user)
+        messageboard.badge.users |= [user]
+        expect { create(:post, user: user, postable: topic) }
+          .not_to change { messageboard.badge.users.count }
+      end
+    end
+
+    context 'when the topic has a badge' do
+      it 'does assign the badge to the user' do
+        topic = create(:topic, :with_badge)
+        user = create(:user)
+        expect { create(:post, user: user, postable: topic) }
+          .to change { topic.badge.users.count }.by(1)
+      end
+
+      it 'does not assign the badge to the user already has badge' do
+        topic = create(:topic, :with_badge)
+        user = create(:user)
+        topic.badge.users |= [user]
+        expect { create(:post, user: user, postable: topic) }
+          .not_to change { topic.badge.users.count }
+      end
+    end
+
+    context 'when the topic and the messageboard have a badge' do
+      it 'does assign the badges to the user' do
+        messageboard = create(:messageboard, :with_badge)
+        topic = create(:topic, :with_badge)
+        topic.messageboard = messageboard
+        user = create(:user)
+        expect { create(:post, user: user, postable: topic) }
+          .to change { messageboard.badge.users.count + topic.badge.users.count }.by(2)
+      end
+    end
+
+    context 'when the user posts or movies count is high enough to earn a badge' do
+      # see spec/dummy/config/badges/user_stats.yaml
+      before do
+        create(:badge)
+        create(:badge)
+        create(:badge)
+      end
+
+      it 'does assign 1 of 3 badges to the user' do
+        user = create(:user)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(1)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(0)
+      end
+
+      it 'does assign 2 of 3 badges to the user' do
+        user = create(:user)
+        create(:movie, user: user)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(2)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(0)
+      end
+    end
   end
 
   describe Post, '#destroy' do

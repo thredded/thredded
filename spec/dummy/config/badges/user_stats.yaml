@@ -1,0 +1,14 @@
+badge_1:
+  posts_count: 0
+  movies_count: null
+  badge_id: 1
+
+badge_2:
+  posts_count: null
+  movies_count: 1
+  badge_id: 2
+
+badge_3:
+  posts_count: null
+  movies_count: 999
+  badge_id: 3

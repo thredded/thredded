@@ -45,7 +45,7 @@ module Thredded
                class_name: 'Thredded::PrivateTopic',
                source:     :private_topic
 
-      has_many :thredded_user_badges, class_name: 'Thredded::UserBadge', inverse_of: :user
+      has_many :thredded_user_badges, class_name: 'Thredded::UserBadge', inverse_of: :user, dependent: :delete_all
       has_many :thredded_badges, :class_name => 'Thredded::Badge', through: :thredded_user_badges, source: :badge
       belongs_to :thredded_main_badge, class_name: 'Thredded::Badge', optional: true
       validates_with MainBadgeValidator
