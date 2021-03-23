@@ -120,5 +120,13 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  root to: 'messageboards#index'
+  resources :events, path: 'events'do
+    collection do
+      get '(page-:page)', action: :index, as: '', constraints: page_constraint
+    end
+  end
+
+get 'homepage', action: :index, controller: 'homepage'
+
+root to: 'messageboards#index'
 end

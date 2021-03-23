@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+ # frozen_string_literal: true
 
 module Thredded
   class TopicMovie < Thredded::Topic
@@ -8,5 +8,10 @@ module Thredded
                inverse_of:    :topics,
                counter_cache: :movies_count,
                **(Thredded.rails_gte_51? ? { optional: true } : {})
+
+    belongs_to :messageboard,
+               touch: true,
+               inverse_of: :topics,
+               counter_cache: :movies_count
   end
 end
