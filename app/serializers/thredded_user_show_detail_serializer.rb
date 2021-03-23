@@ -18,7 +18,7 @@ class ThreddedUserShowDetailSerializer
              :moderation_state,
              :last_seen_at
 
-  attribute :profile_banner do |user_details|
+    attribute :profile_banner do |user_details|
     Rails.application.routes.url_helpers.rails_blob_url(user_details.profile_banner, only_path: true) if user_details.profile_banner.attached?
   end
 end
