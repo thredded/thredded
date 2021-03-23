@@ -8,7 +8,8 @@ module Thredded
                    random_movies: TopicSerializer.new(random_movies, include: %i[user categories]).serializable_hash,
                    latest_user: UserSerializer.new(latest_user, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
                    latest_topic: TopicSerializer.new(latest_topic, include: %i[messageboard user]).serializable_hash,
-                   latest_news: NewsSerializer.new(latest_news).serializable_hash}
+                   latest_news: NewsSerializer.new(latest_news),
+                   user_count: user_count, topic_count: topic_count, movie_count: movie_count}
                       .to_json, status: 200
     end
 
@@ -36,6 +37,18 @@ module Thredded
 
     def latest_news
       News.last(params[:desired_objects].to_i)
+    end
+
+    def user_count
+      User.all.size
+    end
+
+    def topic_count
+      Topic.where(type: "Thredded::TopicDefault").size
+    end
+
+    def movie_count
+      Topic.where(type: "Thredded::TopicMovie").size
     end
 
   end
