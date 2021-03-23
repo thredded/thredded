@@ -191,6 +191,32 @@ module Thredded
           .to change { messageboard.badge.users.count + topic.badge.users.count }.by(2)
       end
     end
+
+    context 'when the user posts or movies count is high enough to earn a badge' do
+      # see spec/dummy/config/badges/user_stats.yaml
+      before do
+        create(:badge)
+        create(:badge)
+        create(:badge)
+      end
+
+      it 'does assign 1 of 3 badges to the user' do
+        user = create(:user)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(1)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(0)
+      end
+
+      it 'does assign 2 of 3 badges to the user' do
+        user = create(:user)
+        create(:movie, user: user)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(2)
+        expect { create(:post, user: user) }
+          .to change { user.thredded_badges.count }.by(0)
+      end
+    end
   end
 
   describe Post, '#destroy' do
