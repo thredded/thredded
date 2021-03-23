@@ -86,7 +86,7 @@ module Thredded
       topic.assign_attributes(topic_params_for_update)
 
       if topic.badge_id
-        if topic.badge_id == 0
+        if topic.badge_id == 0 || !thredded_current_user.thredded_admin?
           topic.badge_id = nil
         else
           Thredded::Badge.find!(topic.badge_id)

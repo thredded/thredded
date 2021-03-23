@@ -34,6 +34,10 @@ FactoryBot.define do
     trait :for_movies do
       topic_types { ['Thredded::TopicMovie'] }
     end
+
+    trait :with_badge do
+      badge { create(:badge) }
+    end
   end
 
   factory :messageboard_group, class: Thredded::MessageboardGroup do
@@ -126,6 +130,10 @@ FactoryBot.define do
 
     trait :sticky do
       sticky { true }
+    end
+
+    trait :with_badge do
+      badge { create(:badge) }
     end
   end
 
