@@ -142,6 +142,55 @@ module Thredded
       notified_emails = @post.user_notifications.map { |notification| notification.user.email }
       expect(notified_emails).to eq(['joel@example.com'])
     end
+
+    context 'when the messageboard has a badge' do
+      it 'does assign the badge to the user' do
+        messageboard = create(:messageboard, :with_badge)
+        topic = create(:topic, :with_badge)
+        topic.messageboard = messageboard
+        user = create(:user)
+        expect { create(:post, user: user, postable: topic) }
+          .to change { messageboard.badge.users.count }.by(1)
+      end
+
+      it 'does not assign the badge to the user already has badge' do
+        messageboard = create(:messageboard, :with_badge)
+        topic = create(:topic)
+        topic.messageboard = messageboard
+        user = create(:user)
+        messageboard.badge.users |= [user]
+        expect { create(:post, user: user, postable: topic) }
+          .not_to change { messageboard.badge.users.count }
+      end
+    end
+
+    context 'when the topic has a badge' do
+      it 'does assign the badge to the user' do
+        topic = create(:topic, :with_badge)
+        user = create(:user)
+        expect { create(:post, user: user, postable: topic) }
+          .to change { topic.badge.users.count }.by(1)
+      end
+
+      it 'does not assign the badge to the user already has badge' do
+        topic = create(:topic, :with_badge)
+        user = create(:user)
+        topic.badge.users |= [user]
+        expect { create(:post, user: user, postable: topic) }
+          .not_to change { topic.badge.users.count }
+      end
+    end
+
+    context 'when the topic and the messageboard have a badge' do
+      it 'does assign the badges to the user' do
+        messageboard = create(:messageboard, :with_badge)
+        topic = create(:topic, :with_badge)
+        topic.messageboard = messageboard
+        user = create(:user)
+        expect { create(:post, user: user, postable: topic) }
+          .to change { messageboard.badge.users.count + topic.badge.users.count }.by(2)
+      end
+    end
   end
 
   describe Post, '#destroy' do

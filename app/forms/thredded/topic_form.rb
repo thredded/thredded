@@ -43,19 +43,20 @@ module Thredded
     end
 
     def topic
-      if badge_id
+      topic_params = {title: title,
+                      locked: locked,
+                      sticky: sticky,
+                      user: non_null_user,
+                      category_ids: category_ids,
+                      type: type,
+                      video_url: video_url}
+
+      if badge_id && user.thredded_admin?
         Thredded::Badge.find!(badge_id)
+        topic_params[:badge_id] = badge_id
       end
-      @topic ||= messageboard.topics.build(
-        title: title,
-        locked: locked,
-        sticky: sticky,
-        user: non_null_user,
-        category_ids: category_ids,
-        type: type,
-        video_url: video_url,
-        badge_id: badge_id,
-      )
+
+      @topic ||= messageboard.topics.build(topic_params)
     end
 
     def post

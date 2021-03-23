@@ -4,6 +4,7 @@ module Thredded
   class Post < ActiveRecord::Base
     include Thredded::PostCommon
     include Thredded::ContentModerationState
+    include Thredded::BadgeAssignment
 
     belongs_to :user,
                class_name: Thredded.user_class_name,
