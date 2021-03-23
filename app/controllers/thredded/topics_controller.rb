@@ -84,6 +84,15 @@ module Thredded
 
     def update
       topic.assign_attributes(topic_params_for_update)
+
+      if topic.badge_id
+        if topic.badge_id == 0
+          topic.badge_id = nil
+        else
+          Thredded::Badge.find!(topic.badge_id)
+        end
+      end
+
       authorize topic, :update?
       if topic.messageboard_id_changed?
         # Work around the association not being reset.
@@ -94,7 +103,7 @@ module Thredded
         authorize topic.messageboard, :post?
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
-      if Thredded::Badge.find!(topic.badge_id) && @edit_topic.save
+      if @edit_topic.save
         render json: TopicSerializer.new(@edit_topic.topic, include: %i[user last_user categories]).serializable_hash.to_json, status: 200
       else
         render json: { errors: @edit_topic.errors }, status: 422

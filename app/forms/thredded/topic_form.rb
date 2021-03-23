@@ -43,7 +43,9 @@ module Thredded
     end
 
     def topic
-      badge = Thredded::Badge.find!(badge_id)
+      if badge_id
+        Thredded::Badge.find!(badge_id)
+      end
       @topic ||= messageboard.topics.build(
         title: title,
         locked: locked,
@@ -52,7 +54,7 @@ module Thredded
         category_ids: category_ids,
         type: type,
         video_url: video_url,
-        badge: badge,
+        badge_id: badge_id,
       )
     end
 
