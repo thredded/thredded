@@ -18,6 +18,7 @@ module Thredded
         has_many :thredded_private_posts, class_name: 'Thredded::PrivatePost'
         has_many :thredded_started_private_topics, class_name: 'Thredded::PrivateTopic'
         has_many :thredded_news, class_name: 'Thredded::News'
+        has_many :thredded_events, class_name: 'Thredded::Event'
       end
 
       with_options dependent: :nullify, foreign_key: 'last_user_id', inverse_of: :last_user do

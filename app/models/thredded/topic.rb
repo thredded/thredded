@@ -40,10 +40,6 @@ module Thredded
                inverse_of: :thredded_topics,
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
-    belongs_to :messageboard,
-               counter_cache: true,
-               touch: true,
-               inverse_of: :topics
     validates :messageboard_id, presence: true
 
     has_many :posts,
@@ -78,6 +74,11 @@ module Thredded
              through: :user_follows
 
     belongs_to :badge, optional: true
+
+    belongs_to :messageboard,
+               counter_cache: true,
+               touch: true,
+               inverse_of: :topics
 
     delegate :name, to: :messageboard, prefix: true
 

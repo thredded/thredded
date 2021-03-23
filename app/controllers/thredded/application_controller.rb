@@ -26,6 +26,7 @@ module Thredded
                 Thredded::Errors::UserNotFound,
                 Thredded::Errors::CategoryNotFound,
                 Thredded::Errors::NewsNotFound,
+                Thredded::Errors::EventNotFound,
                 Thredded::Errors::BadgeNotFound,
                 Thredded::Errors::TopicSubclassNotFound,
                 Thredded::Errors::MessageboardGroupNotFound do |exception|
