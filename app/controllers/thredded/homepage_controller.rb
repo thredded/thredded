@@ -4,12 +4,12 @@ module Thredded
   class HomepageController < Thredded::ApplicationController
 
     def index
-      render json:{random_users: UserShowSerializer.new(random_users, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
+      render json:{user_count: user_count, topic_count: topic_count, movie_count: movie_count,
+                   random_users: UserShowSerializer.new(random_users, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
                    random_movies: TopicSerializer.new(random_movies, include: %i[user categories]).serializable_hash,
-                   latest_user: UserSerializer.new(latest_user, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
+                   latest_user: UserShowSerializer.new(latest_user, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
                    latest_topic: TopicSerializer.new(latest_topic, include: %i[messageboard user]).serializable_hash,
-                   latest_news: NewsSerializer.new(latest_news),
-                   user_count: user_count, topic_count: topic_count, movie_count: movie_count}
+                   latest_news: NewsSerializer.new(latest_news)}
                       .to_json, status: 200
     end
 
