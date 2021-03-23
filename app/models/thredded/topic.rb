@@ -77,6 +77,8 @@ module Thredded
              source: :user,
              through: :user_follows
 
+    belongs_to :badge, optional: true
+
     delegate :name, to: :messageboard, prefix: true
 
     validates_with TopicValidator

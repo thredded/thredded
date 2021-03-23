@@ -94,7 +94,7 @@ module Thredded
         authorize topic.messageboard, :post?
       end
       @edit_topic = Thredded::EditTopicForm.new(user: thredded_current_user, topic: topic)
-      if @edit_topic.save
+      if Thredded::Badge.find!(topic.badge_id) && @edit_topic.save
         render json: TopicSerializer.new(@edit_topic.topic, include: %i[user last_user categories]).serializable_hash.to_json, status: 200
       else
         render json: { errors: @edit_topic.errors }, status: 422
@@ -207,7 +207,7 @@ module Thredded
     def topic_params_for_update
       params
         .require(:topic)
-        .permit(:title, :locked, :sticky, category_ids: [])
+        .permit(:title, :locked, :sticky, :badge_id, category_ids: [])
     end
 
     def current_page

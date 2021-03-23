@@ -67,6 +67,8 @@ module Thredded
                class_name: 'Thredded::MessageboardGroup',
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
+    belongs_to :badge, optional: true
+
     alias_attribute :messageboard_group, :group
 
     serialize :topic_types, Array
