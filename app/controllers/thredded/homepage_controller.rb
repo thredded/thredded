@@ -9,7 +9,8 @@ module Thredded
                    random_movies: TopicSerializer.new(random_movies, include: %i[user categories]).serializable_hash,
                    latest_user: UserShowSerializer.new(latest_user, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
                    latest_topic: TopicSerializer.new(latest_topic, include: %i[messageboard user]).serializable_hash,
-                   latest_news: NewsSerializer.new(latest_news)}
+                   latest_news: NewsSerializer.new(latest_news),
+                    current_events: EventSerializer.new(current_events).serializable_hash}
                       .to_json, status: 200
     end
 
@@ -48,6 +49,7 @@ module Thredded
       Messageboard.all.each do |messageboard|
         counter += messageboard.topics_count
       end
+      counter
     end
 
     def movie_count
@@ -55,6 +57,11 @@ module Thredded
       Messageboard.all.each do |messageboard|
         counter += messageboard.movies_count
       end
+      counter
+    end
+
+    def current_events
+      Event.where('event_date >= ?', DateTime.now)
     end
 
   end
