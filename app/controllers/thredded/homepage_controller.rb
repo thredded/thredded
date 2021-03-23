@@ -48,6 +48,7 @@ module Thredded
       Messageboard.all.each do |messageboard|
         counter += messageboard.topics_count
       end
+      counter
     end
 
     def movie_count
@@ -55,6 +56,7 @@ module Thredded
       Messageboard.all.each do |messageboard|
         counter += messageboard.movies_count
       end
+      counter
     end
 
   end
