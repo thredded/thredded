@@ -1,0 +1,11 @@
+badge_1:
+  term: "special-term-1"
+  badge_id: 2
+
+badge_2:
+  term: "special-term-2"
+  badge_id: 3
+
+badge_3:
+  term: "special-term-3"
+  badge_id: 99

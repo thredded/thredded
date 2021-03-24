@@ -217,6 +217,40 @@ module Thredded
           .to change { user.thredded_badges.count }.by(0)
       end
     end
+
+    context 'when the post content contains a specific term' do
+      # see spec/dummy/config/badges/post_content.yaml
+      before do
+        @user = create(:user)
+        create(:badge) #id 1 (user_stats.yaml)
+        create(:badge) #id 2
+        create(:badge) #id 3
+
+        # receive badge with id 1 for posting something (user_stats.yaml)
+        create(:post, user: @user)
+      end
+
+      it 'the user is rewarded with a special badge' do
+        expect { create(:post, user: @user, content: 'special-term-1') }
+          .to change { @user.thredded_badges.count }.by(1)
+        expect { create(:post, user: @user, content: 'special-term-1') }
+          .to change { @user.thredded_badges.count }.by(0)
+      end
+
+      it 'the user is rewarded with 2 special badges if 2 special terms given' do
+        expect { create(:post, user: @user, content: 'special-term-1 and special-term-2') }
+          .to change { @user.thredded_badges.count }.by(2)
+        expect { create(:post, user: @user, content: 'special-term-1 and special-term-2') }
+          .to change { @user.thredded_badges.count }.by(0)
+      end
+
+      it 'the user is rewarded with 2 special badges if 3 special terms given, but 1 badge does not exist' do
+        expect { create(:post, user: @user, content: 'special-term-1 and special-term-2 and special-term-3') }
+          .to change { @user.thredded_badges.count }.by(2)
+        expect { create(:post, user: @user, content: 'special-term-1 and special-term-2 and special-term-3') }
+          .to change { @user.thredded_badges.count }.by(0)
+      end
+    end
   end
 
   describe Post, '#destroy' do
