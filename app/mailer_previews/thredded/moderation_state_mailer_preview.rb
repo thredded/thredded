@@ -5,6 +5,7 @@ module Thredded
   class ModerationStateMailerPreview < BaseMailerPreview
     def moderation_state_notification
       ModerationStateMailer.moderation_state_notification(
+        "approved",
         mock_user_detail,
         'glebm@test.com'
       )

@@ -18,7 +18,7 @@ module Thredded
     def email
       @email ||= begin
         john = create(:user, :approved, :with_user_details, name: 'john', email: 'john@email.com')
-        ModerationStateMailer.moderation_state_notification(john.thredded_user_detail.id, john.email)
+        ModerationStateMailer.moderation_state_notification("approved", john.thredded_user_detail.id, john.email)
       end
     end
   end
