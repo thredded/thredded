@@ -9,8 +9,8 @@ module Thredded
                inverse_of: :thredded_news,
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
-    scope :order_by_event_date, -> { order(event_date: :desc) }
-    paginates_per 10
+    scope :order_by_event_date_asc, -> { order(event_date: :asc) }
+    scope :order_by_event_date_desc, -> { order(event_date: :desc) }
 
     def self.find!(slug_or_id)
       find(slug_or_id)

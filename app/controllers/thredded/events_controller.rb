@@ -7,8 +7,7 @@ module Thredded
     after_action :verify_authorized, except: %i[index show]
 
     def index
-      @event = Event.order_by_event_date.page params[:page]
-
+      @event = Kaminari.paginate_array(sort_events).page(params[:page]).per(10)
       render json: EventSerializer.new(@event, include: %i[user]).serializable_hash.to_json, status: 200
     end
 
@@ -43,6 +42,12 @@ module Thredded
     end
 
     private
+
+    def sort_events
+      events_future = Event.where('event_date >= ?', DateTime.now).order_by_event_date_asc
+      events_past = Event.where('event_date < ?', DateTime.now).order_by_event_date_desc
+      events_future + events_past
+    end
 
     def event_params
       params
