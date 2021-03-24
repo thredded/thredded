@@ -45,7 +45,7 @@ module Thredded
     end
 
     def notify_user
-      Thredded::NotifyModeratedUserJob.perform_later(id) if saved_change_to_moderation_state?
+      Thredded::NotifyModeratedUserJob.perform_later(moderation_state, id) if saved_change_to_moderation_state?
     end
   end
 end

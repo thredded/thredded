@@ -22,8 +22,8 @@ module Thredded
       Thredded::PrivateTopicMailer.message_notification(post.id, users.map(&:email)).deliver_now
     end
 
-    def updated_moderation_state(user_detail)
-      Thredded::ModerationStateMailer.moderation_state_notification(user_detail.id, user_detail.user.email).deliver_now
+    def updated_moderation_state(moderation_state, user_detail)
+      Thredded::ModerationStateMailer.moderation_state_notification(moderation_state, user_detail.id, user_detail.user.email).deliver_now
     end
   end
 end
