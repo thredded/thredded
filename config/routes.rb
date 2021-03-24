@@ -127,6 +127,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
 get 'homepage', action: :index, controller: 'homepage'
+get 'filter-movies', action: :filter_movies_by_categories, controller: 'topics'
 
 root to: 'messageboards#index'
 end
