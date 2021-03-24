@@ -6,6 +6,8 @@ module Thredded
     include Thredded::ContentModerationState
     include ActiveModel::Validations
 
+    paginates_per 10
+
     scope :for_messageboard, ->(messageboard) { where(messageboard_id: messageboard.id) }
 
     scope :stuck, -> { where(sticky: true) }
