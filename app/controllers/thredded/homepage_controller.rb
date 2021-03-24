@@ -9,23 +9,27 @@ module Thredded
                    random_movies: TopicSerializer.new(random_movies, include: %i[user categories]).serializable_hash,
                    latest_user: UserShowSerializer.new(latest_user, include: %i[thredded_user_detail thredded_main_badge]).serializable_hash,
                    latest_topic: TopicSerializer.new(latest_topic, include: %i[messageboard user]).serializable_hash,
-                   latest_news: NewsSerializer.new(latest_news),
+                   latest_news: NewsSerializer.new(latest_news, include: %i[user user.thredded_user_detail]),
                     current_events: EventSerializer.new(current_events).serializable_hash}
                       .to_json, status: 200
     end
 
     private
 
-    def random_users
-      User.all.sample(params[:desired_objects].to_i)
+    def get_param
+      param = 1
+      if params[:desired_objects]
+        param = params[:desired_objects].to_i
+      end
+      param
     end
 
-    def random_topics
-      Topic.where(type: "Thredded::TopicDefault", moderation_state: "approved" ).sample(params[:desired_objects].to_i)
+    def random_users
+      User.all.sample(get_param)
     end
 
     def random_movies
-      Topic.where(type: "Thredded::TopicMovie", moderation_state: "approved").sample(params[:desired_objects].to_i)
+      Topic.where(type: "Thredded::TopicMovie", moderation_state: "approved").sample(get_param)
     end
 
     def latest_user
@@ -37,7 +41,7 @@ module Thredded
     end
 
     def latest_news
-      News.last(params[:desired_objects].to_i)
+      News.last(3)
     end
 
     def user_count
