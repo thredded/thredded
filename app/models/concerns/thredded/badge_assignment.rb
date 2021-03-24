@@ -4,9 +4,11 @@ module Thredded
   module BadgeAssignment
     extend ActiveSupport::Concern
     USER_DETAIL_BADGES_PATH = Rails.root.join('config/badges/user_stats.yaml')
+    POST_CONTENT_BADGES_PATH = Rails.root.join('config/badges/post_content.yaml')
 
     included do
       after_commit :check_for_badges, on: :create
+      after_commit :check_for_badges_update, on: %i[create update]
     end
 
     protected
@@ -16,6 +18,11 @@ module Thredded
       get_badge_from_messageboard(user)
       get_badge_from_topic(user)
       get_badges_for_user_details(user)
+    end
+
+    def check_for_badges_update
+      user = self.user
+      get_badges_for_post_content(user)
     end
 
     private
@@ -47,6 +54,27 @@ module Thredded
             badges.push(badge)
           end
           if entry[:movies_count] && user_detail.movies_count >= entry[:movies_count]
+            badges.push(badge)
+          end
+        end
+
+        user.thredded_badges |=  badges
+      end
+    end
+
+    # @param user [Thredded.user_class]
+    def get_badges_for_post_content user
+      if File.exist?(POST_CONTENT_BADGES_PATH)
+        config = YAML.load(File.read(POST_CONTENT_BADGES_PATH), symbolize_names: true).values
+        badges = []
+
+        config.each do |entry|
+          begin
+            badge = Thredded::Badge.find!(entry[:badge_id])
+          rescue Thredded::Errors::BadgeNotFound
+            break
+          end
+          if /#{entry[:term]}/ === self.content
             badges.push(badge)
           end
         end
