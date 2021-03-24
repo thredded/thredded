@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Thredded
   class TopicsController < Thredded::ApplicationController # rubocop:disable Metrics/ClassLength
     include Thredded::NewTopicParams
@@ -16,8 +15,8 @@ module Thredded
 
     after_action :update_user_activity
 
-    after_action :verify_authorized, except: %i[show search unread mark_all_as_read]
-    after_action :verify_policy_scoped, except: %i[show create update destroy unfollow increment mark_as_read mark_all_as_read]
+    after_action :verify_authorized, except: %i[show search unread mark_all_as_read filter_movies_by_categories]
+    after_action :verify_policy_scoped, except: %i[show create update destroy unfollow increment mark_as_read mark_all_as_read filter_movies_by_categories]
 
     def index
       page_scope = policy_scope(messageboard.topics)
@@ -145,7 +144,15 @@ module Thredded
       head 204
     end
 
+    def filter_movies_by_categories
+      render json: TopicSerializer.new(filter_movies).serializable_hash.to_json, status: 200
+    end
+
     private
+
+    def filter_movies
+      Topic.where(type: "Thredded::TopicMovie").joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids]))
+    end
 
     def next_page_after_create(next_page)
       case next_page
