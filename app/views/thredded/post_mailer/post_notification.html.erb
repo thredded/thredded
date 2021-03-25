@@ -1,22 +1,12 @@
-<h2>Lieber Brickboard-User!</h2>
-<div class="thredded--email">
-  <figure class="thredded--email-post">
-    <figcaption class="thredded--email-post--author">
-      <%= t 'thredded.emails.post_notification.html.post_lead_html',
-            user: @post.user.thredded_display_name,
-            post_url: post_permalink_url(@post.id),
-            topic_title: @post.postable.title %>
-    </figcaption>
-    <% cache [@post, 'content-onebox-placeholders'] do %>
-      <%= render partial: 'thredded/posts/content',
-                 locals: { post: @post, options: {onebox_placeholders: true} } %>
-    <% end %>
-  </figure>
-  <hr/>
+<h2 class="header--salutation">Lieber Brickboard-User!</h2>
 
-  <p>
-    <%= t 'thredded.emails.post_notification.html.email_sent_reason_html',
-          post_url: post_permalink_url(@post.id),
-          topic_title: @post.postable.title %>
-  </p>
-</div>
+<p>Im Brickboard Forum tut sich etwas. Am besten gleich nachsehen!</p>
+
+<p class="bold"><%=@post.user.thredded_display_name%> kommentierte "<%=@post.postable.title%>"</p>
+
+<button class="email__button"><a href="<%=post_permalink_url(@post.id)%>">Zum Beitrag</a></button>
+
+<h2 class="email__end">Klotzige Grüße,<br>
+  Deine Brickboard-Admins </h2>
+
+<p>P.S. Du bekommst diese Email, da du <span class="bold">"<%=@post.postable.title%>"</span> folgst.</p>
