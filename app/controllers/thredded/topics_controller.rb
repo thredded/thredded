@@ -145,13 +145,13 @@ module Thredded
     end
 
     def filter_movies_by_categories
-      render json: TopicSerializer.new(filter_movies).serializable_hash.to_json, status: 200
+      render json: TopicSerializer.new(filter_movies.page params[:page]).serializable_hash.to_json, status: 200
     end
 
     private
 
     def filter_movies
-      Topic.where(type: "Thredded::TopicMovie").joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids]))
+      Topic.where(type: "Thredded::TopicMovie").joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
     end
 
     def next_page_after_create(next_page)

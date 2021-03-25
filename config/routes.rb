@@ -83,6 +83,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   resources :topics, only: %i[update destroy create] do
     collection do
+      get 'filter-movies/(page-:page)', action: :filter_movies_by_categories, constraints: page_constraint
       get 'unread', action: :unread, as: :unread
     end
     member do
@@ -127,7 +128,6 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   end
 
 get 'homepage', action: :index, controller: 'homepage'
-get 'filter-movies', action: :filter_movies_by_categories, controller: 'topics'
 
 root to: 'messageboards#index'
 end
