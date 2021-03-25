@@ -1,21 +1,10 @@
-<div class="thredded--email">
-  <figure class="thredded--email-post">
-    <figcaption class="thredded--email-post--author">
-      <%= t 'thredded.emails.message_notification.html.post_lead_html',
-            user: @post.user.thredded_display_name,
-            post_url: private_post_permalink_url(@post.id),
-            topic_title: @post.postable.title %>
-    </figcaption>
-    <% cache [@post, 'content-onebox-placeholders'] do %>
-      <%= render partial: 'thredded/private_posts/content',
-                 locals: { post: @post, options: {onebox_placeholders: true} } %>
-    <% end %>
-  </figure>
-  <hr/>
-  <p>
-    <%= t 'thredded.emails.message_notification.html.email_sent_reason_html',
-          user: @post.postable.user.thredded_display_name,
-          post_url: private_post_permalink_url(@post.id),
-          topic_title: @post.postable.title %>
-  </p>
-</div>
+<h2 class="header--salutation">Lieber Brickboard-User!</h2>
+
+<p>Neuigkeiten in deinem Postfach!</p>
+
+<p>Eine neue Nachricht von <span class="bold"><%=@post.user.thredded_display_name%></span> in <span class="bold">"<%=@post.postable.title%>"</span>.</p>
+
+<button class="email__button"><a href="<%=private_post_permalink_url(@post.id)%>">Zur Nachricht</a></button>
+
+<h2 class="email__end">Klotzige Grüße,<br>
+  Deine Brickboard-Admins </h2>
