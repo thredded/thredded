@@ -6,6 +6,7 @@ module Thredded
       @user_detail = find_record Thredded::UserDetail, user_detail_id
       @name = @user_detail.user.send(Thredded.user_name_column)
       @moderation_state = moderation_state
+      attachments.inline["bb_logo.jpg"] = File.read("#{Rails.root}/app/assets/images/email/bb_logo.jpg")
       email_details = Thredded::ModerationStateEmailView.new(@user_detail)
       headers['X-SMTPAPI'] = email_details.smtp_api_tag('moderation_state_mailer')
 
