@@ -6,6 +6,8 @@ module Thredded
     has_many :topic_categories, inverse_of: :category, dependent: :delete_all
     has_many :topics, -> { order('created_at DESC') }, through: :topic_categories
 
+    scope :order_by_title, -> { order(name: :asc) }
+
     validates :name, presence: true, uniqueness: true
 
     has_one_attached :category_icon

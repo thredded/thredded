@@ -7,7 +7,7 @@ module Thredded
     after_action :verify_authorized, except: %i[index show]
 
     def index
-      @categories = Category.all
+      @categories = Category.all.order_by_title
       render json: CategorySerializer.new(@categories).serializable_hash.to_json, status: 200
     end
 
