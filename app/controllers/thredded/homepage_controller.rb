@@ -25,7 +25,7 @@ module Thredded
     end
 
     def random_users
-      User.all.sample(get_param)
+      User.joins(:thredded_user_detail).where('thredded_user_details.moderation_state': "approved").sample(get_param)
     end
 
     def random_movies
@@ -33,7 +33,7 @@ module Thredded
     end
 
     def latest_user
-      User.last
+      User.joins(:thredded_user_detail).where('thredded_user_details.moderation_state': "approved").last
     end
 
     def latest_topic
