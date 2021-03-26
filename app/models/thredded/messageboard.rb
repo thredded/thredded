@@ -88,7 +88,7 @@ module Thredded
         ordered_by_topics_count_desc
       end.ordered_by_position.order(id: :asc)
     }
-    scope :ordered_by_position, -> { order(position: :asc) }
+    scope :ordered_by_position, -> { order(position: :asc, id: :asc) }
     scope :ordered_by_created_at_asc, -> { order(created_at: :asc) }
     scope :ordered_by_last_post_at_desc, -> {
       joins('LEFT JOIN thredded_topics AS last_topics ON thredded_messageboards.last_topic_id = last_topics.id')
