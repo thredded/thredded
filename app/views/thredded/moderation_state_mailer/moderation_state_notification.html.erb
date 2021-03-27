@@ -1,10 +1,19 @@
-<h2 class="header--salutation">Hallo <%= @name %>!</h2>
-
-<p>Gratuliere! Ein Brickboard-Admin hat soeben deinen Account <span class="bold">bestätigt</span>.<br>
-  Nun sind deine Beiträge im Forum öffentlich sichtbar.</p>
-
-<p>Also am besten direkt ab zum Forum und deinen 1. Post veröffentlichen ;)</p>
-
-<button class="email__button"><a href="<%=Rails.configuration.frontend_url%>">Zum Forum</a></button>
-
-<h2 class="email__end">Klotzige Grüße,<br>Deine Brickboard-Admins </h2>
+<table>
+  <tr>
+    <h2 class="header--salutation">Hallo <%= @name %>!</h2>
+  </tr>
+  <tr>
+    <p>Gratuliere! Ein Brickboard-Admin hat soeben deinen Account <span class="bold">bestätigt</span>.<br>
+      Nun sind deine Beiträge im Forum öffentlich sichtbar.</p>
+    <p>Also am besten direkt ab zum Forum und deinen 1. Post veröffentlichen ;)</p>
+  </tr>
+  <tr>
+    <div class="button__container">
+      <a class="email__button" href="<%=Rails.configuration.frontend_url%>">Zum Forum</a>
+    </div>
+  </tr>
+  <tr>
+    <h2 class="email__end">Klotzige Grüße,<br>
+      Deine Brickboard-Admins </h2>
+  </tr>
+</table>

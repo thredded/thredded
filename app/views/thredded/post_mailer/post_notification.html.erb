@@ -1,12 +1,20 @@
-<h2 class="header--salutation">Lieber Brickboard-User!</h2>
-
-<p>Im Brickboard Forum tut sich etwas. Am besten gleich nachsehen!</p>
-
-<p class="bold"><%=@post.user.thredded_display_name%> kommentierte "<%=@post.postable.title%>"</p>
-
-<button class="email__button"><a href="<%=post_permalink_url(@post.id)%>">Zum Beitrag</a></button>
-
-<h2 class="email__end">Klotzige Grüße,<br>
-  Deine Brickboard-Admins </h2>
-
-<p>P.S. Du bekommst diese Email, da du <span class="bold">"<%=@post.postable.title%>"</span> folgst.</p>
+<table>
+  <tr>
+    <h2 class="header--salutation">Lieber Brickboard-User!</h2>  </tr>
+  <tr>
+    <p>Im Brickboard Forum tut sich etwas. Am besten gleich nachsehen!</p>
+    <p class="bold"><%=@post.user.thredded_display_name%> kommentierte "<%=@post.postable.title%>"</p>
+  </tr>
+  <tr>
+    <div class="button__container">
+      <a class="email__button" href="<%=post_permalink_url(@post.id)%>">Zum Beitrag</a>
+    </div>
+  </tr>
+  <tr>
+    <h2 class="email__end">Klotzige Grüße,<br>
+      Deine Brickboard-Admins </h2>
+  </tr>
+  <tr>
+    <p>P.S. Du bekommst diese Email, da du <span class="bold">"<%=@post.postable.title%>"</span> folgst.</p>
+  </tr>
+</table>

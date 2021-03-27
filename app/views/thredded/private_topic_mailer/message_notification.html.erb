@@ -1,10 +1,17 @@
-<h2 class="header--salutation">Lieber Brickboard-User!</h2>
-
-<p>Neuigkeiten in deinem Postfach!</p>
-
-<p>Eine neue Nachricht von <span class="bold"><%=@post.user.thredded_display_name%></span> in <span class="bold">"<%=@post.postable.title%>"</span>.</p>
-
-<button class="email__button"><a href="<%=private_post_permalink_url(@post.id)%>">Zur Nachricht</a></button>
-
-<h2 class="email__end">Klotzige Grüße,<br>
-  Deine Brickboard-Admins </h2>
+<table>
+  <tr>
+    <h2 class="header--salutation">Lieber Brickboard-User!</h2>  </tr>
+  <tr>
+    <p>Neuigkeiten in deinem Postfach!</p>
+    <p>Eine neue Nachricht von <span class="bold"><%=@post.user.thredded_display_name%></span> in <span class="bold">"<%=@post.postable.title%>"</span>.</p>
+  </tr>
+  <tr>
+    <div class="button__container">
+      <a class="email__button" href="<%=private_post_permalink_url(@post.id)%>">Zur Nachricht</a>
+    </div>
+  </tr>
+  <tr>
+    <h2 class="email__end">Klotzige Grüße,<br>
+      Deine Brickboard-Admins </h2>
+  </tr>
+</table>
