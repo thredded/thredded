@@ -60,7 +60,7 @@ module Thredded
         .send(Kaminari.config.page_method_name, current_page)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
       render json: TopicPostsPageViewSerializer.new(@posts,
-                                                    include: %i[post_views topic post_views.post topic.topic topic.categories
+                                                    include: %i[post_views topic post_views.post topic.topic topic.categories post_views.post.messageboard
                                                                 post_views.post.user post_views.post.user.thredded_user_detail post_views.post.user.thredded_main_badge])
         .serializable_hash.to_json, status: 200
     end
