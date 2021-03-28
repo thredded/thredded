@@ -7,7 +7,7 @@
   </tr>
   <tr>
     <div class="button__container">
-      <a class="email__button" href="<%=post_permalink_url(@post.id)%>">Zum Beitrag</a>
+      <a class="email__button" href="<%=Rails.configuration.frontend_url%>forum/<%=@post.messageboard.name%>/<%=@post.postable.id%>">Zum Beitrag</a>
     </div>
   </tr>
   <tr>
