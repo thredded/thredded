@@ -41,7 +41,7 @@ module Thredded
     end
 
     def latest_news
-      News.last(3)
+      News.order_by_created_date.last(3)
     end
 
     def user_count
