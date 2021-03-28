@@ -65,7 +65,7 @@ module Thredded
     end
 
     def current_events
-      Event.where('event_date >= ?', DateTime.now)
+      Event.where('event_date >= ?', DateTime.now).order_by_event_date_asc
     end
 
   end
