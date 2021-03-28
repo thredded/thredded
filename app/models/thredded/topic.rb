@@ -42,6 +42,12 @@ module Thredded
                inverse_of: :thredded_topics,
                **(Thredded.rails_gte_51? ? { optional: true } : {})
 
+    belongs_to :user_detail,
+               primary_key:   :user_id,
+               foreign_key:   :user_id,
+               inverse_of:    :topics,
+               **(Thredded.rails_gte_51? ? { optional: true } : {})
+
     validates :messageboard_id, presence: true
 
     has_many :posts,
