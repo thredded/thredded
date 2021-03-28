@@ -85,6 +85,8 @@ module Dummy
 
     config.load_defaults("#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}") if config.respond_to?(:load_defaults)
 
+    config.frontend_url = "https://brickboard-frontend.vercel.app/"
+
     def self.thredded_testapp_webpack?
       Rails::VERSION::MAJOR >= 6 && ENV['THREDDED_TESTAPP_SPROCKETS_JS'] != '1'
     end

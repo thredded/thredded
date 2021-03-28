@@ -15,7 +15,7 @@ module Thredded
     end
 
     it 'renders the body' do
-      expect(email.body.encoded).to include('hey @john @sam blarghy blurp')
+      expect(email.body.encoded).to include('joel kommentierte "A title"')
     end
 
     def email
