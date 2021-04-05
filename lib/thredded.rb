@@ -9,7 +9,7 @@ require 'html/pipeline'
 require 'html/pipeline/sanitization_filter'
 require 'rinku'
 require 'kaminari'
-require 'rb-gravatar'
+require 'rails_gravatar'
 require 'active_job'
 require 'inline_svg'
 
@@ -267,7 +267,7 @@ module Thredded # rubocop:disable Metrics/ModuleLength
   end
 
   self.user_name_column = :name
-  self.avatar_url = ->(user) { Gravatar.src(user.email, 156, 'mm') }
+  self.avatar_url = ->(user) { RailsGravatar.src(user.email, 156, 'mm') }
   self.admin_column = :admin
 
   self.content_visible_while_pending_moderation = true
