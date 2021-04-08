@@ -9,6 +9,7 @@ module Thredded
              :empty?,
              :[],
              :each,
+             :map,
              to: :@topic_views
     delegate :total_pages,
              :current_page,
