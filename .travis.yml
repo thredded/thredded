@@ -1,6 +1,6 @@
 language: ruby
+os: linux
 dist: xenial
-sudo: false
 addons:
   apt:
     packages:
@@ -9,7 +9,7 @@ addons:
 before_install:
   - script/travis-downgrade-bundler-on-old-rails.sh
 
-matrix:
+jobs:
   include:
     - name: Rubocop
       gemfile: spec/gemfiles/rubocop.gemfile
