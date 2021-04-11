@@ -44,6 +44,13 @@ module Thredded
     end
 
     def avatar_url
+      Rails.logger.info("avatar_url")
+      Rails.logger.info(user.inspect)
+      Rails.logger.info(user.email)
+
+      puts "avatar_url"
+      puts user.inspect
+      puts user.email
       Thredded.avatar_url.call(user)
     end
 
