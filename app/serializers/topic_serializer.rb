@@ -7,5 +7,5 @@ class TopicSerializer
   belongs_to :user
   belongs_to :last_user, serializer: UserSerializer, record_type: :user
   has_many :categories
-  belongs_to :badge, serializer: BadgeSerializer
+  belongs_to :badge
 end
