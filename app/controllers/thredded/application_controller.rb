@@ -29,6 +29,7 @@ module Thredded
                 Thredded::Errors::EventNotFound,
                 Thredded::Errors::BadgeNotFound,
                 Thredded::Errors::TopicSubclassNotFound,
+                Thredded::Errors::RelaunchUserNotFound,
                 Thredded::Errors::MessageboardGroupNotFound do |exception|
       @error   = exception
       @message = exception.message
