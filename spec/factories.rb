@@ -27,6 +27,11 @@ FactoryBot.define do
     sequence(:title) { |n| "title#{n}" }
   end
 
+  factory :relaunch_user, class: Thredded::RelaunchUser do
+    username { "john" }
+    email { "john@email.com" }
+  end
+
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     description { 'This is a description of the messageboard' }

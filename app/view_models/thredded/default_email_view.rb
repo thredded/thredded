@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class ModerationStateEmailView
-    # @param [Thredded::TopicCommon] topic
-    def initialize(user_detail)
-      @user_detail = user_detail
-    end
+  class DefaultEmailView
 
     def smtp_api_tag(tag)
       %({"category": ["thredded_notification","#{tag}"]})

@@ -25,5 +25,9 @@ module Thredded
     def updated_moderation_state(moderation_state, user_detail)
       Thredded::ModerationStateMailer.moderation_state_notification(moderation_state, user_detail.id, user_detail.user.email).deliver_now
     end
+
+    def new_relaunch_user(relaunch_user)
+      Thredded::RelaunchUserMailer.new_relaunch_user(relaunch_user.email, relaunch_user.username).deliver_now
+    end
   end
 end
