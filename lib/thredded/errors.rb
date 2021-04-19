@@ -118,5 +118,11 @@ module Thredded
         'Das Badge konnte nicht gefunden werden!'
       end
     end
+
+    class RelaunchUserNotFound < Thredded::Error
+      def message
+        'Dieser Relaunch-User konnte nicht gefunden werden!'
+      end
+    end
   end
 end

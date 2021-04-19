@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <%# Ensure the stylesheet is referenced without a host so that the local
+          version is read by Roadie even if asset_host is set. %>
+  <link rel="stylesheet" href="<%= stylesheet_path('email', host: '') %>" />
+</head>
+<body>
+<table>
+  <tr>
+    <header>
+      <%= image_tag(attachments['bb_logo.jpg'].url, class: "bb__logo" ) %>
+    </header>
+  </tr>
+</table>
+<container>
+  <table>
+    <tr>
+      <h2 class="header--salutation">Hallo <%= @username %>!</h2>
+    </tr>
+    <tr>
+      <p>Gratuliere! Du hast dir bereits deinen gewünschten Benutzernamen für den Relaunch des <a href="https://www.brickboard.de/">Brickboards</a>
+        gesichert! <br>Sobald wir live gehen, wirst du per E-Mail von uns kontaktiert.</p>
+    </tr>
+    <tr>
+      <h2 class="email__end">Klotzige Grüße,<br>
+        Deine Brickboard-Admins </h2>
+    </tr>
+  </table>
+</container>
+</body>
+</html>
