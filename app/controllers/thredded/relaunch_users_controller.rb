@@ -19,8 +19,9 @@ module Thredded
     end
 
     def destroy
-      if destroy_relaunch_user != nil
-        destroy_relaunch_user.destroy!
+      @relaunch_user = find_relaunch_user
+      if @relaunch_user
+        @relaunch_user.destroy!
         head 204
       else
         raise Thredded::Errors::RelaunchUserNotFound
@@ -43,8 +44,9 @@ module Thredded
       @relaunch_user ||= Thredded::RelaunchUser.find!(params[:id])
     end
 
-    def destroy_relaunch_user
-      Thredded::RelaunchUser.find_by(id: params[:id], user_hash: params[:user_hash])
+    def find_relaunch_user
+      @query = params[:q].to_s
+      Thredded::RelaunchUser.find_by(user_hash: @query)
     end
 
   end
