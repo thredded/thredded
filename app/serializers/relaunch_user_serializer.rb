@@ -2,6 +2,6 @@
 
 class RelaunchUserSerializer
   include JSONAPI::Serializer
-  attributes :email, :username,:created_at
+  attributes :email, :username, :hash, :created_at
 
 end

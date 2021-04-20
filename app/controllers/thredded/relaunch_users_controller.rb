@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'securerandom'
 module Thredded
   class RelaunchUsersController < Thredded::ApplicationController
 
@@ -19,20 +19,32 @@ module Thredded
     end
 
     def destroy
-      relaunch_user.destroy!
-      head 204
+      if destroy_relaunch_user != nil
+        destroy_relaunch_user.destroy!
+        head 204
+      else
+        raise Thredded::Errors::RelaunchUserNotFound
+      end
     end
 
     private
 
     def relaunch_user_params
+      rand_number = SecureRandom.hex
       params
           .require(:relaunch_user)
           .permit(:email, :username)
+          .merge(
+              user_hash: rand_number
+          )
     end
 
     def relaunch_user
       @relaunch_user ||= Thredded::RelaunchUser.find!(params[:id])
+    end
+
+    def destroy_relaunch_user
+      Thredded::RelaunchUser.find_by(id: params[:id], user_hash: params[:user_hash])
     end
 
   end

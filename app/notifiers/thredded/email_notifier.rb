@@ -27,7 +27,7 @@ module Thredded
     end
 
     def new_relaunch_user(relaunch_user)
-      Thredded::RelaunchUserMailer.new_relaunch_user(relaunch_user.email, relaunch_user.username).deliver_now
+      Thredded::RelaunchUserMailer.new_relaunch_user(relaunch_user.id, relaunch_user.email, relaunch_user.username, relaunch_user.user_hash).deliver_now
     end
   end
 end

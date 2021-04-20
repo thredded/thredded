@@ -8,7 +8,7 @@ module Thredded
       expect(email.from).to eq(['no-reply@example.com'])
       expect(email.to).to eq(['john@email.com'])
       expect(email.subject).to eq([Thredded.email_outgoing_prefix,
-                                   'Willkommen!'].join)
+                                   'Brickboard 2.0. - Toll, dass du dabei sein möchtest!!'].join)
     end
 
     it 'renders the body' do

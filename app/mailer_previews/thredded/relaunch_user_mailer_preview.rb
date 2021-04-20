@@ -5,8 +5,10 @@ module Thredded
   class RelaunchUserMailerPreview < BaseMailerPreview
     def new_relaunch_user
       RelaunchUserMailer.new_relaunch_user(
+        '10',
         'christl@brickboard.com',
-        'christl_bricki'
+        'christl_bricki',
+        'asdasd343sds2sd4'
       )
     end
   end
