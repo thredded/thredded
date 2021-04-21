@@ -20,7 +20,7 @@
       <h2 class="header--salutation">Hallo <%= @username %>!</h2>
     </tr>
     <tr>
-      <p>Gratuliere! Du hast dir bereits deinen gewünschten Benutzernamen für den Relaunch des <a href="https://www.brickboard.de/">Brickboards</a>
+      <p>Gratuliere! Du hast dir bereits deinen gewünschten Benutzernamen für den Relaunch des <a class="link" href="https://www.brickboard.de/">Brickboards</a>
         gesichert! <br>Sobald wir live gehen, wirst du per E-Mail von uns kontaktiert.</p>
     </tr>
     <tr>
@@ -31,7 +31,7 @@
       <div class="email__end">
         <p class="opt-out__paragraph">Du hast es dir anders überlegt und möchtest dich wieder abmelden?</p>
         <div class="button__container">
-          <a class="email__button" href="https://relaunch.brickboard.de/abmeldung?q=<%=@user_hash%>">Vom Relaunch abmelden</a>
+          <a class="email__button opt-out__paragraph" href="https://relaunch.brickboard.de/abmeldung?q=<%=@user_hash%>">Vom Relaunch abmelden</a>
         </div>
       </div>
     </tr>
