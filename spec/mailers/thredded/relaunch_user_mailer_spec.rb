@@ -8,7 +8,7 @@ module Thredded
       expect(email.from).to eq(['no-reply@example.com'])
       expect(email.to).to eq(['john@email.com'])
       expect(email.subject).to eq([Thredded.email_outgoing_prefix,
-                                   'Brickboard 2.0. - Toll, dass du dabei sein möchtest!!'].join)
+                                   'Brickboard 2.0. - Toll, dass du dabei sein möchtest!'].join)
     end
 
     it 'renders the body' do
@@ -17,8 +17,8 @@ module Thredded
 
     def email
       @email ||= begin
-        john = create(:relaunch_user, username: 'john', email: 'john@email.com')
-        RelaunchUserMailer.new_relaunch_user(john.email, john.username)
+        john = create(:relaunch_user, id: 1, username: 'john', email: 'john@email.com', user_hash: "ghvkd34sk2ljk778d")
+        RelaunchUserMailer.new_relaunch_user(john.id, john.email, john.username, john.user_hash)
       end
     end
   end
