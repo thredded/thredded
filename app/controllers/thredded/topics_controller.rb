@@ -145,7 +145,8 @@ module Thredded
     end
 
     def filter_movies_by_categories
-      render json: TopicSerializer.new(filter_movies.page params[:page]).serializable_hash.to_json, status: 200
+      filtered_movies = filter_movies.page params[:page]
+      render json: TopicSerializer.new(filtered_movies,  include: [:user]).serializable_hash.to_json, status: 200
     end
 
     private
