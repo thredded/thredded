@@ -7,7 +7,7 @@ module Thredded
     def index
       users = users_by_prefix
 
-      render json: UserSerializer.new(users).serializable_hash.to_json, status: 200
+      render json: UserSerializer.new(users, include: [:thredded_main_badge]).serializable_hash.to_json, status: 200
     end
 
     private

@@ -64,21 +64,6 @@ module Thredded
       end
     end
 
-    describe 'POST create' do
-      let(:topic_params) { { title: 'one', content: 'something' } }
-
-      it 'creates' do
-        expect do
-          post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params }
-        end.to change(Topic, :count).by(1)
-      end
-
-      it 'returns status code 201 when created' do
-        post :create, params: { messageboard_id: @messageboard.slug, topic: topic_params }
-        expect(response).to have_http_status(:created)
-      end
-    end
-
     describe 'POST follow' do
       subject(:do_follow) { post :follow, params: { messageboard_id: @messageboard.id, id: @topic.id } }
 
