@@ -131,5 +131,7 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :relaunch_users, except: %i[new edit update destroy]
   delete 'relaunch_users', action: :destroy, controller: 'relaunch_users'
 
+  get 'sessions', action: :logged_in_user, controller: 'sessions'
+
   root to: 'messageboards#index'
 end

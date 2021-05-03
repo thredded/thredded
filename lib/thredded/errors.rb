@@ -124,5 +124,17 @@ module Thredded
         'Dieser Relaunch-User konnte nicht gefunden werden!'
       end
     end
+
+    class SessionNotLoggedIn < Thredded::Error
+      def message
+        'Du bist nicht eingeloggt!'
+      end
+    end
+
+    class SessionBlocked < Thredded::Error
+      def message
+        'Dein Konto wurde gesperrt!'
+      end
+    end
   end
 end
