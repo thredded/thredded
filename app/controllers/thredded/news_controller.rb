@@ -47,7 +47,7 @@ module Thredded
     def news_params
       params
         .require(:news)
-        .permit(:title, :description, :short_description, :url, :topic_url, :news_banner)
+        .permit(:title, :description, :short_description, :url, :topic_url, :news_banner, :is_active)
       .merge(
            user: thredded_current_user
       )
