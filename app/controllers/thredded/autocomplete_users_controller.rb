@@ -5,7 +5,6 @@ module Thredded
     MAX_RESULTS = 20
 
     def index
-      authorize_creating Thredded::PrivateTopicForm.new(user: thredded_current_user).private_topic
       users = users_by_prefix
       render json: {
         results: users.map { |user| user_to_autocomplete_result(user) }

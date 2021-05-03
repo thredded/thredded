@@ -126,6 +126,11 @@ module Thredded
       Thredded.slugifier.call(input.to_s)
     end
 
+    def unread_topics_count(user)
+      topics_scope = Thredded::TopicPolicy::Scope.new(user, Thredded::Topic.all).resolve
+      Messageboard.unread_topics_counts(user: user, topics_scope: topics_scope)[self.id] || 0
+    end
+
     private
 
     def slug_candidates
