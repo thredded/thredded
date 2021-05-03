@@ -4,7 +4,7 @@ module Thredded
   class TopicForm
     include ActiveModel::Model
 
-    attr_accessor :title, :category_ids, :locked, :sticky, :content, :video_url, :badge_id
+    attr_accessor :title, :category_ids, :locked, :sticky, :content, :video_url, :movie_created_at, :badge_id
     attr_reader :user, :messageboard, :id, :post_views, :type
 
     validate :validate_children
@@ -20,6 +20,7 @@ module Thredded
       @type = params[:type]
       @badge_id = params[:badge_id]
       @video_url = params[:video_url]
+      @movie_created_at = params[:movie_created_at]
     end
 
     def self.model_name
@@ -49,7 +50,8 @@ module Thredded
                       user: non_null_user,
                       category_ids: category_ids,
                       type: type,
-                      video_url: video_url}
+                      video_url: video_url,
+                      movie_created_at: movie_created_at}
 
       if badge_id && user.thredded_admin?
         Thredded::Badge.find!(badge_id)
