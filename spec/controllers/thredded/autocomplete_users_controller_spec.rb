@@ -16,7 +16,7 @@ module Thredded
     describe 'index' do
       let!(:users) { %w[Gilda Gary Gazza gandalf].map { |n| create(:user, name: n) } }
 
-      let(:json_response_results) { JSON.parse(response.body)['results'] }
+      let(:json_response_results) { JSON.parse(response.body)['data'] }
 
       it 'under minimum length returns nothing' do
         get :index, format: 'json', params: { q: 'g' }
@@ -25,18 +25,18 @@ module Thredded
 
       it "'doesn't include current_user'" do
         get :index, format: 'json', params: { q: 'ga' }
-        expect(json_response_results.map { |r| r['display_name'] }).to include('gandalf', 'Gary', 'Gazza')
-        expect(json_response_results.map { |r| r['display_name'] }).not_to include('Ganymede')
+        expect(json_response_results.map { |r| r['attributes']['name'] }).to include('gandalf', 'Gary', 'Gazza')
+        expect(json_response_results.map { |r| r['attributes']['name'] }).not_to include('Ganymede')
       end
 
       it 'returns records' do
         get :index, format: 'json', params: { q: 'ga' }
-        expect(json_response_results.first.keys).to include('avatar_url', 'display_name', 'id', 'name')
+        expect(json_response_results.first['attributes'].keys).to include('admin', 'email', 'name', 'created_at', 'updated_at')
       end
 
       it 'returns results, ordered' do
         get :index, format: 'json', params: { q: 'ga' }
-        expect(json_response_results.map { |r| r['display_name'] }).to eq(%w[gandalf Gary Gazza])
+        expect(json_response_results.map { |r| r['attributes']['name'] }).to eq(%w[gandalf Gary Gazza])
       end
     end
   end
