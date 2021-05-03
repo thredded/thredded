@@ -6,20 +6,8 @@ module Thredded
 
     def index
       users = users_by_prefix
-      render json: {
-        results: users.map { |user| user_to_autocomplete_result(user) }
-      }
-    end
 
-    protected
-
-    def user_to_autocomplete_result(user)
-      {
-        id: user.id,
-        name: user.send(Thredded.user_name_column),
-        display_name: user.send(Thredded.user_display_name_method),
-        avatar_url: Thredded.avatar_url.call(user)
-      }
+      render json: UserSerializer.new(users).serializable_hash.to_json, status: 200
     end
 
     private
