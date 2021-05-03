@@ -51,6 +51,13 @@ module Thredded
       render json: { error: @message }, status: 403
     end
 
+    rescue_from Thredded::Errors::SessionBlocked,
+                Thredded::Errors::SessionNotLoggedIn do |exception|
+      @error   = exception
+      @message = exception.message
+      render json: { error: @message }, status: 401
+    end
+
     protected
 
     def find_user(id)
