@@ -46,7 +46,7 @@ module Thredded
     def category_params
       params
         .require(:category)
-        .permit(:name, :description, :locked, :position, :category_icon)
+        .permit(:name, :description, :locked, :position, :category_icon, :is_active)
     end
 
     def category
