@@ -25,7 +25,8 @@ module Thredded
     def index
       @groups = Thredded::MessageboardGroup.ordered.all
       render json: MessageboardGroupSerializer.new(@groups,
-                                                   include: %i[messageboards messageboards.last_user messageboards.last_topic])
+                                                   { params: {current_user: thredded_current_user},
+                                                     include: %i[messageboards messageboards.last_user messageboards.last_topic]})
         .serializable_hash.to_json, status: 200
     end
 
