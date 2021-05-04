@@ -224,7 +224,7 @@ module Thredded
     def topic_params_for_update
       params
         .require(:topic)
-        .permit(:title, :locked, :sticky, :badge_id, :video_url, :movie_created_at, category_ids: [])
+        .permit(:title, :locked, :sticky, :badge_id, :video_url, :movie_created_at, :category, category_ids: [])
     end
 
     def current_page
