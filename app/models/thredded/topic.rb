@@ -88,7 +88,7 @@ module Thredded
                touch: true,
                inverse_of: :topics
 
-    has_many :thredded_likes, dependent: :destroy
+    has_many :likes, inverse_of: :topic, dependent: :delete_all
 
     delegate :name, to: :messageboard, prefix: true
 

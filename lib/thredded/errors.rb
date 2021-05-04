@@ -142,5 +142,11 @@ module Thredded
         'Die Benachrichtigung konnte nicht gefunden werden!'
       end
     end
+
+    class LikeNotFound < Thredded::Error
+      def message
+        'Das Like konnte nicht gefunden werden!'
+      end
+    end
   end
 end

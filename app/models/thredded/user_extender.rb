@@ -15,6 +15,7 @@ module Thredded
       with_options dependent: :nullify, foreign_key: 'user_id', inverse_of: :user do
         has_many :thredded_posts, class_name: 'Thredded::Post'
         has_many :thredded_topics, ->{ where(thredded_topics: {type: 'Thredded::TopicMovie'}) }, class_name: 'Thredded::Topic'
+
         has_many :thredded_private_posts, class_name: 'Thredded::PrivatePost'
         has_many :thredded_started_private_topics, class_name: 'Thredded::PrivateTopic'
         has_many :thredded_news, class_name: 'Thredded::News'
@@ -40,6 +41,7 @@ module Thredded
         has_many :thredded_notifications, :class_name => 'Thredded::Notification'
         has_one :thredded_user_detail, class_name: 'Thredded::UserDetail'
         has_one :thredded_user_preference, class_name: 'Thredded::UserPreference'
+        has_many :thredded_likes, class_name: 'Thredded::Like'
       end
 
       has_many :thredded_private_topics,

@@ -132,7 +132,9 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
   delete 'relaunch_users', action: :destroy, controller: 'relaunch_users'
 
   get 'sessions', action: :logged_in_user, controller: 'sessions'
-
+  resources :topics do
+    resources :likes, only: [:create, :destroy]
+  end
   resources :notifications, only: [:destroy] do
     collection do
       delete 'delete_all', action: :destroy_all
