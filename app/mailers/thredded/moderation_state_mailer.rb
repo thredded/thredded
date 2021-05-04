@@ -14,7 +14,7 @@ module Thredded
            to: email,
            subject: [
              Thredded.email_outgoing_prefix,
-             'Willkommen!'
+             moderation_state == "blocked" ? 'Dein Account wurde gesperrt' : 'Willkommen!'
            ].compact.join
     end
   end
