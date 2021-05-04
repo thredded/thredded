@@ -29,5 +29,11 @@ module Thredded
     def new_relaunch_user(relaunch_user)
       Thredded::RelaunchUserMailer.new_relaunch_user(relaunch_user.id, relaunch_user.email, relaunch_user.username, relaunch_user.user_hash).deliver_now
     end
+
+    # @param badge [Thredded::Badge]
+    # @param user [Thredded.user_class]
+    def new_badge(badge, user)
+      # ignore, use browser_notifier because a user is normally active when obtaining a badge
+    end
   end
 end

@@ -5,7 +5,7 @@ module Thredded
     scope :visible, -> { where(secret: false) }
 
     has_many :user_badges, inverse_of: :badge, dependent: :delete_all
-    has_many :users, -> { order('created_at DESC') }, through: :user_badges
+    has_many :users, -> { order('created_at DESC') }, through: :user_badges, after_add: :notify_badge_user
 
     validates :title, presence: true, uniqueness: true
     validates :description, presence: true
@@ -19,6 +19,12 @@ module Thredded
       find(id)
     rescue ActiveRecord::RecordNotFound
       raise Thredded::Errors::BadgeNotFound
+    end
+
+    private
+
+    def notify_badge_user(user)
+      Thredded::NotifyBadgeUserJob.perform_later(id, user.id)
     end
   end
 end

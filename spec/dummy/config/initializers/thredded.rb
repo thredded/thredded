@@ -23,7 +23,7 @@ Rails.application.config.to_prepare do
 
   # try out with multiple notifiers:
   # require_dependency File.expand_path('../../../../support/mock_notifier', __FILE__)
-  # Thredded.notifiers = [Thredded::EmailNotifier.new, MockNotifier.new]
+  Thredded.notifiers = [Thredded::EmailNotifier.new, Thredded::BrowserNotifier.new]
 
   Thredded::ApplicationController.module_eval do
     include SetLocale
