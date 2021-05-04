@@ -247,6 +247,12 @@ FactoryBot.define do
         user.thredded_user_detail.update!(moderation_state: :blocked)
       end
     end
+
+    trait :pending_moderation do
+      after(:create) do |user, _|
+        user.thredded_user_detail.update!(moderation_state: :pending_moderation)
+      end
+    end
   end
 
   factory :user_detail, class: Thredded::UserDetail do
