@@ -145,14 +145,26 @@ module Thredded
     end
 
     def filter_movies_by_categories
-      filtered_movies = filter_movies.page params[:page]
+      filtered_movies = filter_movies.order_movies.page params[:page]
       render json: TopicSerializer.new(filtered_movies,  include: [:user]).serializable_hash.to_json, status: 200
     end
 
     private
 
     def filter_movies
-      Topic.where(type: "Thredded::TopicMovie").joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
+      start_date = params[:start_date].empty? ? get_date_first_movie.beginning_of_day : DateTime.parse(params[:start_date]).beginning_of_day
+      end_date = params[:end_date].empty? ? DateTime.now.end_of_day : DateTime.parse(params[:end_date]).end_of_day
+
+      if start_date > end_date
+        Topic.where(type: "Thredded::TopicMovie").where("coalesce(movie_created_at, created_at) >= ?", start_date).joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
+      else
+        Topic.where(type: "Thredded::TopicMovie").where("coalesce(movie_created_at, created_at) BETWEEN ? AND ?", start_date, end_date).joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
+      end
+    end
+
+    def get_date_first_movie
+      first_movie = Topic.where(type: "Thredded::TopicMovie").order_movies.last
+      first_movie.movie_created_at.nil? ? first_movie.created_at : first_movie.movie_created_at
     end
 
     def next_page_after_create(next_page)
