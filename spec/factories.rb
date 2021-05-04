@@ -285,4 +285,11 @@ FactoryBot.define do
       secret { true }
     end
   end
+
+  factory :notification, class: Thredded::Notification do
+    sequence(:name) { |n| "notification#{n}" }
+    description { 'This is a description of the notification' }
+    url { 'https://dev.brickboard.de/' }
+    user
+  end
 end

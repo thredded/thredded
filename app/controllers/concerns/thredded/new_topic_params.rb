@@ -9,7 +9,7 @@ module Thredded
       params[:topic][:type] ||= 'Thredded::TopicDefault'
       params
         .fetch(:topic, {})
-        .permit(:title, :locked, :sticky, :content, :video_url, :movie_created_at, :type, :badge_id, category_ids: [])
+        .permit(:title, :locked, :sticky, :content, :video_url, :movie_created_at, :type, :badge_id, :category, category_ids: [])
         .merge(
           messageboard: messageboard,
           user: thredded_current_user,
