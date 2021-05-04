@@ -136,5 +136,11 @@ module Thredded
         'Dein Konto wurde gesperrt!'
       end
     end
+
+    class NotificationNotFound < Thredded::Error
+      def message
+        'Die Benachrichtigung konnte nicht gefunden werden!'
+      end
+    end
   end
 end

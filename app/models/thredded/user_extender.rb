@@ -37,6 +37,7 @@ module Thredded
         has_many :thredded_topic_read_states, class_name: 'Thredded::UserTopicReadState'
         has_many :thredded_private_topic_read_states, class_name: 'Thredded::UserPrivateTopicReadState'
         has_many :thredded_topic_follows, class_name: 'Thredded::UserTopicFollow'
+        has_many :thredded_notifications, :class_name => 'Thredded::Notification'
         has_one :thredded_user_detail, class_name: 'Thredded::UserDetail'
         has_one :thredded_user_preference, class_name: 'Thredded::UserPreference'
       end

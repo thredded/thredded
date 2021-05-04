@@ -133,5 +133,11 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   get 'sessions', action: :logged_in_user, controller: 'sessions'
 
+  resources :notifications, only: [:destroy] do
+    collection do
+      delete 'delete_all', action: :destroy_all
+    end
+  end
+
   root to: 'messageboards#index'
 end

@@ -30,7 +30,8 @@ module Thredded
                 Thredded::Errors::BadgeNotFound,
                 Thredded::Errors::TopicSubclassNotFound,
                 Thredded::Errors::RelaunchUserNotFound,
-                Thredded::Errors::MessageboardGroupNotFound do |exception|
+                Thredded::Errors::MessageboardGroupNotFound,
+                Thredded::Errors::NotificationNotFound do |exception|
       @error   = exception
       @message = exception.message
       render json: { error: @message }, status: 404
