@@ -1,6 +1,6 @@
 language: ruby
+os: linux
 dist: xenial
-sudo: false
 addons:
   apt:
     packages:
@@ -9,7 +9,7 @@ addons:
 before_install:
   - script/travis-downgrade-bundler-on-old-rails.sh
 
-matrix:
+jobs:
   include:
     - name: Rubocop
       gemfile: spec/gemfiles/rubocop.gemfile
@@ -77,19 +77,20 @@ matrix:
       services: postgresql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
+      before_install: nvm install 12
       env: DB=sqlite3 THREDDED_TESTAPP_SPROCKETS_JS=1
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
-      before_install: nvm use node
+      before_install: nvm install 12
       env: DB=sqlite3
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
-      before_install: nvm use node
+      before_install: nvm install 12
       env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
       services: mysql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.5.3
-      before_install: nvm use node
+      before_install: nvm install 12
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
 

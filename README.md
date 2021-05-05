@@ -682,8 +682,8 @@ sudo apt-get install chromium-chromedriver
 On Mac, run:
 
 ```bash
-brew cask install chromium
-brew cask install chromedriver
+brew install --cask chromium
+brew install --cask chromedriver
 ```
 
 To get better page saves (`page.save_and_open_page`) from local capybara specs ensure you are running the server locally 
