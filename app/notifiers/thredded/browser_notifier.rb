@@ -40,7 +40,7 @@ module Thredded
     def new_badge(badge, user)
       Thredded::Notification.new(
         user: user,
-        name: "Du hast soeben das Badge \"#{badge.title}\" erhalten!",
+        name: "Du hast soeben das Badge \"#{ badge.title }\" erhalten!",
         url: "#{ Rails.configuration.frontend_url }profil/#{ user.id }"
       ).save!
     end

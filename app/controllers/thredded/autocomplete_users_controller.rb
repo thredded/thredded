@@ -19,7 +19,7 @@ module Thredded
         case_insensitive.prefix(query)
           .joins(:thredded_user_detail).merge(Thredded::UserDetail.where(moderation_state: :approved))
           .where.not(id: thredded_current_user.id)
-          .order(case_insensitive.column_for_order(:asc))
+          .order(created_at: :desc, id: :desc)
           .limit(MAX_RESULTS)
       else
         []

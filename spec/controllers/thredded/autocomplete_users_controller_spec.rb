@@ -48,9 +48,9 @@ module Thredded
         expect(json_response_results.first['attributes'].keys).to include('admin', 'email', 'name', 'created_at', 'updated_at')
       end
 
-      it 'returns results, ordered' do
+      it 'returns results, ordered by newest user first' do
         get :index, format: 'json', params: { q: 'ga' }
-        expect(json_response_results.map { |r| r['attributes']['name'] }).to eq(%w[gandalf Gary Gazza])
+        expect(json_response_results.map { |r| r['attributes']['name'] }).to eq(%w[gandalf Gazza Gary])
       end
     end
   end
