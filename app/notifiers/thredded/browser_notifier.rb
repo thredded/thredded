@@ -27,7 +27,7 @@ module Thredded
     def updated_moderation_state(moderation_state, user_detail)
       Thredded::Notification.new(
         user: user_detail.user,
-        name: moderation_state == "blocked" ? "Du wurdest von einem Administrator gesperrt!" : "Dein Konto wurde soeben freigeschalten!"
+        name: moderation_state == "blocked" ? "Du wurdest von einem Brickboard-Admin gesperrt!" : "Dein Account wurde soeben bestätigt!"
       ).save!
     end
 
@@ -40,7 +40,7 @@ module Thredded
     def new_badge(badge, user)
       Thredded::Notification.new(
         user: user,
-        name: "Du hast soeben das Badge \"#{badge.title}\" erhalten!",
+        name: "Du hast soeben das Badge \"#{ badge.title }\" erhalten!",
         url: "#{ Rails.configuration.frontend_url }profil/#{ user.id }"
       ).save!
     end
