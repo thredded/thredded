@@ -133,7 +133,8 @@ Thredded::Engine.routes.draw do # rubocop:disable Metrics/BlockLength
 
   get 'sessions', action: :logged_in_user, controller: 'sessions'
   resources :topics do
-    resources :likes, only: [:create, :destroy]
+    resources :likes, only: [:create]
+    delete 'unlike', action: :destroy, controller: 'likes'
   end
   resources :notifications, only: [:destroy] do
     collection do

@@ -159,9 +159,9 @@ module Thredded
       end_date = !params[:end_date].present? || params[:end_date].empty? ? DateTime.now.end_of_day : DateTime.parse(params[:end_date]).end_of_day
 
       if start_date > end_date
-        Topic.where(type: "Thredded::TopicMovie").where("coalesce(movie_created_at, created_at) >= ?", start_date).joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
+        Topic.get_movies.where("coalesce(movie_created_at, created_at) >= ?", start_date).joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
       else
-        Topic.where(type: "Thredded::TopicMovie").where("coalesce(movie_created_at, created_at) BETWEEN ? AND ?", start_date, end_date).joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
+        Topic.get_movies.where("coalesce(movie_created_at, created_at) BETWEEN ? AND ?", start_date, end_date).joins(:topic_categories).where('thredded_topic_categories.category_id': JSON.parse(params[:category_ids])).distinct
       end
     end
 

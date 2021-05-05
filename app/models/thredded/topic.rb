@@ -31,6 +31,8 @@ module Thredded
     }
     scope :unread_followed_by, ->(user) { followed_by(user).unread(user) }
 
+    scope :get_movies, -> { where(type: "Thredded::TopicMovie") }
+
     extend FriendlyId
     friendly_id :slug_candidates,
                 use: %i[history reserved],
