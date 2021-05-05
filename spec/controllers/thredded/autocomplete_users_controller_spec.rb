@@ -14,7 +14,9 @@ module Thredded
     end
 
     describe 'index' do
-      let!(:users) { %w[Gilda Gary Gazza gandalf].map { |n| create(:user, name: n) } }
+      let!(:users) { %w[Gilda Gary Gazza gandalf].map { |n| create(:user, :approved, name: n) } }
+      let!(:user_pending_moderation) { create(:user, :pending_moderation, name: 'Gargamel') }
+      let!(:user_blocked) { create(:user, :blocked, name: 'Gall') }
 
       let(:json_response_results) { JSON.parse(response.body)['data'] }
 
@@ -29,14 +31,26 @@ module Thredded
         expect(json_response_results.map { |r| r['attributes']['name'] }).not_to include('Ganymede')
       end
 
+      it "'doesn't include pending users'" do
+        get :index, format: 'json', params: { q: 'ga' }
+        expect(json_response_results.map { |r| r['attributes']['name'] }).to include('gandalf', 'Gary', 'Gazza')
+        expect(json_response_results.map { |r| r['attributes']['name'] }).not_to include('Gargamel')
+      end
+
+      it "'doesn't include blocked users'" do
+        get :index, format: 'json', params: { q: 'ga' }
+        expect(json_response_results.map { |r| r['attributes']['name'] }).to include('gandalf', 'Gary', 'Gazza')
+        expect(json_response_results.map { |r| r['attributes']['name'] }).not_to include('Gall')
+      end
+
       it 'returns records' do
         get :index, format: 'json', params: { q: 'ga' }
         expect(json_response_results.first['attributes'].keys).to include('admin', 'email', 'name', 'created_at', 'updated_at')
       end
 
-      it 'returns results, ordered' do
+      it 'returns results, ordered by newest user first' do
         get :index, format: 'json', params: { q: 'ga' }
-        expect(json_response_results.map { |r| r['attributes']['name'] }).to eq(%w[gandalf Gary Gazza])
+        expect(json_response_results.map { |r| r['attributes']['name'] }).to eq(%w[gandalf Gazza Gary])
       end
     end
   end

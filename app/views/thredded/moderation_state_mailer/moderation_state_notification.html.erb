@@ -3,9 +3,15 @@
     <h2 class="header--salutation">Hallo <%= @name %>!</h2>
   </tr>
   <tr>
-    <p>Gratuliere! Ein Brickboard-Admin hat soeben deinen Account <span class="bold">bestätigt</span>.<br>
-      Nun sind deine Beiträge im Forum öffentlich sichtbar.</p>
-    <p>Also am besten direkt ab zum Forum und deinen 1. Post veröffentlichen ;)</p>
+    <% if @moderation_state == "blocked" %>
+      <p>Ein Brickboard-Admin hat soeben deinen Account <span class="bold">gesperrt</span>.<br>
+        Deine Beiträge sind nun nicht mehr im Forum sichtbar.</p>
+      <p>Bitte nimm Kontakt mit einem Brickboard-Admin auf, falls du denkst, dass uns dabei ein Fehler passiert ist.</p>
+    <% else %>
+      <p>Gratuliere! Ein Brickboard-Admin hat soeben deinen Account <span class="bold">bestätigt</span>.<br>
+        Nun sind deine Beiträge im Forum öffentlich sichtbar.</p>
+      <p>Also am besten direkt ab zum Forum und deinen 1. Post veröffentlichen ;)</p>
+    <% end %>
   </tr>
   <tr>
     <div class="button__container">
