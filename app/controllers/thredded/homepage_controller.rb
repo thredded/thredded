@@ -41,7 +41,7 @@ module Thredded
     end
 
     def latest_news
-      News.where('is_active = ?', true).order_by_created_date.limit(3)
+      News.where(is_active: true).order_by_created_date.limit(3)
     end
 
     def user_count

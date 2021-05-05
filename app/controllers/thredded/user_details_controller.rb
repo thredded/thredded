@@ -45,6 +45,7 @@ module Thredded
           :youtube_url,
           :facebook_url,
           :twitter_url,
+          :instagram_url,
           :profile_banner,
           interests: []
         )

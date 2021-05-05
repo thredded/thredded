@@ -15,7 +15,7 @@ module Thredded
 
     # Using `search_query` instead of `search` to avoid conflict with Ransack.
     scope :search_query, ->(query) { ::Thredded::TopicsSearch.new(query, self).search }
-
+    scope :order_movies, -> { order(movie_created_at: :desc, created_at: :desc ) }
     scope :order_sticky_first, -> { order(sticky: :desc) }
     scope :order_followed_first, ->(user) {
       user_follows = UserTopicFollow.arel_table
@@ -87,6 +87,8 @@ module Thredded
                counter_cache: true,
                touch: true,
                inverse_of: :topics
+
+    has_many :likes, inverse_of: :topic, dependent: :delete_all
 
     delegate :name, to: :messageboard, prefix: true
 

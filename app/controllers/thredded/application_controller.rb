@@ -31,6 +31,7 @@ module Thredded
                 Thredded::Errors::TopicSubclassNotFound,
                 Thredded::Errors::RelaunchUserNotFound,
                 Thredded::Errors::MessageboardGroupNotFound,
+                Thredded::Errors::LikeNotFound,
                 Thredded::Errors::NotificationNotFound do |exception|
       @error   = exception
       @message = exception.message
