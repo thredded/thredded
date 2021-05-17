@@ -44,7 +44,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'sanitize'
 
   # frontend
-  s.add_dependency 'autoprefixer-rails'
+  s.add_dependency 'autoprefixer-rails', '>= 10.2.5.0'
   s.add_dependency 'sassc-rails', '>= 2.0.0'
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'timeago_js', '>= 3.0.2.2'
