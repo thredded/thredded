@@ -12,10 +12,8 @@ module Thredded
         migrate =
           if Rails.gem_version >= Gem::Version.new('6.0.0.rc2')
             -> { ActiveRecord::MigrationContext.new(paths, ActiveRecord::SchemaMigration).migrate(nil, &filter) }
-          elsif Rails::VERSION::STRING >= '5.2'
+          else # Rails 5.2
             -> { ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter) }
-          else
-            -> { ActiveRecord::Migrator.migrate(paths, &filter) }
           end
         if quiet
           silence_active_record(&migrate)
