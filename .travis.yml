@@ -31,39 +31,6 @@ jobs:
       addons:
         apt:
           packages: []
-    - gemfile: spec/gemfiles/rails_4_2.gemfile
-      rvm: 2.3.8
-      env: DB=sqlite3
-    - gemfile: spec/gemfiles/rails_4_2.gemfile
-      rvm: 2.3.8
-      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
-      services: mysql
-    - gemfile: spec/gemfiles/rails_4_2.gemfile
-      rvm: 2.3.8
-      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-      services: postgresql
-    - gemfile: spec/gemfiles/rails_5_0.gemfile
-      rvm: 2.3.8
-      env: DB=sqlite3
-    - gemfile: spec/gemfiles/rails_5_0.gemfile
-      rvm: 2.3.8
-      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
-      services: mysql
-    - gemfile: spec/gemfiles/rails_5_0.gemfile
-      rvm: 2.3.8
-      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-      services: postgresql
-    - gemfile: spec/gemfiles/rails_5_1.gemfile
-      rvm: 2.3.8
-      env: DB=sqlite3
-    - gemfile: spec/gemfiles/rails_5_1.gemfile
-      rvm: 2.3.8
-      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
-      services: mysql
-    - gemfile: spec/gemfiles/rails_5_1.gemfile
-      rvm: 2.3.8
-      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-      services: postgresql
     - gemfile: spec/gemfiles/rails_5_2.gemfile
       rvm: 2.3.8
       env: DB=sqlite3
