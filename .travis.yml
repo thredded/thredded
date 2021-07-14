@@ -13,7 +13,7 @@ jobs:
   include:
     - name: Rubocop
       gemfile: spec/gemfiles/rubocop.gemfile
-      rvm: 2.5.3
+      rvm: 2.7.4
       script: bundle exec rubocop
       before_install:
       before_script:
@@ -23,7 +23,7 @@ jobs:
           packages: []
     - name: I18n Tasks
       gemfile: spec/gemfiles/i18n-tasks.gemfile
-      rvm: 2.5.3
+      rvm: 2.7.4
       script: bundle exec i18n-tasks health
       before_install:
       before_script:
@@ -32,31 +32,31 @@ jobs:
         apt:
           packages: []
     - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.3.8
+      rvm: 2.6.8
       env: DB=sqlite3
     - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.3.8
+      rvm: 2.6.8
       env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
       services: mysql
     - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.3.8
+      rvm: 2.6.8
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.3
+      rvm: 2.7.4
       before_install: nvm install 12
       env: DB=sqlite3 THREDDED_TESTAPP_SPROCKETS_JS=1
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.3
+      rvm: 2.7.4
       before_install: nvm install 12
       env: DB=sqlite3
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.3
+      rvm: 2.7.4
       before_install: nvm install 12
       env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
       services: mysql
     - gemfile: spec/gemfiles/rails_6_0.gemfile
-      rvm: 2.5.3
+      rvm: 2.7.4
       before_install: nvm install 12
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
