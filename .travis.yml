@@ -1,6 +1,6 @@
 language: ruby
 os: linux
-dist: xenial
+dist: bionic
 addons:
   apt:
     packages:
