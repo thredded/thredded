@@ -36,7 +36,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'html-pipeline'
   s.add_dependency 'kramdown', '>= 2.0.0'
   s.add_dependency 'kramdown-parser-gfm'
-  s.add_dependency 'onebox', '~> 1.8', '>= 1.8.99'
+  s.add_dependency 'onebox', '>= 1.8.99'
   # html-pipeline dependencies, see https://github.com/jch/html-pipeline#dependencies
   # for the AutolinkFilter
   s.add_dependency 'rinku'
