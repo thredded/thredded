@@ -142,8 +142,7 @@ module Thredded
         relation = joins(:topics).merge(topics_scope).joins(
           messageboards.outer_join(read_states).on(read_states_join_cond).join_sources
         ).group(messageboards[:id])
-        Thredded::ArelCompat.pluck(
-          relation,
+        relation.pluck(
           :id,
           Arel::Nodes::Subtraction.new(topics[:id].count, read_states[:id].count)
         ).to_h
