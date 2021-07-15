@@ -29,7 +29,7 @@ module Thredded
     def calculate_post_counts
       relation = self.class.visible_posts_scope(user).where(postable_id: postable_id)
       unread_posts_count, read_posts_count =
-        Thredded::ArelCompat.pluck(relation, *self.class.post_counts_arel(read_at))[0]
+        relation.pluck(*self.class.post_counts_arel(read_at))[0]
       { unread_posts_count: unread_posts_count || 0, read_posts_count: read_posts_count || 0 }
     end
 
@@ -44,7 +44,7 @@ module Thredded
         selects << states[Arel.star] if !is_a?(ActiveRecord::Relation) || select_values.empty?
         selects += [
           Arel::Nodes::Case.new(states[:unread_posts_count].not_eq(0))
-            .when(Thredded::ArelCompat.true_value(self)).then(
+            .when(true).then(
               Arel::Nodes::Addition.new(
                 Thredded::ArelCompat.integer_division(self, states[:read_posts_count], posts_per_page), 1
               )
@@ -75,11 +75,11 @@ module Thredded
         [
           Arel::Nodes::Sum.new(
             [Arel::Nodes::Case.new(posts[:created_at].gt(read_at))
-               .when(Thredded::ArelCompat.true_value(self)).then(1).else(0)]
+               .when(true).then(1).else(0)]
           ).as('unread_posts_count'),
           Arel::Nodes::Sum.new(
             [Arel::Nodes::Case.new(posts[:created_at].gt(read_at))
-               .when(Thredded::ArelCompat.true_value(self)).then(0).else(1)]
+               .when(true).then(0).else(1)]
           ).as('read_posts_count')
         ]
       end
@@ -90,7 +90,7 @@ module Thredded
         posts = post_class.arel_table
         relation = joins(states.join(posts).on(states[:postable_id].eq(posts[:postable_id])).join_sources)
           .group(states[:id])
-        Thredded::ArelCompat.pluck(relation, states[:id], *post_counts_arel(states[:read_at], posts: posts))
+        relation.pluck(states[:id], *post_counts_arel(states[:read_at], posts: posts))
       end
     end
   end

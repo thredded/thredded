@@ -46,27 +46,12 @@ require 'active_support/testing/time_helpers'
 # Driver makes web requests to localhost, configure WebMock to let them through
 WebMock.allow_net_connect!
 
-if Rails::VERSION::MAJOR >= 5
-  require 'rails-controller-testing'
-  RSpec.configure do |config|
-    %i[controller view request].each do |type|
-      config.include ::Rails::Controller::Testing::TestProcess, type: type
-      config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
-      config.include ::Rails::Controller::Testing::Integration, type: type
-    end
-  end
-else
-  module Rails5StyleRequestMethods
-    %i[get post patch delete].each do |m|
-      define_method m do |path, params: {}, **args|
-        super(path, args.merge(params))
-      end
-    end
-  end
-  RSpec.configure do |config|
-    %i[controller request].each do |type|
-      config.prepend Rails5StyleRequestMethods, type: type
-    end
+require 'rails-controller-testing'
+RSpec.configure do |config|
+  %i[controller view request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, type: type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+    config.include ::Rails::Controller::Testing::Integration, type: type
   end
 end
 
@@ -111,12 +96,8 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   else
     config.before(:suite) do
       Thredded::DbTools.silence_active_record do
+        # TODO: drop database cleaner and use Rails system specs
         DatabaseCleaner.clean_with(:truncation, reset_ids: true)
-      end
-      if Rails::VERSION::MAJOR < 5
-        # after_commit testing is baked into rails 5.
-        require 'test_after_commit'
-        TestAfterCommit.enabled = true
       end
       ActiveJob::Base.queue_adapter = :inline
     end

@@ -63,15 +63,6 @@ module Thredded
       @is_thredded_moderator = !thredded_current_user.thredded_can_moderate_messageboards.empty?
     end
 
-    if Rails::VERSION::MAJOR < 5
-      # redirect_back polyfill
-      def redirect_back(fallback_location:, **args)
-        redirect_to :back, args
-      rescue ActionController::RedirectBackError
-        redirect_to fallback_location, args
-      end
-    end
-
     # @param given [Hash]
     # @return [Boolean] whether the given params are a subset of the controller's {#params}.
     def params_match?(given = {})

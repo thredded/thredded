@@ -99,28 +99,12 @@ module Thredded
       collection.map { |object| render_partial(partial_renderer, view_context, opts.merge(object: object)) }
     end
 
-    if Rails::VERSION::MAJOR >= 5
-      def collection_cache
-        ActionView::PartialRenderer.collection_cache
-      end
-    else
-      def collection_cache
-        Rails.application.config.action_controller.cache_store
-      end
+    def collection_cache
+      ActionView::PartialRenderer.collection_cache
     end
 
-    if Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2)
-      def combined_fragment_cache_key(view, key)
-        view.combined_fragment_cache_key(key)
-      end
-    elsif Rails::VERSION::MAJOR >= 5
-      def combined_fragment_cache_key(view, key)
-        view.fragment_cache_key(key)
-      end
-    else
-      def combined_fragment_cache_key(view, key)
-        view.controller.fragment_cache_key(key)
-      end
+    def combined_fragment_cache_key(view, key)
+      view.combined_fragment_cache_key(key)
     end
 
     if Rails::VERSION::MAJOR >= 6

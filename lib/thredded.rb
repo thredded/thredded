@@ -48,15 +48,6 @@ require 'thredded/collection_to_strings_with_cache_renderer'
 
 require 'thredded/webpack_assets'
 
-if Rails::VERSION::MAJOR < 5
-  begin
-    require 'where-or'
-  rescue LoadError
-    $stderr.puts "\nthredded: Please add gem 'where-or' to your Gemfile"
-    exit 1 # rubocop:disable Rails/Exit
-  end
-end
-
 module Thredded # rubocop:disable Metrics/ModuleLength
   class << self
     #== User

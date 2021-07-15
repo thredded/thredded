@@ -22,13 +22,4 @@ class ApplicationController < ActionController::Base
       session.delete(:user_id) if user.nil?
     end
   end
-
-  if Rails::VERSION::MAJOR < 5
-    # redirect_back polyfill
-    def redirect_back(fallback_location:, **args)
-      redirect_to :back, args
-    rescue ActionController::RedirectBackError
-      redirect_to fallback_location, args
-    end
-  end
 end
