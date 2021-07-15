@@ -15,9 +15,5 @@ module Thredded
         Arel::Nodes::Division.new(a, b)
       end
     end
-
-    def true_value(_engine)
-      true
-    end
   end
 end
