@@ -7,8 +7,7 @@ addons:
     - chromium-browser
 
 before_install:
-  - bundle config set --local path ../../vendor/bundle
-  - bundle config set --local without debug
+  - bundle config set --local path ../../vendor/bundle without debug
 
 jobs:
   include:
@@ -86,6 +85,7 @@ cache:
   - spec/dummy/tmp/cache/onebox-data
   - spec/dummy/tmp/cache/onebox-views
 
+bundler_args: --path ../../vendor/bundle --without debug
 env:
   global:
   - COVERAGE=1
