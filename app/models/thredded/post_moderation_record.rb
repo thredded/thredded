@@ -9,18 +9,18 @@ module Thredded
     scope :order_newest_first, -> { order(created_at: :desc, id: :desc) }
 
     belongs_to :messageboard, inverse_of: :post_moderation_records
-    validates :messageboard_id, presence: true unless Thredded.rails_gte_51?
+
     belongs_to :post,
                inverse_of: :moderation_records,
-               **(Thredded.rails_gte_51? ? { optional: true } : {})
+               optional: true
     belongs_to :post_user,
                class_name: Thredded.user_class_name,
                inverse_of: :thredded_post_moderation_records,
-               **(Thredded.rails_gte_51? ? { optional: true } : {})
+               optional: true
     belongs_to :moderator,
                class_name: Thredded.user_class_name,
                inverse_of: :thredded_post_moderation_records,
-               **(Thredded.rails_gte_51? ? { optional: true } : {})
+               optional: true
 
     validates_each :moderation_state do |record, attr, value|
       record.errors.add attr, "Post moderation_state is already #{value}" if record.previous_moderation_state == value

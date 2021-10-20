@@ -37,7 +37,7 @@ module Thredded
     belongs_to :user,
                class_name: Thredded.user_class_name,
                inverse_of: :thredded_topics,
-               **(Thredded.rails_gte_51? ? { optional: true } : {})
+               optional: true
 
     belongs_to :messageboard,
                counter_cache: true,
@@ -50,7 +50,7 @@ module Thredded
                foreign_key:   :user_id,
                inverse_of:    :topics,
                counter_cache: :topics_count,
-               **(Thredded.rails_gte_51? ? { optional: true } : {})
+               optional: true
 
     has_many :posts,
              autosave: true,

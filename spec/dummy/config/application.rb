@@ -17,7 +17,6 @@ require 'twemoji/svg'
 require 'thredded'
 require 'thredded/markdown_coderay'
 require 'thredded/markdown_katex'
-require 'rails-ujs' unless Thredded.rails_gte_51?
 
 if ENV['HEROKU']
   require 'tunemygc'

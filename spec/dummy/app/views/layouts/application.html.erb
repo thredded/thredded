@@ -6,7 +6,7 @@
   </title>
   <%= stylesheet_link_tag current_theme, media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= csrf_meta_tags %>
-  <%= csp_meta_tag if Thredded.rails_supports_csp_nonce? %>
+  <%= csp_meta_tag %>
 <% if Dummy::Application.thredded_testapp_webpack? %>
   <%= javascript_pack_tag 'application',
                              async: true,
@@ -25,7 +25,7 @@
 </head>
 <body class="app<%= ' app-layout' unless content_for?(:no_app_layout) %>">
 <% if ENV['GA_TRACKING_ID'] -%>
-    <%= javascript_tag 'data-turbolinks-eval': 'false', **(Thredded.rails_supports_csp_nonce? ? {nonce: true} : {}) do %>
+    <%= javascript_tag 'data-turbolinks-eval': 'false', nonce: true do %>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -33,7 +33,7 @@
       ga('create', '<%= ENV['GA_TRACKING_ID'] %>', 'auto');
       ga('require', 'linkid', {levels: 10});
     <% end %>
-    <%= javascript_tag **(Thredded.rails_supports_csp_nonce? ? {nonce: true} : {}) do %>
+    <%= javascript_tag nonce: true do %>
       ga('set', 'location', location.href.split('#')[0]);
       ga('send', 'pageview', {"title": document.title});
     <% end %>

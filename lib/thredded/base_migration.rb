@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Thredded
-  class BaseMigration < (Thredded.rails_gte_51? ? ActiveRecord::Migration[5.1] : ActiveRecord::Migration)
+  class BaseMigration < ActiveRecord::Migration[5.1]
     protected
 
     def user_id_type

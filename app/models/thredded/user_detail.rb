@@ -7,7 +7,7 @@ module Thredded
     belongs_to :user, class_name: Thredded.user_class_name, inverse_of: :thredded_user_detail
     validates :user_id,
               uniqueness: { case_sensitive: true },
-              **(Thredded.rails_gte_51? ? {} : { presence: true })
+              presence: true
 
     with_options foreign_key: :user_id, primary_key: :user_id, inverse_of: :user_detail, dependent: :nullify do
       has_many :topics, class_name: 'Thredded::Topic'
