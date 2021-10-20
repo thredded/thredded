@@ -86,6 +86,6 @@ class UpgradeThreddedV014ToV015 < Thredded::BaseMigration
   def remove_string_limit(table, column, type: :text, indices: [])
     indices.each { |(_, options)| remove_index table, name: options[:name] }
     change_column table, column, type, limit: nil
-    indices.each { |args| add_index table, *args }
+    indices.each { |(columns, options)| add_index table, columns, **options }
   end
 end

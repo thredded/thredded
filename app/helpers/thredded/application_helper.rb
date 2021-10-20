@@ -92,7 +92,7 @@ module Thredded
     end
 
     def paginate(collection, args = {})
-      super(collection, args.reverse_merge(views_prefix: 'thredded'))
+      super(collection, **args.reverse_merge(views_prefix: 'thredded'))
     end
 
     # @param topic [BaseTopicView]

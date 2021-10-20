@@ -255,9 +255,9 @@ module Thredded
 
       delegate :log, to: :seeder
 
-      def find_or_create(*args)
+      def find_or_create(*args, **kwargs)
         return @stored if @stored
-        @stored = (find || create(*args))
+        @stored = (find || create(*args, **kwargs))
       end
 
       def range_of_dates_in_order(up_to: Time.zone.now, count: 1)
