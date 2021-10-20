@@ -32,6 +32,7 @@ require 'sprockets/es6'
 require 'sassc-rails'
 
 require 'thredded/version'
+require 'thredded/compat'
 require 'thredded/engine'
 require 'thredded/errors'
 

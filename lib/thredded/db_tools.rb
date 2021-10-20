@@ -10,7 +10,7 @@ module Thredded
         verbose_was = ActiveRecord::Migration.verbose
         ActiveRecord::Migration.verbose = !quiet
         migrate =
-          if Rails.gem_version >= Gem::Version.new('6.0.0.rc2')
+          if Thredded::Compat.rails_gte_60?
             -> { ActiveRecord::MigrationContext.new(paths, ActiveRecord::SchemaMigration).migrate(nil, &filter) }
           else # Rails 5.2
             -> { ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter) }

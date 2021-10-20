@@ -97,7 +97,7 @@ module Thredded
     # @param view_context
     # @return [Array<String>]
     def render_partials_serial(view_context, collection, opts)
-      if Rails.gem_version >= Gem::Version.new('6.1.0')
+      if Thredded::Compat.rails_gte_61?
         # https://github.com/rails/rails/pull/38594
         collection.map do |object|
           renderer = ActionView::ObjectRenderer.new(@lookup_context, opts)
@@ -117,9 +117,9 @@ module Thredded
       view.combined_fragment_cache_key(key)
     end
 
-    if Rails::VERSION::MAJOR >= 6
+    if Thredded::Compat.rails_gte_60?
       def cache_fragment_name(view, key, virtual_path:, digest_path:)
-        if Rails::VERSION::MINOR >= 1
+        if Thredded::Compat.rails_gte_61?
           view.cache_fragment_name(key, digest_path: digest_path)
         else
           view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
