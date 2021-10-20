@@ -3,7 +3,11 @@
 module Thredded
   # A view model for a page of PostViews.
   class PostsPageView
-    delegate :to_a,
+    delegate :each,
+             :each_with_index,
+             :map,
+             :size,
+             :to_a,
              :to_ary,
              :present?,
              to: :@post_views

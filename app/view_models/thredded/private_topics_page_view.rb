@@ -3,7 +3,11 @@
 module Thredded
   # A view model for a page of BaseTopicViews.
   class PrivateTopicsPageView
-    delegate :to_a,
+    delegate :each,
+             :each_with_index,
+             :map,
+             :size,
+             :to_a,
              :to_ary,
              :blank?,
              :empty?,
