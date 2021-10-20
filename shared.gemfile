@@ -14,6 +14,9 @@ group :debug do
   end
 end
 
+gem 'thredded-markdown_coderay', git: 'https://github.com/thredded/thredded-markdown_coderay', branch: 'master'
+gem 'thredded-markdown_katex', git: 'https://github.com/thredded/thredded-markdown_katex', branch: 'master'
+
 if (RUBY_VERSION.split('.').map(&:to_i) <=> [2, 5, 0]) >= 0
   gem 'roadie-rails'
 else
