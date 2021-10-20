@@ -82,26 +82,24 @@ Dummy::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  if Rails.gem_version >= Gem::Version.new('5.2.0')
-    config.content_security_policy do |policy|
-      policy.default_src :self, :https
-      policy.font_src :self, :https, :data
-      policy.img_src :self, :https, :data
-      policy.object_src :none
-      policy.script_src :self, :https
-      policy.style_src :self, :https, :unsafe_inline
+  config.content_security_policy do |policy|
+    policy.default_src :self, :https
+    policy.font_src :self, :https, :data
+    policy.img_src :self, :https, :data
+    policy.object_src :none
+    policy.script_src :self, :https
+    policy.style_src :self, :https, :unsafe_inline
+  end
+  config.content_security_policy_nonce_generator = ->(request) {
+    if request.env['HTTP_TURBOLINKS_REFERRER'].present?
+      # Turbolinks nonce CSP support.
+      # See https://github.com/turbolinks/turbolinks/issues/430
+      request.env['HTTP_X_TURBOLINKS_NONCE']
+    else
+      SecureRandom.base64(16)
     end
-    config.content_security_policy_nonce_generator = ->(request) {
-      if request.env['HTTP_TURBOLINKS_REFERRER'].present?
-        # Turbolinks nonce CSP support.
-        # See https://github.com/turbolinks/turbolinks/issues/430
-        request.env['HTTP_X_TURBOLINKS_NONCE']
-      else
-        SecureRandom.base64(16)
-      end
-    }
-    if config.respond_to?(:content_security_policy_nonce_directives=)
-      config.content_security_policy_nonce_directives = %w[script-src]
-    end
+  }
+  if config.respond_to?(:content_security_policy_nonce_directives=)
+    config.content_security_policy_nonce_directives = %w[script-src]
   end
 end
