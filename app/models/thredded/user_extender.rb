@@ -30,7 +30,7 @@ module Thredded
                  class_name: 'Thredded::MessageboardNotificationsForFollowedTopics'
         has_many :thredded_notifications_for_private_topics, class_name: 'Thredded::NotificationsForPrivateTopics'
         has_many :thredded_post_notifications, class_name: 'Thredded::UserPostNotification'
-        has_many :thredded_private_users, class_name: 'Thredded::PrivateUser'
+        has_many :thredded_private_users, class_name: 'Thredded::PrivateUser', inverse_of: :user
         has_many :thredded_topic_read_states, class_name: 'Thredded::UserTopicReadState'
         has_many :thredded_private_topic_read_states, class_name: 'Thredded::UserPrivateTopicReadState'
         has_many :thredded_topic_follows, class_name: 'Thredded::UserTopicFollow'
