@@ -45,9 +45,10 @@ FactoryBot.define do
   end
 
   factory :private_post, class: Thredded::PrivatePost do
-    user
+    # This needs to be first with rails 6.1
+    # so that the user doesn't have this as the first of its thredded_private_posts and is invalid
     postable { association :private_topic, user: user, last_user: user }
-
+    user { create(:user) }
     content { Faker::Hacker.say_something_smart }
   end
 
