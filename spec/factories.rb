@@ -135,7 +135,7 @@ FactoryBot.define do
     hash_id { generate(:topic_hash) }
 
     after :create do |topic, evaluator|
-      if evaluator.with_posts
+      if evaluator.with_posts.nonzero?
         ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
         last_user = nil
         evaluator.with_posts.times do |i|
