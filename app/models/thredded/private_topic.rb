@@ -102,6 +102,8 @@ module Thredded
     end
 
     def ensure_user_in_private_users
+      # TODO: investigate performance of this. Seems to take a long time and be repeatedly called in tests
+      #       can we avoid callling this so often
       users << user if user.present? && !users.include?(user)
     end
 
