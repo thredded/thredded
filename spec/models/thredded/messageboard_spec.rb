@@ -176,7 +176,7 @@ module Thredded
       create(:user_topic_follow, user: user, topic: topic)
     end
 
-    def read_topic(topic, at: topic.last_post_at)
+    def read_topic(topic, at: topic.last_post_at || topic.updated_at)
       create(:user_topic_read_state, user: user, postable: topic, read_at: at)
     end
 
