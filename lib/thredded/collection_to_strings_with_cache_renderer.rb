@@ -92,18 +92,20 @@ module Thredded
       end
     end
 
-    # @param [Array<Object>] collection
-    # @param [Hash] opts
-    # @param view_context
-    # @return [Array<String>]
-    def render_partials_serial(view_context, collection, opts)
-      if Thredded::Compat.rails_gte_61?
+    if Thredded::Compat.rails_gte_61?
+      # @param [Array<Object>] collection
+      # @param [Hash] opts
+      # @param view_context
+      # @return [Array<String>]
+      def render_partials_serial(view_context, collection, opts)
         # https://github.com/rails/rails/pull/38594
         collection.map do |object|
           renderer = ActionView::ObjectRenderer.new(@lookup_context, opts)
           renderer.render_object_with_partial(object, opts[:partial], view_context, nil).body
         end
-      else
+      end
+    else
+      def render_partials_serial(view_context, collection, opts)
         partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
         collection.map { |object| render_partial(partial_renderer, view_context, **opts.merge(object: object)) }
       end
