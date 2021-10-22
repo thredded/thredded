@@ -2,7 +2,20 @@
 
 module Thredded
   # A view model for a page of PostViews of a Topic.
-  class TopicPostsPageView < Thredded::PostsPageView
+  class TopicPostsPageView
+    delegate :each,
+             :each_with_index,
+             :map,
+             :size,
+             :to_a,
+             :to_ary,
+             :present?,
+             to: :@post_views
+    delegate :total_pages,
+             :current_page,
+             :limit_value,
+             to: :@paginated_scope
+
     # @return [Thredded::BaseTopicView]
     attr_reader :topic
 
