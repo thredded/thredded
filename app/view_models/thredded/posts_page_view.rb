@@ -20,7 +20,7 @@ module Thredded
     attr_reader :topic
 
     # @param user [Thredded.user_class] the user who is viewing the posts page
-    # @param paginated_scope [ActiveRecord::Relation<Thredded::PostCommon>]
+    # @param paginated_scope [ActiveRecord::Relation<Thredded::PostCommon>] a kaminari-decorated ".page" scope
     def initialize(user, paginated_scope, topic_view: nil)
       @paginated_scope = paginated_scope
       @post_views = paginated_scope.map do |post|
