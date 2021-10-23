@@ -325,12 +325,10 @@ module Thredded
       end
 
       it 'updates last_topic of the messageboard' do
-        previous_last_topic = create(:topic, messageboard: @messageboard, with_posts: 1)
-        @messageboard.reload
         expect do
           travel_to(1.day.from_now) { create(:post, postable: @topic) }
           @messageboard.reload
-        end.to change(@messageboard, :last_topic_id).from(previous_last_topic.id).to(@topic.id)
+        end.to change(@messageboard, :last_topic_id).from(nil).to(@topic.id)
       end
     end
 

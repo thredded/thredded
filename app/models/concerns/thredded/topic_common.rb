@@ -9,7 +9,7 @@ module Thredded
       belongs_to :last_user, # rubocop:disable Rails/InverseOf
                  class_name: Thredded.user_class_name,
                  foreign_key: 'last_user_id',
-                 **(Thredded.rails_gte_51? ? { optional: true } : {})
+                 optional: true
 
       scope :order_recently_posted_first, -> { order(last_post_at: :desc, id: :desc) }
       scope :on_page, ->(page_num) { page(page_num) }

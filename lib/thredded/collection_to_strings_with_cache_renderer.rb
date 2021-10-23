@@ -24,7 +24,9 @@ module Thredded
     )
       template = @lookup_context.find_template(partial, [], true, locals, {})
       collection = collection.to_a
-      instrument(:collection, identifier: template.identifier, count: collection.size) do |instrumentation_payload|
+      ActiveSupport::Notifications.instrument(:collection,
+                                              identifier: template.identifier,
+                                              count: collection.size) do |instrumentation_payload|
         return [] if collection.blank?
 
         # Result is a hash with the key represents the
@@ -90,13 +92,23 @@ module Thredded
       end
     end
 
-    # @param [Array<Object>] collection
-    # @param [Hash] opts
-    # @param view_context
-    # @return [Array<String>]
-    def render_partials_serial(view_context, collection, opts)
-      partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
-      collection.map { |object| render_partial(partial_renderer, view_context, opts.merge(object: object)) }
+    if Thredded::Compat.rails_gte_61?
+      # @param [Array<Object>] collection
+      # @param [Hash] opts
+      # @param view_context
+      # @return [Array<String>]
+      def render_partials_serial(view_context, collection, opts)
+        # https://github.com/rails/rails/pull/38594
+        collection.map do |object|
+          renderer = ActionView::ObjectRenderer.new(@lookup_context, opts)
+          renderer.render_object_with_partial(object, opts[:partial], view_context, nil).body
+        end
+      end
+    else
+      def render_partials_serial(view_context, collection, opts)
+        partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
+        collection.map { |object| render_partial(partial_renderer, view_context, **opts.merge(object: object)) }
+      end
     end
 
     def collection_cache
@@ -107,9 +119,13 @@ module Thredded
       view.combined_fragment_cache_key(key)
     end
 
-    if Rails::VERSION::MAJOR >= 6
+    if Thredded::Compat.rails_gte_60?
       def cache_fragment_name(view, key, virtual_path:, digest_path:)
-        view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+        if Thredded::Compat.rails_gte_61?
+          view.cache_fragment_name(key, digest_path: digest_path)
+        else
+          view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
+        end
       end
 
       def digest_path_from_template(view, template)

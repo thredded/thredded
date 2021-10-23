@@ -11,20 +11,10 @@ RSpec.describe 'Migrations', migration_spec: true, order: :defined do # rubocop:
     end
   end
 
-  if Rails.gem_version >= Gem::Version.new('5.2.0.rc2')
-    # create a record bypassing ActiveRecord
-    # @return [Integer] record id
-    def insert_record(klass, attributes)
-      klass._insert_record(values_for_insert(attributes))
-    end
-  elsif Rails.gem_version >= Gem::Version.new('5.2.0.beta2')
-    def insert_record(klass, attributes)
-      klass._insert_record(values_for_insert(attributes).transform_keys { |column| klass.arel_table[column] })
-    end
-  else
-    def insert_record(klass, attributes)
-      klass.unscoped.insert(values_for_insert(attributes).transform_keys { |column| klass.arel_table[column] })
-    end
+  # create a record bypassing ActiveRecord
+  # @return [Integer] record id
+  def insert_record(klass, attributes)
+    klass._insert_record(values_for_insert(attributes))
   end
 
   def values_for_insert(attributes)

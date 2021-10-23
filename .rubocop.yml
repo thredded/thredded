@@ -6,6 +6,7 @@ AllCops:
   - 'spec/dummy/bin/*'
   - 'spec/dummy/db/**/*'
   - 'spec/dummy/node_modules/**/*'
+  - 'spec/gemfiles/vendor/**/*'
   - 'vendor/**/*'
 
 Bundler/OrderedGems:

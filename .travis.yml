@@ -7,7 +7,7 @@ addons:
     - chromium-browser
 
 before_install:
-  - script/travis-downgrade-bundler-on-old-rails.sh
+  - bundle config set --local path ../../vendor/bundle without debug
 
 jobs:
   include:
@@ -60,6 +60,26 @@ jobs:
       before_install: nvm install 12
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
+    - gemfile: spec/gemfiles/rails_6_1.gemfile
+      rvm: 2.7
+      before_install: nvm install 12
+      env: DB=sqlite3
+      services: sqlite3
+    - gemfile: spec/gemfiles/rails_6_1.gemfile
+      rvm: 2.7
+      before_install: nvm install 12
+      env: DB=mysql2 DB_USERNAME=root DB_PASSWORD=""
+      services: mysql
+    - gemfile: spec/gemfiles/rails_6_1.gemfile
+      rvm: 2.7
+      before_install: nvm install 12
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
+    - gemfile: spec/gemfiles/rails_6_1.gemfile
+      rvm: 3.0
+      before_install: nvm install 12
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
 
 cache:
   bundler: true
@@ -78,7 +98,7 @@ env:
 
 before_script:
 - >
-  if [[ $BUNDLE_GEMFILE == "${PWD}/spec/gemfiles/rails_6_0.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
+  if [[ $BUNDLE_GEMFILE != "${PWD}/spec/gemfiles/rails_5_2.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
     cd spec/dummy && yarn && cd -
   fi
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

@@ -54,7 +54,7 @@ module Thredded
     # @param user [Thredded.user_class] the current user
     # @return [String] path to the topic page with the post anchor.
     def post_path(post, user:, **params)
-      post_url(post, params.merge(user: user, only_path: true))
+      post_url(post, **params.merge(user: user, only_path: true))
     end
 
     # @param post [Post, PrivatePost]
