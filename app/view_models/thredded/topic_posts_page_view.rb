@@ -14,16 +14,16 @@ module Thredded
     delegate :total_pages,
              :current_page,
              :limit_value,
-             to: :@paginated_scope
+             to: :@posts_paginator
 
     # @return [Thredded::BaseTopicView]
     attr_reader :topic
 
     # @param user [Thredded.user_class] the user who is viewing the posts page
     # @param topic [Thredded::TopicCommon]
-    # @param paginated_scope [ActiveRecord::Relation<Thredded::PostCommon>]
+    # @param paginated_scope [ActiveRecord::Relation<Thredded::PostCommon>] a kaminari-decorated ".page" scope
     def initialize(user, topic, paginated_scope)
-      @paginated_scope = paginated_scope
+      @posts_paginator = paginated_scope
       @topic = "#{paginated_scope.reflect_on_association(:postable).klass}View".constantize.from_user(topic, user)
       prev_read = false
       @post_views = paginated_scope.map.with_index do |post, i|
