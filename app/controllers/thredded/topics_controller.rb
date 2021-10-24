@@ -203,12 +203,6 @@ module Thredded
       @messageboard = topic.messageboard
     end
 
-    def topic_params
-      params
-        .require(:topic)
-        .permit(:title, :locked, :sticky, category_ids: [])
-    end
-
     def topic_params_for_update
       params
         .require(:topic)
