@@ -36,6 +36,7 @@ end
 require File.expand_path('../spec/support/system/page_object/authentication', __dir__)
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 require 'pundit/rspec'
 require 'webmock/rspec'
 require 'factory_bot'
