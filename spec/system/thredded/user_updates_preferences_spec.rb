@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'support/features/page_object/notification_preferences'
+require 'support/system/page_object/notification_preferences'
 
 RSpec.feature 'User updating preferences globally' do
   it 'Allows @ notifications by default' do
