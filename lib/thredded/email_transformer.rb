@@ -17,8 +17,8 @@ module Thredded
     end
     @transformers = [Onebox, Spoiler]
 
-    # @param doc [Nokogiri::HTML::Document]
-    def self.call(doc)
+    # @param dom [Nokogiri::HTML::Document]
+    def self.call(doc, *)
       transformers.each { |transformer| transformer.call(doc) }
     end
   end
