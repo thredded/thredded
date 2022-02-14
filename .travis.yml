@@ -95,6 +95,7 @@ env:
   global:
   - COVERAGE=1
   - TRAVIS=1
+  - FERRUM_DEFAULT_TIMEOUT=20
 
 before_script:
 - >
