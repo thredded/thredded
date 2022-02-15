@@ -19,7 +19,8 @@ create_mysql_user() {
   if mysql -s -u"$USER" -p"$PASS" -e '' 2>/dev/null; then return; fi
   log "Creating MySQL '$USER' user. MySQL root password required."
   mysql --verbose -uroot -p <<SQL
-GRANT ALL PRIVILEGES ON \`thredded_gem_dev\`.* TO '$USER'@'localhost' IDENTIFIED BY '$PASS';
+CREATE USER '$USER'@'localhost' IDENTIFIED BY '$PASS';
+GRANT ALL PRIVILEGES ON \`thredded_gem_dev\`.* TO '$USER'@'localhost';
 GRANT ALL PRIVILEGES ON \`thredded_gem_test\`.* TO '$USER'@'localhost';
 SQL
 }
