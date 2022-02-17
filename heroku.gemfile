@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.6.5'
+ruby '2.7.5'
 
 gem 'thredded', path: File.dirname(__FILE__)
 
 gem 'mustache'
 
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 gem 'webpacker', '~> 4.2'
 
 # Make these gems available in production
