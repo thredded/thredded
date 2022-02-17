@@ -52,7 +52,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   # test dependencies
   s.add_development_dependency 'capybara', '~> 3.0'
   s.add_development_dependency 'cuprite', '>= 0.5'
-  s.add_development_dependency 'database_cleaner', '~> 1.7'
+  s.add_development_dependency 'database_cleaner-active_record', '~> 2.0'
   s.add_development_dependency 'factory_bot', '>= 5.0.2'
   s.add_development_dependency 'faker', '>= 1.9.3'
   s.add_development_dependency 'launchy'
