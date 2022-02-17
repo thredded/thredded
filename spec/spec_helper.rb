@@ -39,7 +39,7 @@ require 'capybara/rspec'
 require 'pundit/rspec'
 require 'webmock/rspec'
 require 'factory_bot'
-require 'database_cleaner'
+require 'database_cleaner/active_record'
 require 'fileutils'
 require 'active_support/testing/time_helpers'
 require 'factories'
@@ -95,7 +95,7 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
     config.before(:suite) do
       Thredded::DbTools.silence_active_record do
         # TODO: drop database cleaner and use Rails system specs
-        DatabaseCleaner.clean_with(:truncation, reset_ids: true)
+        DatabaseCleaner.clean_with(:truncation)
       end
       ActiveJob::Base.queue_adapter = :inline
     end
@@ -113,7 +113,7 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
         # Driver is probably for an external browser with an app
         # under test that does *not* share a database connection with the
         # specs, so use truncation strategy.
-        DatabaseCleaner.strategy = :truncation, { reset_ids: true, cache_tables: true }
+        DatabaseCleaner.strategy = :truncation, { cache_tables: true }
       end
     end
 
