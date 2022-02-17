@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'support/features/page_object/base'
+require 'support/system/page_object/base'
 
 module PageObject
   class Topic < Base

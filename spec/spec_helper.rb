@@ -33,7 +33,7 @@ else
   Thredded::DbTools.migrate(paths: ['db/migrate/', Rails.root.join('db', 'migrate')], quiet: true)
 end
 
-require File.expand_path('../spec/support/features/page_object/authentication', __dir__)
+require File.expand_path('../spec/support/system/page_object/authentication', __dir__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'
@@ -137,13 +137,23 @@ browser_path = ENV['CHROMIUM_BIN'] || %w[
   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 ].find { |path| File.executable?(path) }
 
-Capybara.register_driver :cuprite do |app|
+# https://evilmartians.com/chronicles/system-of-a-test-setting-up-end-to-end-rails-testing
+Capybara.register_driver(:cuprite) do |app|
   options = {
-    window_size: [1280, 1024]
+    window_size: [1280, 1024],
+    browser_options: {},
+    # Increase Chrome startup wait time (required for stable CI builds)
+    process_timeout: 10,
+    # Enable debugging capabilities
+    inspector: true,
+    # Allow running Chrome in a headful mode by setting HEADLESS env
+    # var to a falsey value
+    headless: !ENV['HEADLESS'].in?(%w[n 0 no false])
   }
   options[:browser_path] = browser_path if browser_path
-  Capybara::Cuprite::Driver.new(app, options)
+  Capybara::Cuprite::Driver.new(app, **options)
 end
+
 Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER']&.to_sym || :cuprite
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
