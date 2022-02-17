@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
+DEPLOYMENT_BRANCH=${1:-master}
+TEMPORARY_BRANCH=${2:-tmp-heroku-only}
+
 set -eou pipefail
+
+echo "deploying from $DEPLOYMENT_BRANCH (using $TEMPORARY_BRANCH temporary branch)"
 
 if ! which heroku; then cat >&2 <<'INSTALL_HEROKU'; exit 1; fi
 Install Heroku CLI from:
@@ -13,8 +18,16 @@ if git diff-index --name-only HEAD | grep -q heroku.gemfile.lock; then
  git commit -m 'BUNDLE_GEMFILE=heroku.gemfile bundle update' -- heroku.gemfile.lock
 fi
 
+git checkout -B $TEMPORARY_BRANCH $DEPLOYMENT_BRANCH
+cp -f heroku.gemfile.lock Gemfile.lock
+cp -f heroku.gemfile Gemfile
+git add -f Gemfile Gemfile.lock
+git commit -m "switching Gemfile to placate heroku" -- Gemfile Gemfile.lock
+
 heroku maintenance:on
 heroku pg:reset DATABASE --confirm thredded-demo
-git push -f heroku master
-heroku run rake db:migrate db:seed
+git push -f heroku $TEMPORARY_BRANCH:main
+heroku run "rake db:migrate db:seed"
 heroku maintenance:off
+
+git checkout -
