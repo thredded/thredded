@@ -205,4 +205,24 @@ module Thredded
         .to(eq(board_1.id => 1))
     end
   end
+
+  describe 'destroy' do
+    let(:messageboard) { create(:messageboard) }
+    let(:category) { create(:category) }
+    let(:topic) { create(:topic, messageboard: messageboard, last_user: user, categories: [category]) }
+    let(:topic2) { create(:topic, messageboard: messageboard, last_user: user) }
+    let!(:post) { create(:post, postable: topic, messageboard: messageboard, user: user) }
+    let!(:post2) { create(:post, postable: topic2, messageboard: messageboard) }
+    let!(:post3) { create(:post, postable: topic2, messageboard: messageboard, user: user) }
+    let(:user) { create(:user) }
+    let!(:user_follow) { UserTopicFollow.create_unless_exists(create(:user).id, topic2.id) }
+    let!(:user_topic_read_state) { create(:user_topic_read_state, postable: topic, user: user) }
+    let!(:notifications) { UserPostNotification.create_from_post_and_user(post, create(:user)) }
+
+    it 'will destroy post and topic' do
+      expect do
+        messageboard.destroy
+      end.to change { [Post.exists?(post.id), Topic.exists?(topic.id)] }.from([true, true]).to [false, false]
+    end
+  end
 end

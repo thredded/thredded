@@ -81,6 +81,7 @@ module Thredded
     protected
 
     def update_unread_posts_count
+      return if destroyed_by_association
       postable.user_read_states.update_post_counts!
     end
 
