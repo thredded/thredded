@@ -22,7 +22,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
 
   # backend
   s.add_dependency 'active_record_union', '>= 1.3.0'
-  s.add_dependency 'db_text_search', '~> 0.3.2'
+  s.add_dependency 'db_text_search'
   s.add_dependency 'friendly_id'
   s.add_dependency 'htmlentities'
   s.add_dependency 'inline_svg', '>= 1.6.0'
@@ -56,6 +56,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_development_dependency 'factory_bot', '>= 5.0.2'
   s.add_development_dependency 'faker', '>= 1.9.3'
   s.add_development_dependency 'launchy'
+  s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec-rails', '>= 3.5.0'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'webmock'

@@ -9,18 +9,11 @@ gem 'rails-i18n', '~> 6.0.0'
 
 gem 'webpacker', '~> 4.2'
 
-# https://github.com/rails/rails/blob/v6.0.0/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L13
+# https://github.com/rails/rails/blob/v6.1.4/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L13
 gem 'sqlite3', '~> 1.4'
 
-# https://github.com/rails/rails/blob/v6.0.0/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L4
-gem 'pg', '>= 0.18', '< 2.0'
+# https://github.com/rails/rails/blob/v6.1.4/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L4
+gem 'pg'
 
-# https://github.com/rails/rails/blob/v6.0.0/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
-gem 'mysql2', '>= 0.4.4'
-
-group :test do
-  gem 'rails-controller-testing'
-
-  # https://github.com/rspec/rspec-rails/issues/2103
-  gem 'rspec-rails', '>= 4.0.0.beta2'
-end
+# https://github.com/rails/rails/blob/v6.1.4/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
+gem "mysql2", "~> 0.5"
