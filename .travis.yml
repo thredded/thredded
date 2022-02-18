@@ -10,6 +10,9 @@ before_install:
   - bundle config set --local path ../../vendor/bundle without debug
 
 jobs:
+  allow_failures:
+    - gemfile: spec/gemfiles/rails_main.gemfile
+  fast_finish: true
   include:
     - name: Rubocop
       gemfile: spec/gemfiles/rubocop.gemfile
