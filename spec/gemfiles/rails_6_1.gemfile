@@ -16,4 +16,4 @@ gem 'sqlite3', '~> 1.4'
 gem 'pg'
 
 # https://github.com/rails/rails/blob/v6.1.4/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
-gem "mysql2", "~> 0.5"
+gem 'mysql2', '~> 0.5'
