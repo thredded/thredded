@@ -2,10 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1.0'
-gem 'rails-i18n', '~> 6.0.0'
+gem 'rails', '~> 7.0.0'
+gem 'rails-i18n', '~> 7.0.0'
 
-gem 'webpacker', '~> 4.2'
+gem 'webpacker', '~> 5.0'
 
 gemspec
 
