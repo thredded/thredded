@@ -2,20 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1.0'
-gem 'rails-i18n', '~> 6.0.0'
+gem 'rails', '~> 7.0.0'
+gem 'rails-i18n', '~> 7.0.0'
 
-gem 'webpacker', '~> 4.2'
-
-# https://github.com/rails/rails/blob/v6.0.0/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L13
-gem 'sqlite3', '~> 1.4'
-
-group :test do
-  gem 'rails-controller-testing'
-
-  # https://github.com/rspec/rspec-rails/issues/2103
-  gem 'rspec-rails', '>= 4.0.0.beta2'
-end
+gem 'webpacker', '~> 5.0'
 
 gemspec
 

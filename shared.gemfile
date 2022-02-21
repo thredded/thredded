@@ -14,12 +14,14 @@ group :debug do
   end
 end
 
+group :test do
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+end
+
+# TODO: rename all thredded repository master to main https://github.com/thredded/thredded/issues/916
+gem 'db_text_search', github: 'thredded/db_text_search', branch: 'master'
 gem 'thredded-markdown_coderay', git: 'https://github.com/thredded/thredded-markdown_coderay', branch: 'master'
 gem 'thredded-markdown_katex', git: 'https://github.com/thredded/thredded-markdown_katex', branch: 'master'
 
-if (RUBY_VERSION.split('.').map(&:to_i) <=> [2, 5, 0]) >= 0
-  gem 'roadie-rails'
-else
-  # roadie-rails 2 requires Ruby v2.5+.
-  gem 'roadie-rails', '~> 1.3.0' # rubocop:disable Bundler/DuplicatedGem
-end
+gem 'roadie-rails'
