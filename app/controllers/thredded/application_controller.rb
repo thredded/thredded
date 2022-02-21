@@ -4,7 +4,11 @@ module Thredded
   class ApplicationController < ::ApplicationController # rubocop:disable Metrics/ClassLength
     layout :thredded_layout
     include ::Thredded::UrlsHelper
-    include Pundit
+    if defined?(Pundit::Authorization)
+      include Pundit::Authorization
+    else
+      include Pundit
+    end
 
     helper Thredded::Engine.helpers
     helper_method \
