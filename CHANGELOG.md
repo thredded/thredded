@@ -1,3 +1,25 @@
+# Unreleased
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...master
+
+# v1.0.0
+
+* Added support for Rails 6.1, 7.0, Ruby 3 [#919](https://github.com/thredded/thredded/pull/919) [#903](https://github.com/thredded/thredded/pull/903)
+
+### Fixed
+
+* Fix a bug when there is an ophaned PostModerationRecord. #857. Thanks @andreibondarev
+* Fix an issue with localised labels #859. Thanks @denzelem
+* Switch to RailsGravatar. #881 Thanks @rickychilcott
+* Fixed a bug with preview rendering on Rails 6.0+ #932
+* Fixed issues with Database Pool exhaustion #926 - thanks to @rickychilcott and others.
+
+### Removed
+
+* Removed support for unsupported rails versions (<5.2)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v0.16.16...v1.0.0.
+
 # v0.16.16
 
 ## Fixed
