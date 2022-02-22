@@ -55,8 +55,13 @@ it:
       update_btn_submitting: Aggiornamento in corso...
     messageboard:
       create: Crea una nuova bacheca
+      deleted_notice: Messageboard cancellato
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Elimina bacheca
+        delete_confirm: >-
+          Ciò rimuoverà la bacheca %{messageboard_name} e tutti i suoi post. Non sarai in grado di recuperarlo.
+          Sei sicuro di volerlo fare?
         description_label: Descrizione
         locked_label: Bloccato
         locked_notice: Questa bacheca è bloccata. Solo i moderatori possono creare nuove discussioni qui.
@@ -68,6 +73,7 @@ it:
         page_title: Bacheche
       last_updated_by_html: Aggiornato %{time_ago} <cite>da %{user}</cite>
       topics_and_posts_counts: "%{topics_count} discussioni / %{posts_count} messaggi"
+      topics_and_unread_topics_counts: "%{unread_topics_count} non letto di argomenti %{topics_count}"
       update: :thredded.form.update
       updated_notice: La bacheca è stata aggiornata
     messageboard_first_topic:
@@ -83,6 +89,8 @@ it:
       form:
         create_btn_submitting: :thredded.form.create_btn_submitting
       saved: Creato il gruppo di bacheche %{name}
+      show:
+        page_title: 'Gruppo di messaggi: %{name}'
     moderation:
       approve_btn: Approva
       block_btn: Blocca
