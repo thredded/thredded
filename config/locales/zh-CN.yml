@@ -120,6 +120,8 @@ zh-CN:
       moderation_users: 用户
       private_topics: 私人对话
       settings: 通知设置
+      sign_in: 登录/注册
+      sign_out: 登出
       unread_topics: 未读
     null_user_name: 删除用户
     posts:
