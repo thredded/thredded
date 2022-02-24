@@ -7,7 +7,9 @@ RSpec.feature 'User creates new topic' do
     topic = new_topic
 
     topic.fill_topic_form('Hello *world*!')
-    expect(topic.preview_html).to eq("<p>Hello <em>world</em>!</p>\n")
+    within topic.preview_selector do
+      expect(page.html).to include("<p>Hello <em>world</em>!</p>\n")
+    end
     topic.submit
 
     expect(topic).to be_listed
@@ -21,11 +23,17 @@ RSpec.feature 'User creates new topic' do
     topic = new_topic
     topic.visit_form
     topic.fill_topic_form('Hello *world*!')
-    expect(topic.preview_html).to eq("<p>Hello <em>world</em>!</p>\n")
+    within topic.preview_selector do
+      expect(page.html).to include("<p>Hello <em>world</em>!</p>\n")
+    end
     topic.fill_topic_form('Strange `code`')
-    expect(topic.preview_html).to eq("<p>Strange <code>code</code></p>\n")
+    within topic.preview_selector do
+      expect(page.html).to include("<p>Strange <code>code</code></p>\n")
+    end
     topic.fill_topic_form('Something **else**')
-    expect(topic.preview_html).to eq("<p>Something <strong>else</strong></p>\n")
+    within topic.preview_selector do
+      expect(page.html).to include("<p>Something <strong>else</strong></p>\n")
+    end
   end
 
   it 'and sees no categories in the form when none exist' do

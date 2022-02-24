@@ -82,15 +82,8 @@ module PageObject
       has_css?('.thredded--topics--sticky-topics-divider')
     end
 
-    def preview_html
-      # TODO: replace these sleeps with driver calls
-      # Wait for debounced preview to trigger
-      sleep 2
-      # Wait for the response from the preview handler
-      sleep 2
-      page.evaluate_script <<-JS
-        document.querySelectorAll('[data-thredded-preview-area-post]')[0].innerHTML
-      JS
+    def preview_selector
+      '[data-thredded-preview-area-post]'
     end
 
     alias has_the_title_and_content? displayed?
