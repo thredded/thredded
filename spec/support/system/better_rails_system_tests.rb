@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-# spec/system/support/better_rails_system_tests.rb
+Capybara.register_server :puma do |app, port, host|
+  require 'rack/handler/puma'
+  Rack::Handler::Puma.run(app, Host: host, Port: port, Threads: '1:1')
+end
 
 module BetterRailsSystemTests
   # Use our `Capybara.save_path` to store screenshots with other capybara artifacts
