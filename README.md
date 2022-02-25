@@ -655,7 +655,7 @@ By default, the dummy app server uses Webpack for JavaScript.
 To use Sprockets instead, run:
 
 ```bash
-THREDDED_TESTAPP_WEBPACK=1 bin/rails s
+THREDDED_TESTAPP_SPROCKETS=1 bin/rails s
 ```
 
 ### Testing
