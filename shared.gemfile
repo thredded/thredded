@@ -14,6 +14,14 @@ group :debug do
   end
 end
 
+if ENV['THREDDED_USE_GUARD']
+  group :development do
+    gem 'guard'
+    gem 'guard-livereload'
+    gem 'guard-rails'
+  end
+end
+
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
