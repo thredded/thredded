@@ -27,7 +27,9 @@
       }, 200, false);
 
       textarea.addEventListener('input', onChange, false);
-
+      if(textarea.value.trim() !== '') {
+        onChange();
+      }
       this.requestId = 0;
     }
 
