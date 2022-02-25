@@ -17,6 +17,17 @@ RSpec.feature 'User creates new topic' do
     expect(topic).to be_displayed
   end
 
+  it 'rendering preview multiple times', js: true do
+    topic = new_topic
+    topic.visit_form
+    topic.fill_topic_form('Hello *world*!')
+    expect(topic.preview_html).to eq("<p>Hello <em>world</em>!</p>\n")
+    topic.fill_topic_form('Strange `code`')
+    expect(topic.preview_html).to eq("<p>Strange <code>code</code></p>\n")
+    topic.fill_topic_form('Something **else**')
+    expect(topic.preview_html).to eq("<p>Something <strong>else</strong></p>\n")
+  end
+
   it 'and sees no categories in the form when none exist' do
     topic_form = new_topic
     topic_form.visit_form
