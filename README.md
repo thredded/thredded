@@ -658,6 +658,13 @@ To use Sprockets instead, run:
 THREDDED_TESTAPP_SPROCKETS=1 bin/rails s
 ```
 
+alternatively you can use guard (which comes with activereload to make development more pleasant) with:
+
+    export THREDDED_USE_GUARD=1
+    bundle
+    bundle exec guard
+
+
 ### Testing
 
 In order to run the tests locally, you will need to be running webpack-dev-server (or do a manual compilation):
