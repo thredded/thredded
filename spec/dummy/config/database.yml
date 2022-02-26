@@ -4,11 +4,12 @@ db_host    = ENV.fetch('DB_HOST', ENV.fetch('DB_1_PORT_5432_TCP_ADDR', 'localhos
 db_port    = ENV['DB_1_PORT_5432_TCP_PORT'] || ENV['DB_PORT'] ||
   {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
 require 'etc'
-pool_size =
+pool_size = ENV['DB_POOL'] || (
   # Web: max workers * max threads
   ENV.fetch('WEB_CONCURRENCY', 3).to_i * ENV.fetch('MAX_THREADS', 5).to_i +
   # ActiveJob Async max thread pool size
   Etc.nprocessors
+  )
 %>
 
 defaults: &defaults

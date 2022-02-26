@@ -25,7 +25,7 @@ Dummy::Application.configure do
       }
     end
   else
-    config.public_file_server.enabled = false
+    config.public_file_server.enabled = true
   end
 
   # Compress JavaScripts and CSS
