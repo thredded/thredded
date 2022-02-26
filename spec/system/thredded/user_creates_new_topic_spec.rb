@@ -36,6 +36,16 @@ RSpec.feature 'User creates new topic' do
     end
   end
 
+  it 'with prefilled title and content which is automatically previewed', js: true do
+    topic = new_topic
+    topic.visit_form(topic: { title: 'Hello title', content: 'Hello *world*!' })
+    expect(page).to have_field('Title', with: 'Hello title')
+    expect(page).to have_field('Content', with: 'Hello *world*!')
+    within topic.preview_selector do
+      expect(page.html).to include("<p>Hello <em>world</em>!</p>\n")
+    end
+  end
+
   it 'and sees no categories in the form when none exist' do
     topic_form = new_topic
     topic_form.visit_form
