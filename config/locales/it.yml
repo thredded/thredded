@@ -127,6 +127,8 @@ it:
       moderation_users: Utenti
       private_topics: Messaggi Privati
       settings: Impostazioni Notifiche
+      sign_in: Entra
+      sign_out: Esci
       unread_topics: Non letto
     null_user_name: Utente cancellato
     posts:
@@ -266,13 +268,13 @@ it:
       last_active_html: Ultima attività %{time_ago}
       posted_in_topic_html: Ha scritto in %{topic_link}
       posts_count:
-        one: Ha commentato %{count} volta
+        one: Ha commentato una volta
         other: Ha commentato %{count} volte
       recent_activity: :thredded.recent_activity
       send_private_message: Invia un messaggio privato
       started_topic_html: Ha iniziato %{topic_link}
       started_topics_count:
-        one: Ha iniziato %{count} discussione
+        one: Ha iniziato una discussione
         other: Ha iniziato %{count} discussioni
       user_posted_in_topic_html: "%{user_link} ha commentato in %{topic_link}"
       user_since_html: Utente da %{time_ago}

@@ -125,6 +125,8 @@ ru:
       moderation_users: Пользователи
       private_topics: Личное
       settings: Настройки
+      sign_in: Войти / Зарегистрироваться
+      sign_out: Выход
       unread_topics: Непрочитанные
     null_user_name: Пользователь удален
     posts:

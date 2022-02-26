@@ -129,6 +129,8 @@ pt-BR:
       moderation_users: Usuários
       private_topics: Mensagens Privadas
       settings: Configurações de Notificação
+      sign_in: Entrar / Cadastrar
+      sign_out: Sair
       unread_topics: Não lida
     null_user_name: Usuário deletado
     posts:
