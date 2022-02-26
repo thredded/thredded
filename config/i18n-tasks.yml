@@ -15,3 +15,8 @@ data:
   yaml:
     write:
       line_width: 110
+
+## Exclude these keys from the `i18n-tasks check-consistent-interpolations` report:
+ignore_inconsistent_interpolations:
+- 'thredded.users.posts_count.one'
+- 'thredded.users.started_topics_count.one'
