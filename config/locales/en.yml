@@ -264,7 +264,7 @@ en:
       last_active_html: Last active %{time_ago}
       posted_in_topic_html: Posted in %{topic_link}
       posts_count:
-        one: Posted %{count} time
+        one: Posted once
         other: Posted %{count} times
       recent_activity: :thredded.recent_activity
       send_private_message: Send private message
