@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 gem 'test_after_commit', group: :test
+gem 'capybara-screenshot', group: :test
 
 group :debug do
   gem 'derailed'
