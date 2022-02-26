@@ -18,6 +18,8 @@ Release checklist:
   ```bash
   gem tag && gem release
   ```
+
+  (alternatively if gem-release isn't installed you can use `rake release`)
 - [ ] Copy the release notes from the changelog to [GitHub Releases](https://github.com/thredded/thredded/releases).
 - [ ] Push the demo app to Heroku:
 
