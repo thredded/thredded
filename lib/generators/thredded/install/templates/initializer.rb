@@ -29,7 +29,7 @@ Thredded.user_path = ->(user) {
 # This method is used by Thredded controllers and views to fetch the currently signed-in user
 Thredded.current_user_method = :"current_#{Thredded.user_class_name.demodulize.underscore}"
 
-# User avatar URL. rb-gravatar gem is used by default:
+# User avatar URL. rails_gravatar gem is used by default:
 Thredded.avatar_url = ->(user) { RailsGravatar.src(user.email, 156, 'mm') }
 
 # ==> Permissions Configuration
