@@ -20,7 +20,7 @@ describe Thredded::HtmlPipeline::OneboxFilter do
       <title>name</title>
       <body>
         <a href='#{href}'>#{href}</a>
-      </body>"
+      </body>
       HTML
     end
     let(:href) { 'https://www.example.com' }
@@ -53,7 +53,7 @@ describe Thredded::HtmlPipeline::OneboxFilter do
       <title>name</title>
       <body>
         <strong><a href='#{href}'>#{href}</a></strong>
-      </body>"
+      </body>
       HTML
     end
     let(:href) { 'https://www.example.com' }
