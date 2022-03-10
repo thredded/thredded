@@ -13,7 +13,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.homepage    = 'https://thredded.org'
   s.summary     = 'The best Rails forums engine ever.'
   s.license     = 'MIT'
-  s.description = 'The best Rails 4.2+ forums engine ever. Its goal is to be as simple and feature rich as possible.
+  s.description = 'The best Rails 5.2+ forums engine ever. Its goal is to be as simple and feature rich as possible.
 Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at https://thredded.org/.'
 
   s.files = Dir['{app,bin,config,db,lib,vendor}/**/*'] + %w[MIT-LICENSE README.md]
@@ -29,7 +29,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
   s.add_dependency 'pundit', '>= 1.1.0'
-  s.add_dependency 'rails', '>= 4.2.10', '!= 6.0.0.rc2'
+  s.add_dependency 'rails', '>= 5.2.0', '!= 6.0.0.rc2'
   s.add_dependency 'rails_gravatar'
 
   # post rendering

@@ -1,6 +1,6 @@
 # Thredded [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded) [![Travis-CI](https://api.travis-ci.org/thredded/thredded.svg?branch=main)](https://travis-ci.org/thredded/thredded/) [![Test Coverage](https://codeclimate.com/github/thredded/thredded/badges/coverage.svg)](https://codeclimate.com/github/thredded/thredded/coverage) [![Inline docs](http://inch-ci.org/github/thredded/thredded.svg?branch=main)](http://inch-ci.org/github/thredded/thredded) [![Gitter](https://badges.gitter.im/thredded/thredded.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-_Thredded_ is a Rails 4.2+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
+_Thredded_ is a Rails 5.2+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
 
 Some of the features currently in Thredded:
 
