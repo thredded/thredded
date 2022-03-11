@@ -68,9 +68,9 @@ module Thredded
 
       def render_onebox(url)
         preview = Onebox.preview(url, onebox_options(url))
-        if context[:onebox_placeholders]
+        if context[:onebox_placeholders] && (placeholder_html = preview.placeholder_html.presence)
           %(<p><a href="#{ERB::Util.html_escape(url)}" target="_blank" rel="nofollow noopener">) \
-          "#{preview.placeholder_html}</a></p>"
+          "#{placeholder_html}</a></p>"
         else
           preview.to_s.strip
         end
