@@ -44,12 +44,10 @@ describe Thredded::ContentFormatter do
 
   context '@-mentions' do
     around do |ex|
-      begin
-        user_path_was = Thredded.instance_variable_get(:@user_path)
-        ex.call
-      ensure
-        Thredded.user_path = user_path_was
-      end
+      user_path_was = Thredded.instance_variable_get(:@user_path)
+      ex.call
+    ensure
+      Thredded.user_path = user_path_was
     end
 
     it 'links @names of members' do

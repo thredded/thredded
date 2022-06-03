@@ -6,11 +6,11 @@ class UpgradeV07ToV08 < Thredded::BaseMigration
   def up
     closed_messageboards = Thredded::Messageboard.unscoped.where(closed: true).to_a
     if closed_messageboards.present?
-      fail ActiveRecord::MigrationError, <<-TEXT
-There are #{closed_messageboards.length} closed Messageboards:
-#{closed_messageboards.map { |m| "#{m.name} (id=#{m.id})" }.join("\n")}
-Support for closed messageboards has been removed in thredded v0.8.0.
-Delete or un-close these messageboards and consider using the "paranoia" gem to support soft deletion instead.
+      fail ActiveRecord::MigrationError, <<~TEXT
+        There are #{closed_messageboards.length} closed Messageboards:
+        #{closed_messageboards.map { |m| "#{m.name} (id=#{m.id})" }.join("\n")}
+        Support for closed messageboards has been removed in thredded v0.8.0.
+        Delete or un-close these messageboards and consider using the "paranoia" gem to support soft deletion instead.
       TEXT
     end
     remove_index :thredded_messageboards, name: :index_thredded_messageboards_on_closed

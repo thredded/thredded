@@ -51,16 +51,14 @@ module TestTasks
     Bundler.with_clean_env do
       $stderr.puts to_bash_cmd_with_env(cmd, env)
       PTY.spawn(env, cmd) do |r, _w, pid|
-        begin
-          r.each_line { |l| puts l }
-        rescue Errno::EIO
-          # Errno:EIO error means that the process has finished giving output.
-          next
-        ensure
-          ::Process.wait pid
-        end
+        r.each_line { |l| puts l }
+      rescue Errno::EIO
+        # Errno:EIO error means that the process has finished giving output.
+        next
+      ensure
+        ::Process.wait pid
       end
-      [$CHILD_STATUS && $CHILD_STATUS.exitstatus.zero?, env]
+      [$CHILD_STATUS&.exitstatus&.zero?, env]
     end
   end
 

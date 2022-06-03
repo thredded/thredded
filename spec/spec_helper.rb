@@ -84,7 +84,7 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
     end
 
     config.after(:each, migration_spec: true) do
-      if Thredded::DbTools.adapter =~ /mysql/i
+      if /mysql/i.match?(Thredded::DbTools.adapter)
         ActiveRecord::Tasks::DatabaseTasks.drop_current
         ActiveRecord::Tasks::DatabaseTasks.create_current
         Thredded::DbTools.restore

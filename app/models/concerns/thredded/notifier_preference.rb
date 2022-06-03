@@ -8,7 +8,7 @@ module Thredded
       delegate :human_name, to: :notifier, prefix: true
 
       def self.detect_or_default(prefs, notifier)
-        (prefs && prefs.find { |pref| pref.notifier_key == notifier.key }) || default(notifier)
+        (prefs&.find { |pref| pref.notifier_key == notifier.key }) || default(notifier)
       end
     end
 
