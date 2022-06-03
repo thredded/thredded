@@ -17,3 +17,6 @@ gem 'pg'
 
 # https://github.com/rails/rails/blob/v6.1.4/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
 gem 'mysql2', '~> 0.5'
+
+# This isn't required for rails 6.1 - just want to ensure one version that uses an up to date html-pipeline
+gem 'html-pipeline', '>= 2.14.1'
