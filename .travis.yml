@@ -36,7 +36,7 @@ jobs:
           packages: []
 
     - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.6
+      rvm: 2.7
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
 
