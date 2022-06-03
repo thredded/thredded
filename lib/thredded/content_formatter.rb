@@ -4,8 +4,10 @@ module Thredded
   # Generates HTML from content source.
   class ContentFormatter
     class << self
-      # Sanitization whitelist options.
-      attr_accessor :whitelist
+      # Sanitization allowlist options.
+      attr_accessor :allowlist
+      # TODO: v2.0: drop alias and just use allowlist
+      alias_attribute :whitelist, :allowlist
 
       # Filters that run before processing the markup.
       # input: markup, output: markup.
@@ -26,11 +28,24 @@ module Thredded
       # Filters that run after sanitization
       # input: sanitized html, output: html
       attr_accessor :after_sanitization_filters
+
+      # TODO: v1.1: only allow html-pipeline >= 2.14.1 and drop this
+      def sanitization_filter_uses_allowlist?
+        defined?(HTML::Pipeline::SanitizationFilter::ALLOWLIST)
+      end
+
+      def sanitization_filter_allowlist_config
+        if sanitization_filter_uses_allowlist?
+          HTML::Pipeline::SanitizationFilter::ALLOWLIST
+        else
+          HTML::Pipeline::SanitizationFilter::WHITELIST
+        end
+      end
     end
 
-    self.whitelist = HTML::Pipeline::SanitizationFilter::WHITELIST.deep_merge(
-      elements: HTML::Pipeline::SanitizationFilter::WHITELIST[:elements] + %w[abbr iframe span figure figcaption],
-      transformers: HTML::Pipeline::SanitizationFilter::WHITELIST[:transformers] + [
+    self.allowlist = sanitization_filter_allowlist_config.deep_merge(
+      elements: sanitization_filter_allowlist_config[:elements] + %w[abbr iframe span figure figcaption],
+      transformers: sanitization_filter_allowlist_config[:transformers] + [
         ->(env) {
           next unless env[:node_name] == 'a'
           a_tag = env[:node]
@@ -49,7 +64,7 @@ module Thredded
         'img'    => %w[src longdesc class],
         'th'     => %w[style],
         'td'     => %w[style],
-        :all     => HTML::Pipeline::SanitizationFilter::WHITELIST[:attributes][:all] +
+        :all     => sanitization_filter_allowlist_config[:attributes][:all] +
           %w[aria-expanded aria-label aria-labelledby aria-live aria-hidden aria-pressed role],
       },
       css: {
@@ -134,9 +149,15 @@ module Thredded
 
     # @return [Hash] options for HTML::Pipeline.new
     def content_pipeline_options
+      option = if self.class.sanitization_filter_uses_allowlist?
+                 :allowlist
+               else
+                 # TODO: v1.1: only allow html-pipeline >= 2.14.1 and drop this
+                 :whitelist
+               end
       {
         asset_root: Rails.application.config.action_controller.asset_host || '',
-        whitelist: ContentFormatter.whitelist
+        option => ContentFormatter.allowlist
       }
     end
   end

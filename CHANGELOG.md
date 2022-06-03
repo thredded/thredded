@@ -1,6 +1,17 @@
+# Unreleased (plans for v2.0)
+
+* drop `ContentFormatter.whitelist` just use `ContentFormatter.allowlist`
+
+# Unreleased (plans for v1.1)
+
+* depend on html-pipeline >= 2.14.1 and drop support for earlier version
+
 # Unreleased
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...master
+
+* ContentFormatter.whitelist is now deprecated in favour of ContentFormatter.allowlist. Will be removed in v2.0
+* Support more recent versions of html-pipeline gem
 
 # v1.0.0
 

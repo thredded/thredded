@@ -38,7 +38,7 @@ describe Thredded::HtmlPipeline::OneboxFilter do
     let(:href) { 'https://www.example.com' }
 
     context 'with no context' do
-      it 'generates a valid preview even for an unwhitelisted string' do
+      it 'generates a valid preview with an allowed html attribute' do
         transformed = onebox_filter.call
         a_node = find_singular_a_node(transformed)
         expect(a_node['href']).to eq(href)
@@ -49,7 +49,7 @@ describe Thredded::HtmlPipeline::OneboxFilter do
     context 'with onebox_placeholders:true' do
       let(:context) { { onebox_placeholders: true } }
 
-      it 'generates a valid preview even for an unwhitelisted string' do
+      it 'generates a valid preview with an allowed html attribute' do
         transformed = onebox_filter.call
         a_node = find_singular_a_node(transformed)
         expect(a_node['href']).to eq(href)
@@ -71,7 +71,7 @@ describe Thredded::HtmlPipeline::OneboxFilter do
     let(:href) { 'https://www.example.com' }
 
     context 'with no context' do
-      it 'generates a valid preview even for an unwhitelisted string' do
+      it 'generates a valid preview with an allowed html attribute' do
         transformed = onebox_filter.call
         a_node = find_singular_a_node(transformed)
         expect(a_node['href']).to eq(href)
@@ -82,7 +82,7 @@ describe Thredded::HtmlPipeline::OneboxFilter do
     context 'with onebox_placeholders:true' do
       let(:context) { { onebox_placeholders: true } }
 
-      it 'generates a valid preview even for an unwhitelisted string' do
+      it 'generates a valid preview with an allowed html attribute' do
         transformed = onebox_filter.call
         a_node = find_singular_a_node(transformed)
         expect(a_node['href']).to eq(href)
