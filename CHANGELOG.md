@@ -1,6 +1,12 @@
+# Unreleased (plans for v2.0)
+
+* drop `ContentFormatter.whitelist` just use `ContentFormatter.allowlist`
+
 # Unreleased
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...master
+
+* ContentFormatter.whitelist is now deprecated in favour of ContentFormatter.allowlist. Will be removed in v2.0
 
 # v1.0.0
 
