@@ -18,4 +18,19 @@ RSpec.feature 'Signing in with existing account' do
     user.fill_in_sign_in_form_and_submit
     expect(topic).to have_followed_notice
   end
+
+  context 'using the standalone layout' do
+    around do |example|
+      Thredded.layout = 'thredded/application'
+      example.run
+      Thredded.layout = 'application'
+    end
+
+    it 'via the sign in link and form' do
+      visit '/thredded'
+      click_on 'Sign In / Register'
+      user.fill_in_sign_in_form_and_submit
+      expect(page).to have_content('Sign Out')
+    end
+  end
 end
