@@ -59,7 +59,7 @@ module Thredded
           silence_active_record do
             ActiveRecord::Base.transaction do
               statements.each do |statement|
-                connection.execute(statement) unless statement =~ /(BEGIN TRANSACTION|COMMIT)/
+                connection.execute(statement) unless /(BEGIN TRANSACTION|COMMIT)/.match?(statement)
               end
             end
           end

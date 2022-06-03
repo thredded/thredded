@@ -15,7 +15,7 @@ module Thredded
 
     # @return [Integer, nil] the maximum number of codepoints that can be indexed for a primary key or index.
     def max_key_length
-      return nil unless connection.adapter_name =~ /mysql|maria/i
+      return nil unless /mysql|maria/i.match?(connection.adapter_name)
       # Conservatively assume that innodb_large_prefix is **disabled**.
       # If it were enabled, the maximum key length would instead be 768 utf8mb4 characters.
       191
