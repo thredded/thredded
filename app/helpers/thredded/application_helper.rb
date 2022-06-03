@@ -108,9 +108,9 @@ module Thredded
     # @param follow_reason ['manual', 'posted', 'mentioned', 'auto', nil]
     def topic_follow_reason_text(follow_reason)
       if follow_reason
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         # i18n-tasks-use t('thredded.topics.following.manual') t('thredded.topics.following.posted') t('thredded.topics.following.mentioned') t('thredded.topics.following.auto')
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
         t("thredded.topics.following.#{follow_reason}")
       else
         t('thredded.topics.not_following')
