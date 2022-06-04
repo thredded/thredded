@@ -6,6 +6,7 @@ module Thredded
     class << self
       # Sanitization allowlist options.
       attr_accessor :allowlist
+
       # TODO: v2.0: drop alias and just use allowlist
       alias_attribute :whitelist, :allowlist
 

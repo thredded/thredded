@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
-gem 'rubocop', '= 0.58.2'
-gem 'rubocop-rspec', '= 1.28.0'
+gem 'rubocop', '= 1.30.0'
+gem 'rubocop-rspec', '= 2.11.1'
+gem 'rubocop-rails', '= 2.14.2'

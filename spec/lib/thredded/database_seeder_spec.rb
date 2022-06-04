@@ -3,8 +3,6 @@
 require 'spec_helper'
 require 'thredded/database_seeder'
 
-# rubocop:disable RSpec/DescribedClass
-
 describe Thredded::DatabaseSeeder do
   before { allow_any_instance_of(Thredded::DatabaseSeeder).to receive(:log) } # rubocop:disable RSpec/AnyInstance
 
@@ -70,4 +68,3 @@ describe Thredded::DatabaseSeeder do
     end
   end
 end
-# rubocop:enable RSpec/DescribedClass

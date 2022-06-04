@@ -130,7 +130,7 @@ module Thredded
       end
     end
 
-    def parse_names(text) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/MethodLength
+    def parse_names(text) # rubocop:disable Metrics/MethodLength
       result = []
       current = +''
       in_name = in_quoted = false
