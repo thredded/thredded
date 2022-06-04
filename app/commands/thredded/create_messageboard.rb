@@ -34,8 +34,8 @@ module Thredded
     end
 
     def first_topic_content
-      <<-MARKDOWN
-#{I18n.t('thredded.messageboard_first_topic.content', thredded_version: Thredded::VERSION)}
+      <<~MARKDOWN
+        #{I18n.t('thredded.messageboard_first_topic.content', thredded_version: Thredded::VERSION)}
       MARKDOWN
     end
   end

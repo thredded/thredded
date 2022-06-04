@@ -40,7 +40,7 @@ module Thredded
       end
 
       def node_name?(node, node_name)
-        node && node.node_name && node.node_name.casecmp(node_name).zero?
+        node&.node_name && node.node_name.casecmp(node_name).zero?
       end
     end
   end

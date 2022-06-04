@@ -47,7 +47,7 @@ module Thredded
         return if names.blank? || @users_provider.nil?
         @users_provider.call(names, @users_provider_scope).each do |user|
           name = user.send(Thredded.user_name_column)
-          maybe_quoted_name = name =~ /[., ()]/ ? %("#{name}") : name
+          maybe_quoted_name = /[., ()]/.match?(name) ? %("#{name}") : name
           url = Thredded.user_path(@view_context, user)
           text_node_html.gsub!(
             /(^|[\s>])(@#{Regexp.escape maybe_quoted_name})([^a-z\d]|$)/i,

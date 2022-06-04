@@ -26,8 +26,8 @@ module Thredded
         preloader = Thredded::Compat.association_preloader(
           records: owners_by_id.values, associations: [:first_post],
           scope: unscoped.where(<<~SQL.delete("\n"))
-          #{posts_table_name}.created_at = (
-          SELECT MAX(p2.created_at) from #{posts_table_name} p2 WHERE p2.postable_id = #{posts_table_name}.postable_id)
+            #{posts_table_name}.created_at = (
+            SELECT MAX(p2.created_at) from #{posts_table_name} p2 WHERE p2.postable_id = #{posts_table_name}.postable_id)
           SQL
         )
         preloader[0].preloaded_records.each do |post|
@@ -68,7 +68,7 @@ module Thredded
     def mark_as_unread(user)
       if previous_post.nil?
         read_state = postable.user_read_states.find_by(user_id: user.id)
-        read_state.destroy if read_state
+        read_state&.destroy
       else
         postable.user_read_states.touch!(user.id, previous_post, overwrite_newer: true)
       end

@@ -1,7 +1,7 @@
 require: rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
   Exclude:
   - 'spec/dummy/bin/*'
   - 'spec/dummy/db/**/*'
@@ -15,15 +15,6 @@ Bundler/OrderedGems:
 Capybara/FeatureMethods:
   EnabledMethods:
   - feature
-
-Style/SafeNavigation:
-  # Disable because we still support Ruby ~>2.1.
-  # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
-  Enabled: false
-
-Layout/IndentHeredoc:
-  # TODO(glebm): Remove this when we change the minimum Ruby version to 2.3.1.
-  Enabled: false
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented

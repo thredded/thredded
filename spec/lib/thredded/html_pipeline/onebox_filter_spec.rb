@@ -28,11 +28,11 @@ describe Thredded::HtmlPipeline::OneboxFilter do
   context 'with a link to an unsupported domain' do
     let(:document) do
       <<~HTML
-      <!DOCTYPE html>
-      <title>name</title>
-      <body>
-        <a href='#{href}'>#{href}</a>
-      </body>
+        <!DOCTYPE html>
+        <title>name</title>
+        <body>
+          <a href='#{href}'>#{href}</a>
+        </body>
       HTML
     end
     let(:href) { 'https://www.example.com' }
@@ -61,11 +61,11 @@ describe Thredded::HtmlPipeline::OneboxFilter do
   context 'with a strong link to an unsupported domain' do
     let(:document) do
       <<~HTML
-      <!DOCTYPE html>
-      <title>name</title>
-      <body>
-        <strong><a href='#{href}'>#{href}</a></strong>
-      </body>
+        <!DOCTYPE html>
+        <title>name</title>
+        <body>
+          <strong><a href='#{href}'>#{href}</a></strong>
+        </body>
       HTML
     end
     let(:href) { 'https://www.example.com' }

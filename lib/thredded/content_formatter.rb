@@ -50,7 +50,7 @@ module Thredded
           next unless env[:node_name] == 'a'
           a_tag = env[:node]
           a_tag['href'] ||= '#'
-          if a_tag['href'] =~ %r{^(?:[a-z]+:)?//}
+          if %r{^(?:[a-z]+:)?//}.match?(a_tag['href'])
             a_tag['target'] = '_blank'
             a_tag['rel']    = 'nofollow noopener'
           end

@@ -11,7 +11,7 @@ module Thredded
     end
 
     def include?(slug)
-      @words.include?(slug) || slug =~ PAGINATION_PATTERN
+      @words.include?(slug) || PAGINATION_PATTERN.match?(slug)
     end
   end
 end

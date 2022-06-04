@@ -11,13 +11,13 @@ module Thredded
     protected
 
     def mock_content(mention_users: [])
-      <<-MARKDOWN
-Hey #{mention_users.map { |u| "@#{u}" } * ', '}!
-All of the basic [Markdown](https://kramdown.gettalong.org/quickref.html) formatting is supported (powered by [Kramdown](https://kramdown.gettalong.org)).
+      <<~MARKDOWN
+        Hey #{mention_users.map { |u| "@#{u}" } * ', '}!
+        All of the basic [Markdown](https://kramdown.gettalong.org/quickref.html) formatting is supported (powered by [Kramdown](https://kramdown.gettalong.org)).
 
-Additionally, Markdown is extended to support the following:
+        Additionally, Markdown is extended to support the following:
 
-#{Thredded::FormattingDemoContent.parts.join("\n")}
+        #{Thredded::FormattingDemoContent.parts.join("\n")}
       MARKDOWN
     end
 
