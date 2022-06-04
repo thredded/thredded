@@ -2,7 +2,6 @@ The checklist for releasing a new version of Thredded.
 
 Pre-requisites for the releaser:
 
-* The [gem-release gem](https://github.com/svenfuchs/gem-release): `gem install gem-release`.
 * Push access to the demo app Heroku.
 * Push access to RubyGems.
 
@@ -16,10 +15,8 @@ Release checklist:
 - [ ] Tag the release and push it to rubygems:
 
   ```bash
-  gem tag && gem release
+  bundle exec rake release
   ```
-
-  (alternatively if gem-release isn't installed you can use `rake release`)
 - [ ] Copy the release notes from the changelog to [GitHub Releases](https://github.com/thredded/thredded/releases).
 - [ ] Push the demo app to Heroku:
 
