@@ -31,3 +31,6 @@ tmp/
 .rbenv-version
 .rbenv-vars
 .rbfu-version
+yarn.lock
+node_modules
+wiki
