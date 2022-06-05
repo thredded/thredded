@@ -8,12 +8,16 @@
 
 # Unreleased
 
-* Drop support for Rails < 5.2
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.1...main
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...master
+# v1.0.1
 
 * ContentFormatter.whitelist is now deprecated in favour of ContentFormatter.allowlist. Will be removed in v2.0
 * Support more recent versions of html-pipeline gem
+* Fixes for issues with viewing moderation history with ruby 3.0 or rails 7.0 
+* Drop support for Rails < 5.2
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...v1.0.1
 
 # v1.0.0
 
