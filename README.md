@@ -1,4 +1,4 @@
-# Thredded [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded) [![Travis-CI](https://api.travis-ci.org/thredded/thredded.svg?branch=master)](https://travis-ci.org/thredded/thredded/) [![Test Coverage](https://codeclimate.com/github/thredded/thredded/badges/coverage.svg)](https://codeclimate.com/github/thredded/thredded/coverage) [![Inline docs](http://inch-ci.org/github/thredded/thredded.svg?branch=master)](http://inch-ci.org/github/thredded/thredded) [![Gitter](https://badges.gitter.im/thredded/thredded.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# Thredded [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded) [![Travis-CI](https://api.travis-ci.org/thredded/thredded.svg?branch=main)](https://travis-ci.org/thredded/thredded/) [![Test Coverage](https://codeclimate.com/github/thredded/thredded/badges/coverage.svg)](https://codeclimate.com/github/thredded/thredded/coverage) [![Inline docs](http://inch-ci.org/github/thredded/thredded.svg?branch=main)](http://inch-ci.org/github/thredded/thredded) [![Gitter](https://badges.gitter.im/thredded/thredded.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 _Thredded_ is a Rails 4.2+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
 
@@ -352,7 +352,7 @@ with a "themed" version of thredded.
 #### Styles
 
 Thredded comes with a light Sass theme controlled by a handful of variables that can be found here:
-https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/base/_variables.scss.
+https://github.com/thredded/thredded/blob/main/app/assets/stylesheets/thredded/base/_variables.scss.
 
 To override the styles, override the variables *before* importing Thredded styles, e.g.:
 
@@ -366,8 +366,8 @@ If you are writing a Thredded plugin, import the [`thredded/base`][thredded-scss
 The `base` package only defines variables, mixins, and %-placeholders, so it can be imported safely without producing
 any duplicate CSS.
 
-[thredded-scss-dependencies]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_dependencies.scss
-[thredded-scss-base]: https://github.com/thredded/thredded/blob/master/app/assets/stylesheets/thredded/_base.scss
+[thredded-scss-dependencies]: https://github.com/thredded/thredded/blob/main/app/assets/stylesheets/thredded/_dependencies.scss
+[thredded-scss-base]: https://github.com/thredded/thredded/blob/main/app/assets/stylesheets/thredded/_base.scss
 
 ### Email and other notifications
 
@@ -513,35 +513,35 @@ Below is an overview of the default permissions, with links to the implementatio
 <tbody>
 <tr>
   <th align="center">Logged in</th>
-  <td align="center" rowspan="2"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/read/all.rb">
+  <td align="center" rowspan="2"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/read/all.rb">
     ✅ All
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/write/all.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/write/all.rb">
     ✅ All
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/message/readers_of_writeable_boards.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/message/readers_of_writeable_boards.rb">
     Readers of the messageboards<br>the user can post in
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/moderate/if_moderator_column_true.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/moderate/if_moderator_column_true.rb">
     <code>moderator_column</code>
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/admin/if_admin_column_true.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/admin/if_admin_column_true.rb">
     <code>admin_column</code>
   </a></td>
 </tr>
 <tr>
   <th align="center">Not logged in</th>
   <!-- rowspan -->
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/write/none.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/write/none.rb">
     ❌ No
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/message/readers_of_writeable_boards.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/message/readers_of_writeable_boards.rb">
     ❌ No
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/moderate/none.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/moderate/none.rb">
     ❌ No
   </a></td>
-  <td align="center"><a href="https://github.com/thredded/thredded/blob/master/app/models/thredded/user_permissions/admin/none.rb">
+  <td align="center"><a href="https://github.com/thredded/thredded/blob/main/app/models/thredded/user_permissions/admin/none.rb">
     ❌ No
   </a></td>
 </tr>
@@ -551,7 +551,7 @@ Below is an overview of the default permissions, with links to the implementatio
 ### Handling "Permission denied" and "Not found" errors
 
 Thredded defines a number of Exception classes for not found / permission denied errors.
-The complete list can be found [here](https://github.com/thredded/thredded/blob/master/app/controllers/thredded/application_controller.rb#L18-L40).
+The complete list can be found [here](https://github.com/thredded/thredded/blob/main/app/controllers/thredded/application_controller.rb#L18-L40).
 
 Currently, the default behaviour is to render an error message with an appropriate response code within the Thredded
 layout. You may want to override the handling for `Thredded::Errors::LoginRequired` to render a login form instead.
@@ -809,4 +809,4 @@ docker-compose run web bundle exec rake
 
 The docker container uses PostgreSQL.
 
-[initializer]: https://github.com/thredded/thredded/blob/master/lib/generators/thredded/install/templates/initializer.rb
+[initializer]: https://github.com/thredded/thredded/blob/main/lib/generators/thredded/install/templates/initializer.rb
