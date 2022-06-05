@@ -5,6 +5,8 @@ Capybara.register_server :puma do |app, port, host|
   Rack::Handler::Puma.run(app, Host: host, Port: port, Threads: '1:1')
 end
 
+Capybara.asset_host = ENV.fetch('CAPYBARA_ASSET_HOST', 'http://localhost:3011') unless ENV['CI']
+
 module BetterRailsSystemTests
   # Use our `Capybara.save_path` to store screenshots with other capybara artifacts
   # (Rails screenshots path is not configurable https://github.com/rails/rails/blob/49baf092439fc74fc3377b12e3334c3dd9d0752f/actionpack/lib/action_dispatch/system_testing/test_helpers/screenshot_helper.rb#L79)
