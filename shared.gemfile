@@ -28,9 +28,8 @@ group :test do
   gem 'rspec-rails'
 end
 
-# TODO: rename all thredded repository master to main https://github.com/thredded/thredded/issues/916
-gem 'db_text_search', github: 'thredded/db_text_search', branch: 'master'
-gem 'thredded-markdown_coderay', git: 'https://github.com/thredded/thredded-markdown_coderay', branch: 'master'
-gem 'thredded-markdown_katex', git: 'https://github.com/thredded/thredded-markdown_katex', branch: 'master'
+gem 'db_text_search', github: 'thredded/db_text_search', branch: 'main'
+gem 'thredded-markdown_coderay', git: 'https://github.com/thredded/thredded-markdown_coderay', branch: 'main'
+gem 'thredded-markdown_katex', git: 'https://github.com/thredded/thredded-markdown_katex', branch: 'main'
 
 gem 'roadie-rails'

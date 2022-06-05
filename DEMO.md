@@ -4,7 +4,7 @@ To deploy:
 
     script/deploy-demo-app
 
-By default this deploys the master branch (it has to create a temporary copy of a branch)
+By default this deploys the main branch (it has to create a temporary copy of a branch)
 
 You need push access to the heroku app.
 

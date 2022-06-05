@@ -8,7 +8,7 @@
 
 # Unreleased
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...master
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.0...main
 
 * ContentFormatter.whitelist is now deprecated in favour of ContentFormatter.allowlist. Will be removed in v2.0
 * Support more recent versions of html-pipeline gem
@@ -948,7 +948,7 @@ See in particular "main app delegator" in Changed below.
   [#460](https://github.com/thredded/thredded/issues/460)
 * The "main app delegator" has been removed. If you are using an application layout for thredded, you need to either
   prefix your links with main_app or add some code to your thredded initializer
-  [Readme on application layouts](https://github.com/thredded/thredded/blob/master/README.md#application-layout).
+  [Readme on application layouts](https://github.com/thredded/thredded/blob/main/README.md#application-layout).
   [#420](https://github.com/thredded/thredded/pull/420)
 * Content formatting filters have been split into groups based on what they process to make customizing them simpler.
   [#462](https://github.com/thredded/thredded/pull/462)
@@ -1178,8 +1178,8 @@ See the full list of changes here: https://github.com/thredded/thredded/compare/
 
 Thredded now supports Rails 4.2+ only.
 
-Thredded now also fully supports the latest Rails 5 beta, but currently this requires using master versions of certain
-gems. See [rails_5_0.gemfile](https://github.com/thredded/thredded/blob/master/spec/gemfiles/rails_5_0.gemfile)
+Thredded now also fully supports the latest Rails 5 beta, but currently this requires using github main versions of certain
+gems. See [rails_5_0.gemfile](https://github.com/thredded/thredded/blob/main/spec/gemfiles/rails_5_0.gemfile)
 for more information.
 
 ## Fixed

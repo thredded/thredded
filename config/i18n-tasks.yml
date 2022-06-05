@@ -1,5 +1,5 @@
 # i18n-tasks finds and manages missing and unused translations
-# See https://github.com/glebm/i18n-tasks/blob/master/templates/config/i18n-tasks.yml
+# See https://github.com/glebm/i18n-tasks/blob/main/templates/config/i18n-tasks.yml
 
 # Do not consider these keys missing:
 ignore_missing:

@@ -35,7 +35,7 @@ module Thredded
         **Google Maps** `https://goo.gl/maps/R6nj3Qwf2LR2`:
         https://goo.gl/maps/R6nj3Qwf2LR2
 
-        Many more resources are [supported](https://github.com/discourse/onebox/tree/master/lib/onebox/engine). Powered by the [onebox](https://github.com/discourse/onebox) library.
+        Many more resources are [supported](https://github.com/discourse/onebox/tree/main/lib/onebox/engine). Powered by the [onebox](https://github.com/discourse/onebox) library.
       MARKDOWN
     ]
   end

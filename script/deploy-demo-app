@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEPLOYMENT_BRANCH=${1:-master}
+DEPLOYMENT_BRANCH=${1:-main}
 TEMPORARY_BRANCH=${2:-tmp-heroku-only}
 
 set -eou pipefail
