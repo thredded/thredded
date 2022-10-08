@@ -5,7 +5,8 @@ def run_all_with_success
   Dir['*_spec.rb', base: __dir__].map.each_with_index do |f, index|
     full_path = File.expand_path(f, __dir__)
     puts "Running #{full_path}"
-    system("CONFIGURATION_SPEC=1 SIMPLECOV_NAME=\"test:configurations_#{index}\" bundle exec rspec #{full_path} --force-color --format d")
+    envs = "CONFIGURATION_SPEC=1 SIMPLECOV_NAME='test:configurations_#{index}'"
+    system("#{envs} bundle exec rspec #{full_path} --force-color --format d")
   end
 end
 
