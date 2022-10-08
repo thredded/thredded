@@ -18,3 +18,6 @@ gem 'pg'
 
 # https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
 gem 'mysql2', '~> 0.5'
+
+# waiting on https://github.com/DatabaseCleaner/database_cleaner-active_record/pull/75
+gem "database_cleaner-active_record", github: "QWYNG/database_cleaner-active_record", branch: "do-not-use-ActiveRecord_SchemaMigration_table_name_with_rails7_1"
