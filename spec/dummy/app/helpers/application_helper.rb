@@ -3,8 +3,6 @@
 require_dependency 'themes'
 
 module ApplicationHelper
-  include Rails.application.routes.url_helpers
-
   def themes
     Themes::VALID_THEMES
   end

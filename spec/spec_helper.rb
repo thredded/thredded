@@ -68,11 +68,7 @@ end
 Dir[Rails.root.join('..', '..', 'spec', 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
-  if ENV['MIGRATION_SPEC']
-    config.filter_run_excluding migration_spec: false
-  else
-    config.filter_run_excluding migration_spec: true
-  end
+  config.filter_run_excluding migration_spec: !ENV['MIGRATION_SPEC'], configuration_spec: !ENV['CONFIGURATION_SPEC']
   config.infer_spec_type_from_file_location!
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
