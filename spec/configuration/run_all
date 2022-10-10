@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+def run_all_with_success
+  Dir['*_spec.rb', base: __dir__].map.each_with_index do |f, index|
+    full_path = File.expand_path(f, __dir__)
+    puts "Running #{full_path}"
+    envs = "CONFIGURATION_SPEC=1 SIMPLECOV_NAME='test:configurations_#{index}'"
+    system("#{envs} bundle exec rspec #{full_path} --force-color --format d")
+  end
+end
+
+exit(run_all_with_success.all? ? 0 : 1)

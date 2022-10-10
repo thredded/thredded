@@ -2,6 +2,8 @@
 
 module Thredded
   module UrlsHelper # rubocop:disable Metrics/ModuleLength
+    include Thredded::Engine.routes.url_helpers
+
     class << self
       include Thredded::Engine.routes.url_helpers
       include Thredded::UrlsHelper
