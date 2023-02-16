@@ -8,7 +8,15 @@ module Thredded
       attr_accessor :allowlist
 
       # TODO: v2.0: drop alias and just use allowlist
-      alias_attribute :whitelist, :allowlist
+      # @deprecated use allowlist
+      def whitelist
+        ActiveSupport::Deprecation.warn(<<~MESSAGE.squish)
+          ContentFormatter.whitelist is deprecated and will be removed in Thredded 2.0.
+          Use ContentFormatter.allowlist instead
+        MESSAGE
+
+        allowlist
+      end
 
       # Filters that run before processing the markup.
       # input: markup, output: markup.
