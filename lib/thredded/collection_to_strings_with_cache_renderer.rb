@@ -121,42 +121,20 @@ module Thredded
       view.combined_fragment_cache_key(key)
     end
 
-    if Thredded::Compat.rails_gte_60?
-      def cache_fragment_name(view, key, virtual_path:, digest_path:)
-        if Thredded::Compat.rails_gte_61?
-          view.cache_fragment_name(key, digest_path: digest_path)
-        else
-          view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
-        end
+    def cache_fragment_name(view, key, virtual_path:, digest_path:)
+      if Thredded::Compat.rails_gte_61?
+        view.cache_fragment_name(key, digest_path: digest_path)
+      else
+        view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
       end
+    end
 
-      def digest_path_from_template(view, template)
-        view.digest_path_from_template(template)
-      end
+    def digest_path_from_template(view, template)
+      view.digest_path_from_template(template)
+    end
 
-      def render_partial(partial_renderer, view_context, opts)
-        partial_renderer.render(view_context, opts, nil).body
-      end
-    else
-      def cache_fragment_name(_view, key, virtual_path:, digest_path:)
-        if digest_path
-          ["#{virtual_path}:#{digest_path}", key]
-        else
-          [virtual_path, key]
-        end
-      end
-
-      def digest_path_from_template(view, template)
-        ActionView::Digestor.digest(
-          name: template.virtual_path,
-          finder: @lookup_context,
-          dependencies: view.view_cache_dependencies
-        ).presence
-      end
-
-      def render_partial(partial_renderer, view_context, opts)
-        partial_renderer.render(view_context, opts, nil)
-      end
+    def render_partial(partial_renderer, view_context, opts)
+      partial_renderer.render(view_context, opts, nil).body
     end
   end
 end

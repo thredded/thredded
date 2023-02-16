@@ -10,11 +10,7 @@ module Thredded
         verbose_was = ActiveRecord::Migration.verbose
         ActiveRecord::Migration.verbose = !quiet
         migrate =
-          if Thredded::Compat.rails_gte_60?
-            -> { ActiveRecord::MigrationContext.new(paths, ActiveRecord::SchemaMigration).migrate(nil, &filter) }
-          else # Rails 5.2
-            -> { ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter) }
-          end
+          -> { ActiveRecord::MigrationContext.new(paths, ActiveRecord::SchemaMigration).migrate(nil, &filter) }
         if quiet
           silence_active_record(&migrate)
         else
