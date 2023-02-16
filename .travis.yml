@@ -35,11 +35,6 @@ jobs:
         apt:
           packages: []
 
-    - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.7
-      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-      services: postgresql
-
     - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.7
       before_install: nvm install 14

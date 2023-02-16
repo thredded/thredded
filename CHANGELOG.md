@@ -8,6 +8,8 @@
 
 # Unreleased
 
+* Drop support for Rails 5.2 - if you need support for rails 5.2 use v1.0.x
+
 See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.1...main
 
 # v1.0.1

@@ -120,7 +120,6 @@ Lint/EmptyBlock:
 Lint/MissingSuper:
   Exclude:
     - 'lib/thredded/email_transformer/base.rb'
-    - 'lib/thredded/rails_lt_5_2_arel_case_node.rb'
     - 'spec/support/system/page_object/messageboard.rb'
     - 'spec/support/system/page_object/notification_preferences.rb'
     - 'spec/support/system/page_object/post.rb'
