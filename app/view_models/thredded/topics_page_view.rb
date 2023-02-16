@@ -9,6 +9,7 @@ module Thredded
              :empty?,
              :[],
              :each,
+             :each_with_index,
              :map,
              :size,
              to: :@topic_views
