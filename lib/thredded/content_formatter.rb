@@ -8,7 +8,15 @@ module Thredded
       attr_accessor :allowlist
 
       # TODO: v2.0: drop alias and just use allowlist
-      alias_attribute :whitelist, :allowlist
+      # @deprecated use allowlist
+      def whitelist
+        ActiveSupport::Deprecation.warn(<<~MESSAGE.squish)
+          ContentFormatter.whitelist is deprecated and will be removed in Thredded 2.0.
+          Use ContentFormatter.allowlist instead
+        MESSAGE
+
+        allowlist
+      end
 
       # Filters that run before processing the markup.
       # input: markup, output: markup.
@@ -30,17 +38,8 @@ module Thredded
       # input: sanitized html, output: html
       attr_accessor :after_sanitization_filters
 
-      # TODO: v1.1: only allow html-pipeline >= 2.14.1 and drop this
-      def sanitization_filter_uses_allowlist?
-        defined?(HTML::Pipeline::SanitizationFilter::ALLOWLIST)
-      end
-
       def sanitization_filter_allowlist_config
-        if sanitization_filter_uses_allowlist?
-          HTML::Pipeline::SanitizationFilter::ALLOWLIST
-        else
-          HTML::Pipeline::SanitizationFilter::WHITELIST
-        end
+        HTML::Pipeline::SanitizationFilter::ALLOWLIST
       end
     end
 
@@ -150,15 +149,9 @@ module Thredded
 
     # @return [Hash] options for HTML::Pipeline.new
     def content_pipeline_options
-      option = if self.class.sanitization_filter_uses_allowlist?
-                 :allowlist
-               else
-                 # TODO: v1.1: only allow html-pipeline >= 2.14.1 and drop this
-                 :whitelist
-               end
       {
         asset_root: Rails.application.config.action_controller.asset_host || '',
-        option => ContentFormatter.allowlist
+        allowlist: ContentFormatter.allowlist
       }
     end
   end
