@@ -82,15 +82,26 @@ module Thredded
       else
         collection.each_slice(collection.size / num_threads).map do |slice|
           Thread.start do
-            # `ActionView::PartialRenderer` mutates the contents of `opts[:locals]`, `opts[:locals][:as]` in particular:
-            # https://github.com/rails/rails/blob/v6.0.2.1/actionview/lib/action_view/renderer/partial_renderer.rb#L379
-            # https://github.com/rails/rails/blob/v6.0.2.1/actionview/lib/action_view/renderer/partial_renderer.rb#L348-L356
-            opts[:locals] = opts[:locals].dup if opts[:locals]
             ActiveRecord::Base.connection_pool.with_connection do
-              render_partials_serial(view_context.dup, slice, opts)
+              render_partials_serial(view_context.dup, slice, dup_opts(opts))
             end
           end
         end.flat_map(&:value)
+      end
+    end
+
+    # `ActionView::PartialRenderer` mutates the contents of `opts[:locals]`, `opts[:locals][:as]` in particular:
+    # https://github.com/rails/rails/blob/v6.0.2.1/actionview/lib/action_view/renderer/partial_renderer.rb#L379
+    # https://github.com/rails/rails/blob/v6.0.2.1/actionview/lib/action_view/renderer/partial_renderer.rb#L348-L356
+    def dup_opts(opts)
+      if opts[:locals]
+        opts = opts.dup
+        # sometimes have a thread safe :users_provider, preserve that for performance reasons
+        # hence not doing a deep_dup
+        opts[:locals] = opts[:locals].dup
+        opts
+      else
+        opts.dup
       end
     end
 
