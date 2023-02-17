@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# exit on first failure
+set -e
+for i in {1..10}
+do
+  echo "#$i (rspec $1)"
+  bundle exec rspec --format d $1 --fail-fast
+done
