@@ -110,6 +110,7 @@ script:
 - SIMPLECOV_NAME="test:js" bundle exec rspec --force-color --format d --tag=js
 - MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
 - spec/configuration/run_all
+- bin/run_specs_repeatedly --tag=threaded_render
 after_script:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
