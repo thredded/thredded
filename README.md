@@ -97,7 +97,7 @@ Then, see the rest of this Readme for more information about using and customizi
 Add the gem to your Gemfile:
 
 ```ruby
-gem 'thredded', '~> 1.2'
+gem 'thredded', '~> 1.1'
 ```
 
 Add the Thredded [initializer] to your parent app by running the install generator.
@@ -159,9 +159,9 @@ to Thredded.
 ## Rails compatibility
 
 | Rails  | Latest Thredded  |
-| ------------- | ------------- |
-| Rails 6.0+ | Thredded 1.2+  |
-| Rails 5.2  | Thredded 1.1   |
+| ------------- |------------------|
+| Rails 6.0+ | Thredded 1.1+    |
+| Rails 5.2  | Thredded 1.0.1   |
 | Rails 4.2  | Thredded 0.16.16 |
 
 

@@ -2,13 +2,19 @@
 
 * drop `ContentFormatter.whitelist` just use `ContentFormatter.allowlist`
 
-# Unreleased (v1.1)
+# Unreleased
 
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.1.0...main
+
+# v1.1.0
+
+* fix issue with mis-rendering of posts in multithreading (and add tests) [#971]
+* fix rare issue with rendering of duplicated posts [#973]
 * Drop support for Rails 5.2 - if you need support for rails 5.2 use v1.0.x
 * fix thredded routes when main app has `include rails.application.routes.url_helpers` in its helpers [#961]
 * Drop support for html-pipeline < 2.14.1
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.1...main
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.0.1...v1.1.0
 
 # v1.0.1
 
