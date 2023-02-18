@@ -47,7 +47,8 @@ module Thredded
 
         ordered_keys.map do |cache_key|
           [keyed_collection[cache_key], cached_partials[cache_key] || rendered_partials.next.tap do |rendered|
-            cached_partials[cache_key] = cache.write(cache_key, rendered, expires_in: expires_in)
+            cache.write(cache_key, rendered, expires_in: expires_in)
+            cached_partials[cache_key] = rendered
           end]
         end
       end
