@@ -95,4 +95,31 @@ describe 'Thredded::CollectionToStringsWithCacheRenderer.render_collection_to_st
       end
     end
   end
+
+  context 'with two posts, one duplicated' do
+    let(:post_1) { create(:post, content: 'one') }
+    let(:post_2) { create(:post, content: 'two') }
+    let(:posts) { [post_1, post_1, post_2] }
+
+    shared_examples 'two posts, one duplicated' do
+      it 'has expected content for two posts, one duplicated' do
+        expect(posts_with_contents.length).to eq(3)
+        expect(posts_with_contents[0]).to have_post_with_rendered_content(post_1)
+        expect(posts_with_contents[1]).to have_post_with_rendered_content(post_1)
+        expect(posts_with_contents[2]).to have_post_with_rendered_content(post_2)
+      end
+    end
+
+    context 'with no threading' do
+      before do
+        allow(Thredded::CollectionToStringsWithCacheRenderer).to receive(:render_threads).and_return(1)
+      end
+
+      include_examples 'two posts, one duplicated'
+    end
+
+    context 'with threading as default', threaded_render: true do
+      include_examples 'two posts, one duplicated'
+    end
+  end
 end
