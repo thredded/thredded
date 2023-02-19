@@ -85,6 +85,8 @@ module Thredded
 
     delegate :name, to: :messageboard, prefix: true
 
+    before_create :ensure_last_post_at
+
     after_commit :update_messageboard_last_topic, on: :update, if: -> { previous_changes.include?('moderation_state') }
     after_commit :update_last_user_and_time_from_last_post!, if: -> { previous_changes.include?('moderation_state') }
 
@@ -202,6 +204,10 @@ module Thredded
         Thredded::Messageboard.reset_counters(messageboard_id, :topics, :posts)
         Thredded::Messageboard.find(messageboard_id).update_last_topic!
       end
+    end
+
+    def ensure_last_post_at
+      self.last_post_at ||= Time.zone.now
     end
   end
 end
