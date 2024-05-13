@@ -33,6 +33,9 @@
 %thredded--nav-tabs--item {
   display: inline-block;
   margin-right: 1rem;
+  font-weight: 500;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
 
   a {
     @extend %thredded--nav-link;
