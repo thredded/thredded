@@ -78,7 +78,7 @@ Table of Contents
 
 ### Creating a new Rails app with Thredded
 
-Thredded provides an app generator that will generate a Rails app with Thredded, Devise, SimpleForm, RSpec, 
+Thredded provides an app generator that will generate a Rails app with Thredded, Devise, SimpleForm, RSpec,
 PostgreSQL, and a basic theme and navigation that is configured to work out of the box.
 
 ```sh
@@ -332,7 +332,7 @@ Whenever possible, use the styles and i18n to customize Thredded to your needs.
 Thredded provides view hooks to customize the UI before/after/replacing individual components.
 
 View hooks allow you to render anything in the thredded view context.
-For example, to render a partial after the post content textarea, add the snippet below to 
+For example, to render a partial after the post content textarea, add the snippet below to
 the `config/initializers/thredded.rb` initializer:
 
 ```ruby
@@ -393,7 +393,7 @@ You can also turn off the email notifier totally, or add other notifiers (e.g. P
 the `Thredded.notifiers` configuration in your initializer. See the default initializer for examples.
 
 You must configure the address the email appears to be from (`Thredded.email_from`). This address is also used as the "To" address for both email notifcations, as all the recipients are on bcc.
- 
+
 ### Enabling auto-follow
 
 In some cases, you'll want all users to auto-follow new messageboard topics by default. This might be useful
@@ -423,16 +423,16 @@ Here are the steps to ensure the best support for your language if it isn't Engl
    //= require timeago/locales/de
    //= require timeago/locales/pt_BR
    //= require thredded
-   ```                 
-   
+   ```
+
    Webpack:
-   
+
    ```erb
    <% timeago_root = File.join(Gem.loaded_specs['timeago_js'].full_gem_path, 'assets', 'javascripts') %>
    import "<%= File.join(timeago_root, 'timeago.js') %>";
    <%= %w[de pt_BR].map { |locale| %(import "#{File.join(timeago_root, "timeago/locales/#{locale}.js")}";) } * "\n" %>
    <%= Thredded::WebpackAssets.javascripts %>
-   ```   
+   ```
 
    Note that it is important that timeago and its locales are required *before* Thredded.
 
@@ -701,9 +701,9 @@ brew install --cask chromium
 brew install --cask chromedriver
 ```
 
-To get better page saves (`page.save_and_open_page`) from local capybara specs ensure you are running the server locally 
-and set `export CAPYBARA_ASSET_HOST=http://localhost:3000` (or whatever host/port your server is on) before running your 
-test suite.  
+To get better page saves (`page.save_and_open_page`) from local capybara specs ensure you are running the server locally
+and set `export CAPYBARA_ASSET_HOST=http://localhost:3000` (or whatever host/port your server is on) before running your
+test suite.
 
 ### Ruby
 

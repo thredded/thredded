@@ -37,6 +37,11 @@
   font-size: 1rem; /* 16px */
   line-height: 1.5rem; /* 24px */
 
+  &:hover {
+    color: rgb(31 41 55);
+    text-decoration: none;
+  }
+
   a {
     @extend %thredded--nav-link;
     display: inline-block;
