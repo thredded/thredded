@@ -9,6 +9,12 @@ module Thredded
         @rails_gte_61
       end
 
+      # @api private
+      def rails_gte_7?
+        @rails_gte_7 = (Rails.gem_version >= Gem::Version.new('7.0.0')) if @rails_gte_7.nil?
+        @rails_gte_7
+      end
+
       if Rails.gem_version >= Gem::Version.new('7.0.0')
         # @api private
         def association_preloader(records:, associations:, scope:)
