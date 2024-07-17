@@ -7,7 +7,11 @@ module Thredded
     extend ActiveSupport::Concern
 
     included do
-      enum moderation_state: %i[pending_moderation approved blocked]
+      if Thredded::Compat.rails_gte_7?
+        enum :moderation_state, %i[pending_moderation approved blocked]
+      else
+        enum moderation_state: %i[pending_moderation approved blocked]
+      end
       validates :moderation_state, presence: true
     end
   end

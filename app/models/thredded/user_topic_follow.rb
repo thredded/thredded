@@ -2,7 +2,11 @@
 
 module Thredded
   class UserTopicFollow < ActiveRecord::Base
-    enum reason: %i[manual posted mentioned auto]
+    if Thredded::Compat.rails_gte_7?
+      enum :reason, %i[manual posted mentioned auto]
+    else
+      enum reason: %i[manual posted mentioned auto]
+    end
 
     belongs_to :user, inverse_of: :thredded_topic_follows, class_name: Thredded.user_class_name
     belongs_to :topic, inverse_of: :user_follows
