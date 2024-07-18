@@ -105,7 +105,7 @@ jobs:
       run: |
         MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
 
-    - name: "Run Tests: All"
+    - name: "Run Tests: spec/configuration/run_all"
       run: |
         spec/configuration/run_all
 
@@ -115,7 +115,7 @@ jobs:
 
     - name: Report to Code Climate
       if: always()
-      run: ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+      run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
 
     # - name: Cache Onebox Data and Views
     #   uses: actions/cache@v2
