@@ -121,9 +121,9 @@ jobs:
       run: |
         spec/configuration/run_all
 
-    # - name: "Run Tests: run_spec_repeatedly"
-    #   run: |
-    #     bin/run_specs_repeatedly --tag=threaded_render
+    - name: "Run Tests: run_spec_repeatedly"
+      run: |
+        bin/run_specs_repeatedly --tag=threaded_render
 
     - name: Report to Code Climate
       run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
