@@ -128,7 +128,24 @@ jobs:
 
     - name: Report to Code Climate
       if: always()
-      run: ./cc-test-reporter after-build --exit-code $?
+      run: |
+        case "${{ job.status }}" in
+          "success")
+            exit_code=0
+            ;;
+          "failure")
+            exit_code=1
+            ;;
+          "cancelled")
+            exit_code=99
+            ;;
+          *)
+            echo "Unknown job status: ${{ job.status }}"
+            exit_code=999
+            ;;
+        esac
+
+        ./cc-test-reporter after-build --exit-code $exit_code
 
     # - name: Cache Onebox Data and Views
     #   uses: actions/cache@v2
