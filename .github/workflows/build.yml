@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
+      ping:
+        image: ping:latest
+
       postgres:
         image: postgres
         ports:
