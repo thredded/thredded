@@ -73,18 +73,14 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
+        bundler-cache: true # install gems and cache
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
+    - uses: browser-actions/setup-chrome@v1
+
+    - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get install -y chromium-browser
-        gem install bundler
-        bundle install --jobs 4 --retry 3
+        cache: 'npm'
 
     # - name: Before script
     #   run: |
