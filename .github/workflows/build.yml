@@ -99,13 +99,6 @@ jobs:
           cd spec/dummy && yarn && cd -
         fi
 
-    - name: Install Code Climate
-      if: always()
-      run: |
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-        ./cc-test-reporter before-build
-
     - name: "Run Tests: test:nojs"
       run: |
         SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
@@ -126,26 +119,10 @@ jobs:
       run: |
         bin/run_specs_repeatedly --tag=threaded_render
 
-    - name: Report to Code Climate
-      if: always()
-      run: |
-        case "${{ job.status }}" in
-          "success")
-            exit_code=0
-            ;;
-          "failure")
-            exit_code=1
-            ;;
-          "cancelled")
-            exit_code=99
-            ;;
-          *)
-            echo "Unknown job status: ${{ job.status }}"
-            exit_code=999
-            ;;
-        esac
-
-        ./cc-test-reporter after-build --exit-code $exit_code
+    # - name: Test & publish code coverage
+    #   uses: paambaati/codeclimate-action@v8.0.0
+    #   env:
+    #     CC_TEST_REPORTER_ID: <code_climate_reporter_id>
 
     # - name: Cache Onebox Data and Views
     #   uses: actions/cache@v2
