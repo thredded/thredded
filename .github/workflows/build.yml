@@ -41,25 +41,49 @@ jobs:
       matrix:
         ruby: ["2.7.8", "3.0.7", "3.1.6", "3.2.4", "3.3.4"]
         node: ["14"]
-        gemfile:
-          - spec/gemfiles/rails_6_0.gemfile
-          - spec/gemfiles/rails_6_1.gemfile
-          - spec/gemfiles/rails_7_0.gemfile
-          - spec/gemfiles/rails_7_2.gemfile
-          - spec/gemfiles/rails_main.gemfile
-          # - spec/gemfiles/rubocop.gemfile
-          # - spec/gemfiles/i18n-tasks.gemfile
+        rails_version: ["6.0", "6.1", "7.0", "7.2", "edge"] # "rubocop", "i18n-tasks"
         # db: [sqlite3, postgres, mysql]
         db: [sqlite3]
         exclude:
+          # Not supported versions
           - ruby: 2.7.8
-            gemfile: spec/gemfiles/rails_7_2.gemfile
+            rails_version: 7.2
           - ruby: 3.0.7
-            gemfile: spec/gemfiles/rails_7_2.gemfile
+            rails_version: 7.2
           - ruby: 2.7.8
-            gemfile: spec/gemfiles/rails_main.gemfile
+            rails_version: edge
           - ruby: 3.0.7
-            gemfile: spec/gemfiles/rails_main.gemfile
+            rails_version: edge
+
+          # Logger Issues
+          - ruby: 3.3.4
+            rails_version: edge
+          - ruby: 3.3.4
+            rails_version: 7.2
+          - ruby: 3.2.4
+            rails_version: edge
+          - ruby: 3.2.4
+            rails_version: 7.2
+          - ruby: 3.1.6
+            rails_version: edge
+          - ruby: 3.1.6
+            rails_version: 7.2
+
+          # Psych issues
+          - ruby: 3.3.4
+            rails_version: 6.1
+          - ruby: 3.3.4
+            rails_version: 6.0
+          - ruby: 3.2.4
+            rails_version: 6.1
+          - ruby: 3.2.4
+            rails_version: 6.0
+          - ruby: 3.1.6
+            rails_version: 6.1
+          - ruby: 3.1.6
+            rails_version: 6.0
+
+
         # include:
         #   - ruby: 2.7
         #     rails: rubocop
@@ -72,7 +96,7 @@ jobs:
       RAILS_ENV: test
       COVERAGE: 1
       FERRUM_DEFAULT_TIMEOUT: 20
-      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
       DB_USERNAME: thredded
       DB_PASSWORD: thredded
     steps:
