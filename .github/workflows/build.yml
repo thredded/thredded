@@ -80,16 +80,18 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
-        cache: 'npm'
 
-    # - name: Before script
-    #   run: |
-    #     if [[ $BUNDLE_GEMFILE != "${PWD}/spec/gemfiles/rails_5_2.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
-    #       cd spec/dummy && yarn && cd -
-    #     fi
-    #     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    #     chmod +x ./cc-test-reporter
-    #     ./cc-test-reporter before-build
+    - name: Install Node Packages via Yarn
+      run: |
+        if [[ $BUNDLE_GEMFILE != "${PWD}/spec/gemfiles/rails_5_2.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
+          cd spec/dummy && yarn && cd -
+        fi
+
+    - name: Install Code Climate
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
 
     - name: "Run Tests: test:nojs"
       run: |
@@ -111,8 +113,9 @@ jobs:
     #   run: |
     #     bin/run_specs_repeatedly --tag=threaded_render
 
-    # - name: After script
-    #   run: ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+    - name: Report to Code Climate
+      if: always()
+      run: ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
     # - name: Cache Onebox Data and Views
     #   uses: actions/cache@v2
@@ -128,6 +131,7 @@ jobs:
 
     # - name: Notify Slack
     #   uses: 8398a7/action-slack@v3
+    #   if: always()
     #   with:
     #     status: ${{ job.status }}
     #     author_name: GitHub Actions
