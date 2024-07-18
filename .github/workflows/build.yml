@@ -6,38 +6,35 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      ping:
-        image: ping:latest
+    # services:
+    #   postgres:
+    #     image: postgres
+    #     ports:
+    #       - 5432:5432
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     env:
+    #       POSTGRES_DB: thredded_gem_test
+    #       POSTGRES_USER: thredded
+    #       POSTGRES_PASSWORD: thredded
 
-      postgres:
-        image: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        env:
-          POSTGRES_DB: thredded_gem_test
-          POSTGRES_USER: thredded
-          POSTGRES_PASSWORD: thredded
-
-      mysql:
-        image: mysql
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd mysqladmin ping
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-        env:
-          MYSQL_DATABASE: thredded_gem_test
-          MYSQL_USER: thredded
-          MYSQL_PASSWORD: thredded
-          MYSQL_ROOT_PASSWORD: thredded
+    #   mysql:
+    #     image: mysql
+    #     ports:
+    #       - 3306:3306
+    #     options: >-
+    #       --health-cmd mysqladmin ping
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 3
+    #     env:
+    #       MYSQL_DATABASE: thredded_gem_test
+    #       MYSQL_USER: thredded
+    #       MYSQL_PASSWORD: thredded
+    #       MYSQL_ROOT_PASSWORD: thredded
 
     strategy:
       fail-fast: false
