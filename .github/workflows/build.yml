@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgresql:
-        image: postgres:latest
+      postgres:
+        image: postgres
         ports:
           - 5432:5432
         options: >-
@@ -17,12 +17,12 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         env:
-          POSTGRES_DB: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: thredded_gem_test
+          POSTGRES_USER: thredded
+          POSTGRES_PASSWORD: thredded
 
       mysql:
-        image: mysql:latest
+        image: mysql
         ports:
           - 3306:3306
         options: >-
@@ -31,7 +31,10 @@ jobs:
           --health-timeout 5s
           --health-retries 3
         env:
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_DATABASE: thredded_gem_test
+          MYSQL_USER: thredded
+          MYSQL_PASSWORD: thredded
+          MYSQL_ROOT_PASSWORD: thredded
 
     strategy:
       fail-fast: false
@@ -47,7 +50,7 @@ jobs:
           # - spec/gemfiles/rails_main.gemfile
           # - spec/gemfiles/rubocop.gemfile
           # - spec/gemfiles/i18n-tasks.gemfile
-        # db: [sqlite3, postgresql, mysql2]
+        # db: [sqlite3, postgres, mysql]
         db: [sqlite3]
         # include:
         #   - ruby: 2.7
@@ -62,6 +65,8 @@ jobs:
       COVERAGE: 1
       FERRUM_DEFAULT_TIMEOUT: 20
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      DB_USERNAME: thredded
+      DB_PASSWORD: thredded
     steps:
     - uses: actions/checkout@v4
 
