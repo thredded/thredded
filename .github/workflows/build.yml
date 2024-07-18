@@ -78,6 +78,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set DB adapter
+      run: |
+        export DB=${{ matrix.db }}
+
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
