@@ -91,13 +91,25 @@ jobs:
     #     chmod +x ./cc-test-reporter
     #     ./cc-test-reporter before-build
 
-    - name: Run tests
+    - name: "Run Tests: test:nojs"
       run: |
         SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
+
+    - name: "Run Tests: test:js"
+      run: |
         SIMPLECOV_NAME="test:js" bundle exec rspec --force-color --format d --tag=js
+
+    - name: "Run Tests: spec/migrations"
+      run: |
         MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
+
+    - name: "Run Tests: All"
+      run: |
         spec/configuration/run_all
-        # bin/run_specs_repeatedly --tag=threaded_render
+
+    # - name: "Run Tests: run_spec_repeatedly"
+    #   run: |
+    #     bin/run_specs_repeatedly --tag=threaded_render
 
     # - name: After script
     #   run: ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
