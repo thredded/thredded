@@ -100,6 +100,7 @@ jobs:
         fi
 
     - name: Install Code Climate
+      if: always()
       run: |
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
         chmod +x ./cc-test-reporter
@@ -126,7 +127,8 @@ jobs:
         bin/run_specs_repeatedly --tag=threaded_render
 
     - name: Report to Code Climate
-      run: ./cc-test-reporter after-build --exit-code ${{ job.status }}
+      if: always()
+      run: ./cc-test-reporter after-build --exit-code $?
 
     # - name: Cache Onebox Data and Views
     #   uses: actions/cache@v2
