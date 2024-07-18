@@ -1,0 +1,121 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgresql:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+
+      mysql:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd mysqladmin ping
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+        env:
+          MYSQL_ROOT_PASSWORD: ""
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.7.8", "3.0.7", "3.2.4", "3.3.4"]
+        node: ["14"]
+        gemfile:
+          - spec/gemfiles/rails_6_0.gemfile
+          - spec/gemfiles/rails_6_1.gemfile
+          - spec/gemfiles/rails_7_0.gemfile
+          - spec/gemfiles/rails_7_2.gemfile
+          - spec/gemfiles/rails_main.gemfile
+          - spec/gemfiles/rubocop.gemfile
+          - spec/gemfiles/i18n-tasks.gemfile
+        db: [sqlite3, postgresql, mysql2]
+        # include:
+        #   - ruby: 2.7
+        #     rails: rubocop
+        #     db: null
+        #   - ruby: 2.7
+        #     rails: i18n-tasks
+        #     db: null
+
+    env:
+      RAILS_ENV: test
+      COVERAGE: 1
+      FERRUM_DEFAULT_TIMEOUT: 20
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y chromium-browser
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+
+    # - name: Before script
+    #   run: |
+    #     if [[ $BUNDLE_GEMFILE != "${PWD}/spec/gemfiles/rails_5_2.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
+    #       cd spec/dummy && yarn && cd -
+    #     fi
+    #     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    #     chmod +x ./cc-test-reporter
+    #     ./cc-test-reporter before-build
+
+    - name: Run tests
+      run: |
+        SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
+        SIMPLECOV_NAME="test:js" bundle exec rspec --force-color --format d --tag=js
+        MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
+        spec/configuration/run_all
+        # bin/run_specs_repeatedly --tag=threaded_render
+
+    # - name: After script
+    #   run: ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+    # - name: Cache Onebox Data and Views
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: |
+    #       tmp/cache/onebox-data
+    #       tmp/cache/onebox-views
+    #       spec/dummy/tmp/cache/onebox-data
+    #       spec/dummy/tmp/cache/onebox-views
+    #     key: onebox-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.gemfile }}
+    #     restore-keys: |
+    #       onebox-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.gemfile }}
+
+    # - name: Notify Slack
+    #   uses: 8398a7/action-slack@v3
+    #   with:
+    #     status: ${{ job.status }}
+    #     author_name: GitHub Actions
+    #     fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+    #     env:
+    #       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
