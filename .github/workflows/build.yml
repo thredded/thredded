@@ -43,10 +43,9 @@ jobs:
         ruby: ["2.7.8", "3.0.7", "3.1.6", "3.2.4", "3.3.4"]
         node: ["14"]
         rails_version: ["6.1", "7.0", "7.2", "edge"] # "rubocop", "i18n-tasks"
-        # db: [sqlite3, postgres, mysql]
-        db: [sqlite3, postgres]
+        db: [sqlite3, postgres, mysql]
         exclude:
-          # Not supported versions
+          # Not supported version combinations
           - ruby: 2.7.8
             rails_version: 7.2
           - ruby: 3.0.7
