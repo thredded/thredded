@@ -113,7 +113,7 @@ jobs:
 
     - name: Install Node Packages via Yarn
       run: |
-        if [[ $BUNDLE_GEMFILE != "${PWD}/spec/gemfiles/rails_5_2.gemfile" ]] && [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
+        if [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
           cd spec/dummy && yarn && cd -
         fi
 
