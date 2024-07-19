@@ -91,7 +91,7 @@ jobs:
       COVERAGE: 1
       FERRUM_DEFAULT_TIMEOUT: 20
       BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
-      DB=${{ matrix.db }}
+      DB: "${{ matrix.db }}"
       DB_USERNAME: thredded
       DB_PASSWORD: thredded
     steps:
