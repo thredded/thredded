@@ -94,7 +94,7 @@ jobs:
       DB: ${{ matrix.db }}
       DB_USERNAME: thredded
       DB_PASSWORD: thredded
-      DB_POOL: 1
+      DB_POOL: 5
     steps:
     - uses: actions/checkout@v4
 
