@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
+      postgresql:
         image: postgres
         ports:
           - 5432:5432
@@ -21,7 +21,7 @@ jobs:
           POSTGRES_USER: thredded
           POSTGRES_PASSWORD: thredded
 
-      mysql:
+      mysql2:
         image: mysql:8.0
         env:
           MYSQL_ROOT_HOST: "%"
@@ -43,7 +43,7 @@ jobs:
         ruby: ["2.7.8", "3.0.7", "3.1.6", "3.2.4", "3.3.4"]
         node: ["14"]
         rails_version: ["6.1", "7.0", "7.2", "edge"] # "rubocop", "i18n-tasks"
-        db: [sqlite3, postgres, mysql]
+        db: [sqlite3, postgresql, mysql2]
         exclude:
           # Not supported version combinations
           - ruby: 2.7.8
@@ -91,7 +91,7 @@ jobs:
       COVERAGE: 1
       FERRUM_DEFAULT_TIMEOUT: 20
       BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
-      DB: "${{ matrix.db }}"
+      DB: ${{ matrix.db }}
       DB_USERNAME: thredded
       DB_PASSWORD: thredded
       DB_POOL: 1
