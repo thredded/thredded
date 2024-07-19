@@ -6,20 +6,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #   postgres:
-    #     image: postgres
-    #     ports:
-    #       - 5432:5432
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
-    #     env:
-    #       POSTGRES_DB: thredded_gem_test
-    #       POSTGRES_USER: thredded
-    #       POSTGRES_PASSWORD: thredded
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: thredded_gem_test
+          POSTGRES_USER: thredded
+          POSTGRES_PASSWORD: thredded
 
     #   mysql:
     #     image: mysql
@@ -43,7 +43,7 @@ jobs:
         node: ["14"]
         rails_version: ["6.0", "6.1", "7.0", "7.2", "edge"] # "rubocop", "i18n-tasks"
         # db: [sqlite3, postgres, mysql]
-        db: [sqlite3]
+        db: [sqlite3, postgres]
         exclude:
           # Not supported versions
           - ruby: 2.7.8
