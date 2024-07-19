@@ -10,8 +10,6 @@ db_pool_size = ENV['DB_POOL'] || (
   # ActiveJob Async max thread pool size
   Etc.nprocessors
   )
-
-  puts "DATABASE CONFIGURATION", db_adapter, db_host, db_port, db_pool_size
 %>
 
 defaults: &defaults
