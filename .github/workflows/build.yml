@@ -92,9 +92,10 @@ jobs:
       FERRUM_DEFAULT_TIMEOUT: 20
       BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
       DB: ${{ matrix.db }}
+      DB_HOST: 127.0.0.1
+      DB_POOL: 5
       DB_USERNAME: thredded
       DB_PASSWORD: thredded
-      DB_POOL: 5
     steps:
     - uses: actions/checkout@v4
 
