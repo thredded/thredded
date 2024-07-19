@@ -136,9 +136,12 @@ browser_path = ENV['CHROMIUM_BIN'] || %w[
 
 # https://evilmartians.com/chronicles/system-of-a-test-setting-up-end-to-end-rails-testing
 Capybara.register_driver(:cuprite) do |app|
+  browser_options = {}
+  browser_options['no-sandbox'] = nil if ENV['CI']
+
   options = {
     window_size: [1280, 1024],
-    browser_options: {},
+    browser_options: browser_options,
     # Increase Chrome startup wait time (required for stable CI builds)
     process_timeout: 10,
     # Enable debugging capabilities
