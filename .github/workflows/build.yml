@@ -6,6 +6,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # needs: [rubocop, i18n-tasks] # make sure rubocop and i18n-tasks runs first before running the test job
+
     services:
       postgresql:
         image: postgres
@@ -96,6 +98,7 @@ jobs:
       DB_POOL: 5
       DB_USERNAME: thredded
       DB_PASSWORD: thredded
+
     steps:
     - uses: actions/checkout@v4
 
@@ -160,3 +163,39 @@ jobs:
     #     fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
     #     env:
     #       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  rubocop:
+    runs-on: ubuntu-latest
+
+    env:
+      BUNDLE_GEMFILE: spec/gemfiles/rubocop.gemfile
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+
+    - name: Rubocop
+      run: |
+        bundle exec rubocop
+
+  i18n-tasks:
+    runs-on: ubuntu-latest
+
+    env:
+      BUNDLE_GEMFILE: spec/gemfiles/i18n-tasks.gemfile
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+
+    - name: Rubocop
+      run: |
+        bundle exec i18n-tasks health
