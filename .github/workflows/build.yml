@@ -113,9 +113,7 @@ jobs:
 
     - name: Install Node Packages via Yarn
       run: |
-        if [[ -z $THREDDED_TESTAPP_SPROCKETS_JS ]]; then
-          cd spec/dummy && yarn && cd -
-        fi
+        cd spec/dummy && yarn && cd -
 
     - name: "Run Tests: test:nojs"
       run: |
