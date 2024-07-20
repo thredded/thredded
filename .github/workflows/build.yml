@@ -117,6 +117,17 @@ jobs:
       run: |
         cd spec/dummy && yarn && cd -
 
+    - name: Restore Onebox Data and Views Cache
+      uses: actions/cache/restore@v4
+      id: restore-onebox-data-and-views
+      with:
+        path: |
+          tmp/cache/onebox-data
+          tmp/cache/onebox-views
+          spec/dummy/tmp/cache/onebox-data
+          spec/dummy/tmp/cache/onebox-views
+        key: onebox-data-and-views
+
     - name: "Run Tests: test:nojs"
       run: |
         SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
@@ -142,17 +153,16 @@ jobs:
     #   env:
     #     CC_TEST_REPORTER_ID: <code_climate_reporter_id>
 
-    # - name: Cache Onebox Data and Views
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: |
-    #       tmp/cache/onebox-data
-    #       tmp/cache/onebox-views
-    #       spec/dummy/tmp/cache/onebox-data
-    #       spec/dummy/tmp/cache/onebox-views
-    #     key: onebox-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.gemfile }}
-    #     restore-keys: |
-    #       onebox-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.gemfile }}
+    - name: Cache Onebox Data and Views Cache
+      uses: actions/cache/save@v4
+      id: cache-onebox-data-and-views
+      with:
+        path: |
+          tmp/cache/onebox-data
+          tmp/cache/onebox-views
+          spec/dummy/tmp/cache/onebox-data
+          spec/dummy/tmp/cache/onebox-views
+        key: ${{ steps.restore-onebox-data-and-views.outputs.cache-primary-key }}
 
   rubocop:
     runs-on: ubuntu-latest
