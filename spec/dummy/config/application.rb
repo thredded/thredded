@@ -27,7 +27,7 @@ end
 
 require 'web-console' if Rails.env.development?
 
-require 'webpacker' if Rails::VERSION::MAJOR >= 6 && ENV['THREDDED_TESTAPP_SPROCKETS_JS'] != '1'
+require 'webpacker' if Rails::VERSION::MAJOR >= 6
 
 module Dummy
   class Application < Rails::Application
@@ -80,7 +80,7 @@ module Dummy
     config.load_defaults("#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}") if config.respond_to?(:load_defaults)
 
     def self.thredded_testapp_webpack?
-      Rails::VERSION::MAJOR >= 6 && ENV['THREDDED_TESTAPP_SPROCKETS_JS'] != '1'
+      Rails::VERSION::MAJOR >= 6
     end
   end
 end

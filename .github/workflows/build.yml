@@ -1,0 +1,201 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # needs: [rubocop, i18n-tasks] # make sure rubocop and i18n-tasks runs first before running the test job
+
+    services:
+      postgresql:
+        image: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: thredded_gem_test
+          POSTGRES_USER: thredded
+          POSTGRES_PASSWORD: thredded
+
+      mysql2:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_HOST: "%"
+          MYSQL_DATABASE: thredded_gem_test
+          MYSQL_USER: thredded
+          MYSQL_PASSWORD: thredded
+          MYSQL_ROOT_PASSWORD: thredded
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+        ports:
+          - "3306:3306"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.7.8", "3.0.7", "3.1.6", "3.2.4", "3.3.4"]
+        node: ["14"]
+        rails_version: ["6.1", "7.0", "7.2", "edge"] # "rubocop", "i18n-tasks"
+        db: [sqlite3, postgresql, mysql2]
+        exclude:
+          # Not supported version combinations
+          - ruby: 2.7.8
+            rails_version: 7.2
+          - ruby: 3.0.7
+            rails_version: 7.2
+          - ruby: 2.7.8
+            rails_version: edge
+          - ruby: 3.0.7
+            rails_version: edge
+
+          # Logger Issues
+          - ruby: 3.3.4
+            rails_version: edge
+          - ruby: 3.3.4
+            rails_version: 7.2
+          - ruby: 3.2.4
+            rails_version: edge
+          - ruby: 3.2.4
+            rails_version: 7.2
+          - ruby: 3.1.6
+            rails_version: edge
+          - ruby: 3.1.6
+            rails_version: 7.2
+
+          # Psych issues
+          - ruby: 3.3.4
+            rails_version: 6.1
+          - ruby: 3.2.4
+            rails_version: 6.1
+          - ruby: 3.1.6
+            rails_version: 6.1
+
+
+        # include:
+        #   - ruby: 2.7
+        #     rails: rubocop
+        #     db: null
+        #   - ruby: 2.7
+        #     rails: i18n-tasks
+        #     db: null
+
+    env:
+      RAILS_ENV: test
+      COVERAGE: 1
+      FERRUM_DEFAULT_TIMEOUT: 20
+      BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
+      DB: ${{ matrix.db }}
+      DB_HOST: 127.0.0.1
+      DB_POOL: 5
+      DB_USERNAME: thredded
+      DB_PASSWORD: thredded
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true # install gems and cache
+
+    - uses: browser-actions/setup-chrome@v1
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: Install Node Packages via Yarn
+      run: |
+        cd spec/dummy && yarn && cd -
+
+    - name: Restore Onebox Data and Views Cache
+      uses: actions/cache/restore@v4
+      id: restore-onebox-data-and-views
+      with:
+        path: |
+          tmp/cache/onebox-data
+          tmp/cache/onebox-views
+          spec/dummy/tmp/cache/onebox-data
+          spec/dummy/tmp/cache/onebox-views
+        key: onebox-data-and-views
+
+    - name: "Run Tests: test:nojs"
+      run: |
+        SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
+
+    - name: "Run Tests: test:js"
+      run: |
+        SIMPLECOV_NAME="test:js" bundle exec rspec --force-color --format d --tag=js
+
+    - name: "Run Tests: spec/migrations"
+      run: |
+        MIGRATION_SPEC=1 SIMPLECOV_NAME="test:migrations" bundle exec rspec spec/migration --force-color --format d
+
+    - name: "Run Tests: spec/configuration/run_all"
+      run: |
+        spec/configuration/run_all
+
+    - name: "Run Tests: run_spec_repeatedly"
+      run: |
+        bin/run_specs_repeatedly --tag=threaded_render
+
+    # - name: Test & publish code coverage
+    #   uses: paambaati/codeclimate-action@v8.0.0
+    #   env:
+    #     CC_TEST_REPORTER_ID: <code_climate_reporter_id>
+
+    - name: Cache Onebox Data and Views Cache
+      uses: actions/cache/save@v4
+      id: cache-onebox-data-and-views
+      with:
+        path: |
+          tmp/cache/onebox-data
+          tmp/cache/onebox-views
+          spec/dummy/tmp/cache/onebox-data
+          spec/dummy/tmp/cache/onebox-views
+        key: ${{ steps.restore-onebox-data-and-views.outputs.cache-primary-key }}
+
+  rubocop:
+    runs-on: ubuntu-latest
+
+    env:
+      BUNDLE_GEMFILE: spec/gemfiles/rubocop.gemfile
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+
+    - name: Rubocop
+      run: |
+        bundle exec rubocop
+
+  i18n-tasks:
+    runs-on: ubuntu-latest
+
+    env:
+      BUNDLE_GEMFILE: spec/gemfiles/i18n-tasks.gemfile
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+
+    - name: Rubocop
+      run: |
+        bundle exec i18n-tasks health
