@@ -16,7 +16,7 @@ module Thredded
 
     # shim to behave like postable-related (though actually only ever related to topic)
     alias_attribute :postable_id, :topic_id
-    alias_attribute :postable, :topic
+    alias postable topic
 
     # Creates a follow or finds the existing one.
     #
