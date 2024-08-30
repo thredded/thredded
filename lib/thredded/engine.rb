@@ -20,5 +20,11 @@ module Thredded
         thredded_manifest.js
       ]
     end
+
+    config.after_initialize do |app|
+      if !app.assets.preprocessors.keys.include?("text/scss")
+        raise %(Thredded requires a Sass compiler to be registered in Sprockets. Please add "sassc-rails" or "dartsass-sprockets" to your application Gemfile.)
+      end
+    end
   end
 end
