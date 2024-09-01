@@ -29,7 +29,6 @@ require 'thredded/users_provider'
 require 'autoprefixer-rails'
 require 'timeago_js'
 require 'sprockets/es6'
-require 'sassc-rails'
 
 require 'thredded/version'
 require 'thredded/compat'
