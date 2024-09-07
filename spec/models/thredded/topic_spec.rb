@@ -395,5 +395,11 @@ module Thredded
       expect(topic.categories.size).to eq 1
       expect(topic.categories.first).to eq category
     end
+
+    it 'naver has nil last_post_at' do
+      topic = Topic.create!(messageboard_id: create(:messageboard).id, title: 'some title', user_id: create(:user).id)
+      expect(topic.reload.last_post_at).not_to be_nil
+      expect(topic.last_post_at).to be_within(1).of(topic.created_at)
+    end
   end
 end
