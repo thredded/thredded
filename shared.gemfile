@@ -25,7 +25,15 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 3.5.0'
+  gem 'capybara', '~> 3.0'
+  gem 'cuprite', '>= 0.5'
+  gem 'database_cleaner-active_record', '~> 2.0'
+  gem 'factory_bot', '>= 5.0.2'
+  gem 'faker', '>= 1.9.3'
+  gem 'launchy'
+  gem 'simplecov'
+  gem 'webmock'
 end
 
 gem 'db_text_search', github: 'thredded/db_text_search', branch: 'main'
@@ -33,3 +41,16 @@ gem 'thredded-markdown_coderay', git: 'https://github.com/thredded/thredded-mark
 gem 'thredded-markdown_katex', git: 'https://github.com/thredded/thredded-markdown_katex', branch: 'main'
 
 gem 'roadie-rails'
+
+# converted from gemspec development dependencies
+
+# dummy app dependencies
+gem 'http_accept_language'
+gem 'kaminari-i18n'
+gem 'puma'
+gem 'rails_email_preview', '>= 2.2.1'
+gem 'twemoji'
+gem 'web-console'
+
+# dummy app frontend
+gem 'turbolinks'
