@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded) [![Travis-CI](https://api.travis-ci.org/thredded/thredded.svg?branch=main)](https://travis-ci.org/thredded/thredded/) [![Test Coverage](https://codeclimate.com/github/thredded/thredded/badges/coverage.svg)](https://codeclimate.com/github/thredded/thredded/coverage) [![Inline docs](http://inch-ci.org/github/thredded/thredded.svg?branch=main)](http://inch-ci.org/github/thredded/thredded) [![Gitter](https://badges.gitter.im/thredded/thredded.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![CI](https://github.com/thredded/thredded/actions/workflows/build.yml/badge.svg)](https://github.com/thredded/thredded/actions/workflows/build.yml)
 
-_Thredded_ is a Rails 6.1+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
+_Thredded_ is a Rails 7.0+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
 
 Some of the features currently in Thredded:
 
@@ -23,7 +23,7 @@ Some of the features currently in Thredded:
 
 Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. Thredded has no infrastructure
 dependencies other than the database and, if configured in the parent application, the ActiveJob
-backend dependency such as Redis. Currently only MRI Ruby 2.2+ is supported. We would love to
+backend dependency such as Redis. Currently only MRI Ruby 3.1+ is supported. We would love to
 support JRuby and Rubinius as well.
 
 If you're looking for variations on a theme - see [Discourse]. However, It is a full rails
@@ -160,8 +160,9 @@ to Thredded.
 
 ## Rails compatibility
 
-| Rails  | Latest Thredded  |
-| ---------- |------------------|
+| Rails      | Latest Thredded  |
+|------------|------------------|
+| Rails 7.0+ | Thredded 1.2+    |
 | Rails 6.1+ | Thredded 1.1+    |
 | Rails 5.2  | Thredded 1.0.1   |
 | Rails 4.2  | Thredded 0.16.16 |
@@ -259,8 +260,7 @@ which are placed in the same order as in the source).
 
 <details><summary><b>Rails UJS version</b></summary>
 
-By default, thredded loads `rails-ujs`. If you're using Rails before v5.1, you need to add `rails-ujs` to
-your Gemfile.
+By default, thredded loads `rails-ujs`.
 
 If you'd like it to use `jquery_ujs` instead, run this command from your app directory:
 
