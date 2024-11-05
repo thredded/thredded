@@ -19,7 +19,8 @@ if ENV['LOG_SQL_TO_STDERR']
   ActiveRecord::Base.logger = Logger.new(STDERR)
   ActiveRecord::Base.logger.level = Logger::DEBUG
 elsif !ENV['CI']
-  ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+  ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+  ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger unless Thredded::Compat.rails_gte_71?
 end
 
 # Re-create the test database and run the migrations

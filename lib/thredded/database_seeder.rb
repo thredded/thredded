@@ -10,6 +10,7 @@ rescue NameError
 end
 # rubocop:enable HandleExceptions
 module Thredded
+  # rubocop:disable Metrics/MethodLength
   class DatabaseSeeder # rubocop:disable Metrics/ClassLength
     module LogTime
       def self.included(base)
@@ -60,8 +61,16 @@ module Thredded
     def self.with_seeder_tweaks
       # Disable callbacks to avoid creating notifications and performing unnecessary updates
       DISABLE_COUNTER_CACHE.each do |klass|
-        klass.send(:alias_method, :original_each_counter_cached_associations, :each_counter_cached_associations)
-        klass.send(:define_method, :each_counter_cached_associations) {}
+        if Thredded::Compat.rails_gte_72?
+          klass.class_eval do
+            class_attribute :original_counter_cached_association_names
+            self.original_counter_cached_association_names = counter_cached_association_names
+            self.counter_cached_association_names = []
+          end
+        else
+          klass.send(:alias_method, :original_each_counter_cached_associations, :each_counter_cached_associations)
+          klass.send(:define_method, :each_counter_cached_associations) {}
+        end
       end
       SKIP_CALLBACKS.each { |(klass, *args)| delete_callbacks(klass, *args) }
       WRITEABLE_READONLY_ATTRIBUTES.each { |(klass, attr)| klass.readonly_attributes.delete(attr) }
@@ -71,9 +80,19 @@ module Thredded
     ensure
       # Re-enable callbacks and counter cache
       DISABLE_COUNTER_CACHE.each do |klass|
-        klass.send(:remove_method, :each_counter_cached_associations)
-        klass.send(:alias_method, :each_counter_cached_associations, :original_each_counter_cached_associations)
-        klass.send(:remove_method, :original_each_counter_cached_associations)
+        if Thredded::Compat.rails_gte_72?
+          klass.class_eval do
+            unless defined?(original_counter_cached_association_names)
+              class_attribute :original_counter_cached_association_names
+            end
+            self.original_counter_cached_association_names = counter_cached_association_names
+            self.counter_cached_association_names = original_counter_cached_association_names
+          end
+        else
+          klass.send(:remove_method, :each_counter_cached_associations)
+          klass.send(:alias_method, :each_counter_cached_associations, :original_each_counter_cached_associations)
+          klass.send(:remove_method, :original_each_counter_cached_associations)
+        end
       end
       SKIP_CALLBACKS.each do |(klass, *args)|
         args = args.dup
@@ -175,7 +194,8 @@ module Thredded
       end
     end
 
-    log_method_time def update_messageboards_data(**) # `**` for Ruby < 2.5, see https://bugs.ruby-lang.org/issues/10856
+    log_method_time def update_messageboards_data(**)
+      # `**` for Ruby < 2.5, see https://bugs.ruby-lang.org/issues/10856
       log 'Updating messageboards data...'
       Messageboard.all.each do |messageboard|
         messageboard.update_last_topic!
@@ -330,7 +350,8 @@ module Thredded
     class FirstMessageboard < FirstSeedData
       MODEL_CLASS = Messageboard
 
-      log_method_time def create(**) # `**` for Ruby < 2.5, see https://bugs.ruby-lang.org/issues/10856
+      log_method_time def create(**)
+        # `**` for Ruby < 2.5, see https://bugs.ruby-lang.org/issues/10856
         log 'Creating a messageboard...'
         @first_messageboard = FactoryBot.create(
           :messageboard,
@@ -384,7 +405,8 @@ module Thredded
     class Posts < CollectionSeedData
       MODEL_CLASS = Post
 
-      log_method_time def create(count: (1..1), topics: seeder.topics) # rubocop:disable Metrics/MethodLength
+      log_method_time def create(count: (1..1), topics: seeder.topics)
+        # rubocop:disable Metrics/MethodLength
         log "Creating #{count} additional posts in each topic..."
         topics.flat_map do |topic|
           last_post_at = random_duration(0..256.hours).ago
@@ -446,4 +468,5 @@ module Thredded
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
