@@ -144,8 +144,8 @@ Capybara.register_driver(:cuprite) do |app|
     browser_options: browser_options,
     # Increase Chrome startup wait time (required for stable CI builds)
     process_timeout: 20,
-    # Enable debugging capabilities
-    inspector: true,
+    # Enable debugging capabilities (except on CI)
+    inspector: !ENV['CI'],
     # Allow running Chrome in a headful mode by setting HEADLESS env
     # var to a falsey value
     headless: !ENV['HEADLESS'].in?(%w[n 0 no false])
