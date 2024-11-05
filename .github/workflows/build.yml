@@ -75,6 +75,7 @@ jobs:
       RAILS_ENV: test
       COVERAGE: 1
       FERRUM_DEFAULT_TIMEOUT: 20
+      FERRUM_PROCESS_TIMEOUT: 20
       BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
       DB: ${{ matrix.db }}
       DB_HOST: 127.0.0.1
