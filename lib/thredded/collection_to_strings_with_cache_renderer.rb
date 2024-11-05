@@ -60,16 +60,16 @@ module Thredded
       digest_path = digest_path_from_template(view, template)
 
       collection.each_with_object([{}, []]) do |item, (hash, ordered_keys)|
-        key = expanded_cache_key(item, view, template, digest_path)
+        key = expanded_cache_key(item, view, digest_path)
         ordered_keys << key
         hash[key] = item
       end
     end
 
-    def expanded_cache_key(key, view, template, digest_path)
+    def expanded_cache_key(key, view, digest_path)
       key = combined_fragment_cache_key(
         view,
-        cache_fragment_name(view, key, virtual_path: template.virtual_path, digest_path: digest_path)
+        cache_fragment_name(view, key, digest_path: digest_path)
       )
       key.frozen? ? key.dup : key # #read_multi & #write may require mutability, Dalli 2.6.0.
     end
@@ -126,7 +126,7 @@ module Thredded
       view.combined_fragment_cache_key(key)
     end
 
-    def cache_fragment_name(view, key, virtual_path:, digest_path:)
+    def cache_fragment_name(view, key, digest_path:)
       view.cache_fragment_name(key, digest_path: digest_path)
     end
 
