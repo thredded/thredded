@@ -80,6 +80,14 @@ Table of Contents
 
 ### Creating a new Rails app with Thredded
 
+> [!CAUTION]
+> Please add thredded_create_app is currently out of date and needs contributors to fix it - it won't work with the latest thredded. See https://github.com/thredded/thredded_create_app if you can contribute.
+
+<details>
+<summary>
+View the outdated instructions
+</summary>
+
 Thredded provides an app generator that will generate a Rails app with Thredded, Devise, SimpleForm, RSpec,
 PostgreSQL, and a basic theme and navigation that is configured to work out of the box.
 
@@ -93,6 +101,8 @@ See `thredded_create_app --help` and the [thredded_create_app repo] to learn abo
 Then, see the rest of this Readme for more information about using and customizing Thredded.
 
 [thredded_create_app repo]: https://github.com/thredded/thredded_create_app
+
+</details>
 
 ### Adding Thredded to an existing Rails app
 
