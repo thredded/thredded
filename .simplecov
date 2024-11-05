@@ -11,5 +11,5 @@ SimpleCov.start do
   add_group 'Policies', 'app/policies'
   add_group 'View models', 'app/view_models'
   add_group 'Lib', 'lib/'
-  formatter SimpleCov::Formatter::HTMLFormatter unless ENV['TRAVIS']
+  formatter SimpleCov::Formatter::HTMLFormatter unless ENV['CI']
 end

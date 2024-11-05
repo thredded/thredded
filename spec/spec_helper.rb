@@ -18,7 +18,7 @@ if ENV['LOG_SQL_TO_STDERR']
   Rails.logger.level = Logger::WARN
   ActiveRecord::Base.logger = Logger.new(STDERR)
   ActiveRecord::Base.logger.level = Logger::DEBUG
-elsif !ENV['TRAVIS']
+elsif !ENV['CI']
   ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
 end
 
