@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+gemspec path: '../../'
+eval_gemfile '../../shared.gemfile'
+
+gem 'rails', '~> 8.0.0'
+gem 'rails-i18n', github: 'Shopify/rails-i18n', branch: 'schwad_rails_8'
+# waiting for https://github.com/svenfuchs/rails-i18n/pull/1130 to be merged
+
+# TODO: create a new rails 7 version of dummy (probably in parallel) using import-maps ?
+gem 'webpacker', '~> 5.0'
+
+# https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L13
+gem 'sqlite3', '>= 2.1'
+
+# https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L4
+gem 'pg', '~> 1.1'
+
+# https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
+gem 'mysql2', '~> 0.5'
