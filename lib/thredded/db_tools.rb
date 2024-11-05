@@ -10,7 +10,7 @@ module Thredded
         verbose_was = ActiveRecord::Migration.verbose
         ActiveRecord::Migration.verbose = !quiet
         migrate =
-          -> { ActiveRecord::MigrationContext.new(paths, ActiveRecord::SchemaMigration).migrate(nil, &filter) }
+          -> { ActiveRecord::MigrationContext.new(paths).migrate(nil, &filter) }
         if quiet
           silence_active_record(&migrate)
         else
