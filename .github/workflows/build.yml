@@ -49,7 +49,7 @@ jobs:
       fail-fast: false
       matrix:
         node: ["14"]
-        rails_version: ["7.0", "7.1", "7.2", "8.0"]
+        rails_version: ["7.0", "7.1", "7.2", "8.0", "edge"]
         db: [sqlite3, postgresql, mysql2]
         include:
           # one ruby per rails - to cut down noise, we can add variety if there's a reason
@@ -61,6 +61,8 @@ jobs:
             ruby: 3.2
           - rails_version: 8.0
             ruby: 3.3
+          - rails_version: edge
+            ruby: 3.4
 
     env:
       RAILS_ENV: test
