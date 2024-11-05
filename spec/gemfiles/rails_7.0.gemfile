@@ -14,7 +14,7 @@ gem 'webpacker', '~> 5.0'
 gem 'sqlite3', '~> 1.4'
 
 # https://github.com/rails/rails/blob/v7.0.2/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L4
-gem 'pg'
+gem 'pg', '~> 1.1'
 
 # https://github.com/rails/rails/blob/v7.0.2/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
 gem 'mysql2', '~> 0.5'

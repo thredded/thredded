@@ -11,10 +11,10 @@ gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'
 gem 'webpacker', '~> 5.0'
 
 # https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L13
-gem 'sqlite3', '~> 1.4'
+gem 'sqlite3', '>= 2.1'
 
 # https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L4
-gem 'pg'
+gem 'pg', '~> 1.1'
 
 # https://github.com/rails/rails/blob/main/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
 gem 'mysql2', '~> 0.5'
