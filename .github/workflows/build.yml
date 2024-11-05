@@ -46,7 +46,7 @@ jobs:
         node: ["14"]
         rails_version: ["7.0", "7.2", "edge"] # TODO: add "7.1",
         db: [sqlite3, postgresql, mysql2]
-        exclude:
+#        exclude:
           # Not supported version combinations
 
           # Logger Issues
