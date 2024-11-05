@@ -154,6 +154,12 @@ Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, **options)
 end
 
+RSpec.configure do |config|
+  config.before :each, type: :feature, js: true do
+    # page.driver.browser.url_blacklist = %r{https://twemoji.maxcdn.com}
+    page.driver.browser.url_whitelist = %r{http://127.0.0.1:\d+}
+  end
+end
 Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER']&.to_sym || :cuprite
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow
