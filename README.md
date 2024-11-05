@@ -26,7 +26,7 @@ dependencies other than the database and, if configured in the parent applicatio
 backend dependency such as Redis. Currently only MRI Ruby 3.1+ is supported. We would love to
 support JRuby and Rubinius as well.
 
-If you're looking for variations on a theme - see [Discourse]. However, It is a full rails
+If you're looking for variations on a theme - see [Discourse]. However, it is a full rails
 application and not an engine like Thredded.
 
 [Discourse]: http://www.discourse.org/
