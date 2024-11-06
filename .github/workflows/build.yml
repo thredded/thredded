@@ -157,6 +157,14 @@ jobs:
       run: |
         bin/run_specs_repeatedly --tag=threaded_render
 
+    - name: Upload capybara screenshots as artifacts after failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: capybara-rails${{ matrix.rails_version }}-ruby${{ matrix.ruby }}-${{ matrix.db }}
+        path: /home/runner/work/thredded/thredded/spec/dummy/tmp/capybara/
+        retention-days: 7
+
     # - name: Test & publish code coverage
     #   uses: paambaati/codeclimate-action@v8.0.0
     #   env:
