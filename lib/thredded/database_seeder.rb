@@ -195,7 +195,6 @@ module Thredded
     end
 
     log_method_time def update_messageboards_data(**)
-      # `**` for Ruby < 2.5, see https://bugs.ruby-lang.org/issues/10856
       log 'Updating messageboards data...'
       Messageboard.all.each do |messageboard|
         messageboard.update_last_topic!
@@ -351,7 +350,6 @@ module Thredded
       MODEL_CLASS = Messageboard
 
       log_method_time def create(**)
-        # `**` for Ruby < 2.5, see https://bugs.ruby-lang.org/issues/10856
         log 'Creating a messageboard...'
         @first_messageboard = FactoryBot.create(
           :messageboard,

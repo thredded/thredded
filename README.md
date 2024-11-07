@@ -170,12 +170,13 @@ to Thredded.
 
 ## Rails compatibility
 
-| Rails      | Latest Thredded  |
-|------------|------------------|
-| Rails 7.0+ | Thredded 1.2+    |
-| Rails 6.1+ | Thredded 1.1+    |
-| Rails 5.2  | Thredded 1.0.1   |
-| Rails 4.2  | Thredded 0.16.16 |
+| Rails      | Latest Thredded   |
+|------------|-------------------|
+| Rails 7.0+ | Thredded 1.2+     |
+| Rails 6.1  | Thredded 1.1      |
+| Rails 6.0  | Thredded 1.1      |
+| Rails 5.2  | Thredded 1.0.1    |
+| Rails 4.2  | Thredded 0.16.16  |
 
 
 ## Views and other assets
