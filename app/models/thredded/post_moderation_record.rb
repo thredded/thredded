@@ -4,11 +4,7 @@ module Thredded
   class PostModerationRecord < ActiveRecord::Base
     include Thredded::ModerationState
 
-    if Thredded::Compat.rails_gte_7?
-      enum :previous_moderation_state, moderation_states, prefix: :previous
-    else
-      enum previous_moderation_state: moderation_states, _prefix: :previous
-    end
+    enum :previous_moderation_state, moderation_states, prefix: :previous
 
     validates :previous_moderation_state, presence: true
 

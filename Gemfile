@@ -2,14 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0.0'
-gem 'rails-i18n', '~> 7.0.0'
-
-gem 'webpacker', '~> 5.0'
-
-gemspec
-
-eval_gemfile File.expand_path('shared.gemfile', __dir__)
+eval_gemfile File.expand_path('spec/gemfiles/rails_7.0.gemfile', __dir__)
 eval_gemfile File.expand_path('rubocop.gemfile', __dir__)
 eval_gemfile File.expand_path('i18n-tasks.gemfile', __dir__)
 

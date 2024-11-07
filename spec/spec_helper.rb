@@ -18,8 +18,9 @@ if ENV['LOG_SQL_TO_STDERR']
   Rails.logger.level = Logger::WARN
   ActiveRecord::Base.logger = Logger.new(STDERR)
   ActiveRecord::Base.logger.level = Logger::DEBUG
-elsif !ENV['TRAVIS']
-  ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+elsif !ENV['CI']
+  ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", 'w'))
+  ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger unless Thredded::Compat.rails_gte_71?
 end
 
 # Re-create the test database and run the migrations
@@ -143,9 +144,9 @@ Capybara.register_driver(:cuprite) do |app|
     window_size: [1280, 1024],
     browser_options: browser_options,
     # Increase Chrome startup wait time (required for stable CI builds)
-    process_timeout: 10,
-    # Enable debugging capabilities
-    inspector: true,
+    process_timeout: ENV['CI'] ? 60 : 20,
+    # Enable debugging capabilities (except on CI)
+    inspector: !ENV['CI'],
     # Allow running Chrome in a headful mode by setting HEADLESS env
     # var to a falsey value
     headless: !ENV['HEADLESS'].in?(%w[n 0 no false])
@@ -154,6 +155,12 @@ Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, **options)
 end
 
+RSpec.configure do |config|
+  config.before :each, type: :feature, js: true do
+    # page.driver.browser.url_blacklist = %r{https://twemoji.maxcdn.com}
+    page.driver.browser.url_whitelist = %r{http://127.0.0.1:\d+}
+  end
+end
 Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER']&.to_sym || :cuprite
 Capybara.configure do |config|
   # bump from the default of 2 seconds because travis can be slow

@@ -18,7 +18,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
 
   s.files = Dir['{app,bin,config,db,lib,vendor}/**/*'] + %w[MIT-LICENSE README.md]
 
-  s.required_ruby_version = '>= 2.1', '< 4.0'
+  s.required_ruby_version = '>= 3.1', '< 4.0'
 
   # backend
   s.add_dependency 'active_record_union', '>= 1.3.0'
@@ -29,7 +29,7 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'kaminari'
   s.add_dependency 'nokogiri'
   s.add_dependency 'pundit', '>= 1.1.0'
-  s.add_dependency 'rails', '> 6.0.0.rc2'
+  s.add_dependency 'rails', '>= 7.0'
   s.add_dependency 'rails_gravatar'
 
   # post rendering
@@ -47,36 +47,4 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.add_dependency 'autoprefixer-rails'
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'timeago_js', '>= 3.0.2.2'
-
-  # test dependencies
-  s.add_development_dependency 'capybara', '~> 3.0'
-  s.add_development_dependency 'capybara-screenshot'
-  s.add_development_dependency 'cuprite', '>= 0.5'
-  s.add_development_dependency 'database_cleaner-active_record', '~> 2.0'
-  s.add_development_dependency 'factory_bot', '>= 5.0.2'
-  s.add_development_dependency 'faker', '>= 1.9.3'
-  s.add_development_dependency 'launchy'
-  s.add_development_dependency 'rails-controller-testing'
-  s.add_development_dependency 'rspec-rails', '>= 3.5.0'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'webmock'
-
-  # dummy app dependencies
-  s.add_development_dependency 'http_accept_language'
-  s.add_development_dependency 'kaminari-i18n'
-  s.add_development_dependency 'mysql2'
-  s.add_development_dependency 'pg'
-  s.add_development_dependency 'puma'
-  s.add_development_dependency 'rails-i18n'
-  s.add_development_dependency 'rails_email_preview', '>= 2.2.1'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'twemoji'
-  s.add_development_dependency 'web-console'
-
-  # add some plugins to the dummy app demo
-  s.add_development_dependency 'thredded-markdown_coderay'
-  s.add_development_dependency 'thredded-markdown_katex'
-
-  # dummy app frontend
-  s.add_development_dependency 'turbolinks'
 end

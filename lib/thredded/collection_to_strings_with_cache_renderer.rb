@@ -60,16 +60,16 @@ module Thredded
       digest_path = digest_path_from_template(view, template)
 
       collection.each_with_object([{}, []]) do |item, (hash, ordered_keys)|
-        key = expanded_cache_key(item, view, template, digest_path)
+        key = expanded_cache_key(item, view, digest_path)
         ordered_keys << key
         hash[key] = item
       end
     end
 
-    def expanded_cache_key(key, view, template, digest_path)
+    def expanded_cache_key(key, view, digest_path)
       key = combined_fragment_cache_key(
         view,
-        cache_fragment_name(view, key, virtual_path: template.virtual_path, digest_path: digest_path)
+        cache_fragment_name(view, key, digest_path: digest_path)
       )
       key.frozen? ? key.dup : key # #read_multi & #write may require mutability, Dalli 2.6.0.
     end
@@ -106,22 +106,15 @@ module Thredded
       end
     end
 
-    if Thredded::Compat.rails_gte_61?
-      # @param [Array<Object>] collection
-      # @param [Hash] opts
-      # @param view_context
-      # @return [Array<String>]
-      def render_partials_serial(view_context, collection, opts)
-        # https://github.com/rails/rails/pull/38594
-        collection.map do |object|
-          renderer = ActionView::ObjectRenderer.new(@lookup_context, opts)
-          renderer.render_object_with_partial(object, opts[:partial], view_context, nil).body
-        end
-      end
-    else
-      def render_partials_serial(view_context, collection, opts)
-        partial_renderer = ActionView::PartialRenderer.new(@lookup_context)
-        collection.map { |object| render_partial(partial_renderer, view_context, **opts.merge(object: object)) }
+    # @param [Array<Object>] collection
+    # @param [Hash] opts
+    # @param view_context
+    # @return [Array<String>]
+    def render_partials_serial(view_context, collection, opts)
+      # https://github.com/rails/rails/pull/38594
+      collection.map do |object|
+        renderer = ActionView::ObjectRenderer.new(@lookup_context, opts)
+        renderer.render_object_with_partial(object, opts[:partial], view_context, nil).body
       end
     end
 
@@ -133,12 +126,8 @@ module Thredded
       view.combined_fragment_cache_key(key)
     end
 
-    def cache_fragment_name(view, key, virtual_path:, digest_path:)
-      if Thredded::Compat.rails_gte_61?
-        view.cache_fragment_name(key, digest_path: digest_path)
-      else
-        view.cache_fragment_name(key, virtual_path: virtual_path, digest_path: digest_path)
-      end
+    def cache_fragment_name(view, key, digest_path:)
+      view.cache_fragment_name(key, digest_path: digest_path)
     end
 
     def digest_path_from_template(view, template)
