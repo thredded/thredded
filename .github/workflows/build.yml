@@ -121,7 +121,8 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
-
+        cache: "yarn"
+        cache-dependency-path: 'spec/dummy/yarn.lock'
     - name: Install Node Packages via Yarn
       run: |
         cd spec/dummy && yarn && cd -
