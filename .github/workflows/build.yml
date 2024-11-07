@@ -14,8 +14,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # needs: [rubocop, i18n-tasks] # make sure rubocop and i18n-tasks runs first before running the test job
-
     services:
       postgresql:
         image: postgres
@@ -98,28 +96,6 @@ jobs:
           # Not supported version combinations
           - ruby: 3.1
             rails_version: edge
-
-          # Logger Issues
-#          - ruby: 3.3
-#            rails_version: edge
-#          - ruby: 3.3
-#            rails_version: 7.2
-#          - ruby: 3.2
-#            rails_version: edge
-#          - ruby: 3.2
-#            rails_version: 7.2
-#          - ruby: 3.1
-#            rails_version: edge
-#          - ruby: 3.1
-#            rails_version: 7.2
-
-          # Psych issues
-#          - ruby: 3.3
-#            rails_version: 6.1
-#          - ruby: 3.2
-#            rails_version: 6.1
-#          - ruby: 3.1
-#            rails_version: 6.1
 
     env:
       RAILS_ENV: test
