@@ -40,7 +40,7 @@ gem 'db_text_search', github: 'thredded/db_text_search', branch: 'main'
 gem 'thredded-markdown_coderay', git: 'https://github.com/thredded/thredded-markdown_coderay', branch: 'main'
 gem 'thredded-markdown_katex', git: 'https://github.com/thredded/thredded-markdown_katex', branch: 'main'
 
-gem 'roadie-rails'
+gem 'roadie-rails', github: 'thredded/roadie-rails', branch: 'allow-rails-8'
 
 # converted from gemspec development dependencies
 
