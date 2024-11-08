@@ -82,10 +82,6 @@ module Thredded
       DISABLE_COUNTER_CACHE.each do |klass|
         if Thredded::Compat.rails_gte_72?
           klass.class_eval do
-            unless defined?(original_counter_cached_association_names)
-              class_attribute :original_counter_cached_association_names
-            end
-            self.original_counter_cached_association_names = counter_cached_association_names
             self.counter_cached_association_names = original_counter_cached_association_names
           end
         else
