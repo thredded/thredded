@@ -70,18 +70,19 @@ Dir[Rails.root.join('..', '..', 'spec', 'support', '**', '*.rb')].each { |f| req
 
 RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
   config.filter_run_excluding migration_spec: !ENV['MIGRATION_SPEC'], configuration_spec: !ENV['CONFIGURATION_SPEC']
+  config.use_transactional_fixtures = !ENV['MIGRATION_SPEC']
   config.infer_spec_type_from_file_location!
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
 
   if ENV['MIGRATION_SPEC']
     config.before(:each, migration_spec: true) do
-      DatabaseCleaner.strategy = :transaction unless /mysql/i.match?(Thredded::DbTools.adapter)
-      DatabaseCleaner.start unless /mysql/i.match?(Thredded::DbTools.adapter)
+      DatabaseCleaner.strategy = :transaction unless ThreddedSpecSupport.using_mysql?
+      DatabaseCleaner.start unless ThreddedSpecSupport.using_mysql?
     end
 
     config.after(:each, migration_spec: true) do
-      if /mysql/i.match?(Thredded::DbTools.adapter)
+      if ThreddedSpecSupport.using_mysql?
         ActiveRecord::Tasks::DatabaseTasks.drop_current
         ActiveRecord::Tasks::DatabaseTasks.create_current
         Thredded::DbTools.restore
@@ -89,40 +90,14 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
         DatabaseCleaner.clean
       end
     end
-  else
-    config.before(:suite) do
-      Thredded::DbTools.silence_active_record do
-        # TODO: drop database cleaner and use Rails system specs
-        DatabaseCleaner.clean_with(:truncation)
-      end
-      ActiveJob::Base.queue_adapter = :inline
-    end
+  end
 
-    config.before do
-      DatabaseCleaner.strategy = :transaction
-    end
+  config.before(:suite) do
+    ActiveJob::Base.queue_adapter = :inline
+  end
 
-    config.before(:each, type: :feature) do
-      # :rack_test driver's Rack app under test shares database connection
-      # with the specs, so continue to use transaction strategy for speed.
-      shared_db_connection = Capybara.current_driver == :rack_test
-
-      unless shared_db_connection
-        # Driver is probably for an external browser with an app
-        # under test that does *not* share a database connection with the
-        # specs, so use truncation strategy.
-        DatabaseCleaner.strategy = :truncation, { cache_tables: true }
-      end
-    end
-
-    config.before do
-      Time.zone = 'UTC'
-      DatabaseCleaner.start
-    end
-
-    config.append_after do
-      DatabaseCleaner.clean
-    end
+  config.before do
+    Time.zone = 'UTC'
   end
 end
 
