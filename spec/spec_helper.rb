@@ -77,12 +77,12 @@ RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
 
   if ENV['MIGRATION_SPEC']
     config.before(:each, migration_spec: true) do
-      DatabaseCleaner.strategy = :transaction unless /mysql/i.match?(Thredded::DbTools.adapter)
-      DatabaseCleaner.start unless /mysql/i.match?(Thredded::DbTools.adapter)
+      DatabaseCleaner.strategy = :transaction unless ThreddedSpecSupport.using_mysql?
+      DatabaseCleaner.start unless ThreddedSpecSupport.using_mysql?
     end
 
     config.after(:each, migration_spec: true) do
-      if /mysql/i.match?(Thredded::DbTools.adapter)
+      if ThreddedSpecSupport.using_mysql?
         ActiveRecord::Tasks::DatabaseTasks.drop_current
         ActiveRecord::Tasks::DatabaseTasks.create_current
         Thredded::DbTools.restore
