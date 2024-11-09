@@ -5,7 +5,10 @@ gemspec path: '../../'
 eval_gemfile '../../shared.gemfile'
 
 gem 'rails', '~> 8.0.0'
+# TODO: need to depend on a rails 8.0 supporting release version of rails-i18n
 gem 'rails-i18n', github: 'Shopify/rails-i18n', branch: 'schwad_rails_8'
+# TODO: need to depend on a rails 8.0 supporting release version of active_record_union
+gem 'active_record_union', github: 'thredded/active_record_union', branch: 'master'
 # waiting for https://github.com/svenfuchs/rails-i18n/pull/1130 to be merged
 
 # TODO: create a new rails 7 version of dummy (probably in parallel) using import-maps ?
