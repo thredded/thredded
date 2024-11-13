@@ -50,7 +50,7 @@ jobs:
       matrix:
         ruby: ["3.1", "3.2", "3.3"]
         node: ["14"]
-        rails_version: ["7.0", "7.1", "7.2"]
+        rails_version: ["7.0", "7.1", "7.2", "8.0"]
         db: [sqlite3, postgresql, mysql2]
         exclude:
           # Not needed version combinations (just to cut down on noise)
@@ -78,10 +78,16 @@ jobs:
           - ruby: 3.2
             rails_version: 7.0
             db: sqlite3
+          - ruby: 3.2
+            rails_version: 8.0
+            db: sqlite3
+          - ruby: 3.2
+            rails_version: 8.0
+            db: mysql2
           - ruby: 3.3
             rails_version: edge
 
-          # 3.3 on edge mainly
+          # 3.3 on 8.0/edge mainly
           - ruby: 3.3
             rails_version: 7.0
           - ruby: 3.3
@@ -94,6 +100,8 @@ jobs:
             db: mysql2
 
           # Not supported version combinations
+          - ruby: 3.1
+            rails_version: 8.0
           - ruby: 3.1
             rails_version: edge
 

@@ -69,6 +69,7 @@ end
 Dir[Rails.root.join('..', '..', 'spec', 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config| # rubocop:disable Metrics/BlockLength
+  config.backtrace_inclusion_patterns << %r{gems/([0-9.])+/gems/(?!rspec|capybara)} if ENV['BACKTRACE']
   config.filter_run_excluding migration_spec: !ENV['MIGRATION_SPEC'], configuration_spec: !ENV['CONFIGURATION_SPEC']
   config.use_transactional_fixtures = !ENV['MIGRATION_SPEC']
   config.infer_spec_type_from_file_location!
