@@ -1,0 +1,284 @@
+---
+uk:
+  thredded:
+    content_moderation_states:
+      content_blocked_notice: Заблоковано
+      content_blocked_notice_with_record_html: Заблоковано користувачем %{moderator} %{time_ago}
+    email_notifier:
+      by_email: електронною поштою
+    emails:
+      message_notification:
+        html:
+          email_sent_reason_html: >-
+            Цей електронний лист надіслано вам, оскільки %{user} включив вас до приватної теми "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: 'Нове повідомлення від %{user} в <a href="%{post_url}">«%{topic_title}»</a>:'
+          unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
+        subject: Нове повідомлення від %{user} в «%{topic_title}»
+        text:
+          email_sent_reason: |-
+            Цей електронний лист надіслано вам, оскільки %{user} включив вас до
+            приватної теми «%{topic_title}».
+
+            Перейдіть сюди, щоб переглянути розмову:
+            %{post_url}
+          post_lead: 'Нове повідомлення від %{user} в «%{topic_title}»:'
+          unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
+      post_notification:
+        html:
+          email_sent_reason_html: >-
+            Цей електронний лист надіслано вам, оскільки ви стежите за цією темою: "<a href="%{post_url}">%{topic_title}</a>".
+          post_lead_html: '%{user} <a href="%{post_url}">написав у «%{topic_title}»</a>:'
+          unsubscribe_instructions_html: Щоб відписатися від цих електронних листів, оновіть свої <a href="%{preferences_url}">налаштування</a>.
+        subject: Новий допис у «%{topic_title}»
+        text:
+          email_sent_reason: |-
+            Цей електронний лист надіслано вам, оскільки ви стежите за
+            темою «%{topic_title}».
+
+            Перейдіть сюди, щоб переглянути розмову:
+            %{post_url}
+          post_lead: "%{user} написав у «%{topic_title}»:"
+          unsubscribe_instructions: |-
+            Щоб відписатися від цих електронних листів, оновіть свої налаштування тут:
+            %{unsubscribe_url}
+    errors:
+      login_required: Будь ласка, увійдіть спочатку.
+      not_authorized: Ви не маєте дозволу на доступ до цієї сторінки.
+      post_not_found: Цей допис не існує.
+      private_post_not_found: Це приватне повідомлення не існує.
+      private_topic_create_denied: Ви не маєте дозволу на створення приватних тем.
+      private_topic_not_found: Ця приватна тема не існує.
+      topic_not_found: Ця тема не існує.
+    form:
+      create_btn_submitting: Створення...
+      preview: Попередній перегляд
+      update: Оновити
+      update_btn_submitting: Оновлення...
+    messageboard:
+      create: Створити нову дошку повідомлень
+      deleted_notice: Дошку повідомлень видалено
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
+        delete: Видалити дошку повідомлень
+        delete_confirm: >-
+          Це видалить дошку повідомлень %{messageboard_name} та всі її дописи. Ви не зможете відновити її. Ви впевнені,
+          що хочете це зробити?
+        description_label: Опис
+        locked_label: Заблоковано
+        locked_notice: Ця дошка повідомлень заблокована. Лише модератори можуть створювати нові теми тут.
+        messageboard_group_id_label: Група дошки повідомлень
+        no_group: Без групи
+        title_label: Назва
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      index:
+        page_title: Дошки повідомлень
+      last_updated_by_html: Оновлено %{time_ago} <cite>користувачем %{user}</cite>
+      topics_and_posts_counts: "%{posts_count} дописів у %{topics_count} темах"
+      topics_and_unread_topics_counts: "%{unread_topics_count} непрочитаних з %{topics_count} тем"
+      update: :thredded.form.update
+      updated_notice: Дошку повідомлень оновлено
+    messageboard_first_topic:
+      content: |-
+        Поки що тут не так багато.
+
+        Ці форуми працюють на [Thredded](https://github.com/thredded/thredded) v%{thredded_version}.
+        Ви можете зв'язатися з командою Thredded через [чат-кімнату Thredded](https://gitter.im/thredded/thredded).
+        Будь ласка, повідомте нам, що ви використовуєте Thredded, твітнувши [@thredded](https://twitter.com/thredded)!
+      title: Ласкаво просимо до першої теми вашої дошки повідомлень
+    messageboard_group:
+      create: Створити нову групу дошок повідомлень
+      form:
+        create_btn_submitting: :thredded.form.create_btn_submitting
+      saved: Групу дошок повідомлень %{name} створено
+      show:
+        page_title: 'Група дошок повідомлень: %{name}'
+    moderation:
+      approve_btn: Схвалити
+      block_btn: Заблокувати
+      moderation_state:
+        name: Стан модерації
+      pending:
+        empty:
+          content: Усі дописи пройшли модерацію.
+          title: Гарна робота!
+      post_approved_html: Допис схвалено користувачем %{moderator} %{time_ago}.
+      post_blocked_html: Допис заблоковано користувачем %{moderator} %{time_ago}.
+      post_deleted_notice: Цей допис було видалено.
+      posts_content_changed_since_moderation_html: Вміст <a href="%{post_url}">допису</a> змінився після модерації.
+        Нижче наведено вміст на момент модерації.
+      search_users:
+        form_label: Пошук користувачів
+        form_placeholder: :thredded.moderation.search_users.form_label
+        no_results_message: Немає користувачів, ім'я яких починається з %{query}
+        results_message: Користувачі з іменами, що починаються з %{query}
+      user:
+        name: Користувач
+    nav:
+      all_messageboards: Усі дошки повідомлень
+      edit_messageboard: Редагувати дошку повідомлень
+      edit_post: Редагувати допис
+      edit_private_topic: :thredded.nav.edit_topic
+      edit_topic: Редагувати
+      mark_all_read: Позначити все як прочитане
+      moderation: Модерація
+      moderation_activity: Активність
+      moderation_history: Історія
+      moderation_pending: Очікує
+      moderation_users: Користувачі
+      private_topics: Приватні повідомлення
+      settings: Налаштування сповіщень
+      sign_in: Увійти / Зареєструватися
+      sign_out: Вийти
+      unread_topics: Непрочитані
+    null_user_name: Видалений користувач
+    posts:
+      delete: Видалити допис
+      delete_confirm: Ви впевнені, що хочете видалити цей допис?
+      deleted_notice: Ваш допис видалено.
+      edit: :thredded.nav.edit_post
+      form:
+        content_label: Вміст
+        create_btn: Надіслати відповідь
+        create_btn_submitting: Публікація...
+        title_label: Додати допис
+        update_btn: Оновити допис
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      pending_moderation_notice: Ваш допис буде опубліковано після перевірки модератором.
+      quote_btn: Цитувати
+      spoiler_summary: Спойлер - натисніть, щоб показати.
+      spoiler_summary_for_email: 'Спойлер - виділіть вміст нижче, щоб побачити:'
+    preferences:
+      edit:
+        page_title: :thredded.nav.settings
+      form:
+        auto_follow_topics:
+          hint: Автоматично стежити за всіма новими темами. Зміна цього налаштування змінить його для всіх дошок
+            повідомлень.
+          label: Стежити за всіма новими темами
+        follow_topics_on_mention:
+          hint: 'Коли хтось згадує вас за вашим ім''ям користувача (наприклад: @sam), ви будете стежити за темою.'
+          label: Стежити за темами, в яких вас згадують
+        messageboard_auto_follow_topics:
+          hint: >-
+            Автоматично стежити за всіма новими темами на цій дошці повідомлень. Це перевизначає відповідне налаштування
+            вище.
+          label: Стежити за всіма новими темами
+        messageboard_follow_topics_on_mention:
+          hint: >-
+            Коли хтось згадує вас за вашим ім'ям користувача (наприклад: @sam) на цій дошці повідомлень, ви будете
+            стежити за темою.
+          label: :thredded.preferences.form.follow_topics_on_mention.label
+        messageboard_notifications_for_followed_topics:
+          label: :thredded.preferences.form.notifications_for_followed_topics.label
+        notifications_for_followed_topics:
+          label: Сповіщення для тем, за якими ви стежите
+        notifications_for_private_topics:
+          label: Сповіщення для приватних повідомлень
+        submit_btn: Оновити налаштування
+        update_btn_submitting: :thredded.form.update_btn_submitting
+      global_preferences_title: Глобальні налаштування
+      messageboard_preferences_nav_title: Налаштування дошки повідомлень
+      messageboard_preferences_title_html: Налаштування для <em>%{messageboard}</em>
+      updated_notice: Ваші налаштування оновлено.
+    private_posts:
+      form:
+        content_label: Повідомлення
+        create_btn: Надіслати повідомлення
+        create_btn_submitting: Надсилання...
+        update_btn_submitting: :thredded.form.update_btn_submitting
+    private_topics:
+      create: :thredded.private_topics.form.create_btn
+      edit: Редагувати
+      errors:
+        user_ids_length: Будь ласка, вкажіть принаймні одного іншого користувача.
+      form:
+        content_label: :thredded.private_posts.form.content_label
+        create_btn: :thredded.private_posts.form.create_btn
+        create_btn_submitting: :thredded.private_posts.form.create_btn_submitting
+        title_label: :thredded.topics.form.title_label
+        title_placeholder_new: Напишіть тему цієї розмови
+        title_placeholder_start: Почати нову розмову
+        update_btn: Оновити
+        update_btn_submitting: :thredded.private_posts.form.update_btn_submitting
+        users_label: Учасники
+        users_placeholder: Виберіть користувачів для участі в цій розмові
+      no_private_topics:
+        create_btn: Почати першу приватну розмову
+        title: У вас немає приватних повідомлень.
+      updated_notice: Назву оновлено
+    recent_activity: Нещодавня активність
+    search:
+      form:
+        btn_submit: :thredded.search.form.label
+        label: Пошук
+        placeholder: Пошук тем і дописів
+    time_ago: "%{time} тому"
+    topics:
+      create: :thredded.topics.form.create_btn
+      delete_confirm: Ви впевнені, що хочете видалити цю тему? Це НЕ МОЖНА скасувати.
+      delete_topic: Видалити тему
+      deleted_notice: Тему видалено
+      edit: Редагувати тему
+      follow: Стежити за цією темою
+      followed_by: 'Стежать:'
+      followed_by_noone: Ніхто не стежить за цією темою
+      followed_notice: Тепер ви стежите за цією темою
+      following:
+        auto: Ви стежите за цією темою, оскільки увімкнено автоматичне стеження.
+        manual: Ви стежите за цією темою.
+        mentioned: Ви стежите за цією темою, оскільки вас у ній згадували.
+        posted: Ви стежите за цією темою, оскільки ви в ній писали.
+      form:
+        categories_placeholder: Категорії
+        content_label: :thredded.posts.form.content_label
+        create_btn: Створити нову тему
+        messageboard_label: Дошка повідомлень
+        title_label: Назва
+        title_placeholder: :thredded.topics.form.title_label
+        title_placeholder_start: Почати нову тему
+        update_btn: Оновити тему
+      in_messageboard_html: в %{messageboard_link}
+      locked:
+        label: Заблоковано
+        message: Цю тему заблоковано модератором.
+      mark_as_unread: Позначити як непрочитане звідси
+      not_following: Ви не стежите за цією темою.
+      search:
+        no_results_in_messageboard_message_html: Немає результатів для вашого пошуку <q>%{query}</q> в %{messageboard}
+        no_results_message_html: Немає результатів для вашого пошуку <q>%{query}</q>
+        page_title: Результати пошуку тем
+        results_in_messageboard_message_html: Результати пошуку для <q>%{query}</q> в %{messageboard}
+        results_message_html: Результати пошуку для <q>%{query}</q>
+        search_in_all_messageboards_btn: Шукати всюди
+      started_by_html: Створено %{time_ago} користувачем %{user}
+      sticky:
+        label: Закріплено
+      unfollow: Припинити стеження
+      unfollowed_notice: Ви більше не стежите за цією темою
+      updated_notice: Тему оновлено
+    unread_topics:
+      empty:
+        content: Ви прочитали все, що є. Поверніться пізніше за новим контентом!
+        title: Все прочитано!
+      page_title: Непрочитані теми
+      page_title_in_messageboard: "%{messageboard}: Непрочитані теми"
+    users:
+      currently_online: Зараз онлайн
+      last_active_html: Остання активність %{time_ago}
+      posted_in_topic_html: Написав у %{topic_link}
+      posts_count:
+        few: Написав %{count} рази
+        many: Написав %{count} разів
+        one: Написав один раз
+        other: Написав %{count} разів
+      recent_activity: :thredded.recent_activity
+      send_private_message: Надіслати приватне повідомлення
+      started_topic_html: Створив %{topic_link}
+      started_topics_count:
+        few: Створив %{count} теми
+        many: Створив %{count} тем
+        one: Створив %{count} тему
+        other: Створив %{count} тем
+      user_posted_in_topic_html: "%{user_link} написав у %{topic_link}"
+      user_since_html: Користувач з %{time_ago}
+      user_started_topic_html: "%{user_link} створив %{topic_link}"
