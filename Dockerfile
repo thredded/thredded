@@ -22,6 +22,7 @@ RUN mkdir -p $APP_HOME/tmp/pids
 # Copy Gemfile and run bundle install first to allow for caching
 COPY ./lib/thredded/version.rb $APP_HOME/lib/thredded/
 COPY thredded.gemspec shared.gemfile i18n-tasks.gemfile rubocop.gemfile Gemfile $APP_HOME/
+COPY ./spec/gemfiles/ $APP_HOME/spec/gemfiles/
 RUN bundle --path=$BUNDLE_PATH -j $(nproc)
 
 # Copy package.json and install dependencies (done here to allow for caching)
