@@ -1,13 +1,22 @@
-FROM alpine:3.11
+FROM alpine:3.20
 
 RUN apk add --no-cache \
     # Runtime deps
-    ruby ruby-bundler ruby-bigdecimal ruby-io-console ruby-json ruby-webrick tzdata nodejs yarn bash \
+    ruby ruby-bundler ruby-bigdecimal ruby-io-console ruby-json ruby-webrick tzdata yarn bash \
     # Bundle install deps
-    build-base ruby-dev libc-dev libffi-dev linux-headers gmp-dev libressl-dev libxml2-dev libxslt-dev \
-    mariadb-connector-c-dev postgresql-dev sqlite-dev git \
+    build-base ruby-dev libc-dev libffi-dev linux-headers gmp-dev libxml2-dev libxslt-dev \
+    mariadb-connector-c-dev postgresql-dev sqlite-dev git yaml-dev \
     # Testing deps
     chromium
+
+# Compatible with dependencies in spec/dummy/package.json
+ENV NODE_VERSION=14.21.3
+RUN wget -q https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64-musl.tar.gz && \
+    tar -xzf node-v$NODE_VERSION-linux-x64-musl.tar.gz -C /usr/local --strip-components=1 && \
+    rm node-v$NODE_VERSION-linux-x64-musl.tar.gz && \
+    ln -sf /usr/local/bin/node /usr/bin/node && \
+    ln -sf /usr/local/bin/npm /usr/bin/npm && \
+    ln -sf /usr/local/bin/npx /usr/bin/npx
 
 RUN gem install foreman
 
