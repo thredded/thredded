@@ -18,3 +18,7 @@ gem 'pg', '~> 1.1'
 
 # https://github.com/rails/rails/blob/v7.0.2/activerecord/lib/active_record/connection_adapters/mysql2_adapter.rb#L6
 gem 'mysql2', '~> 0.5'
+
+gem 'concurrent-ruby', '1.3.4', require: false
+# see https://github.com/rails/rails/issues/54260
+# and https://github.com/ruby-concurrency/concurrent-ruby/issues/1077
