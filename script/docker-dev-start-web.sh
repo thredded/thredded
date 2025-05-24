@@ -16,4 +16,6 @@ if ! [[ -f .db-seeded ]]; then
   touch .db-seeded
 fi
 
+rm -f tmp/pids/server.pid
+
 foreman start -f Procfile.docker.dev
