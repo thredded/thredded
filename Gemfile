@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-eval_gemfile File.expand_path('spec/gemfiles/rails_8.0.gemfile', __dir__)
+eval_gemfile File.expand_path('spec/gemfiles/rails_edge.gemfile', __dir__)
 eval_gemfile File.expand_path('rubocop.gemfile', __dir__)
 eval_gemfile File.expand_path('i18n-tasks.gemfile', __dir__)
 
