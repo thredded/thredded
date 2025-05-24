@@ -15,7 +15,9 @@ module Thredded
         @scope = @scope.joins(:topic_categories).merge(Thredded::TopicCategory.where(category_id: categories))
       end
       if text.present? || users.present?
-        [search_topics, search_posts].compact.reduce(:union)
+        union = Arel::Nodes::Union.new(search_topics.arel, search_posts.arel)
+        topics_table = Arel::Nodes::TableAlias.new(union, Thredded::Topic.table_name)
+        Thredded::Topic.from(topics_table)
       else
         @scope
       end
