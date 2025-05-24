@@ -2,7 +2,6 @@
 
 # Backend
 require 'pundit'
-require 'active_record_union'
 require 'db_text_search'
 require 'friendly_id'
 require 'html/pipeline'

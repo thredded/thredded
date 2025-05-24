@@ -4,6 +4,7 @@ module Thredded
   class Topic < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     include Thredded::TopicCommon
     include Thredded::ContentModerationState
+    include Thredded::UnionScope
 
     scope :for_messageboard, ->(messageboard) { where(messageboard_id: messageboard.id) }
 

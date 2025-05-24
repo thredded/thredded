@@ -21,7 +21,6 @@ Thredded works with SQLite, MySQL (v5.6.4+), and PostgreSQL. See the demo at htt
   s.required_ruby_version = '>= 3.1', '< 4.0'
 
   # backend
-  s.add_dependency 'active_record_union', '>= 1.3.0'
   s.add_dependency 'db_text_search'
   s.add_dependency 'friendly_id'
   s.add_dependency 'htmlentities'

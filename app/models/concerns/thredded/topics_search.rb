@@ -15,7 +15,7 @@ module Thredded
         @scope = @scope.joins(:topic_categories).merge(Thredded::TopicCategory.where(category_id: categories))
       end
       if text.present? || users.present?
-        [search_topics, search_posts].compact.reduce(:union)
+        Thredded::Topic.union_scope(search_topics, search_posts)
       else
         @scope
       end

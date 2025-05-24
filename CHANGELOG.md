@@ -4,7 +4,7 @@
 
 # Unreleased (1.2.0)
 
-* Working with Rails 8.0, providing you can use the unreleased version of active_record_union
+* Working with Rails 8.0 (dropped active_record_union)
 * Working for Rails 7.2 [#985, #988, #991]
 * Tested agains Rails 7.0 - 8.0 and Ruby 3.0 - 3.3
 * Dropped support for EOL'd Rails (6.0, 6.1) and Ruby (2.7, 3.0) - if you needs support for rails 6.0 and 6.1, use v1.1.0
