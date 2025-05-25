@@ -3,6 +3,7 @@ db/schema*.rb
 Gemfile.lock
 *.gemfile.lock
 !heroku.gemfile.lock
+!rubocop.gemfile.lock
 .bundle/
 bin/*
 !bin/rails

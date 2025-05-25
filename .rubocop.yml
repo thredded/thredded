@@ -11,12 +11,15 @@ plugins:
 
 AllCops:
   TargetRubyVersion: 2.7
+  TargetRailsVersion: 7.0
   Exclude:
     - 'spec/dummy/bin/*'
     - 'spec/dummy/db/**/*'
     - 'spec/dummy/node_modules/**/*'
     - 'spec/gemfiles/vendor/**/*'
     - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'spec/dummy/tmp/**/*'
   NewCops: enable
 
 Bundler/OrderedGems:
