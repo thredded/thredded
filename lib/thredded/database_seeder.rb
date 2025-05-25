@@ -165,9 +165,7 @@ module Thredded
     end
 
     def user_details
-      @user_details ||= users.each_with_object({}) do |user, hash|
-        hash[user] = user.thredded_user_detail
-      end
+      @user_details ||= users.index_with(&:thredded_user_detail)
     end
 
     def first_messageboard

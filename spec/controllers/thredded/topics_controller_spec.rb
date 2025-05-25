@@ -154,7 +154,7 @@ module Thredded
 
         it 'returns changed status' do
           do_follow
-          expect(JSON.parse(response.body)).to include('follow' => true)
+          expect(response.parsed_body).to include('follow' => true)
         end
       end
     end
@@ -177,7 +177,7 @@ module Thredded
 
         it 'returns changed status' do
           do_unfollow
-          expect(JSON.parse(response.body)).to include('follow' => false)
+          expect(response.parsed_body).to include('follow' => false)
         end
       end
     end
