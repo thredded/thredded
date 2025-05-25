@@ -809,25 +809,23 @@ To quickly try out _Thredded_ with the included dummy app, clone the source and
 start the included docker-compose.yml file with:
 
 ```console
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 ```
 
 The above will build and run everything, daemonized, resulting in a running
-instance on port 9292. Running `docker-compose logs` will let you know when
+instance on port 9292. Running `docker compose logs` will let you know when
 everything is up and running. Editing the source on your host machine will
 be reflected in the running docker'ized application.
 
-Note that when using [boot2docker](https://github.com/boot2docker/boot2docker)
-on a Mac make sure you visit the boot2docker host ip at
-`http://$(boot2docker ip):9292`.
-
-After booting up the containers you can run the test suite with the following:
+You can run the test suite with the following (assuming you've already done `docker compose up`)
 
 ```console
-docker-compose run web bundle exec rake
+docker compose exec web bundle exec rake
 ```
 
-The docker container uses PostgreSQL.
+Alternatively you run a one-off dyno `docker compose run web bundle exec rake`
+
+The docker container uses PostgreSQL
 
 [initializer]: https://github.com/thredded/thredded/blob/main/lib/generators/thredded/install/templates/initializer.rb
