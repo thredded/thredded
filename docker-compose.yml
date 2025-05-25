@@ -1,4 +1,3 @@
-version: "3.6"
 networks:
   frontend:
   backend:
@@ -13,6 +12,7 @@ services:
     networks:
       - backend
   web:
+    platform: linux/amd64
     build: .
     # We want to avoid mapping Gemfile.lock, yarn.lock, etc but there is no way to exclude
     # files using `volumes`.
