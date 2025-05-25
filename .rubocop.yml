@@ -1,25 +1,26 @@
 inherit_from: .rubocop_todo.yml
 
-require:
-  - rubocop-rspec
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-thread_safety
 
 AllCops:
   TargetRubyVersion: 2.7
   Exclude:
-  - 'spec/dummy/bin/*'
-  - 'spec/dummy/db/**/*'
-  - 'spec/dummy/node_modules/**/*'
-  - 'spec/gemfiles/vendor/**/*'
-  - 'vendor/**/*'
+    - 'spec/dummy/bin/*'
+    - 'spec/dummy/db/**/*'
+    - 'spec/dummy/node_modules/**/*'
+    - 'spec/gemfiles/vendor/**/*'
+    - 'vendor/**/*'
   NewCops: enable
 
 Bundler/OrderedGems:
   Enabled: false
-
-RSpec/Capybara/FeatureMethods:
-  EnabledMethods:
-  - feature
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -27,15 +28,22 @@ Layout/MultilineMethodCallIndentation:
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
+Lint/AssignmentInCondition:
+  # the whole point is to notice this!
+  AutoCorrect: false
+
+Lint/EmptyBlock:
+  AutoCorrect: false
+
 Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
   Exclude:
-  - Rakefile
-  - spec/**/*_spec.rb
-  - spec/dummy/config/environments/*.rb
-  - spec/factories.rb
+    - Rakefile
+    - spec/**/*_spec.rb
+    - spec/dummy/config/environments/*.rb
+    - spec/factories.rb
 
 Metrics/ClassLength:
   Max: 125
@@ -48,7 +56,7 @@ Metrics/MethodLength:
 
 Metrics/ModuleLength:
   Exclude:
-  - spec/**/*_spec.rb
+    - spec/**/*_spec.rb
 
 Metrics/PerceivedComplexity:
   Enabled: false
@@ -58,7 +66,7 @@ Naming/MemoizedInstanceVariableName:
 
 Naming/PredicateName:
   Exclude:
-  - spec/**/*.rb
+    - spec/**/*.rb
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
@@ -66,13 +74,65 @@ Naming/VariableNumber:
 Naming/MethodParameterName:
   Enabled: false
 
+
+Rails:
+  Enabled: true
+
 Rails/ApplicationRecord:
   Enabled: false
 
 Rails/CreateTableWithTimestamps:
   Enabled: false
 
+Rails/Date:
+  EnforcedStyle: strict
+
+Rails/FindBy:
+  Enabled: true
+  Include:
+    - app/commands/**/*.rb
+    - app/models/**/*.rb
+    - app/view_models/**/*.rb
+
+Rails/Output:
+  AutoCorrect: false
+  # we want these flagged not changed into Rails.logger
+
 Rails/SkipsModelValidations:
+  Enabled: false
+
+RSpec/BeforeAfterAll:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+# this regularly causes problems and benefits are not high enough
+Rails/SquishedSQLHeredocs:
   Enabled: false
 
 Style/CollectionMethods:
@@ -97,48 +157,4 @@ Style/TrailingCommaInArrayLiteral:
   Enabled: false
 
 Style/TrailingCommaInHashLiteral:
-  Enabled: false
-
-Rails:
-  Enabled: true
-
-Rails/Date:
-  EnforcedStyle: strict
-
-Rails/FindBy:
-  Enabled: true
-  Include:
-  - app/commands/**/*.rb
-  - app/models/**/*.rb
-  - app/view_models/**/*.rb
-
-RSpec/BeforeAfterAll:
-  Enabled: false
-
-RSpec/ContextWording:
-  Enabled: false
-
-RSpec/DescribeClass:
-  Exclude:
-  - spec/views/**/*.rb
-
-RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/ExpectInHook:
-  Enabled: false
-
-RSpec/InstanceVariable:
-  Enabled: false
-
-RSpec/LetSetup:
-  Enabled: false
-
-RSpec/MessageSpies:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/NestedGroups:
   Enabled: false

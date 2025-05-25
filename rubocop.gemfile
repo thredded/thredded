@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
-gem 'rubocop', '= 1.30.0'
-gem 'rubocop-rspec', '= 2.11.1'
-gem 'rubocop-rails', '= 2.14.2'
+gem 'rubocop', '= 1.75.7'
+gem 'rubocop-capybara', '= 2.22.1'
+gem 'rubocop-factory_bot', '= 2.27.1'
+gem 'rubocop-performance', '= 1.25.0'
+gem 'rubocop-rspec', '= 3.6.0'
+gem 'rubocop-rspec_rails', '= 2.31.0'
+gem 'rubocop-rails', '= 2.32.0'
+gem 'rubocop-thread_safety', '= 0.7.2'
