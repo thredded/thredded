@@ -16,7 +16,7 @@ module Thredded
     describe 'index' do
       let!(:users) { %w[Gilda Gary Gazza gandalf].map { |n| create(:user, name: n) } }
 
-      let(:json_response_results) { JSON.parse(response.body)['results'] }
+      let(:json_response_results) { response.parsed_body['results'] }
 
       it 'under minimum length returns nothing' do
         get :index, format: 'json', params: { q: 'g' }

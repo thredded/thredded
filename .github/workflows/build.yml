@@ -221,6 +221,6 @@ jobs:
         ruby-version: 3.1
         bundler-cache: true
 
-    - name: Rubocop
+    - name: i18n health
       run: |
         bundle exec i18n-tasks health

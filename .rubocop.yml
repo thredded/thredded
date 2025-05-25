@@ -11,12 +11,15 @@ plugins:
 
 AllCops:
   TargetRubyVersion: 2.7
+  TargetRailsVersion: 7.0
   Exclude:
     - 'spec/dummy/bin/*'
     - 'spec/dummy/db/**/*'
     - 'spec/dummy/node_modules/**/*'
     - 'spec/gemfiles/vendor/**/*'
     - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'spec/dummy/tmp/**/*'
   NewCops: enable
 
 Bundler/OrderedGems:
@@ -78,6 +81,9 @@ Naming/MethodParameterName:
 Rails:
   Enabled: true
 
+Rails/ApplicationJob:
+  Enabled: false
+
 Rails/ApplicationRecord:
   Enabled: false
 
@@ -99,6 +105,13 @@ Rails/Output:
   # we want these flagged not changed into Rails.logger
 
 Rails/SkipsModelValidations:
+  Enabled: false
+
+# this regularly causes problems and benefits are not high enough
+Rails/SquishedSQLHeredocs:
+  Enabled: false
+
+Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
 
 RSpec/BeforeAfterAll:
@@ -129,10 +142,6 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/NestedGroups:
-  Enabled: false
-
-# this regularly causes problems and benefits are not high enough
-Rails/SquishedSQLHeredocs:
   Enabled: false
 
 Style/CollectionMethods:

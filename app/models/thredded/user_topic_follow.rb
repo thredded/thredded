@@ -2,7 +2,7 @@
 
 module Thredded
   class UserTopicFollow < ActiveRecord::Base
-    enum :reason, %i[manual posted mentioned auto]
+    enum :reason, { manual: 0, posted: 1, mentioned: 2, auto: 3 }
 
     belongs_to :user, inverse_of: :thredded_topic_follows, class_name: Thredded.user_class_name
     belongs_to :topic, inverse_of: :user_follows

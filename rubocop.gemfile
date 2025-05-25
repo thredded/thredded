@@ -8,3 +8,5 @@ gem 'rubocop-rspec', '= 3.6.0'
 gem 'rubocop-rspec_rails', '= 2.31.0'
 gem 'rubocop-rails', '= 2.32.0'
 gem 'rubocop-thread_safety', '= 0.7.2'
+# lowest version of active support we support
+gem 'activesupport', '~> 7.0.0'
