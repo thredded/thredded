@@ -9,7 +9,7 @@
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v1.2.0...main
 
-# Unreleased (1.2.0)
+# v1.2.0
 
 * Working with Rails 8.0 (dropped active_record_union)
 * Working for Rails 7.2 [#985, #988, #991]
