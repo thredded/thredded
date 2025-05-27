@@ -1,15 +1,22 @@
 # Unreleased (plans for v2.0)
 
 * drop `ContentFormatter.whitelist` just use `ContentFormatter.allowlist`
+* Support for Turbo/Hotwire (and drop Turboscript etc)
+
+# Unreleased (plans for 1.3.0)
+
+* Drop rails 7.0 (and probably 7.1)
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.2.0...main
 
 # Unreleased (1.2.0)
 
 * Working with Rails 8.0 (dropped active_record_union)
 * Working for Rails 7.2 [#985, #988, #991]
-* Tested agains Rails 7.0 - 8.0 and Ruby 3.0 - 3.3
+* Tested against Rails 7.0 - 8.0 and Ruby 3.1 - 3.3
 * Dropped support for EOL'd Rails (6.0, 6.1) and Ruby (2.7, 3.0) - if you needs support for rails 6.0 and 6.1, use v1.1.0
 
-See the full list of changes here: https://github.com/thredded/thredded/compare/v1.1.0...main
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.1.0...v1.2.0
 
 # v1.1.0
 
