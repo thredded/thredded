@@ -48,62 +48,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["3.1", "3.2", "3.3"]
         node: ["14"]
         rails_version: ["7.0", "7.1", "7.2", "8.0"]
         db: [sqlite3, postgresql, mysql2]
-        exclude:
-          # Not needed version combinations (just to cut down on noise)
-          # 3.1 on 7.0 mainly
-          - ruby: 3.1
-            rails_version: 7.2
-            db: sqlite3
-          - ruby: 3.1
-            rails_version: 7.1
-            db: sqlite3
-          - ruby: 3.1
-            rails_version: 7.1
-            db: mysql2
-          - ruby: 3.1
-            rails_version: 7.2
-            db: mysql2
-
-          # 3.2 on 7.1 and 7.2 mainly
-          - ruby: 3.2
-            rails_version: 7.0
-            db: sqlite3
-          - ruby: 3.2
-            rails_version: 7.0
-            db: mysql2
-          - ruby: 3.2
-            rails_version: 7.0
-            db: sqlite3
-          - ruby: 3.2
-            rails_version: 8.0
-            db: sqlite3
-          - ruby: 3.2
-            rails_version: 8.0
-            db: mysql2
-          - ruby: 3.3
-            rails_version: edge
-
-          # 3.3 on 8.0/edge mainly
-          - ruby: 3.3
-            rails_version: 7.0
-          - ruby: 3.3
-            rails_version: 7.1
-          - ruby: 3.3
-            rails_version: 7.2
-            db: sqlite3
-          - ruby: 3.3
-            rails_version: 7.2
-            db: mysql2
-
-          # Not supported version combinations
-          - ruby: 3.1
-            rails_version: 8.0
-          - ruby: 3.1
-            rails_version: edge
+        include:
+          # one ruby per rails - to cut down noise, we can add variety if there's a reason
+          - rails_version: 7.0
+            ruby: 3.1
+          - rails_version: 7.1
+            ruby: 3.2
+          - rails_version: 7.2
+            ruby: 3.2
+          - rails_version: 8.0
+            ruby: 3.3
 
     env:
       RAILS_ENV: test
