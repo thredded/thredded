@@ -66,7 +66,7 @@ jobs:
       RAILS_ENV: test
       COVERAGE: 1
       FERRUM_DEFAULT_TIMEOUT: 20
-      BUNDLE_GEMFILE: "spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
+      BUNDLE_GEMFILE: "${{ github.workspace }}/spec/gemfiles/rails_${{ matrix.rails_version }}.gemfile"
       DB: ${{ matrix.db }}
       DB_HOST: 127.0.0.1
       DB_POOL: 5
@@ -101,6 +101,16 @@ jobs:
           spec/dummy/tmp/cache/onebox-data
           spec/dummy/tmp/cache/onebox-views
         key: onebox-data-and-views
+
+    - name: "Check that assets:precompile works (sqlite3 only)"
+      run: |
+        if [ "$DB" = "sqlite3" ]; then
+          cd spec/dummy
+          export PRECOMPILE_ASSETS=1
+          bundle exec rails assets:precompile
+          # clean up
+          bundle exec rails assets:clobber
+        fi
 
     - name: "Run Tests: test:nojs"
       run: |

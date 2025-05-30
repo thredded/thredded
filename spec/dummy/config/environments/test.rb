@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 Dummy::Application.configure do
+  config.assets.compile = if ENV['PRECOMPILE_ASSETS']
+                            false
+                          else
+                            true
+                          end
+
   config.assets.compress = false
   config.assets.debug = true
   config.assets.digest = false

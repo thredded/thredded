@@ -124,7 +124,7 @@ end
 
 if ENV['HEROKU']
   require 'rollbar/rake_tasks'
-else
+elsif !ENV['CI']
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
 
