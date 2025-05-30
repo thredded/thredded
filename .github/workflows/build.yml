@@ -104,8 +104,9 @@ jobs:
 
     - name: "Check that assets:precompile works (sqlite3 only)"
       run: |
-        export PRECOMPILE_ASSETS=1
         if [ "$DB" = "sqlite3" ]; then
+          cd spec/dummy
+          export PRECOMPILE_ASSETS=1
           bundle exec rails assets:precompile
           # clean up
           bundle exec rails assets:clobber
