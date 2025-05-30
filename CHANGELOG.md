@@ -9,6 +9,12 @@
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v1.2.0...main
 
+# v1.2.1
+
+* Fix an exception being thrown when you have `config.assets.compile = false` on non-production environments [#1011]
+
+See the full list of changes here: https://github.com/thredded/thredded/compare/v1.2.0...v1.2.1
+
 # v1.2.0
 
 * Working with Rails 8.0 (dropped active_record_union)
