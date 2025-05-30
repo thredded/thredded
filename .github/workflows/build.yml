@@ -102,6 +102,15 @@ jobs:
           spec/dummy/tmp/cache/onebox-views
         key: onebox-data-and-views
 
+    - name: "Check that assets:precompile works (sqlite3 only)"
+      run: |
+        export PRECOMPILE_ASSETS=1
+        if [ "$DB" = "sqlite3" ]; then
+          bundle exec rails assets:precompile
+          # clean up
+          bundle exec rails assets:clobber
+        fi
+
     - name: "Run Tests: test:nojs"
       run: |
         SIMPLECOV_NAME="test:nojs" bundle exec rspec --force-color --format d --tag=~js --tag=~i18n_tasks
