@@ -402,4 +402,23 @@ module Thredded
       expect(topic.last_post_at).to be_within(1).of(topic.created_at)
     end
   end
+
+  describe Topic, '.save! with embedded posts' do
+    let!(:messageboard) { create(:messageboard) }
+    let!(:user) { create(:user) }
+
+    it 'saves without errors (minimum repro of rails 8.1 issue)' do
+      # sort-of workaround:
+      #  * turn off the counter_cache on  `Post belongs_to :user_detail` at https://github.com/thredded/thredded/blob/ec82d3171063a63855e3a51dd7a52aab8afaf3a7/app/models/thredded/post.rb#L23
+      #
+      # potential fix:
+      #  * maybe drop the foreign key on posts to messageboard and just
+      #    use the post -> topic -> messageboard key (this should be enough anyway)
+      #
+      # It might be a rails bug, but there are a lot of seemingly re-entrant callbacks
+      topic = messageboard.topics.build(title: 'title', user: user)
+      topic.posts.build(content: 'content', user: user, messageboard: messageboard)
+      expect { topic.save! }.not_to raise_error
+    end
+  end
 end
