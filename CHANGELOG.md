@@ -2,13 +2,10 @@
 
 * drop `ContentFormatter.whitelist` just use `ContentFormatter.allowlist`
 * Support for Turbo/Hotwire (and drop Turboscript etc)
-
-# Unreleased (plans for 1.3.0)
-
 * Remove the remaining Rails UJS integration in favor of Turbo-powered helpers.
 * Migrate from Turbolinks to Hotwire Turbo
 * Drop rails_ujs requirement
-* Drop rails 7.0 (and probably 7.1)
+* Drop rails 7.0, 7.1
 
 See the full list of changes here: https://github.com/thredded/thredded/compare/v1.2.0...main
 

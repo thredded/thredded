@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/thredded/thredded/badges/gpa.svg)](https://codeclimate.com/github/thredded/thredded)  [![Test Coverage](https://codeclimate.com/github/thredded/thredded/badges/coverage.svg)](https://codeclimate.com/github/thredded/thredded/coverage) [![Inline docs](http://inch-ci.org/github/thredded/thredded.svg?branch=main)](http://inch-ci.org/github/thredded/thredded) [![Gitter](https://badges.gitter.im/thredded/thredded.svg)](https://gitter.im/thredded/thredded?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![CI](https://github.com/thredded/thredded/actions/workflows/build.yml/badge.svg)](https://github.com/thredded/thredded/actions/workflows/build.yml)
 
-_Thredded_ is a Rails 7.0+ forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
+_Thredded_ is a Rails forum/messageboard engine. Its goal is to be as simple and feature rich as possible.
 
 Some of the features currently in Thredded:
 
@@ -170,13 +170,13 @@ to Thredded.
 
 ## Rails compatibility
 
-| Rails                 | Latest Thredded |
-|-----------------------|-----------------|
-| Rails 7.0 - Rails 8.0 | Thredded 1.2    |
-| Rails 6.1             | Thredded 1.1    |
-| Rails 6.0             | Thredded 1.1    |
-| Rails 5.2             | Thredded 1.0.1  |
-| Rails 4.2             | Thredded 0.16.16 |
+| Rails                 | JS frameworks                             | Latest Thredded  |
+|-----------------------|-------------------------------------------|------------------|
+| Rails 7.2 - Rails 8.1 | Turbo                                     | Thredded 2.0     |
+| Rails 7.0 - Rails 8.0 | rails-ujs , jquery-ujs, and/or Turbolinks | Thredded 1.2     |
+| Rails 6.0 - rails 6.1 | rails-ujs , jquery-ujs, and/or Turbolinks | Thredded 1.1     |
+| Rails 5.2             | rails-ujs , jquery-ujs, and/or Turbolinks | Thredded 1.0.1   |
+| Rails 4.2             | rails-ujs , jquery-ujs, and/or Turbolinks | Thredded 0.16.16 |
 
 
 ## Views and other assets
