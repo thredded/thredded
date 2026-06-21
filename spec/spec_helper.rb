@@ -8,6 +8,29 @@ if ENV['COVERAGE'] && !%w[rbx jruby].include?(RUBY_ENGINE)
   SimpleCov.command_name ENV['SIMPLECOV_NAME'] || 'RSpec'
 end
 
+# Webpacker only hashes files under spec/dummy/app/javascript when deciding to
+# recompile, so changes to the engine's own *.es6 / *.js sources (pulled in via
+# Thredded::WebpackAssets.javascripts inside thredded_imports.js.erb) go
+# undetected and the previously built bundle keeps being served. Hash those
+# engine sources ourselves and drop the cached bundle when they change.
+require 'digest'
+require 'fileutils'
+engine_root = File.expand_path('..', __dir__)
+dummy_root = File.expand_path('dummy', __dir__)
+webpacker_cache_dir = File.join(dummy_root, 'tmp/cache/webpacker')
+engine_digest_file = File.join(webpacker_cache_dir, 'thredded-engine-digest')
+engine_js_digest = Digest::SHA1.new.tap do |d|
+  Dir[File.join(engine_root, '{app,vendor}/assets/javascripts/**/*.{es6,js}')].sort.each do |path|
+    d.update(path.sub(engine_root, '')).update(File.read(path))
+  end
+end.hexdigest
+if (File.exist?(engine_digest_file) ? File.read(engine_digest_file) : nil) != engine_js_digest
+  FileUtils.rm_rf(webpacker_cache_dir)
+  FileUtils.rm_rf(File.join(dummy_root, 'public/packs-test'))
+  FileUtils.mkdir_p(webpacker_cache_dir)
+  File.write(engine_digest_file, engine_js_digest)
+end
+
 require File.expand_path('dummy/config/environment', __dir__)
 
 FileUtils.mkdir('log') unless File.directory?('log')
@@ -42,7 +65,6 @@ require 'pundit/rspec'
 require 'webmock/rspec'
 require 'factory_bot'
 require 'database_cleaner/active_record'
-require 'fileutils'
 require 'active_support/testing/time_helpers'
 require 'factories'
 
