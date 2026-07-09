@@ -106,8 +106,8 @@ module Thredded
     end
 
     def promote_errors(child_errors, prefix = nil)
-      child_errors.each do |attribute, message|
-        errors.add([prefix, attribute].compact.join('_'), message)
+      child_errors.each do |error|
+        errors.add([prefix, error.attribute].compact.join('_'), error.message)
       end
     end
   end
